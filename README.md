@@ -11,17 +11,10 @@ An exploratory diagnostic sandbox for understanding combining‑mark behavior in
 - Data inputs are in `data/`
 - Documentation is in `/docs`
 
-## PLANs
-
-Use a `PLAN-*.md` in `plans/` if using Copilot plan or agent mode.
-
-### venv
-
-`/home/elliott/.venvs/libertinus-env/bin/activate`
-
 ### Run
 
 Uncomment the relevant function in `scripts/run.py`
 
 ## License
+
 MIT License. See `LICENSE.md`.

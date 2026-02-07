@@ -1,0 +1,27 @@
+# LIBERTINUS‑REPORT
+
+## Overview
+An exploratory diagnostic sandbox for understanding combining‑mark behavior in Libertinus and related fonts
+
+## Files
+
+- Fonts are in `fonts/`
+- LaTeX files are in `tex/`
+- Python scripts are in `scripts/`
+- Data inputs are in `data/`
+- Documentation is in `/docs`
+
+## PLANs
+
+Use a `PLAN-*.md` in `plans/` if using Copilot plan or agent mode.
+
+### venv
+
+`/home/elliott/.venvs/libertinus-env/bin/activate`
+
+### Run
+
+Uncomment the relevant function in `scripts/run.py`
+
+## License
+MIT License. See `LICENSE.md`.

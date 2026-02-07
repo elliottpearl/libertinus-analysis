@@ -1,0 +1,124 @@
+\begingroup
+% ------------------------------------------------------------
+% GLOBAL METRICS
+% ------------------------------------------------------------
+\newcommand{\tiletop}{800}
+\newcommand{\ascender}{760}
+\newcommand{\capline}{714}
+\newcommand{\xheight}{536}
+\newcommand{\baseline}{0}
+\newcommand{\descender}{-240}
+\newcommand{\tilebottom}{-300}
+% Noto "n" metrics
+\newcommand{\notonLSB}{28}
+\newcommand{\notonRSB}{28}
+\newcommand{\notonAdv}{645}
+\newcommand{\notonTileW}{645}
+% Macronbelow metrics
+\newcommand{\notomacroHalf}{145}   % half width (-145..145)
+\newcommand{\macTileW}{290}        % exact bounding-box width
+% Horizontal whitespace between tiles
+\newcommand{\tilegap}{80pt}
+% ------------------------------------------------------------
+% ANCHOR SYMBOLS
+% ------------------------------------------------------------
+% Base anchor = blue circle (larger)
+\newcommand{\baseanchor}[2]{%
+	\filldraw[blue] (#1,#2) circle (8pt);
+}
+% Mark anchor = red square (smaller)
+\newcommand{\markanchor}[2]{%
+	\filldraw[red] (#1-2,#2-2) rectangle (#1+2,#2+2);
+}
+\begin{tikzpicture}[x=1pt,y=1pt,scale=0.075]
+
+	% ============================================================
+	% TILE 1 — Noto "n"
+	% ============================================================
+	\begin{scope}[shift={(0,0)}]
+		
+		% Tile background
+		\fill[gray!10] (0,\tilebottom) rectangle (\notonTileW,\tiletop);
+		
+		% Horizontal metric lines
+		\draw[gray!60] (0,\baseline) -- (\notonTileW,\baseline);
+		\draw[gray!60] (0,\xheight) -- (\notonTileW,\xheight);
+		\draw[gray!60] (0,\capline) -- (\notonTileW,\capline);
+		\draw[gray!60] (0,\ascender) -- (\notonTileW,\ascender);
+		\draw[gray!60] (0,\descender) -- (\notonTileW,\descender);
+		
+		% Glyph outline (LSB = 28)
+		\path[fill=black]
+		svg "M28 0v42h8q23 0 41.5 5t29.5 20.5t11 46.5v312q0 30 -11 44.5t-29 19t-40 4.5h-5v42h162l13 -81h5q31 56 69.5 73.5t86.5 17.5q79 0 123.5 -46.5t44.5 -149.5v-236q0 -31 9.5 -46.5t26.5 -20.5t39 -5h5v-42h-174v345q0 65 -24.5 101t-85.5 36q-45 0 -71.5 -22.5
+		t-38 -59.5t-11.5 -80v-211q0 -29 11 -43.5t29 -19t40 -4.5h5v-42h-269z";
+		
+		% Anchors
+		\baseanchor{344}{0}
+		\baseanchor{322}{273}
+		\baseanchor{344}{536}
+		
+		
+	\end{scope}
+	
+	% ============================================================
+	% TILE 2 — macronbelow (tight width, shared vertical frame)
+	% ============================================================
+	\begin{scope}[shift={(\notonTileW + \tilegap + \notomacroHalf, 0)}]
+		
+		% Tile background
+		\fill[gray!10] (-\notomacroHalf,\tilebottom) rectangle (\notomacroHalf,\tiletop);
+		
+		% Horizontal metric lines
+		\draw[gray!60] (-\notomacroHalf,\baseline) -- (\notomacroHalf,\baseline);
+		\draw[gray!60] (-\notomacroHalf,\xheight) -- (\notomacroHalf,\xheight);
+		\draw[gray!60] (-\notomacroHalf,\capline) -- (\notomacroHalf,\capline);
+		\draw[gray!60] (-\notomacroHalf,\ascender) -- (\notomacroHalf,\ascender);
+		\draw[gray!60] (-\notomacroHalf,\descender) -- (\notomacroHalf,\descender);
+		
+		% Y-axis
+		\draw[gray!70,thin] (0,\tilebottom) -- (0,\tiletop);
+		
+		% Glyph outline
+		\path[fill=black]
+		svg "M-145 -138v59h290v-59h-290z";
+		
+		% Anchors
+		\markanchor{0}{0}
+%		\markanchor{0}{-138}
+		
+	\end{scope}
+	
+	% ============================================================
+	% TILE 3 — composition (n + macronbelow)
+	% ============================================================
+	\begin{scope}[shift={(\notonTileW + \tilegap + \macTileW + \tilegap, 0)}]
+		
+		% Tile background
+		\fill[gray!10] (0,\tilebottom) rectangle (\notonTileW,\tiletop);
+		
+		% Horizontal metric lines
+		\draw[gray!60] (0,\baseline) -- (\notonTileW,\baseline);
+		\draw[gray!60] (0,\xheight) -- (\notonTileW,\xheight);
+		\draw[gray!60] (0,\capline) -- (\notonTileW,\capline);
+		\draw[gray!60] (0,\ascender) -- (\notonTileW,\ascender);
+		\draw[gray!60] (0,\descender) -- (\notonTileW,\descender);
+		
+		% Base glyph
+		\path[fill=black]
+		svg "M28 0v42h8q23 0 41.5 5t29.5 20.5t11 46.5v312q0 30 -11 44.5t-29 19t-40 4.5h-5v42h162l13 -81h5q31 56 69.5 73.5t86.5 17.5q79 0 123.5 -46.5t44.5 -149.5v-236q0 -31 9.5 -46.5t26.5 -20.5t39 -5h5v-42h-174v345q0 65 -24.5 101t-85.5 36q-45 0 -71.5 -22.5
+		t-38 -59.5t-11.5 -80v-211q0 -29 11 -43.5t29 -19t40 -4.5h5v-42h-269z";
+		
+		% Macronbelow positioned by anchor alignment
+		\begin{scope}[shift={(344,0)}]
+			\path[fill=black]
+			svg "M-145 -138v59h290v-59h-290z";
+		\end{scope}
+		
+		% Superposed anchors
+		\baseanchor{344}{0}
+		\markanchor{344}{0}
+		
+	\end{scope}
+	
+\end{tikzpicture}
+\endgroup

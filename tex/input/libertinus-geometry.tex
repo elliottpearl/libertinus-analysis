@@ -1,0 +1,126 @@
+\begingroup
+% ------------------------------------------------------------
+% PLACEHOLDER VERTICAL METRICS — YOU WILL SUPPLY THESE
+% ------------------------------------------------------------
+\newcommand{\tiletop}{800}
+\newcommand{\ascender}{698}
+\newcommand{\capline}{658}
+\newcommand{\xheight}{429}
+\newcommand{\baseline}{0}
+\newcommand{\descender}{-246}
+\newcommand{\tilebottom}{-300}
+% ------------------------------------------------------------
+% LIBERTINUS METRICS (horizontal)
+% ------------------------------------------------------------
+% Libertinus "n"
+\newcommand{\libnLSB}{21.5}      % from viewBox
+\newcommand{\libnAdv}{542}      % from viewBox width
+\newcommand{\libnTileW}{542}    % tile width = advance width
+% Libertinus macronbelow
+\newcommand{\libmacroLSB}{-360} % you specified this
+\newcommand{\libmacroRSB}{0}    % right edge at x=0
+\newcommand{\libmacTileW}{360}  % width = 0 - (-360)
+% Horizontal spacing
+\newcommand{\tilegap}{80pt}
+% ------------------------------------------------------------
+% ANCHOR SYMBOLS (your finalized versions)
+% ------------------------------------------------------------
+% Base anchor = blue circle (larger)
+\newcommand{\baseanchor}[2]{%
+	\filldraw[blue] (#1,#2) circle (8pt);
+}
+% Mark anchor = red square (smaller)
+\newcommand{\markanchor}[2]{%
+	\filldraw[red] (#1-2,#2-2) rectangle (#1+2,#2+2);
+}
+\begin{tikzpicture}[x=1pt,y=1pt,scale=0.075]
+	
+	% ============================================================
+	% TILE 1 — Libertinus "n"
+	% ============================================================
+	\begin{scope}[shift={(0,0)}]
+		
+		% Tile background
+		\fill[gray!10] (0,\tilebottom) rectangle (\libnTileW,\tiletop);
+		
+		% Horizontal metric lines
+		\draw[gray!60] (0,\baseline) -- (\libnTileW,\baseline);
+		\draw[gray!60] (0,\xheight) -- (\libnTileW,\xheight);
+		\draw[gray!60] (0,\capline) -- (\libnTileW,\capline);
+		\draw[gray!60] (0,\ascender) -- (\libnTileW,\ascender);
+		\draw[gray!60] (0,\descender) -- (\libnTileW,\descender);
+		
+		% Libertinus "n" outline
+		\path[fill=black]
+		svg "M184 358c59 68 115 81 164 81c35 0 66 -12 83 -34c23 -31 27 -79 27 -134v-149c0 -82 11 -86 67 -91c5 -6 5 -27 0 -33c-30 1 -66 2 -106 2s-72 -1 -102 -2c-5 6 -5 27 0 33c52 5 62 9 62 91v152c0 30 -2 57 -12 77c-12 23 -33 36 -53 36c-39 0 -84 -22 -122 -59
+		c-8 -9 -17 -21 -17 -42v-164c0 -82 10 -86 61 -91c6 -6 6 -27 0 -33c-30 1 -60 2 -100 2s-80 -1 -110 -2c-6 6 -6 27 0 33c60 5 70 9 70 91v195c0 58 -11 63 -65 68c-2 6 -4 22 -2 28c69 9 95 18 123 29c8 0 10 -3 12 -8c5 -10 7 -49 8 -76c0 -9 6 -7 12 0z";
+		
+		% Base anchors (blue circles only)
+		\baseanchor{264}{646}
+		\baseanchor{264}{215}
+		\baseanchor{265}{-110}
+		
+	\end{scope}
+	
+	% ============================================================
+	% TILE 2 — Libertinus macronbelow
+	% ============================================================
+	\begin{scope}[shift={(\libnTileW + \tilegap - \libmacroLSB, 0)}]
+		
+		% Tile background (flush left at -360, right edge at 0)
+		\fill[gray!10] (\libmacroLSB,\tilebottom) rectangle (\libmacroRSB,\tiletop);
+		
+		% Horizontal metric lines
+		\draw[gray!60] (\libmacroLSB,\baseline) -- (\libmacroRSB,\baseline);
+		\draw[gray!60] (\libmacroLSB,\xheight) -- (\libmacroRSB,\xheight);
+		\draw[gray!60] (\libmacroLSB,\capline) -- (\libmacroRSB,\capline);
+		\draw[gray!60] (\libmacroLSB,\ascender) -- (\libmacroRSB,\ascender);
+		\draw[gray!60] (\libmacroLSB,\descender) -- (\libmacroRSB,\descender);
+		
+		% Dark gray vertical line at x=0
+		\draw[gray!70,very thick] (0,\tilebottom) -- (0,\tiletop);
+		
+		% Libertinus macronbelow outline
+		\path[fill=black]
+		svg "M-143 -131h-205c-8 0 -12 8 -12 15c0 12 10 29 22 29h205c9 0 13 -7 13 -14c0 -12 -10 -30 -23 -30z";
+		
+		% Mark anchors (red squares only)
+		\markanchor{-244}{-110}
+		
+	\end{scope}
+	
+	% ============================================================
+	% TILE 3 — composition (n + macronbelow)
+	% ============================================================
+	\begin{scope}[shift={(\libnTileW + \tilegap + \libmacTileW + \tilegap, 0)}]
+		
+		% Tile background
+		\fill[gray!10] (0,\tilebottom) rectangle (\libnTileW,\tiletop);
+		
+		% Horizontal metric lines
+		\draw[gray!60] (0,\baseline) -- (\libnTileW,\baseline);
+		\draw[gray!60] (0,\xheight) -- (\libnTileW,\xheight);
+		\draw[gray!60] (0,\capline) -- (\libnTileW,\capline);
+		\draw[gray!60] (0,\ascender) -- (\libnTileW,\ascender);
+		\draw[gray!60] (0,\descender) -- (\libnTileW,\descender);
+		
+		% Base glyph
+		\path[fill=black]
+		svg "M184 358c59 68 115 81 164 81c35 0 66 -12 83 -34c23 -31 27 -79 27 -134v-149c0 -82 11 -86 67 -91c5 -6 5 -27 0 -33c-30 1 -66 2 -106 2s-72 -1 -102 -2c-5 6 -5 27 0 33c52 5 62 9 62 91v152c0 30 -2 57 -12 77c-12 23 -33 36 -53 36c-39 0 -84 -22 -122 -59
+		c-8 -9 -17 -21 -17 -42v-164c0 -82 10 -86 61 -91c6 -6 6 -27 0 -33c-30 1 -60 2 -100 2s-80 -1 -110 -2c-6 6 -6 27 0 33c60 5 70 9 70 91v195c0 58 -11 63 -65 68c-2 6 -4 22 -2 28c69 9 95 18 123 29c8 0 10 -3 12 -8c5 -10 7 -49 8 -76c0 -9 6 -7 12 0z";
+		
+		% Macronbelow positioned by anchor alignment (placeholder)
+		\begin{scope}[shift={(509,0)}]
+			\path[fill=black]
+			svg "M-143 -131h-205c-8 0 -12 8 -12 15c0 12 10 29 22 29h205c9 0 13 -7 13 -14c0 -12 -10 -30 -23 -30z";
+		\end{scope}
+		
+		% Composition anchors:
+		% Draw blue circle FIRST, then red square
+		\baseanchor{265}{-110}
+		\markanchor{265}{-110}
+		
+	\end{scope}
+	
+\end{tikzpicture}
+\endgroup

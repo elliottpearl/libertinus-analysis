@@ -1,0 +1,976 @@
+\documentclass[landscape]{article}
+
+\usepackage{fontspec}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{svg.path}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{expl3}
+
+% Page options
+
+\geometry{
+	a4paper,
+	left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm
+}
+\setlength{\parindent}{0pt}
+\addtolength{\parskip}{2pt}
+\newcommand{\gs}{\hspace{0.5mm}}	% space between combos
+
+% Load fonts
+% always use `Path = ../fonts/,`
+% always include extension e.g. `.otf`, `.ttf`
+
+\setmainfont{Libertinus Serif}[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular.otf,
+	ItalicFont     = LibertinusSerif-Italic.otf,
+	BoldFont       = LibertinusSerif-Semibold.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic.otf
+]
+
+\newfontfamily\Gentium[
+	Path = ../fonts/,
+]{GentiumPlus-Regular.ttf}
+
+\newfontfamily\SerifRegularPatch[
+	Path = ../fonts/,
+]{LibertinusSerif-Regular-patch.otf}
+
+\newfontfamily\SerifRegularPatchJQ[
+	Path = ../fonts/,
+]{LibertinusSerif-Regular-patch-JQ.otf}
+
+\newfontfamily\SerifRegularPatchK[
+	Path = ../fonts/,
+]{LibertinusSerif-Regular-patch-k.otf}
+
+\newfontfamily\SerifItalicPatchF[
+	Path = ../fonts/,
+]{LibertinusSerif-Italic-patch-f.otf}
+
+\newfontfamily\SerifSemiboldItalicPatchF[
+	Path = ../fonts/,
+]{LibertinusSerif-SemiboldItalic-patch-f.otf}
+
+\newfontfamily\SerifRegularDutch[
+	Path = ../fonts/,
+	Language = Dutch,
+]{LibertinusSerif-Regular.otf}
+
+% Set colors
+
+\definecolor{darkblue}{RGB}{0,0,160}
+\definecolor{lightblue}{RGB}{120,170,255}
+\newcommand{\PREC}[1]{{\color{blue}#1}}		% precomposed
+\newcommand{\ANCH}[1]{{#1}}						% anchored
+\newcommand{\FALL}[1]{{\color{red}#1}}		% fallback
+\newcommand{\GSUB}[1]{{\color{darkblue}#1}}	% GSUB occurred
+\newcommand{\NOBM}[1]{{\color{lightgray}#1}}	% missing glyph
+\newcommand{\NOPR}[1]{{\color{lightblue}#1}}	% missing precomposed
+
+% Helper commands for pretty printing samples in regular, italic, bold, bold italic
+
+\newcommand{\ribbi}[1]{#1
+	
+	{\itshape #1}
+	
+	{\bfseries #1}
+	
+	{\itshape\bfseries #1}}
+
+\newcommand{\ribbiline}[1]{#1
+	{\itshape #1}
+	{\bfseries #1}
+	{\itshape\bfseries #1}}
+
+\begin{document}
+
+\section*{Libertinus and diacritics}
+
+\subsection*{Anchor model}
+
+Libertinus has an anchor model where the base anchors are generally where the mark would be placed relative to the base.
+See the blue dots in the left panel of Figure \ref{fig:libertinus-geometry}; 
+from top to bottom, the above-anchor is the blue dot above base glyph, 
+the overlay-anchor is blue dot inside the base glyph outline, and 
+the below-anchor is the blue dot below the base glyph.
+The mark anchor is generally near the optical center of the mark glyph outline.
+See the red square in the middle panel of Figure \ref{fig:libertinus-geometry}; 
+the mark's below-anchor is at the optical center of the mark.
+The base and mark are combined in the right panel of Figure \ref{fig:noto-geometry} by superimposing their below-anchors.
+
+\begin{figure}[htbp]
+	\captionsetup{justification=raggedright, singlelinecheck=false}
+	\input{input/libertinus-geometry.tex}
+	\caption{Libertinus n and macron with anchors.}
+	\label{fig:libertinus-geometry}
+\end{figure}
+
+Other fonts use a different geometric model for anchors. 
+In Noto, the base's below-anchor is at the baseline, the overlay-anchor is inside the glyph, and the above-anchor is at the x-height. 
+See the blue dots in the left panel of Figure \ref{fig:noto-geometry}; 
+from the bottom to the top, the mark's below-anchor is the blue dot on the baseline, 
+the overlay-anchor is blue dot inside the base glyph outline, 
+and the above-anchor is the blue dot at the x-height.
+In Noto, the mark's below-anchor is above the mark glyph. 
+In the middle panel of Figure \ref{fig:noto-geometry}, the mark's below-anchor is the red square, above the mark.
+The base and mark are combined in the right panel of Figure \ref{fig:noto-geometry} by superimposing their below-anchors.
+
+\begin{figure}[htbp]
+	\captionsetup{justification=raggedright, singlelinecheck=false}
+	\input{input/noto-geometry.tex}
+	\caption{Noto n and macron with anchors.}
+	\label{fig:noto-geometry}
+\end{figure}
+
+%Libertinus serif has few mark positioning GPOS tables.
+%Regular has two mark-to-base LookupList tables: index 7 for Hebrew and index 4 for latin and other scripts;
+%one mark-to-mark LookupList table, index 5.
+
+\newpage
+\subsection*{Regular, above-anchors and below-anchors}
+
+See above- and below-anchor coordinates for A--Z and a--z for Libertinus serif regular in Table \ref{regular-above-below}. 
+
+\begin{table}[htbp]
+	\captionsetup{justification=raggedright, singlelinecheck=false}
+	\caption{$(X,Y)$ coordinates of above-anchor (rows 1 and 2) and below-anchor (rows 3 and 4) for A--Z and a--z in Libertinus serif regular.}
+	\label{regular-above-below}
+	\setlength{\tabcolsep}{1pt}
+
+	\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrrrrr}
+	A & B & C & D & E & F & G & H & I & J & K & L & M & N & O & P & Q & R & S & T & U & V & W & X & Y & Z \\
+	354 & 267 & 340 & 306 & 281 & 284 & 365 & 361 & 150 & 182 & 336 & 151 & 431 & 346 & 335 & 277 & 348 & 269 & 232 & 307 & 346 & 336 & 450 & 332 & 295 & 320 \\
+	850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 \\
+	308 & 268 & 363 & 309 & 287 & 209 & 367 & 362 & 147 & 109 & 342 & 262 & 393 & 348 & 350 & 240 &  & 258 & 234 & 300 & 328 & 318 & 479 & 307 & 295 & 287 \\
+	−110 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −319 & −110 & −110 & −110 & −110 & −110 & −110 &  \phantom{−110} & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −110 \\
+	\end{tabular}
+
+	\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrrrrr}
+  	   a &    b &    c &    d &    e &    f &    g &    h &    i &    j &    k &    l &    m &    n &    o &    p &    q &    r &    s &     t &   u &    v &    w &    x &    y &    z \\
+	 209 &      &  242 &  218 &  243 &      &  231 &  299 &  137 &      &  306 &  135 &  392 &  264 &  238 &  271 &  238 &  191 &  206 &      &  255 &  256 &  345 &  256 &  262 &  220 \\
+	 645 &      &  645 &  645 &  645 &      &  645 &  645 &  795 &      &  784 &  885 &  645 &  646 &  645 &  646 &  645 &  646 &  645 &      &  646 &  646 &  645 &  646 &  645 &  646 \\
+	 196 &  234 &  236 &  221 &  234 &  132 &  229 &  272 &  136 &  109 &  290 &  135 &  408 &  265 &  243 &  179 &  348 &  135 &  196 &  163 &  239 &  241 &  352 &  224 &  242 &  207 \\
+	−110 & −110 & −110 & −110 & −110 & −110 & −319 & −110 & −110 & −319 & −214 & −110 & −110 & −110 & −110 & −319 & −319 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −319 & −110 \\
+	\end{tabular}
+\end{table}
+
+%   A    B    C    D    E    F    G   H     I    J    K    L    M    N   O     P    Q   R     S    T    U    V    W    X    Y    Z
+% 354  267  340  306  281  284  365  361  150  182  336  151  431  346  335  277  348  269  232  307  346  336  450  332  295  320
+% 850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850
+% 308  268  363  309  287  209  367  362  147  109  342  262  393  348  350  240       258  234  300  328  318  479  307  295  287
+%-110 -110 -110 -110 -110 -110 -110 -110 -110 -319 -110 -110 -110 -110 -110 -110      -110 -110 -110 -110 -110 -110 -110 -110 -110 
+%   a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s    t    u    v    w    x    y    z
+% 209       242  218  243       231  299  137       306  135  392  264  238  271  238  191  206       255  256  345  256  262  220
+% 645       645  645  645       645  645  795       784  885  645  646  645  646  645  646  645       645  646  646  646  645  646
+% 196  234  236  221  234  132  229  272  136  109  290  135  408  265  243  179  348  135  196  163  239  241  352  224  242  207
+%-110 -110 -110 -110 -110 -110 -319 -110 -110 -319 -214 -110 -110 -110 -110 -319 -319 -110 -110 -110 -110 -110 -110 -110 -319 -110
+
+A few bases are missing anchors. 
+The $Y$ coordinates (rows 2 and 4) of base anchors can be set geometrically, relative to a few vertical aspects  
+-- descender height, baseline, x-height, ascender height, cap height -- the gray horizontal lines of Figure \ref{fig:libertinus-geometry}) of the font.
+The $X$ coordinates (rows 1 and 3) of base anchors are better set optically, by judging the optical weight of the top or bottom of the glyph outline, as well as the glyph width.
+
+\subsection*{Patch J and Q regular, below-anchor}
+
+J's below-anchor too low.
+In Table \ref{regular-above-below}, the $Y$ coordinate of the below-anchor of J is the same as that of the lowercase letters with descenders. 
+But the descender of J is not as low as that of j, p, q etc.
+Look at the J column in the grid labeled regular, Latin, below, which is later in this document.
+The below-marks are set with too much clearance below J. 
+
+Q has no below-anchor (Table \ref{regular-above-below}).
+By harfbuzz fallback shaping (in the absence of anchors), a below-marks will be place below the baseline, 
+without considering descenders.
+Look at the J column in the grid labeled regular, Latin, below, which is later in this document.
+All the below-marks crash into Q's descender.
+
+Let's analyze the below-anchors in order to set the below-anchor for J and Q. 
+The below clearance is clearly 110 units on the $Y$ axis, as can be seen from the below-anchor $Y$ coordinate of the letters that sit on the baseline.
+What should the below-anchor $Y$ coordinate be for J and Q?
+For the $Y$ coordinate, the lower bound of the J bounding box is at $Y = -172$. 
+So, the below-anchor $Y$ coordinate of J should arguably be $Y = -172 - 110 = -282$.
+But the designer set it at $Y = -319$, which is too low.
+For the $Y$ coordinate, the lower bound of the Q bounding box is at $Y = -209$. 
+So, the below-anchor $Y$ coordinate of Q should arguably be $Y = -209 - 110 = -319$.
+But the J and Q have curves at the bottoms of their descenders, and to account for overshoot, 
+the anchor should be moved up by a few units. 
+But what is the proper overshoot correction?
+The O has a baseline overshoot of 10 units. 
+So, the below-anchor $Y$ coordinate of J should really be $Y = -282 + 10 = -272$, 
+and the below-anchor $Y$ coordinate of Q should really be $Y = -319 + 10 = -309$.
+
+Now, let's decide below-anchor $X$ coordinate of Q. 
+The Q and O are drawn with the same main oval outline coordinates. 
+So, the below-anchor $X$ coordinate of Q should the same as that for O, which is $X = 350$.
+
+That is, the below-anchor of J should be $(109,-272)$, and the below-anchor of Q should be $(350,-309)$. 
+Here is this positioning in a patched version of the font.
+
+Original: X\char"0320 J\char"0320 Q\char"0320 O\char"0320
+
+Patched: {\SerifRegularPatchJQ X\char"0320 J\char"0320 Q\char"0320 O\char"0320}
+
+%   A    B    C    D    E    F    G   H     I    J    K    L    M    N   O     P    Q   R     S    T    U    V    W    X    Y    Z
+% 354  267  340  306  281  284  365  361  150  182  336  151  431  346  335  277  348  269  232  307  346  336  450  332  295  320
+% 850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850
+% 308  268  363  309  287  209  367  362  147  109  342  262  393  348  350  240  350  258  234  300  328  318  479  307  295  287
+%-110 -110 -110 -110 -110 -110 -110 -110 -110 -272 -110 -110 -110 -110 -110 -110 -309 -110 -110 -110 -110 -110 -110 -110 -110 -110
+
+But there is no sane reason to put a below-mark on J or Q, so this is not really a problem at all.
+
+\subsection*{Patch k regular, below-anchor, $Y$ coordinate}
+
+The below-anchor of k, regular, is at $Y = -214$. 
+But it should be at $Y = -110$, like all other letters that sit on the baseline.
+That is, the below-anchor of k should be $(109,-110)$.
+
+Here is this positioning in a patched version of the font.
+
+Original: k\char"0320\ k\char"0320 o ok\char"0320
+
+Patched: {\SerifRegularPatchK k\char"0320\ k\char"0320 o ok\char"0320}
+
+%   a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s    t    u    v    w    x    y    z
+% 209       242  218  243       231  299  137       306  135  392  264  238  271  238  191  206       255  256  345  256  262  220
+% 645       645  645  645       645  645  795       784  885  645  646  645  646  645  646  645       645  646  646  646  645  646
+% 196  234  236  221  234  132  229  272  136  109  290  135  408  265  243  179  348  135  196  163  239  241  352  224  242  207
+%-110 -110 -110 -110 -110 -110 -319 -110 -110 -319 -110 -110 -110 -110 -110 -319 -319 -110 -110 -110 -110 -110 -110 -110 -319 -110
+
+But there is no sane reason to put a below-mark on k, other than perhaps dot (which is a precomposed character), so this is not really a problem at all.
+
+\subsection*{Above anchor, a--z regular}
+
+b, f, j, and t are missing the above-anchor.
+d and h have an above-anchor above the meanline but not above the ascender.
+l has an above-anchor above the ascender.
+k has an above-anchor, but it is just below the ascender, so any marks other than the do crash into the ascender.
+These are all legitimate design choices. 
+There are no above-marks, other than those with precomposed characters, the would ever be combined with b, f, or t.
+
+\subsection*{Patch j dot removal for three above-marks}
+
+The dot of i and j should be removed before adding any above-mark.
+But the dot is not removed for three above-marks: x, turned tilde, double macron.
+So the GSUB table should be patched to fir the dotless j substitution in this context.
+
+To do.
+
+\subsection*{Capital mark alternates}
+
+Libertinus has custom glyphs for some marks (acute, grave, cicrumflex, breve, a.o.) that are designed better for capital letters.
+These alternates are flatter.
+GSUB lookups 23 and 24 implements the substitution.
+This substitution is not fired on some capital consonants (T, V, W, X) because these marks are not expected on these bases.
+
+Libertinus has custom glyphs for some marks that are designed better for superscripts.
+These alternates are smaller.
+Regrettably?, no GSUB table implements their substitution.
+
+\subsection*{Regular, above-anchor, capitals, $X$ coordinate}
+
+Figure \ref{fig:above-anchor-X-coordintate-alignment} (left panel) shows pairs of bases aligned at their above-anchor.
+If a capital letter has a bad $X$ coordinate for its above-anchor, then it will look always off, 
+right or left, in its black column relative to the gray letters that it overlays.
+Note that the above-anchor $X$ coordinate is not in the geometric (horizontal) center of the glyph, by design.
+The above-anchor $X$ coordinate is always off center by a few UPM units, sometimes left and sometimes right.
+But it very hard to discern a few UPM units. 
+See the right panel of Figure \ref{fig:above-anchor-X-coordintate-alignment} for an illustration of increasingly bad (spoofed) $X$ coordinates of N's above-anchor.
+
+Note that the above-anchor of L is above the major (vertical) stem of the L. 
+For E, F, P and R, the above-anchor is optically centered above the glyph, not above the major stem.
+
+% Precomputed shifts
+\def\ShiftA{-0.354em} \def\ShiftB{-0.267em} \def\ShiftC{-0.340em} \def\ShiftD{-0.306em}
+\def\ShiftE{-0.281em} \def\ShiftF{-0.284em} \def\ShiftG{-0.365em} \def\ShiftH{-0.361em}
+\def\ShiftI{-0.150em} \def\ShiftJ{-0.182em} \def\ShiftK{-0.336em} \def\ShiftL{-0.151em}
+\def\ShiftM{-0.431em} \def\ShiftN{-0.346em} \def\ShiftO{-0.335em} \def\ShiftP{-0.277em}
+\def\ShiftQ{-0.348em} \def\ShiftR{-0.269em} \def\ShiftS{-0.232em} \def\ShiftT{-0.307em}
+\def\ShiftU{-0.346em} \def\ShiftV{-0.336em} \def\ShiftW{-0.450em} \def\ShiftX{-0.332em}
+\def\ShiftY{-0.295em} \def\ShiftZ{-0.320em}
+%\def\ShiftN{-0.3em} % bad test
+% Access macro: \Shift{A} → -0.354em
+\def\Shift#1{\csname Shift#1\endcsname}
+\def\Alphabet{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}
+\def\BaseBadNShift{-0.349}
+
+\begin{figure}[htbp]
+\captionsetup{justification=raggedright, singlelinecheck=false}
+\begin{tikzpicture}[baseline, x=1.1em, y=1em,
+	every node/.style={anchor=base west,inner sep=0}]
+	\foreach \Row [count=\r] in \Alphabet {
+		\foreach \Col [count=\c] in \Alphabet {
+			\node[text=black!30] at ([xshift=\Shift{\Row}]\c,-\r) {\Row};
+			\node[text=black] at ([xshift=\Shift{\Col}]\c,-\r) {\Col};
+		}
+	}
+	\foreach \k in {1,...,20} {
+		\pgfmathsetmacro{\Xoff}{30 + (\k-1)}
+		\pgfmathsetmacro{\BadShift}{\BaseBadNShift + 0.005*(\k-1)}
+		\begin{scope}[xshift=\Xoff em]
+			\foreach \Row [count=\r] in \Alphabet {
+				\node[text=black!30] at ([xshift=\Shift{\Row}]1,-\r) {\Row};
+				\node[text=black] at ([xshift=\BadShift em]1,-\r) {N};
+			}
+		\end{scope}
+	}
+\end{tikzpicture}
+\caption{Above-anchor $X$ coordinate alignment.
+	 In the left panel, the 26×26 grid shows letters A--Z aligned at the their above-anchor.
+	 The right panel shows how hard it is to discern bad $X$ coordinates.
+	 The right panel shows N aligned with letters at their above-anchor, starting at the first column with N's above-anchor as currently set by the font, and then spoofing increasing bad values for the $X$ coordinate of N's above-anchor, by 5 UPM per column. At the rightmost column, it becomes evident that the (spoofed) $X$ coordinate of N's above-anchor is bad, because in that column the black Ns are too far right of the gray letters below them.
+}
+\label{fig:above-anchor-X-coordintate-alignment}
+\end{figure}
+
+\newpage
+\subsection*{Comma-style marks}
+
+Libertinus has a some (precomposed) glyphs for Unicode characters (with code points) where the caron or cedilla has a comma-style shape, instead of a wedge or hook as might be naively expected.
+But all of these are appropriate for Czech/Slovak orthography (caron or \textit{háček}) 
+or Latvian orthography (cedilla, but really the comma-above mark or \textit{komatiņš}, 
+by a known mistake in Unicode). 
+
+\subsubsection*{Czech/Slovak \textit{háček}}
+
+In Czech/Slovak orthography, the d, l, L, n and t may take a reduced caron that may look like a comma, not a wedge.
+In Libertinus, only the d, L, l, and t have the reduced comma-style caron in their precomposed form, and the n has wedge caron precomposed form.
+
+%d
+\verb|\char"010F| \ribbiline{\char"010F}
+
+%L
+\verb|\char"013D| \ribbiline{\char"013D}
+
+%l
+\verb|\char"013E| \ribbiline{\char"013E}
+
+%n
+\verb|\char"0148| \ribbiline{\char"0148}
+
+%t
+\verb|\char"0165| \ribbiline{\char"0165}
+
+Libertinus even has a custom glyph for a small capital L with a caron, and it is comma-style.
+
+\verb|\textsc{l\char"030C}| \textsc{l\char"030C}
+
+\verb|\textsc{\char"013E}| \textsc{\char"013E}
+
+\subsubsection*{Cedilla and Latvian \textit{komatiņš}}
+
+Here are all precomposed characters with a cedilla.
+
+\begin{tabular}{ll}
+%c
+\verb|\char"00C7| \ribbiline{\char"00C7} & 
+\verb|\char"00E7| \ribbiline{\char"00E7} \\
+%c acute
+\verb|\char"1E08| \ribbiline{\char"1E08} &
+\verb|\char"1E08| \ribbiline{\char"1E09} \\
+%d
+\verb|\char"1E10| \ribbiline{\char"1E10} &
+\verb|\char"1E11| \ribbiline{\char"1E11} \\
+%e
+\verb|\char"0228| \ribbiline{\char"0228} &
+\verb|\char"0229| \ribbiline{\char"0229} \\
+%e breve
+\verb|\char"1E1C| \ribbiline{\char"1E1C} &
+\verb|\char"1E1D| \ribbiline{\char"1E1D} \\
+%g
+\verb|\char"0122| \ribbiline{\char"0122} &
+\verb|\char"0123| \ribbiline{\char"0123} \\
+%h
+\verb|\char"1E28| \ribbiline{\char"1E28} &
+\verb|\char"1E29| \ribbiline{\char"1E29} \\
+%k
+\verb|\char"0136| \ribbiline{\char"0136} &
+\verb|\char"0137| \ribbiline{\char"0137} \\
+%l
+\verb|\char"013B| \ribbiline{\char"013B} &
+\verb|\char"013C| \ribbiline{\char"013C} \\
+%n
+\verb|\char"0145| \ribbiline{\char"0145} &
+\verb|\char"0146| \ribbiline{\char"0146} \\
+%r
+\verb|\char"0156| \ribbiline{\char"0156} &
+\verb|\char"0157| \ribbiline{\char"0157} \\
+%s
+\verb|\char"015E| \ribbiline{\char"015E} &
+\verb|\char"015F| \ribbiline{\char"015F} \\
+%t
+\verb|\char"0162| \ribbiline{\char"0162} &
+\verb|\char"0163| \ribbiline{\char"0163} \\
+\end{tabular}
+
+These characters  -- 
+% G K L N R
+\char"0122\ \char"0123\
+\char"0136\ \char"0137\
+\char"013B\ \char"013C\
+\char"0145\ \char"0146\
+\char"0156\ \char"0157\
+-- 
+use the Latvian \textit{komatiņš}
+which is proper for Latvian orthography, but the result of a historical mistake in Unicode naming.
+
+The Unicode characters of D and d with cedilla exist for scholarly and historical reasons, not Latvian orthography.
+Fonts design these Unicode characters differently. 
+Libertinus designs them inconsistently: comma-style in regular and italic, and hook-style in (semi)bold and (semi)bold italic.
+I think the cedilla on a D or d should be hook-like, but I do not really know.
+
+The other characters -- c, e, h, s, t -- with a cedilla should definitely be hook-like, and they are so in Libertinus.
+
+Somewhat mysteriously, if the LaTeX source tries to combine any of these letters -- c, d, e, g, h, k, l, n, r, s, t -- with the combining cedilla, U+0327, then the precomposed character is produced. 
+
+\verb|c\char"0327| \ribbiline{c\char"0327}
+
+\verb|d\char"0327| \ribbiline{d\char"0327}
+
+\verb|e\char"0327| \ribbiline{e\char"0327}
+
+\verb|g\char"0327| \ribbiline{g\char"0327}
+
+\verb|h\char"0327| \ribbiline{h\char"0327}
+
+\verb|k\char"0327| \ribbiline{k\char"0327}
+
+\verb|l\char"0327| \ribbiline{l\char"0327}
+
+\verb|n\char"0327| \ribbiline{n\char"0327}
+
+\verb|r\char"0327| \ribbiline{r\char"0327}
+
+\verb|s\char"0327| \ribbiline{s\char"0327}
+
+\verb|t\char"0327| \ribbiline{t\char"0327}
+
+This behavior does not make sense for the Latvian \textit{komatiņš} bases -- g, k, l, n, r  -- because any person trying to produce Latvian g with \textit{komatiņš} would not try \verb|g\char"0327| or \verb|\c{g}|.
+
+This behavior is tolerable for the other bases --  c, d, e, h, s, t.
+
+\subsection*{IJ}
+
+The ij and IJ ligatures are Unicode characters (with code points) and are supported by Libertinus.
+
+\char"0132\
+\verb|\char"0132| 
+U+0132 capital ligature IJ
+
+\char"0133\
+\verb|\char"0133|
+U+0133 small ligature ij
+
+Libertinus has custom glyphs for these ligatures with an acute, and the small capital ligature with an acute.
+The GSUB table that activates these custom glyphs only works when the language is set to Dutch by a font loading command. For example, 
+
+\verb|\newfontfamily\SerifRegularDutch[Language = Dutch]{LibertinusSerif-Regular.otf}|
+
+{\SerifRegularDutch \char"0132\char"0301} 
+\verb|{\SerifRegularDutch \char"0132\char"0301}|
+Dutch capital ligature IJ with acute
+
+{\SerifRegularDutch \char"0133\char"0301} 
+\verb|{\SerifRegularDutch \char"0133\char"0301}|
+Dutch small ligature ij with acute
+
+{\SerifRegularDutch\textsc{\char"0133\char"0301}}
+\verb|{\SerifRegularDutch \textsc{\char"0133\char"0301}}|
+Dutch small capital ligature IJ with acute
+
+In an English LaTeX document, \verb|ij| and \verb|IJ| are kerned by the GPOS table to produce ij and IJ, so they look close together, but they are not substituted by the single glyph for the ligature.
+
+\subsection*{f with dot below}
+
+\ribbi{tiɣə\char"0301\ ṛf\char"0323 a}
+
+ṛ = \verb|\char"1E5B| is U+1E5B Latin small letter r with dot below
+
+f\char"0323\ = \verb|f\char"0323| is f with U+0323 combining dot below
+
+Here are some letters with a dot below.
+
+\ribbi{
+	\char"1EA1\ \char"1E05\ \char"1E0D\ \char"1EB9\ \char"1E25\ \char"1ECB\ \char"1E33\ \char"1E37\ \char"1E43\ \char"1E47\ \char"1ECD\ \char"1E5B\ \char"1E63\ \char"1E6D\ \char"1EE5\ \char"1E7F\ \char"1E89\ \char"1EF5\ \char"1E93\
+	\ \ c\char"0323\ f\char"0323\ g\char"0323\ j\char"0323\ p\char"0323\ q\char"0323\ 
+	x\char"0323}
+
+The left group of letters -- a b d e h i k l m n o r s t u v w y z -- have a precomposed character.
+For the right group of letters -- c f g j p q x -- the dot is placed according to the below-anchor (if the below-anchor is defined for the letter) or by harfbuzz fallback shaping (placing the dot below the baseline, regardless of the letter's bounding box).
+
+In all styles -- regular, italic, semibold, and semibold italic -- the precomposed glyph of y with dot below places the dot beside the descender, even though the y has a below-anchor below the descender.
+
+Do the letters c, f, g, j, p, q, and x have good below-anchors?
+In regular, the below-anchor of all these combining bases is below the glyph outline (good).
+In italic, the below-anchor of f, p, and q is beside the descender (bad), the below-anchor of g and j is below the descender (good), and the below-anchor of c and x is below the baseline (good).
+In semibold, the below-anchor of g and j is below the descender (good), but the other bases -- c, f, p, q -- have no below-anchor, and harfbuzz fallback positioning places the combining dot below the baseline, not below the bounding box; for c, f and x this is good, but for p and q this is bad, because of the descenders.
+In semibold italic, the below-anchor of c, g, j, p and q is below the glyph outline (good), the below-anchor of f is inside the descender (very bad), and x has no below-anchor but harfbuzz fallback positioning places the combining dot below the baseline (good).
+
+Which dots are used in precomposed characters and how big are the dots?
+In all styles (except semibold italic), the precomposed characters reference the dot of \verb|uni0307|, combining dot above, U+0307, and take care to translate this above-mark to a position below the letter outline, except for m, which references \verb|dotbelowcomb|, combining dot below, U+0323.
+In semibold italic, \verb|dotaccent| is used instead of \verb|uni0307|.
+These two dots are four-point Bézier circles (in regular and semibold, but ovals in italic and semibold italic), but of different diameter. 
+In regular, \verb|uni0307| has diameter 100, and \verb|dotbelowcomb| has diameter 108.
+That is, the precomposed characters (except m) use a smaller dot, and the non-precomposed letters (and m) take a bigger dot.
+In semibold, the size difference is reversed: \verb|uni0307| has larger diameter 124, and \verb|dotbelowcomb| has small diameter 108. 
+Actually, semibold \verb|dotbelowcomb| is not a Bézier circle -- the horizontal span is 109, and the vertical span is 108.
+In semibold italic, \verb|dotaccent| is a skewed four-point Bézier oval -- the horizontal and vertical spans are 120, 
+offset by $(\pm 6, \pm 7.5)$ from the center --- and \verb|dotbelowcomb| is slightly larger, slightly flatter skewed six-point Bézier oval -- horizontal span is 122 and the vertical span is 120.
+So, in semibold italic the two dots in precomposed and combining form are closest in size. 
+Recall that f has a bad below-anchor, inside the descender, but g, j, p and q have a good below-anchor, below the glyph outline.
+
+So, in order to solve the problem of the bad dot below f in italic, I need to decide the scope of the badness to correct. 
+The simplest patch is move the below-anchor in italic and semibold italic below the descender.
+But this does not solve inconsistent below dot size across styles and letters.
+In italic and semibold italic, g and j have a (good) below-anchor at $Y = -319$, so that is also good Y coordinate for f's below-anchor.
+
+I asked Copilot/GPT-5.1 to calculate a good X coordinate for f's below-anchor in italic and semibold italic, taking into account the U-pocket of f's descender and the below-anchor of \verb|dotbelowcomb|. 
+I decided that this U-pocket strategy was appropriate after testing other strategies that accounted for the slant of onf the major stroke.
+Here is a reasonbly faithful summary of the calculations and reasoning by Copilot/GPT-5.1.
+
+\begin{quote}
+	For italic, the descender’s U‑pocket is defined by the control points at $(14,-238)$ and $(33,-205)$, giving a U‑center around $x \approx 24$. Using the (symmetric) italic \verb|dotbelowcomb| anchor as the dot’s optical center, the dot should sit under this U‑pocket, not under the ball or the stem. A balanced, U‑centered, slightly inner‑biased choice is $X \approx 30$.
+	
+	For semibold italic, the U‑pocket of the semibold italic descender is wider and more asymmetric, with a geometric U-center of $X = -33.5$. The semibold italic \verb|dotbelowcomb| itself is also skewed, with its anchor already shifted relative to its mass. In practice, the visually correct position for the dot below f is under the open side of the U‑pocket, clearly right of the ball and closer the right of the stem. The anchor candidate is $X \approx 62$.
+\end{quote}
+
+Here are examples with the patched fonts, with f's below-anchor in italic at $(30,-319)$ and semibold italic at $(62,-319)$. This does not solve the problem of inconsistent dot size below letters, and I did not touch p, q, or y.
+
+\begin{tabular}{ll}
+	Original & Patched italics (f only)\\
+	tiɣə\char"0301\ ṛf\char"0323 a & tiɣə\char"0301\ ṛf\char"0323 a\\
+	{\itshape tiɣə\char"0301\ ṛf\char"0323 a} & {\SerifItalicPatchF tiɣə\char"0301\ ṛf\char"0323 a}\\
+	{\bfseries tiɣə\char"0301\ ṛf\char"0323 a} & {\bfseries tiɣə\char"0301\ ṛf\char"0323 a}\\
+	{\bfseries\itshape tiɣə\char"0301\ ṛf\char"0323 a} & {\SerifSemiboldItalicPatchF tiɣə\char"0301\ ṛf\char"0323 a}
+\end{tabular}
+
+Original (repeated from above)
+
+\ribbi{
+	\char"1EA1\ \char"1E05\ \char"1E0D\ \char"1EB9\ \char"1E25\ \char"1ECB\ \char"1E33\ \char"1E37\ \char"1E43\ \char"1E47\ \char"1ECD\ \char"1E5B\ \char"1E63\ \char"1E6D\ \char"1EE5\ \char"1E7F\ \char"1E89\ \char"1EF5\ \char"1E93\
+	\ c\char"0323\ f\char"0323\ g\char"0323\ j\char"0323\ p\char"0323\ q\char"0323\ 
+	x\char"0323}
+
+Patched italics (f only)
+
+{\SerifItalicPatchF
+	\char"1EA1\ \char"1E05\ \char"1E0D\ \char"1EB9\ \char"1E25\ \char"1ECB\ \char"1E33\ \char"1E37\ \char"1E43\ \char"1E47\ \char"1ECD\ \char"1E5B\ \char"1E63\ \char"1E6D\ \char"1EE5\ \char"1E7F\ \char"1E89\ \char"1EF5\ \char"1E93\
+	\ c\char"0323\ f\char"0323\ g\char"0323\ j\char"0323\ p\char"0323\ q\char"0323\ 
+	x\char"0323}
+
+{\SerifSemiboldItalicPatchF
+	\char"1EA1\ \char"1E05\ \char"1E0D\ \char"1EB9\ \char"1E25\ \char"1ECB\ \char"1E33\ \char"1E37\ \char"1E43\ \char"1E47\ \char"1ECD\ \char"1E5B\ \char"1E63\ \char"1E6D\ \char"1EE5\ \char"1E7F\ \char"1E89\ \char"1EF5\ \char"1E93\
+	\ c\char"0323\ f\char"0323\ g\char"0323\ j\char"0323\ p\char"0323\ q\char"0323\ 
+	x\char"0323}
+
+
+\newpage
+\section*{Marks}
+
+\subsection*{Above marks -- GPOS anchor 0}
+
+\ribbi{
+	x\char"0300\gs x\char"0301\gs x\char"0302\gs x\char"0303\gs x\char"0304\gs x\char"0306\gs x\char"0307\gs x\char"0308\gs x\char"0309\gs x\char"030A\gs x\char"030B\gs x\char"030C\gs x\char"030D\gs x\char"030F\gs x\char"0310\gs x\char"0311\gs x\char"0312\gs x\char"0313\gs x\char"033D\gs x\char"033E\gs x\char"033F\gs
+	% Rare above marks
+	\gs\gs
+	x\char"030E\gs x\char"0314\gs x\char"0340\gs x\char"0341\gs x\char"0342\gs x\char"0343\gs x\char"0344\gs x\char"0346\gs x\char"034A\gs x\char"034B\gs x\char"034C\gs x\char"0350\gs x\char"0351\gs x\char"0352\gs x\char"0357\gs x\char"035B\gs
+}
+
+\subsection*{Below marks -- GPOS anchor 2} 
+
+\ribbi{
+	x\char"0316\gs x\char"0317\gs x\char"0318\gs x\char"0319\gs x\char"031C\gs x\char"0320\gs x\char"0323\gs x\char"0324\gs x\char"0325\gs x\char"0326\gs x\char"0329\gs x\char"032A\gs x\char"032B\gs x\char"032C\gs x\char"032D\gs x\char"032E\gs x\char"032F\gs
+	% Rare below marks
+	\gs\gs
+	x\char"031D\gs x\char"031E\gs x\char"031F\gs x\char"0330\gs x\char"0331\gs x\char"0333\gs x\char"0339\gs x\char"033A\gs x\char"033B\gs x\char"033C\gs x\char"0345\gs x\char"0347\gs x\char"0348\gs x\char"0349\gs x\char"034D\gs x\char"034E\gs
+}
+
+\subsection*{Left angle -- GPOS anchor 3}
+
+\ribbiline{x\char"031A\gs}
+
+\subsection*{Below-right marks -- GPOS anchor 4}
+
+\ribbi{
+	x\char"0321\gs x\char"0322\gs x\char"0328\gs
+}
+
+\subsection*{Cedilla -- GPOS class 5}
+
+\ribbiline{x\char"0327\gs}
+
+% /uni0334 /uni0334 /uni0335 /uni0336 /uni0337 /uni0338	
+\subsection*{Overlay marks -- GPOS anchor 6}
+
+\ribbi{
+	o\char"0334\gs o\char"0335\gs o\char"0336\gs o\char"0337\gs o\char"0338\gs
+}
+
+\subsection*{Double marks}
+
+\ribbi{
+	x\char"035C x\gs 
+	x\char"035D x\gs 
+	x\char"035E x\gs 
+	x\char"035F x\gs 
+	x\char"0360 x\gs 
+	x\char"0361 x\gs 
+	x\char"0362 x\gs
+}
+
+\newpage
+\subsection*{Overline and low line}
+
+O+0305 combining overline and U+0332 combining low line are applied by GSUB lookups that substitute a custom width line mark according to width classes. 
+GSUB lookup 51 effectively classifies the glyphs by width, and GSUB lookups 52--82 provide the appropriate custom width mark for the base width class. 
+Semibold and semibold italic do not have any combining low lines. 
+Custom-width line marks do not have anchors. 
+They are positioned by harfbuzz fallback shaping. 
+The overlines are above the ascender line, so they are above all bases. 
+The low lines are below the baseline, but above the descender line, and so they cut though any descenders.
+If a new glyph is added, and you want to support custom-width line marks for it, then remember to classify the new glyph in GSUB lookup 51.
+
+%\input{input/latin-ipa-line.tex}
+
+\ribbi{
+	\char"0041\char"0305\gs \char"0042\char"0305\gs \char"0043\char"0305\gs \char"0044\char"0305\gs \char"0045\char"0305\gs \char"0046\char"0305\gs \char"0047\char"0305\gs \char"0048\char"0305\gs \char"0049\char"0305\gs \char"004A\char"0305\gs \char"004B\char"0305\gs \char"004C\char"0305\gs \char"004D\char"0305\gs \char"004E\char"0305\gs \char"004F\char"0305\gs \char"0050\char"0305\gs \char"0051\char"0305\gs \char"0052\char"0305\gs \char"0053\char"0305\gs \char"0054\char"0305\gs \char"0055\char"0305\gs \char"0056\char"0305\gs \char"0057\char"0305\gs \char"0058\char"0305\gs \char"0059\char"0305\gs \char"005A\char"0305\gs \char"0061\char"0305\gs \char"0062\char"0305\gs \char"0063\char"0305\gs \char"0064\char"0305\gs \char"0065\char"0305\gs \char"0066\char"0305\gs \char"0067\char"0305\gs \char"0068\char"0305\gs \char"0069\char"0305\gs \char"006A\char"0305\gs \char"006B\char"0305\gs \char"006C\char"0305\gs \char"006D\char"0305\gs \char"006E\char"0305\gs \char"006F\char"0305\gs \char"0070\char"0305\gs \char"0071\char"0305\gs \char"0072\char"0305\gs \char"0073\char"0305\gs \char"0074\char"0305\gs \char"0075\char"0305\gs \char"0076\char"0305\gs \char"0077\char"0305\gs \char"0078\char"0305\gs \char"0079\char"0305\gs \char"007A\char"0305\gs \char"00C6\char"0305\gs \char"00E6\char"0305\gs \char"0152\char"0305\gs \char"0153\char"0305\gs \char"00D8\char"0305\gs \char"00F8\char"0305\gs \char"00D0\char"0305\gs \char"00F0\char"0305\gs \char"00DE\char"0305\gs \char"00FE\char"0305\gs \char"00DF\char"0305\gs \char"017F\char"0305\gs \char"0110\char"0305\gs \char"0111\char"0305\gs \char"0126\char"0305\gs \char"0127\char"0305\gs \char"0131\char"0305\gs \char"0237\char"0305\gs \char"0141\char"0305\gs \char"0142\char"0305\gs \char"0181\char"0305\gs \char"0182\char"0305
+}
+
+\ribbi{
+	\char"0184\char"0305\gs \char"0186\char"0305\gs \char"0187\char"0305\gs \char"0189\char"0305\gs \char"018A\char"0305\gs \char"018B\char"0305\gs \char"018D\char"0305\gs \char"018E\char"0305\gs \char"018F\char"0305\gs \char"0190\char"0305\gs \char"0191\char"0305\gs \char"0192\char"0305\gs \char"0193\char"0305\gs \char"0194\char"0305\gs \char"0195\char"0305\gs \char"0196\char"0305\gs \char"0197\char"0305\gs \char"0198\char"0305\gs \char"019C\char"0305\gs \char"019D\char"0305\gs \char"019F\char"0305\gs \char"01AA\char"0305\gs \char"01B7\char"0305\gs \char"01BB\char"0305\gs \char"01C0\char"0305\gs \char"01C1\char"0305\gs \char"01C2\char"0305\gs \char"01C3\char"0305\gs \char"0250\char"0305\gs \char"0251\char"0305\gs \char"0252\char"0305\gs \char"0253\char"0305\gs \char"0254\char"0305\gs \char"0255\char"0305\gs \char"0256\char"0305\gs \char"0257\char"0305\gs \char"0258\char"0305\gs \char"0259\char"0305\gs \char"025A\char"0305\gs \char"025B\char"0305\gs \char"025C\char"0305\gs \char"025D\char"0305\gs \char"025E\char"0305\gs \char"025F\char"0305\gs \char"0260\char"0305\gs \char"0261\char"0305\gs \char"0262\char"0305\gs \char"0263\char"0305\gs \char"0264\char"0305\gs \char"0265\char"0305\gs \char"0266\char"0305\gs \char"0267\char"0305\gs \char"0268\char"0305\gs \char"0269\char"0305\gs \char"026A\char"0305\gs \char"026B\char"0305\gs \char"026C\char"0305\gs \char"026D\char"0305\gs \char"026E\char"0305\gs \char"026F\char"0305\gs \char"0270\char"0305\gs \char"0271\char"0305\gs \char"0272\char"0305\gs \char"0273\char"0305\gs \char"0274\char"0305\gs \char"0275\char"0305\gs \char"0276\char"0305\gs \char"0277\char"0305\gs \char"0278\char"0305\gs \char"0279\char"0305\gs \char"027A\char"0305\gs \char"027B\char"0305\gs \char"027C\char"0305\gs \char"027D\char"0305\gs \char"027E\char"0305\gs \char"027F\char"0305\gs \char"0280\char"0305\gs \char"0281\char"0305\gs \char"0282\char"0305\gs \char"0283\char"0305\gs \char"0284\char"0305\gs \char"0285\char"0305\gs \char"0286\char"0305\gs \char"0287\char"0305\gs \char"0288\char"0305\gs \char"0289\char"0305\gs \char"028A\char"0305\gs \char"028B\char"0305\gs \char"028C\char"0305\gs \char"028D\char"0305\gs \char"028E\char"0305\gs \char"028F\char"0305\gs \char"0290\char"0305\gs \char"0291\char"0305\gs \char"0292\char"0305\gs \char"0293\char"0305\gs \char"0294\char"0305\gs \char"0295\char"0305\gs \char"0296\char"0305\gs \char"0297\char"0305\gs \char"0298\char"0305\gs \char"0299\char"0305\gs \char"029A\char"0305\gs \char"029B\char"0305\gs \char"029C\char"0305\gs \char"029D\char"0305\gs \char"029E\char"0305\gs \char"029F\char"0305\gs \char"1D15\char"0305\gs
+}
+
+	\char"0041\char"0332\gs \char"0042\char"0332\gs \char"0043\char"0332\gs \char"0044\char"0332\gs \char"0045\char"0332\gs \char"0046\char"0332\gs \char"0047\char"0332\gs \char"0048\char"0332\gs \char"0049\char"0332\gs \char"004A\char"0332\gs \char"004B\char"0332\gs \char"004C\char"0332\gs \char"004D\char"0332\gs \char"004E\char"0332\gs \char"004F\char"0332\gs \char"0050\char"0332\gs \char"0051\char"0332\gs \char"0052\char"0332\gs \char"0053\char"0332\gs \char"0054\char"0332\gs \char"0055\char"0332\gs \char"0056\char"0332\gs \char"0057\char"0332\gs \char"0058\char"0332\gs \char"0059\char"0332\gs \char"005A\char"0332\gs \char"0061\char"0332\gs \char"0062\char"0332\gs \char"0063\char"0332\gs \char"0064\char"0332\gs \char"0065\char"0332\gs \char"0066\char"0332\gs \char"0067\char"0332\gs \char"0068\char"0332\gs \char"0069\char"0332\gs \char"006A\char"0332\gs \char"006B\char"0332\gs \char"006C\char"0332\gs \char"006D\char"0332\gs \char"006E\char"0332\gs \char"006F\char"0332\gs \char"0070\char"0332\gs \char"0071\char"0332\gs \char"0072\char"0332\gs \char"0073\char"0332\gs \char"0074\char"0332\gs \char"0075\char"0332\gs \char"0076\char"0332\gs \char"0077\char"0332\gs \char"0078\char"0332\gs \char"0079\char"0332\gs \char"007A\char"0332\gs \char"00C6\char"0332\gs \char"00E6\char"0332\gs \char"0152\char"0332\gs \char"0153\char"0332\gs \char"00D8\char"0332\gs \char"00F8\char"0332\gs \char"00D0\char"0332\gs \char"00F0\char"0332\gs \char"00DE\char"0332\gs \char"00FE\char"0332\gs \char"00DF\char"0332\gs \char"017F\char"0332\gs \char"0110\char"0332\gs \char"0111\char"0332\gs \char"0126\char"0332\gs \char"0127\char"0332\gs \char"0131\char"0332\gs \char"0237\char"0332\gs \char"0141\char"0332\gs \char"0142\char"0332\gs \char"0181\char"0332\gs \char"0182\char"0332
+
+{\itshape
+	\char"0041\char"0332\gs \char"0042\char"0332\gs \char"0043\char"0332\gs \char"0044\char"0332\gs \char"0045\char"0332\gs \char"0046\char"0332\gs \char"0047\char"0332\gs \char"0048\char"0332\gs \char"0049\char"0332\gs \char"004A\char"0332\gs \char"004B\char"0332\gs \char"004C\char"0332\gs \char"004D\char"0332\gs \char"004E\char"0332\gs \char"004F\char"0332\gs \char"0050\char"0332\gs \char"0051\char"0332\gs \char"0052\char"0332\gs \char"0053\char"0332\gs \char"0054\char"0332\gs \char"0055\char"0332\gs \char"0056\char"0332\gs \char"0057\char"0332\gs \char"0058\char"0332\gs \char"0059\char"0332\gs \char"005A\char"0332\gs \char"0061\char"0332\gs \char"0062\char"0332\gs \char"0063\char"0332\gs \char"0064\char"0332\gs \char"0065\char"0332\gs \char"0066\char"0332\gs \char"0067\char"0332\gs \char"0068\char"0332\gs \char"0069\char"0332\gs \char"006A\char"0332\gs \char"006B\char"0332\gs \char"006C\char"0332\gs \char"006D\char"0332\gs \char"006E\char"0332\gs \char"006F\char"0332\gs \char"0070\char"0332\gs \char"0071\char"0332\gs \char"0072\char"0332\gs \char"0073\char"0332\gs \char"0074\char"0332\gs \char"0075\char"0332\gs \char"0076\char"0332\gs \char"0077\char"0332\gs \char"0078\char"0332\gs \char"0079\char"0332\gs \char"007A\char"0332\gs \char"00C6\char"0332\gs \char"00E6\char"0332\gs \char"0152\char"0332\gs \char"0153\char"0332\gs \char"00D8\char"0332\gs \char"00F8\char"0332\gs \char"00D0\char"0332\gs \char"00F0\char"0332\gs \char"00DE\char"0332\gs \char"00FE\char"0332\gs \char"00DF\char"0332\gs \char"017F\char"0332\gs \char"0110\char"0332\gs \char"0111\char"0332\gs \char"0126\char"0332\gs \char"0127\char"0332\gs \char"0131\char"0332\gs \char"0237\char"0332\gs \char"0141\char"0332\gs \char"0142\char"0332\gs \char"0181\char"0332\gs \char"0182\char"0332
+}
+
+	\char"0184\char"0332\gs \char"0186\char"0332\gs \char"0187\char"0332\gs \char"0189\char"0332\gs \char"018A\char"0332\gs \char"018B\char"0332\gs \char"018D\char"0332\gs \char"018E\char"0332\gs \char"018F\char"0332\gs \char"0190\char"0332\gs \char"0191\char"0332\gs \char"0192\char"0332\gs \char"0193\char"0332\gs \char"0194\char"0332\gs \char"0195\char"0332\gs \char"0196\char"0332\gs \char"0197\char"0332\gs \char"0198\char"0332\gs \char"019C\char"0332\gs \char"019D\char"0332\gs \char"019F\char"0332\gs \char"01AA\char"0332\gs \char"01B7\char"0332\gs \char"01BB\char"0332\gs \char"01C0\char"0332\gs \char"01C1\char"0332\gs \char"01C2\char"0332\gs \char"01C3\char"0332\gs \char"0250\char"0332\gs \char"0251\char"0332\gs \char"0252\char"0332\gs \char"0253\char"0332\gs \char"0254\char"0332\gs \char"0255\char"0332\gs \char"0256\char"0332\gs \char"0257\char"0332\gs \char"0258\char"0332\gs \char"0259\char"0332\gs \char"025A\char"0332\gs \char"025B\char"0332\gs \char"025C\char"0332\gs \char"025D\char"0332\gs \char"025E\char"0332\gs \char"025F\char"0332\gs \char"0260\char"0332\gs \char"0261\char"0332\gs \char"0262\char"0332\gs \char"0263\char"0332\gs \char"0264\char"0332\gs \char"0265\char"0332\gs \char"0266\char"0332\gs \char"0267\char"0332\gs \char"0268\char"0332\gs \char"0269\char"0332\gs \char"026A\char"0332\gs \char"026B\char"0332\gs \char"026C\char"0332\gs \char"026D\char"0332\gs \char"026E\char"0332\gs \char"026F\char"0332\gs \char"0270\char"0332\gs \char"0271\char"0332\gs \char"0272\char"0332\gs \char"0273\char"0332\gs \char"0274\char"0332\gs \char"0275\char"0332\gs \char"0276\char"0332\gs \char"0277\char"0332\gs \char"0278\char"0332\gs \char"0279\char"0332\gs \char"027A\char"0332\gs \char"027B\char"0332\gs \char"027C\char"0332\gs \char"027D\char"0332\gs \char"027E\char"0332\gs \char"027F\char"0332\gs \char"0280\char"0332\gs \char"0281\char"0332\gs \char"0282\char"0332\gs \char"0283\char"0332\gs \char"0284\char"0332\gs \char"0285\char"0332\gs \char"0286\char"0332\gs \char"0287\char"0332\gs \char"0288\char"0332\gs \char"0289\char"0332\gs \char"028A\char"0332\gs \char"028B\char"0332\gs \char"028C\char"0332\gs \char"028D\char"0332\gs \char"028E\char"0332\gs \char"028F\char"0332\gs \char"0290\char"0332\gs \char"0291\char"0332\gs \char"0292\char"0332\gs \char"0293\char"0332\gs \char"0294\char"0332\gs \char"0295\char"0332\gs \char"0296\char"0332\gs \char"0297\char"0332\gs \char"0298\char"0332\gs \char"0299\char"0332\gs \char"029A\char"0332\gs \char"029B\char"0332\gs \char"029C\char"0332\gs \char"029D\char"0332\gs \char"029E\char"0332\gs \char"029F\char"0332\gs \char"1D15\char"0332
+	
+{\itshape
+	\char"0184\char"0332\gs \char"0186\char"0332\gs \char"0187\char"0332\gs \char"0189\char"0332\gs \char"018A\char"0332\gs \char"018B\char"0332\gs \char"018D\char"0332\gs \char"018E\char"0332\gs \char"018F\char"0332\gs \char"0190\char"0332\gs \char"0191\char"0332\gs \char"0192\char"0332\gs \char"0193\char"0332\gs \char"0194\char"0332\gs \char"0195\char"0332\gs \char"0196\char"0332\gs \char"0197\char"0332\gs \char"0198\char"0332\gs \char"019C\char"0332\gs \char"019D\char"0332\gs \char"019F\char"0332\gs \char"01AA\char"0332\gs \char"01B7\char"0332\gs \char"01BB\char"0332\gs \char"01C0\char"0332\gs \char"01C1\char"0332\gs \char"01C2\char"0332\gs \char"01C3\char"0332\gs \char"0250\char"0332\gs \char"0251\char"0332\gs \char"0252\char"0332\gs \char"0253\char"0332\gs \char"0254\char"0332\gs \char"0255\char"0332\gs \char"0256\char"0332\gs \char"0257\char"0332\gs \char"0258\char"0332\gs \char"0259\char"0332\gs \char"025A\char"0332\gs \char"025B\char"0332\gs \char"025C\char"0332\gs \char"025D\char"0332\gs \char"025E\char"0332\gs \char"025F\char"0332\gs \char"0260\char"0332\gs \char"0261\char"0332\gs \char"0262\char"0332\gs \char"0263\char"0332\gs \char"0264\char"0332\gs \char"0265\char"0332\gs \char"0266\char"0332\gs \char"0267\char"0332\gs \char"0268\char"0332\gs \char"0269\char"0332\gs \char"026A\char"0332\gs \char"026B\char"0332\gs \char"026C\char"0332\gs \char"026D\char"0332\gs \char"026E\char"0332\gs \char"026F\char"0332\gs \char"0270\char"0332\gs \char"0271\char"0332\gs \char"0272\char"0332\gs \char"0273\char"0332\gs \char"0274\char"0332\gs \char"0275\char"0332\gs \char"0276\char"0332\gs \char"0277\char"0332\gs \char"0278\char"0332\gs \char"0279\char"0332\gs \char"027A\char"0332\gs \char"027B\char"0332\gs \char"027C\char"0332\gs \char"027D\char"0332\gs \char"027E\char"0332\gs \char"027F\char"0332\gs \char"0280\char"0332\gs \char"0281\char"0332\gs \char"0282\char"0332\gs \char"0283\char"0332\gs \char"0284\char"0332\gs \char"0285\char"0332\gs \char"0286\char"0332\gs \char"0287\char"0332\gs \char"0288\char"0332\gs \char"0289\char"0332\gs \char"028A\char"0332\gs \char"028B\char"0332\gs \char"028C\char"0332\gs \char"028D\char"0332\gs \char"028E\char"0332\gs \char"028F\char"0332\gs \char"0290\char"0332\gs \char"0291\char"0332\gs \char"0292\char"0332\gs \char"0293\char"0332\gs \char"0294\char"0332\gs \char"0295\char"0332\gs \char"0296\char"0332\gs \char"0297\char"0332\gs \char"0298\char"0332\gs \char"0299\char"0332\gs \char"029A\char"0332\gs \char"029B\char"0332\gs \char"029C\char"0332\gs \char"029D\char"0332\gs \char"029E\char"0332\gs \char"029F\char"0332\gs \char"1D15\char"0332	
+}
+
+
+\newpage
+\subsection*{Above-right marks -- GPOS anchor 1}
+
+Libertinus has three combining marks with GPOS anchor class 1 -- 
+U+031B horn, U+0315 comma above right, and U+0358 dot above right.
+
+A few bases in Libertinus have this anchor (class 1), but none that possibly need it.
+
+\subsubsection*{Horn}
+
+The Vietnamese alphabet has two horn vowels -- \char"01A0\gs \char"01A1\gs \char"01AF \char"01B0 -- and these vowels may take tonal marks. 
+All these combinations are Unicode characters (with code points).
+
+\ribbi{ 	
+	\char"01A0\gs \char"01A1\gs \char"01AF\gs \char"01B0\gs \char"1EDA\gs \char"1EDB\gs \char"1EDC\gs \char"1EDD\gs \char"1EDE\gs \char"1EDF\gs \char"1EE0\gs \char"1EE1\gs \char"1EE2\gs \char"1EE3\gs \char"1EE8\gs \char"1EE9\gs \char"1EEA\gs \char"1EEB\gs \char"1EEC\gs \char"1EED\gs \char"1EEE\gs \char"1EEF\gs \char"1EF0\gs \char"1EF1\gs
+}
+
+There is a Unicode character for the combining horn mark: 
+ \char"031B\gs \verb|\char"031B| U+031B, 
+but this is not used in practice.
+The Vietnamese vowels are usually entered in a LaTeX document as Unicode characters, also with 
+\verb|\usepackage[vietnamese]{babel}| for hyphenation and spacing.
+
+\subsubsection*{Comma above right}
+
+There is a Unicode character for the combining comma above right mark: 
+\char"0315\gs \verb|\char"0315| U+0315.
+
+U+0315 (comma above right) is used in rare cases when another comma-like mark does not fit.
+
+In IPA, the glottalization diacritic mark uses U+0313 (comma above) as a combining mark.
+But when a glottalization mark is needed for a superscript consonant (1) or superscript consonant cluster (2),
+then the combining mark U+0315 (comma above right) is used instead, because its positioning is hopefully better than that of U+0313. 
+
+(1) {\itshape k\char"0313 wkt}
+[k\char"0313 ʷᵏˣ\char"0315 t]
+‘to scrape’
+(Nuxalk)
+
+(2) {\itshape pʼak}
+[pʼᵏˣ\char"0315 ak]
+`he/she cut it' 
+(Upper Chehalis)
+
+In (1), the superscript consonant cluster is ʷᵏˣ and it is glottalized.
+In (2), the superscript consonant ˣ is glottalized.
+
+Because U+0315 is being used in superscript position on a smaller sized glyph, U+0315 should probably be 
+smaller than U+0313, but it is not so in Libertinus.
+
+\subsubsection*{Dot above right}
+
+There is a Unicode character for the combining dot above right mark: 
+ \char"0358\gs \verb|\char"0358| U+0358 dot above right
+
+U+0358 should be a small, above‑right dot, used to mark palatalization or similar secondary articulations on superscript consonants, created for the same typographic reason U+0315 exists -- the standard palatalization diacritic (U+0307, dot above) is too big and too high.
+
+In Libertinus, U+0358 is a 104-diameter Bezier circle, and U+0307 is a smaller Bezier oval, 
+inverting the desired size difference.
+
+There are only a few IPA superscript letters that may serve as the possible host of U+0315 or U+0358 
+on superscript consonants or on superscript consonant clusters.
+In Libertinus, regrettably none of these characters has the anchor (class 1), so the mark (U+0315 and U+0358) is positioned by harfbuzz fallback shaping, which seems to place the mark at the right boundary of the glyph at a constant vertical aspect (effectively at the superscript x-height).
+
+These IPA marks U+0315 and U+0358 should only be used in regular (not italic and not semibold).
+Regrettably, in Libertinus serif semibold, U+0358 looks like a grave, not a dot, and there is no U+0358 glyph in Libertinus serif semibold italic.
+
+\input{input/above-right.tex}
+
+There are three comma/apostrophe glyphs that could possibly mark glottalization: 
+U+0313 combining comma above, U+0315 combining comma above right, and U+02BC modifier letter apostrophe.
+In Libertinus, U+0315 has the worst appearance, even though U+0315 is intended for superscript letters.
+In Gentium Plus (SIL Global), U+0315 is tightly above-right the superscript letter, as expected.
+
+Libertinus
+
+\verb|[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0313 t]| 
+[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0313 t]
+
+\verb|[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]|
+[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]
+
+\verb|[k\char"0313\char"02B7\char"1D4F\char"02E3\char"02BC t]|
+[k\char"0313\char"02B7\char"1D4F\char"02E3\char"02BC t]
+
+Gentium Plus
+
+{\Gentium
+\verb|[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0313 t]| 
+[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0313 t]
+
+\verb|[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]|
+[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]
+
+\verb|[k\char"0313\char"02B7\char"1D4F\char"02E3\char"02BC t]|
+[k\char"0313\char"02B7\char"1D4F\char"02E3\char"02BC t]
+}
+
+I patched Libertinus to add anchors to those IPA superscript letters to support U+0315.
+
+Patched Libertinus, selected IPA superscript letters with U+0315 and U+0358
+
+{\SerifRegularPatch
+	\char"02B0\char"0315\gs \char"02B1\char"0315\gs \char"02B2\char"0315\gs \char"02B3\char"0315\gs \char"02B4\char"0315\gs \char"02B5\char"0315\gs \char"02B6\char"0315\gs \char"02B7\char"0315\gs \char"02B8\char"0315\gs \char"02E0\char"0315\gs \char"02E1\char"0315\gs \char"02E2\char"0315\gs \char"02E3\char"0315\gs \char"02E4\char"0315\gs \char"1D47\char"0315\gs \char"1D4F\char"0315\gs \char"1D50\char"0315\gs \char"1D56\char"0315\gs \char"1D57\char"0315\gs \char"1D5A\char"0315\gs \char"1D5B\char"0315\gs \char"1D5C\char"0315\gs \char"1D5D\char"0315\gs \char"1D5E\char"0315\gs \char"1D5F\char"0315
+
+	\char"02B0\char"0358\gs \char"02B1\char"0358\gs \char"02B2\char"0358\gs \char"02B3\char"0358\gs \char"02B4\char"0358\gs \char"02B5\char"0358\gs \char"02B6\char"0358\gs \char"02B7\char"0358\gs \char"02B8\char"0358\gs \char"02E0\char"0358\gs \char"02E1\char"0358\gs \char"02E2\char"0358\gs \char"02E3\char"0358\gs \char"02E4\char"0358\gs \char"1D47\char"0358\gs \char"1D4F\char"0358\gs \char"1D50\char"0358\gs \char"1D56\char"0358\gs \char"1D57\char"0358\gs \char"1D5A\char"0358\gs \char"1D5B\char"0358\gs \char"1D5C\char"0358\gs \char"1D5D\char"0358\gs \char"1D5E\char"0358\gs \char"1D5F\char"0358
+
+\verb|[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]|
+[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]
+}
+
+Gentium Plus, selected IPA superscript letters with U+0315 and U+0358
+
+{\Gentium
+	\char"02B0\char"0315\gs \char"02B1\char"0315\gs \char"02B2\char"0315\gs \char"02B3\char"0315\gs \char"02B4\char"0315\gs \char"02B5\char"0315\gs \char"02B6\char"0315\gs \char"02B7\char"0315\gs \char"02B8\char"0315\gs \char"02E0\char"0315\gs \char"02E1\char"0315\gs \char"02E2\char"0315\gs \char"02E3\char"0315\gs \char"02E4\char"0315\gs \char"1D47\char"0315\gs \char"1D4F\char"0315\gs \char"1D50\char"0315\gs \char"1D56\char"0315\gs \char"1D57\char"0315\gs \char"1D5A\char"0315\gs \char"1D5B\char"0315\gs \char"1D5C\char"0315\gs \char"1D5D\char"0315\gs \char"1D5E\char"0315\gs \char"1D5F\char"0315
+	
+	\char"02B0\char"0358\gs \char"02B1\char"0358\gs \char"02B2\char"0358\gs \char"02B3\char"0358\gs \char"02B4\char"0358\gs \char"02B5\char"0358\gs \char"02B6\char"0358\gs \char"02B7\char"0358\gs \char"02B8\char"0358\gs \char"02E0\char"0358\gs \char"02E1\char"0358\gs \char"02E2\char"0358\gs \char"02E3\char"0358\gs \char"02E4\char"0358\gs \char"1D47\char"0358\gs \char"1D4F\char"0358\gs \char"1D50\char"0358\gs \char"1D56\char"0358\gs \char"1D57\char"0358\gs \char"1D5A\char"0358\gs \char"1D5B\char"0358\gs \char"1D5C\char"0358\gs \char"1D5D\char"0358\gs \char"1D5E\char"0358\gs \char"1D5F\char"0358
+
+\verb|[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]|
+[k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]
+}
+
+Here are the IPA superscript letters considered and their new anchor (class 1).
+
+U+02B0: (347, 648),
+U+02B1: (339, 648),
+U+02B2: (193, 648),
+U+02B3: (284, 648),
+U+02B4: (274, 648),
+U+02B5: (319, 648),
+U+02B6: (308, 648),
+U+02B7: (497, 648),
+U+02B8: (368, 648),
+U+02E0: (341, 648),
+U+02E1: (193, 648),
+U+02E2: (270, 648),
+U+02E3: (344, 648),
+U+02E4: (282, 648),
+U+1D47: (319, 648),
+U+1D4F: (353, 648),
+U+1D50: (533, 648),
+U+1D56: (334, 648),
+U+1D57: (241, 648),
+U+1D5A: (525, 648),
+U+1D5B: (354, 648),
+U+1D5C: (508, 648),
+U+1D5D: (335, 648),
+U+1D5E: (372, 648),
+U+1D5F: (353, 648)
+
+I did not change the class-1 anchor of U+315 and U+0358.
+U+0358 has its anchor at the xMin and yMin of its bounding box.
+But U+0315 already has some clearance built in to its anchor: its anchor is 62 units below its yMin, but 25 units right of it xMin.
+So, I decided to provide x-clearance of 12 units and y-clearance of 80 units from the bases.
+All these IPA superscript letters already have a superscript meanline at $Y = 630$. 
+So their anchor will be at $Y = 630 - 62 + 80 = 648$.
+The X coordinate depends on their bounding box and its xMax.
+To provide the desired clearance of 12 units, the anchor is at $X = \mathrm{xMax} + 26 + 12$.
+These anchor coordinate values were optimized for U+0315 but they work fine for U+0358.
+
+\newpage
+\section*{Bases}
+
+\subsection*{Latin}
+
+\ribbi{
+	\char"0041\gs \char"0042\gs \char"0043\gs \char"0044\gs \char"0045\gs \char"0046\gs \char"0047\gs \char"0048\gs \char"0049\gs \char"004A\gs \char"004B\gs \char"004C\gs \char"004D\gs \char"004E\gs \char"004F\gs \char"0050\gs \char"0051\gs \char"0052\gs \char"0053\gs \char"0054\gs \char"0055\gs \char"0056\gs \char"0057\gs \char"0058\gs \char"0059\gs \char"005A\gs \char"0061\gs \char"0062\gs \char"0063\gs \char"0064\gs \char"0065\gs \char"0066\gs \char"0067\gs \char"0068\gs \char"0069\gs \char"006A\gs \char"006B\gs \char"006C\gs \char"006D\gs \char"006E\gs \char"006F\gs \char"0070\gs \char"0071\gs \char"0072\gs \char"0073\gs \char"0074\gs \char"0075\gs \char"0076\gs \char"0077\gs \char"0078\gs \char"0079\gs \char"007A\gs \char"00C6\gs \char"00E6\gs \char"0152\gs \char"0153\gs \char"00D8\gs \char"00F8\gs \char"00D0\gs \char"00F0\gs \char"00DE\gs \char"00FE\gs \char"00DF\gs \char"017F\gs \char"0110\gs \char"0111\gs \char"0126\gs \char"0127\gs \char"0131\gs \char"0237\gs  \char"0141\gs \char"0142\gs \char"0181\gs \char"0182\gs
+}
+
+\subsection*{IPA}
+
+\ribbi{
+	\char"0184\gs \char"0186\gs \char"0187\gs \char"0189\gs \char"018A\gs \char"018B\gs \char"018D\gs \char"018E\gs \char"018F\gs \char"0190\gs \char"0191\gs \char"0192\gs \char"0193\gs \char"0194\gs \char"0195\gs \char"0196\gs \char"0197\gs \char"0198\gs \char"019C\gs \char"019D\gs \char"019F\gs \char"01AA\gs \char"01B7\gs \char"01BB\gs \char"01C0\gs \char"01C1\gs \char"01C2\gs \char"01C3\gs \char"0250\gs \char"0251\gs \char"0252\gs \char"0253\gs \char"0254\gs \char"0255\gs \char"0256\gs \char"0257\gs \char"0258\gs \char"0259\gs \char"025A\gs \char"025B\gs \char"025C\gs \char"025D\gs \char"025E\gs \char"025F\gs \char"0260\gs \char"0261\gs \char"0262\gs \char"0263\gs \char"0264\gs \char"0265\gs \char"0266\gs \char"0267\gs \char"0268\gs \char"0269\gs \char"026A\gs \char"026B\gs \char"026C\gs \char"026D\gs \char"026E\gs \char"026F\gs \char"0270\gs \char"0271\gs \char"0272\gs \char"0273\gs \char"0274\gs \char"0275\gs \char"0276\gs \char"0277\gs \char"0278\gs \char"0279\gs \char"027A\gs \char"027B\gs \char"027C\gs \char"027D\gs \char"027E\gs \char"027F\gs \char"0280\gs \char"0281\gs \char"0282\gs \char"0283\gs \char"0284\gs \char"0285\gs \char"0286\gs \char"0287\gs \char"0288\gs \char"0289\gs \char"028A\gs \char"028B\gs \char"028C\gs \char"028D\gs \char"028E\gs \char"028F\gs \char"0290\gs \char"0291\gs \char"0292\gs \char"0293\gs \char"0294\gs \char"0295\gs \char"0296\gs \char"0297\gs \char"0298\gs \char"0299\gs \char"029A\gs \char"029B\gs \char"029C\gs \char"029D\gs \char"029E\gs \char"029F\gs \char"1D15\gs
+}
+
+\subsection*{Superscript consonants}
+\ribbi{
+	\char"02B0\gs \char"02B1\gs \char"02B2\gs \char"02B3\gs \char"02B4\gs \char"02B5\gs \char"02B6\gs \char"02B7\gs \char"02B8\gs \char"02E0\gs \char"02E1\gs \char"02E2\gs \char"02E3\gs \char"02E4\gs 
+	\char"1D47\gs \char"1D4F\gs \char"1D50\gs \char"1D56\gs \char"1D57\gs \char"1D5A\gs \char"1D5B\gs \char"1D5C\gs \char"1D5D\gs \char"1D5E\gs \char"1D5F\gs
+}
+
+\subsection*{Greek}
+\ribbi{
+	\char"0391\gs \char"0392\gs \char"0393\gs \char"0394\gs \char"0395\gs \char"0396\gs \char"0397\gs \char"0398\gs \char"0399\gs \char"039A\gs \char"039B\gs \char"039C\gs \char"039D\gs \char"039E\gs \char"039F\gs \char"03A0\gs \char"03A1\gs \char"03A3\gs \char"03A4\gs \char"03A5\gs \char"03A6\gs \char"03A7\gs \char"03A8\gs \char"03A9\gs \char"03B1\gs \char"03B2\gs \char"03B3\gs \char"03B4\gs \char"03B5\gs \char"03B6\gs \char"03B7\gs \char"03B8\gs \char"03B9\gs \char"03BA\gs \char"03BB\gs \char"03BC\gs \char"03BD\gs \char"03BE\gs \char"03BF\gs \char"03C0\gs \char"03C1\gs \char"03C3\gs \char"03C4\gs \char"03C5\gs \char"03C6\gs \char"03C7\gs \char"03C8\gs \char"03C9\gs
+}
+
+\subsection*{Cyrillic}
+\ribbi{
+	\char"0410\gs \char"0411\gs \char"0412\gs \char"0413\gs \char"0414\gs \char"0415\gs \char"0416\gs \char"0417\gs \char"0418\gs \char"0419\gs \char"041A\gs \char"041B\gs \char"041C\gs \char"041D\gs \char"041E\gs \char"041F\gs \char"0420\gs \char"0421\gs \char"0422\gs \char"0423\gs \char"0424\gs \char"0425\gs \char"0426\gs \char"0427\gs \char"0428\gs \char"0429\gs \char"042A\gs \char"042B\gs \char"042C\gs \char"042D\gs \char"042E\gs \char"042F\gs \char"0430\gs \char"0431\gs \char"0432\gs \char"0433\gs \char"0434\gs \char"0435\gs \char"0436\gs \char"0437\gs \char"0438\gs \char"0439\gs \char"043A\gs \char"043B\gs \char"043C\gs \char"043D\gs \char"043E\gs \char"043F\gs \char"0440\gs \char"0441\gs \char"0442\gs \char"0443\gs \char"0444\gs \char"0445\gs \char"0446\gs \char"0447\gs \char"0448\gs \char"0449\gs \char"044A\gs \char"044B\gs \char"044C\gs \char"044D\gs \char"044E\gs \char"044F\gs \char"0401\gs \char"0451\gs \char"0404\gs \char"0454\gs \char"0407\gs \char"0457\gs \char"040E\gs \char"045E\gs \char"04D8\gs \char"04D9\gs \char"04E8\gs \char"04E9\gs \char"04BA\gs \char"04BB\gs \char"04C0\gs
+}
+
+\subsection*{Precomposed capital vowels}
+
+\ribbi{
+	\char"00C0\gs \char"00C1\gs \char"00C2\gs \char"00C3\gs \char"00C4\gs \char"00C5\gs \char"0100\gs \char"0102\gs \char"0104\gs \char"01CD\gs \char"01DE\gs \char"01E0\gs \char"01FA\gs \char"0200\gs \char"0202\gs \char"0226\gs \char"1E00\gs \char"1EA0\gs \char"1EA2\gs \char"1EA4\gs \char"1EA6\gs \char"1EA8\gs \char"1EAA\gs \char"1EAC\gs \char"1EAE\gs \char"1EB0\gs \char"1EB2\gs \char"1EB4\gs \char"1EB6\gs \char"00C8\gs \char"00C9\gs \char"00CA\gs \char"00CB\gs \char"0112\gs \char"0114\gs \char"0116\gs \char"0118\gs \char"011A\gs \char"0204\gs \char"0206\gs \char"0228\gs \char"1E14\gs \char"1E16\gs \char"1E18\gs \char"1E1A\gs \char"1EB8\gs \char"1EBA\gs \char"1EBC\gs \char"1EBE\gs \char"1EC0\gs \char"1EC2\gs \char"1EC4\gs \char"1EC6\gs \char"00CC\gs \char"00CD\gs \char"00CE\gs \char"00CF\gs \char"0128\gs \char"012A\gs \char"012C\gs \char"012E\gs \char"0130\gs \char"01CF\gs \char"0208\gs \char"020A\gs \char"1E2C\gs \char"1E2E\gs \char"1EC8\gs \char"1ECA\gs \char"00D2\gs \char"00D3\gs \char"00D4\gs \char"00D5\gs \char"00D6\gs \char"014C\gs \char"014E\gs \char"0150\gs \char"01D1\gs \char"01EA\gs \char"01EC\gs \char"020C\gs \char"020E\gs \char"022A\gs \char"022C\gs \char"022E\gs \char"1E4C\gs \char"1E4E\gs \char"1ECC\gs \char"1ECE\gs \char"1ED0\gs \char"1ED2\gs \char"1ED4\gs \char"1ED6\gs \char"1ED8\gs \char"1EDA\gs \char"1EDC\gs \char"1EDE\gs \char"1EE0\gs \char"1EE2\gs \char"00D9\gs \char"00DA\gs \char"00DB\gs \char"00DC\gs \char"0168\gs \char"016A\gs \char"016C\gs \char"016E\gs \char"0170\gs \char"01D3\gs \char"01D5\gs \char"01D7\gs \char"01D9\gs \char"01DB\gs \char"0214\gs \char"0216\gs \char"1E72\gs \char"1E74\gs \char"1E76\gs \char"1E78\gs \char"1E7A\gs \char"1EE4\gs \char"1EE6\gs \char"1EE8\gs \char"1EEA\gs \char"1EEC\gs \char"1EEE\gs \char"1EF0\gs
+}
+
+\subsection*{Precomposed small vowels}
+
+\ribbi{
+	\char"00E0\gs \char"00E1\gs \char"00E2\gs \char"00E3\gs \char"00E4\gs \char"00E5\gs \char"0101\gs \char"0103\gs \char"0105\gs \char"01CE\gs \char"01DF\gs \char"01E1\gs \char"01FB\gs \char"0201\gs \char"0203\gs \char"0227\gs \char"1E01\gs \char"1EA1\gs \char"1EA3\gs \char"1EA5\gs \char"1EA7\gs \char"1EA9\gs \char"1EAB\gs \char"1EAD\gs \char"1EAF\gs \char"1EB1\gs \char"1EB3\gs \char"1EB5\gs \char"1EB7\gs \char"00E8\gs \char"00E9\gs \char"00EA\gs \char"00EB\gs \char"0113\gs \char"0115\gs \char"0117\gs \char"0119\gs \char"011B\gs \char"0205\gs \char"0207\gs \char"0229\gs \char"1E15\gs \char"1E17\gs \char"1E19\gs \char"1E1B\gs \char"1EB9\gs \char"1EBB\gs \char"1EBD\gs \char"1EBF\gs \char"1EC1\gs \char"1EC3\gs \char"1EC5\gs \char"1EC7\gs \char"00EC\gs \char"00ED\gs \char"00EE\gs \char"00EF\gs \char"0129\gs \char"012B\gs \char"012D\gs \char"012F\gs \char"01D0\gs \char"0209\gs \char"020B\gs \char"1E2D\gs \char"1E2F\gs \char"1EC9\gs \char"1ECB\gs \char"00F2\gs \char"00F3\gs \char"00F4\gs \char"00F5\gs \char"00F6\gs \char"014D\gs \char"014F\gs \char"0151\gs \char"01D2\gs \char"01EB\gs \char"01ED\gs \char"020D\gs \char"020F\gs \char"022B\gs \char"022D\gs \char"022F\gs \char"1E4D\gs \char"1E4F\gs \char"1ECD\gs \char"1ECF\gs \char"1ED1\gs \char"1ED3\gs \char"1ED5\gs \char"1ED7\gs \char"1ED9\gs \char"1EDB\gs \char"1EDD\gs \char"1EDF\gs \char"1EE1\gs \char"1EE3\gs \char"00F9\gs \char"00FA\gs \char"00FB\gs \char"00FC\gs \char"0169\gs \char"016B\gs \char"016D\gs \char"016F\gs \char"0171\gs \char"01D4\gs \char"01D6\gs \char"01D8\gs \char"01DA\gs \char"01DC\gs \char"0215\gs \char"0217\gs \char"1E73\gs \char"1E75\gs \char"1E77\gs \char"1E79\gs \char"1E7B\gs \char"1EE5\gs \char"1EE7\gs \char"1EE9\gs \char"1EEB\gs \char"1EED\gs \char"1EEF\gs \char"1EF1\gs
+}
+
+\subsection*{Precomposed capital consonants}
+
+\ribbi{
+	\char"1E02\gs \char"1E04\gs \char"00C7\gs \char"0106\gs \char"0108\gs \char"010A\gs \char"010C\gs \char"1E08\gs \char"010E\gs \char"0110\gs \char"1E0A\gs \char"1E0C\gs \char"1E0E\gs \char"1E10\gs \char"1E12\gs \char"1E1E\gs \char"011C\gs \char"011E\gs \char"0120\gs \char"0122\gs \char"1E20\gs \char"01E4\gs \char"01E6\gs \char"0124\gs \char"1E22\gs \char"1E24\gs \char"1E26\gs \char"1E28\gs \char"1E2A\gs \char"0134\gs \char"0136\gs \char"1E30\gs \char"1E32\gs \char"1E34\gs \char"01E8\gs \char"0139\gs \char"013B\gs \char"013D\gs \char"013F\gs \char"0141\gs \char"1E36\gs \char"1E38\gs \char"1E3A\gs \char"1E3C\gs \char"1E3E\gs \char"1E40\gs \char"1E42\gs \char"0143\gs \char"0145\gs \char"0147\gs \char"1E44\gs \char"1E46\gs \char"1E48\gs \char"1E4A\gs \char"01A0\gs \char"1E54\gs \char"1E56\gs \char"01A4\gs \char"0154\gs \char"0156\gs \char"0158\gs \char"1E58\gs \char"1E5A\gs \char"1E5C\gs \char"1E5E\gs \char"015A\gs \char"015C\gs \char"015E\gs \char"0160\gs \char"1E60\gs \char"1E62\gs \char"1E64\gs \char"1E66\gs \char"1E68\gs \char"01A7\gs \char"0162\gs \char"0164\gs \char"1E6A\gs \char"1E6C\gs \char"1E6E\gs \char"01AC\gs \char"01AE\gs \char"01AF\gs \char"1E7C\gs \char"1E7E\gs \char"01B2\gs \char"0174\gs \char"1E80\gs \char"1E82\gs \char"1E84\gs \char"1E8A\gs \char"1E8C\gs \char"00DD\gs \char"0176\gs \char"0178\gs \char"1E8E\gs \char"1EF2\gs \char"1EF4\gs \char"1EF6\gs \char"1EF8\gs \char"01B3\gs \char"0179\gs \char"017B\gs \char"017D\gs \char"1E90\gs \char"1E92\gs \char"1E94\gs \char"01B5\gs
+}
+
+\subsection*{Precomposed small consonants}
+
+\ribbi{
+	\char"1E03\gs \char"1E05\gs \char"0180\gs \char"0183\gs \char"0185\gs \char"00E7\gs \char"0107\gs \char"0109\gs \char"010B\gs \char"010D\gs \char"1E09\gs \char"0188\gs \char"010F\gs \char"0111\gs \char"1E0B\gs \char"1E0D\gs \char"1E0F\gs \char"1E11\gs \char"1E13\gs \char"018C\gs \char"1E1F\gs \char"011D\gs \char"011F\gs \char"0121\gs \char"0123\gs \char"1E21\gs \char"01E5\gs \char"01E7\gs \char"01E9\gs \char"0125\gs \char"1E23\gs \char"1E25\gs \char"1E27\gs \char"1E29\gs \char"1E2B\gs \char"0135\gs \char"0137\gs \char"1E31\gs \char"1E33\gs \char"1E35\gs \char"0199\gs \char"013A\gs \char"013C\gs \char"013E\gs \char"0140\gs \char"0142\gs \char"1E37\gs \char"1E39\gs \char"1E3B\gs \char"1E3D\gs \char"019A\gs \char"1E3F\gs \char"1E41\gs \char"1E43\gs \char"0144\gs \char"0146\gs \char"0148\gs \char"0149\gs \char"1E45\gs \char"1E47\gs \char"1E49\gs \char"1E4B\gs \char"019E\gs \char"01A1\gs \char"01A3\gs \char"1E55\gs \char"1E57\gs \char"01A5\gs \char"0155\gs \char"0157\gs \char"0159\gs \char"1E59\gs \char"1E5B\gs \char"1E5D\gs \char"1E5F\gs \char"015B\gs \char"015D\gs \char"015F\gs \char"0161\gs \char"1E61\gs \char"1E63\gs \char"1E65\gs \char"1E67\gs \char"1E69\gs \char"01A8\gs \char"0163\gs \char"0165\gs \char"1E6B\gs \char"1E6D\gs \char"1E6F\gs \char"01AB\gs \char"01AD\gs \char"01B0\gs \char"1E7D\gs \char"1E7F\gs \char"0175\gs \char"1E81\gs \char"1E83\gs \char"1E85\gs \char"1E8B\gs \char"1E8D\gs \char"00FD\gs \char"00FF\gs \char"0177\gs \char"1E8F\gs \char"1EF3\gs \char"1EF5\gs \char"1EF7\gs \char"1EF9\gs \char"01B4\gs \char"017A\gs \char"017C\gs \char"017E\gs \char"1E91\gs \char"1E93\gs \char"1E95\gs \char"01B6\gs \char"01BA\gs \char"01BD\gs \char"01BE\gs \char"01BF\gs \char"01EF\gs
+}
+
+\subsection*{No marks: rare, digraph etc.}
+
+\ribbi{
+	\char"01B8\gs \char"01B9\gs \char"01F1\gs \char"01F2\gs \char"01F3\gs \char"01C4\gs \char"01C5\gs \char"01C6\gs \char"01C7\gs \char"01C8\gs \char"01C9\gs \char"01CA\gs \char"01CB\gs \char"01CC\gs
+}
+
+
+\subsection*{Small capitals}
+
+\ribbi{\textsc{
+	\char"0061\gs \char"0062\gs \char"0063\gs \char"0064\gs \char"0065\gs \char"0066\gs \char"0067\gs \char"0068\gs \char"0069\gs \char"006A\gs \char"006B\gs \char"006C\gs \char"006D\gs \char"006E\gs \char"006F\gs \char"0070\gs \char"0071\gs \char"0072\gs \char"0073\gs \char"0074\gs \char"0075\gs \char"0076\gs \char"0077\gs \char"0078\gs \char"0079\gs \char"007A\gs 
+	\char"00E6\gs \char"00F0\gs \char"0153\gs \char"00FE\gs \char"0133\gs \char"00DF\gs \char"014B\gs 
+}}
+
+\newpage
+\section*{Base and mark shaping}
+
+These grids display base and mark rendering in XeLaTeX documents in Libertinus serif regular, italic, semibold and semibold italic.
+Note that LSP uses the Libertinus fonts named ``Semibold``, e.g. \verb|LibertinusSerif-Semibold.otf|, for all boldface style.
+
+%\input{input/libertinus-grids.tex}
+
+A black color means GPOS anchor positioning.
+
+\PREC{A blue color} means precomposed glyph.
+
+\FALL{A red color} means harfbuzz fallback shaping.
+
+\GSUB{A dark blue color} means a substituted base or mark
+
+\NOBM{A light gray color} means a mark (or less likely a base) is not in the font
+
+\NOPR{A light blue color} means a precomposed glyphs is expected by substitution, but somehow missing in the font (probably impossible).
+
+
+This is similar to the Anchor Control window in FontForge, but instead prints the real rendering of base-mark combos in XeLaTeX, instead of the just the base-mark combos with set anchors.
+
+\input{input/latin-ipa-above-below.tex}
+
+\newpage
+\input{input/ipa-diacritics.tex}
+
+% \input{input/superscript-consonant-above.tex}
+
+\newpage
+\subsection*{Patch superscript consonant anchors}
+
+Libertinus serif regular
+
+\char"02B0\char"0315\gs \char"02B1\char"0315\gs \char"02B2\char"0315\gs \char"02B3\char"0315\gs \char"02B4\char"0315\gs \char"02B5\char"0315\gs \char"02B6\char"0315\gs \char"02B7\char"0315\gs \char"02B8\char"0315\gs \char"02E0\char"0315\gs \char"02E1\char"0315\gs \char"02E2\char"0315\gs \char"02E3\char"0315\gs \char"02E4\char"0315\gs \char"1D47\char"0315\gs \char"1D4F\char"0315\gs \char"1D50\char"0315\gs \char"1D56\char"0315\gs \char"1D57\char"0315\gs \char"1D5A\char"0315\gs \char"1D5B\char"0315\gs \char"1D5C\char"0315\gs \char"1D5D\char"0315\gs \char"1D5E\char"0315\gs \char"1D5F\char"0315
+
+\char"02B0\char"0358\gs \char"02B1\char"0358\gs \char"02B2\char"0358\gs \char"02B3\char"0358\gs \char"02B4\char"0358\gs \char"02B5\char"0358\gs \char"02B6\char"0358\gs \char"02B7\char"0358\gs \char"02B8\char"0358\gs \char"02E0\char"0358\gs \char"02E1\char"0358\gs \char"02E2\char"0358\gs \char"02E3\char"0358\gs \char"02E4\char"0358\gs \char"1D47\char"0358\gs \char"1D4F\char"0358\gs \char"1D50\char"0358\gs \char"1D56\char"0358\gs \char"1D57\char"0358\gs \char"1D5A\char"0358\gs \char"1D5B\char"0358\gs \char"1D5C\char"0358\gs \char"1D5D\char"0358\gs \char"1D5E\char"0358\gs \char"1D5F\char"0358
+
+\char"02B0\char"031A\gs \char"02B1\char"031A\gs \char"02B2\char"031A\gs \char"02B3\char"031A\gs \char"02B4\char"031A\gs \char"02B5\char"031A\gs \char"02B6\char"031A\gs \char"02B7\char"031A\gs \char"02B8\char"031A\gs \char"02E0\char"031A\gs \char"02E1\char"031A\gs \char"02E2\char"031A\gs \char"02E3\char"031A\gs \char"02E4\char"031A\gs \char"1D47\char"031A\gs \char"1D4F\char"031A\gs \char"1D50\char"031A\gs \char"1D56\char"031A\gs \char"1D57\char"031A\gs \char"1D5A\char"031A\gs \char"1D5B\char"031A\gs \char"1D5C\char"031A\gs \char"1D5D\char"031A\gs \char"1D5E\char"031A\gs \char"1D5F\char"031A
+
+\char"02B0\char"0300\gs \char"02B1\char"0300\gs \char"02B2\char"0300\gs \char"02B3\char"0300\gs \char"02B4\char"0300\gs \char"02B5\char"0300\gs \char"02B6\char"0300\gs \char"02B7\char"0300\gs \char"02B8\char"0300\gs \char"02E0\char"0300\gs \char"02E1\char"0300\gs \char"02E2\char"0300\gs \char"02E3\char"0300\gs \char"02E4\char"0300\gs \char"1D47\char"0300\gs \char"1D4F\char"0300\gs \char"1D50\char"0300\gs \char"1D56\char"0300\gs \char"1D57\char"0300\gs \char"1D5A\char"0300\gs \char"1D5B\char"0300\gs \char"1D5C\char"0300\gs \char"1D5D\char"0300\gs \char"1D5E\char"0300\gs \char"1D5F\char"0300
+
+\char"02B0\char"0301\gs \char"02B1\char"0301\gs \char"02B2\char"0301\gs \char"02B3\char"0301\gs \char"02B4\char"0301\gs \char"02B5\char"0301\gs \char"02B6\char"0301\gs \char"02B7\char"0301\gs \char"02B8\char"0301\gs \char"02E0\char"0301\gs \char"02E1\char"0301\gs \char"02E2\char"0301\gs \char"02E3\char"0301\gs \char"02E4\char"0301\gs \char"1D47\char"0301\gs \char"1D4F\char"0301\gs \char"1D50\char"0301\gs \char"1D56\char"0301\gs \char"1D57\char"0301\gs \char"1D5A\char"0301\gs \char"1D5B\char"0301\gs \char"1D5C\char"0301\gs \char"1D5D\char"0301\gs \char"1D5E\char"0301\gs \char"1D5F\char"0301
+
+\char"02B0\char"0302\gs \char"02B1\char"0302\gs \char"02B2\char"0302\gs \char"02B3\char"0302\gs \char"02B4\char"0302\gs \char"02B5\char"0302\gs \char"02B6\char"0302\gs \char"02B7\char"0302\gs \char"02B8\char"0302\gs \char"02E0\char"0302\gs \char"02E1\char"0302\gs \char"02E2\char"0302\gs \char"02E3\char"0302\gs \char"02E4\char"0302\gs \char"1D47\char"0302\gs \char"1D4F\char"0302\gs \char"1D50\char"0302\gs \char"1D56\char"0302\gs \char"1D57\char"0302\gs \char"1D5A\char"0302\gs \char"1D5B\char"0302\gs \char"1D5C\char"0302\gs \char"1D5D\char"0302\gs \char"1D5E\char"0302\gs \char"1D5F\char"0302
+
+
+Libertinus serif regular, patched
+
+{\SerifRegularPatch
+\char"02B0\char"0315\gs \char"02B1\char"0315\gs \char"02B2\char"0315\gs \char"02B3\char"0315\gs \char"02B4\char"0315\gs \char"02B5\char"0315\gs \char"02B6\char"0315\gs \char"02B7\char"0315\gs \char"02B8\char"0315\gs \char"02E0\char"0315\gs \char"02E1\char"0315\gs \char"02E2\char"0315\gs \char"02E3\char"0315\gs \char"02E4\char"0315\gs \char"1D47\char"0315\gs \char"1D4F\char"0315\gs \char"1D50\char"0315\gs \char"1D56\char"0315\gs \char"1D57\char"0315\gs \char"1D5A\char"0315\gs \char"1D5B\char"0315\gs \char"1D5C\char"0315\gs \char"1D5D\char"0315\gs \char"1D5E\char"0315\gs \char"1D5F\char"0315
+	
+\char"02B0\char"0358\gs \char"02B1\char"0358\gs \char"02B2\char"0358\gs \char"02B3\char"0358\gs \char"02B4\char"0358\gs \char"02B5\char"0358\gs \char"02B6\char"0358\gs \char"02B7\char"0358\gs \char"02B8\char"0358\gs \char"02E0\char"0358\gs \char"02E1\char"0358\gs \char"02E2\char"0358\gs \char"02E3\char"0358\gs \char"02E4\char"0358\gs \char"1D47\char"0358\gs \char"1D4F\char"0358\gs \char"1D50\char"0358\gs \char"1D56\char"0358\gs \char"1D57\char"0358\gs \char"1D5A\char"0358\gs \char"1D5B\char"0358\gs \char"1D5C\char"0358\gs \char"1D5D\char"0358\gs \char"1D5E\char"0358\gs \char"1D5F\char"0358
+	
+\char"02B0\char"031A\gs \char"02B1\char"031A\gs \char"02B2\char"031A\gs \char"02B3\char"031A\gs \char"02B4\char"031A\gs \char"02B5\char"031A\gs \char"02B6\char"031A\gs \char"02B7\char"031A\gs \char"02B8\char"031A\gs \char"02E0\char"031A\gs \char"02E1\char"031A\gs \char"02E2\char"031A\gs \char"02E3\char"031A\gs \char"02E4\char"031A\gs \char"1D47\char"031A\gs \char"1D4F\char"031A\gs \char"1D50\char"031A\gs \char"1D56\char"031A\gs \char"1D57\char"031A\gs \char"1D5A\char"031A\gs \char"1D5B\char"031A\gs \char"1D5C\char"031A\gs \char"1D5D\char"031A\gs \char"1D5E\char"031A\gs \char"1D5F\char"031A
+
+\char"02B0\char"0300\gs \char"02B1\char"0300\gs \char"02B2\char"0300\gs \char"02B3\char"0300\gs \char"02B4\char"0300\gs \char"02B5\char"0300\gs \char"02B6\char"0300\gs \char"02B7\char"0300\gs \char"02B8\char"0300\gs \char"02E0\char"0300\gs \char"02E1\char"0300\gs \char"02E2\char"0300\gs \char"02E3\char"0300\gs \char"02E4\char"0300\gs \char"1D47\char"0300\gs \char"1D4F\char"0300\gs \char"1D50\char"0300\gs \char"1D56\char"0300\gs \char"1D57\char"0300\gs \char"1D5A\char"0300\gs \char"1D5B\char"0300\gs \char"1D5C\char"0300\gs \char"1D5D\char"0300\gs \char"1D5E\char"0300\gs \char"1D5F\char"0300
+
+\char"02B0\char"0301\gs \char"02B1\char"0301\gs \char"02B2\char"0301\gs \char"02B3\char"0301\gs \char"02B4\char"0301\gs \char"02B5\char"0301\gs \char"02B6\char"0301\gs \char"02B7\char"0301\gs \char"02B8\char"0301\gs \char"02E0\char"0301\gs \char"02E1\char"0301\gs \char"02E2\char"0301\gs \char"02E3\char"0301\gs \char"02E4\char"0301\gs \char"1D47\char"0301\gs \char"1D4F\char"0301\gs \char"1D50\char"0301\gs \char"1D56\char"0301\gs \char"1D57\char"0301\gs \char"1D5A\char"0301\gs \char"1D5B\char"0301\gs \char"1D5C\char"0301\gs \char"1D5D\char"0301\gs \char"1D5E\char"0301\gs \char"1D5F\char"0301
+
+\char"02B0\char"0302\gs \char"02B1\char"0302\gs \char"02B2\char"0302\gs \char"02B3\char"0302\gs \char"02B4\char"0302\gs \char"02B5\char"0302\gs \char"02B6\char"0302\gs \char"02B7\char"0302\gs \char"02B8\char"0302\gs \char"02E0\char"0302\gs \char"02E1\char"0302\gs \char"02E2\char"0302\gs \char"02E3\char"0302\gs \char"02E4\char"0302\gs \char"1D47\char"0302\gs \char"1D4F\char"0302\gs \char"1D50\char"0302\gs \char"1D56\char"0302\gs \char"1D57\char"0302\gs \char"1D5A\char"0302\gs \char"1D5B\char"0302\gs \char"1D5C\char"0302\gs \char"1D5D\char"0302\gs \char"1D5E\char"0302\gs \char"1D5F\char"0302
+}
+
+Gentium Plus
+
+{\Gentium
+\char"02B0\char"0315\gs \char"02B1\char"0315\gs \char"02B2\char"0315\gs \char"02B3\char"0315\gs \char"02B4\char"0315\gs \char"02B5\char"0315\gs \char"02B6\char"0315\gs \char"02B7\char"0315\gs \char"02B8\char"0315\gs \char"02E0\char"0315\gs \char"02E1\char"0315\gs \char"02E2\char"0315\gs \char"02E3\char"0315\gs \char"02E4\char"0315\gs \char"1D47\char"0315\gs \char"1D4F\char"0315\gs \char"1D50\char"0315\gs \char"1D56\char"0315\gs \char"1D57\char"0315\gs \char"1D5A\char"0315\gs \char"1D5B\char"0315\gs \char"1D5C\char"0315\gs \char"1D5D\char"0315\gs \char"1D5E\char"0315\gs \char"1D5F\char"0315
+
+\char"02B0\char"0358\gs \char"02B1\char"0358\gs \char"02B2\char"0358\gs \char"02B3\char"0358\gs \char"02B4\char"0358\gs \char"02B5\char"0358\gs \char"02B6\char"0358\gs \char"02B7\char"0358\gs \char"02B8\char"0358\gs \char"02E0\char"0358\gs \char"02E1\char"0358\gs \char"02E2\char"0358\gs \char"02E3\char"0358\gs \char"02E4\char"0358\gs \char"1D47\char"0358\gs \char"1D4F\char"0358\gs \char"1D50\char"0358\gs \char"1D56\char"0358\gs \char"1D57\char"0358\gs \char"1D5A\char"0358\gs \char"1D5B\char"0358\gs \char"1D5C\char"0358\gs \char"1D5D\char"0358\gs \char"1D5E\char"0358\gs \char"1D5F\char"0358
+
+\char"02B0\char"031A\gs \char"02B1\char"031A\gs \char"02B2\char"031A\gs \char"02B3\char"031A\gs \char"02B4\char"031A\gs \char"02B5\char"031A\gs \char"02B6\char"031A\gs \char"02B7\char"031A\gs \char"02B8\char"031A\gs \char"02E0\char"031A\gs \char"02E1\char"031A\gs \char"02E2\char"031A\gs \char"02E3\char"031A\gs \char"02E4\char"031A\gs \char"1D47\char"031A\gs \char"1D4F\char"031A\gs \char"1D50\char"031A\gs \char"1D56\char"031A\gs \char"1D57\char"031A\gs \char"1D5A\char"031A\gs \char"1D5B\char"031A\gs \char"1D5C\char"031A\gs \char"1D5D\char"031A\gs \char"1D5E\char"031A\gs \char"1D5F\char"031A
+
+\char"02B0\char"0300\gs \char"02B1\char"0300\gs \char"02B2\char"0300\gs \char"02B3\char"0300\gs \char"02B4\char"0300\gs \char"02B5\char"0300\gs \char"02B6\char"0300\gs \char"02B7\char"0300\gs \char"02B8\char"0300\gs \char"02E0\char"0300\gs \char"02E1\char"0300\gs \char"02E2\char"0300\gs \char"02E3\char"0300\gs \char"02E4\char"0300\gs \char"1D47\char"0300\gs \char"1D4F\char"0300\gs \char"1D50\char"0300\gs \char"1D56\char"0300\gs \char"1D57\char"0300\gs \char"1D5A\char"0300\gs \char"1D5B\char"0300\gs \char"1D5C\char"0300\gs \char"1D5D\char"0300\gs \char"1D5E\char"0300\gs \char"1D5F\char"0300
+
+\char"02B0\char"0301\gs \char"02B1\char"0301\gs \char"02B2\char"0301\gs \char"02B3\char"0301\gs \char"02B4\char"0301\gs \char"02B5\char"0301\gs \char"02B6\char"0301\gs \char"02B7\char"0301\gs \char"02B8\char"0301\gs \char"02E0\char"0301\gs \char"02E1\char"0301\gs \char"02E2\char"0301\gs \char"02E3\char"0301\gs \char"02E4\char"0301\gs \char"1D47\char"0301\gs \char"1D4F\char"0301\gs \char"1D50\char"0301\gs \char"1D56\char"0301\gs \char"1D57\char"0301\gs \char"1D5A\char"0301\gs \char"1D5B\char"0301\gs \char"1D5C\char"0301\gs \char"1D5D\char"0301\gs \char"1D5E\char"0301\gs \char"1D5F\char"0301
+
+\char"02B0\char"0302\gs \char"02B1\char"0302\gs \char"02B2\char"0302\gs \char"02B3\char"0302\gs \char"02B4\char"0302\gs \char"02B5\char"0302\gs \char"02B6\char"0302\gs \char"02B7\char"0302\gs \char"02B8\char"0302\gs \char"02E0\char"0302\gs \char"02E1\char"0302\gs \char"02E2\char"0302\gs \char"02E3\char"0302\gs \char"02E4\char"0302\gs \char"1D47\char"0302\gs \char"1D4F\char"0302\gs \char"1D50\char"0302\gs \char"1D56\char"0302\gs \char"1D57\char"0302\gs \char"1D5A\char"0302\gs \char"1D5B\char"0302\gs \char"1D5C\char"0302\gs \char"1D5D\char"0302\gs \char"1D5E\char"0302\gs \char"1D5F\char"0302
+
+{\char"0041\char"031A} {\char"0042\char"031A} {\char"0043\char"031A} {\char"0044\char"031A} {\char"0045\char"031A} {\char"0046\char"031A} {\char"0047\char"031A} {\char"0048\char"031A} {\char"0049\char"031A} {\char"004A\char"031A} {\char"004B\char"031A} {\char"004C\char"031A} {\char"004D\char"031A} {\char"004E\char"031A} {\char"004F\char"031A} {\char"0050\char"031A} {\char"0051\char"031A} {\char"0052\char"031A} {\char"0053\char"031A} {\char"0054\char"031A} {\char"0055\char"031A} {\char"0056\char"031A} {\char"0057\char"031A} {\char"0058\char"031A} {\char"0059\char"031A} {\char"005A\char"031A}
+{\char"0061\char"031A} {\char"0062\char"031A} {\char"0063\char"031A} {\char"0064\char"031A} {\char"0065\char"031A} {\char"0066\char"031A} {\char"0067\char"031A} {\char"0068\char"031A} {\char"0069\char"031A} {\char"006A\char"031A} {\char"006B\char"031A} {\char"006C\char"031A} {\char"006D\char"031A} {\char"006E\char"031A} {\char"006F\char"031A} {\char"0070\char"031A} {\char"0071\char"031A} {\char"0072\char"031A} {\char"0073\char"031A} {\char"0074\char"031A} {\char"0075\char"031A} {\char"0076\char"031A} {\char"0077\char"031A} {\char"0078\char"031A} {\char"0079\char"031A} {\char"007A\char"031A}
+{\char"00C6\char"031A} {\char"00E6\char"031A} {\char"0152\char"031A} {\char"0153\char"031A} {\char"00D8\char"031A} {\char"00F8\char"031A} {\char"00D0\char"031A} {\char"00F0\char"031A} {\char"00DE\char"031A} {\char"00FE\char"031A} {\char"00DF\char"031A} {\char"017F\char"031A} {\char"0110\char"031A} {\char"0111\char"031A} {\char"0126\char"031A} {\char"0127\char"031A} {\char"0131\char"031A} {\char"0237\char"031A} {\char"0141\char"031A} {\char"0142\char"031A} {\char"0181\char"031A} {\char"0182\char"031A}
+	
+{\char"0041\char"0300} {\char"0042\char"0300} {\char"0043\char"0300} {\char"0044\char"0300} {\char"0045\char"0300} {\char"0046\char"0300} {\char"0047\char"0300} {\char"0048\char"0300} {\char"0049\char"0300} {\char"004A\char"0300} {\char"004B\char"0300} {\char"004C\char"0300} {\char"004D\char"0300} {\char"004E\char"0300} {\char"004F\char"0300} {\char"0050\char"0300} {\char"0051\char"0300} {\char"0052\char"0300} {\char"0053\char"0300} {\char"0054\char"0300} {\char"0055\char"0300} {\char"0056\char"0300} {\char"0057\char"0300} {\char"0058\char"0300} {\char"0059\char"0300} {\char"005A\char"0300}
+{\char"0061\char"0300} {\char"0062\char"0300} {\char"0063\char"0300} {\char"0064\char"0300} {\char"0065\char"0300} {\char"0066\char"0300} {\char"0067\char"0300} {\char"0068\char"0300} {\char"0069\char"0300} {\char"006A\char"0300} {\char"006B\char"0300} {\char"006C\char"0300} {\char"006D\char"0300} {\char"006E\char"0300} {\char"006F\char"0300} {\char"0070\char"0300} {\char"0071\char"0300} {\char"0072\char"0300} {\char"0073\char"0300} {\char"0074\char"0300} {\char"0075\char"0300} {\char"0076\char"0300} {\char"0077\char"0300} {\char"0078\char"0300} {\char"0079\char"0300} {\char"007A\char"0300}
+{\char"00C6\char"0300} {\char"00E6\char"0300} {\char"0152\char"0300} {\char"0153\char"0300} {\char"00D8\char"0300} {\char"00F8\char"0300} {\char"00D0\char"0300} {\char"00F0\char"0300} {\char"00DE\char"0300} {\char"00FE\char"0300} {\char"00DF\char"0300} {\char"017F\char"0300} {\char"0110\char"0300} {\char"0111\char"0300} {\char"0126\char"0300} {\char"0127\char"0300} {\char"0131\char"0300} {\char"0237\char"0300} {\char"0141\char"0300} {\char"0142\char"0300} {\char"0181\char"0300} {\char"0182\char"0300}
+}
+
+\end{document}

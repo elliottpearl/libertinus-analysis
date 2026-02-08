@@ -6,7 +6,7 @@ An exploratory diagnostic sandbox for understanding combining‑mark behavior in
 ## Files
 
 - Fonts are in `fonts/`
-- LaTeX files are in `tex/`
+- LaTeX files are in `tex/`, see `tex/libertinus-analysis.pdf`
 - Python scripts are in `scripts/`
 - Data inputs are in `data/`
 - Documentation is in `/docs`

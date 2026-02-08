@@ -62,7 +62,12 @@ from scripts.shaping import (
 #   mark_lists = select_marks("above", "below"),
 # )
 
+# print_combos(
+#  base_lists = select_bases("base_anchor_required"),
+#  mark_lists = select_marks("mark_anchor_required"),
+#)
+
 # Generate IPA diacritic base glyph list
 # Prints to stdout; redirect to file `tex/inputs/*.tex` as needed.
 #
-print_ipa_diacritics()
+# print_ipa_diacritics()

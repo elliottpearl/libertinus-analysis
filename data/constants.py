@@ -1,36 +1,41 @@
 # data/constants.py
 # Constants 
 
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent  # project root
+
 # Font path
-# customized for Elliott's home PC
+
+FONTS = ROOT / "fonts"
 
 fonts = {
     "regular": {
-        "path": "/mnt/c/Users/PC/dev/libertinus-analysis/fonts/LibertinusSerif-Regular.otf",
+        "path": FONTS / "LibertinusSerif-Regular.otf",
         "lookup_index": 4,
         "style": "regular",
         "label": "Regular",
     },
     "regular_patch": {
-        "path": "/mnt/c/Users/PC/dev/libertinus-analysis/fonts/LibertinusSerif-Regular-patch.otf",
+        "path": FONTS / "LibertinusSerif-Regular-patch.otf",
         "lookup_index": 4,
         "style": "regular",
         "label": "Regular patched",
     },
     "italic": {
-        "path": "/mnt/c/Users/PC/dev/libertinus-analysis/fonts/LibertinusSerif-Italic.otf",
+        "path": FONTS / "LibertinusSerif-Italic.otf",
         "lookup_index": 4,
         "style": "italic",
         "label": "Italic",
     },
     "semibold": {
-        "path": "/mnt/c/Users/PC/dev/libertinus-analysis/fonts/LibertinusSerif-Semibold.otf",
+        "path": FONTS / "LibertinusSerif-Semibold.otf",
         "lookup_index": 1,
         "style": "bold",
         "label": "Semibold",
     },
     "semibold_italic": {
-        "path": "/mnt/c/Users/PC/dev/libertinus-analysis/fonts/LibertinusSerif-SemiboldItalic.otf",
+        "path": FONTS / "LibertinusSerif-SemiboldItalic.otf",
         "lookup_index": 2,
         "style": "bold_italic",
         "label": "Semibold italic",
@@ -257,55 +262,6 @@ rare = [
     0x01C9,0x01CA,0x01CB,0x01CC,
 ]
 
-base_groups = {
-    "latin": {
-        "label": "Latin",
-        "items": latin,
-    },
-    "ipa": {
-        "label": "IPA",
-        "items": ipa,
-    },
-    "superscript_consonant": {
-        "label": "Superscript consonant",
-        "items": superscript_consonant,
-    },
-    "greek": {
-        "label": "Greek",
-        "items": greek,
-    },
-    "cyrillic": {
-        "label": "Cyrillic",
-        "items": cyrillic,
-    },
-    "small_capital": {
-        "label": "Small capital",
-        "items": small_capital,
-    },
-    "precomposed_capital_vowels": {
-        "label": "Precomposed capital vowels",
-        "items": precomposed_capital_vowels,
-    },
-    "precomposed_small_vowels": {
-        "label": "Precomposed small vowels",
-        "items": precomposed_small_vowels,
-    },
-    "precomposed_capital_consonants": {
-        "label": "Precomposed capital consonants",
-        "items": precomposed_capital_consonants,
-    },
-    "precomposed_small_consonants": {
-        "label": "Precomposed small consonants",
-        "items": precomposed_small_consonants,
-    },
-    "rare": {
-        "label": "No marks",
-        "items": rare,
-    },
-}
-
-def select_bases(*keys):
-    return [base_groups[k]["items"] for k in keys]
 
 # Marks
 
@@ -429,81 +385,6 @@ mark_above_superscript_consonant = [
     0x0302, # circumflex
 ]
 
-mark_groups = {
-    "above": {
-        "label": "Above",
-        "items": mark_above,
-        "classID": 0,
-    },
-    "above_rare": {
-        "label": "Above (rare)",
-        "items": mark_above_rare,
-        "classID": 0,
-    },
-    "above_right": {
-        "label": "Above right (dot and comma)",
-        "items": mark_above_right,
-        "classID": 1,
-    },
-    "below": {
-        "label": "Below",
-        "items": mark_below,
-        "classID": 2,
-    },
-    "below_rare": {
-        "label": "Below (rare)",
-        "items": mark_below_rare,
-        "classID": 2,
-    },
-    "left_angle": {
-        "label": "Above right (left angle)",
-        "items": mark_left_angle,
-        "classID": 3,
-    },
-    "below_right": {
-        "label": "Below-right",
-        "items": mark_below_right,
-        "classID": 4,
-    },
-    "cedilla": {
-        "label": "Cedilla",
-        "items": mark_cedilla,
-        "classID": 5,
-    },
-    "overlay": {
-        "label": "Overlay",
-        "items": mark_overlay,
-        "classID": 6,
-    },
-    "double": {
-        "label": "Double",
-        "items": mark_double,
-        "classID": 0,
-    },
-    "legacy": {
-        "label": "Legacy",
-        "items": mark_legacy,
-        "classID": 0,
-    },
-    "line": {
-        "label": "Line",
-        "items": mark_line,
-        "classID": 0,
-    },
-    "superscript_consonant_above": {
-        "label": "Superscript consonant (above acute, grave, circumflex)",
-        "items": mark_above_superscript_consonant,
-        "classID": 0,
-    },
-    "greek": {
-        "label": "Greek",
-        "items": mark_greek,
-        "classID": None,
-    },
-}
-
-def select_marks(*keys):
-    return [mark_groups[k]["items"] for k in keys]
 
 # See also data/LibertinusSerif-Regular-bbox.txt
 base_bbox = {
@@ -612,9 +493,7 @@ anchors = {
 
 # Copilot/GPT-5.1
 ipa_diacritic_bases = {
-    # ------------------------------------------------------------
     # ABOVE MARKS
-    # ------------------------------------------------------------
 
     # U+030A COMBINING RING ABOVE (voicelessness)
     0x030A: [
@@ -651,9 +530,7 @@ ipa_diacritic_bases = {
         0x026B, 0x026D, 0x026E, 0x0271, 0x0272, 0x0273, 0x0274,
     ],
 
-    # ------------------------------------------------------------
     # BELOW MARKS
-    # ------------------------------------------------------------
 
     # U+032A COMBINING BRIDGE BELOW (dental)
     0x032A: [
@@ -698,9 +575,7 @@ ipa_diacritic_bases = {
 
 # Claude Sonnet 4.5
 ipa_diacritic_bases = {
-    # ------------------------------------------------------------
     # ABOVE MARKS
-    # ------------------------------------------------------------
 
     # U+0300 COMBINING GRAVE ACCENT (tone marking)
     0x0300: [
@@ -799,9 +674,7 @@ ipa_diacritic_bases = {
         0x028F, 0x0275, 0x0276,
     ],
 
-    # ------------------------------------------------------------
     # BELOW MARKS
-    # ------------------------------------------------------------
 
     # U+031F COMBINING PLUS SIGN BELOW (advanced tongue root)
     0x031F: [
@@ -885,3 +758,267 @@ ipa_diacritic_bases = {
         0x0074, 0x0064, 0x0073, 0x007A, 0x006E,  # t, d, s, z, n
     ],
 }
+
+# Third pass (Copilot GPT 5.1)
+
+LATIN_VOWELS = [
+    0x0061,0x0065,0x0069,0x006F,0x0075,0x0079,  # a e i o u y
+    0x00E6,0x0153,                             # æ œ
+]
+IPA_VOWELS = [
+    0x0250,0x0251,0x0252,0x025B,0x025C,0x025E,
+    0x0259,0x0258,0x0264,0x026F,0x028A,0x028C,
+    0x028F,0x0275,0x0276,
+]
+SYLLABIC_SONORANTS = [
+    0x006D,0x006E,0x006C,0x0072,
+]
+PALATALIZABLE = [
+    0x0074,0x0064,0x006E,0x0073,0x007A,
+    0x0255,0x0291,0x006C,0x0072,
+    0x025F,0x0261,0x0263,
+]
+RETROFLEX_EMPHATIC = [
+    0x0256,0x0273,0x026D,0x0288,0x0282,0x0290,
+    0x0253,0x0257,0x0260,0x0261,0x0262,0x0263,
+    0x0266,0x0265,0x028B,0x0281,0x0280,
+]
+CORONALS = [
+    0x0074,0x0064,0x0073,0x007A,0x006E,
+]
+VOICELESS_SONORANTS = [
+    0x006D,0x006E,0x0272,0x014B,
+    0x006C,0x026B,0x026C,0x026E,
+    0x0072,0x0279,0x027A,0x027B,
+    0x0280,0x0281,
+    0x028B,0x0265,0x028E,
+    0x029D,0x029F,
+]
+
+def uniq(*groups):
+    """Return a sorted, deduplicated list of codepoints."""
+    out = set()
+    for g in groups:
+        out.update(g)
+    return sorted(out)
+
+ipa_diacritic_bases = {
+    # ABOVE MARKS
+
+    # U+0300 GRAVE (tone, stress)
+    0x0300: uniq(LATIN_VOWELS, IPA_VOWELS, SYLLABIC_SONORANTS),
+
+    # U+0301 ACUTE (tone, palatalization)
+    0x0301: uniq(LATIN_VOWELS, IPA_VOWELS, PALATALIZABLE, SYLLABIC_SONORANTS),
+
+    # U+0302 CIRCUMFLEX (tone contour)
+    0x0302: uniq(LATIN_VOWELS, IPA_VOWELS),
+
+    # U+0303 TILDE ABOVE (nasalization)
+    0x0303: uniq(LATIN_VOWELS, IPA_VOWELS),
+
+    # U+0304 MACRON (length, tone)
+    0x0304: uniq(LATIN_VOWELS, IPA_VOWELS, SYLLABIC_SONORANTS),
+
+    # U+030A RING ABOVE (voicelessness)
+    0x030A: VOICELESS_SONORANTS,
+
+    # BELOW MARKS
+
+    # U+031F PLUS BELOW (ATR)
+    0x031F: IPA_VOWELS,
+
+    # U+0320 MINUS BELOW (RTR)
+    0x0320: IPA_VOWELS,
+
+    # U+0323 DOT BELOW (retroflex, emphatic, transliteration, vowels)
+    0x0323: uniq(RETROFLEX_EMPHATIC, LATIN_VOWELS, IPA_VOWELS),
+
+    # U+0325 RING BELOW (devoicing)
+    0x0325: [
+        # voiced obstruents + sonorants
+        0x0062,0x0064,0x0067,0x0076,0x007A,0x0292,
+        0x006D,0x006E,0x006C,0x0072,0x0077,0x006A,
+        0x0271,0x0272,0x0273,0x014B,
+    ],
+
+    # U+0329 SYLLABIC MARK
+    0x0329: uniq(
+        SYLLABIC_SONORANTS, 
+        [0x026B,0x026D,0x026E,0x0271,0x0272,0x0273,0x0274]
+    ),
+
+    # U+032A BRIDGE BELOW (dental)
+    0x032A: CORONALS,
+
+    # U+032C CARON BELOW (voiced)
+    0x032C: [
+        0x0070,0x0074,0x006B,0x0066,0x0073,0x0283,
+        0x0255,0x0063,0x0071,
+    ],
+
+    # U+0330 TILDE BELOW (creaky voice)
+    0x0330: IPA_VOWELS,
+
+    # U+0333 DOUBLE MACRON BELOW (ATR/RTR)
+    0x0333: IPA_VOWELS,
+
+    # U+033A INVERTED BRIDGE BELOW (apical)
+    0x033A: CORONALS,
+
+    # U+033B SQUARE BELOW (laminal)
+    0x033B: CORONALS,
+}
+
+mark_anchor_required = [
+    0x0300,  # grave
+    0x0301,  # acute
+    0x0302,  # circumflex
+    0x0303,  # tilde above
+    0x0304,  # macron
+    0x030A,  # ring above
+
+    0x031F,  # plus below (ATR)
+    0x0320,  # minus below (RTR)
+    0x0323,  # dot below
+    0x0325,  # ring below
+    0x0329,  # syllabic mark
+    0x032A,  # bridge below (dental)
+    0x032C,  # caron below (voiced)
+    0x0330,  # tilde below (creaky)
+    0x0333,  # double macron below
+    0x033A,  # inverted bridge below (apical)
+    0x033B,  # square below (laminal)
+]
+
+BASE_ORDER = (
+    LATIN_VOWELS
+    + IPA_VOWELS
+    + SYLLABIC_SONORANTS
+    + PALATALIZABLE
+    + CORONALS
+    + RETROFLEX_EMPHATIC
+    + VOICELESS_SONORANTS
+)
+
+base_groups = {
+    "latin": {"label": "Latin", "items": latin},
+    "ipa": {"label": "IPA", "items": ipa},
+    "superscript_consonant": {"label": "Superscript consonant", "items": superscript_consonant},
+    "greek": {"label": "Greek", "items": greek},
+    "cyrillic": {"label": "Cyrillic", "items": cyrillic},
+    "small_capital": {"label": "Small capital", "items": small_capital},
+    "precomposed_capital_vowels": {"label": "Precomposed capital vowels", "items": precomposed_capital_vowels},
+    "precomposed_small_vowels": {"label": "Precomposed small vowels", "items": precomposed_small_vowels},
+    "precomposed_capital_consonants": {"label": "Precomposed capital consonants", "items": precomposed_capital_consonants},
+    "precomposed_small_consonants": {"label": "Precomposed small consonants", "items": precomposed_small_consonants},
+    "rare": {"label": "No marks", "items": rare},
+}
+
+def select_bases(*keys):
+    return [base_groups[k]["items"] for k in keys]
+
+base_anchor_required = [
+    b for b in BASE_ORDER
+    if b in set().union(
+        *select_bases(
+            "latin",
+            "ipa",
+            "superscript_consonant",
+            "greek",
+            "cyrillic",
+            "small_capital",
+            "precomposed_capital_vowels",
+            "precomposed_small_vowels",
+            "precomposed_capital_consonants",
+            "precomposed_small_consonants",
+            "rare",
+        )
+    )
+]
+
+base_groups["base_anchor_required"] = {
+    "label": "Bases requiring anchors",
+    "items": base_anchor_required,
+}
+
+mark_groups = {
+    "above": {
+        "label": "Above",
+        "items": mark_above,
+        "classID": 0,
+    },
+    "above_rare": {
+        "label": "Above (rare)",
+        "items": mark_above_rare,
+        "classID": 0,
+    },
+    "above_right": {
+        "label": "Above right (dot and comma)",
+        "items": mark_above_right,
+        "classID": 1,
+    },
+    "below": {
+        "label": "Below",
+        "items": mark_below,
+        "classID": 2,
+    },
+    "below_rare": {
+        "label": "Below (rare)",
+        "items": mark_below_rare,
+        "classID": 2,
+    },
+    "left_angle": {
+        "label": "Above right (left angle)",
+        "items": mark_left_angle,
+        "classID": 3,
+    },
+    "below_right": {
+        "label": "Below-right",
+        "items": mark_below_right,
+        "classID": 4,
+    },
+    "cedilla": {
+        "label": "Cedilla",
+        "items": mark_cedilla,
+        "classID": 5,
+    },
+    "overlay": {
+        "label": "Overlay",
+        "items": mark_overlay,
+        "classID": 6,
+    },
+    "double": {
+        "label": "Double",
+        "items": mark_double,
+        "classID": 0,
+    },
+    "legacy": {
+        "label": "Legacy",
+        "items": mark_legacy,
+        "classID": 0,
+    },
+    "line": {
+        "label": "Line",
+        "items": mark_line,
+        "classID": 0,
+    },
+    "superscript_consonant_above": {
+        "label": "Superscript consonant (above acute, grave, circumflex)",
+        "items": mark_above_superscript_consonant,
+        "classID": 0,
+    },
+    "greek": {
+        "label": "Greek",
+        "items": mark_greek,
+        "classID": None,
+    },
+    "mark_anchor_required": {
+        "label": "Marks requiring anchors",
+        "items": mark_anchor_required,
+        "classID": None,
+    }
+}
+
+def select_marks(*keys):
+    return [mark_groups[k]["items"] for k in keys]

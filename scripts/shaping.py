@@ -119,7 +119,7 @@ def classify_combo(base_cp, mark_cp, classID,
                    cmap, anchors_by_base_glyph, hb_font, ttfont):
     """
     Returns (kind, infos, positions)
-    kind ∈ {"missing", "missing_precomposed", "precomposed",
+    kind in {"missing", "missing_precomposed", "precomposed",
             "substituted", "anchored", "fallback"}
     """
 
@@ -151,6 +151,86 @@ def classify_combo(base_cp, mark_cp, classID,
     else:
         return "fallback", infos, positions
 
+def classify_combo_sanity(base_cp, mark_cp, classID,
+                          cmap, anchors_by_base_glyph, hb_font, ttfont):
+    """
+    Sanity classifier for IPA-relevant combining marks.
+
+    Returns:
+        kind in {"unsupported", "precomposed", "anchored", "fallback"}
+        flags = {
+            "missing_base": bool,
+            "missing_mark": bool,
+            "missing_precomposed": bool,
+            "gsub_substitution": bool,
+        }
+        infos, positions = HarfBuzz shaping results
+    """
+
+    # Initialize flags
+    flags = {
+        "missing_base": False,
+        "missing_mark": False,
+        "missing_precomposed": False,
+        "gsub_substitution": False,
+    }
+
+    # Semantic support: is this combination used in IPA notation?
+    #    (We assume mark_cp is always a key in ipa_diacritic_bases.)
+    supported_bases = ipa_diacritic_bases.get(mark_cp, [])
+    supported = base_cp in supported_bases
+
+    # Missing glyphs (base or mark)
+    if missing_glyph(base_cp, cmap):
+        flags["missing_base"] = True
+
+    if missing_glyph(mark_cp, cmap):
+        flags["missing_mark"] = True
+
+    # If either glyph is missing, the combination cannot be realized.
+    # Even if linguistically supported, the font cannot support it.
+    if flags["missing_base"] or flags["missing_mark"]:
+        kind = "unsupported"
+        # Still shape something for grid integrity, but infos/positions
+        # may be meaningless. We return them anyway for consistency.
+        infos, positions = shape_pair(hb_font, base_cp, mark_cp)
+        return kind, flags, infos, positions
+
+    # Shape the pair with HarfBuzz
+    infos, positions = shape_pair(hb_font, base_cp, mark_cp)
+
+    # GSUB substitution detection
+    if detect_substitution(base_cp, mark_cp, infos, cmap, ttfont):
+        flags["gsub_substitution"] = True
+
+    # Precomposed Unicode character
+    seq = chr(base_cp) + chr(mark_cp)
+    nfc = unicodedata.normalize("NFC", seq)
+
+    if len(nfc) == 1:
+        composed_cp = ord(nfc)
+        if cmap.get(composed_cp) is not None:
+            # True precomposed support
+            kind = "precomposed"
+            # Semantic override: if not linguistically supported, force unsupported
+            if not supported:
+                kind = "unsupported"
+            return kind, flags, infos, positions
+        else:
+            # Precomposed exists in Unicode but missing in font
+            flags["missing_precomposed"] = True
+
+    # Anchored vs fallback
+    if has_anchor(base_cp, classID, anchors_by_base_glyph, cmap):
+        kind = "anchored"
+    else:
+        kind = "fallback"
+
+    # Semantic override: unsupported combinations
+    if not supported:
+        kind = "unsupported"
+
+    return kind, flags, infos, positions
 
 # TEX RENDERING HELPERS
 
@@ -194,6 +274,37 @@ def render_cell(base_cp, mark_cp, kind, infos):
     raise ValueError("Unknown kind")
 
 
+def render_cell_sanity(base_cp, mark_cp, kind, flags):
+    # If the mark is missing, suppress it entirely.
+    if flags.get("missing_mark"):
+        raw = tex(base_cp)
+    else:
+        raw = tex(base_cp) + tex(mark_cp)
+
+    # Base wrapper by kind (color only)
+    if kind == "unsupported":
+        wrapped = f"\\UNSUPP{{{raw}}}"
+    elif kind == "precomposed":
+        wrapped = f"\\PREC{{{raw}}}"
+    elif kind == "anchored":
+        wrapped = f"\\ANCH{{{raw}}}"
+    elif kind == "fallback":
+        wrapped = f"\\FALL{{{raw}}}"
+    else:
+        raise ValueError(f"Unknown sanity kind: {kind}")
+
+    # Flag cues (glyph-preserving, tabular-safe)
+    if flags.get("gsub_substitution"):
+        wrapped = f"\\GSUBOVERLAY{{{wrapped}}}"
+
+    if flags.get("missing_precomposed"):
+        wrapped = f"\\MISSINGPRE{{{wrapped}}}"
+
+    if flags.get("missing_base") or flags.get("missing_mark"):
+        wrapped = f"\\MISSINGGLYPH{{{wrapped}}}"
+
+    return wrapped
+
 # GRID GENERATION
 
 def emit_mark_row(mark_cp, bases, classID,
@@ -223,7 +334,7 @@ def build_grid_tex(bases, marks, classID,
     return "\n".join(rows)
 
 
-def emit_grid_chunk(label, style, base_group_name, mark_group_name,
+def emit_grid_chunk(section_label, style, base_group_name, mark_group_name,
                     bases, marks, classID,
                     cmap, anchors_by_base_glyph, hb_font, ttfont):
     """
@@ -235,7 +346,7 @@ def emit_grid_chunk(label, style, base_group_name, mark_group_name,
         print(r"\newpage")
 
     # Subsection header
-    print(rf"\subsection*{{{label}, {base_group_name}, {mark_group_name}}}")
+    print(rf"\subsection*{{{section_label}, {base_group_name}, {mark_group_name}}}")
     print()
 
     # Determine whether this chunk needs grouping braces
@@ -296,7 +407,8 @@ def print_combo(base_group, mark_group):
             extract_mark_attachment_data(font, info["lookup_index"])
 
         emit_grid_chunk(
-            label=info["label"],
+            section_label=info["label"],
+            style=info["style"],
             base_group_name=base_group_name,
             mark_group_name=mark_group_name,
             bases=base_group,

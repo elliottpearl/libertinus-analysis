@@ -5,7 +5,7 @@ from fontTools.ttLib import TTFont
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.ttLib.tables import otTables
 
-from data.constants import (
+from libertinus_analysis.constants import (
     superscript_consonant,
     base_bbox,
     vertical_ref,

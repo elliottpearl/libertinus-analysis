@@ -1,41 +1,32 @@
 #!/usr/bin/env python3
 """
-run.py — Driver script for Libertinus analysis.
-
-Imports the reusable libraries (geometry.py and shaping.py) 
-and exposes a set of clearly marked "uncomment to run" tasks.
+run.py - Driver script for Libertinus analysis
 """
 
 from pathlib import Path
-import sys
 
-# Add project root to sys.path so imports work regardless of cwd
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.append(str(ROOT))
+# Project imports
 
-# Import constants and tool modules
+from libertinus_analysis import constants
+from libertinus_analysis import geometry
+from libertinus_analysis import shaping
+from libertinus_analysis.matrix_renderer import MatrixRenderer
 
-from data.constants import (
-    fonts,
-    select_marks,
-    select_bases,
-)
 
-from scripts.geometry import (
-    get_bboxes_with_names,
-    print_bboxes_list,
-    compute_baseanchor0,
-    compute_baseanchor3,
-    patch_gpos_font,
-)
-
-from scripts.shaping import (
-    print_combos,
-    print_ipa_diacritics
-)
-
+"""
 # Driver tasks
-# Uncomment exactly the task you want to run.
+# Expose exactly the task you want to run.
+
+renderer = MatrixRenderer(
+    marks=marks,
+    bases=bases,
+    classification=classification,
+    fonts=FONTS,
+    layout="tabular",
+)
+print(renderer.latex_table())
+
+
 
 # Inspect bounding boxes for a font
 # 
@@ -57,12 +48,12 @@ from scripts.shaping import (
 # Generate TeX grids for multiple groups
 # Prints to stdout; redirect to file `tex/inputs/*.tex` as needed.
 # 
-# print_combos(
+# shaping.print_combos(
 #   base_lists = select_bases("latin", "ipa"),
 #   mark_lists = select_marks("above", "below"),
 # )
 
-# print_combos(
+# shaping.print_combos(
 #  base_lists = select_bases("base_anchor_required"),
 #  mark_lists = select_marks("mark_anchor_required"),
 #)
@@ -70,4 +61,5 @@ from scripts.shaping import (
 # Generate IPA diacritic base glyph list
 # Prints to stdout; redirect to file `tex/inputs/*.tex` as needed.
 #
-# print_ipa_diacritics()
+# shaping.print_ipa_diacritics()
+"""

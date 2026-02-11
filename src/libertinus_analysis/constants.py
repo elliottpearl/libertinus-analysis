@@ -1,13 +1,8 @@
-# data/constants.py
 # Constants 
 
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parent.parent  # project root
+from libertinus_analysis.config import FONTS
 
 # Font path
-
-FONTS = ROOT / "fonts"
 
 fonts = {
     "regular": {

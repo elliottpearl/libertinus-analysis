@@ -12,6 +12,5 @@ __pycache__/
 *.toc
 *.synctex.gz
 
-
 # VS Code settings (optional)
 .vscode/

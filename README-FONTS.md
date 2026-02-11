@@ -27,7 +27,3 @@ Always include the extension `.otf` and `.ttf` in the font loading command in La
 	Path = ../fonts/,
 ]{GentiumPlus-Regular.ttf}
 ```
-
-Python files are in `scripts/`.
-
-See `fonts` in `data/constants.py` for font path, filename, and attributes for Python scripts.

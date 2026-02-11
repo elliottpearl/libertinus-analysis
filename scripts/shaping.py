@@ -490,3 +490,4 @@ def print_ipa_diacritics():
 
         print()
         font.close()
+        

@@ -171,12 +171,12 @@ See above- and below-anchor coordinates for A--Z and a--z for Libertinus serif r
 
 A few bases are missing anchors. 
 The $Y$ coordinates (rows 2 and 4) of base anchors can be set geometrically, relative to a few vertical aspects  
--- descender height, baseline, x-height, ascender height, cap height -- the gray horizontal lines of Figure \ref{fig:libertinus-geometry}) of the font.
+-- descender height, baseline, x-height, ascender height, cap height -- the gray horizontal lines of Figure \ref{fig:libertinus-geometry} of the font.
 The $X$ coordinates (rows 1 and 3) of base anchors are better set optically, by judging the optical weight of the top or bottom of the glyph outline, as well as the glyph width.
 
 \subsection*{Patch J and Q regular, below-anchor}
 
-J's below-anchor too low.
+J's below-anchor is too low.
 In Table \ref{regular-above-below}, the $Y$ coordinate of the below-anchor of J is the same as that of the lowercase letters with descenders. 
 But the descender of J is not as low as that of j, p, q etc.
 Look at the J column in the grid labeled regular, Latin, below, which is later in this document.
@@ -208,7 +208,7 @@ The Q and O are drawn with the same main oval outline coordinates.
 So, the below-anchor $X$ coordinate of Q should the same as that for O, which is $X = 350$.
 
 That is, the below-anchor of J should be $(109,-272)$, and the below-anchor of Q should be $(350,-309)$. 
-Here is this positioning in a patched version of the font.
+Here is this positioning of J and Q in a patched version of the font (woth O and X for comparison only).
 
 Original: X\char"0320 J\char"0320 Q\char"0320 O\char"0320
 
@@ -228,7 +228,7 @@ The below-anchor of k, regular, is at $Y = -214$.
 But it should be at $Y = -110$, like all other letters that sit on the baseline.
 That is, the below-anchor of k should be $(109,-110)$.
 
-Here is this positioning in a patched version of the font.
+Here is this positioning of k in a patched version of the font (with o for comparison only).
 
 Original: k\char"0320\ k\char"0320 o ok\char"0320
 
@@ -263,7 +263,7 @@ To do.
 
 Libertinus has custom glyphs for some marks (acute, grave, cicrumflex, breve, a.o.) that are designed better for capital letters.
 These alternates are flatter.
-GSUB lookups 23 and 24 implements the substitution.
+GSUB lookups 23 and 24 implement the substitution.
 This substitution is not fired on some capital consonants (T, V, W, X) because these marks are not expected on these bases.
 
 Libertinus has custom glyphs for some marks that are designed better for superscripts.
@@ -487,9 +487,9 @@ In an English LaTeX document, \verb|ij| and \verb|IJ| are kerned by the GPOS tab
 
 \ribbi{tiɣə\char"0301\ ṛf\char"0323 a}
 
-ṛ = \verb|\char"1E5B| is U+1E5B Latin small letter r with dot below
+ṛ = \verb|\char"1E5B| is the precomposed character U+1E5B Latin small letter r with dot below.
 
-f\char"0323\ = \verb|f\char"0323| is f with U+0323 combining dot below
+f\char"0323\ = \verb|f\char"0323| is f with U+0323 combining dot below.
 
 Here are some letters with a dot below.
 
@@ -598,7 +598,7 @@ Patched italics (f only)
 	x\char"0321\gs x\char"0322\gs x\char"0328\gs
 }
 
-\subsection*{Cedilla -- GPOS class 5}
+\subsection*{Cedilla -- GPOS anchor 5}
 
 \ribbiline{x\char"0327\gs}
 
@@ -624,8 +624,8 @@ Patched italics (f only)
 \newpage
 \subsection*{Overline and low line}
 
-O+0305 combining overline and U+0332 combining low line are applied by GSUB lookups that substitute a custom width line mark according to width classes. 
-GSUB lookup 51 effectively classifies the glyphs by width, and GSUB lookups 52--82 provide the appropriate custom width mark for the base width class. 
+O+0305 combining overline and U+0332 combining low line are applied by GSUB lookups that substitute a custom-width line mark according to width classes. 
+GSUB lookup 51 effectively classifies the glyphs by width, and GSUB lookups 52--82 provide the appropriate custom-width mark for the base width class. 
 Semibold and semibold italic do not have any combining low lines. 
 Custom-width line marks do not have anchors. 
 They are positioned by harfbuzz fallback shaping. 
@@ -659,10 +659,10 @@ If a new glyph is added, and you want to support custom-width line marks for it,
 \newpage
 \subsection*{Above-right marks -- GPOS anchor 1}
 
-Libertinus has three combining marks with GPOS anchor class 1 -- 
+Libertinus has three combining marks with GPOS anchor 1 -- 
 U+031B horn, U+0315 comma above right, and U+0358 dot above right.
 
-A few bases in Libertinus have this anchor (class 1), but none that possibly need it.
+A few bases in Libertinus have this anchor (anchor 1), but none that possibly need it.
 
 \subsubsection*{Horn}
 
@@ -718,7 +718,7 @@ inverting the desired size difference.
 
 There are only a few IPA superscript letters that may serve as the possible host of U+0315 or U+0358 
 on superscript consonants or on superscript consonant clusters.
-In Libertinus, regrettably none of these characters has the anchor (class 1), so the mark (U+0315 and U+0358) is positioned by harfbuzz fallback shaping, which seems to place the mark at the right boundary of the glyph at a constant vertical aspect (effectively at the superscript x-height).
+In Libertinus, regrettably none of these characters has the anchor (anchor 1), so the mark (U+0315 and U+0358) is positioned by harfbuzz fallback shaping, which seems to place the mark at the right boundary of the glyph at a constant vertical aspect (effectively at the superscript x-height).
 
 These IPA marks U+0315 and U+0358 should only be used in regular (not italic and not semibold).
 Regrettably, in Libertinus serif semibold, U+0358 looks like a grave, not a dot, and there is no U+0358 glyph in Libertinus serif semibold italic.
@@ -778,7 +778,7 @@ Gentium Plus, selected IPA superscript letters with U+0315 and U+0358
 [k\char"0313\char"02B7\char"1D4F\char"02E3\char"0315 t]
 }
 
-Here are the IPA superscript letters considered and their new anchor (class 1).
+Here are the IPA superscript letters considered and their new anchor (anchor 1).
 
 U+02B0: (347, 648),
 U+02B1: (339, 648),
@@ -806,7 +806,7 @@ U+1D5D: (335, 648),
 U+1D5E: (372, 648),
 U+1D5F: (353, 648)
 
-I did not change the class-1 anchor of U+315 and U+0358.
+I did not change the anchor-1 of U+315 and U+0358.
 U+0358 has its anchor at the xMin and yMin of its bounding box.
 But U+0315 already has some clearance built in to its anchor: its anchor is 62 units below its yMin, but 25 units right of it xMin.
 So, I decided to provide x-clearance of 12 units and y-clearance of 80 units from the bases.
@@ -895,7 +895,7 @@ Note that LSP uses the Libertinus fonts named ``Semibold``, e.g. \verb|Libertinu
 
 A black color means GPOS anchor positioning.
 
-\PREC{A blue color} means precomposed glyph.
+\PREC{A blue color} means a precomposed glyph.
 
 \FALL{A red color} means harfbuzz fallback shaping.
 
@@ -911,9 +911,33 @@ This is similar to the Anchor Control window in FontForge, but instead prints th
 \input{input/latin-ipa-above-below.tex}
 
 \newpage
+
+\section*{IPA diacritics, anchors required}
+
+Here are some IPA diacritics. 
+Each row shows all bases that the mark could reasonably be combined with, in some notational system, 
+except for those marks (such as the horn) whose only reasonable combinations are already precomposed character.
+So, these rows represent those marks that require an anchor, because not all of their reasonable combinations are already precomposed.
+Of course, anchors are useful during the design stage of a font to normalize precomposed glyphs. 
+But some bases or marks may not need anchors, simply becasue they form no reasonable combinations that are not already precomposed.
+
+A black color means GPOS anchor positioning.
+
+\PREC{A blue color} means a precomposed glyph.
+
+\FALL{A red color} means harfbuzz fallback shaping.
+
 \input{input/ipa-diacritics.tex}
 
 \newpage
+
+\section*{IPA diacritics, anchors required, all bases}
+
+The rows are combining marks that require an anchor for at least one base among it reanable combinations that are not precomposed.
+The columns are the bases formed by the union of all reasonable combinations with such marks.
+Of course, some of these combinations are not resonable, and this version of the document has not grayed them out.
+But the entire grid is still useful to see all marks across all bases.
+
 \input{input/anchor-required.tex}
 
 % \input{input/superscript-consonant-above.tex}

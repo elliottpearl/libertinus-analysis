@@ -1,41 +1,12 @@
-# Constants 
+"""
+ipa_unicode.py
 
-from libertinus_analysis.config import FONTS
+IPA-specific semantic data for combining diacritics.
 
-# Font path
-
-fonts = {
-    "regular": {
-        "path": FONTS / "LibertinusSerif-Regular.otf",
-        "lookup_index": 4,
-        "style": "regular",
-        "label": "Regular",
-    },
-    "regular_patch": {
-        "path": FONTS / "LibertinusSerif-Regular-patch.otf",
-        "lookup_index": 4,
-        "style": "regular",
-        "label": "Regular patched",
-    },
-    "italic": {
-        "path": FONTS / "LibertinusSerif-Italic.otf",
-        "lookup_index": 4,
-        "style": "italic",
-        "label": "Italic",
-    },
-    "semibold": {
-        "path": FONTS / "LibertinusSerif-Semibold.otf",
-        "lookup_index": 1,
-        "style": "bold",
-        "label": "Semibold",
-    },
-    "semibold_italic": {
-        "path": FONTS / "LibertinusSerif-SemiboldItalic.otf",
-        "lookup_index": 2,
-        "style": "bold_italic",
-        "label": "Semibold italic",
-    },
-}
+This module maps IPA combining marks to the base characters
+they are linguistically valid with in IPA notation. 
+Historical notes and documentation belong here as well.
+"""
 
 # Bases
 
@@ -379,112 +350,6 @@ mark_above_superscript_consonant = [
     0x0300, # grave
     0x0302, # circumflex
 ]
-
-
-# See also data/LibertinusSerif-Regular-bbox.txt
-base_bbox = {
-    0x02B0: (10, 364, 301, 739),
-    0x02B1: (10, 358, 293, 738),
-    0x02B2: (0, 263, 147, 739),
-    0x02B3: (18, 365, 238, 637),
-    0x02B4: (13, 358, 228, 630),
-    0x02B5: (13, 250, 273, 630),
-    0x02B6: (22, 364, 262, 638),
-    0x02B7: (7, 358, 451, 632),
-    0x02B8: (20, 238, 322, 632),
-    0x02E0: (15, 358, 295, 683),
-    0x02E1: (11, 363, 147, 739),
-    0x02E2: (28, 358, 224, 637),
-    0x02E3: (18, 364, 298, 633),
-    0x02E4: (26, 364, 236, 739),
-    0x1D47: (6, 358, 273, 739),
-    0x1D4F: (0, 364, 307, 739),
-    0x1D50: (10, 365, 487, 637),
-    0x1D56: (0, 238, 288, 637),
-    0x1D57: (15, 358, 195, 726),
-    0x1D58: (14, 358, 308, 632),
-    0x1D59: (44, 335, 316, 667),
-    0x1D5A: (2, 364, 479, 636),
-    0x1D5B: (6, 358, 308, 632),
-    0x1D5C: (46, 357, 462, 628),
-    0x1D5D: (48, 244, 289, 739),
-    0x1D5E: (24, 220, 326, 637),
-    0x1D5F: (45, 358, 307, 739),
-}
-
-superscript_meanline = 630
-
-# possible values: superscript_meanline, base_yMax, baseline, 
-# meanline, xheight, ascender, capheight
-vertical_ref = {
-    0x02B0: "base_yMax",
-    0x02B1: "base_yMax",
-    0x02B2: "base_yMax",
-    0x02B3: "superscript_meanline",
-    0x02B4: "superscript_meanline",
-    0x02B5: "superscript_meanline",
-    0x02B6: "superscript_meanline",
-    0x02B7: "superscript_meanline",
-    0x02B8: "superscript_meanline",
-    0x02E0: "base_yMax",
-    0x02E1: "base_yMax",
-    0x02E2: "superscript_meanline",
-    0x02E3: "superscript_meanline",
-    0x02E4: "base_yMax",
-    0x1D47: "base_yMax",
-    0x1D4F: "base_yMax",
-    0x1D50: "superscript_meanline",
-    0x1D56: "superscript_meanline",
-    0x1D57: "base_yMax",
-    0x1D5A: "superscript_meanline",
-    0x1D5B: "superscript_meanline",
-    0x1D5C: "superscript_meanline",
-    0x1D5D: "base_yMax",
-    0x1D5E: "base_yMax",
-    0x1D5F: "base_yMax",
-}
-
-anchors = {
-    1: {
-        0x02B0: (347, 648), 0x02B1: (339, 648), 0x02B2: (193, 648),
-        0x02B3: (284, 648), 0x02B4: (274, 648), 0x02B5: (319, 648),
-        0x02B6: (308, 648), 0x02B7: (497, 648), 0x02B8: (368, 648),
-        0x02E0: (341, 648), 0x02E1: (193, 648), 0x02E2: (270, 648),
-        0x02E3: (344, 648), 0x02E4: (282, 648), 0x1D47: (319, 648),
-        0x1D4F: (353, 648), 0x1D50: (533, 648), 0x1D56: (334, 648),
-        0x1D57: (241, 648), 0x1D5A: (525, 648), 0x1D5B: (354, 648),
-        0x1D5C: (508, 648), 0x1D5D: (335, 648), 0x1D5E: (372, 648),
-        0x1D5F: (353, 648),
-    },
-
-# test 2 values computed with compute_baseanchor3(), clearance 0/80. Rejected.
-# test 3 values computed with compute_baseanchor3(), clearance -20/70. Accepted.
-    3: {       
-        0x02B0: (305, 834), 0x02B1: (297, 833), 0x02B2: (151, 834),
-        0x02B3: (242, 725), 0x02B4: (232, 725), 0x02B5: (277, 725),
-        0x02B6: (266, 725), 0x02B7: (455, 725), 0x02B8: (326, 725),
-        0x02E0: (299, 778), 0x02E1: (151, 834), 0x02E2: (228, 725),
-        0x02E3: (302, 725), 0x02E4: (240, 834), 0x1D47: (277, 834),
-        0x1D4F: (311, 834), 0x1D50: (491, 725), 0x1D56: (292, 725),
-        0x1D57: (199, 821), 0x1D5A: (483, 725), 0x1D5B: (312, 725),
-        0x1D5C: (466, 725), 0x1D5D: (293, 834), 0x1D5E: (330, 732),
-        0x1D5F: (311, 834),
-    },
-
-    # anchor 0 from compute_baseanchor0()
-        0: {
-        0x02B0: (155, 914), 0x02B1: (151, 913), 0x02B2: (73, 914),
-        0x02B3: (128, 805), 0x02B4: (120, 805), 0x02B5: (143, 805),
-        0x02B6: (142, 805), 0x02B7: (229, 805), 0x02B8: (171, 805),
-        0x02E0: (155, 858), 0x02E1: (79, 914), 0x02E2: (126, 805),
-        0x02E3: (158, 805), 0x02E4: (131, 914), 0x1D47: (139, 914),
-        0x1D4F: (153, 914), 0x1D50: (248, 805), 0x1D56: (144, 805),
-        0x1D57: (105, 901), 0x1D5A: (240, 805), 0x1D5B: (157, 805),
-        0x1D5C: (254, 805), 0x1D5D: (168, 914), 0x1D5E: (175, 812),
-        0x1D5F: (176, 914),
-    },
- 
-}
 
 # Copilot/GPT-5.1
 ipa_diacritic_bases = {
@@ -941,77 +806,77 @@ mark_groups = {
     "above": {
         "label": "Above",
         "items": mark_above,
-        "classID": 0,
+        "classIndex": 0,
     },
     "above_rare": {
         "label": "Above (rare)",
         "items": mark_above_rare,
-        "classID": 0,
+        "classIndex": 0,
     },
     "above_right": {
         "label": "Above right (dot and comma)",
         "items": mark_above_right,
-        "classID": 1,
+        "classIndex": 1,
     },
     "below": {
         "label": "Below",
         "items": mark_below,
-        "classID": 2,
+        "classIndex": 2,
     },
     "below_rare": {
         "label": "Below (rare)",
         "items": mark_below_rare,
-        "classID": 2,
+        "classIndex": 2,
     },
     "left_angle": {
         "label": "Above right (left angle)",
         "items": mark_left_angle,
-        "classID": 3,
+        "classIndex": 3,
     },
     "below_right": {
         "label": "Below-right",
         "items": mark_below_right,
-        "classID": 4,
+        "classIndex": 4,
     },
     "cedilla": {
         "label": "Cedilla",
         "items": mark_cedilla,
-        "classID": 5,
+        "classIndex": 5,
     },
     "overlay": {
         "label": "Overlay",
         "items": mark_overlay,
-        "classID": 6,
+        "classIndex": 6,
     },
     "double": {
         "label": "Double",
         "items": mark_double,
-        "classID": 0,
+        "classIndex": 0,
     },
     "legacy": {
         "label": "Legacy",
         "items": mark_legacy,
-        "classID": 0,
+        "classIndex": 0,
     },
     "line": {
         "label": "Line",
         "items": mark_line,
-        "classID": 0,
+        "classIndex": 0,
     },
     "superscript_consonant_above": {
         "label": "Superscript consonant (above acute, grave, circumflex)",
         "items": mark_above_superscript_consonant,
-        "classID": 0,
+        "classIndex": 0,
     },
     "greek": {
         "label": "Greek",
         "items": mark_greek,
-        "classID": None,
+        "classIndex": None,
     },
     "mark_anchor_required": {
         "label": "Marks requiring anchors",
         "items": mark_anchor_required,
-        "classID": None,
+        "classIndex": None,
     }
 }
 

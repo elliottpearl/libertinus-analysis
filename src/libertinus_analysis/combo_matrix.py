@@ -1,3 +1,12 @@
+from fontTools.ttLib import TTFont
+import harfbuzz as hb
+
+from .font_context import FontContext
+from .font_helpers import extract_mark_attachment_data
+from .classifiers import classify_combo, classify_combo_sanity
+from .tex_helpers import render_cell, render_cell_sanity
+
+
 class ComboMatrix:
     def __init__(self, base_groups, mark_groups, fonts, classifier):
         # Input groups and font metadata
@@ -6,11 +15,8 @@ class ComboMatrix:
         self.fonts = fonts
         self.classifier = classifier
 
-        # Loaded font objects: style_key → (ttfont, hb_font)
-        self.loaded_fonts = {}
-
-        # Extracted GPOS data: style_key → (markClassByGlyph, anchorsByBaseGlyph, cmap)
-        self.anchor_data = {}
+        # Per-font contexts: style_key → FontContext
+        self.font_contexts = {}
 
         # Classification results: (mark_cp, base_cp, font_key) → classifier output tuple
         self.grid = {}
@@ -21,29 +27,21 @@ class ComboMatrix:
     # Load all fonts and extract GPOS mark-to-base data
     def load_fonts(self):
         for style_key, info in self.fonts.items():
-            font = TTFont(info["path"])
-            fontdata = font.reader.file.getvalue()
-            hb_face = hb.Face(fontdata)
-            hb_font = hb.Font(hb_face)
-
-            markClassByGlyph, anchorsByBaseGlyph, cmap = \
-                extract_mark_attachment_data(font, info["lookup_index"])
-
-            self.loaded_fonts[style_key] = (font, hb_font)
-            self.anchor_data[style_key] = (markClassByGlyph, anchorsByBaseGlyph, cmap)
-
+            self.font_contexts[style_key] = FontContext.from_path(
+                path=info["path"],
+                lookup_index=info["lookup_index"],
+            )
         return self
 
     # Classify all mark/base pairs for all fonts
     def classify(self):
         for font_key, info in self.fonts.items():
-            ttfont, hb_font = self.loaded_fonts[font_key]
-            markClassByGlyph, anchorsByBaseGlyph, cmap = self.anchor_data[font_key]
+            fontctx = self.font_contexts[font_key]
 
             for mark_group in self.mark_groups.values():
                 for mark_cp in mark_group["items"]:
-                    markGlyph = cmap.get(mark_cp)
-                    classIndex = markClassByGlyph.get(markGlyph)
+                    markGlyph = fontctx.cmap.get(mark_cp)
+                    classIndex = fontctx.markClassByGlyph.get(markGlyph)
 
                     for base_group in self.base_groups.values():
                         for base_cp in base_group["items"]:
@@ -51,10 +49,7 @@ class ComboMatrix:
                                 base_cp,
                                 mark_cp,
                                 classIndex,
-                                cmap,
-                                anchorsByBaseGlyph,
-                                hb_font,
-                                ttfont,
+                                fontctx,
                             )
                             self.grid[(mark_cp, base_cp, font_key)] = result
 

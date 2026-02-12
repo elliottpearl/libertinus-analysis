@@ -4,20 +4,13 @@ from .font_helpers import (
     missing_glyph,
     missing_precomposed,
     detect_substitution,
-    has_anchor,
     shape_pair,
 )
 
-# If you keep ipa_diacritic_bases in a separate module, import it here.
-# Otherwise, replace this with your actual data structure.
-try:
-    from .ipa_data import ipa_diacritic_bases
-except ImportError:
-    ipa_diacritic_bases = {}
-    
+# IPA data (optional external module)
+from .constants import ipa_diacritics_bases
 
-def classify_combo(base_cp, mark_cp, classIndex,
-                   cmap, anchorsByBaseGlyph, hb_font, ttfont):
+def classify_combo(base_cp, mark_cp, classIndex, fontctx):
     """
     Classifier for general combining mark behavior.
 
@@ -33,6 +26,8 @@ def classify_combo(base_cp, mark_cp, classIndex,
         "fallback"
     """
 
+    cmap = fontctx.cmap
+
     # Missing glyphs
     if missing_glyph(base_cp, cmap) or missing_glyph(mark_cp, cmap):
         return "missing", None, None
@@ -42,10 +37,10 @@ def classify_combo(base_cp, mark_cp, classIndex,
         return "missing_precomposed", None, None
 
     # Shape with HarfBuzz
-    infos, positions = shape_pair(hb_font, base_cp, mark_cp)
+    infos, positions = shape_pair(fontctx.hb_font, base_cp, mark_cp)
 
     # GSUB substitution
-    if detect_substitution(base_cp, mark_cp, infos, cmap, ttfont):
+    if detect_substitution(base_cp, mark_cp, infos, cmap, fontctx.ttfont):
         return "substituted", infos, positions
 
     # True precomposed Unicode character
@@ -56,15 +51,14 @@ def classify_combo(base_cp, mark_cp, classIndex,
             return "precomposed", infos, positions
 
     # Anchored vs fallback
-    if has_anchor(base_cp, classIndex, anchorsByBaseGlyph, cmap):
+    if fontctx.has_anchor(base_cp, classIndex):
         return "anchored", infos, positions
     else:
         return "fallback", infos, positions
 
 
 
-def classify_combo_sanity(base_cp, mark_cp, classIndex,
-                          cmap, anchorsByBaseGlyph, hb_font, ttfont):
+def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
     """
     Sanity classifier for IPA-relevant combining marks.
 
@@ -86,6 +80,8 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex,
         }
     """
 
+    cmap = fontctx.cmap
+
     flags = {
         "missing_base": False,
         "missing_mark": False,
@@ -106,14 +102,14 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex,
     # If either glyph is missing, the combination is unsupported
     if flags["missing_base"] or flags["missing_mark"]:
         kind = "unsupported"
-        infos, positions = shape_pair(hb_font, base_cp, mark_cp)
+        infos, positions = shape_pair(fontctx.hb_font, base_cp, mark_cp)
         return kind, flags, infos, positions
 
     # Shape with HarfBuzz
-    infos, positions = shape_pair(hb_font, base_cp, mark_cp)
+    infos, positions = shape_pair(fontctx.hb_font, base_cp, mark_cp)
 
     # GSUB substitution
-    if detect_substitution(base_cp, mark_cp, infos, cmap, ttfont):
+    if detect_substitution(base_cp, mark_cp, infos, cmap, fontctx.ttfont):
         flags["gsub_substitution"] = True
 
     # Precomposed Unicode character
@@ -131,7 +127,7 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex,
             flags["missing_precomposed"] = True
 
     # Anchored vs fallback
-    if has_anchor(base_cp, classIndex, anchorsByBaseGlyph, cmap):
+    if fontctx.has_anchor(base_cp, classIndex):
         kind = "anchored"
     else:
         kind = "fallback"

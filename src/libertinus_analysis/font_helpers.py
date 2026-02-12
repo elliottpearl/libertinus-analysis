@@ -2,6 +2,7 @@ import unicodedata
 import harfbuzz as hb
 from fontTools.ttLib import TTFont
 
+
 # Shape a base+mark pair with HarfBuzz
 def shape_pair(hb_font, base_cp, mark_cp):
     """
@@ -14,15 +15,16 @@ def shape_pair(hb_font, base_cp, mark_cp):
     hb.shape(hb_font, buf)
     return buf.glyph_infos, buf.glyph_positions
 
+
 # Extract GPOS MarkToBase anchor data
 def extract_mark_attachment_data(font, lookup_index):
     """
     Extract mark-to-base anchor data from a GPOS lookup.
 
     Returns:
-        markClassByGlyph:  mark glyphName → classIndex
+        markClassByGlyph:   mark glyphName → classIndex
         anchorsByBaseGlyph: base glyphName → {classIndex: anchor}
-        cmap: Unicode → glyphName
+        cmap:               Unicode → glyphName
     """
     cmap = font.getBestCmap()
     gpos = font["GPOS"].table
@@ -56,6 +58,7 @@ def extract_mark_attachment_data(font, lookup_index):
 
     return markClassByGlyph, anchorsByBaseGlyph, cmap
 
+
 # Classification helpers
 
 def missing_glyph(cp, cmap):
@@ -63,6 +66,7 @@ def missing_glyph(cp, cmap):
     Return True if cp is not mapped in cmap.
     """
     return cmap.get(cp) is None
+
 
 def missing_precomposed(base_cp, mark_cp, cmap):
     """
@@ -74,6 +78,7 @@ def missing_precomposed(base_cp, mark_cp, cmap):
         composed_cp = ord(nfc)
         return cmap.get(composed_cp) is None
     return False
+
 
 def detect_substitution(base_cp, mark_cp, infos, cmap, font):
     """
@@ -92,14 +97,3 @@ def detect_substitution(base_cp, mark_cp, infos, cmap, font):
     mark_subbed = (in_mark_gid is not None and out_mark_gid != in_mark_gid)
 
     return base_subbed or mark_subbed
-
-def has_anchor(base_cp, classIndex, anchorsByBaseGlyph, cmap):
-    """
-    Return True if base_cp has an anchor for classIndex in anchorsByBaseGlyph.
-    """
-    base_name = cmap.get(base_cp)
-    if base_name is None:
-        return False
-    if base_name not in anchorsByBaseGlyph:
-        return False
-    return classIndex in anchorsByBaseGlyph[base_name]

@@ -6,7 +6,6 @@ from .font_helpers import extract_mark_attachment_data
 from .classifiers import classify_combo, classify_combo_sanity
 from .tex_helpers import render_cell, render_cell_sanity
 
-
 class ComboMatrix:
     """
     A reusable engine for classifying mark-base combinations across fonts
@@ -24,14 +23,14 @@ class ComboMatrix:
         self.fonts = fonts
         self.classifier = classifier
 
-        # Filled by load_fonts()
+        # Filled by load_fonts(), which must be called before classify() or any latex_* builder
         self.font_contexts = {}
 
-        # Filled by classify()
+        # Filled by classify(), which must be called before any latex_* builder
         # key: (mark_cp, base_cp, font_key) → classifier output tuple
         self.grid = {}
 
-        # Font loading and classification
+    # Font loading and classification
     
     def load_fonts(self):
         """Load all fonts and build FontContext objects."""
@@ -47,12 +46,10 @@ class ComboMatrix:
         """Classify all mark/base pairs for all fonts."""
         for font_key, info in self.fonts.items():
             fontctx = self.font_contexts[font_key]
-
             for mark_group in self.mark_groups.values():
+                classIndex = mark_group["classIndex"]   # use your curated value
                 for mark_cp in mark_group["items"]:
                     markGlyph = fontctx.cmap.get(mark_cp)
-                    classIndex = fontctx.markClassByGlyph.get(markGlyph)
-
                     for base_group in self.base_groups.values():
                         for base_cp in base_group["items"]:
                             result = self.classifier(
@@ -61,8 +58,8 @@ class ComboMatrix:
                                 classIndex,
                                 fontctx,
                             )
+                            print("DEBUG", hex(mark_cp), hex(base_cp), font_key, ":", result)
                             self.grid[(mark_cp, base_cp, font_key)] = result
-
         return self
 
     # Internal helpers for building LaTeX
@@ -75,16 +72,13 @@ class ComboMatrix:
             if result is None:
                 # Legacy behavior: treat missing combos as fallback
                 result = ("fallback", None, None)
-
             if self.classifier is classify_combo:
                 kind, infos, positions = result
                 cell = render_cell(base_cp, mark_cp, kind, infos)
             else:
                 kind, flags, infos, positions = result
                 cell = render_cell_sanity(base_cp, mark_cp, kind, flags)
-
             cells.append(cell)
-
         return " ".join(cells)
 
     def _build_grid_body(self, marks, bases, font_key):
@@ -100,7 +94,6 @@ class ComboMatrix:
         info = self.fonts[font_key]
         style = info["style"]
         label = section_label or info["label"]
-
         out = []
 
         # Page break for large mark groups
@@ -124,7 +117,6 @@ class ComboMatrix:
         # Grid body
         out.append("% grid. columns are bases, rows are marks.")
         out.append(self._build_grid_body(marks, bases, font_key))
-
         if needs_group:
             out.append("}")
 
@@ -142,7 +134,6 @@ class ComboMatrix:
             for mark_group in self.mark_groups.values():
                 marks = mark_group["items"]
                 bases = base_group["items"]
-
                 for font_key in self.fonts:
                     out.append(
                         self._build_latex_grid_for_font(
@@ -177,7 +168,6 @@ class ComboMatrix:
                     bases = []
                     for base_group in self.base_groups.values():
                         bases.extend(base_group["items"])
-
                     paragraph = self._build_latex_grid_for_font(
                         marks=[mark_cp],
                         bases=bases,
@@ -185,5 +175,4 @@ class ComboMatrix:
                         section_label=f"U+{mark_cp:04X}",
                     )
                     out.append(paragraph)
-
         return "\n\n".join(out)

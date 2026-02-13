@@ -4,7 +4,6 @@ import uharfbuzz as hb
 from fontTools.ttLib import TTFont
 import json
 
-from .font_helpers import extract_mark_attachment_data
 from .config import FONTS_DIR, FONTDATA_DIR
 
 
@@ -19,37 +18,33 @@ def load_font_metrics(font_key):
     try:
         return json.loads(path.read_text())
     except Exception:
-        # Fail gracefully if the JSON is malformed
         return {}
 
 
 class FontContext:
     """
-    Container for all per-font data needed by classifiers and helpers.
+    Minimal per-font context for classifiers.
+
     Includes:
         - TTFont
         - HBFont
         - cmap
-        - markClassByGlyph
-        - anchorsByBaseGlyph
         - optional per-font metrics (JSON)
+
+    All GPOS-based mark/anchor extraction has been removed.
     """
 
-    def __init__(self, ttfont, hb_font, cmap,
-                 markClassByGlyph, anchorsByBaseGlyph,
-                 metrics=None):
+    def __init__(self, ttfont, hb_font, cmap, metrics=None):
         self.ttfont = ttfont
         self.hb_font = hb_font
         self.cmap = cmap
-        self.markClassByGlyph = markClassByGlyph
-        self.anchorsByBaseGlyph = anchorsByBaseGlyph
         self.metrics = metrics or {}
 
     @classmethod
-    def from_path(cls, path, lookup_index, font_key=None):
+    def from_path(cls, path, lookup_index=None, font_key=None):
         """
-        Load TTFont + HBFont + GPOS anchor data from a font file.
-        Optionally loads per-font metrics if font_key is provided.
+        Load TTFont + HBFont + cmap from a font file.
+        lookup_index is ignored (kept only for compatibility).
         """
         ttfont = TTFont(path)
         fontdata = ttfont.reader.file.getvalue()
@@ -57,8 +52,7 @@ class FontContext:
         hb_face = hb.Face(fontdata)
         hb_font = hb.Font(hb_face)
 
-        markClassByGlyph, anchorsByBaseGlyph, cmap = \
-            extract_mark_attachment_data(ttfont, lookup_index)
+        cmap = ttfont.getBestCmap()
 
         metrics = load_font_metrics(font_key) if font_key else {}
 
@@ -66,29 +60,12 @@ class FontContext:
             ttfont=ttfont,
             hb_font=hb_font,
             cmap=cmap,
-            markClassByGlyph=markClassByGlyph,
-            anchorsByBaseGlyph=anchorsByBaseGlyph,
             metrics=metrics,
         )
 
-    # Convenience helpers
+    # Convenience helper
     def glyph_name(self, cp):
         return self.cmap.get(cp)
-
-    def class_index_for_mark(self, cp):
-        g = self.cmap.get(cp)
-        if g is None:
-            return None
-        return self.markClassByGlyph.get(g)
-
-    def has_anchor(self, base_cp, classIndex):
-        base_name = self.cmap.get(base_cp)
-        if base_name is None:
-            return False
-        anchors = self.anchorsByBaseGlyph.get(base_name)
-        if anchors is None:
-            return False
-        return classIndex in anchors
 
     # Optional metric accessors
     @property
@@ -108,12 +85,15 @@ class FontContext:
         return self.metrics.get("anchors")
 
 
-# Font configuration
-# path is the font file
-# lookup_index is the GPOS table index for mark-to-base anchors
-# style is a controlled vocabulary font style (italic or boldface), 
-# used for LaTeX commands {\itshape } and {\bfseries }
-# label is a human-readable label
+"""
+Font configuration
+
+path is the font file
+lookup_index is the GPOS table index for mark-to-base anchors
+style is a controlled vocabulary (regular, italic, bold, bold_talic) 
+of font style, useful for LaTeX commands \\itshape and \\bfseries.
+label is a human-readable label.
+"""
 
 FONTS = {
     "regular": {

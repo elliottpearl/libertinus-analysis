@@ -51,6 +51,9 @@ def print_combo_matrix(
         classifier=classifier,
     )
 
+    cm.load_fonts()
+    cm.classify()
+
     # Choose builder
     if builder == "grid":
         latex = cm.latex_grid()

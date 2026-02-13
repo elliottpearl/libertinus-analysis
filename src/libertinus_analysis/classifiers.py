@@ -3,11 +3,11 @@ import unicodedata
 from .font_helpers import (
     missing_glyph,
     missing_precomposed,
-    detect_substitution,
     shape_pair,
 )
 
 from .ipa_loader import ipa_diacritic_bases
+
 
 def classify_combo(base_cp, mark_cp, classIndex, fontctx):
     """
@@ -20,7 +20,6 @@ def classify_combo(base_cp, mark_cp, classIndex, fontctx):
         "missing",
         "missing_precomposed",
         "precomposed",
-        "substituted",
         "anchored",
         "fallback"
     """
@@ -38,10 +37,6 @@ def classify_combo(base_cp, mark_cp, classIndex, fontctx):
     # Shape with HarfBuzz
     infos, positions = shape_pair(fontctx.hb_font, base_cp, mark_cp)
 
-    # GSUB substitution
-    if detect_substitution(base_cp, mark_cp, infos, cmap, fontctx.ttfont):
-        return "substituted", infos, positions
-
     # True precomposed Unicode character
     if len(infos) == 1:
         seq = chr(base_cp) + chr(mark_cp)
@@ -49,8 +44,8 @@ def classify_combo(base_cp, mark_cp, classIndex, fontctx):
         if len(nfc) == 1 and ord(nfc) in cmap:
             return "precomposed", infos, positions
 
-    # Anchored vs fallback
-    if fontctx.has_anchor(base_cp, classIndex):
+    # Anchored vs fallback — use curated classIndex only
+    if classIndex is not None:
         return "anchored", infos, positions
     else:
         return "fallback", infos, positions
@@ -75,7 +70,6 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
             "missing_base": bool,
             "missing_mark": bool,
             "missing_precomposed": bool,
-            "gsub_substitution": bool,
         }
     """
 
@@ -85,7 +79,6 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
         "missing_base": False,
         "missing_mark": False,
         "missing_precomposed": False,
-        "gsub_substitution": False,
     }
 
     # IPA semantic support
@@ -107,10 +100,6 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
     # Shape with HarfBuzz
     infos, positions = shape_pair(fontctx.hb_font, base_cp, mark_cp)
 
-    # GSUB substitution
-    if detect_substitution(base_cp, mark_cp, infos, cmap, fontctx.ttfont):
-        flags["gsub_substitution"] = True
-
     # Precomposed Unicode character
     seq = chr(base_cp) + chr(mark_cp)
     nfc = unicodedata.normalize("NFC", seq)
@@ -125,8 +114,8 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
         else:
             flags["missing_precomposed"] = True
 
-    # Anchored vs fallback
-    if fontctx.has_anchor(base_cp, classIndex):
+    # Anchored vs fallback — use curated classIndex only
+    if classIndex is not None:
         kind = "anchored"
     else:
         kind = "fallback"
@@ -136,6 +125,8 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
         kind = "unsupported"
 
     return kind, flags, infos, positions
+
+
 
 __all__ = [
     "classify_combo",

@@ -136,3 +136,8 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
         kind = "unsupported"
 
     return kind, flags, infos, positions
+
+__all__ = [
+    "classify_combo",
+    "classify_combo_sanity",
+]

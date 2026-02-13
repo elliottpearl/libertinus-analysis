@@ -1,5 +1,5 @@
 from fontTools.ttLib import TTFont
-import harfbuzz as hb
+import uharfbuzz as hb
 
 from .font_context import FontContext
 from .font_helpers import extract_mark_attachment_data
@@ -71,7 +71,10 @@ class ComboMatrix:
         """Emit one row of TeX cells for a given mark across all bases."""
         cells = []
         for base_cp in bases:
-            result = self.grid[(mark_cp, base_cp, font_key)]
+            result = self.grid.get((mark_cp, base_cp, font_key))
+            if result is None:
+                # Legacy behavior: treat missing combos as fallback
+                result = ("fallback", None, None)
 
             if self.classifier is classify_combo:
                 kind, infos, positions = result

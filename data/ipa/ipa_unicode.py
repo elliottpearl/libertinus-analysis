@@ -13,6 +13,13 @@ Includes:
 Loaded by `src/libertinus_analysis/ipa_loader.py'.
 """
 
+def uniq(*groups):
+    """Return a sorted, deduplicated list of codepoints."""
+    out = set()
+    for g in groups:
+        out.update(g)
+    return sorted(out)
+
 # Bases
 
 # Latin (count: ?)

@@ -1,7 +1,7 @@
 """
 ipa_loader.py
 
-Loads IPA/Unicode ground-truth data from data/ipa/ipa_unicode.py
+Loads IPA/Unicode ground truth data from data/ipa/ipa_unicode.py
 and provides helper functions for selecting and grouping items.
 """
 
@@ -26,19 +26,11 @@ spec.loader.exec_module(ipa_unicode)
 #   etc.
 
 # Direct access to authoritative dicts
-ipa_base_groups = ipa_unicode.base_groups
-ipa_mark_groups = ipa_unicode.mark_groups
+ipa_base_groups = ipa_unicode.ipa_base_groups
+ipa_mark_groups = ipa_unicode.ipa_mark_groups
 ipa_diacritic_bases = ipa_unicode.ipa_diacritic_bases
 
 # Helper functions
-
-def uniq(*groups):
-    """Return a sorted, deduplicated list of codepoints."""
-    out = set()
-    for g in groups:
-        out.update(g)
-    return sorted(out)
-
 
 def select_bases(*keys):
     """

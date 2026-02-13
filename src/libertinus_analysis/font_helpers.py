@@ -1,5 +1,5 @@
 import unicodedata
-import harfbuzz as hb
+import uharfbuzz as hb
 from fontTools.ttLib import TTFont
 
 

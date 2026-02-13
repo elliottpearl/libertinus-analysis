@@ -10,4 +10,4 @@ IPA_DIR = DATA_DIR / "ipa"
 FONTS_DIR = ROOT / "fonts"
 
 TEX_DIR = ROOT / "tex"
-TEX_INPUT = TEX_DIR / "input"
+TEX_INPUT_DIR = TEX_DIR / "input"

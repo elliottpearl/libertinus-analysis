@@ -1,11 +1,16 @@
 """
 ipa_unicode.py
 
-IPA-specific semantic data for combining diacritics.
+Base and mark groups of Unicode characters for IPA and linguistic notation.
 
-This module maps IPA combining marks to the base characters
-they are linguistically valid with in IPA notation. 
-Historical notes and documentation belong here as well.
+Includes:
+- IPA and extended Latin base characters, in groups
+- all combining marks, in groups
+- IPA diacritic → allowed base mappings
+- labels for use in LaTeX documents
+- anchor class indices used by Libertins (shared across all styles)
+
+Loaded by `src/libertinus_analysis/ipa_loader.py'.
 """
 
 # Bases
@@ -655,13 +660,6 @@ VOICELESS_SONORANTS = [
     0x029D,0x029F,
 ]
 
-def uniq(*groups):
-    """Return a sorted, deduplicated list of codepoints."""
-    out = set()
-    for g in groups:
-        out.update(g)
-    return sorted(out)
-
 ipa_diacritic_bases = {
     # ABOVE MARKS
 
@@ -751,17 +749,27 @@ mark_anchor_required = [
     0x033B,  # square below (laminal)
 ]
 
-BASE_ORDER = (
-    LATIN_VOWELS
-    + IPA_VOWELS
-    + SYLLABIC_SONORANTS
-    + PALATALIZABLE
-    + CORONALS
-    + RETROFLEX_EMPHATIC
-    + VOICELESS_SONORANTS
-)
+base_anchor_required = [
+    0x0061, 0x0065, 0x0069, 0x006F, 0x0075, 0x0079,
+    0x00E6, 0x0153,
+    0x0250, 0x0251, 0x0252, 0x025B, 0x025C, 0x025E,
+    0x0259, 0x0258, 0x0264, 0x026F, 0x028A, 0x028C,
+    0x028F, 0x0275, 0x0276,
+    0x006D, 0x006E, 0x006C, 0x0072,
+    0x0074, 0x0064, 0x0073, 0x007A,
+    0x0255, 0x0291,
+    0x025F, 0x0261, 0x0263,
+    0x0256, 0x0273, 0x026D, 0x0288, 0x0282, 0x0290,
+    0x0253, 0x0257, 0x0260, 0x0262, 0x0266, 0x0265,
+    0x028B, 0x0281, 0x0280,
+    0x0289,
+    0x0062, 0x0067, 0x0076,
+    0x0077, 0x006A,
+    0x0271, 0x0272, 0x014B,
+    0x026B, 0x026E, 0x0274,
+]
 
-base_groups = {
+ipa_base_groups = {
     "latin": {"label": "Latin", "items": latin},
     "ipa": {"label": "IPA", "items": ipa},
     "superscript_consonant": {"label": "Superscript consonant", "items": superscript_consonant},
@@ -773,36 +781,10 @@ base_groups = {
     "precomposed_capital_consonants": {"label": "Precomposed capital consonants", "items": precomposed_capital_consonants},
     "precomposed_small_consonants": {"label": "Precomposed small consonants", "items": precomposed_small_consonants},
     "rare": {"label": "No marks", "items": rare},
+    "base_anchor_required": {"label": "Bases requiring anchors", "items": base_anchor_required},
 }
 
-def select_bases(*keys):
-    return [base_groups[k]["items"] for k in keys]
-
-base_anchor_required = [
-    b for b in BASE_ORDER
-    if b in set().union(
-        *select_bases(
-            "latin",
-            "ipa",
-            "superscript_consonant",
-            "greek",
-            "cyrillic",
-            "small_capital",
-            "precomposed_capital_vowels",
-            "precomposed_small_vowels",
-            "precomposed_capital_consonants",
-            "precomposed_small_consonants",
-            "rare",
-        )
-    )
-]
-
-base_groups["base_anchor_required"] = {
-    "label": "Bases requiring anchors",
-    "items": base_anchor_required,
-}
-
-mark_groups = {
+ipa_mark_groups = {
     "above": {
         "label": "Above",
         "items": mark_above,
@@ -879,6 +861,3 @@ mark_groups = {
         "classIndex": None,
     }
 }
-
-def select_marks(*keys):
-    return [mark_groups[k]["items"] for k in keys]

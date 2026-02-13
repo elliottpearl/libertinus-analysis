@@ -7,8 +7,7 @@ from .font_helpers import (
     shape_pair,
 )
 
-# IPA data (optional external module)
-from .constants import ipa_diacritics_bases
+from .ipa_loader import ipa_diacritic_bases
 
 def classify_combo(base_cp, mark_cp, classIndex, fontctx):
     """

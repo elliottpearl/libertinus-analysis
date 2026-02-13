@@ -10,23 +10,11 @@ from pathlib import Path
 from libertinus_analysis import constants
 from libertinus_analysis import geometry
 from libertinus_analysis import shaping
-from libertinus_analysis.matrix_renderer import MatrixRenderer
 
 
 """
 # Driver tasks
 # Expose exactly the task you want to run.
-
-renderer = MatrixRenderer(
-    marks=marks,
-    bases=bases,
-    classification=classification,
-    fonts=FONTS,
-    layout="tabular",
-)
-print(renderer.latex_table())
-
-
 
 # Inspect bounding boxes for a font
 # 

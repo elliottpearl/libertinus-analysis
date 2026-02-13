@@ -15,11 +15,11 @@ This script writes a LaTeX fragment into tex/input/, which you can
 Run xelatex manually.
 """
 
-from libertinus_analysis.font_context import FONTS, FontContext
-from libertinus_analysis.unicode_groups import base_groups, mark_groups
+from libertinus_analysis.font_context import FontContext
+from libertinus_analysis import ipa_base_groups, ipa_mark_groups
 from libertinus_analysis.combo_matrix import ComboMatrix
 from libertinus_analysis.classifiers import classify_attachment
-from libertinus_analysis.config import TEX_INPUT_DIR
+from libertinus_analysis.config import TEX_INPUT_DIR, FONTS_DIR
 
 
 def print_combo_matrix(
@@ -33,8 +33,8 @@ def print_combo_matrix(
     # Build font contexts
     font_contexts = {
         fk: FontContext.from_path(
-            path=FONTS[fk]["path"],
-            lookup_index=FONTS[fk]["lookup_index"],
+            path=FONTS_DIR[fk]["path"],
+            lookup_index=FONTS_DIR[fk]["lookup_index"],
             font_key=fk,
         )
         for fk in chosen_fonts
@@ -42,9 +42,9 @@ def print_combo_matrix(
 
     # Build ComboMatrix
     cm = ComboMatrix(
-        base_groups={k: base_groups[k] for k in chosen_base_groups},
-        mark_groups={k: mark_groups[k] for k in chosen_mark_groups},
-        fonts={fk: FONTS[fk] for fk in chosen_fonts},
+        base_groups={k: ipa_base_groups[k] for k in chosen_base_groups},
+        mark_groups={k: ipa_mark_groups[k] for k in chosen_mark_groups},
+        fonts={fk: FONTS_DIR[fk] for fk in chosen_fonts},
         classifier=classifier,
     )
 
@@ -65,17 +65,13 @@ def print_combo_matrix(
 
 
 if __name__ == "__main__":
-    # ------------------------------------------------------------
     # HUMAN: choose report parameters here
-    #
-    # builder options:
-    #   "grid"       → grid-style report
-    #   "tabular"    → LaTeX tabular environment
-    #   "paragraph"  → IPA-style paragraph report
-    # ------------------------------------------------------------
 
+    # keys of font_context.FONT
+    # "regular", "italic", "semibold", "semibold_italic", "regular_patch"
     chosen_fonts = ["regular", "italic", "semibold"]
 
+    # 
     chosen_base_groups = [
         # e.g. "latin_basic", "ipa_bases"
     ]

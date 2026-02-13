@@ -5,7 +5,7 @@ from fontTools.ttLib import TTFont
 import json
 
 from .font_helpers import extract_mark_attachment_data
-from .config import FONTS_DIR, FONTDATA
+from .config import FONTS_DIR, FONTDATA_DIR
 
 
 def load_font_metrics(font_key):
@@ -13,7 +13,7 @@ def load_font_metrics(font_key):
     Load per-font metrics from data/fontdata/<font_key>.json.
     Returns {} if no metrics file exists.
     """
-    path = FONTDATA / f"{font_key}.json"
+    path = FONTDATA_DIR / f"{font_key}.json"
     if not path.exists():
         return {}
     try:

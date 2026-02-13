@@ -8,33 +8,43 @@ from .tex_helpers import render_cell, render_cell_sanity
 
 
 class ComboMatrix:
+    """
+    A reusable engine for classifying mark-base combinations across fonts
+    and emitting LaTeX in several formats.
+
+    Public builders:
+        - latex_grid()
+        - latex_tabular()
+        - latex_paragraph()
+    """
+
     def __init__(self, base_groups, mark_groups, fonts, classifier):
-        # Input groups and font metadata
         self.base_groups = base_groups
         self.mark_groups = mark_groups
         self.fonts = fonts
         self.classifier = classifier
 
-        # Per-font contexts: style_key → FontContext
+        # Filled by load_fonts()
         self.font_contexts = {}
 
-        # Classification results: (mark_cp, base_cp, font_key) → classifier output tuple
+        # Filled by classify()
+        # key: (mark_cp, base_cp, font_key) → classifier output tuple
         self.grid = {}
 
-        # Accumulated LaTeX output
-        self.tables = []
-
-    # Load all fonts and extract GPOS mark-to-base data
+        # Font loading and classification
+    
     def load_fonts(self):
+        """Load all fonts and build FontContext objects."""
         for style_key, info in self.fonts.items():
             self.font_contexts[style_key] = FontContext.from_path(
                 path=info["path"],
                 lookup_index=info["lookup_index"],
+                font_key=style_key,
             )
         return self
 
-    # Classify all mark/base pairs for all fonts
     def classify(self):
+        """Classify all mark/base pairs for all fonts."""
         for font_key, info in self.fonts.items():
             fontctx = self.font_contexts[font_key]
 
@@ -55,14 +65,14 @@ class ComboMatrix:
 
         return self
 
-    # Build one row of TeX cells for a given mark across all bases
+    # Internal helpers for building LaTeX
+
     def _emit_mark_row(self, mark_cp, bases, font_key):
+        """Emit one row of TeX cells for a given mark across all bases."""
         cells = []
         for base_cp in bases:
             result = self.grid[(mark_cp, base_cp, font_key)]
 
-            # classify_combo → (kind, infos, positions)
-            # classify_combo_sanity → (kind, flags, infos, positions)
             if self.classifier is classify_combo:
                 kind, infos, positions = result
                 cell = render_cell(base_cp, mark_cp, kind, infos)
@@ -74,16 +84,16 @@ class ComboMatrix:
 
         return " ".join(cells)
 
-    # Build the full grid body (rows separated by blank lines)
     def _build_grid_body(self, marks, bases, font_key):
+        """Build the full grid body (rows separated by blank lines)."""
         rows = []
         for m in marks:
             rows.append(self._emit_mark_row(m, bases, font_key))
             rows.append("")  # blank line between rows
         return "\n".join(rows)
 
-    # Build a complete LaTeX grid for one font
-    def _build_latex_grid(self, marks, bases, font_key, section_label=None):
+    def _build_latex_grid_for_font(self, marks, bases, font_key, section_label=None):
+        """Build a complete LaTeX grid for one font."""
         info = self.fonts[font_key]
         style = info["style"]
         label = section_label or info["label"]
@@ -117,51 +127,60 @@ class ComboMatrix:
 
         return "\n".join(out)
 
-    # Emit normal grids for one base/mark group across all fonts
-    def latex_tabular(self, base_group, mark_group, section_label=None):
-        for font_key in self.fonts:
-            table = self._build_latex_grid(
-                marks=mark_group["items"],
-                bases=base_group["items"],
-                font_key=font_key,
-                section_label=section_label,
-            )
-            self.tables.append(table)
-        return self
+    # Public builders
 
-    # Emit all combinations of base_groups × mark_groups
-    def emit_all_combos(self):
+    def latex_grid(self):
+        """
+        Emit a grid-style report for all base_groups × mark_groups × fonts.
+        Returns a single LaTeX string.
+        """
+        out = []
         for base_group in self.base_groups.values():
             for mark_group in self.mark_groups.values():
-                self.latex_tabular(base_group, mark_group)
-        return self
+                marks = mark_group["items"]
+                bases = base_group["items"]
 
-    # Emit IPA diacritic grids (one mark per subsection)
-    def emit_ipa_diacritics(self, ipa_diacritic_bases):
-        for font_key, info in self.fonts.items():
-            self.tables.append(
-                rf"\subsection*{{IPA diacritics -- {info['label']}}}"
-            )
+                for font_key in self.fonts:
+                    out.append(
+                        self._build_latex_grid_for_font(
+                            marks=marks,
+                            bases=bases,
+                            font_key=font_key,
+                            section_label=None,
+                        )
+                    )
+        return "\n\n".join(out)
 
-            needs_group = info["style"] in {"italic", "bold", "bold_italic"}
-            if needs_group:
-                wrapper = {
-                    "italic": r"{\itshape",
-                    "bold": r"{\bfseries",
-                    "bold_italic": r"{\bfseries\itshape",
-                }[info["style"]]
-                self.tables.append(wrapper)
+    def latex_tabular(self):
+        """
+        Emit a tabular-style report (same content, different layout).
+        Returns a single LaTeX string.
+        """
+        # For now, reuse the grid builder.
+        # You can later replace this with a true tabular environment.
+        return self.latex_grid()
 
-            for mark_cp, base_list in ipa_diacritic_bases.items():
-                table = self._build_latex_grid(
-                    marks=[mark_cp],
-                    bases=base_list,
-                    font_key=font_key,
-                    section_label=f"U+{mark_cp:04X}",
-                )
-                self.tables.append(table)
+    def latex_paragraph(self):
+        """
+        Emit an IPA-style paragraph report:
+        - one mark per paragraph
+        - bases inline
+        - across all fonts
+        """
+        out = []
+        for mark_group in self.mark_groups.values():
+            for mark_cp in mark_group["items"]:
+                for font_key in self.fonts:
+                    bases = []
+                    for base_group in self.base_groups.values():
+                        bases.extend(base_group["items"])
 
-            if needs_group:
-                self.tables.append("}")
+                    paragraph = self._build_latex_grid_for_font(
+                        marks=[mark_cp],
+                        bases=bases,
+                        font_key=font_key,
+                        section_label=f"U+{mark_cp:04X}",
+                    )
+                    out.append(paragraph)
 
-        return self
+        return "\n\n".join(out)

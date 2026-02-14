@@ -26,9 +26,9 @@ spec.loader.exec_module(ipa_unicode)
 #   etc.
 
 # Direct access to authoritative dicts
-ipa_base_groups = ipa_unicode.ipa_base_groups
-ipa_mark_groups = ipa_unicode.ipa_mark_groups
+unicode_groups = ipa_unicode.unicode_groups
 ipa_diacritic_bases = ipa_unicode.ipa_diacritic_bases
+MARK_CLASS_INDEX = ipa_unicode.MARK_CLASS_INDEX
 
 # Helper functions
 

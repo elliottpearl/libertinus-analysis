@@ -58,7 +58,6 @@ class ComboMatrix:
                                 classIndex,
                                 fontctx,
                             )
-                            print("DEBUG", hex(mark_cp), hex(base_cp), font_key, ":", result)
                             self.grid[(mark_cp, base_cp, font_key)] = result
         return self
 

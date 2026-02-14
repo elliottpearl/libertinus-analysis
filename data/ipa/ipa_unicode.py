@@ -757,26 +757,28 @@ mark_anchor_required = [
 ]
 
 base_anchor_required = [
+    # Basic Latin vowels
     0x0061, 0x0065, 0x0069, 0x006F, 0x0075, 0x0079,
+
+    # Latin ligatures
     0x00E6, 0x0153,
-    0x0250, 0x0251, 0x0252, 0x025B, 0x025C, 0x025E,
-    0x0259, 0x0258, 0x0264, 0x026F, 0x028A, 0x028C,
-    0x028F, 0x0275, 0x0276,
-    0x006D, 0x006E, 0x006C, 0x0072,
-    0x0074, 0x0064, 0x0073, 0x007A,
-    0x0255, 0x0291,
-    0x025F, 0x0261, 0x0263,
-    0x0256, 0x0273, 0x026D, 0x0288, 0x0282, 0x0290,
-    0x0253, 0x0257, 0x0260, 0x0262, 0x0266, 0x0265,
-    0x028B, 0x0281, 0x0280,
-    0x0289,
-    0x0062, 0x0067, 0x0076,
-    0x0077, 0x006A,
-    0x0271, 0x0272, 0x014B,
-    0x026B, 0x026E, 0x0274,
+
+    # Basic Latin consonants
+    0x0062, 0x0063, 0x0064, 0x0066, 0x0067, 0x006A, 0x006C, 0x006D, 0x006E, 
+    0x0070, 0x0071, 0x0072, 0x0073, 0x0074, 0x0076, 0x0077, 0x007A,
+
+    # IPA vowels (U+0250–027F)
+    0x0250, 0x0251, 0x0252, 0x0253, 0x0255, 0x0256, 0x0257, 0x0258, 0x0259, 
+    0x025B, 0x025C, 0x025E, 0x025F, 0x0260, 0x0261, 0x0262, 0x0263, 0x0264, 
+    0x0265, 0x0266, 0x026B, 0x026C, 0x026D, 0x026E, 0x026F, 0x0271, 0x0272, 
+    0x0273, 0x0274, 0x0275, 0x0276, 0x0279, 0x027A, 0x027B,
+
+    # IPA consonants (U+0280–029F)
+    0x0280, 0x0281, 0x0282, 0x0283, 0x0288, 0x0289, 0x028A, 0x028B, 0x028C, 
+    0x028E, 0x028F, 0x0290, 0x0291, 0x0292, 0x029D, 0x029F,
 ]
 
-ipa_base_groups = {
+unicode_groups = {
     "latin": {"label": "Latin", "items": latin},
     "ipa": {"label": "IPA", "items": ipa},
     "superscript_consonant": {"label": "Superscript consonant", "items": superscript_consonant},
@@ -789,82 +791,56 @@ ipa_base_groups = {
     "precomposed_small_consonants": {"label": "Precomposed small consonants", "items": precomposed_small_consonants},
     "rare": {"label": "No marks", "items": rare},
     "base_anchor_required": {"label": "Bases requiring anchors", "items": base_anchor_required},
+    "above": {"label": "Above", "items": mark_above},
+    "above_rare": {"label": "Above (rare)", "items": mark_above_rare},
+    "above_right": {"label": "Above right (dot and comma)", "items": mark_above_right},
+    "below": {"label": "Below", "items": mark_below},
+    "below_rare": {"label": "Below (rare)", "items": mark_below_rare},
+    "left_angle": {"label": "Above right (left angle)", "items": mark_left_angle},
+    "below_right": {"label": "Below-right", "items": mark_below_right},
+    "cedilla": {"label": "Cedilla", "items": mark_cedilla},
+    "overlay": {"label": "Overlay", "items": mark_overlay},
+    "double": {"label": "Double", "items": mark_double},
+    "legacy": {"label": "Legacy", "items": mark_legacy},
+    "line": {"label": "Line", "items": mark_line},
+    "superscript_consonant_above": {"label": "Superscript consonant (above acute, grave, circumflex)", "items": mark_above_superscript_consonant},
+    "greek": {"label": "Greek", "items": mark_greek},
+    "mark_anchor_required": {"label": "Marks requiring anchors", "items": mark_anchor_required}
 }
 
-ipa_mark_groups = {
-    "above": {
-        "label": "Above",
-        "items": mark_above,
-        "classIndex": 0,
-    },
-    "above_rare": {
-        "label": "Above (rare)",
-        "items": mark_above_rare,
-        "classIndex": 0,
-    },
-    "above_right": {
-        "label": "Above right (dot and comma)",
-        "items": mark_above_right,
-        "classIndex": 1,
-    },
-    "below": {
-        "label": "Below",
-        "items": mark_below,
-        "classIndex": 2,
-    },
-    "below_rare": {
-        "label": "Below (rare)",
-        "items": mark_below_rare,
-        "classIndex": 2,
-    },
-    "left_angle": {
-        "label": "Above right (left angle)",
-        "items": mark_left_angle,
-        "classIndex": 3,
-    },
-    "below_right": {
-        "label": "Below-right",
-        "items": mark_below_right,
-        "classIndex": 4,
-    },
-    "cedilla": {
-        "label": "Cedilla",
-        "items": mark_cedilla,
-        "classIndex": 5,
-    },
-    "overlay": {
-        "label": "Overlay",
-        "items": mark_overlay,
-        "classIndex": 6,
-    },
-    "double": {
-        "label": "Double",
-        "items": mark_double,
-        "classIndex": 0,
-    },
-    "legacy": {
-        "label": "Legacy",
-        "items": mark_legacy,
-        "classIndex": 0,
-    },
-    "line": {
-        "label": "Line",
-        "items": mark_line,
-        "classIndex": 0,
-    },
-    "superscript_consonant_above": {
-        "label": "Superscript consonant (above acute, grave, circumflex)",
-        "items": mark_above_superscript_consonant,
-        "classIndex": 0,
-    },
-    "greek": {
-        "label": "Greek",
-        "items": mark_greek,
-        "classIndex": None,
-    },
-    "mark_anchor_required": {
-        "label": "Marks requiring anchors",
-        "items": mark_anchor_required,
-        "classIndex": None,
-    }
+MARK_CLASS_INDEX = {
+    # === ABOVE (class 0) ===
+    0x0300: 0, 0x0301: 0, 0x0302: 0, 0x0303: 0, 0x0304: 0, 0x0306: 0, 
+    0x0307: 0, 0x0308: 0, 0x0309: 0, 0x030A: 0, 0x030B: 0, 0x030C: 0, 
+    0x030D: 0, 0x030F: 0, 0x0310: 0, 0x0311: 0, 0x0312: 0, 0x0313: 0, 
+    0x033D: 0, 0x033E: 0, 0x033F: 0,
+
+    # === ABOVE RARE (class 0) ===
+    0x030E: 0, 0x0346: 0, 0x034A: 0, 0x034B: 0, 0x034C: 0, 0x0350: 0, 
+    0x0351: 0, 0x0352: 0, 0x0357: 0, 0x035B: 0,
+
+    # === ABOVE RIGHT (class 1) ===
+    0x0315: 1, 0x0358: 1,
+
+    # === BELOW (class 2) ===
+    0x0316: 2, 0x0317: 2, 0x0318: 2, 0x0319: 2, 0x031C: 2, 0x0320: 2, 
+    0x0323: 2, 0x0324: 2, 0x0325: 2, 0x0326: 2, 0x0329: 2, 0x032A: 2, 
+    0x032B: 2, 0x032C: 2, 0x032D: 2, 0x032E: 2, 0x032F: 2,
+
+    # === BELOW RARE (class 2) ===
+    0x031D: 2, 0x031E: 2, 0x031F: 2, 0x0330: 2, 0x0331: 2, 0x0333: 2, 
+    0x0339: 2, 0x033A: 2, 0x033B: 2, 0x033C: 2, 0x0347: 2, 0x0348: 2, 
+    0x0349: 2, 0x034D: 2, 0x034E: 2,
+
+    # === LEFT ANGLE (class 3) ===
+    0x031A: 3,
+
+    # === BELOW RIGHT (class 4) ===
+    0x0321: 4, 0x0322: 4, 0x0328: 4,
+
+    # === CEDILLA (class 5) ===
+    0x0327: 5,
+
+    # === OVERLAY (class 6) ===
+    0x0334: 6, 0x0335: 6, 0x0336: 6, 0x0337: 6, 0x0338: 6,
 }

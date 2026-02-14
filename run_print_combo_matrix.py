@@ -82,24 +82,24 @@ if __name__ == "__main__":
     # keys of ipa_base_groups of ipa_unicode.py
     # e.g. "latin", "ipa", "base_anchor_required"
     chosen_base_groups = [
-        "latin",
+        "base_anchor_required",
     ]
 
     # keys of ipa_mark_groups of ipa_unicode.py
     # e.g. "above", "below", "mark_anchor_required"
     chosen_mark_groups = [
-        "above",        
+        "mark_anchor_required",
     ]
 
     # classify_combo or classify_combo_sanity
     classifier = classify_combo
 
     # "grid" or "tabular" or "paragraph"
-    builder = "grid"          
+    builder = "grid"
 
     # LaTeX filename in TEX_INPUT = "tex/input/"
     # e.g. "latin_above.tex" 
-    outfile = "latin_above.tex" 
+    outfile = "regular_anchor_required.tex" 
 
     print_combo_matrix(
         chosen_fonts=chosen_fonts,

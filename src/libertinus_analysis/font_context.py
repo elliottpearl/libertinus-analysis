@@ -5,12 +5,8 @@ from fontTools.ttLib import TTFont
 import json
 
 from .config import FONTS_DIR, FONTDATA_DIR
-from .classifier_helpers import (
-    # no helpers needed here; extraction is done via TTFont
-)
-from .extract_gpos import extract_mark_attachment_data
 
-
+# Metrics loader
 def load_font_metrics(font_key):
     """
     Load per-font metrics from data/fontdata/<font_key>.json.
@@ -25,6 +21,50 @@ def load_font_metrics(font_key):
         return {}
 
 
+# Extract GPOS MarkToBase anchor data
+def extract_mark_attachment_data(font, lookup_index):
+    """
+    Extract mark-to-base anchor data from a GPOS lookup.
+
+    Returns:
+        markClassByGlyph:   mark glyphName → classIndex
+        anchorsByBaseGlyph: base glyphName → {classIndex: anchor}
+        cmap:               Unicode → glyphName
+    """
+    cmap = font.getBestCmap()
+    gpos = font["GPOS"].table
+    lookup = gpos.LookupList.Lookup[lookup_index]
+
+    markClassByGlyph = {}
+    anchorsByBaseGlyph = {}
+
+    for sub in lookup.SubTable:
+        if sub.LookupType != 4:  # MarkToBase
+            continue
+
+        # MARK ARRAY
+        mark_records = sub.MarkArray.MarkRecord
+        mark_glyphs = sub.MarkCoverage.glyphs
+
+        for i, glyph in enumerate(mark_glyphs):
+            markClassByGlyph[glyph] = mark_records[i].Class
+
+        # BASE ARRAY
+        base_records = sub.BaseArray.BaseRecord
+        base_glyphs = sub.BaseCoverage.glyphs
+
+        for i, glyph in enumerate(base_glyphs):
+            baserec = base_records[i]
+            anchors = {}
+            for classIndex, anchor in enumerate(baserec.BaseAnchor):
+                if anchor is not None:
+                    anchors[classIndex] = anchor
+            anchorsByBaseGlyph[glyph] = anchors
+
+    return markClassByGlyph, anchorsByBaseGlyph, cmap
+
+
+# FontContext class
 class FontContext:
     """
     Per-font context for classifiers.
@@ -46,6 +86,8 @@ class FontContext:
         markClassByGlyph,
         anchorsByBaseGlyph,
         metrics=None,
+        style=None,
+        label=None,
     ):
         self.ttfont = ttfont
         self.hb_font = hb_font
@@ -53,9 +95,11 @@ class FontContext:
         self.markClassByGlyph = markClassByGlyph
         self.anchorsByBaseGlyph = anchorsByBaseGlyph
         self.metrics = metrics or {}
+        self.style = style
+        self.label = label
 
     @classmethod
-    def from_path(cls, path, lookup_index, font_key=None):
+    def from_path(cls, path, lookup_index, font_key=None, style=None, label=None):
         """
         Load TTFont + HBFont + cmap + GPOS anchors from a font file.
         lookup_index is the curated index of the MarkToBase lookup.
@@ -82,10 +126,9 @@ class FontContext:
             markClassByGlyph=markClassByGlyph,
             anchorsByBaseGlyph=anchorsByBaseGlyph,
             metrics=metrics,
+            style=style,
+            label=label,
         )
-
-    def glyph_name(self, cp):
-        return self.cmap.get(cp)
 
     # Convenience helper
     def glyph_name(self, cp):
@@ -109,13 +152,13 @@ class FontContext:
         return self.metrics.get("anchors")
 
 
+
 """
-Font configuration
+Font registry
 
 path is the font file
 lookup_index is the GPOS table index for mark-to-base anchors
-style is a controlled vocabulary (regular, italic, bold, bold_talic) 
-of font style, useful for LaTeX commands \\itshape and \\bfseries.
+style is a controlled vocabulary (regular, italic, bold, bold_italic)
 label is a human-readable label.
 """
 

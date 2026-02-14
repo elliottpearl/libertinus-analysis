@@ -93,14 +93,14 @@ if __name__ == "__main__":
     ]
 
     # classify_combo or classify_combo_sanity
-    classifier = classify_combo
+    classifier = classify_combo_sanity
 
     # "grid" or "tabular" or "paragraph"
     builder = "grid"
 
     # LaTeX filename in TEX_INPUT = "tex/input/"
     # e.g. "latin_above.tex" 
-    outfile = "regular_anchor_required.tex" 
+    outfile = "regular_anchor_required_sanity.tex" 
 
     print_combo_matrix(
         chosen_fonts=chosen_fonts,

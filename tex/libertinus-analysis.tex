@@ -5,7 +5,7 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{svg.path}
 \usepackage{geometry}
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \usepackage{caption}
 \usepackage{expl3}
 
@@ -60,16 +60,43 @@
 	Language = Dutch,
 ]{LibertinusSerif-Regular.otf}
 
-% Set colors
+
+% Colors and macros for grids and tables of base+mark combos
+
+% ============================================================
+% Base colors
+% ============================================================
 
 \definecolor{darkblue}{RGB}{0,0,160}
 \definecolor{lightblue}{RGB}{120,170,255}
-\newcommand{\PREC}[1]{{\color{blue}#1}}		% precomposed
-\newcommand{\ANCH}[1]{{#1}}						% anchored
-\newcommand{\FALL}[1]{{\color{red}#1}}		% fallback
-\newcommand{\GSUB}[1]{{\color{darkblue}#1}}	% GSUB occurred
-\newcommand{\NOBM}[1]{{\color{lightgray}#1}}	% missing glyph
-\newcommand{\NOPR}[1]{{\color{lightblue}#1}}	% missing precomposed
+\definecolor{ipafallback}{RGB}{200,120,0}   % warm amber for IPA-valid fallback
+\definecolor{unsupported}{RGB}{180,180,180} % light gray for insane combos
+
+% ============================================================
+% Classic classifier (unchanged)
+% ============================================================
+
+\newcommand{\PREC}[1]{{\color{blue}#1}}          % precomposed
+\newcommand{\ANCH}[1]{{#1}}                      % anchored
+\newcommand{\FALL}[1]{{\color{red}#1}}           % fallback
+\newcommand{\GSUB}[1]{{\color{darkblue}#1}}      % GSUB occurred
+\newcommand{\NOBM}[1]{{\color{lightgray}#1}}     % missing glyph
+\newcommand{\NOPR}[1]{{\color{lightblue}#1}}     % missing precomposed
+
+% ============================================================
+% Sanity classifier (no boxes, pure inline color)
+% ============================================================
+
+% IPA-valid fallback (amber text)
+\newcommand{\IPAFALL}[1]{{\color{ipafallback}#1}}
+
+% Unsupported / insane combos (white-out: very light gray)
+\newcommand{\UNSUPP}[1]{{\color{unsupported}#1}}
+
+% Optional overlays (pure color, no boxes)
+\newcommand{\GSUBOVERLAY}[1]{{\color{darkblue}#1}}
+\newcommand{\MISSINGPRE}[1]{{\color{lightblue}#1}}
+\newcommand{\MISSINGGLYPH}[1]{{\color{lightgray}#1}}
 
 % Helper commands for pretty printing samples in regular, italic, bold, bold italic
 
@@ -941,6 +968,8 @@ But the entire grid is still useful to see all marks across all bases.
 \input{input/anchor-required.tex}
 
 \input{input/regular_anchor_required.tex}
+
+\input{input/regular_anchor_required_sanity.tex}
 
 \newpage
 \subsection*{Patch superscript consonant anchors}

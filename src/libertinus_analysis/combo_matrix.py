@@ -2,7 +2,6 @@ from fontTools.ttLib import TTFont
 import uharfbuzz as hb
 
 from .font_context import FontContext
-from .font_helpers import extract_mark_attachment_data
 from .classifiers import classify_combo, classify_combo_sanity
 from .tex_helpers import render_cell, render_cell_sanity
 from .ipa_loader import MARK_CLASS_INDEX
@@ -77,7 +76,8 @@ class ComboMatrix:
                 cell = render_cell(base_cp, mark_cp, kind, infos)
             else:
                 kind, flags, infos, positions = result
-                cell = render_cell_sanity(base_cp, mark_cp, kind, flags)
+                supported = not (kind == "unsupported")
+                cell = render_cell_sanity(base_cp, mark_cp, kind, flags, supported)
             cells.append(cell)
         return " ".join(cells)
 

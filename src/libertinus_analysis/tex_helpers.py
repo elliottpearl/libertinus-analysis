@@ -51,8 +51,7 @@ def render_cell(base_cp, mark_cp, kind, infos):
 
     raise ValueError(f"Unknown kind: {kind}")
 
-
-def render_cell_sanity(base_cp, mark_cp, kind, flags):
+def render_cell_sanity(base_cp, mark_cp, kind, flags, supported):
     """
     Render a TeX cell for the IPA sanity classifier.
 
@@ -79,6 +78,13 @@ def render_cell_sanity(base_cp, mark_cp, kind, flags):
         raw = tex(base_cp) + tex(mark_cp)
 
     # Base wrapper by kind (color only)
+    # Distinguish IPA‑valid vs IPA‑invalid fallback
+    supported = not flags.get("missing_base") \
+                and not flags.get("missing_mark") \
+                and not flags.get("missing_precomposed") \
+                and not flags.get("gsub_substitution") \
+                and kind != "unsupported"
+
     if kind == "unsupported":
         wrapped = f"\\UNSUPP{{{raw}}}"
     elif kind == "precomposed":
@@ -86,7 +92,10 @@ def render_cell_sanity(base_cp, mark_cp, kind, flags):
     elif kind == "anchored":
         wrapped = f"\\ANCH{{{raw}}}"
     elif kind == "fallback":
-        wrapped = f"\\FALL{{{raw}}}"
+        if supported:
+            wrapped = f"\\IPAFALL{{{raw}}}"   # NEW: IPA‑valid fallback
+        else:
+            wrapped = f"\\UNSUPP{{{raw}}}"    # IPA‑invalid fallback
     else:
         raise ValueError(f"Unknown sanity kind: {kind}")
 

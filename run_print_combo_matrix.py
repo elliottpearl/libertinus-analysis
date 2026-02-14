@@ -15,13 +15,14 @@ which can be \\input{} from the main LaTeX document.
 Run xelatex manually.
 """
 
-from libertinus_analysis.font_context import FontContext
-from libertinus_analysis import ipa_base_groups, ipa_mark_groups, FONTS
-from libertinus_analysis.combo_matrix import ComboMatrix
-from libertinus_analysis.classifiers import (
-    classify_combo,
-    classify_combo_sanity
+from libertinus_analysis import (
+    unicode_groups, 
+    FONTS,
+    FontContext,
+    ComboMatrix
 )
+
+from libertinus_analysis.classifiers import classify_combo, classify_combo_sanity
 from libertinus_analysis.config import TEX_INPUT_DIR
 
 
@@ -45,8 +46,8 @@ def print_combo_matrix(
 
     # Build ComboMatrix
     cm = ComboMatrix(
-        base_groups={k: ipa_base_groups[k] for k in chosen_base_groups},
-        mark_groups={k: ipa_mark_groups[k] for k in chosen_mark_groups},
+        base_groups={k: unicode_groups[k] for k in chosen_base_groups},
+        mark_groups={k: unicode_groups[k] for k in chosen_mark_groups},
         fonts={fk: FONTS[fk] for fk in chosen_fonts},
         classifier=classifier,
     )
@@ -79,13 +80,13 @@ if __name__ == "__main__":
         "regular",
     ]
 
-    # keys of ipa_base_groups of ipa_unicode.py
+    # keys of base unicode_groups of ipa_unicode.py
     # e.g. "latin", "ipa", "base_anchor_required"
     chosen_base_groups = [
         "base_anchor_required",
     ]
 
-    # keys of ipa_mark_groups of ipa_unicode.py
+    # keys of mark unicode_groups of ipa_unicode.py
     # e.g. "above", "below", "mark_anchor_required"
     chosen_mark_groups = [
         "mark_anchor_required",

@@ -5,6 +5,10 @@ from fontTools.ttLib import TTFont
 import json
 
 from .config import FONTS_DIR, FONTDATA_DIR
+from .classifier_helpers import (
+    # no helpers needed here; extraction is done via TTFont
+)
+from .extract_gpos import extract_mark_attachment_data
 
 
 def load_font_metrics(font_key):
@@ -23,28 +27,38 @@ def load_font_metrics(font_key):
 
 class FontContext:
     """
-    Minimal per-font context for classifiers.
+    Per-font context for classifiers.
 
     Includes:
         - TTFont
         - HBFont
         - cmap
-        - optional per-font metrics (JSON)
-
-    All GPOS-based mark/anchor extraction has been removed.
+        - markClassByGlyph (from curated lookup_index)
+        - anchorsByBaseGlyph (from curated lookup_index)
+        - optional per-font metrics
     """
 
-    def __init__(self, ttfont, hb_font, cmap, metrics=None):
+    def __init__(
+        self,
+        ttfont,
+        hb_font,
+        cmap,
+        markClassByGlyph,
+        anchorsByBaseGlyph,
+        metrics=None,
+    ):
         self.ttfont = ttfont
         self.hb_font = hb_font
         self.cmap = cmap
+        self.markClassByGlyph = markClassByGlyph
+        self.anchorsByBaseGlyph = anchorsByBaseGlyph
         self.metrics = metrics or {}
 
     @classmethod
-    def from_path(cls, path, lookup_index=None, font_key=None):
+    def from_path(cls, path, lookup_index, font_key=None):
         """
-        Load TTFont + HBFont + cmap from a font file.
-        lookup_index is ignored (kept only for compatibility).
+        Load TTFont + HBFont + cmap + GPOS anchors from a font file.
+        lookup_index is the curated index of the MarkToBase lookup.
         """
         ttfont = TTFont(path)
         fontdata = ttfont.reader.file.getvalue()
@@ -54,14 +68,24 @@ class FontContext:
 
         cmap = ttfont.getBestCmap()
 
+        # Extract anchors using curated lookup_index
+        markClassByGlyph, anchorsByBaseGlyph, _ = extract_mark_attachment_data(
+            ttfont, lookup_index
+        )
+
         metrics = load_font_metrics(font_key) if font_key else {}
 
         return cls(
             ttfont=ttfont,
             hb_font=hb_font,
             cmap=cmap,
+            markClassByGlyph=markClassByGlyph,
+            anchorsByBaseGlyph=anchorsByBaseGlyph,
             metrics=metrics,
         )
+
+    def glyph_name(self, cp):
+        return self.cmap.get(cp)
 
     # Convenience helper
     def glyph_name(self, cp):

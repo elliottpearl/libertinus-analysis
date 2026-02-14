@@ -5,6 +5,7 @@ from .font_context import FontContext
 from .font_helpers import extract_mark_attachment_data
 from .classifiers import classify_combo, classify_combo_sanity
 from .tex_helpers import render_cell, render_cell_sanity
+from .ipa_loader import MARK_CLASS_INDEX
 
 class ComboMatrix:
     """
@@ -47,8 +48,8 @@ class ComboMatrix:
         for font_key, info in self.fonts.items():
             fontctx = self.font_contexts[font_key]
             for mark_group in self.mark_groups.values():
-                classIndex = mark_group["classIndex"]   # use your curated value
                 for mark_cp in mark_group["items"]:
+                    classIndex = MARK_CLASS_INDEX.get(mark_cp)
                     markGlyph = fontctx.cmap.get(mark_cp)
                     for base_group in self.base_groups.values():
                         for base_cp in base_group["items"]:

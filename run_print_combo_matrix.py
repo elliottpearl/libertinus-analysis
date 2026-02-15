@@ -77,7 +77,7 @@ if __name__ == "__main__":
     # keys of FONTS of font_context.py
     # "regular", "italic", "semibold", "semibold_italic", "regular_patch"
     chosen_fonts = [
-        "regular",
+        "regular", "italic", "semibold", "semibold_italic", 
     ]
 
     # keys of base unicode_groups of ipa_unicode.py
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
     # LaTeX filename in TEX_INPUT = "tex/input/"
     # e.g. "latin_above.tex" 
-    outfile = "regular_anchor_required_sanity.tex" 
+    outfile = "anchor_required_sanity.tex" 
 
     print_combo_matrix(
         chosen_fonts=chosen_fonts,

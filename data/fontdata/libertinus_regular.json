@@ -102,7 +102,12 @@
             0x0051: (350, -309), # Q
             0x0063: (227, -110), # c, optical center 235 with x-pull -8 (same as o's x-pull)
             0x0064: (226, -110), # d, was (221,-110). -7 x-pull from 235 (optical center of inside bowl). check and redo?
-            0x006B: (290, -110), # k
+            0x0066: (136, -110), # f, was (132, -110). center is at 132
+            0x006B: (290, -110), # k, was (290.1, -214.4)
+            0x006D: (404, -110), # m, was (408, -110). center is 404
+            0x0071: (120, -319), # p, was (179, -319). center is 119.5
+            0x0072: (386, -319), # q, was (348, -319). center is 385.5
+
             0x00E6: (327, -110), # ae ligature, was (327, -109)
             0x0153: (353, -110), # oe ligature, -9 x-pull from true bottom optical center, like ae ligature
         },

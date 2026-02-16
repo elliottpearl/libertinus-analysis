@@ -74,8 +74,9 @@
     "anchors": {
         0: { # above
             0x0064: (385, 885), # d, center of stem; ascender aspect
-            0x00E6: (350, 645), # ae ligature, was (350, 645)
             0x0074: (139, 798?), # t. apex center is 128.5. shoft right about 10 units. bowl apex is 163. ymax=582, meanlineclearance=216, 798=582+216
+            0x007A: (220, 645), # z. was (220, 645). normalize xheight
+            0x00E6: (350, 645), # ae ligature, was (350, 645)            
             # superscript capitals from compute_baseanchor0()
             0x02B0: (155, 914), 0x02B1: (151, 913), 0x02B2: (73, 914),
             0x02B3: (128, 805), 0x02B4: (120, 805), 0x02B5: (143, 805),
@@ -110,9 +111,11 @@
             0x0071: (386, -319), # q, was (348, -319). center is 385.5
             0x0072: (140, -110), # r, was (135, -110). center is 139.5
             # 0x0074: (163, -110), # t, was (163, -110). apex center is 128.5. bowl apex is 163
-
             0x00E6: (327, -110), # ae ligature, was (327, -109)
             0x0153: (353, -110), # oe ligature, -9 x-pull from true bottom optical center, like ae ligature
+            0x0250: (229, -110), # turned a, was (229,-114)
+            0x0251: (222, -110), # latin alpha, was (212,-114). shift right. check
+            0x0252: (259, -110), # turnede alpha, was (259 -114).
         },
         # test 2 values computed with compute_baseanchor3(), clearance 0/80. Rejected.
         # test 3 values computed with compute_baseanchor3(), clearance -20/70. Accepted.

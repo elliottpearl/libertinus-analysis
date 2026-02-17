@@ -10,7 +10,7 @@ from .classifier_helpers import (
     has_anchor,
 )
 
-from .ipa_loader import ipa_diacritic_bases
+from .ipa_loader import MARK_BASE
 
 
 def classify_combo(base_cp, mark_cp, classIndex, fontctx):
@@ -88,7 +88,7 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
     }
 
     # IPA semantic support
-    supported_bases = ipa_diacritic_bases.get(mark_cp, [])
+    supported_bases = MARK_BASE.get(mark_cp, [])
     supported = base_cp in supported_bases
 
     # Missing glyphs

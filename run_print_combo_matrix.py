@@ -83,13 +83,13 @@ if __name__ == "__main__":
     # keys of base unicode_groups of ipa_unicode.py
     # e.g. "latin", "ipa", "base_anchor_required"
     chosen_base_groups = [
-        "base_anchor_required",
+        "BASE_COMMON",
     ]
 
     # keys of mark unicode_groups of ipa_unicode.py
     # e.g. "above", "below", "mark_anchor_required"
     chosen_mark_groups = [
-        "mark_anchor_required",
+        "MARK_COMMON",
     ]
 
     # classify_combo or classify_combo_sanity
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
     # LaTeX filename in TEX_INPUT = "tex/input/"
     # e.g. "latin_above.tex" 
-    outfile = "anchor_required_sanity.tex" 
+    outfile = "common_mark_base.tex" 
 
     print_combo_matrix(
         chosen_fonts=chosen_fonts,

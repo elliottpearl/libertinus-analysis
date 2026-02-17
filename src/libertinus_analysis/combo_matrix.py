@@ -4,7 +4,7 @@ import uharfbuzz as hb
 from .font_context import FontContext
 from .classifiers import classify_combo, classify_combo_sanity
 from .tex_helpers import render_cell, render_cell_sanity
-from .ipa_loader import MARK_CLASS_INDEX
+from .ipa_loader import mark_class_index
 
 class ComboMatrix:
     """
@@ -48,7 +48,7 @@ class ComboMatrix:
             fontctx = self.font_contexts[font_key]
             for mark_group in self.mark_groups.values():
                 for mark_cp in mark_group["items"]:
-                    classIndex = MARK_CLASS_INDEX.get(mark_cp)
+                    classIndex = mark_class_index.get(mark_cp)
                     markGlyph = fontctx.cmap.get(mark_cp)
                     for base_group in self.base_groups.values():
                         for base_cp in base_group["items"]:

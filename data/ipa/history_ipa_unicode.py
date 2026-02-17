@@ -1,16 +1,9 @@
 """
-ipa_unicode.py
+history_ipa_unicode.py
 
-Base and mark groups of Unicode characters for IPA and linguistic notation.
+Historical record of development of ipa_unicode.py, iterating versions of 
+ipa_diacritic_bases
 
-Includes:
-- IPA and extended Latin base characters, in groups
-- all combining marks, in groups
-- IPA diacritic → allowed base mappings
-- labels for use in LaTeX documents
-- anchor class indices used by Libertins (shared across all styles)
-
-Loaded by `src/libertinus_analysis/ipa_loader.py'.
 """
 
 def uniq(*groups):

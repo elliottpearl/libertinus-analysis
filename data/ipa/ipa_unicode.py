@@ -11,6 +11,17 @@ Includes:
 - anchor class indices used by Libertinus (shared across all styles)
 
 Loaded by `src/libertinus_analysis/ipa_loader.py'.
+
+The dict of marks and their bases requiring anchors, `MARK_BASE`, 
+was developed iteratively from a dict, `ipa_diacritic_bases`,
+by asking several LLMs to suggest base subgroups used with 
+combining marks for notation in lingistics. 
+See Git history for the development path.
+The idea is to identify all combining marks with their bases in notation
+in linguistics, but omit marks that always have precomposed characters 
+for their expected base and mark combinations, such as the Vietnamse horn.
+Of course, anchors and combining marks may be useful to build precomposed
+glyphs during the design stage of the font, but that is not my concern.
 """
 
 def uniq(*groups):
@@ -160,7 +171,7 @@ BASE_CYRILLIC = [
     # 0x04CF          # Small palochka
 ]
 
-PRECOMPOSED_CAPITAL_VOWEL = [
+PRECOMPOSED_CAPITAL_VOWELS = [
     0x00C0,0x00C1,0x00C2,0x00C3,0x00C4,0x00C5,0x0100,0x0102,0x0104,0x01CD,
     0x01DE,0x01E0,0x01FA,0x0200,0x0202,0x0226,0x1E00,0x1EA0,0x1EA2,0x1EA4,
     0x1EA6,0x1EA8,0x1EAA,0x1EAC,0x1EAE,0x1EB0,0x1EB2,0x1EB4,0x1EB6,0x00C8,
@@ -176,7 +187,7 @@ PRECOMPOSED_CAPITAL_VOWEL = [
     0x1EE4,0x1EE6,0x1EE8,0x1EEA,0x1EEC,0x1EEE,0x1EF0
 ]
 
-PRECOMPOSED_SMALL_VOWEL = [
+PRECOMPOSED_SMALL_VOWELS = [
     0x00E0,0x00E1,0x00E2,0x00E3,0x00E4,0x00E5,0x0101,0x0103,0x0105,0x01CE,
     0x01DF,0x01E1,0x01FB,0x0201,0x0203,0x0227,0x1E01,0x1EA1,0x1EA3,0x1EA5,
     0x1EA7,0x1EA9,0x1EAB,0x1EAD,0x1EAF,0x1EB1,0x1EB3,0x1EB5,0x1EB7,0x00E8,
@@ -192,7 +203,7 @@ PRECOMPOSED_SMALL_VOWEL = [
     0x1EE7,0x1EE9,0x1EEB,0x1EED,0x1EEF,0x1EF1
 ]
 
-PRECOMPOSED_CAPITAL_CONSONANT = [
+PRECOMPOSED_CAPITAL_CONSONANTS = [
     0x1E02,0x1E04,0x00C7,0x0106,0x0108,0x010A,0x010C,0x1E08,0x010E,0x0110,
     0x1E0A,0x1E0C,0x1E0E,0x1E10,0x1E12,0x1E1E,0x011C,0x011E,0x0120,0x0122,
     0x1E20,0x01E4,0x01E6,0x0124,0x1E22,0x1E24,0x1E26,0x1E28,0x1E2A,0x0134,
@@ -206,7 +217,7 @@ PRECOMPOSED_CAPITAL_CONSONANT = [
     0x01B3,0x0179,0x017B,0x017D,0x1E90,0x1E92,0x1E94,0x01B5
 ]
 
-PRECOMPOSED_SMALL_CONSONANT = [
+PRECOMPOSED_SMALL_CONSONANTS = [
     0x1E03,0x1E05,0x0180,0x0183,0x0185,0x00E7,0x0107,0x0109,0x010B,0x010D,
     0x1E09,0x0188,0x010F,0x0111,0x1E0B,0x1E0D,0x1E0F,0x1E11,0x1E13,0x018C,
     0x1E1F,0x011D,0x011F,0x0121,0x0123,0x1E21,0x01E5,0x01E7,0x01E9,0x0125,
@@ -238,11 +249,14 @@ base_small_capital = [
     # y.alt
 ]
 
+# Unicode characters that never take combining marks
 BASE_NO_MARK = [
     0x01B8,0x01B9,0x01F1,0x01F2,0x01F3,0x01C4,0x01C5,0x01C6,0x01C7,0x01C8,
     0x01C9,0x01CA,0x01CB,0x01CC,
 ]
 
+# Precomposed characters that might support another combining mark, 
+# and therefore require an anchor for that combining mark.
 BASE_PRECOMPOSED_ANCHOR_RELEVANT = [
     0x00E0,0x00E1,0x00E2,0x00E3,0x0101,0x00E5,0x1EA1,0x1EB7,0x1EA7,0x1EAF,
     0x1EB1,0x1EB5,0x1EA5,0x1EA7,0x1EAB,0x00E8,0x00E9,0x00EA,0x1EBD,0x0113,
@@ -250,6 +264,87 @@ BASE_PRECOMPOSED_ANCHOR_RELEVANT = [
     0x1ECB,0x00F2,0x00F3,0x00F4,0x00F5,0x014D,0x1ECD,0x1ED9,0x1ED1,0x1ED3,
     0x1ED7,0x00F9,0x00FA,0x00FB,0x0169,0x016B,0x1EE5,0x1EF3,0x00FD,0x0177,
     0x1EF9,0x0233,0x1EF5,0x1E0D,0x1E37,0x1E47,0x1E5B,0x1E63,0x1E6D,0x1E93,
+]
+
+# Base subgroups, for linguistics
+
+VOWELS = [
+    # a e i o u y æ œ ɐ ɑ ɒ ɛ ɜ ɞ ə ɘ ɤ ɯ ʊ ʌ ʏ ø ɶ
+    0x0061,0x0065,0x0069,0x006F,0x0075,0x0079,0x00E6,0x0153,
+    0x0250,0x0251,0x0252,0x025B,0x025C,0x025E,0x0259,0x0258,
+    0x0264,0x026F,0x028A,0x028C,0x028F,0x0275,0x0276,
+]
+SYLLABIC_SONORANTS = [
+    # m n l r
+    0x006D,0x006E,0x006C,0x0072,
+]
+PALATALIZABLE = [
+    # t d n s z ɕ ʑ l r ɟ ɡ ɣ
+    0x0074,0x0064,0x006E,0x0073,0x007A,0x0255,0x0291,0x006C,0x0072,0x025F,
+    0x0261,0x0263,
+]
+RETROFLEX_CONSONANTS = [
+    # t d s z ʈ ɖ ʂ ʐ ɳ ɽ ɭ
+    0x0074,0x0064,0x0073,0x007A,0x0288,0x0256,0x0282,0x0290,0x0273,0x027D,
+    0x026D,
+]
+EMPHATIC_TRANSLIT = [
+    # f k g q x
+    0x0066,0x006B,0x0067,0x0071,0x0078,
+]
+CORONALS = [
+    # t d s z n
+    0x0074,0x0064,0x0073,0x007A,0x006E,
+]
+VOICELESS_SONORANTS = [
+    # m n ɲ ŋ l ɫ ɬ ɮ r ɹ ɺ ɻ ʀ ʁ ʋ ɥ ʎ ʝ ʟ
+    0x006D,0x006E,0x0272,0x014B,0x006C,0x026B,0x026C,0x026E,0x0072,0x0279,
+    0x027A,0x027B,0x0280,0x0281,0x028B,0x0265,0x028E,0x029D,0x029F,
+]
+NONCORONAL_OBSTRUENTS = [
+    # ɓ ɗ ɠ ʛ ɡ ɢ ɣ q x ɦ ʀ ʁ ʋ
+    0x0253,0x0257,0x0260,0x029B,0x0261,0x0262,0x0263,0x0071,0x0078,0x0266,
+    0x0280,0x0281,0x028B,
+]
+VOICELESSABLE = [
+    # b d g v z ʒ m n l r w j ɱ ɲ ɳ ŋ
+    0x0062,0x0064,0x0067,0x0076,0x007A,0x0292,0x006D,0x006E,0x006C,0x0072,
+    0x0077,0x006A,0x0271,0x0272,0x0273,0x014B,
+]
+SYLLABIC_EXTENDED = [
+    # ɫ ɭ ɮ ɱ ɲ ɳ ɴ
+    0x026B,0x026D,0x026E,0x0271,0x0272,0x0273,0x0274,
+]
+VOICED_BY_CARON_BELOW = [
+    # p t k f s ʃ ɕ c q
+    0x0070,0x0074,0x006B,0x0066,0x0073,0x0283,0x0255,0x0063,0x0071,
+]
+
+CONSONANTS = uniq(
+    CORONALS,
+    NONCORONAL_OBSTRUENTS,
+    VOICELESS_SONORANTS,
+    SYLLABIC_SONORANTS,
+    SYLLABIC_EXTENDED,
+    RETROFLEX_CONSONANTS,
+    EMPHATIC_TRANSLIT,
+    VOICELESSABLE,
+    VOICED_BY_CARON_BELOW,
+)
+
+SIBILANTS = [
+    # s       z       ʃ       ʒ       ɕ       ʑ
+    0x0073, 0x007A, 0x0283, 0x0292, 0x0255, 0x0291,
+]
+
+DORSALS = [
+    # k       g       q       ɢ       ɣ       ʁ
+    0x006B, 0x0067, 0x0071, 0x0262, 0x0263, 0x0281,
+]
+
+LABIALS = [
+    # p       b       m       ɱ       ɸ       β
+    0x0070, 0x0062, 0x006D, 0x0271, 0x0278, 0x03B2,
 ]
 
 # Marks
@@ -368,159 +463,7 @@ MARK_SUPERSCRIPT_CONSONANT = [
     0x0302, # circumflex
 ]
 
-# Base subgroups, for linguistics
-
-VOWELS = [
-    # a e i o u y æ œ ɐ ɑ ɒ ɛ ɜ ɞ ə ɘ ɤ ɯ ʊ ʌ ʏ ø ɶ
-    0x0061,0x0065,0x0069,0x006F,0x0075,0x0079,0x00E6,0x0153,
-    0x0250,0x0251,0x0252,0x025B,0x025C,0x025E,0x0259,0x0258,
-    0x0264,0x026F,0x028A,0x028C,0x028F,0x0275,0x0276,
-]
-SYLLABIC_SONORANTS = [
-    # m n l r
-    0x006D,0x006E,0x006C,0x0072,
-]
-PALATALIZABLE = [
-    # t d n s z ɕ ʑ l r ɟ ɡ ɣ
-    0x0074,0x0064,0x006E,0x0073,0x007A,0x0255,0x0291,0x006C,0x0072,0x025F,
-    0x0261,0x0263,
-]
-RETROFLEX_CONSONANTS = [
-    # t d s z ʈ ɖ ʂ ʐ ɳ ɽ ɭ
-    0x0074,0x0064,0x0073,0x007A,0x0288,0x0256,0x0282,0x0290,0x0273,0x027D,
-    0x026D,
-]
-EMPHATIC_TRANSLIT = [
-    # f k g q x
-    0x0066,0x006B,0x0067,0x0071,0x0078,
-]
-CORONALS = [
-    # t d s z n
-    0x0074,0x0064,0x0073,0x007A,0x006E,
-]
-VOICELESS_SONORANTS = [
-    # m n ɲ ŋ l ɫ ɬ ɮ r ɹ ɺ ɻ ʀ ʁ ʋ ɥ ʎ ʝ ʟ
-    0x006D,0x006E,0x0272,0x014B,0x006C,0x026B,0x026C,0x026E,0x0072,0x0279,
-    0x027A,0x027B,0x0280,0x0281,0x028B,0x0265,0x028E,0x029D,0x029F,
-]
-NONCORONAL_OBSTRUENTS = [
-    # ɓ ɗ ɠ ʛ ɡ ɢ ɣ q x ɦ ʀ ʁ ʋ
-    0x0253,0x0257,0x0260,0x029B,0x0261,0x0262,0x0263,0x0071,0x0078,0x0266,
-    0x0280,0x0281,0x028B,
-]
-VOICELESSABLE = [
-    # b d g v z ʒ m n l r w j ɱ ɲ ɳ ŋ
-    0x0062,0x0064,0x0067,0x0076,0x007A,0x0292,0x006D,0x006E,0x006C,0x0072,
-    0x0077,0x006A,0x0271,0x0272,0x0273,0x014B,
-]
-SYLLABIC_EXTENDED = [
-    # ɫ ɭ ɮ ɱ ɲ ɳ ɴ
-    0x026B,0x026D,0x026E,0x0271,0x0272,0x0273,0x0274,
-]
-VOICED_BY_CARON_BELOW = [
-    # p t k f s ʃ ɕ c q
-    0x0070,0x0074,0x006B,0x0066,0x0073,0x0283,0x0255,0x0063,0x0071,
-]
-
-CONSONANTS = uniq(
-    CORONALS,
-    NONCORONAL_OBSTRUENTS,
-    VOICELESS_SONORANTS,
-    SYLLABIC_SONORANTS,
-    SYLLABIC_EXTENDED,
-    RETROFLEX_CONSONANTS,
-    EMPHATIC_TRANSLIT,
-    VOICELESSABLE,
-    VOICED_BY_CARON_BELOW,
-)
-
-SIBILANTS = [
-    0x0073,  # s
-    0x007A,  # z
-    0x0283,  # ʃ
-    0x0292,  # ʒ
-    0x0255,  # ɕ
-    0x0291,  # ʑ
-]
-
-DORSALS = [
-    0x006B,  # k
-    0x0067,  # g
-    0x0071,  # q
-    0x0262,  # ɢ
-    0x0263,  # ɣ
-    0x0281,  # ʁ
-]
-
-LABIALS = [
-    0x0070,  # p
-    0x0062,  # b
-    0x006D,  # m
-    0x0271,  # ɱ
-    0x0278,  # ɸ
-    0x03B2,  # β (if included)
-]
-
-# Common above/below marks used in IPA, tone, phonation, ATR/RTR, transliteration
-MARK_BASE_COMMON = {
-    # above marks
-    0x0300: uniq(VOWELS, SYLLABIC_SONORANTS, NONCORONAL_OBSTRUENTS),
-    0x0301: uniq(VOWELS, PALATALIZABLE, SYLLABIC_SONORANTS, NONCORONAL_OBSTRUENTS),
-    0x0302: uniq(VOWELS, NONCORONAL_OBSTRUENTS),
-    0x0303: uniq(VOWELS, NONCORONAL_OBSTRUENTS),
-    0x0304: uniq(VOWELS, SYLLABIC_SONORANTS, NONCORONAL_OBSTRUENTS),
-    0x030A: VOICELESS_SONORANTS,
-    # below marks
-    0x031F: VOWELS,  # ATR
-    0x0320: VOWELS,  # RTR
-    0x0323: uniq(RETROFLEX_CONSONANTS, EMPHATIC_TRANSLIT, VOWELS, NONCORONAL_OBSTRUENTS),
-    0x0325: uniq(VOICELESSABLE, NONCORONAL_OBSTRUENTS, VOWELS),
-    0x0329: uniq(SYLLABIC_SONORANTS, NONCORONAL_OBSTRUENTS, SYLLABIC_EXTENDED),
-    0x032A: CORONALS,
-    0x032C: VOICED_BY_CARON_BELOW,
-    0x0330: uniq(VOWELS, NONCORONAL_OBSTRUENTS),
-    0x0333: VOWELS,
-    0x033A: CORONALS,
-    0x033B: CORONALS,
-}  
-
-# Rare above/below marks used in UPA, Slavicist, Africanist, and historical phonetics
-MARK_BASE_RARE = {
-    # above rare
-    0x0305: ALL_VOWELS,                # overline (length, tone)
-    0x030E: ALL_VOWELS,                # double vertical line above (UPA)
-    0x0346: ALL_CONSONANTS,            # bridge above (UPA)
-    0x034A: ALL_CONSONANTS,            # not tilde above (UPA)
-    0x034B: ALL_CONSONANTS,            # homothetic above (UPA)
-    0x034C: ALL_CONSONANTS,            # almost equal above (UPA)
-    0x0350: ALL_CONSONANTS,            # right arrowhead above (UPA)
-    0x0351: ALL_CONSONANTS,            # left half ring above (UPA)
-    0x0352: ALL_VOWELS,                # fermata above (UPA)
-    0x0357: ALL_CONSONANTS,            # right half ring above (UPA)
-    0x035B: ALL_CONSONANTS,            # zigzag above (UPA)
-    # below rare
-    0x0316: ALL_VOWELS,                # grave below (UPA tone)
-    0x0317: ALL_VOWELS,                # acute below (UPA tone)
-    0x0318: ALL_CONSONANTS,            # left tack below (advanced)
-    0x0319: ALL_CONSONANTS,            # right tack below (retracted)
-    0x031C: ALL_CONSONANTS,            # left half ring below (UPA)
-    0x0324: ALL_VOWELS,                # diaeresis below (breathy voice)
-    0x0326: ALL_CONSONANTS,            # comma below (IPA)
-    0x032B: ALL_CONSONANTS,            # inverted double arch below (UPA)
-    0x032D: ALL_CONSONANTS,            # circumflex below (UPA)
-    0x032E: ALL_VOWELS,                # breve below (UPA)
-    0x032F: ALL_VOWELS,                # inverted breve below (tone)
-    0x0331: ALL_VOWELS,                # macron below (Africanist)
-    0x0339: ALL_CONSONANTS,            # right half ring below (retroflex)
-    0x033C: LABIALS,                   # seagull below (labialization)
-    0x0347: ALL_VOWELS,                # equals sign below (Africanist)
-    0x0348: ALL_CONSONANTS,            # double vertical line below (UPA)
-    0x0349: ALL_CONSONANTS,            # left angle below (UPA)
-    0x034D: ALL_CONSONANTS,            # left-right arrow below (UPA)
-    0x034E: ALL_CONSONANTS,            # upwards arrow below (UPA)
-}
-
-# Common combining marks = keys MARK_BASE_COMMON
+# Common combining marks in linguistics
 MARK_COMMON = [
     0x0300,  # grave
     0x0301,  # acute
@@ -541,28 +484,7 @@ MARK_COMMON = [
     0x033B,  # square below (laminal)
 ]
 
-# Bases of common marks = union of MARK_BASE_COMMMON base lists, deduped
-BASE_COMMON = [
-    # a b c d e f g i j k l m n o p q r s t u v w x y z
-    0x0061,0x0062,0x0063,0x0064,0x0065,0x0066,0x0067,0x0069,0x006A,0x006B,
-    0x006C,0x006D,0x006E,0x006F,0x0070,0x0071,0x0072,0x0073,0x0074,0x0075,
-    0x0076,0x0077,0x0078,0x0079,0x007A,
-    # æ œ
-    0x00E6,0x0153,
-    # ŋ
-    0x014B,
-    # ɓ ɖ ɠ ʛ ɡ ɢ ɣ ɤ ɥ ɦ ɧ ɨ ɩ ɪ ɫ ɬ ɭ ɮ ɯ ɰ ɱ ɲ ɳ ɴ
-    0x0250,0x0251,0x0252,0x0253,0x0256,0x0257,0x0258,0x0259,0x025B,0x025C,
-    0x025E,0x025F,0x0260,0x0261,0x0262,0x0263,0x0264,0x0265,0x0266,0x026B,
-    0x026C,0x026D,0x026E,0x026F,0x0271,0x0272,0x0273,0x0274,0x0275,0x0276,
-    0x0279,0x027A,0x027B,
-    # ʀ ʁ ʂ ʃ ʄ ʅ ʆ ʇ ʈ ʉ ʊ ʋ ʌ ʍ ʎ ʏ
-    0x0280,0x0281,0x0282,0x0283,0x028B,0x028C,0x028E,0x028F,
-    # ʐ ʑ ʒ ʝ ʟ
-    0x0290,0x0291,0x0292,0x029D,0x029F,
-]
-
-# Rare combining marks = keys MARK_BASE_RARE
+# Rare combining marks in linguistics
 MARK_RARE = [
     # above
     0x0305, # overline (length, tone)
@@ -598,50 +520,285 @@ MARK_RARE = [
     0x034E: CONSONANTS,            # upwards arrow below (UPA)
 ]
 
-# Bases used by rare marks = union of MARK_BASE_RARE base lists, deduped.
-# These bases are not rare.
+# Above- and below combining marks used in linguistics, with their bases.
+# Common marks are used in IPA, tone, phonation, ATR/RTR, transliteration.
+# Rare marks are used in in UPA, Slavicist, Africanist, and historical phonetics.
+# Omits marks whose combined forms are always precomposed characters, e.g. 0x031B horn. 
+MARK_BASE = {
+    # Common marks
+    # above
+    0x0300: uniq(VOWELS, SYLLABIC_SONORANTS, NONCORONAL_OBSTRUENTS),
+    0x0301: uniq(VOWELS, PALATALIZABLE, SYLLABIC_SONORANTS, NONCORONAL_OBSTRUENTS),
+    0x0302: uniq(VOWELS, NONCORONAL_OBSTRUENTS),
+    0x0303: uniq(VOWELS, NONCORONAL_OBSTRUENTS),
+    0x0304: uniq(VOWELS, SYLLABIC_SONORANTS, NONCORONAL_OBSTRUENTS),
+    0x030A: VOICELESS_SONORANTS,
+    # below
+    0x031F: VOWELS,  # ATR
+    0x0320: VOWELS,  # RTR
+    0x0323: uniq(RETROFLEX_CONSONANTS, EMPHATIC_TRANSLIT, VOWELS, NONCORONAL_OBSTRUENTS),
+    0x0325: uniq(VOICELESSABLE, NONCORONAL_OBSTRUENTS, VOWELS),
+    0x0329: uniq(SYLLABIC_SONORANTS, NONCORONAL_OBSTRUENTS, SYLLABIC_EXTENDED),
+    0x032A: CORONALS,
+    0x032C: VOICED_BY_CARON_BELOW,
+    0x0330: uniq(VOWELS, NONCORONAL_OBSTRUENTS),
+    0x0333: VOWELS,
+    0x033A: CORONALS,
+    0x033B: CORONALS,
+    # Rare marks
+    # above
+    0x0305: ALL_VOWELS,                # overline (length, tone)
+    0x030E: ALL_VOWELS,                # double vertical line above (UPA)
+    0x0346: ALL_CONSONANTS,            # bridge above (UPA)
+    0x034A: ALL_CONSONANTS,            # not tilde above (UPA)
+    0x034B: ALL_CONSONANTS,            # homothetic above (UPA)
+    0x034C: ALL_CONSONANTS,            # almost equal above (UPA)
+    0x0350: ALL_CONSONANTS,            # right arrowhead above (UPA)
+    0x0351: ALL_CONSONANTS,            # left half ring above (UPA)
+    0x0352: ALL_VOWELS,                # fermata above (UPA)
+    0x0357: ALL_CONSONANTS,            # right half ring above (UPA)
+    0x035B: ALL_CONSONANTS,            # zigzag above (UPA)
+    # below
+    0x0316: ALL_VOWELS,                # grave below (UPA tone)
+    0x0317: ALL_VOWELS,                # acute below (UPA tone)
+    0x0318: ALL_CONSONANTS,            # left tack below (advanced)
+    0x0319: ALL_CONSONANTS,            # right tack below (retracted)
+    0x031C: ALL_CONSONANTS,            # left half ring below (UPA)
+    0x0324: ALL_VOWELS,                # diaeresis below (breathy voice)
+    0x0326: ALL_CONSONANTS,            # comma below (IPA)
+    0x032B: ALL_CONSONANTS,            # inverted double arch below (UPA)
+    0x032D: ALL_CONSONANTS,            # circumflex below (UPA)
+    0x032E: ALL_VOWELS,                # breve below (UPA)
+    0x032F: ALL_VOWELS,                # inverted breve below (tone)
+    0x0331: ALL_VOWELS,                # macron below (Africanist)
+    0x0339: ALL_CONSONANTS,            # right half ring below (retroflex)
+    0x033C: LABIALS,                   # seagull below (labialization)
+    0x0347: ALL_VOWELS,                # equals sign below (Africanist)
+    0x0348: ALL_CONSONANTS,            # double vertical line below (UPA)
+    0x0349: ALL_CONSONANTS,            # left angle below (UPA)
+    0x034D: ALL_CONSONANTS,            # left-right arrow below (UPA)
+    0x034E: ALL_CONSONANTS,            # upwards arrow below (UPA)
+}
+
+# Bases of common marks
+# Sorted deduped union of base lists (per MARK_BASE) of common marks (MARK_COMMON)
+BASE_COMMON = [
+    # a b c d e f g i j k l m n o p q r s t u v w x y z
+    0x0061,0x0062,0x0063,0x0064,0x0065,0x0066,0x0067,0x0069,0x006A,0x006B,
+    0x006C,0x006D,0x006E,0x006F,0x0070,0x0071,0x0072,0x0073,0x0074,0x0075,
+    0x0076,0x0077,0x0078,0x0079,0x007A,
+    # æ œ
+    0x00E6,0x0153,
+    # ŋ
+    0x014B,
+    # ɓ ɖ ɠ ʛ ɡ ɢ ɣ ɤ ɥ ɦ ɧ ɨ ɩ ɪ ɫ ɬ ɭ ɮ ɯ ɰ ɱ ɲ ɳ ɴ
+    0x0250,0x0251,0x0252,0x0253,0x0256,0x0257,0x0258,0x0259,0x025B,0x025C,
+    0x025E,0x025F,0x0260,0x0261,0x0262,0x0263,0x0264,0x0265,0x0266,0x026B,
+    0x026C,0x026D,0x026E,0x026F,0x0271,0x0272,0x0273,0x0274,0x0275,0x0276,
+    0x0279,0x027A,0x027B,
+    # ʀ ʁ ʂ ʃ ʄ ʅ ʆ ʇ ʈ ʉ ʊ ʋ ʌ ʍ ʎ ʏ
+    0x0280,0x0281,0x0282,0x0283,0x028B,0x028C,0x028E,0x028F,
+    # ʐ ʑ ʒ ʝ ʟ
+    0x0290,0x0291,0x0292,0x029D,0x029F,
+]
+
+# Bases of rare marks
+# Sorted deduped union of base lists (per MARK_BASE) of rare marks (MARK_RARE)
 BASE_RARE = uniq(
     VOWELS,
     CONSONANTS,
     LABIALS,
 )
 
-# "label" is a semantic label for the group
+# "label" is a printable semantic label for the group
 # "items" is the python symbol name of the group list
-# to do: reconcile with new (capitalized) group names 
 unicode_groups = {
-    "base_latin": {"label": "Latin", "items": base_latin},
-    "base_ipa": {"label": "IPA", "items": base_ipa},
-    "base_superscript_consonant": {"label": "Superscript consonant", "items": base_superscript_consonant},
-    "base_greek": {"label": "Greek", "items": base_greek},
-    "base_cyrillic": {"label": "Cyrillic", "items": base_cyrillic},
-    "base_small_capital": {"label": "Small capital", "items": base_small_capital},
-    "precomposed_capital_vowel": {"label": "Precomposed capital vowels", "items": precomposed_capital_vowel},
-    "precomposed_small_vowel": {"label": "Precomposed small vowels", "items": precomposed_small_vowel},
-    "precomposed_capital_consonant": {"label": "Precomposed capital consonants", "items": precomposed_capital_consonant},
-    "precomposed_small_consonant": {"label": "Precomposed small consonants", "items": precomposed_small_consonant},
-    "base_no_mark": {"label": "No marks", "items": base_no_mark,
-    "common_bases": {"label": "Bases requiring anchors for common marks", "items": base_anchor_required},
-    "above": {"label": "Above", "items": mark_above},
-    "above_rare": {"label": "Above (rare)", "items": mark_above_rare},
-    "above_right": {"label": "Above right (dot and comma)", "items": mark_above_right},
-    "below": {"label": "Below", "items": mark_below},
-    "below_rare": {"label": "Below (rare)", "items": mark_below_rare},
-    "left_angle": {"label": "Above right (left angle)", "items": mark_left_angle},
-    "below_right": {"label": "Below-right", "items": mark_below_right},
-    "cedilla": {"label": "Cedilla", "items": mark_cedilla},
-    "overlay": {"label": "Overlay", "items": mark_overlay},
-    "double": {"label": "Double", "items": mark_double},
-    "legacy": {"label": "Legacy", "items": mark_legacy},
-    "line": {"label": "Line", "items": mark_line},
-    "superscript_consonant_above": {"label": "Superscript consonant (above acute, grave, circumflex)", "items": mark_above_superscript_consonant},
-    "greek": {"label": "Greek", "items": mark_greek},
-    "mark_anchor_required": {"label": "Marks requiring anchors", "items": mark_anchor_required}
+    # === Base Unicode blocks ===
+    "BASE_LATIN": {
+        "label": "Latin",
+        "items": BASE_LATIN,
+    },
+    "BASE_IPA": {
+        "label": "IPA",
+        "items": BASE_IPA,
+    },
+    "BASE_SUPERSCRIPT_CONSONANT": {
+        "label": "Superscript consonant",
+        "items": BASE_SUPERSCRIPT_CONSONANT,
+    },
+    "BASE_GREEK": {
+        "label": "Greek",
+        "items": BASE_GREEK,
+    },
+    "BASE_CYRILLIC": {
+        "label": "Cyrillic",
+        "items": BASE_CYRILLIC,
+    },
+    "BASE_SMALL_CAPITAL": {
+        "label": "Small capital (Libertinus)",
+        "items": base_small_capital,
+    },
+    "BASE_NO_MARK": {
+        "label": "No marks",
+        "items": BASE_NO_MARK,
+    },
+    "BASE_PRECOMPOSED_ANCHOR_RELEVANT": {
+        "label": "Precomposed bases needing anchors",
+        "items": BASE_PRECOMPOSED_ANCHOR_RELEVANT,
+    },
+
+    # === Precomposed blocks ===
+    "PRECOMPOSED_CAPITAL_VOWELS": {
+        "label": "Precomposed capital vowels",
+        "items": PRECOMPOSED_CAPITAL_VOWELS,
+    },
+    "PRECOMPOSED_SMALL_VOWELS": {
+        "label": "Precomposed small vowels",
+        "items": PRECOMPOSED_SMALL_VOWELS,
+    },
+    "PRECOMPOSED_CAPITAL_CONSONANTS": {
+        "label": "Precomposed capital consonants",
+        "items": PRECOMPOSED_CAPITAL_CONSONANTS,
+    },
+    "PRECOMPOSED_SMALL_CONSONANTS": {
+        "label": "Precomposed small consonants",
+        "items": PRECOMPOSED_SMALL_CONSONANTS,
+    },
+
+    # === Semantic base subgroups ===
+    "VOWELS": {
+        "label": "Vowels",
+        "items": VOWELS,
+    },
+    "SYLLABIC_SONORANTS": {
+        "label": "Syllabic sonorants",
+        "items": SYLLABIC_SONORANTS,
+    },
+    "PALATALIZABLE": {
+        "label": "Palatalizable consonants",
+        "items": PALATALIZABLE,
+    },
+    "RETROFLEX_CONSONANTS": {
+        "label": "Retroflex consonants",
+        "items": RETROFLEX_CONSONANTS,
+    },
+    "EMPHATIC_TRANSLIT": {
+        "label": "Emphatic transliteration consonants",
+        "items": EMPHATIC_TRANSLIT,
+    },
+    "CORONALS": {
+        "label": "Coronal consonants",
+        "items": CORONALS,
+    },
+    "VOICELESS_SONORANTS": {
+        "label": "Voiceless sonorants",
+        "items": VOICELESS_SONORANTS,
+    },
+    "NONCORONAL_OBSTRUENTS": {
+        "label": "Non-coronal obstruents",
+        "items": NONCORONAL_OBSTRUENTS,
+    },
+    "VOICELESSABLE": {
+        "label": "Voicelessable consonants",
+        "items": VOICELESSABLE,
+    },
+    "SYLLABIC_EXTENDED": {
+        "label": "Extended syllabic consonants",
+        "items": SYLLABIC_EXTENDED,
+    },
+    "VOICED_BY_CARON_BELOW": {
+        "label": "Voiced by caron below",
+        "items": VOICED_BY_CARON_BELOW,
+    },
+    "CONSONANTS": {
+        "label": "All consonants",
+        "items": CONSONANTS,
+    },
+    "SIBILANTS": {
+        "label": "Sibilants",
+        "items": SIBILANTS,
+    },
+    "DORSALS": {
+        "label": "Dorsal consonants",
+        "items": DORSALS,
+    },
+    "LABIALS": {
+        "label": "Labial consonants",
+        "items": LABIALS,
+    },
+
+    # === Derived base groups ===
+    "BASE_COMMON": {
+        "label": "Bases requiring anchors for common marks",
+        "items": BASE_COMMON,
+    },
+    "BASE_RARE": {
+        "label": "Bases requiring anchors for rare marks",
+        "items": BASE_RARE,
+    },
+
+    # === Mark groups ===
+    "MARK_ABOVE": {
+        "label": "Above",
+        "items": MARK_ABOVE,
+    },
+    "MARK_ABOVE_RIGHT": {
+        "label": "Above-right",
+        "items": MARK_ABOVE_RIGHT,
+    },
+    "MARK_BELOW": {
+        "label": "Below",
+        "items": MARK_BELOW,
+    },
+    "MARK_BELOW_RIGHT": {
+        "label": "Below-right",
+        "items": MARK_BELOW_RIGHT,
+    },
+    "MARK_LEFT_ANGLE": {
+        "label": "Left angle (above)",
+        "items": MARK_LEFT_ANGLE,
+    },
+    "MARK_CEDILLA": {
+        "label": "Cedilla",
+        "items": MARK_CEDILLA,
+    },
+    "MARK_OVERLAY": {
+        "label": "Overlay",
+        "items": MARK_OVERLAY,
+    },
+    "MARK_DOUBLE": {
+        "label": "Double marks",
+        "items": MARK_DOUBLE,
+    },
+    "MARK_LEGACY": {
+        "label": "Legacy marks",
+        "items": MARK_LEGACY,
+    },
+    "MARK_LINE": {
+        "label": "Line marks",
+        "items": MARK_LINE,
+    },
+    "MARK_SUPERSCRIPT_CONSONANT": {
+        "label": "Superscript consonant marks",
+        "items": MARK_SUPERSCRIPT_CONSONANT,
+    },
+    "MARK_GREEK": {
+        "label": "Greek marks",
+        "items": MARK_GREEK,
+    },
+    "MARK_COMMON": {
+        "label": "Common combining marks",
+        "items": MARK_COMMON,
+    },
+    "MARK_RARE": {
+        "label": "Rare combining marks",
+        "items": MARK_RARE,
+    },
 }
 
 # GPOS class index of mark in Libertinus fonts
 mark_class_index = {
-    # === ABOVE (class 0) ===
+    # above 0
     0x0300: 0, 0x0301: 0, 0x0302: 0, 0x0303: 0, 0x0304: 0, 0x0306: 0, 
     0x0307: 0, 0x0308: 0, 0x0309: 0, 0x030A: 0, 0x030B: 0, 0x030C: 0, 
     0x030D: 0, 0x030F: 0, 0x0310: 0, 0x0311: 0, 0x0312: 0, 0x0313: 0, 
@@ -649,10 +806,10 @@ mark_class_index = {
     0x030E: 0, 0x0346: 0, 0x034A: 0, 0x034B: 0, 0x034C: 0, 0x0350: 0, 
     0x0351: 0, 0x0352: 0, 0x0357: 0, 0x035B: 0,
 
-    # === ABOVE RIGHT (class 1) ===
+    # above right 1
     0x0315: 1, 0x0358: 1,
 
-    # === BELOW (class 2) ===
+    # below 2
     0x0316: 2, 0x0317: 2, 0x0318: 2, 0x0319: 2, 0x031C: 2, 0x0320: 2, 
     0x0323: 2, 0x0324: 2, 0x0325: 2, 0x0326: 2, 0x0329: 2, 0x032A: 2, 
     0x032B: 2, 0x032C: 2, 0x032D: 2, 0x032E: 2, 0x032F: 2,
@@ -660,15 +817,15 @@ mark_class_index = {
     0x0339: 2, 0x033A: 2, 0x033B: 2, 0x033C: 2, 0x0347: 2, 0x0348: 2, 
     0x0349: 2, 0x034D: 2, 0x034E: 2,
 
-    # === LEFT ANGLE (class 3) ===
+    # left angle 3
     0x031A: 3,
 
-    # === BELOW RIGHT (class 4) ===
+    # below right 4
     0x0321: 4, 0x0322: 4, 0x0328: 4,
 
-    # === CEDILLA (class 5) ===
+    # cedilla 5
     0x0327: 5,
 
-    # === OVERLAY (class 6) ===
+    # overlay 6
     0x0334: 6, 0x0335: 6, 0x0336: 6, 0x0337: 6, 0x0338: 6,
 }

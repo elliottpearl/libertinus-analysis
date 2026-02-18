@@ -1,4 +1,4 @@
-# LIBERTINUS‑REPORT
+# LIBERTINUS‑ANALYSIS
 
 ## Overview
 An exploratory diagnostic sandbox for understanding combining mark behavior in Libertinus

@@ -58,8 +58,6 @@ def print_combo_matrix(
     # Choose builder
     if builder == "grid":
         latex = cm.latex_grid()
-    elif builder == "tabular":
-        latex = cm.latex_tabular()
     elif builder == "paragraph":
         latex = cm.latex_paragraph()
     else:
@@ -95,7 +93,7 @@ if __name__ == "__main__":
     # classify_combo or classify_combo_sanity
     classifier = classify_combo_sanity
 
-    # "grid" or "tabular" or "paragraph"
+    # "grid" or "paragraph"
     builder = "grid"
 
     # LaTeX filename in TEX_INPUT = "tex/input/"

@@ -1,22 +1,24 @@
-# Basic TeX emitters for Unicode codepoints and classification wrappers
+# tex_helpers.py
+#
+# Basic TeX emitters for Unicode codepoints and semantic wrappers.
+# Emits exactly one macro per cell, with no nested color wrappers.
+# All color decisions are handled by the LaTeX macro layer.
 
 def tex(cp):
     """Return TeX code for a Unicode codepoint."""
     return f'\\char"{cp:04X}'
 
+def _wrap(macro, raw):
+    """Wrap the raw TeX payload in a single semantic macro."""
+    return f"\\{macro}{{{raw}}}"
 
-def tex_prec(s): return f"\\PREC{{{s}}}"
-def tex_anch(s): return f"\\ANCH{{{s}}}"
-def tex_fall(s): return f"\\FALL{{{s}}}"
-def tex_gsub(s): return f"\\GSUB{{{s}}}"
-def tex_nobm(s): return f"\\NOBM{{{s}}}"
-def tex_nopr(s): return f"\\NOPR{{{s}}}"
-
+# ----------------------------------------------------------------------
+# Classic classifier renderer
+# ----------------------------------------------------------------------
 
 def render_cell(base_cp, mark_cp, kind, infos):
     """
-    Render a single grid cell as TeX, wrapping the base+mark sequence
-    in the appropriate macro based on kind.
+    Render a single grid cell for the classic classifier.
 
     kind ∈ {
         "missing",
@@ -26,32 +28,43 @@ def render_cell(base_cp, mark_cp, kind, infos):
         "anchored",
         "fallback"
     }
+
+    The classic classifier does not track semantic support or GSUB
+    expectations, so only the basic categories are surfaced.
     """
 
-    # TeX payload: always original Unicode, never glyph IDs.
+    # Missing cases: only the base is meaningful.
     if infos is None:
-        # Missing cases: only the base is meaningful.
         raw = tex(base_cp)
     else:
-        # All non-missing cases: show base + mark sequence.
         raw = tex(base_cp) + tex(mark_cp)
 
     if kind == "missing":
-        return tex_nobm(raw)
+        return _wrap("MISSINGGLYPH", raw)
+
     if kind == "missing_precomposed":
-        return tex_nopr(raw)
+        return _wrap("UNSUPPORTEDPREC", raw)
+
     if kind == "precomposed":
-        return tex_prec(raw)
+        return _wrap("SUPPORTEDPREC", raw)
+
     if kind == "substituted":
-        return tex_gsub(raw)
+        # Substitution is not a semantic category; treat as anchored.
+        return _wrap("SUPPORTEDANCH", raw)
+
     if kind == "anchored":
-        return tex_anch(raw)
+        return _wrap("SUPPORTEDANCH", raw)
+
     if kind == "fallback":
-        return tex_fall(raw)
+        return _wrap("SUPPORTEDFALL", raw)
 
     raise ValueError(f"Unknown kind: {kind}")
 
-def render_cell_sanity(base_cp, mark_cp, kind, flags, supported):
+# ----------------------------------------------------------------------
+# Sanity classifier renderer
+# ----------------------------------------------------------------------
+
+def render_cell_sanity(base_cp, mark_cp, kind, flags):
     """
     Render a TeX cell for the IPA sanity classifier.
 
@@ -67,46 +80,85 @@ def render_cell_sanity(base_cp, mark_cp, kind, flags, supported):
             "missing_base": bool,
             "missing_mark": bool,
             "missing_precomposed": bool,
-            "gsub_substitution": bool,
+
+            "gsub_prec_expected": bool,
+            "gsub_prec_occurred": bool,
+
+            "gsub_dotless_expected": bool,
+            "gsub_dotless_occurred": bool,
+
+            "gsub_altcap_expected": bool,
+            "gsub_altcap_occurred": bool,
+
+            "dotless_failure_significant": bool,
+
+            "supported": bool,
         }
+
+    This renderer chooses exactly one semantic macro per cell.
+    Missing glyphs override everything. GSUB failures override
+    semantic color with green/light-green. Otherwise, supported/
+    unsupported by kind determines the macro.
     """
 
-    # If the mark is missing, suppress it entirely.
+    # Missing mark → show base only
     if flags.get("missing_mark"):
         raw = tex(base_cp)
     else:
         raw = tex(base_cp) + tex(mark_cp)
 
-    # Base wrapper by kind (color only)
-    # Distinguish IPA‑valid vs IPA‑invalid fallback
-    supported = not flags.get("missing_base") \
-                and not flags.get("missing_mark") \
-                and not flags.get("missing_precomposed") \
-                and not flags.get("gsub_substitution") \
-                and kind != "unsupported"
-
-    if kind == "unsupported":
-        wrapped = f"\\UNSUPP{{{raw}}}"
-    elif kind == "precomposed":
-        wrapped = f"\\PREC{{{raw}}}"
-    elif kind == "anchored":
-        wrapped = f"\\ANCH{{{raw}}}"
-    elif kind == "fallback":
-        if supported:
-            wrapped = f"\\IPAFALL{{{raw}}}"   # NEW: IPA‑valid fallback
-        else:
-            wrapped = f"\\UNSUPP{{{raw}}}"    # IPA‑invalid fallback
-    else:
-        raise ValueError(f"Unknown sanity kind: {kind}")
-
-    # Flag cues (glyph-preserving, tabular-safe)
-    if flags.get("gsub_substitution"):
-        wrapped = f"\\GSUBOVERLAY{{{wrapped}}}"
-
-    if flags.get("missing_precomposed"):
-        wrapped = f"\\MISSINGPRE{{{wrapped}}}"
-
+    # Missing glyphs override everything
     if flags.get("missing_base") or flags.get("missing_mark"):
-        wrapped = f"\\MISSINGGLYPH{{{wrapped}}}"
+        return _wrap("MISSINGGLYPH", raw)
 
-    return wrapped
+    # ------------------------------------------------------------------
+    # GSUB failure override (new logic)
+    #
+    # Precomposed GSUB failure → green
+    # Dotless GSUB failure → green *only if significant*
+    # Alt-cap GSUB failure → green
+    # ------------------------------------------------------------------
+
+    gsub_failure = (
+        (flags.get("gsub_prec_expected") and not flags.get("gsub_prec_occurred"))
+        or flags.get("dotless_failure_significant")
+        or (flags.get("gsub_altcap_expected") and not flags.get("gsub_altcap_occurred"))
+    )
+
+    if gsub_failure:
+        if flags.get("supported"):
+            return _wrap("GSUBFAILSUPPORTED", raw)
+        else:
+            return _wrap("GSUBFAILUNSUPPORTED", raw)
+
+    # ------------------------------------------------------------------
+    # Semantic support
+    # ------------------------------------------------------------------
+
+    supported = flags.get("supported", False)
+
+    # ------------------------------------------------------------------
+    # Choose semantic macro
+    # ------------------------------------------------------------------
+
+    if supported:
+        if kind == "precomposed":
+            macro = "SUPPORTEDPREC"
+        elif kind == "anchored":
+            macro = "SUPPORTEDANCH"
+        elif kind == "fallback":
+            macro = "SUPPORTEDFALL"
+        else:
+            macro = "UNSUPPORTEDFALL"
+    else:
+        if kind == "precomposed":
+            macro = "UNSUPPORTEDPREC"
+        elif kind == "anchored":
+            macro = "UNSUPPORTEDANCH"
+        elif kind == "fallback":
+            macro = "UNSUPPORTEDFALL"
+        else:
+            macro = "UNSUPPORTEDFALL"
+
+    return _wrap(macro, raw)
+    

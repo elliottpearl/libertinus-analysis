@@ -60,42 +60,36 @@
 	Language = Dutch,
 ]{LibertinusSerif-Regular.otf}
 
-% Colors and macros for grids and tables of base+mark combos
+% Color definitions for combining mark diagnostics
 
-% ============================================================
-% Base colors
-% ============================================================
+\definecolor{supportedanchor}{RGB}{0,0,0}        % black
+\definecolor{supportedprec}{RGB}{0,0,180}        % blue
+\definecolor{supportedfall}{RGB}{180,0,0}        % red
+\definecolor{unsupportedanchor}{RGB}{180,180,180} % light gray
+\definecolor{unsupportedprec}{RGB}{150,190,255}   % pale blue
+\definecolor{unsupportedfall}{RGB}{255,180,200}   % light pink
+\definecolor{gsubfailsupported}{RGB}{0,150,0}     % green
+\definecolor{gsubfailunsupported}{RGB}{180,255,180} % light green
+\definecolor{missingglyph}{RGB}{200,200,200}      % light gray
 
-\definecolor{darkblue}{RGB}{0,0,160}
-\definecolor{lightblue}{RGB}{120,170,255}
-\definecolor{ipafallback}{RGB}{200,120,0}   % warm amber for IPA-valid fallback
-\definecolor{unsupported}{RGB}{180,180,180} % light gray for insane combos
+% Semantic wrappers
 
-% ============================================================
-% Classic classifier (unchanged)
-% ============================================================
+% Supported combinations
+\newcommand{\SUPPORTEDANCH}[1]{{\color{supportedanchor}#1}}
+\newcommand{\SUPPORTEDPREC}[1]{{\color{supportedprec}#1}}
+\newcommand{\SUPPORTEDFALL}[1]{{\color{supportedfall}#1}}
 
-\newcommand{\PREC}[1]{{\color{blue}#1}}          % precomposed
-\newcommand{\ANCH}[1]{{#1}}                      % anchored
-\newcommand{\FALL}[1]{{\color{red}#1}}           % fallback
-\newcommand{\GSUB}[1]{{\color{darkblue}#1}}      % GSUB occurred
-\newcommand{\NOBM}[1]{{\color{lightgray}#1}}     % missing glyph
-\newcommand{\NOPR}[1]{{\color{lightblue}#1}}     % missing precomposed
+% Unsupported combinations
+\newcommand{\UNSUPPORTEDANCH}[1]{{\color{unsupportedanchor}#1}}
+\newcommand{\UNSUPPORTEDPREC}[1]{{\color{unsupportedprec}#1}}
+\newcommand{\UNSUPPORTEDFALL}[1]{{\color{unsupportedfall}#1}}
 
-% ============================================================
-% Sanity classifier (no boxes, pure inline color)
-% ============================================================
+% GSUB‑failure overrides
+\newcommand{\GSUBFAILSUPPORTED}[1]{{\color{gsubfailsupported}#1}}
+\newcommand{\GSUBFAILUNSUPPORTED}[1]{{\color{gsubfailunsupported}#1}}
 
-% IPA-valid fallback (amber text)
-\newcommand{\IPAFALL}[1]{{\color{ipafallback}#1}}
-
-% Unsupported / insane combos (white-out: very light gray)
-\newcommand{\UNSUPP}[1]{{\color{unsupported}#1}}
-
-% Optional overlays (pure color, no boxes)
-\newcommand{\GSUBOVERLAY}[1]{{\color{darkblue}#1}}
-\newcommand{\MISSINGPRE}[1]{{\color{lightblue}#1}}
-\newcommand{\MISSINGGLYPH}[1]{{\color{lightgray}#1}}
+% Missing glyphs
+\newcommand{\MISSINGGLYPH}[1]{{\color{missingglyph}#1}}
 
 % Helper commands for pretty printing samples in regular, italic, bold, bold italic
 
@@ -749,7 +743,7 @@ In Libertinus, regrettably none of these characters has the anchor (anchor 1), s
 These IPA marks U+0315 and U+0358 should only be used in regular (not italic and not semibold).
 Regrettably, in Libertinus serif semibold, U+0358 looks like a grave, not a dot, and there is no U+0358 glyph in Libertinus serif semibold italic.
 
-\input{input/above-right.tex}
+%\input{input/above-right.tex}
 
 There are three comma/apostrophe glyphs that could possibly mark glottalization: 
 U+0313 combining comma above, U+0315 combining comma above right, and U+02BC modifier letter apostrophe.
@@ -915,97 +909,47 @@ These anchor coordinate values were optimized for U+0315 but they work fine for 
 	\char"00E0\gs \char"00E1\gs \char"00E2\gs \char"00E3\gs \char"0101\gs \char"00E5\gs \char"1EA1\gs \char"1EB7\gs \char"1EA7\gs \char"1EAF\gs \char"1EB1\gs \char"1EB5\gs \char"1EA5\gs \char"1EA7\gs \char"1EAB\gs \char"00E8\gs \char"00E9\gs \char"00EA\gs     \char"1EBD\gs \char"0113\gs \char"1EB9\gs \char"1EC7\gs \char"1EBF\gs \char"1EC1\gs \char"1EC5\gs \char"00EC\gs \char"00ED\gs     \char"00EE\gs \char"0129\gs \char"012B\gs \char"1ECB\gs \char"00F2\gs \char"00F3\gs \char"00F4\gs \char"00F5\gs \char"014D\gs    \char"1ECD\gs \char"1ED9\gs \char"1ED1\gs \char"1ED3\gs \char"1ED7\gs \char"00F9\gs \char"00FA\gs \char"00FB\gs \char"0169\gs     \char"016B\gs \char"1EE5\gs \char"1EF3\gs \char"00FD\gs \char"0177\gs \char"1EF9\gs \char"0233\gs \char"1EF5\gs \char"1E0D\gs \char"1E37\gs \char"1E47\gs \char"1E5B\gs \char"1E63\gs \char"1E6D\gs \char"1E93\gs
 }
 
-\subsection*{Bases requiring anchors}
-\ribbi{
-	\char"0061\gs \char"0065\gs \char"0069\gs \char"006F\gs \char"0075\gs \char"0079\gs \char"00E6\gs \char"0153\gs \char"0062\gs \char"0063\gs \char"0064\gs \char"0066\gs \char"0067\gs \char"006A\gs \char"006B\gs \char"006C\gs \char"006D\gs \char"006E\gs \char"0070\gs \char"0071\gs \char"0072\gs \char"0073\gs \char"0074\gs \char"0076\gs \char"0077\gs \char"007A\gs \char"0250\gs \char"0251\gs \char"0252\gs \char"0253\gs \char"0255\gs \char"0256\gs \char"0257\gs \char"0258\gs \char"0259\gs \char"025B\gs \char"025C\gs \char"025E\gs \char"025F\gs \char"0260\gs \char"0261\gs \char"0262\gs \char"0263\gs \char"0264\gs \char"0265\gs \char"0266\gs \char"026B\gs \char"026C\gs \char"026D\gs \char"026E\gs \char"026F\gs \char"0271\gs \char"0272\gs \char"0273\gs \char"0274\gs \char"0275\gs \char"0276\gs \char"0279\gs \char"027A\gs \char"027B\gs \char"0280\gs \char"0281\gs \char"0282\gs \char"0283\gs \char"0288\gs \char"0289\gs \char"028A\gs \char"028B\gs \char"028C\gs \char"028E\gs \char"028F\gs \char"0290\gs \char"0291\gs \char"0292\gs \char"029D\gs \char"029F\gs 
-}
-
-\subsection*{Bases requiring above-anchor}
-\ribbi{
-    \char"0061\gs \char"0065\gs \char"0069\gs \char"006F\gs \char"0075\gs \char"0079\gs \char"00E6\gs \char"0153\gs \char"006D\gs \char"006E\gs 
-    \char"006C\gs \char"0072\gs \char"0074\gs \char"0064\gs \char"0073\gs \char"007A\gs \char"0255\gs \char"0291\gs \char"025F\gs \char"0261\gs 
-    \char"0263\gs \char"0250\gs \char"0251\gs \char"0252\gs \char"025B\gs \char"025C\gs \char"025E\gs \char"0259\gs \char"0258\gs \char"0264\gs 
-    \char"026F\gs \char"028A\gs \char"028C\gs \char"028F\gs \char"0275\gs \char"0276\gs \char"0272\gs \char"014B\gs \char"026B\gs \char"026C\gs 
-    \char"026E\gs \char"0279\gs \char"027A\gs \char"027B\gs \char"0280\gs \char"0281\gs \char"028B\gs \char"0265\gs \char"028E\gs \char"029D\gs 
-    \char"029F\gs 
-}
-
-\subsection*{Bases requiring below-anchor}
-\ribbi{
-    \char"0061\gs \char"0065\gs \char"0069\gs \char"006F\gs \char"0075\gs \char"0079\gs \char"00E6\gs \char"0153\gs \char"0250\gs \char"0251\gs 
-    \char"0252\gs \char"025B\gs \char"025C\gs \char"025E\gs \char"0259\gs \char"0258\gs \char"0264\gs \char"026F\gs \char"028A\gs \char"028C\gs 
-    \char"028F\gs \char"0275\gs \char"0276\gs \char"0074\gs \char"0064\gs \char"0073\gs \char"007A\gs \char"0288\gs \char"0256\gs \char"0282\gs 
-    \char"0290\gs \char"0273\gs \char"027D\gs \char"026D\gs \char"0066\gs \char"006B\gs \char"0067\gs \char"0071\gs \char"0078\gs \char"0062\gs 
-    \char"0076\gs \char"0292\gs \char"006D\gs \char"006E\gs \char"006C\gs \char"0072\gs \char"0077\gs \char"006A\gs \char"0271\gs \char"0272\gs 
-    \char"014B\gs \char"026B\gs \char"026E\gs \char"0274\gs \char"0070\gs \char"0283\gs \char"0255\gs \char"0063\gs 
-}
-
 \newpage
 \section*{Base and mark shaping}
 
-These grids display base and mark rendering in XeLaTeX documents in Libertinus serif regular, italic, semibold and semibold italic.
-Note that LSP uses the Libertinus fonts named ``Semibold``, e.g. \verb|LibertinusSerif-Semibold.otf|, for all boldface style.
+These grids display base and mark rendering in XeLaTeX documents in 
+Libertinus serif regular, italic, semibold and semibold italic.
+Note that LSP uses the Libertinus fonts named ``Semibold``, e.g. 
+\verb|LibertinusSerif-Semibold.otf|, for all boldface style.
 
-%\input{input/libertinus-grids.tex}
+A \SUPPORTEDANCH{black} color means GPOS anchor positioning.
 
-A black color means GPOS anchor positioning.
+A \SUPPORTEDPREC{blue} color means a precomposed glyph.
 
-\PREC{A blue color} means a precomposed glyph.
+A \SUPPORTEDFALL{red} color means harfbuzz fallback shaping
+(no anchors, no precomposed glyph, no GSUB substitution).
 
-\FALL{A red color} means harfbuzz fallback shaping.
+A \GSUBFAILSUPPORTED{green} color means that a GSUB substitution 
+(to dotless i or j) was expected but did not occur.
 
-\GSUB{A dark blue color} means a substituted base or mark
+A faded color -- gray, light blue, pink, or light green -- means that the 
+base and mark combination is not reasonably expected in notation in linguistics.
 
-\NOBM{A light gray color} means a mark (or less likely a base) is not in the font
+A gray color can also mean that mark glyph is missing in the font.
+In this case, just the gray base is printed.
+This on happens in Libertinus Serif Semibold and Semibold Italic for 
+three below marks:
+o\char"0333\gs\ (U+0333 double macron below),
+o\char"033A\gs\ (U+033A inverted bridge below), and
+o\char"033B\gs\ (U+033B square below).
+Otherwise, all considered base and mark combinations can be drawn in 
+XeLaTeX documents in Libertinus without tofu for missing glyphs.
 
-\NOPR{A light blue color} means a precomposed glyphs is expected by substitution, but somehow missing in the font (probably impossible).
-
-This is similar to the Anchor Control window in FontForge, but instead prints the real rendering of base-mark combos in XeLaTeX, instead of the just the base-mark combos with set anchors.
-
-\input{input/latin-ipa-above-below.tex}
-
-\newpage
-
-\section*{IPA diacritics, anchors required}
-
-Here are some IPA diacritics. 
-Each row shows all bases that the mark could reasonably be combined with, in some notational system, 
-except for those marks (such as the horn) whose only reasonable combinations are already precomposed character.
-So, these rows represent those marks that require an anchor, because not all of their reasonable combinations are already precomposed.
-Of course, anchors are useful during the design stage of a font to normalize precomposed glyphs. 
-But some bases or marks may not need anchors, simply becasue they form no reasonable combinations that are not already precomposed.
-
-A black color means GPOS anchor positioning.
-
-\PREC{A blue color} means a precomposed glyph.
-
-\FALL{A red color} means harfbuzz fallback shaping.
-
-\input{input/ipa-diacritics.tex}
-
-\newpage
-\section*{IPA diacritics, anchors required, all bases}
-
-The rows are combining marks that require an anchor for at least one base among it reasoable combinations 
-that are not precomposed.
-The columns are the bases formed by the union of all reasonable combinations with such marks.
-Of course, some of these combinations are not resonable, and these combinations are grayed out.
-
-A black color means GPOS anchor positioning.
-
-\PREC{A blue color} means a precomposed glyph.
-
-\IPAFALL{An orange color} means harfbuzz fallback shaping.
-
-{\color{lightgray} A gray color} means an unreasonable combination, or glyph is missing.
-In these grids, this usually means that the combination is unreasonable.
-The only missing glyphs here are the last three (below) combining marks 
-(o\char"0333\gs U+0333  double macron below, 
-o\char"033A\gs U+033A inverted bridge below, and 
-o\char"033B\gs U+033B square below)
-in Libertinus serif semibold and semibold italic.
+There are separate grids for common marks (for IPA etc.) and 
+rare marks (for UPA etc.). 
+Each grid considers all possible bases for marks in that grid, 
+and so the grid is actually a complete matrix or grid or table,
+but with faded colors indicating combinations that can be ignored
+because they are not expected in notation in linguistics.
 
 \input{input/common_mark_base.tex}
+
+\input{input/rare_mark_base.tex}
 
 \newpage
 \subsection*{Patch superscript consonant anchors}

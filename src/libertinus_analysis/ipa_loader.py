@@ -5,27 +5,13 @@ Loads IPA/Unicode ground truth data from data/ipa/ipa_unicode.py
 and provides helper functions for selecting and grouping items.
 """
 
-import importlib.util
-from pathlib import Path
-
-from libertinus_analysis.config import IPA_DIR
-
-# Load the data module dynamically
-
-DATA_PATH = IPA_DIR / "ipa_unicode.py"
-
-spec = importlib.util.spec_from_file_location("ipa_unicode", DATA_PATH)
-ipa_unicode = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(ipa_unicode)
-
-# Now all list data is available as attributes of ipa_unicode:
+from data.ipa import ipa_unicode
 
 # Direct access to authoritative dicts
 unicode_groups = ipa_unicode.unicode_groups
 MARK_BASE = ipa_unicode.MARK_BASE
 mark_class_index = ipa_unicode.mark_class_index
 
-# Helper functions
 
 def select_bases(*keys):
     """

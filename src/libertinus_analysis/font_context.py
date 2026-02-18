@@ -2,24 +2,20 @@
 
 import uharfbuzz as hb
 from fontTools.ttLib import TTFont
-import json
 
-from .config import FONTS_DIR, FONTDATA_DIR
+from .config import FONTS_DIR
 
 # Metrics loader
 def load_font_metrics(font_key):
     """
-    Load per-font metrics from data/fontdata/<font_key>.json.
-    Returns {} if no metrics file exists.
+    Load per-font metrics from data/fontdata/<font_key>.py.
+    Returns {} if no module exists or if loading fails.
     """
-    path = FONTDATA_DIR / f"{font_key}.json"
-    if not path.exists():
-        return {}
     try:
-        return json.loads(path.read_text())
+        module = __import__(f"data.fontdata.{font_key}", fromlist=["fontdata"])
+        return getattr(module, "fontdata", {})
     except Exception:
         return {}
-
 
 # Extract GPOS MarkToBase anchor data
 def extract_mark_attachment_data(font, lookup_index):
@@ -134,24 +130,47 @@ class FontContext:
     def glyph_name(self, cp):
         return self.cmap.get(cp)
 
-    # Optional metric accessors
-    @property
-    def base_bbox(self):
-        return self.metrics.get("base_bbox")
+    # ------------------------------------------------------------------
+    # NEW HELPERS FOR DOTLESS SUBSTITUTION HANDLING
+    # ------------------------------------------------------------------
 
-    @property
-    def vertical_ref(self):
-        return self.metrics.get("vertical_ref")
+    def gid_from_codepoint(self, cp):
+        """Return the glyph ID for a Unicode codepoint."""
+        return self.cmap.get(cp)
 
-    @property
-    def superscript_meanline(self):
-        return self.metrics.get("superscript_meanline")
+    def codepoint_from_gid(self, gid):
+        """Return the Unicode codepoint for a glyph ID (inverse cmap)."""
+        inv = {v: k for k, v in self.cmap.items()}
+        return inv.get(gid)
 
-    @property
-    def extra_anchors(self):
-        return self.metrics.get("anchors")
+    def has_anchor_gid(self, gid, classIndex):
+        """
+        Return True if the glyph ID has an anchor for the given mark class.
+        """
+        if gid is None:
+            return False
+        class_map = self.anchorsByBaseGlyph.get(gid)
+        if class_map is None:
+            return False
+        return classIndex in class_map
 
+    # ------------------------------------------------------------------
+    # Original anchor lookup (by codepoint)
+    # ------------------------------------------------------------------
 
+    def has_anchor(self, base_cp, classIndex, cmap):
+        """
+        Return True if the base glyph has an anchor for the given mark class.
+        """
+        base_gid = cmap.get(base_cp)
+        if base_gid is None:
+            return False
+
+        class_map = self.anchorsByBaseGlyph.get(base_gid)
+        if class_map is None:
+            return False
+
+        return classIndex in class_map
 
 """
 Font registry

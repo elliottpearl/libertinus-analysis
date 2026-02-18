@@ -1,4 +1,7 @@
-{
+# Superscript / modifier letter anchor and metrics data
+
+fontdata = {
+
     "base_bbox": {
         0x02B0: (10, 364, 301, 739),
         0x02B1: (10, 358, 293, 738),
@@ -29,10 +32,11 @@
         0x1D5F: (45, 358, 307, 739),
     },
 
+    # Height of the superscript meanline in Libertinus
     "superscript_meanline": 630,
 
-# possible values: superscript_meanline, base_yMax, baseline, 
-# meanline, xheight, ascender, capheight
+    # possible values: superscript_meanline, base_yMax, baseline,
+    # meanline, xheight, ascender, capheight
     "vertical_ref": {
         0x02B0: "base_yMax",
         0x02B1: "base_yMax",
@@ -61,22 +65,29 @@
         0x1D5F: "base_yMax",
     },
 
+    # Placeholder for future anchor-ref logic
     "anchor_ref": {
-        0: { # above
-
+        0: {  # above
         },
-        2: { # below
-
+        2: {  # below
         },
+    },
 
-    }
-
+    # --------------------------------------------------------------
+    # Anchors
+    # --------------------------------------------------------------
     "anchors": {
-        0: { # above
-            0x0064: (385, 885), # d, center of stem; ascender aspect
-            0x0074: (139, 798?), # t. apex center is 128.5. shoft right about 10 units. bowl apex is 163. ymax=582, meanlineclearance=216, 798=582+216
-            0x007A: (220, 645), # z. was (220, 645). normalize xheight
-            0x00E6: (350, 645), # ae ligature, was (350, 645)            
+
+        0: {  # above
+            0x0064: (385, 885),  # d, center of stem; ascender aspect
+
+            # t: apex center is 128.5; bowl apex is 163.
+            # ymax=582, meanlineclearance=216 → 582+216 = 798
+            0x0074: (139, 798),  # was (139, 798?)
+
+            0x007A: (220, 645),  # z
+            0x00E6: (350, 645),  # ae ligature
+
             # superscript capitals from compute_baseanchor0()
             0x02B0: (155, 914), 0x02B1: (151, 913), 0x02B2: (73, 914),
             0x02B3: (128, 805), 0x02B4: (120, 805), 0x02B5: (143, 805),
@@ -88,7 +99,8 @@
             0x1D5C: (254, 805), 0x1D5D: (168, 914), 0x1D5E: (175, 812),
             0x1D5F: (176, 914),
         },
-        1: {
+
+        1: {  # above (alternate)
             0x02B0: (347, 648), 0x02B1: (339, 648), 0x02B2: (193, 648),
             0x02B3: (284, 648), 0x02B4: (274, 648), 0x02B5: (319, 648),
             0x02B6: (308, 648), 0x02B7: (497, 648), 0x02B8: (368, 648),
@@ -99,27 +111,29 @@
             0x1D5C: (508, 648), 0x1D5D: (335, 648), 0x1D5E: (372, 648),
             0x1D5F: (353, 648),
         },
-        2: { # below
-            0x004A: (109, -272), # P
-            0x0051: (350, -309), # Q
-            0x0063: (227, -110), # c, optical center 235 with x-pull -8 (same as o's x-pull)
-            0x0064: (226, -110), # d, was (221,-110). -7 x-pull from 235 (optical center of inside bowl). check and redo?
-            0x0066: (136, -110), # f, was (132, -110). center is at 132
-            0x006B: (290, -110), # k, was (290.1, -214.4)
-            0x006D: (404, -110), # m, was (408, -110). center is 404
-            0x0070: (120, -319), # p, was (179, -319). center is 119.5
-            0x0071: (386, -319), # q, was (348, -319). center is 385.5
-            0x0072: (140, -110), # r, was (135, -110). center is 139.5
-            # 0x0074: (163, -110), # t, was (163, -110). apex center is 128.5. bowl apex is 163
-            0x00E6: (327, -110), # ae ligature, was (327, -109)
-            0x0153: (353, -110), # oe ligature, -9 x-pull from true bottom optical center, like ae ligature
-            0x0250: (229, -110), # turned a, was (229,-114)
-            0x0251: (222, -110), # latin alpha, was (212,-114). shift right. check
-            0x0252: (259, -110), # turnede alpha, was (259 -114).
+
+        2: {  # below
+            0x004A: (109, -272),  # J
+            0x0051: (350, -309),  # Q
+            0x0063: (227, -110),  # c
+            0x0064: (226, -110),  # d
+            0x0066: (136, -110),  # f
+            0x006B: (290, -110),  # k
+            0x006D: (404, -110),  # m
+            0x0070: (120, -319),  # p
+            0x0071: (386, -319),  # q
+            0x0072: (140, -110),  # r
+            # 0x0074: (163, -110),  # t (commented out)
+            0x00E6: (327, -110),  # ae
+            0x0153: (353, -110),  # oe
+            0x0250: (229, -110),  # turned a
+            0x0251: (222, -110),  # alpha
+            0x0252: (259, -110),  # turned alpha
         },
+
         # test 2 values computed with compute_baseanchor3(), clearance 0/80. Rejected.
         # test 3 values computed with compute_baseanchor3(), clearance -20/70. Accepted.
-        3: {       
+        3: {
             0x02B0: (305, 834), 0x02B1: (297, 833), 0x02B2: (151, 834),
             0x02B3: (242, 725), 0x02B4: (232, 725), 0x02B5: (277, 725),
             0x02B6: (266, 725), 0x02B7: (455, 725), 0x02B8: (326, 725),

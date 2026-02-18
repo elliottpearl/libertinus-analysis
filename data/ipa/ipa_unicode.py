@@ -572,7 +572,7 @@ MARK_BASE = {
     0x032F: VOWELS,                # inverted breve below (tone)
     0x0331: VOWELS,                # macron below (Africanist)
     0x0339: CONSONANTS,            # right half ring below (retroflex)
-    0x033C: LABIALS,                   # seagull below (labialization)
+    0x033C: LABIALS,               # seagull below (labialization)
     0x0347: VOWELS,                # equals sign below (Africanist)
     0x0348: CONSONANTS,            # double vertical line below (UPA)
     0x0349: CONSONANTS,            # left angle below (UPA)

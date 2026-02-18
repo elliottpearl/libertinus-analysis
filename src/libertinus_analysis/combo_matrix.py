@@ -1,3 +1,5 @@
+# combo_matrix.py
+
 from fontTools.ttLib import TTFont
 import uharfbuzz as hb
 
@@ -6,6 +8,7 @@ from .classifiers import classify_combo, classify_combo_sanity
 from .tex_helpers import render_cell, render_cell_sanity
 from .ipa_loader import mark_class_index
 
+
 class ComboMatrix:
     """
     A reusable engine for classifying mark-base combinations across fonts
@@ -13,25 +16,28 @@ class ComboMatrix:
 
     Public builders:
         - latex_grid()
-        - latex_tabular()
         - latex_paragraph()
     """
 
     def __init__(self, base_groups, mark_groups, fonts, classifier):
+        # Base and mark groups are dictionaries with "items" lists of codepoints.
         self.base_groups = base_groups
         self.mark_groups = mark_groups
+
+        # Fonts is a dict: style_key → { "path": ..., "lookup_index": ..., "label": ..., "style": ... }
         self.fonts = fonts
+
+        # classifier is either classify_combo or classify_combo_sanity
         self.classifier = classifier
 
-        # Filled by load_fonts(), which must be called before classify() or any latex_* builder
+        # Filled by load_fonts(): style_key → FontContext
         self.font_contexts = {}
 
-        # Filled by classify(), which must be called before any latex_* builder
-        # key: (mark_cp, base_cp, font_key) → classifier output tuple
+        # Filled by classify(): (mark_cp, base_cp, font_key) → classifier output tuple
         self.grid = {}
 
     # Font loading and classification
-    
+
     def load_fonts(self):
         """Load all fonts and build FontContext objects."""
         for style_key, info in self.fonts.items():
@@ -43,13 +49,23 @@ class ComboMatrix:
         return self
 
     def classify(self):
-        """Classify all mark/base pairs for all fonts."""
+        """
+        Classify all mark/base pairs for all fonts.
+
+        The classifier returns:
+            - For classic classifier: (kind, infos, positions)
+            - For sanity classifier: (kind, flags, infos, positions)
+
+        This method stores the raw classifier output; rendering is handled later.
+        """
         for font_key, info in self.fonts.items():
             fontctx = self.font_contexts[font_key]
+
             for mark_group in self.mark_groups.values():
                 for mark_cp in mark_group["items"]:
                     classIndex = mark_class_index.get(mark_cp)
                     markGlyph = fontctx.cmap.get(mark_cp)
+
                     for base_group in self.base_groups.values():
                         for base_cp in base_group["items"]:
                             result = self.classifier(
@@ -59,30 +75,43 @@ class ComboMatrix:
                                 fontctx,
                             )
                             self.grid[(mark_cp, base_cp, font_key)] = result
+
         return self
 
     # Internal helpers for building LaTeX
 
     def _emit_mark_row(self, mark_cp, bases, font_key):
-        """Emit one row of TeX cells for a given mark across all bases."""
+        """
+        Emit one row of TeX cells for a given mark across all bases.
+        Rendering is delegated to render_cell() or render_cell_sanity().
+        """
         cells = []
+
         for base_cp in bases:
             result = self.grid.get((mark_cp, base_cp, font_key))
+
             if result is None:
-                # Legacy behavior: treat missing combos as fallback
-                result = ("fallback", None, None)
+                # Legacy fallback: treat missing combos as fallback
+                if self.classifier is classify_combo:
+                    result = ("fallback", None, None)
+                else:
+                    result = ("fallback", {}, None, None)
+
             if self.classifier is classify_combo:
                 kind, infos, positions = result
                 cell = render_cell(base_cp, mark_cp, kind, infos)
             else:
                 kind, flags, infos, positions = result
-                supported = not (kind == "unsupported")
-                cell = render_cell_sanity(base_cp, mark_cp, kind, flags, supported)
+                cell = render_cell_sanity(base_cp, mark_cp, kind, flags)
+
             cells.append(cell)
+
         return " ".join(cells)
 
     def _build_grid_body(self, marks, bases, font_key):
-        """Build the full grid body (rows separated by blank lines)."""
+        """
+        Build the full grid body (rows separated by blank lines).
+        """
         rows = []
         for m in marks:
             rows.append(self._emit_mark_row(m, bases, font_key))
@@ -90,10 +119,14 @@ class ComboMatrix:
         return "\n".join(rows)
 
     def _build_latex_grid_for_font(self, marks, bases, font_key, section_label=None):
-        """Build a complete LaTeX grid for one font."""
+        """
+        Build a complete LaTeX grid for one font.
+        Includes optional style wrappers (italic, bold, bold_italic).
+        """
         info = self.fonts[font_key]
         style = info["style"]
         label = section_label or info["label"]
+
         out = []
 
         # Page break for large mark groups
@@ -117,6 +150,7 @@ class ComboMatrix:
         # Grid body
         out.append("% grid. columns are bases, rows are marks.")
         out.append(self._build_grid_body(marks, bases, font_key))
+
         if needs_group:
             out.append("}")
 
@@ -130,10 +164,12 @@ class ComboMatrix:
         Returns a single LaTeX string.
         """
         out = []
+
         for base_group in self.base_groups.values():
             for mark_group in self.mark_groups.values():
                 marks = mark_group["items"]
                 bases = base_group["items"]
+
                 for font_key in self.fonts:
                     out.append(
                         self._build_latex_grid_for_font(
@@ -143,16 +179,8 @@ class ComboMatrix:
                             section_label=None,
                         )
                     )
-        return "\n\n".join(out)
 
-    def latex_tabular(self):
-        """
-        Emit a tabular-style report (same content, different layout).
-        Returns a single LaTeX string.
-        """
-        # For now, reuse the grid builder.
-        # You can later replace this with a true tabular environment.
-        return self.latex_grid()
+        return "\n\n".join(out)
 
     def latex_paragraph(self):
         """
@@ -162,12 +190,14 @@ class ComboMatrix:
         - across all fonts
         """
         out = []
+
         for mark_group in self.mark_groups.values():
             for mark_cp in mark_group["items"]:
                 for font_key in self.fonts:
                     bases = []
                     for base_group in self.base_groups.values():
                         bases.extend(base_group["items"])
+
                     paragraph = self._build_latex_grid_for_font(
                         marks=[mark_cp],
                         bases=bases,
@@ -175,4 +205,5 @@ class ComboMatrix:
                         section_label=f"U+{mark_cp:04X}",
                     )
                     out.append(paragraph)
+
         return "\n\n".join(out)

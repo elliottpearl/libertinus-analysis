@@ -10,6 +10,7 @@ def load_font_metrics(font_key):
     """
     Load per-font metrics from data/fontdata/<font_key>.py.
     Returns {} if no module exists or if loading fails.
+    font_key is a key of FONTS: regular, italic, semibold, semibold_italic
     """
     try:
         module = __import__(f"data.fontdata.{font_key}", fromlist=["fontdata"])
@@ -82,7 +83,6 @@ class FontContext:
         markClassByGlyph,
         anchorsByBaseGlyph,
         metrics=None,
-        style=None,
         label=None,
     ):
         self.ttfont = ttfont
@@ -91,7 +91,6 @@ class FontContext:
         self.markClassByGlyph = markClassByGlyph
         self.anchorsByBaseGlyph = anchorsByBaseGlyph
         self.metrics = metrics or {}
-        self.style = style
         self.label = label
 
     @classmethod
@@ -185,31 +184,26 @@ FONTS = {
     "regular": {
         "path": FONTS_DIR / "LibertinusSerif-Regular.otf",
         "lookup_index": 4,
-        "style": "regular",
         "label": "Regular",
     },
     "regular_patch": {
         "path": FONTS_DIR / "LibertinusSerif-Regular-patch.otf",
         "lookup_index": 4,
-        "style": "regular",
         "label": "Regular patched",
     },
     "italic": {
         "path": FONTS_DIR / "LibertinusSerif-Italic.otf",
         "lookup_index": 4,
-        "style": "italic",
         "label": "Italic",
     },
     "semibold": {
         "path": FONTS_DIR / "LibertinusSerif-Semibold.otf",
         "lookup_index": 1,
-        "style": "bold",
         "label": "Semibold",
     },
     "semibold_italic": {
         "path": FONTS_DIR / "LibertinusSerif-SemiboldItalic.otf",
         "lookup_index": 2,
-        "style": "bold_italic",
         "label": "Semibold italic",
     },
 }

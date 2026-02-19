@@ -39,21 +39,13 @@
 	Path = ../fonts/,
 ]{LibertinusSerif-Regular-patch.otf}
 
-\newfontfamily\SerifRegularPatchJQ[
+\newfontfamily\SerifItalicPatch[
 	Path = ../fonts/,
-]{LibertinusSerif-Regular-patch-JQ.otf}
+]{LibertinusSerif-Italic-patch.otf}
 
-\newfontfamily\SerifRegularPatchK[
+\newfontfamily\SerifSemiboldItalicPatch[
 	Path = ../fonts/,
-]{LibertinusSerif-Regular-patch-k.otf}
-
-\newfontfamily\SerifItalicPatchF[
-	Path = ../fonts/,
-]{LibertinusSerif-Italic-patch-f.otf}
-
-\newfontfamily\SerifSemiboldItalicPatchF[
-	Path = ../fonts/,
-]{LibertinusSerif-SemiboldItalic-patch-f.otf}
+]{LibertinusSerif-SemiboldItalic-patch.otf}
 
 \newfontfamily\SerifRegularDutch[
 	Path = ../fonts/,
@@ -232,7 +224,7 @@ Here is this positioning of J and Q in a patched version of the font (woth O and
 
 Original: X\char"0320 J\char"0320 Q\char"0320 O\char"0320
 
-Patched: {\SerifRegularPatchJQ X\char"0320 J\char"0320 Q\char"0320 O\char"0320}
+Patched: {\SerifRegularPatch X\char"0320 J\char"0320 Q\char"0320 O\char"0320}
 
 %   A    B    C    D    E    F    G   H     I    J    K    L    M    N   O     P    Q   R     S    T    U    V    W    X    Y    Z
 % 354  267  340  306  281  284  365  361  150  182  336  151  431  346  335  277  348  269  232  307  346  336  450  332  295  320
@@ -252,7 +244,7 @@ Here is this positioning of k in a patched version of the font (with o for compa
 
 Original: k\char"0320\ k\char"0320 o ok\char"0320
 
-Patched: {\SerifRegularPatchK k\char"0320\ k\char"0320 o ok\char"0320}
+Patched: {\SerifRegularPatch k\char"0320\ k\char"0320 o ok\char"0320}
 
 %   a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s    t    u    v    w    x    y    z
 % 209       242  218  243       231  299  137       306  135  392  264  238  271  238  191  206       255  256  345  256  262  220
@@ -562,9 +554,9 @@ Here are examples with the patched fonts, with f's below-anchor in italic at $(3
 \begin{tabular}{ll}
 	Original & Patched italics (f only)\\
 	tiɣə\char"0301\ ṛf\char"0323 a & tiɣə\char"0301\ ṛf\char"0323 a\\
-	{\itshape tiɣə\char"0301\ ṛf\char"0323 a} & {\SerifItalicPatchF tiɣə\char"0301\ ṛf\char"0323 a}\\
+	{\itshape tiɣə\char"0301\ ṛf\char"0323 a} & {\SerifItalicPatch tiɣə\char"0301\ ṛf\char"0323 a}\\
 	{\bfseries tiɣə\char"0301\ ṛf\char"0323 a} & {\bfseries tiɣə\char"0301\ ṛf\char"0323 a}\\
-	{\bfseries\itshape tiɣə\char"0301\ ṛf\char"0323 a} & {\SerifSemiboldItalicPatchF tiɣə\char"0301\ ṛf\char"0323 a}
+	{\bfseries\itshape tiɣə\char"0301\ ṛf\char"0323 a} & {\SerifSemiboldItalicPatch tiɣə\char"0301\ ṛf\char"0323 a}
 \end{tabular}
 
 Original (repeated from above)
@@ -576,12 +568,12 @@ Original (repeated from above)
 
 Patched italics (f only)
 
-{\SerifItalicPatchF
+{\SerifItalicPatch
 	\char"1EA1\ \char"1E05\ \char"1E0D\ \char"1EB9\ \char"1E25\ \char"1ECB\ \char"1E33\ \char"1E37\ \char"1E43\ \char"1E47\ \char"1ECD\ \char"1E5B\ \char"1E63\ \char"1E6D\ \char"1EE5\ \char"1E7F\ \char"1E89\ \char"1EF5\ \char"1E93\
 	\ c\char"0323\ f\char"0323\ g\char"0323\ j\char"0323\ p\char"0323\ q\char"0323\ 
 	x\char"0323}
 
-{\SerifSemiboldItalicPatchF
+{\SerifSemiboldItalicPatch
 	\char"1EA1\ \char"1E05\ \char"1E0D\ \char"1EB9\ \char"1E25\ \char"1ECB\ \char"1E33\ \char"1E37\ \char"1E43\ \char"1E47\ \char"1ECD\ \char"1E5B\ \char"1E63\ \char"1E6D\ \char"1EE5\ \char"1E7F\ \char"1E89\ \char"1EF5\ \char"1E93\
 	\ c\char"0323\ f\char"0323\ g\char"0323\ j\char"0323\ p\char"0323\ q\char"0323\ 
 	x\char"0323}

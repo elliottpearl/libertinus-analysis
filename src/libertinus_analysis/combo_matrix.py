@@ -24,13 +24,13 @@ class ComboMatrix:
         self.base_groups = base_groups
         self.mark_groups = mark_groups
 
-        # Fonts is a dict: style_key → { "path": ..., "lookup_index": ..., "label": ..., "style": ... }
+        # Fonts is a dict: font_key → { "path": ..., "lookup_index": ..., "label": ...,}
         self.fonts = fonts
 
         # classifier is either classify_combo or classify_combo_sanity
         self.classifier = classifier
 
-        # Filled by load_fonts(): style_key → FontContext
+        # Filled by load_fonts(): font_key → FontContext
         self.font_contexts = {}
 
         # Filled by classify(): (mark_cp, base_cp, font_key) → classifier output tuple
@@ -40,11 +40,11 @@ class ComboMatrix:
 
     def load_fonts(self):
         """Load all fonts and build FontContext objects."""
-        for style_key, info in self.fonts.items():
-            self.font_contexts[style_key] = FontContext.from_path(
+        for font_key, info in self.fonts.items():
+            self.font_contexts[font_key] = FontContext.from_path(
                 path=info["path"],
                 lookup_index=info["lookup_index"],
-                font_key=style_key,
+                font_key=font_key,
             )
         return self
 
@@ -121,10 +121,8 @@ class ComboMatrix:
     def _build_latex_grid_for_font(self, marks, bases, font_key, section_label=None):
         """
         Build a complete LaTeX grid for one font.
-        Includes optional style wrappers (italic, bold, bold_italic).
         """
         info = self.fonts[font_key]
-        style = info["style"]
         label = section_label or info["label"]
 
         out = []
@@ -137,20 +135,25 @@ class ComboMatrix:
         out.append(rf"\subsection*{{{label}}}")
         out.append("")
 
-        # Style wrapper
-        needs_group = style in {"italic", "bold", "bold_italic"}
-        if needs_group:
-            if style == "italic":
-                out.append(r"{\itshape")
-            elif style == "bold":
-                out.append(r"{\bfseries")
-            elif style == "bold_italic":
-                out.append(r"{\bfseries\itshape")
+        # Hardcoded behavior based on the four font keys
+        if font_key == "italic":
+            out.append(r"{\itshape")
+            needs_group = True
+        elif font_key == "semibold":
+            out.append(r"{\bfseries")
+            needs_group = True
+        elif font_key == "semibold_italic":
+            out.append(r"{\bfseries\itshape")
+            needs_group = True
+        else:
+            # regular
+            needs_group = False
 
         # Grid body
         out.append("% grid. columns are bases, rows are marks.")
         out.append(self._build_grid_body(marks, bases, font_key))
 
+        # Close style group
         if needs_group:
             out.append("}")
 

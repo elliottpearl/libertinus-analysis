@@ -2,29 +2,25 @@
 font_patching.py
 
 Patch Libertinus fonts using anchor data from
-data/fontdata/libertinus_regular.py.
+data/fontdata/<font_key>.py.
 
 This module is designed to be called from a wrapper script such as:
 
     from libertinus_analysis.font_patching import patch_libertinus_font
-    patch_libertinus_font("LibertinusSerif-Regular.otf")
+    patch_libertinus_font("regular")
+    patch_libertinus_font("italic")
 
 It uses the filename conventions and directory structure defined in
-font_context.py (FONTS_DIR).
+font_context.py (FONTS).
 """
 
 from fontTools.ttLib import TTFont
 from fontTools.ttLib.tables import otTables
 
-from libertinus_analysis.font_context import FONTS_DIR
-from data.fontdata import libertinus_regular
-
-
-def _load_anchor_data():
-    """
-    Return the anchor dict from data/fontdata/libertinus_regular.py.
-    """
-    return libertinus_regular.fontdata["anchors"]
+from libertinus_analysis.font_context import (
+    FONTS,
+    load_font_metrics,
+)
 
 
 def _get_markbasepos_lookup(font):
@@ -32,8 +28,8 @@ def _get_markbasepos_lookup(font):
     Return the MarkBasePos lookup and its subtable.
 
     This assumes the font uses a single MarkBasePos lookup for
-    superscript consonants, and that it is the first (or only)
-    MarkBasePos lookup in the GPOS table.
+    Latin/IPA (non-Hebrew) combining marks, and that it is the first 
+    (or only) such MarkBasePos lookup in the GPOS table.
 
     If your fonts use a different structure, this function is the
     place to adapt it.
@@ -68,31 +64,33 @@ def _ensure_base_record(subtable, gname):
     return br
 
 
-def patch_libertinus_font(font_filename, out_filename=None):
+def patch_libertinus_font(font_key):
     """
-    Patch a Libertinus font using anchor data from libertinus_regular.py.
+    Patch a Libertinus font using anchor data from
+    data/fontdata/<font_key>.py.
 
     Parameters:
-        font_filename: str
-            Filename inside FONTS_DIR, e.g. "LibertinusSerif-Regular.otf"
+        font_key: str
+            A key of FONTS, e.g. "regular", "italic", "semibold", "semibold_italic".
 
-        out_filename: str or None
-            Output filename inside FONTS_DIR. If None, "-patch" is appended.
-
-    The patched font is written to FONTS_DIR/out_filename.
+    The patched font is written to font file with "-patch" appended.
     """
-    font_path = FONTS_DIR / font_filename
-    if out_filename is None:
-        stem = font_filename.rsplit(".", 1)[0]
-        ext = font_filename.rsplit(".", 1)[1]
-        out_filename = f"{stem}-patch.{ext}"
+    # Load anchor data for this font
+    fontdata = load_font_metrics(font_key)
+    anchors = fontdata.get("anchors", {})
 
-    out_path = FONTS_DIR / out_filename
+    # Determine the font filename from the key
+    font_info = FONTS[font_key]
+    font_path = font_info["path"]
+
+    # Construct output filename
+    stem = font_path.stem
+    ext = font_path.suffix
+    out_path = font_path.with_name(f"{stem}-patch{ext}")
 
     font = TTFont(font_path)
     cmap = font.getBestCmap()
 
-    anchors = _load_anchor_data()
     lookup, subtable = _get_markbasepos_lookup(font)
 
     for class_id, table in anchors.items():

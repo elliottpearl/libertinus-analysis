@@ -26,7 +26,7 @@ from libertinus_analysis import shaping
 # compute_baseanchor3()   # anchor class 3 (left angle above)
 # compute_baseanchor0()   # anchor class 0 (acute/grave/circumflex)
 
-# Patch a font’s GPOS MarkBasePos table
+# Patch a font's GPOS MarkBasePos table
 # 
 # patch_gpos_font(
 #    fonts["regular"]["path"],

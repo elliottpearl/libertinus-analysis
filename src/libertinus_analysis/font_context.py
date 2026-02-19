@@ -94,7 +94,7 @@ class FontContext:
         self.label = label
 
     @classmethod
-    def from_path(cls, path, lookup_index, font_key=None, style=None, label=None):
+    def from_path(cls, path, lookup_index, font_key=None, label=None):
         """
         Load TTFont + HBFont + cmap + GPOS anchors from a font file.
         lookup_index is the curated index of the MarkToBase lookup.
@@ -121,7 +121,6 @@ class FontContext:
             markClassByGlyph=markClassByGlyph,
             anchorsByBaseGlyph=anchorsByBaseGlyph,
             metrics=metrics,
-            style=style,
             label=label,
         )
 

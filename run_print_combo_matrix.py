@@ -75,19 +75,19 @@ if __name__ == "__main__":
     # keys of FONTS of font_context.py
     # "regular", "italic", "semibold", "semibold_italic", "regular_patch"
     chosen_fonts = [
-        "regular", "italic", "semibold", "semibold_italic", 
+        "regular", "regular_patch", "italic", "semibold", "semibold_italic", 
     ]
 
     # keys of base unicode_groups of ipa_unicode.py
     # e.g. "latin", "ipa", "base_anchor_required"
     chosen_base_groups = [
-        "BASE_COMMON",
+        "BASE_COMMON", "BASE_RARE",
     ]
 
     # keys of mark unicode_groups of ipa_unicode.py
     # e.g. "above", "below", "mark_anchor_required"
     chosen_mark_groups = [
-        "MARK_COMMON",
+        "MARK_COMMON", "MARK_RARE",
     ]
 
     # classify_combo or classify_combo_sanity
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
     # LaTeX filename in TEX_INPUT = "tex/input/"
     # e.g. "latin_above.tex" 
-    outfile = "common_mark_base.tex" 
+    outfile = "mark_base.tex" 
 
     print_combo_matrix(
         chosen_fonts=chosen_fonts,

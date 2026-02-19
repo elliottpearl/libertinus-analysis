@@ -6,7 +6,7 @@ import uharfbuzz as hb
 from .font_context import FontContext
 from .classifiers import classify_combo, classify_combo_sanity
 from .tex_helpers import render_cell, render_cell_sanity
-from .ipa_loader import mark_class_index
+from .ipa_loader import unicode_groups, mark_class_index
 
 
 class ComboMatrix:
@@ -168,18 +168,28 @@ class ComboMatrix:
         """
         out = []
 
-        for base_group in self.base_groups.values():
-            for mark_group in self.mark_groups.values():
+        for base_group_key, base_group in self.base_groups.items():
+            base_label = unicode_groups[base_group_key]["label"]
+
+            for mark_group_key, mark_group in self.mark_groups.items():
+                mark_label = unicode_groups[mark_group_key]["label"]
+
                 marks = mark_group["items"]
                 bases = base_group["items"]
 
                 for font_key in self.fonts:
+                    font_label = self.fonts[font_key]["label"]
+
+                    section_label = (
+                        f"{font_label} — {base_label} bases × {mark_label} marks"
+                    )
+
                     out.append(
                         self._build_latex_grid_for_font(
                             marks=marks,
                             bases=bases,
                             font_key=font_key,
-                            section_label=None,
+                            section_label=section_label,
                         )
                     )
 

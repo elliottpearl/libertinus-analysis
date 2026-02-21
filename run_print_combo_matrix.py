@@ -75,7 +75,8 @@ if __name__ == "__main__":
     # keys of FONTS of font_context.py
     # "regular", "italic", "semibold", "semibold_italic", "regular_patch"
     chosen_fonts = [
-        "regular", "regular_patch", "italic", "semibold", "semibold_italic", 
+        "regular", "regular_patch", "italic", "italic_patch", 
+        "semibold", "semibold_patch", "semibold_italic",  "semibold_italic_patch",
     ]
 
     # keys of base unicode_groups of ipa_unicode.py

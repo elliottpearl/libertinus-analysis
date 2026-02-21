@@ -118,6 +118,34 @@ class ComboMatrix:
             rows.append("")  # blank line between rows
         return "\n".join(rows)
 
+    def _latex_font_cmd(self, font_key):
+        """
+        Return (cmd, needs_group) for the given font_key.
+        """
+        base = r""
+        patch = r"\LibertinusSerifPatch"
+
+        # Determine family
+        if font_key.endswith("_patch"):
+            family = patch
+        else:
+            family = base
+
+        # Build command
+        parts = [family]
+
+        if "semibold" in font_key:
+            parts.append(r"\bfseries")
+        if "italic" in font_key:
+            parts.append(r"\itshape")
+
+        cmd = "".join(parts)
+
+        # Group needed if anything beyond the bare family is used
+        needs_group = (cmd != base)
+
+        return cmd, needs_group
+
     def _build_latex_grid_for_font(self, marks, bases, font_key, section_label=None):
         """
         Build a complete LaTeX grid for one font.
@@ -135,30 +163,21 @@ class ComboMatrix:
         out.append(rf"\subsection*{{{label}}}")
         out.append("")
 
-        # Hardcoded behavior based on the four font keys
-        if font_key == "italic":
-            out.append(r"{\itshape")
-            needs_group = True
-        elif font_key == "semibold":
-            out.append(r"{\bfseries")
-            needs_group = True
-        elif font_key == "semibold_italic":
-            out.append(r"{\bfseries\itshape")
-            needs_group = True
-        else:
-            # regular
-            needs_group = False
+        # Get LaTeX font command and grouping requirement
+        cmd, needs_group = self._latex_font_cmd(font_key)
+
+        if needs_group:
+            out.append("{" + cmd)
 
         # Grid body
         out.append("% grid. columns are bases, rows are marks.")
         out.append(self._build_grid_body(marks, bases, font_key))
 
-        # Close style group
         if needs_group:
             out.append("}")
 
         return "\n".join(out)
-
+    
     # Public builders
 
     def latex_grid(self):

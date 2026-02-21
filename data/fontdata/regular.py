@@ -125,7 +125,7 @@ fontdata = {
             0x0072: (140, -110),  # r
             # 0x0074: (163, -110),  # t (commented out)
             0x00E6: (327, -110),  # ae
-            0x0153: (353, -110),  # oe
+            0x0153: (408, -110),  # oe. center of vertical band of ligature
             0x0250: (229, -110),  # turned a
             0x0251: (222, -110),  # alpha
             0x0252: (259, -110),  # turned alpha

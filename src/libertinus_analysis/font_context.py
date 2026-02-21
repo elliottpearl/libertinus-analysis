@@ -185,11 +185,6 @@ FONTS = {
         "lookup_index": 4,
         "label": "Regular",
     },
-    "regular_patch": {
-        "path": FONTS_DIR / "LibertinusSerif-Regular-patch.otf",
-        "lookup_index": 4,
-        "label": "Regular patched",
-    },
     "italic": {
         "path": FONTS_DIR / "LibertinusSerif-Italic.otf",
         "lookup_index": 4,
@@ -204,5 +199,25 @@ FONTS = {
         "path": FONTS_DIR / "LibertinusSerif-SemiboldItalic.otf",
         "lookup_index": 2,
         "label": "Semibold italic",
+    },
+    "regular_patch": {
+        "path": FONTS_DIR / "LibertinusSerif-Regular-patch.otf",
+        "lookup_index": 4,
+        "label": "Regular patched",
+    },
+    "italic_patch": {
+        "path": FONTS_DIR / "LibertinusSerif-Italic-patch.otf",
+        "lookup_index": 4,
+        "label": "Italic patched",
+    },
+    "semibold_patch": {
+        "path": FONTS_DIR / "LibertinusSerif-Semibold-patch.otf",
+        "lookup_index": 1,
+        "label": "Semibold patched",
+    },
+    "semibold_italic_patch": {
+        "path": FONTS_DIR / "LibertinusSerif-SemiboldItalic-patch.otf",
+        "lookup_index": 2,
+        "label": "Semibold italic patched",
     },
 }

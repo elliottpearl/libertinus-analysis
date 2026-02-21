@@ -87,6 +87,10 @@ fontdata = {
 
             0x007A: (220, 645),  # z
             0x00E6: (350, 645),  # ae ligature
+            0x027B: (208, 885),  # turned r with long leg, was (208, 645); ascender aspect.
+            0x027B: (238, 645),  # ɻ turned r with hook. 248 is center of stem, r-turned is -19 units off center. 
+            0x029D: (163, 853),   # j with crossed tail. was (209, 645). 853 = 645 + (Y-max - meanline) - overshoot correction - 645+(647-429)-10.162.5 is horizontal of stem.
+            
 
             # superscript capitals from compute_baseanchor0()
             0x02B0: (155, 914), 0x02B1: (151, 913), 0x02B2: (73, 914),
@@ -129,6 +133,7 @@ fontdata = {
             0x0250: (229, -110),  # turned a
             0x0251: (222, -110),  # alpha
             0x0252: (259, -110),  # turned alpha
+            0x0283: (209, -319),  # esh was (209, 645); descender aspect
         },
 
         # test 2 values computed with compute_baseanchor3(), clearance 0/80. Rejected.

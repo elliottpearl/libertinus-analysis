@@ -88,11 +88,18 @@ fontdata = {
             0x007A: (220, 645),  # z
             0x00E6: (350, 645),  # ae ligature
             0x0260: (239, 885),  # g hook was (209, 645). use x of good anchor of 0x0261 (239, 645)
-            0x0275: (238, 645),  # theta. was (209, 238). 238 is x-value from o
+            0x0266: (263, 885),  # h hook. was (299,565). 263 is apex of arm, and x of ymax
+            0x026B: (225, 885): # l middle tilde. 224.5 is center of l.
+            0x026C: (225, 885): # l belt. 224.5 is center of l.
+            0x026E: (135, 885),  # lezh. was (209, 645). 134.5 is center of l
+            0x0275: (238, 645),  # theta. was (209, 645). 238 is x-value from o
+            0x0276: (361, 645),  # OE lig. was (209, 645). 360.5 is center of lig band
             0x027A: (208, 885),  # turned r with long leg, was (208, 645); ascender aspect.
             0x027B: (238, 645),  # ɻ turned r with hook. 248 is center of stem, r-turned is -19 units off center. 
-            0x029D: (163, 853),  # j with crossed tail. was (209, 645). 853 = 645 + (Y-max - meanline) - overshoot correction - 645+(647-429)-10.162.5 is horizontal of stem.
+            0x028C: (249, 645),  # turned v. was (209, 645). 249 is vertex of turned v.
             0x028E: (209, 885),  # turned y, was (209, 645); ascender aspect.
+            0x029D: (163, 853),  # j with crossed tail. was (209, 645). 853 = 645 + (Y-max - meanline) - overshoot correction - 645+(647-429)-10.162.5 is horizontal of stem.
+
             
             # superscript capitals from compute_baseanchor0()
             0x02B0: (155, 914), 0x02B1: (151, 913), 0x02B2: (73, 914),
@@ -136,11 +143,18 @@ fontdata = {
             0x0251: (222, -110),  # alpha
             0x0252: (259, -110),  # turned alpha
             0x0260: (226, -319),  # g hook. was (238, -110). use x of good anchor of 0x0261 (2269, 645)
+            0x0263: (248, -289),  # gamma. ymin is at (248, -202) -202 -87 = -289
+            0x0266: (262, -110),  # h hook. was (240, -114). 262 is center of counter
+            0x026B: (225, -110): # l middle tilde. 224.5 is center of l.
+            0x026C: (225, -110): # l belt. 224.5 is center of l.
+
             0x026D: (196, -275),  # l hook, was (196, -110). ymin = -188. -319 + (232-188) = -275
             0x026E: (275, -319),  # lezh. was (196,-110). translate below anchor of ezh
             0x0273: (262, -308),  # n retroflex hook. was (262, -110). -308 = -319 + 11. 11 = descender - ymin.
             0x0275: (243, -110),  # theta. was (196,-110) 243 is x value from o
+            0x0276: (361, -110),  # OE lig. was (196, -110). 360.5 is center of lig band
             0x0283: (209, -319),  # esh was (209, 645); descender aspect
+            0x028C: (229, -110),  # turned v. was (196, -110). ??? vertex of turned v. 228.5 is center of serifs on baseline
             0x023F: (196, -283),  # s with hook; ymin + meanline anchor = -173 -110 = -273. 
             
         },

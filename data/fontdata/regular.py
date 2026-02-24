@@ -77,18 +77,16 @@ fontdata = {
     "anchors": {
 
         0: {  # above
+            0x0062: (279, 885),  # b. x=279 at apex of bowl
             0x0064: (385, 885),  # d, center of stem; ascender aspect
-
-            # t: apex center is 128.5; bowl apex is 163.
-            # ymax=582, meanlineclearance=216 → 582+216 = 798
-            0x0074: (139, 798),  # was (139, 798?)
-
+            0x0074: (139, 798),  # t. apex center is 128.5; bowl apex is 163. ymax=582, meanlineclearance=216 → 582+216 = 798
             0x007A: (220, 645),  # z
             0x00E6: (350, 645),  # ae ligature
+            0x0253: (255, 885),  # b hook. was (480, 630). ascender aspect. x=255 at ymax
             0x0260: (239, 885),  # g hook was (209, 645). use x of good anchor of 0x0261 (239, 645)
             0x0266: (263, 885),  # h hook. was (299,565). 263 is apex of arm, and x of ymax
-            0x026B: (225, 885), # l middle tilde. 224.5 is center of l.
-            0x026C: (225, 885), # l belt. 224.5 is center of l.
+            0x026B: (225, 885),  # l middle tilde. 224.5 is center of l.
+            0x026C: (225, 885),  # l belt. 224.5 is center of l.
             0x026E: (135, 885),  # lezh. was (209, 645). 134.5 is center of l
             0x0275: (238, 645),  # theta. was (209, 645). 238 is x-value from o
             0x0276: (361, 645),  # OE lig. was (209, 645). 360.5 is center of lig band
@@ -108,7 +106,7 @@ fontdata = {
             0x1D5F: (176, 914),
         },
 
-        1: {  # above (alternate)
+        1: {  # above-right
             0x02B0: (347, 648), 0x02B1: (339, 648), 0x02B2: (193, 648), 0x02B3: (284, 648), 
             0x02B4: (274, 648), 0x02B5: (319, 648), 0x02B6: (308, 648), 0x02B7: (497, 648), 
             0x02B8: (368, 648), 0x02E0: (341, 648), 0x02E1: (193, 648), 0x02E2: (270, 648),
@@ -131,21 +129,23 @@ fontdata = {
             0x0072: (140, -110),  # r
             # 0x0074: (163, -110),  # t (commented out)
             0x00E6: (327, -110),  # ae
+            0x014B: (265, -319),   # eng. was (265,-111). ymin = -223 is close to ascender height = -232
             0x0153: (408, -110),  # oe. center of vertical band of ligature
             0x0250: (229, -110),  # turned a
             0x0251: (222, -110),  # alpha
             0x0252: (259, -110),  # turned alpha
+            0x0253: (235, -110),  # b hook. was (480, 630). x=235 at ymin
             0x0260: (226, -319),  # g hook. was (238, -110). use x of good anchor of 0x0261 (2269, 645)
             0x0263: (248, -289),  # gamma. ymin is at (248, -202) -202 -87 = -289
             0x0266: (262, -110),  # h hook. was (240, -114). 262 is center of counter
             0x026B: (225, -110), # l middle tilde. 224.5 is center of l.
             0x026C: (225, -110), # l belt. 224.5 is center of l.
-
             0x026D: (196, -275),  # l hook, was (196, -110). ymin = -188. -319 + (232-188) = -275
             0x026E: (275, -319),  # lezh. was (196,-110). translate below anchor of ezh
             0x0273: (262, -308),  # n retroflex hook. was (262, -110). -308 = -319 + 11. 11 = descender - ymin.
             0x0275: (243, -110),  # theta. was (196,-110) 243 is x value from o
             0x0276: (361, -110),  # OE lig. was (196, -110). 360.5 is center of lig band
+            0x0282: (196, -263),  # s hook. ymin=-176 and x=126. -176-87=-263. s has below-anchor at x=196.
             0x0283: (209, -319),  # esh was (209, 645); descender aspect
             0x028C: (229, -110),  # turned v. was (196, -110). ??? vertex of turned v. 228.5 is center of serifs on baseline
             0x023F: (196, -283),  # s with hook; ymin + meanline anchor = -173 -110 = -273. 
@@ -154,7 +154,7 @@ fontdata = {
 
         # test 2 values computed with compute_baseanchor3(), clearance 0/80. Rejected.
         # test 3 values computed with compute_baseanchor3(), clearance -20/70. Accepted.
-        3: {
+        3: { # left-angle
             0x02B0: (305, 834), 0x02B1: (297, 833), 0x02B2: (151, 834), 0x02B3: (242, 725), 
             0x02B4: (232, 725), 0x02B5: (277, 725), 0x02B6: (266, 725), 0x02B7: (455, 725), 
             0x02B8: (326, 725), 0x02E0: (299, 778), 0x02E1: (151, 834), 0x02E2: (228, 725),

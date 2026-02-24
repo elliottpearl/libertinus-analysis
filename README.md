@@ -14,7 +14,7 @@ An exploratory diagnostic sandbox for understanding combining mark behavior in L
 
 ### Run
 
-Edit and execute the relevant wrapper script `run_*.py`
+Edit and execute the relevant wrapper script `run_*`
 
 ## License
 

@@ -8,6 +8,7 @@
 \usepackage[table]{xcolor}
 \usepackage{caption}
 \usepackage{expl3}
+\usepackage{multirow}
 
 % Page options
 
@@ -149,6 +150,8 @@ See above- and below-anchor coordinates for A--Z and a--z for Libertinus serif r
 	\label{regular-above-below}
 	\setlength{\tabcolsep}{1pt}
 
+	{\small
+
 	\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrrrrr}
 	A & B & C & D & E & F & G & H & I & J & K & L & M & N & O & P & Q & R & S & T & U & V & W & X & Y & Z \\
 	354 & 267 & 340 & 306 & 281 & 284 & 365 & 361 & 150 & 182 & 336 & 151 & 431 & 346 & 335 & 277 & 348 & 269 & 232 & 307 & 346 & 336 & 450 & 332 & 295 & 320 \\
@@ -164,6 +167,9 @@ See above- and below-anchor coordinates for A--Z and a--z for Libertinus serif r
 	 196 &  234 &  236 &  221 &  234 &  132 &  229 &  272 &  136 &  109 &  290 &  135 &  408 &  265 &  243 &  179 &  348 &  135 &  196 &  163 &  239 &  241 &  352 &  224 &  242 &  207 \\
 	−110 & −110 & −110 & −110 & −110 & −110 & −319 & −110 & −110 & −319 & −214 & −110 & −110 & −110 & −110 & −319 & −319 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −319 & −110 \\
 	\end{tabular}
+
+	}
+
 \end{table}
 
 %   A    B    C    D    E    F    G   H     I    J    K    L    M    N   O     P    Q   R     S    T    U    V    W    X    Y    Z
@@ -179,8 +185,64 @@ See above- and below-anchor coordinates for A--Z and a--z for Libertinus serif r
 
 A few bases are missing anchors. 
 The $Y$ coordinates (rows 2 and 4) of base anchors can be set geometrically, relative to a few vertical aspects  
--- descender height, baseline, x-height, ascender height, cap height -- the gray horizontal lines of Figure \ref{fig:libertinus-geometry} of the font.
-The $X$ coordinates (rows 1 and 3) of base anchors are better set optically, by judging the optical weight of the top or bottom of the glyph outline, as well as the glyph width.
+The $X$ coordinates (rows 1 and 3) of base anchors are better set optically, by judging the optical weight of the 
+top or bottom of the glyph outline, as well as the glyph width.
+
+\subsection*{Vertical spects and clearance}
+
+A font has at least five vertical aspects: descender height, baseline, x-height, ascender height, capital height.
+There are gray horizontal lines of Figure \ref{fig:libertinus-geometry}, 
+and their $Y$ coordinate is displayed in Table \ref{fig:vertical-aspects-of-Libertinus}.
+In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor or a below-anchor is at 
+stable value depending on where the glyph outline sits relative to a vertical aspect.
+For example, all glyphs that sit on the baseline have a below-anchor with $Y = -110$.
+If a glyph is not a full ascender or full descender, then choose the nearest vertical aspect 
+to the glyph bounding box, and use that vertical aspect's anchor clearance to set the $Y$ coordinate of the anchor.
+Anchors are often best set optically, not geometrically by this anchor clearance algorithms, and so there may be execptions.
+
+\begin{table}[htbp]
+	\captionsetup{justification=raggedright, singlelinecheck=false}
+	\caption{Vertical aspects and anchor $Y$ coordinates of Libertinus}
+	\label{fig:vertical-aspects-of-Libertinus}
+	\setlength{\tabcolsep}{1pt}
+
+\begin{tabular}{p{2.5cm} l r r r r}
+	&	& Regular	& Italic	& Semibold	& Semibold Italic\\
+\multirow{5}{=}{height}
+	& ascender	& 698	& 698	& 690	& 696?	\\
+	& capital	& 645	& 645	& 645	& 645	\\
+	& x			& 429	& 429	& 433	& 434	\\
+	& baseline	& 0		& 0		& 0		& 0		\\
+	& descender	& -232	& -232	& -238?	& -239	\\
+\hline
+\multirow{3}{=}{above-anchor $Y$ coordinate} 
+	& ascender	& 885	& 890?	& 885		& 890?	\\
+	& capital	& 850	& 850	& 805? 850?	& 850	\\
+	& x			& 645	& 645	& 645		& 645	\\
+\multirow{2}{=}{below-anchor}
+	& baseline	& -110	& -110	& -110		& -110	\\
+	& descender	& -319	& -319	& -319		& -319	\\
+\hline	
+\multirow{3}{=}{above-anchor clearance}
+	& ascender	& 187	& 190	&		&		\\
+	& capital	& 205	& 205	&		&		\\
+	& x-height	& 216	& 216	&		&		\\
+\multirow{2}{=}{below-anchor}	
+	& baseline	& 110	& 110	&		&		\\
+	& descender	& 87	& 87	&		&		\\
+\end{tabular}
+
+\end{table}
+	
+For example, ascender above-anchor clearance is the distance (in absolute value) 
+between the ascender above-anchor $Y$ coordinate and the ascender height, $885 - 698 = 187$. 
+
+For a glyph with a descender/ascender beside a counter (bdpqky), 
+the mark attaches sccording to the counter at the x-height or baseline, 
+and for a stem-dominant glyph (fgjlt), 
+the mark attaches according to the major stem at the ascender or descender.
+Note that an italic f has a descender.
+
 
 \subsection*{Patch J and Q regular, below-anchor}
 

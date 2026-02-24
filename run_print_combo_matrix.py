@@ -82,13 +82,13 @@ if __name__ == "__main__":
     # keys of base unicode_groups of ipa_unicode.py
     # e.g. "BASE_RARE"
     chosen_base_groups = [
-        "BASE_RARE"
+        "BASE_COMMON"
     ]
 
     # keys of mark unicode_groups of ipa_unicode.py
-    # e.g. "MARK_COMMON", "MARK_RARE"m
+    # e.g. "MARK_COMMON", "MARK_RARE"
     chosen_mark_groups = [
-        "MARK_RARE",
+        "MARK_COMMON",
     ]
 
     # classify_combo or classify_combo_sanity
@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
     # LaTeX filename in TEX_INPUT = "tex/input/"
     # e.g. "latin_above.tex" 
-    outfile = "mark_base_rare.tex" 
+    outfile = "mark_base_common.tex" 
 
     print_combo_matrix(
         chosen_fonts=chosen_fonts,

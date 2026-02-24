@@ -57,20 +57,28 @@ def patch_libertinus_font(font_key):
 
             gname = cmap[cp]
 
-            # --- LEGACY LOGIC: ensure BaseRecord exists ---
+            # --- Ensure BaseRecord exists ---
             if gname in base_cov.glyphs:
                 idx = base_cov.glyphs.index(gname)
                 br = base_array.BaseRecord[idx]
             else:
-                # Append new glyph to BaseCoverage
+                # Add new glyph to BaseCoverage
                 base_cov.glyphs.append(gname)
 
-                # Create new BaseRecord
+                # Create a new BaseRecord with empty anchors
                 br = otTables.BaseRecord()
                 br.BaseAnchor = [None] * class_count
 
                 # Append to BaseArray
                 base_array.BaseRecord.append(br)
+
+            # --- Normalize BaseAnchor list to class_count ---
+            if br.BaseAnchor is None:
+                br.BaseAnchor = [None] * class_count
+            else:
+                # Pad with None until we have class_count entries
+                while len(br.BaseAnchor) < class_count:
+                    br.BaseAnchor.append(None)
 
             # --- Create anchor ---
             anchor = otTables.Anchor()

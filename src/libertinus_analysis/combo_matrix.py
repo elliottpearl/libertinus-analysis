@@ -200,7 +200,7 @@ class ComboMatrix:
                     font_label = self.fonts[font_key]["label"]
 
                     section_label = (
-                        f"{font_label} — {base_label} bases × {mark_label} marks"
+                        f"{font_label}, {base_label}, {mark_label}"
                     )
 
                     out.append(

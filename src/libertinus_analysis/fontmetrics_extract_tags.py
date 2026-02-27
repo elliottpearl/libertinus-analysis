@@ -1,107 +1,159 @@
 # fontmetrics_extract_tags.py
 #
-# Compute first-pass semantic tags for glyph outlines.
+# Compute anchor-useful semantic tags for a glyph.
+#
+# Public API (kept compatible with the existing extractor):
+#
+#     compute_semantic_tags(
+#         glyph,
+#         glyph_set,
+#         bbox,
+#         width,
+#         lsb,
+#         rsb,
+#         style="roman",
+#     ) -> dict
+#
+# The tags describe only horizontal visual weight and
+# slant/overhang behavior:
+#
+#     has_left_weight
+#     has_right_weight
+#     is_symmetric
+#     has_overhang_right
+#     is_italic_slanted
+#
 
-from fontTools.pens.boundsPen import BoundsPen
+from typing import Dict, Tuple
 
 
-# ------------------------------------------------------------
-# Helpers for outline analysis
-# ------------------------------------------------------------
-
-def find_vertical_stems(glyph, stem_width=70, tolerance=15):
+def _compute_basic_metrics(
+    bbox: Tuple[int, int, int, int],
+    width: int,
+    lsb: int,
+    rsb: int,
+) -> Dict[str, float]:
     """
-    Return list of x positions of vertical stems.
-    A stem is approximated as a vertical segment with thickness ~ stem_width.
+    Derive simple horizontal metrics from bbox and sidebearings.
+
+    bbox: (xmin, ymin, xmax, ymax)
+    width: advance width
+    lsb, rsb: left/right sidebearings
     """
-    stems = []
-    pen = BoundsPen(glyph.font)
-    glyph.draw(pen)
-    if pen.bounds is None:
-        return stems
+    xmin, _, xmax, _ = bbox
+    outline_width = xmax - xmin
+    bbox_center = (xmin + xmax) / 2.0
 
-    xMin, _, xMax, _ = pen.bounds
-    width = xMax - xMin
-
-    # If width is close to stem width, treat as single stem
-    if abs(width - stem_width) < tolerance:
-        stems.append((xMin + xMax) / 2)
-
-    return stems
-
-
-def find_bowl_centroids(glyph):
-    """
-    Very rough heuristic: treat each closed contour as a bowl.
-    Compute centroid of contour bbox.
-    NOTE: This relies on glyph._glyph.coordinates.contours, which is
-    specific to the fontTools glyph implementation used here.
-    """
-    bowls = []
-    # Defensive: if the attribute is missing, just return empty
-    if not hasattr(glyph, "_glyph") or not hasattr(glyph._glyph, "coordinates"):
-        return bowls
-    if not hasattr(glyph._glyph.coordinates, "contours"):
-        return bowls
-
-    for contour in glyph._glyph.coordinates.contours:
-        xs = [pt[0] for pt in contour]
-        ys = [pt[1] for pt in contour]
-        if len(xs) > 2:
-            cx = sum(xs) / len(xs)
-            cy = sum(ys) / len(ys)
-            bowls.append((cx, cy))
-    return bowls
-
-
-# ------------------------------------------------------------
-# Main tag computation
-# ------------------------------------------------------------
-
-def compute_semantic_tags(glyph, bbox, width, lsb, rsb, style="roman"):
-    """
-    Compute boolean semantic tags for a glyph.
-    """
-    xMin, yMin, xMax, yMax = bbox
-    bbox_center = (xMin + xMax) / 2
-
-    tags = {
-        "has_left_stem": False,
-        "has_right_stem": False,
-        "has_left_bowl": False,
-        "has_right_bowl": False,
-        "has_overhang_right": False,
-        "is_symmetric": False,
-        "is_multi_bowl": False,
-        "is_italic_slanted": ("italic" in style.lower()),
+    return {
+        "xmin": float(xmin),
+        "xmax": float(xmax),
+        "outline_width": float(outline_width),
+        "bbox_center": float(bbox_center),
+        "width": float(width),
+        "lsb": float(lsb),
+        "rsb": float(rsb),
     }
 
-    # Stems
-    stems = find_vertical_stems(glyph)
-    for sx in stems:
-        if sx < bbox_center:
-            tags["has_left_stem"] = True
-        if sx > bbox_center:
-            tags["has_right_stem"] = True
 
-    # Bowls
-    bowls = find_bowl_centroids(glyph)
-    if len(bowls) >= 2:
-        tags["is_multi_bowl"] = True
-    for cx, cy in bowls:
-        if cx < bbox_center:
-            tags["has_left_bowl"] = True
-        if cx > bbox_center:
-            tags["has_right_bowl"] = True
+def _classify_horizontal_weight(metrics: Dict[str, float]) -> Tuple[bool, bool, bool]:
+    """
+    Decide has_left_weight, has_right_weight, is_symmetric based on
+    simple horizontal metrics.
 
-    # Overhang
-    if rsb < 0 or xMax > width:
-        tags["has_overhang_right"] = True
+    We use sidebearings as a proxy for horizontal visual balance:
 
-    # Symmetry (very rough)
-    if abs(lsb - rsb) < 10:
-        if not (tags["has_left_bowl"] ^ tags["has_right_bowl"]):
-            if not (tags["has_left_stem"] ^ tags["has_right_stem"]):
-                tags["is_symmetric"] = True
+        - If lsb ≈ rsb → symmetric
+        - If lsb > rsb → left-heavy
+        - If rsb > lsb → right-heavy
+    """
+    lsb = metrics["lsb"]
+    rsb = metrics["rsb"]
+    width = metrics["width"]
 
-    return tags
+    # If width is zero or tiny, treat as symmetric.
+    if width <= 0:
+        return False, False, True
+
+    diff = lsb - rsb
+    # Threshold as a fraction of width; tweakable if needed.
+    threshold = 0.08 * width
+
+    if abs(diff) <= threshold:
+        # Balanced sidebearings → symmetric
+        return False, False, True
+
+    if diff > 0:
+        # More space on the right → weight on the left
+        return True, False, False
+    else:
+        # More space on the left → weight on the right
+        return False, True, False
+
+
+def _detect_overhang_right(metrics: Dict[str, float]) -> bool:
+    """
+    Detect right overhang: outline extends beyond advance width.
+
+    In practice this is equivalent to rsb < 0.
+    """
+    return metrics["rsb"] < 0.0
+
+
+def _detect_italic_slanted(style: str) -> bool:
+    """
+    Decide whether the glyph should be treated as italic-slanted.
+
+    This is based on the font style label, not outline geometry.
+    """
+    style = (style or "").lower()
+    return any(token in style for token in ("italic", "oblique"))
+
+
+def compute_semantic_tags(
+    glyph,
+    glyph_set,
+    bbox: Tuple[int, int, int, int],
+    width: int,
+    lsb: int,
+    rsb: int,
+    style: str = "roman",
+) -> Dict[str, bool]:
+    """
+    Public entry point used by fontmetrics_extractor.build_glyph_entry.
+
+    Parameters
+    ----------
+    glyph : Glyph
+        The glyph object (currently unused, but kept for future refinements).
+    glyph_set : Mapping[str, Glyph]
+        The font's glyph set (currently unused here, but available if
+        future tag logic needs outline access).
+    bbox : (xmin, ymin, xmax, ymax)
+        Glyph bounding box in font units.
+    width : int
+        Advance width.
+    lsb, rsb : int
+        Left and right sidebearings.
+    style : str
+        Style label, e.g. "regular", "italic", "semibold_italic".
+
+    Returns
+    -------
+    Dict[str, bool]
+        A dictionary with the five first-pass tags.
+    """
+    metrics = _compute_basic_metrics(bbox, width, lsb, rsb)
+
+    has_left_weight, has_right_weight, is_symmetric = _classify_horizontal_weight(
+        metrics
+    )
+    has_overhang_right = _detect_overhang_right(metrics)
+    is_italic_slanted = _detect_italic_slanted(style)
+
+    return {
+        "has_left_weight": has_left_weight,
+        "has_right_weight": has_right_weight,
+        "is_symmetric": is_symmetric,
+        "has_overhang_right": has_overhang_right,
+        "is_italic_slanted": is_italic_slanted,
+    }

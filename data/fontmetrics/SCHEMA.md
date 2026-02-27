@@ -87,78 +87,79 @@ Advance width.
 Left and right sidebearings.
 
 ### tags
-Boolean semantic tags describing the glyph’s horizontal structure.  
-These tags support heuristic anchor placement when designer‑provided anchors are missing.
+Boolean semantic tags describing the glyph’s horizontal visual weight and slant/overhang behavior. These tags exist solely to support heuristic anchor placement when designer‑provided anchors are missing. They do not describe glyph anatomy; they encode only the directional cues needed to shift anchor_x left or right from the glyph’s horizontal center.
 
 ---------------------------------------------------------------------
 
-## First‑pass semantic tags
-
-These tags capture the major structural features that influence horizontal anchor placement. They are intentionally simple and boolean.
+### First‑pass semantic tags  
+These tags capture the major horizontal‑balance features that influence anchor placement. They are intentionally simple and boolean.
 
 ```
 "tags": {
-  "has_left_stem": false,
-  "has_right_stem": false,
-  "has_left_bowl": false,
-  "has_right_bowl": false,
-  "has_overhang_right": false,
+  "has_left_weight": false,
+  "has_right_weight": false,
   "is_symmetric": false,
-  "is_multi_bowl": false,
+  "has_overhang_right": false,
   "is_italic_slanted": false
 }
 ```
 
-### Tag definitions
+**Tag definitions**
 
-has_left_stem — True if the glyph contains a vertical stem near the left side.  
-has_right_stem — True if a vertical stem exists near the right side.  
-has_left_bowl — True if a bowl centroid lies left of the outline midpoint.  
-has_right_bowl — True if a bowl centroid lies right of the midpoint.  
-has_overhang_right — True if the glyph extends beyond its advance width.  
-is_symmetric — True for horizontally symmetric glyphs (O, o, H, I, U, V, W, X).  
-is_multi_bowl — True for glyphs with two or more bowls (æ, œ, ɶ).  
-is_italic_slanted — True for italic or oblique forms.
+- **has_left_weight** — True if the glyph’s left side carries more horizontal visual mass than the right.  
+  Examples: b, h, k, l, n, m, p, r; uppercase B, D, E, F, H, K, L, P, R.
 
-These tags are sufficient for a first‑pass heuristic that predicts above_x and below_x from the glyph’s geometry.
+- **has_right_weight** — True if the glyph’s right side carries more horizontal visual mass.  
+  Examples: d, q, u; æ, œ (right bowl dominates); some italic forms.
 
----------------------------------------------------------------------
+- **is_symmetric** — True if the glyph’s horizontal mass is balanced around its center.  
+  Examples: o, O, H, I, many small‑caps.
 
-## Intended usage of tags
+- **has_overhang_right** — True if the rightmost outline extends beyond the advance width.  
+  Examples: f, j, y; many italic forms.
 
+- **is_italic_slanted** — True if the glyph is italic or oblique enough that its visual center shifts left.
+
+These tags are sufficient for a first‑pass heuristic that predicts `anchor_x` from the glyph’s horizontal balance.
+
+---
+
+### Intended usage of tags  
 The tags allow the extractor or layout engine to compute a predicted anchor x‑coordinate when the font lacks designer‑provided anchors.
 
 A typical heuristic uses:
 
-• the outline’s horizontal center  
-• the outline width  
-• a tag‑dependent normalized offset (dx_norm)
+- the outline’s horizontal center (`bbox_center`)  
+- the outline width (`outline_width`)  
+- a tag‑dependent normalized offset (`dx_norm`)
 
-Examples:
+Examples of normalized offsets:
 
-• symmetric glyph → dx_norm = 0  
-• left‑stem glyph → dx_norm ≈ –0.08  
-• right‑stem glyph → dx_norm ≈ +0.06  
-• overhang glyph → dx_norm ≈ –0.20  
-• italic slant → subtract a small correction
+- symmetric glyph → `dx_norm = 0`  
+- left‑heavy glyph → `dx_norm ≈ –0.08`  
+- right‑heavy glyph → `dx_norm ≈ +0.06`  
+- right‑overhang glyph → `dx_norm ≈ –0.20`  
+- italic slant → subtract a small correction (≈ –0.03)
 
 Then:
 
+```
 anchor_x = bbox_center + dx_norm * outline_width
+```
 
-This approach matches designer anchors well across styles.
+This approach matches designer anchors well across styles and weights.
 
----------------------------------------------------------------------
+---
 
-## Future tags (not yet included)
+### Future tags (not yet included)  
+These may be added later for more advanced heuristics:
 
-These tags may be added later for more advanced heuristics:
-
-has_diagonal_stress — For v, w, y, IPA ʋ, ɯ, ɰ, italic forms.  
-has_vertical_center_shift — For glyphs whose top and bottom centers differ (f, j, y).  
-stem_center_x — Numeric: average x‑position of stems.  
-counter_center_x — Numeric: centroid of the main counter.  
-overhang_amount — Numeric: xmax − advance_width.  
-bowl_balance — Numeric: (right_bowl_area − left_bowl_area) / total_area.
+- **has_diagonal_stress** — For v, w, y, IPA ʋ, ɯ, ɰ, and italic forms.  
+- **has_vertical_center_shift** — For glyphs whose top and bottom centers differ (f, j, y).  
+- **stem_center_x** — Numeric: average x‑position of stems.  
+- **counter_center_x** — Numeric: centroid of the main counter.  
+- **overhang_amount** — Numeric: xmax − advance_width.  
+- **bowl_balance** — Numeric: (right_bowl_area − left_bowl_area) / total_area.
 
 These refinements help with outliers and complex IPA shapes.
+

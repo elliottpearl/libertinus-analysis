@@ -15,7 +15,6 @@ from fontTools.pens.boundsPen import BoundsPen
 from .font_context import extract_mark_attachment_data
 from .font_context import FONTS
 
-# Import BASE_COVERAGE (encoded bases) and small-cap base glyph names
 from data.ipa.ipa_unicode import BASE_COVERAGE, base_small_capital_glyph
 from .fontmetrics_extract_tags import compute_semantic_tags
 
@@ -32,17 +31,15 @@ def load_fontmetrics_json(font_key):
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Backward compatibility: upgrade old schema if needed
+    # Upgrade old schema if needed
     if "codepoint" not in data and "glyphs" in data:
         data = {
             "codepoint": data.get("glyphs", {}),
             "glyph": data.get("_orphans", {}),
         }
 
-    if "glyph" not in data:
-        data["glyph"] = {}
-    if "codepoint" not in data:
-        data["codepoint"] = {}
+    data.setdefault("codepoint", {})
+    data.setdefault("glyph", {})
 
     return data
 
@@ -74,27 +71,28 @@ def get_glyph_bbox(glyph_set, glyph_name):
 # ------------------------------------------------------------
 
 def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style="roman"):
-    """
-    Build a per-glyph record (bbox, anchors, metrics, tags) for a glyph name.
-    """
-    # Extract bbox
     bbox = get_glyph_bbox(glyph_set, gname)
 
-    # Extract anchors
     anchors = anchorsByBaseGlyph.get(gname, {})
     anchors_json = {
         str(classIndex): [anchor.XCoordinate, anchor.YCoordinate]
         for classIndex, anchor in anchors.items()
     }
 
-    # Horizontal metrics
     width, lsb = ttfont["hmtx"].metrics[gname]
     rsb = width - lsb - (bbox[2] - bbox[0])
 
-    # Semantic tags
-    tags = compute_semantic_tags(glyph_set[gname], bbox, width, lsb, rsb, style=style)
+    tags = compute_semantic_tags(
+        glyph_set[gname],
+        glyph_set,
+        bbox,
+        width,
+        lsb,
+        rsb,
+        style=style,
+    )
 
-    entry = {
+    return {
         "glyph": gname,
         "bbox": list(bbox),
         "anchors": anchors_json,
@@ -103,7 +101,6 @@ def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style="roman
         "rsb": rsb,
         "tags": tags,
     }
-    return entry
 
 
 # ------------------------------------------------------------
@@ -111,61 +108,42 @@ def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style="roman
 # ------------------------------------------------------------
 
 def extract_fontmetrics(font_key, lookup_index, style="roman"):
-    """
-    Extract bbox + anchors + horizontal metrics + semantic tags for:
-      - all glyphs in BASE_COVERAGE (encoded, keyed by codepoint)
-      - all glyphs in base_small_capital_glyph (unencoded small-cap bases, keyed by glyph name)
-    """
     font_path = FONTS[font_key]["path"]
 
     ttfont = TTFont(font_path)
     glyph_set = ttfont.getGlyphSet()
     cmap = ttfont.getBestCmap()
 
-    # Extract anchors from GPOS
     markClassByGlyph, anchorsByBaseGlyph, _ = extract_mark_attachment_data(
         ttfont, lookup_index
     )
 
-    out = {
-        "codepoint": {},
-        "glyph": {},
-    }
+    out = {"codepoint": {}, "glyph": {}}
 
     # Reverse cmap: glyph → [codepoints]
     rev_cmap = {}
     for cp, gname in cmap.items():
         rev_cmap.setdefault(gname, []).append(cp)
 
-    # --------------------------------------------------------
-    # 1. Encoded bases: BASE_COVERAGE → codepoint dict
-    # --------------------------------------------------------
+    # Encoded bases
     for gname in ttfont.getGlyphOrder():
         cps = rev_cmap.get(gname, [])
-        # Skip glyphs that do not correspond to any BASE_COVERAGE codepoint
         cps_in_base = [cp for cp in cps if cp in BASE_COVERAGE]
         if not cps_in_base:
             continue
 
-        entry = build_glyph_entry(
-            ttfont, glyph_set, anchorsByBaseGlyph, gname, style=style
-        )
+        entry = build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style)
 
-        # Add entry for each encoded codepoint in BASE_COVERAGE
         for cp in cps_in_base:
             key = f"0x{cp:04X}"
             out["codepoint"][key] = entry
 
-    # --------------------------------------------------------
-    # 2. Unencoded bases: small-cap glyph names → glyph dict
-    # --------------------------------------------------------
+    # Unencoded small-cap bases
     for sc_name in base_small_capital_glyph:
         if sc_name not in glyph_set:
-            continue  # small-cap glyph not present in this font
+            continue
 
-        entry = build_glyph_entry(
-            ttfont, glyph_set, anchorsByBaseGlyph, sc_name, style=style
-        )
+        entry = build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, sc_name, style)
         out["glyph"][sc_name] = entry
 
     return out

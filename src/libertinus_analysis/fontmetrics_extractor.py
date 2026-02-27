@@ -1,7 +1,11 @@
 # fontmetrics_extractor.py
 #
-# Extract bbox, anchors, and horizontal metrics (width, lsb, rsb)
-# for all glyphs in a font, and write them to data/fontmetrics/<font_key>.json.
+# Extract bbox, anchors, horizontal metrics (width, lsb, rsb),
+# and semantic tags for:
+#   - all BASE_COVERAGE codepoints (encoded glyphs)
+#   - all base_small_capital_glyph names (unencoded small-cap bases)
+#
+# Writes JSON to data/fontmetrics/<font_key>.json.
 
 import json
 from pathlib import Path
@@ -11,28 +15,39 @@ from fontTools.pens.boundsPen import BoundsPen
 from .font_context import extract_mark_attachment_data
 from .font_context import FONTS
 
+# Import BASE_COVERAGE (encoded bases) and small-cap base glyph names
+from data.ipa.ipa_unicode import BASE_COVERAGE, base_small_capital_glyph
+from .fontmetrics_extract_tags import compute_semantic_tags
+
 
 # ------------------------------------------------------------
 # JSON helpers
 # ------------------------------------------------------------
 
 def load_fontmetrics_json(font_key):
-    """
-    Load data/fontmetrics/<font_key>.json.
-    Returns {"glyphs": {}, "_orphans": {}} if missing.
-    """
     path = Path("data/fontmetrics") / f"{font_key}.json"
     if not path.exists():
-        return {"glyphs": {}, "_orphans": {}}
+        return {"codepoint": {}, "glyph": {}}
 
     with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+
+    # Backward compatibility: upgrade old schema if needed
+    if "codepoint" not in data and "glyphs" in data:
+        data = {
+            "codepoint": data.get("glyphs", {}),
+            "glyph": data.get("_orphans", {}),
+        }
+
+    if "glyph" not in data:
+        data["glyph"] = {}
+    if "codepoint" not in data:
+        data["codepoint"] = {}
+
+    return data
 
 
 def write_fontmetrics_json(font_key, data):
-    """
-    Write JSON to data/fontmetrics/<font_key>.json.
-    """
     path = Path("data/fontmetrics") / f"{font_key}.json"
     path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -45,9 +60,6 @@ def write_fontmetrics_json(font_key, data):
 # ------------------------------------------------------------
 
 def get_glyph_bbox(glyph_set, glyph_name):
-    """
-    Return (xMin, yMin, xMax, yMax) for a glyph.
-    """
     g = glyph_set[glyph_name]
     pen = BoundsPen(glyph_set)
     g.draw(pen)
@@ -58,19 +70,51 @@ def get_glyph_bbox(glyph_set, glyph_name):
 
 
 # ------------------------------------------------------------
+# Per-glyph record builder
+# ------------------------------------------------------------
+
+def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style="roman"):
+    """
+    Build a per-glyph record (bbox, anchors, metrics, tags) for a glyph name.
+    """
+    # Extract bbox
+    bbox = get_glyph_bbox(glyph_set, gname)
+
+    # Extract anchors
+    anchors = anchorsByBaseGlyph.get(gname, {})
+    anchors_json = {
+        str(classIndex): [anchor.XCoordinate, anchor.YCoordinate]
+        for classIndex, anchor in anchors.items()
+    }
+
+    # Horizontal metrics
+    width, lsb = ttfont["hmtx"].metrics[gname]
+    rsb = width - lsb - (bbox[2] - bbox[0])
+
+    # Semantic tags
+    tags = compute_semantic_tags(glyph_set[gname], bbox, width, lsb, rsb, style=style)
+
+    entry = {
+        "glyph": gname,
+        "bbox": list(bbox),
+        "anchors": anchors_json,
+        "width": width,
+        "lsb": lsb,
+        "rsb": rsb,
+        "tags": tags,
+    }
+    return entry
+
+
+# ------------------------------------------------------------
 # Main extractor
 # ------------------------------------------------------------
 
-def extract_fontmetrics(font_key, lookup_index):
+def extract_fontmetrics(font_key, lookup_index, style="roman"):
     """
-    Extract bbox + anchors + horizontal metrics for all glyphs.
-
-    Returns a dict suitable for JSON serialization:
-
-    {
-        "glyphs": { "0x0041": {...}, ... },
-        "_orphans": { "glyphName": {...}, ... }
-    }
+    Extract bbox + anchors + horizontal metrics + semantic tags for:
+      - all glyphs in BASE_COVERAGE (encoded, keyed by codepoint)
+      - all glyphs in base_small_capital_glyph (unencoded small-cap bases, keyed by glyph name)
     """
     font_path = FONTS[font_key]["path"]
 
@@ -83,46 +127,45 @@ def extract_fontmetrics(font_key, lookup_index):
         ttfont, lookup_index
     )
 
-    out = {"glyphs": {}, "_orphans": {}}
+    out = {
+        "codepoint": {},
+        "glyph": {},
+    }
 
     # Reverse cmap: glyph → [codepoints]
     rev_cmap = {}
     for cp, gname in cmap.items():
         rev_cmap.setdefault(gname, []).append(cp)
 
-    # Iterate through all glyphs
+    # --------------------------------------------------------
+    # 1. Encoded bases: BASE_COVERAGE → codepoint dict
+    # --------------------------------------------------------
     for gname in ttfont.getGlyphOrder():
-        # REMOVE: glyph = ttfont["glyf"][gname]
+        cps = rev_cmap.get(gname, [])
+        # Skip glyphs that do not correspond to any BASE_COVERAGE codepoint
+        cps_in_base = [cp for cp in cps if cp in BASE_COVERAGE]
+        if not cps_in_base:
+            continue
 
-        bbox = get_glyph_bbox(glyph_set, gname)
+        entry = build_glyph_entry(
+            ttfont, glyph_set, anchorsByBaseGlyph, gname, style=style
+        )
 
-        anchors = anchorsByBaseGlyph.get(gname, {})
-        anchors_json = {
-            str(classIndex): [anchor.XCoordinate, anchor.YCoordinate]
-            for classIndex, anchor in anchors.items()
-        }
+        # Add entry for each encoded codepoint in BASE_COVERAGE
+        for cp in cps_in_base:
+            key = f"0x{cp:04X}"
+            out["codepoint"][key] = entry
 
-        width, lsb = ttfont["hmtx"].metrics[gname]
-        rsb = width - lsb - (bbox[2] - bbox[0])
+    # --------------------------------------------------------
+    # 2. Unencoded bases: small-cap glyph names → glyph dict
+    # --------------------------------------------------------
+    for sc_name in base_small_capital_glyph:
+        if sc_name not in glyph_set:
+            continue  # small-cap glyph not present in this font
 
-        entry = {
-            "glyph": gname,
-            "bbox": list(bbox),
-            "anchors": anchors_json,
-            "width": width,
-            "lsb": lsb,
-            "rsb": rsb,
-            "tags": {}
-        }
-
-        if gname in rev_cmap:
-            # Encoded glyph(s)
-            for cp in rev_cmap[gname]:
-                key = f"0x{cp:04X}"
-                out["glyphs"][key] = entry
-        else:
-            # Unencoded glyph
-            out["_orphans"][gname] = entry
+        entry = build_glyph_entry(
+            ttfont, glyph_set, anchorsByBaseGlyph, sc_name, style=style
+        )
+        out["glyph"][sc_name] = entry
 
     return out
-    

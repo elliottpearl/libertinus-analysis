@@ -249,6 +249,37 @@ base_small_capital = [
     # y.alt
 ]
 
+# small capitals by glyph name
+base_small_capital_glyph = [
+    # Basic Latin small caps
+    "a.sc","b.sc","c.sc","d.sc","e.sc","f.sc","g.sc",
+    "h.sc","i.sc","j.sc","k.sc","l.sc","m.sc","n.sc",
+    "o.sc","p.sc","q.sc","r.sc","s.sc","t.sc","u.sc",
+    "v.sc","w.sc","x.sc","y.sc","z.sc",
+
+    # Accented small caps
+    "agrave.sc","aacute.sc","acircumflex.sc","atilde.sc","adieresis.sc","aring.sc",
+    "abreve.sc","aogonek.sc",
+    "ccedilla.sc","cacute.sc","ccaron.sc",
+    "egrave.sc","eacute.sc","ecircumflex.sc","edieresis.sc","eogonek.sc","ecaron.sc",
+    "igrave.sc","iacute.sc","icircumflex.sc","idieresis.sc",
+    "ntilde.sc","nacute.sc","ncaron.sc",
+    "ograve.sc","oacute.sc","ocircumflex.sc","odieresis.sc","ohungarumlaut.sc",
+    "otilde.sc","oslash.sc",
+    "ugrave.sc","uacute.sc","ucircumflex.sc","udieresis.sc","uhungarumlaut.sc",
+    "yacute.sc","ydieresis.sc",
+    "zacute.sc","zdotaccent.sc","zcaron.sc",
+
+    # Extended Latin small caps
+    "ae.sc","aeacute.sc","uni01E3.sc",
+    "oe.sc",
+    "ij.sc","ijacute.sc",
+    "eng.sc","Eng.UCStyle.sc",
+    "eth.sc","thorn.sc",
+    "germandbls.sc","germandbls.scalt",
+    "tbar.sc","tcaron.sc","uni0163.sc","uni0219.sc","uni021B.sc",
+]
+
 # Unicode characters that never take combining marks
 BASE_NO_MARK = [
     0x01B8,0x01B9,0x01F1,0x01F2,0x01F3,0x01C4,0x01C5,0x01C6,0x01C7,0x01C8,
@@ -610,6 +641,30 @@ BASE_RARE = uniq(
     LABIALS,
 )
 
+# === Unified base coverage for anchor extraction ===
+# Glyphs in this set will be included in the fontmetrics JSON.
+# Everything else will be skipped entirely.
+
+BASE_COVERAGE = set().union(
+    BASE_LATIN,
+    BASE_IPA,
+    BASE_SUPERSCRIPT_CONSONANT,
+    BASE_GREEK,
+    BASE_CYRILLIC,
+    BASE_PRECOMPOSED_ANCHOR_RELEVANT,       # precomposed bases that may take marks
+    PRECOMPOSED_CAPITAL_VOWELS,
+    PRECOMPOSED_SMALL_VOWELS,
+    PRECOMPOSED_CAPITAL_CONSONANTS,
+    PRECOMPOSED_SMALL_CONSONANTS,
+)
+
+# Remove bases that explicitly never take marks
+BASE_COVERAGE.difference_update(BASE_NO_MARK)
+
+# Convert to sorted list for stable iteration (optional)
+BASE_COVERAGE = sorted(BASE_COVERAGE)
+
+
 # "label" is a printable semantic label for the group
 # "items" is the python symbol name of the group list
 unicode_groups = {
@@ -735,6 +790,11 @@ unicode_groups = {
     "BASE_RARE": {
         "label": "Bases requiring anchors for rare marks",
         "items": BASE_RARE,
+    },
+    "BASE_COVERAGE": {
+        "label": "Base coverage",
+        "items": BASE_COVERAGE,
+
     },
 
     # === Mark groups ===

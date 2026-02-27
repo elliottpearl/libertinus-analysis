@@ -23,6 +23,14 @@ Always include the extension `.otf` and `.ttf` in the font loading command in La
 	BoldItalicFont = LibertinusSerif-SemiboldItalic.otf
 ]
 
+\newfontfamily\LibertinusSerifPatch[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular-patch.otf,
+	ItalicFont     = LibertinusSerif-Italic-patch.otf,
+	BoldFont       = LibertinusSerif-Semibold-patch.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf
+]{Libertinus Serif Patch}
+
 \newfontfamily\Gentium[
 	Path = ../fonts/,
 ]{GentiumPlus-Regular.ttf}

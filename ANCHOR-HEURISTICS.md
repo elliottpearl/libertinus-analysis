@@ -1,4 +1,4 @@
-# Anchor Placement Heuristics  
+# Anchor Heuristics  
 *(first‑pass rules for predicting above‑ and below‑mark anchor positions)*
 
 This document describes the first‑pass heuristic rules used to compute **anchor_x** and **anchor_y** for glyphs that lack designer‑provided GPOS mark anchors. The heuristics rely on the semantic tags defined in `SCHEMA.md` and on stable vertical aspects of the Libertinus design. Later refinement passes may override or adjust these values.

@@ -8,9 +8,59 @@ def tex(cp):
     """Return TeX code for a Unicode codepoint."""
     return f'\\char"{cp:04X}'
 
+
 def _wrap(macro, raw):
     """Wrap the raw TeX payload in a single semantic macro."""
     return f"\\{macro}{{{raw}}}"
+
+
+# ----------------------------------------------------------------------
+# Shared LaTeX font command helper (factored out of ComboMatrix)
+# ----------------------------------------------------------------------
+
+def latex_font_cmd(font_key):
+    """
+    Return (cmd, needs_group) for the given font_key.
+    """
+    base = r""
+    patch = r"\LibertinusSerifPatch"
+
+    # Determine family
+    if font_key.endswith("_patch"):
+        family = patch
+    else:
+        family = base
+
+    # Build command
+    parts = [family]
+
+    if "semibold" in font_key:
+        parts.append(r"\bfseries")
+    if "italic" in font_key:
+        parts.append(r"\itshape")
+
+    cmd = "".join(parts)
+
+    # Group needed if anything beyond the bare family is used
+    needs_group = (cmd != base)
+
+    return cmd, needs_group
+
+
+def latex_font_style(font_key, text):
+    """
+    Convenience wrapper: apply the LaTeX font style for font_key
+    directly to the given text.
+
+    This is ideal for report_fontmetrics.py, where each row is a
+    single TeX fragment and grouping does not span multiple lines.
+    """
+    cmd, needs_group = latex_font_cmd(font_key)
+    if needs_group:
+        return f'{{{cmd} {text}}}'
+    else:
+        return f'{cmd}{text}'
+
 
 # ----------------------------------------------------------------------
 # Classic classifier renderer
@@ -59,6 +109,7 @@ def render_cell(base_cp, mark_cp, kind, infos):
         return _wrap("SUPPORTEDFALL", raw)
 
     raise ValueError(f"Unknown kind: {kind}")
+
 
 # ----------------------------------------------------------------------
 # Sanity classifier renderer
@@ -112,11 +163,7 @@ def render_cell_sanity(base_cp, mark_cp, kind, flags):
         return _wrap("MISSINGGLYPH", raw)
 
     # ------------------------------------------------------------------
-    # GSUB failure override (new logic)
-    #
-    # Precomposed GSUB failure → green
-    # Dotless GSUB failure → green *only if significant*
-    # Alt-cap GSUB failure → green
+    # GSUB failure override
     # ------------------------------------------------------------------
 
     gsub_failure = (
@@ -161,4 +208,3 @@ def render_cell_sanity(base_cp, mark_cp, kind, flags):
             macro = "UNSUPPORTEDFALL"
 
     return _wrap(macro, raw)
-    

@@ -1,4 +1,7 @@
-# fontmetrics_io.py
+# fontmetrics_extractor.py
+#
+# Extract bbox, anchors, and horizontal metrics (width, lsb, rsb)
+# for all glyphs in a font, and write them to data/fontmetrics/<font_key>.json.
 
 import json
 from pathlib import Path
@@ -7,6 +10,7 @@ from fontTools.pens.boundsPen import BoundsPen
 
 from .font_context import extract_mark_attachment_data
 from .font_context import FONTS
+
 
 # ------------------------------------------------------------
 # JSON helpers
@@ -59,7 +63,7 @@ def get_glyph_bbox(glyph_set, glyph_name):
 
 def extract_fontmetrics(font_key, lookup_index):
     """
-    Extract bbox + anchors for all glyphs in the font.
+    Extract bbox + anchors + horizontal metrics for all glyphs.
 
     Returns a dict suitable for JSON serialization:
 
@@ -70,7 +74,6 @@ def extract_fontmetrics(font_key, lookup_index):
     """
     font_path = FONTS[font_key]["path"]
 
-    
     ttfont = TTFont(font_path)
     glyph_set = ttfont.getGlyphSet()
     cmap = ttfont.getBestCmap()
@@ -89,20 +92,27 @@ def extract_fontmetrics(font_key, lookup_index):
 
     # Iterate through all glyphs
     for gname in ttfont.getGlyphOrder():
-        bbox = get_glyph_bbox(glyph_set, gname)
-        anchors = anchorsByBaseGlyph.get(gname, {})
+        # REMOVE: glyph = ttfont["glyf"][gname]
 
-        # Normalize anchors to JSON-friendly lists
+        bbox = get_glyph_bbox(glyph_set, gname)
+
+        anchors = anchorsByBaseGlyph.get(gname, {})
         anchors_json = {
             str(classIndex): [anchor.XCoordinate, anchor.YCoordinate]
             for classIndex, anchor in anchors.items()
         }
 
+        width, lsb = ttfont["hmtx"].metrics[gname]
+        rsb = width - lsb - (bbox[2] - bbox[0])
+
         entry = {
             "glyph": gname,
             "bbox": list(bbox),
             "anchors": anchors_json,
-            "tags": {}  # you will fill this later
+            "width": width,
+            "lsb": lsb,
+            "rsb": rsb,
+            "tags": {}
         }
 
         if gname in rev_cmap:

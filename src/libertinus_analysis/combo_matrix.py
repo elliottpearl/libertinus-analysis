@@ -5,7 +5,7 @@ import uharfbuzz as hb
 
 from .font_context import FontContext
 from .classifiers import classify_combo, classify_combo_sanity
-from .tex_helpers import render_cell, render_cell_sanity
+from .tex_helpers import render_cell, render_cell_sanity, latex_font_cmd
 from .ipa_loader import unicode_groups, mark_class_index
 
 
@@ -118,34 +118,6 @@ class ComboMatrix:
             rows.append("")  # blank line between rows
         return "\n".join(rows)
 
-    def _latex_font_cmd(self, font_key):
-        """
-        Return (cmd, needs_group) for the given font_key.
-        """
-        base = r""
-        patch = r"\LibertinusSerifPatch"
-
-        # Determine family
-        if font_key.endswith("_patch"):
-            family = patch
-        else:
-            family = base
-
-        # Build command
-        parts = [family]
-
-        if "semibold" in font_key:
-            parts.append(r"\bfseries")
-        if "italic" in font_key:
-            parts.append(r"\itshape")
-
-        cmd = "".join(parts)
-
-        # Group needed if anything beyond the bare family is used
-        needs_group = (cmd != base)
-
-        return cmd, needs_group
-
     def _build_latex_grid_for_font(self, marks, bases, font_key, section_label=None):
         """
         Build a complete LaTeX grid for one font.
@@ -164,7 +136,7 @@ class ComboMatrix:
         out.append("")
 
         # Get LaTeX font command and grouping requirement
-        cmd, needs_group = self._latex_font_cmd(font_key)
+        cmd, needs_group = latex_font_cmd(font_key)
 
         if needs_group:
             out.append("{" + cmd)
@@ -177,7 +149,7 @@ class ComboMatrix:
             out.append("}")
 
         return "\n".join(out)
-    
+
     # Public builders
 
     def latex_grid(self):
@@ -239,3 +211,4 @@ class ComboMatrix:
                     out.append(paragraph)
 
         return "\n\n".join(out)
+        

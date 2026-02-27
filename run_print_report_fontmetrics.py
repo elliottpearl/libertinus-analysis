@@ -107,7 +107,9 @@ def main():
     # bases = bases_from_ipa_group("VOWELS")
     #
     # Default choice:
-    bases = bases_from_unicode_range(0x0061, 0x007A)  # a–z
+    bases = bases_from_unicode_range(0x0041, 0x005A)  # A–Z
+    # bases = bases_from_unicode_range(0x0061, 0x007A)    # a-z
+    # bases = bases_from_ipa_group("VOWELS")
     # ------------------------------------------------------------------
 
     # Convert bases to codepoint strings ("0x0041" style)
@@ -119,11 +121,12 @@ def main():
     # Wrap in a full LaTeX table environment
     latex_table = wrap_in_table_environment(
         table_body,
-        caption="Fontmetrics report for selected bases"
+        caption="Font metrics for A--Z",
+        label="table:fontmetrics_AZ"
     )
 
     # Write to tex/input/
-    out_path = TEX_INPUT_DIR / "fontmetrics_report.tex"
+    out_path = TEX_INPUT_DIR / "fontmetrics_AZ.tex"
     out_path.write_text(latex_table, encoding="utf-8")
 
     print(f"Wrote LaTeX fontmetrics report to: {out_path}")

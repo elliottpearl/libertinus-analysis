@@ -6,7 +6,7 @@
 # original Libertinus fonts and writes them to JSON files
 # in data/fontmetrics/.
 
-from libertinus_analysis.fontmetrics_io import (
+from libertinus_analysis.fontmetrics_extractor import (
     extract_fontmetrics,
     write_fontmetrics_json,
 )

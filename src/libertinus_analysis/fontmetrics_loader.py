@@ -7,12 +7,11 @@ import json
 from .config import FONTMETRICS_DIR
 
 
-def load_fontmetrics(style: str) -> dict:
+def load_fontmetrics(font_key: str) -> dict:
     """
-    Load metrics JSON for a single font style.
-    Returns a dict keyed by codepoint strings ("0x0041").
+    Load metrics JSON for a single font_key.
     """
-    path = FONTMETRICS_DIR / f"{style}.json"
+    path = FONTMETRICS_DIR / f"{font_key}.json"
     if not path.exists():
         raise FileNotFoundError(f"Fontmetrics file not found: {path}")
 
@@ -21,11 +20,10 @@ def load_fontmetrics(style: str) -> dict:
 
 def load_all_fontmetrics() -> dict[str, dict]:
     """
-    Load metrics for all known styles.
-    Returns a dict: {style: metrics_dict}.
+    Load metrics for all known font_keys.
     """
-    styles = ["regular", "italic", "semibold", "semibold_italic"]
-    return {style: load_fontmetrics(style) for style in styles}
+    font_keys = ["regular", "italic", "semibold", "semibold_italic"]
+    return {fk: load_fontmetrics(fk) for fk in font_keys}
 
 
 def get_glyph(metrics: dict, cp: str) -> dict | None:

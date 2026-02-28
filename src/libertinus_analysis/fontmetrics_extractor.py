@@ -19,10 +19,6 @@ from data.ipa.ipa_unicode import BASE_COVERAGE, base_small_capital_glyph
 from .fontmetrics_extract_tags import compute_semantic_tags
 
 
-# ------------------------------------------------------------
-# JSON helpers
-# ------------------------------------------------------------
-
 def load_fontmetrics_json(font_key):
     path = Path("data/fontmetrics") / f"{font_key}.json"
     if not path.exists():
@@ -31,7 +27,6 @@ def load_fontmetrics_json(font_key):
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Upgrade old schema if needed
     if "codepoint" not in data and "glyphs" in data:
         data = {
             "codepoint": data.get("glyphs", {}),
@@ -52,10 +47,6 @@ def write_fontmetrics_json(font_key, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-# ------------------------------------------------------------
-# Bounding box extraction
-# ------------------------------------------------------------
-
 def get_glyph_bbox(glyph_set, glyph_name):
     g = glyph_set[glyph_name]
     pen = BoundsPen(glyph_set)
@@ -66,11 +57,7 @@ def get_glyph_bbox(glyph_set, glyph_name):
     return (round(xMin), round(yMin), round(xMax), round(yMax))
 
 
-# ------------------------------------------------------------
-# Per-glyph record builder
-# ------------------------------------------------------------
-
-def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style="roman"):
+def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname):
     bbox = get_glyph_bbox(glyph_set, gname)
 
     anchors = anchorsByBaseGlyph.get(gname, {})
@@ -89,7 +76,6 @@ def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style="roman
         width,
         lsb,
         rsb,
-        style=style,
     )
 
     return {
@@ -103,11 +89,7 @@ def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style="roman
     }
 
 
-# ------------------------------------------------------------
-# Main extractor
-# ------------------------------------------------------------
-
-def extract_fontmetrics(font_key, lookup_index, style="roman"):
+def extract_fontmetrics(font_key, lookup_index):
     font_path = FONTS[font_key]["path"]
 
     ttfont = TTFont(font_path)
@@ -120,30 +102,27 @@ def extract_fontmetrics(font_key, lookup_index, style="roman"):
 
     out = {"codepoint": {}, "glyph": {}}
 
-    # Reverse cmap: glyph → [codepoints]
     rev_cmap = {}
     for cp, gname in cmap.items():
         rev_cmap.setdefault(gname, []).append(cp)
 
-    # Encoded bases
     for gname in ttfont.getGlyphOrder():
         cps = rev_cmap.get(gname, [])
         cps_in_base = [cp for cp in cps if cp in BASE_COVERAGE]
         if not cps_in_base:
             continue
 
-        entry = build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname, style)
+        entry = build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname)
 
         for cp in cps_in_base:
             key = f"0x{cp:04X}"
             out["codepoint"][key] = entry
 
-    # Unencoded small-cap bases
     for sc_name in base_small_capital_glyph:
         if sc_name not in glyph_set:
             continue
 
-        entry = build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, sc_name, style)
+        entry = build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, sc_name)
         out["glyph"][sc_name] = entry
 
     return out

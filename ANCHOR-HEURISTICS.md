@@ -89,7 +89,6 @@ The tag set is intentionally minimal and behavior‑driven:
 - **has_right_weight** — glyph’s right side carries more visual mass  
 - **is_symmetric** — horizontal mass is balanced  
 - **has_overhang_right** — rightmost outline exceeds advance width  
-- **is_italic_slanted** — glyph is italic enough to shift visual center left  
 
 These tags are mutually compatible and may combine.
 
@@ -104,6 +103,8 @@ These values are derived from measured dx_above_norm patterns in Libertinus.
 - is_italic_slanted → dx_norm += −0.03  
 
 If both has_left_weight and has_right_weight are true (rare), treat as symmetric.
+
+is_italic_slanted is per-font.  
 
 ### 4.4 Interaction between x and y
 

@@ -99,8 +99,7 @@ These tags capture the major horizontal‑balance features that influence anchor
   "has_left_weight": false,
   "has_right_weight": false,
   "is_symmetric": false,
-  "has_overhang_right": false,
-  "is_italic_slanted": false
+  "has_overhang_right": false,  
 }
 ```
 

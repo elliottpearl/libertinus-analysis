@@ -78,7 +78,11 @@ fontdata = {
 
         0: {  # above
             0x0062: (279, 885),  # b. x=279 at apex of bowl
-            0x0064: (385, 885),  # d, center of stem; ascender aspect
+            0x0064: (385, 885),  # d, center of stem; ascender aspect. FIX
+            0x0066: (273, 885),  # f. 273 is apex of f
+            0x0068: (282, 885),  # h. 272 is center of stems, add 10 above offset
+            0x006A: (126, 795),  # j. i jas anchor at y=(137,795), j is shifted by 11 it its reference frame
+            0x006B: (272, 885),  # k. 262 is calculated as center of < part of k, by comparison to h base. add 10 above offset
             0x0074: (139, 798),  # t. apex center is 128.5; bowl apex is 163. ymax=582, meanlineclearance=216 → 582+216 = 798
             0x007A: (220, 645),  # z
             0x00E6: (350, 645),  # ae ligature

@@ -23,7 +23,7 @@ def main():
     #
     # Continuous ranges:
     # bases = bases_from_unicode_range(0x0041, 0x005A)   # A–Z
-    bases = bases_from_unicode_range(0x0061, 0x007A)   # a–z
+    # bases = bases_from_unicode_range(0x0061, 0x007A)   # a–z
     # bases = bases_from_unicode_range(0x0250, 0x02AF)   # IPA block
     # bases = bases_from_unicode_range(0x0100, 0x017F)   # Latin Ext‑A
     # bases = bases_from_unicode_range(0x0370, 0x03FF)   # Greek
@@ -33,11 +33,14 @@ def main():
     # bases = [chr(cp) for cp in unicode_groups["VOWELS"]["items"]]
     # bases = [chr(cp) for cp in unicode_groups["CONSONANTS"]["items"]]
     # bases = [chr(cp) for cp in unicode_groups["BASE_IPA"]["items"]]
+    # bases = [chr(cp) for cp in unicode_groups["VOWELS"]["items"]]
     #
     # Example: IPA vowels minus ASCII a–z
-    # az = {ord(c) for c in bases_from_unicode_range(0x0061, 0x007A)}
+    az = {ord(c) for c in bases_from_unicode_range(0x0061, 0x007A)}
     # vowels = unicode_groups["VOWELS"]["items"]
+    ipa = unicode_groups["BASE_RARE"]["items"]
     # bases = [chr(cp) for cp in vowels if cp not in az]
+    bases = [chr(cp) for cp in ipa if cp not in az]
     #
     # Optional: split into two halves
     mid = len(bases) // 2
@@ -47,12 +50,12 @@ def main():
 
     # tag for latex label and filename
     # tag = "az"
-    tag = "az2"
+    tag = "ipa1"
     # Human readable caption
-    mycaption = "a--z"
+    mycaption = "IPA, pt. 1/2"
 
-    # table_body = make_fontmetrics_table(bases_1)
-    table_body = make_fontmetrics_table(bases)
+    table_body = make_fontmetrics_table(bases_1)
+    # table_body = make_fontmetrics_table(bases)
 
     # Wrap in a full LaTeX table environment
     latex_table = wrap_in_table_environment(

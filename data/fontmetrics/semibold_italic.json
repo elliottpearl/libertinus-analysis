@@ -5040,6 +5040,42 @@
         "has_overhang_right": true
       }
     },
+    "0x014B": {
+      "glyph": "eng",
+      "bbox": [
+        89,
+        -216,
+        558,
+        439
+      ],
+      "anchors": {
+        "0": [
+          264,
+          646
+        ],
+        "2": [
+          265,
+          -111
+        ],
+        "5": [
+          128,
+          9
+        ],
+        "6": [
+          264,
+          215
+        ]
+      },
+      "width": 543,
+      "lsb": 89,
+      "rsb": -15,
+      "tags": {
+        "has_left_weight": true,
+        "has_right_weight": false,
+        "is_symmetric": false,
+        "has_overhang_right": true
+      }
+    },
     "0x014C": {
       "glyph": "Omacron",
       "bbox": [
@@ -9600,6 +9636,25 @@
       "width": 496,
       "lsb": 88,
       "rsb": -58,
+      "tags": {
+        "has_left_weight": true,
+        "has_right_weight": false,
+        "is_symmetric": false,
+        "has_overhang_right": true
+      }
+    },
+    "0x0276": {
+      "glyph": "uni0276",
+      "bbox": [
+        69,
+        0,
+        709,
+        433
+      ],
+      "anchors": {},
+      "width": 664,
+      "lsb": 69,
+      "rsb": -45,
       "tags": {
         "has_left_weight": true,
         "has_right_weight": false,

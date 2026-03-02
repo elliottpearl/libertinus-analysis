@@ -649,6 +649,7 @@ BASE_COVERAGE = set().union(
     BASE_LATIN,
     BASE_IPA,
     BASE_SUPERSCRIPT_CONSONANT,
+    BASE_RARE,
     BASE_GREEK,
     BASE_CYRILLIC,
     BASE_PRECOMPOSED_ANCHOR_RELEVANT,       # precomposed bases that may take marks

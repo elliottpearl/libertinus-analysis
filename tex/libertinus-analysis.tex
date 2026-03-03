@@ -150,7 +150,7 @@ by superimposing their below-anchors.
 
 See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 
 (regular, italic, semibod, semibold italic) in four tables 
-(Table \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2}). 
+(Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2}). 
 
 \input{input/fontmetrics_AZ.tex}
 
@@ -173,76 +173,73 @@ ax, ay: $X$ and $Y$ coordinates of the above-anchor.
 
 bx, by: $X$ and $Y$ coordinates of the below-anchor.
 
-□xm: midpoint of the bounding box $X$ coordinates, 
+□xm: midpoint of the bounding box $X$ coordinate, 
 $(X_\mathrm{min} + X_\mathrm{max})/2$.
 
-axδ: offset of above-anchor $X$ coordinate from midpoint of bounding box, 
+axδ: $X$ coordinate offset of above-anchor from midpoint of bounding box, 
 $\mathrm{ax} - \mathrm{□xm}$.
 
 axn\%: normalized offset, axδ divided by bounding box width, 
 $\mathrm{axδ} / (X_\mathrm{max} - X_\mathrm{min})$.
 
+\subsection*{Vertical aspects, anchor $Y$ coordinates, and clearance}
 
-\newpage
-\subsection*{Regular, above-anchors and below-anchors}
+A font has at least five vertical aspects, where glyph outlines live inside: 
+descender height, baseline, x-height, ascender height, capital height.
+These vertical aspects are the gray horizontal lines of Figure \ref{fig:libertinus-geometry}. 
+The values or ranges of these $Y$ coordinates are in the first five rows 
+of Table \ref{fig:vertical-aspects-of-Libertinus}.
+If I showed you the bounding box coordinates of glyphs, these vertical aspects would be the 
+common $Y$ coordinates of those bounding boxes.
+I will label these as yra, yrc, yrx, yr0, yrd because these are $Y$ values, 
+and r indicates a reference value. 
+a, c, x, 0, d indicate the five vertical aspects.
 
-See above- and below-anchor coordinates for A--Z and a--z for Libertinus serif regular in Table \ref{regular-above-below}. 
-
-\begin{table}[htbp]
-	\captionsetup{justification=raggedright, singlelinecheck=false}
-	\caption{$(X,Y)$ coordinates of above-anchor (rows 1 and 2) and below-anchor (rows 3 and 4) for A--Z and a--z in Libertinus serif regular.}
-	\label{regular-above-below}
-	\setlength{\tabcolsep}{1pt}
-
-	{\small
-
-	\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrrrrr}
-	A & B & C & D & E & F & G & H & I & J & K & L & M & N & O & P & Q & R & S & T & U & V & W & X & Y & Z \\
-	354 & 267 & 340 & 306 & 281 & 284 & 365 & 361 & 150 & 182 & 336 & 151 & 431 & 346 & 335 & 277 & 348 & 269 & 232 & 307 & 346 & 336 & 450 & 332 & 295 & 320 \\
-	850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 & 850 \\
-	308 & 268 & 363 & 309 & 287 & 209 & 367 & 362 & 147 & 109 & 342 & 262 & 393 & 348 & 350 & 240 &  & 258 & 234 & 300 & 328 & 318 & 479 & 307 & 295 & 287 \\
-	−110 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −319 & −110 & −110 & −110 & −110 & −110 & −110 &  \phantom{−110} & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −110 \\
-	\end{tabular}
-
-	\begin{tabular}{rrrrrrrrrrrrrrrrrrrrrrrrrr}
-  	   a &    b &    c &    d &    e &    f &    g &    h &    i &    j &    k &    l &    m &    n &    o &    p &    q &    r &    s &     t &   u &    v &    w &    x &    y &    z \\
-	 209 &      &  242 &  218 &  243 &      &  231 &  299 &  137 &      &  306 &  135 &  392 &  264 &  238 &  271 &  238 &  191 &  206 &      &  255 &  256 &  345 &  256 &  262 &  220 \\
-	 645 &      &  645 &  645 &  645 &      &  645 &  645 &  795 &      &  784 &  885 &  645 &  646 &  645 &  646 &  645 &  646 &  645 &      &  646 &  646 &  645 &  646 &  645 &  646 \\
-	 196 &  234 &  236 &  221 &  234 &  132 &  229 &  272 &  136 &  109 &  290 &  135 &  408 &  265 &  243 &  179 &  348 &  135 &  196 &  163 &  239 &  241 &  352 &  224 &  242 &  207 \\
-	−110 & −110 & −110 & −110 & −110 & −110 & −319 & −110 & −110 & −319 & −214 & −110 & −110 & −110 & −110 & −319 & −319 & −110 & −110 & −110 & −110 & −110 & −110 & −110 & −319 & −110 \\
-	\end{tabular}
-
-	}
-
-\end{table}
-
-%   A    B    C    D    E    F    G   H     I    J    K    L    M    N   O     P    Q   R     S    T    U    V    W    X    Y    Z
-% 354  267  340  306  281  284  365  361  150  182  336  151  431  346  335  277  348  269  232  307  346  336  450  332  295  320
-% 850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850
-% 308  268  363  309  287  209  367  362  147  109  342  262  393  348  350  240       258  234  300  328  318  479  307  295  287
-%-110 -110 -110 -110 -110 -110 -110 -110 -110 -319 -110 -110 -110 -110 -110 -110      -110 -110 -110 -110 -110 -110 -110 -110 -110 
-%   a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s    t    u    v    w    x    y    z
-% 209       242  218  243       231  299  137       306  135  392  264  238  271  238  191  206       255  256  345  256  262  220
-% 645       645  645  645       645  645  795       784  885  645  646  645  646  645  646  645       645  646  646  646  645  646
-% 196  234  236  221  234  132  229  272  136  109  290  135  408  265  243  179  348  135  196  163  239  241  352  224  242  207
-%-110 -110 -110 -110 -110 -110 -319 -110 -110 -319 -214 -110 -110 -110 -110 -319 -319 -110 -110 -110 -110 -110 -110 -110 -319 -110
-
-A few bases are missing anchors. 
-The $Y$ coordinates (rows 2 and 4) of base anchors can be set geometrically, relative to a few vertical aspects  
-The $X$ coordinates (rows 1 and 3) of base anchors are better set optically, by judging the optical weight of the 
-top or bottom of the glyph outline, as well as the glyph width.
-
-\subsection*{Vertical spects and clearance}
-
-A font has at least five vertical aspects: descender height, baseline, x-height, ascender height, capital height.
-There are gray horizontal lines of Figure \ref{fig:libertinus-geometry}, 
-and their $Y$ coordinate is displayed in Table \ref{fig:vertical-aspects-of-Libertinus}.
 In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor or a below-anchor is at 
-stable value depending on where the glyph outline sits relative to a vertical aspect.
-For example, all glyphs that sit on the baseline have a below-anchor with $Y = -110$.
-If a glyph is not a full ascender or full descender, then choose the nearest vertical aspect 
-to the glyph bounding box, and use that vertical aspect's anchor clearance to set the $Y$ coordinate of the anchor.
-Anchors are often best set optically, not geometrically by this anchor clearance algorithms, and so there may be execptions.
+a common value depending on where the glyph outline lives relative to a vertical aspect.
+See the rows for ay and by in Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2} 
+and find the common values according to the glyph's vertical aspects.
+There is no set name in font design for these above- or below-anchor $Y$ coordinate 
+reference values by ascender aspect, so I will call them
+$ayra, ayrc, ayrx, byr0, byrd$,
+These are the middle five rows of Table \ref{fig:vertical-aspects-of-Libertinus}
+For example, all glyphs that sit on the baseline have a below-anchor $Y$ coordinate $by = -110$, 
+and thus $byr0 = -110$.
+All capitals A--Z have $ay = 850$, and thus $ayrc = 850$. 
+Any glyph that descends to the descender value or range $byrd$ should have $by = byrd$ or $by \in byrd$.
+
+The clearance is defined as the difference between the anchor reference value 
+and the its vertical aspect $Y$ value.
+I will label these clearances as 
+$ay\delta a$, $ay\delta c$, $ay\delta x$, $by\delta 0$, $by\delta d$, 
+For example, capital letters A--Z have a bounding box with max $Y$ at 645, 
+and all capital letters A--Z have an above anchor at $Y = 885$. 
+So the above-anchor capital clearance is $ay\delta c = 885 - 645 = 205$.
+Because of the weird anchor model for Libertinus, this clearance value is not the 
+exact vertical distance between a base and a mark, but this clearance value is still useful.
+
+A glyph may not be a full ascenders or a full descender, 
+and its bounding box may not live closely within two vertical aspects.
+In such a case, the anchor $Y$ coordinate is set by looking for the nearest, or most suitable, 
+vertical aspect, and considering the clearance of that vertical aspect relative to the bounding box of the glyph.
+
+For example, see the calculation in a following section of the below-anchor for Q, 
+whose tail does not descend as deep as that of J. 
+The clearance $byrd$ can be used to calculate $by$ of Q, after considering Q's bounding box min $Y$ coordinate, 
+as well as the shape of Q's tail.
+
+This is the heuristic algorithm for a glyph that is not a full ascender or descender. 
+
+If $ay$ is not set for a glyph, find the most nearest, or most suitable, vertical aspect 
+-- $ayr = ayra$, $ayrc$, or $ayrx$.
+Then $ay = Y + ayr - \epsilon$ , where $Y$ = max $Y$ of the bounding box of the glyph, and 
+$\epsilon$ is the correction for the ascender aspect range, usually for an overshoot.
+
+If $by$ is not set for a glyph, find the most nearest, or most suitable, vertical aspect 
+-- $byr = ayr0$ or $ayrd$.
+Then $by = Y + byr + \epsilon$ , where $Y$ = min $Y$ of the bounding box of the glyph, and 
+$\epsilon$ is the correction for the ascender aspect range, usually for an overshoot.
+
 
 \begin{table}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
@@ -290,6 +287,14 @@ the mark attaches sccording to the counter at the x-height or baseline,
 and for a stem-dominant glyph (fgjlt), 
 the mark attaches according to the major stem at the ascender or descender.
 Note that an italic f has a descender.
+
+\subsection*{base coverage}
+
+Libertinus serif regular has good above- and below-anchors base coverage for A--Z, a--z, anf IPA letters,
+in these sense that most anchors are defined. 
+But I will show later that some anchors are not set to good values.
+The base coverage gets worse for italic and semiibold.
+
 
 \subsection*{Patch J and Q regular, below-anchor}
 

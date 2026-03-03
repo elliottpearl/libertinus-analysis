@@ -22,7 +22,7 @@ def main():
     # Choose ONE base set by uncommenting it.
     #
     # Continuous ranges:
-    # bases = bases_from_unicode_range(0x0041, 0x005A)   # A–Z
+    bases = bases_from_unicode_range(0x0041, 0x005A)   # A–Z
     # bases = bases_from_unicode_range(0x0061, 0x007A)   # a–z
     # bases = bases_from_unicode_range(0x0250, 0x02AF)   # IPA block
     # bases = bases_from_unicode_range(0x0100, 0x017F)   # Latin Ext‑A
@@ -40,7 +40,7 @@ def main():
     # vowels = unicode_groups["VOWELS"]["items"]
     ipa = unicode_groups["BASE_RARE"]["items"]
     # bases = [chr(cp) for cp in vowels if cp not in az]
-    bases = [chr(cp) for cp in ipa if cp not in az]
+    # bases = [chr(cp) for cp in ipa if cp not in az]
     #
     # Optional: split into two halves
     mid = len(bases) // 2
@@ -49,13 +49,16 @@ def main():
     # ------------------------------------------------------------------
 
     # tag for latex label and filename
-    # tag = "az"
-    tag = "ipa1"
+    tag = "az"
+    tag = "AZ"
+    #tag = "ipa1"
+    #tag = "ipa2"
     # Human readable caption
-    mycaption = "IPA, pt. 1/2"
+    #mycaption = "IPA, pt. 1/2"
+    mycaption = "A--Z"
 
-    table_body = make_fontmetrics_table(bases_1)
-    # table_body = make_fontmetrics_table(bases)
+    # table_body = make_fontmetrics_table(bases_1)
+    table_body = make_fontmetrics_table(bases)
 
     # Wrap in a full LaTeX table environment
     latex_table = wrap_in_table_environment(

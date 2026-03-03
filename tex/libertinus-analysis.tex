@@ -101,15 +101,17 @@
 
 \subsection*{Anchor model}
 
-Libertinus has an anchor model where the base anchors are generally where the mark would be placed relative to the base.
+Libertinus has an anchor model where the base anchors are generally where the mark 
+would be placed relative to the base.
 See the blue dots in the left panel of Figure \ref{fig:libertinus-geometry}; 
-from top to bottom, the above-anchor is the blue dot above base glyph, 
+from top to bottom, the above-anchor is the blue dot above the base glyph, 
 the overlay-anchor is blue dot inside the base glyph outline, and 
 the below-anchor is the blue dot below the base glyph.
 The mark anchor is generally near the optical center of the mark glyph outline.
 See the red square in the middle panel of Figure \ref{fig:libertinus-geometry}; 
 the mark's below-anchor is at the optical center of the mark.
-The base and mark are combined in the right panel of Figure \ref{fig:noto-geometry} by superimposing their below-anchors.
+The base and mark are combined in the right panel of Figure \ref{fig:libertinus-geometry} 
+by superimposing their below-anchors.
 
 \begin{figure}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
@@ -119,14 +121,18 @@ The base and mark are combined in the right panel of Figure \ref{fig:noto-geomet
 \end{figure}
 
 Other fonts use a different geometric model for anchors. 
-In Noto, the base's below-anchor is at the baseline, the overlay-anchor is inside the glyph, and the above-anchor is at the x-height. 
+In Noto, the base's below-anchor is at the baseline, the overlay-anchor is inside the glyph, 
+and the above-anchor is at the x-height. 
 See the blue dots in the left panel of Figure \ref{fig:noto-geometry}; 
 from the bottom to the top, the mark's below-anchor is the blue dot on the baseline, 
 the overlay-anchor is blue dot inside the base glyph outline, 
 and the above-anchor is the blue dot at the x-height.
-In Noto, the mark's below-anchor is above the mark glyph. 
-In the middle panel of Figure \ref{fig:noto-geometry}, the mark's below-anchor is the red square, above the mark.
-The base and mark are combined in the right panel of Figure \ref{fig:noto-geometry} by superimposing their below-anchors.
+In Noto, the mark's below-anchor is at the origin $(0, 0)$, 
+and the mark glyph outline is drawn below the origin. 
+In the middle panel of Figure \ref{fig:noto-geometry}, 
+the mark's below-anchor is the red square at the origin.
+The base and mark are combined in the right panel of Figure \ref{fig:noto-geometry} 
+by superimposing their below-anchors.
 
 \begin{figure}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
@@ -142,8 +148,9 @@ The base and mark are combined in the right panel of Figure \ref{fig:noto-geomet
 \newpage
 \subsection*{Font metrics per glyph}
 
-See above- and below-anchor coordinates for A--Z, a--z, and IPA vowels for Libertinus serif fonts 
-(regular, italic, semibod, semibold italic) in three tables. 
+See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 
+(regular, italic, semibod, semibold italic) in four tables 
+(Table \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2}). 
 
 \input{input/fontmetrics_AZ.tex}
 
@@ -153,11 +160,28 @@ See above- and below-anchor coordinates for A--Z, a--z, and IPA vowels for Liber
 
 \input{input/fontmetrics_ipa2.tex}
 
-% \input{input/fontmetrics_vowels.tex}
+\subsubsection*{Table row headings}
 
-% \input{input/fontmetrics_consonants1.tex}
+hex: 4-hex Unicode character codepoint.
 
-% \input{input/fontmetrics_consonants2.tex}
+reg, it, sb, si: regular, italic, semibold, semibold italic. 
+In that row, the character is printed alone, with combining dot above, and with combining macron below, 
+to show any anchor positioning. If no above- or below-anchor exists for that character, 
+the character and combining mark are positioned by harfbuzz fallback shaping.
+
+ax, ay: $X$ and $Y$ coordinates of the above-anchor.
+
+bx, by: $X$ and $Y$ coordinates of the below-anchor.
+
+□xm: midpoint of the bounding box $X$ coordinates, 
+$(X_\mathrm{min} + X_\mathrm{max})/2$.
+
+axδ: offset of above-anchor $X$ coordinate from midpoint of bounding box, 
+$\mathrm{ax} - \mathrm{□xm}$.
+
+axn\%: normalized offset, axδ divided by bounding box width, 
+$\mathrm{axδ} / (X_\mathrm{max} - X_\mathrm{min})$.
+
 
 \newpage
 \subsection*{Regular, above-anchors and below-anchors}

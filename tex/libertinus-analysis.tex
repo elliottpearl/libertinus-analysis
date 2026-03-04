@@ -149,7 +149,7 @@ by superimposing their below-anchors.
 \subsection*{Font metrics per glyph}
 
 See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 
-(regular, italic, semibod, semibold italic) in four tables 
+(regular, italic, semibold, semibold italic) in four tables 
 (Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2}). 
 
 \input{input/fontmetrics_AZ.tex}
@@ -167,20 +167,71 @@ hex: 4-hex Unicode character codepoint.
 reg, it, sb, si: regular, italic, semibold, semibold italic. 
 In that row, the character is printed alone, with combining dot above, and with combining macron below, 
 to show any anchor positioning. If no above- or below-anchor exists for that character, 
-the character and combining mark are positioned by harfbuzz fallback shaping.
+the character and combining mark are positioned by HarfBuzz fallback shaping.
 
-ax, ay: $X$ and $Y$ coordinates of the above-anchor.
+$ax$, $ay$: $X$ and $Y$ coordinates of the above-anchor.
 
-bx, by: $X$ and $Y$ coordinates of the below-anchor.
+$bx$, $by$: $X$ and $Y$ coordinates of the below-anchor.
 
-□xm: midpoint of the bounding box $X$ coordinate, 
+The next few rows use the bounding box of the glyph, 
+because the midpoint of the width of the bounding box is a 
+naive candidate for $ax$ and $by$, 
+and the bounding box coordinates are easy to determine
+
+$bbm$: midpoint of the bounding box $X$ coordinate, 
 $(X_\mathrm{min} + X_\mathrm{max})/2$.
 
-axδ: $X$ coordinate offset of above-anchor from midpoint of bounding box, 
-$\mathrm{ax} - \mathrm{□xm}$.
+$abb\delta$: $X$ coordinate offset of above-anchor from midpoint of bounding box, 
+$ax - bbm$.
 
-axn\%: normalized offset, axδ divided by bounding box width, 
-$\mathrm{axδ} / (X_\mathrm{max} - X_\mathrm{min})$.
+$abb\%$: normalized offset, $abbx\delta$ divided by bounding box width, 
+$abbx\delta / (X_\mathrm{max} - X_\mathrm{min})$.
+
+$bbb\delta$: $X$ coordinate offset of below-anchor from midpoint of bounding box, 
+$bx - bbm$.
+
+$bbb\%$: normalized offset, $bbb\delta$ divided by bounding box width, 
+$bbb\delta / (X_\mathrm{max} - X_\mathrm{min})$.
+
+There are better ways to define the geometric horizontal center of a glyph than the bounding-box midpoint, 
+depending on the outline shape at the top or bottom.
+
+The stem-midpoint $sm$ is the midpoint between two dominant vertical stems 
+(useful for letterforms like h, n, u, b, d, p, q), 
+or the midpoint of one dominant stem (useful for e.g. i, j, l), 
+or one dominant central band (useful for ligatures like œ).
+When the stem-midpoint is dominant, it is relevant for both the above-anchor and the below-anchor.
+Define the anchor offsets $as\delta = ax - sm$ and $bs\delta = bx - sm$.
+
+The bowl-midpoint ($acm$ and $bcm$) is the midpoint of the $X$ coordinate 
+of the inner and outer extrema of a bowl, 
+useful for bowl-dominated glyphs (e.g. c, o, e, a). 
+(The letter $c$ in in the bowl-midpoint $cxm$ recalls its appropriateness for the c letterform.)
+Note that these are calculated for the top bowl ($acm$) and bottom bowl ($bcm$) separately, when appropriate.
+Define the anchor offsets $ac\delta = ax - acm$ and $bc\delta = bx - bcm$.
+
+The vertex-midpoint ($avm$ and $bvm$) is the $X$ coordinate at the apex (top or bottom) 
+of a vertex-shaped glyph (e.g. v, w, y).
+Again, $avm$ and $bvm$ are determined separately, when appropriate.
+Define the anchor offsets $av\delta = ax - avm$ and $bv\delta = bx - bvm$.
+
+The normalized anchor offsets are defined by dividing the anchor offset by the bounding box witdh.
+
+For each glyph, there is one kind of midpoint (stem, bowl, or vertex) 
+that is most relevant to determining the above-anchor and below-anchor.
+Any human (or LLM) can determine these midpoint values by examining the control points 
+of the splineset of the glyph, when that mipoint is relevant for that glyph.
+I hope to be able to produce an algorithm that can calculate each kind of midpoint.
+Otherwise, I may have to ask an LLM to determine these relevant midpoint values per glyph, 
+as anchor $X$ coordinates.
+Note that a human (or LLM) can decide, per glyph, which midpoint (stem, bowl, apex) 
+is relevant to which anchor  (above, below) regardless of the exact glyph splineset, 
+but simply by knowing the glyph and font style (regular or italic).
+
+When a glyph has significant asymmetry, the designer may intentionally 
+offset the anchor from the semantic midpoint to avoid collisions (ascender/descender) 
+or for optical balance; the table rows with $\delta$ and $\%$ quantify that offset.
+These offsets 
 
 \subsection*{Vertical aspects, anchor $Y$ coordinates, and clearance}
 
@@ -191,17 +242,17 @@ The values or ranges of these $Y$ coordinates are in the first five rows
 of Table \ref{fig:vertical-aspects-of-Libertinus}.
 If I showed you the bounding box coordinates of glyphs, these vertical aspects would be the 
 common $Y$ coordinates of those bounding boxes.
-I will label these as yra, yrc, yrx, yr0, yrd because these are $Y$ values, 
+I will label these as $yra$, $yrc$, $yrx$, $yr0$, $yrd$ because these are $Y$ values, 
 and r indicates a reference value. 
 a, c, x, 0, d indicate the five vertical aspects.
 
 In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor or a below-anchor is at 
 a common value depending on where the glyph outline lives relative to a vertical aspect.
-See the rows for ay and by in Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2} 
+See the rows for $ay$ and $by$ in Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2} 
 and find the common values according to the glyph's vertical aspects.
 There is no set name in font design for these above- or below-anchor $Y$ coordinate 
 reference values by ascender aspect, so I will call them
-$ayra, ayrc, ayrx, byr0, byrd$,
+$ayra$, $ayrc$, $ayrx$, $byr0$, $byrd$,
 These are the middle five rows of Table \ref{fig:vertical-aspects-of-Libertinus}
 For example, all glyphs that sit on the baseline have a below-anchor $Y$ coordinate $by = -110$, 
 and thus $byr0 = -110$.
@@ -231,80 +282,63 @@ as well as the shape of Q's tail.
 This is the heuristic algorithm for a glyph that is not a full ascender or descender. 
 
 If $ay$ is not set for a glyph, find the most nearest, or most suitable, vertical aspect 
--- $ayr = ayra$, $ayrc$, or $ayrx$.
-Then $ay = Y + ayr - \epsilon$ , where $Y$ = max $Y$ of the bounding box of the glyph, and 
-$\epsilon$ is the correction for the ascender aspect range, usually for an overshoot.
+-- ascender $a$, capital $c$, or x-height $x$.
+Then $ay = Y + ay\delta[acx] - \epsilon$ , where $Y$ = max $Y$ of the bounding box of the glyph, and 
+$\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
 
 If $by$ is not set for a glyph, find the most nearest, or most suitable, vertical aspect 
--- $byr = ayr0$ or $ayrd$.
-Then $by = Y + byr + \epsilon$ , where $Y$ = min $Y$ of the bounding box of the glyph, and 
-$\epsilon$ is the correction for the ascender aspect range, usually for an overshoot.
-
+-- baselines $0$ or desender $d$.
+Then $by = Y + by\delta[0d] + \epsilon$ , where $Y$ = min $Y$ of the bounding box of the glyph, and 
+$\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
 
 \begin{table}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
-	\caption{Vertical aspects and anchor $Y$ coordinates of Libertinus}
+	\caption{Vertical aspects, and anchor $Y$ coordinates and clearances of Libertinus}
 	\label{fig:vertical-aspects-of-Libertinus}
 	\setlength{\tabcolsep}{1pt}
 
-\begin{tabular}{p{2.5cm} l r r r r}
-	&	& Regular	& Italic	& Semibold	& Semibold Italic\\
-\multirow{5}{=}{height}
-	& ascender	& 698	& 688--698& 690	& 688--698	\\
-	& capital	& 645	& 645	& 645	& 645	\\
-	& x			& 429	& 439, 432--446& 433	& 447, 433--447\\
-	& baseline	& 0		& 0		& 0		& 0		\\
-	& descender	& -232	& -238--{-229}	& -238?	& -238--{-229}\\
+\begin{tabular}{l l r r r r}
+		& v. aspect	& Regular	& Italic	& Semibold	& Semibold Italic\\
+$yra$	& ascender	& 698	& 688--698& 690	& 688--698	\\
+$yrc$	& capital	& 645	& 645	& 645	& 645	\\
+$yrx$	& x-height	& 429	& 439, 432--446	& 433	& 447, 433--447\\
+$yr0$	& baseline	& 0		& 0		& 0		& 0		\\
+$yrd$	& descender	& -232	& -238--{-229}	& -238?	& -238--{-229}\\
 \hline
-\multirow{3}{=}{above-anchor $Y$ coordinate} 
-	& ascender	& 885	& 885--890	& 885	& 885--890	\\
-	& capital	& 850	& 850	& 850b	& 850	\\
-	& x			& 645	& 645	& 645a	& 645	\\
-\multirow{2}{=}{below-anchor}
-	& baseline	& -110	& -110	& -110	& -110	\\
-	& descender	& -319	& -319	& -319	& -319	\\
-\hline	
-\multirow{3}{=}{above-anchor clearance}
-	& ascender	& 187	& 190	& 195	& 194	\\
-	& capital	& 205	& 205	& 205	& 205	\\
-	& x-height	& 216	& 216	& 212	& 198	\\
-\multirow{2}{=}{below-anchor}	
-	& baseline	& 110	& 110	& 110	& 110	\\
-	& descender	& 87	& 87	& 81	& 100	\\
+$ayra$	& ascender	& 885	& 885--890	& 885	& 885--890	\\
+$ayrc$	& capital	& 850	& 850	& 805	& 850	\\
+$ayrx$	& x-height	& 645	& 645	& 645	& 645	\\
+$byr0$	& baseline	& -110	& -110	& -110	& -110	\\
+$byrd$	& descender	& -319	& -319	& -319	& -319	\\
+\hline
+$ay\delta a$	& ascender	& 187	& 190	& 195	& 194	\\
+$ay\delta c$	& capital	& 205	& 205	& 205	& 205	\\
+$ay\delta x$	& x-height	& 216	& 216	& 212	& 198	\\
+$by\delta 0$	& baseline	& 110	& 110	& 110	& 110	\\
+$by\delta d$	& descender	& 87	& 87	& 81	& 100	\\
 \end{tabular}
-
-a top punkt 720
-
-b capitals A--Z 805; other capitals 850
 
 \end{table}
 	
-For example, ascender above-anchor clearance is the distance (in absolute value) 
-between the ascender above-anchor $Y$ coordinate and the ascender height, $885 - 698 = 187$. 
+\subsection*{Base coverage}
 
-For a glyph with a descender/ascender beside a counter (bdpqky), 
-the mark attaches sccording to the counter at the x-height or baseline, 
-and for a stem-dominant glyph (fgjlt), 
-the mark attaches according to the major stem at the ascender or descender.
-Note that an italic f has a descender.
-
-\subsection*{base coverage}
-
-Libertinus serif regular has good above- and below-anchors base coverage for A--Z, a--z, anf IPA letters,
-in these sense that most anchors are defined. 
+Libertinus serif regular has good above- and below-anchors base coverage for A--Z, a--z, and IPA letters,
+in the sense that most anchors are defined. 
 But I will show later that some anchors are not set to good values.
 The base coverage gets worse for italic and semiibold.
-
+Observe that many IPA letters reuse $ax = 209$ and $bx = 196$. 
+These are good anchors for the letter a, but these were just copied to some IPA letters 
+without regard to the letterform and are therefore bad anchors for those IPA letters.
 
 \subsection*{Patch J and Q regular, below-anchor}
 
 J's below-anchor is too low.
-In Table \ref{regular-above-below}, the $Y$ coordinate of the below-anchor of J is the same as that of the lowercase letters with descenders. 
+In Table \ref{table:fontmetrics_AZ}, the $Y$ coordinate of the below-anchor of J is the same as that of the lowercase letters with descenders. 
 But the descender of J is not as low as that of j, p, q etc.
 Look at the J column in the grid labeled regular, Latin, below, which is later in this document.
 The below-marks are set with too much clearance below J. 
 
-Q has no below-anchor (Table \ref{regular-above-below}).
+Q has no below-anchor (Table \ref{table:fontmetrics_AZ}).
 By harfbuzz fallback shaping (in the absence of anchors), a below-marks will be place below the baseline, 
 without considering descenders.
 Look at the J column in the grid labeled regular, Latin, below, which is later in this document.

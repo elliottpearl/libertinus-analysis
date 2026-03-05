@@ -129,3 +129,107 @@ These X coordinate values can be compared to existing anchor coordinates,
 or used as candidates for anchors not yet set.
 
 
+
+# new classification
+
+A revised SCHEMA needs to reflect the core insight you’ve developed: **every mark‑centering decision begins with identifying whether the glyph uses a *vertical aspect* or *horizontal aspects* as the centering reference**, and then specifying the *type* of those aspects. The schema below rewrites your section so it expresses this logic cleanly, explicitly, and in a way that an extractor can implement deterministically.
+
+---
+
+## Semantic midpoint schema (revised)
+
+### Purpose  
+Each glyph may require a different structural reference for horizontally centering above‑marks and below‑marks. The semantic midpoint classification identifies **which structural aspect of the outline** determines the horizontal alignment of a combining mark. This classification is stored **per anchor** (above and below) and **per glyph**.
+
+The system distinguishes two fundamentally different centering modes:
+
+- **Vertical‑aspect centering** — the mark is centered over a *single* vertical alignment axis defined by a structural feature.
+- **Horizontal‑aspect centering** — the mark is centered between *two* horizontal features (left and right), and the midpoint between them defines the alignment axis.
+
+Both modes are structural, not geometric: they describe the designer’s intended alignment reference, not the literal stroke direction.
+
+---
+
+## Midpoint classification
+
+Each anchor (above and below) must specify:
+
+```
+mode: "vertical" | "horizontal"
+```
+
+### If `mode: "vertical"`  
+The mark is centered over a **single vertical aspect** of the glyph.  
+Specify:
+
+```
+aspect: <vertical-aspect-type>
+```
+
+#### Vertical aspect types  
+A vertical aspect is any feature that defines a **single vertical alignment axis** for centering. These are identified by distinctive Y‑structure in the outline, even if the strokes forming them are diagonal or curved.
+
+- **stem** — centerline of a dominant vertical stroke.  
+  Examples: i, l, h, n, m.
+
+- **bowl** — vertical axis of a bowl or loop.  
+  Examples: o, e, a, upper bowl of g, ə.
+
+- **vertex** — vertical axis through a pointed apex or V‑shape.  
+  Examples: v, w, y, x (top or bottom apex).
+
+- **loop** — vertical axis of a looped structure.  
+  Examples: lower loop of g, top loop of ʃ.
+
+- **bbox** — vertical axis of the bounding box (fallback when no structural feature applies).  
+  Examples: highly irregular glyphs, some fricatives.
+
+---
+
+### If `mode: "horizontal"`  
+The mark is centered between **two horizontal aspects**: a left feature and a right feature.  
+Specify:
+
+```
+left:  <horizontal-aspect-type>
+right: <horizontal-aspect-type>
+```
+
+#### Horizontal aspect types  
+A horizontal aspect is any feature that defines a **left or right boundary** whose midpoint with another boundary determines the alignment axis.
+
+- **stem** — left or right boundary of a true vertical stem.  
+  Examples: b, d, p, q.
+
+- **pseudostem** — vertical bowl wall or loop wall acting as a stem‑like boundary.  
+  Examples: b (right bowl wall), d (left bowl wall), ɮ (upper right wall).
+
+- **crossbar_end** — left or right endpoint of a crossbar.  
+  Examples: t (right crossbar end).
+
+- **bowl** — left or right bowl boundary used as a horizontal aspect.  
+  Rare but needed for asymmetric glyphs.  
+  Example: ɮ below (right bowl boundary).
+
+- **bbox** — left or right bounding‑box edge (fallback when no structural boundary applies).
+
+---
+
+## Notes on usage
+
+- Above and below anchors may use **different modes** and **different aspect types** for the same glyph.  
+  Example: ɮ uses horizontal centering above (stem + pseudostem) and horizontal centering below (stem + bowl).
+
+- Vertical aspects are defined by **Y‑structure**, but their **X‑coordinate** is the centering axis.  
+  This applies even in italic fonts, where strokes lean but alignment axes remain vertical.
+
+- Horizontal aspects are defined by **left/right boundaries**, not literal horizontality.  
+  They remain valid under slant, contrast, and stylistic variation.
+
+- The extractor computes numeric midpoints from these semantic tags; the schema only encodes structural intent.
+
+---
+
+If you want to continue refining this, the next step is to add a compact table of canonical classifications for the Latin + IPA base set so the schema can be validated against real glyphs.
+
+

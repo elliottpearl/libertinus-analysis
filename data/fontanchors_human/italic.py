@@ -11,6 +11,8 @@ anchors = {
     },
 
     "marks": {
-        # (none yet)
+        0x0330: {
+            2: (-220, -70), # no offset for italic slant. center is -220
+        }
     },
 }

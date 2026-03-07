@@ -23,7 +23,7 @@ def patch_fontanchors_human(font_key):
 
     # EXACT legacy behavior:
     #   LibertinusSerif-Regular.otf → LibertinusSerif-Regular-patch.otf
-    output_path = input_path.parent / f"{input_path.stem}-patch{input_path.suffix}"
+    output_path = input_path.with_name(f"{input_path.stem}-patch{input_path.suffix}")
 
     # ------------------------------------------------------------
     # Load font + context
@@ -38,12 +38,15 @@ def patch_fontanchors_human(font_key):
     ttfont = ctx.ttfont
     cmap = ctx.cmap
 
+    # Reverse cmap: glyphName → codepoint
+    cmap_reverse = {g: u for u, g in cmap.items()}
+
     # ------------------------------------------------------------
     # Load curated human anchors
     # ------------------------------------------------------------
     human = ctx.get_human_anchors()
     base_anchors = human.get("bases", {})
-    mark_anchors = human.get("marks", {})  # not used yet
+    mark_anchors = human.get("marks", {})
 
     # ------------------------------------------------------------
     # Access the GPOS lookup we are patching
@@ -58,42 +61,58 @@ def patch_fontanchors_human(font_key):
         if sub.LookupType != 4:  # MarkToBase
             continue
 
+        # ========================================================
+        # 1. PATCH BASE ANCHORS
+        # ========================================================
         base_records = sub.BaseArray.BaseRecord
         base_glyphs = sub.BaseCoverage.glyphs
 
-        # Patch each base glyph
         for i, glyph in enumerate(base_glyphs):
 
-            # Find Unicode codepoint for this glyph
-            cp = None
-            for u, g in cmap.items():
-                if g == glyph:
-                    cp = u
-                    break
-
+            cp = cmap_reverse.get(glyph)
             if cp is None:
                 continue
 
-            # If we have curated anchors for this codepoint, apply them
             if cp in base_anchors:
                 class_map = base_anchors[cp]
                 baserec = base_records[i]
 
-                for classIndex, anchor in class_map.items():
-                    x, y = anchor
-
-                    # Replace or create the anchor
-                    if baserec.BaseAnchor[classIndex] is None:
+                for classIndex, (x, y) in class_map.items():
+                    anchor = baserec.BaseAnchor[classIndex]
+                    if anchor is None:
                         from fontTools.ttLib.tables.otTables import Anchor
+                        anchor = Anchor()
+                        anchor.Format = 1
+                        baserec.BaseAnchor[classIndex] = anchor
 
-                        new_anchor = Anchor()
-                        new_anchor.XCoordinate = x
-                        new_anchor.YCoordinate = y
-                        new_anchor.Format = 1
-                        baserec.BaseAnchor[classIndex] = new_anchor
-                    else:
-                        baserec.BaseAnchor[classIndex].XCoordinate = x
-                        baserec.BaseAnchor[classIndex].YCoordinate = y
+                    anchor.XCoordinate = x
+                    anchor.YCoordinate = y
+
+        # ========================================================
+        # 2. PATCH MARK ANCHORS
+        # ========================================================
+        mark_records = sub.MarkArray.MarkRecord
+        mark_glyphs = sub.MarkCoverage.glyphs
+
+        for i, glyph in enumerate(mark_glyphs):
+
+            cp = cmap_reverse.get(glyph)
+            if cp is None:
+                continue
+
+            if cp in mark_anchors:
+                class_map = mark_anchors[cp]
+                markrec = mark_records[i]
+
+                mark_class = markrec.Class
+
+                # Only patch if we have data for this mark class
+                if mark_class in class_map:
+                    x, y = class_map[mark_class]
+
+                    anchor = markrec.MarkAnchor
+                    anchor.XCoordinate = x
+                    anchor.YCoordinate = y
 
     # ------------------------------------------------------------
     # Save patched font (legacy behavior)

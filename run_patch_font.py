@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from libertinus_analysis.font_patching import patch_libertinus_font
+from libertinus_analysis.font_patching import patch_fontanchors_human
 
-patch_libertinus_font("regular")
-patch_libertinus_font("italic")
-patch_libertinus_font("semibold")
-patch_libertinus_font("semibold_italic")
+patch_fontanchors_human("regular")
+patch_fontanchors_human("italic")
+patch_fontanchors_human("semibold")
+patch_fontanchors_human("semibold_italic")

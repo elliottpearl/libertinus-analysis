@@ -639,6 +639,23 @@ Dutch small capital ligature IJ with acute
 
 In an English LaTeX document, \verb|ij| and \verb|IJ| are kerned by the GPOS table to produce ij and IJ, so they look close together, but they are not substituted by the single glyph for the ligature.
 
+\subsection*{Fedotov}
+
+i with grave above with tilde below
+
+\verb|\char"00EC\char"0330|  \ribbiline{\char"00EC\char"0330}
+
+\verb|\char"0131\char"0300\char"0330| \ribbiline{\char"0131\char"0300\char"0330}
+
+\verb|{\char"0131\char"0300}\char"0330| \ribbiline{{\char"0131\char"0300}\char"0330}
+
+\verb|a\char"0330\char"030B| \ribbiline{a\char"0330\char"030B}
+
+\verb|{a\char"0330}\char"030B| \ribbiline{{a\char"0330}\char"030B}
+
+\verb|{a\char"030B}\char"0330| \ribbiline{{a\char"030B}\char"0330}
+
+
 \subsection*{f with dot below}
 
 \ribbi{tiɣə\char"0301\ ṛf\char"0323 a}

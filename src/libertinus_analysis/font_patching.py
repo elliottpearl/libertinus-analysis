@@ -1,97 +1,103 @@
-"""
-font_patching.py
-
-Patch Libertinus fonts using anchor data from
-data/fontdata/<font_key>.py.
-
-This module is designed to be called from a wrapper script such as:
-
-    from libertinus_analysis.font_patching import patch_libertinus_font
-    patch_libertinus_font("regular")
-    patch_libertinus_font("italic")
-
-It uses the filename conventions and directory structure defined in
-font_context.py (FONTS).
-"""
+# font_patching.py
 
 from fontTools.ttLib import TTFont
-from fontTools.ttLib.tables import otTables
+from .font_context import FontContext, FONTS
 
-from libertinus_analysis.font_context import (
-    FONTS,
-    load_font_metrics,
-)
 
-def patch_libertinus_font(font_key):
-    fontdata = load_font_metrics(font_key)
-    anchors = fontdata.get("anchors", {})
+def patch_fontanchors_human(font_key):
+    """
+    Patch a Libertinus font using ONLY the human-curated anchors in
+    data/fontanchors_human/<font_key>.py.
 
+    This uses the EXACT legacy output filename convention:
+        <stem>-patch<suffix>
+    written to the same directory as the input font.
+    """
+
+    # ------------------------------------------------------------
+    # Load font metadata
+    # ------------------------------------------------------------
     font_info = FONTS[font_key]
-    font_path = font_info["path"]
-
-    stem = font_path.stem
-    ext = font_path.suffix
-    out_path = font_path.with_name(f"{stem}-patch{ext}")
-
-    font = TTFont(font_path)
-    gpos = font["GPOS"].table
-    cmap = font["cmap"].getcmap(3, 1).cmap
-
+    input_path = font_info["path"]
     lookup_index = font_info["lookup_index"]
-    
+
+    # EXACT legacy behavior:
+    #   LibertinusSerif-Regular.otf → LibertinusSerif-Regular-patch.otf
+    output_path = input_path.parent / f"{input_path.stem}-patch{input_path.suffix}"
+
+    # ------------------------------------------------------------
+    # Load font + context
+    # ------------------------------------------------------------
+    ctx = FontContext.from_path(
+        path=input_path,
+        lookup_index=lookup_index,
+        font_key=font_key,
+        label=f"{font_key} (patched)",
+    )
+
+    ttfont = ctx.ttfont
+    cmap = ctx.cmap
+
+    # ------------------------------------------------------------
+    # Load curated human anchors
+    # ------------------------------------------------------------
+    human = ctx.get_human_anchors()
+    base_anchors = human.get("bases", {})
+    mark_anchors = human.get("marks", {})  # not used yet
+
+    # ------------------------------------------------------------
+    # Access the GPOS lookup we are patching
+    # ------------------------------------------------------------
+    gpos = ttfont["GPOS"].table
     lookup = gpos.LookupList.Lookup[lookup_index]
-    subtable = lookup.SubTable[0]  # MarkBasePos Format 1
 
-    base_cov = subtable.BaseCoverage
-    base_array = subtable.BaseArray
-    class_count = subtable.ClassCount
+    # ------------------------------------------------------------
+    # Patch MarkToBase subtables
+    # ------------------------------------------------------------
+    for sub in lookup.SubTable:
+        if sub.LookupType != 4:  # MarkToBase
+            continue
 
-    # --- Patch anchors ---
-    for class_id, table in anchors.items():
-        for cp, (ax, ay) in table.items():
+        base_records = sub.BaseArray.BaseRecord
+        base_glyphs = sub.BaseCoverage.glyphs
 
-            # Skip codepoints not in cmap
-            if cp not in cmap:
-                print("Skipping missing codepoint:", hex(cp))
+        # Patch each base glyph
+        for i, glyph in enumerate(base_glyphs):
+
+            # Find Unicode codepoint for this glyph
+            cp = None
+            for u, g in cmap.items():
+                if g == glyph:
+                    cp = u
+                    break
+
+            if cp is None:
                 continue
 
-            gname = cmap[cp]
+            # If we have curated anchors for this codepoint, apply them
+            if cp in base_anchors:
+                class_map = base_anchors[cp]
+                baserec = base_records[i]
 
-            # --- Ensure BaseRecord exists ---
-            if gname in base_cov.glyphs:
-                idx = base_cov.glyphs.index(gname)
-                br = base_array.BaseRecord[idx]
-            else:
-                # Add new glyph to BaseCoverage
-                base_cov.glyphs.append(gname)
+                for classIndex, anchor in class_map.items():
+                    x, y = anchor
 
-                # Create a new BaseRecord with empty anchors
-                br = otTables.BaseRecord()
-                br.BaseAnchor = [None] * class_count
+                    # Replace or create the anchor
+                    if baserec.BaseAnchor[classIndex] is None:
+                        from fontTools.ttLib.tables.otTables import Anchor
 
-                # Append to BaseArray
-                base_array.BaseRecord.append(br)
+                        new_anchor = Anchor()
+                        new_anchor.XCoordinate = x
+                        new_anchor.YCoordinate = y
+                        new_anchor.Format = 1
+                        baserec.BaseAnchor[classIndex] = new_anchor
+                    else:
+                        baserec.BaseAnchor[classIndex].XCoordinate = x
+                        baserec.BaseAnchor[classIndex].YCoordinate = y
 
-            # --- Normalize BaseAnchor list to class_count ---
-            if br.BaseAnchor is None:
-                br.BaseAnchor = [None] * class_count
-            else:
-                # Pad with None until we have class_count entries
-                while len(br.BaseAnchor) < class_count:
-                    br.BaseAnchor.append(None)
-
-            # --- Create anchor ---
-            anchor = otTables.Anchor()
-            anchor.Format = 1
-            anchor.XCoordinate = ax
-            anchor.YCoordinate = ay
-            anchor.AnchorPoint = None
-
-            # --- Assign anchor to correct class slot ---
-            br.BaseAnchor[class_id] = anchor
-
-    # --- Save patched font ---
-    font.save(out_path)
-    font.close()
-
-    print(f"Patched font saved to: {out_path}")
+    # ------------------------------------------------------------
+    # Save patched font (legacy behavior)
+    # ------------------------------------------------------------
+    ttfont.save(output_path)
+    print(f"Patched font saved to {output_path}")
+    

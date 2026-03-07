@@ -5,12 +5,43 @@ from fontTools.ttLib import TTFont
 
 from .config import FONTS_DIR
 
-# Metrics loader
+
+# ------------------------------------------------------------
+# Safe loaders for human + heuristic anchors
+# ------------------------------------------------------------
+
+def load_human_anchors(font_key):
+    """
+    Load curated human anchors from data/fontanchors_human/<font_key>.py.
+    Returns {} if the module does not exist.
+    """
+    try:
+        module = __import__(f"data.fontanchors_human.{font_key}", fromlist=["anchors"])
+        return getattr(module, "anchors", {})
+    except Exception:
+        return {}
+
+
+def load_heuristic_anchors(font_key):
+    """
+    Load heuristic anchors from data/fontanchors_heuristic/<font_key>.py.
+    Returns {} if the module does not exist.
+    """
+    try:
+        module = __import__(f"data.fontanchors_heuristic.{font_key}", fromlist=["anchors"])
+        return getattr(module, "anchors", {})
+    except Exception:
+        return {}
+
+
+# ------------------------------------------------------------
+# Optional metrics loader (unchanged)
+# ------------------------------------------------------------
+
 def load_font_metrics(font_key):
     """
     Load per-font metrics from data/fontdata/<font_key>.py.
     Returns {} if no module exists or if loading fails.
-    font_key is a key of FONTS: regular, italic, semibold, semibold_italic
     """
     try:
         module = __import__(f"data.fontdata.{font_key}", fromlist=["fontdata"])
@@ -18,7 +49,11 @@ def load_font_metrics(font_key):
     except Exception:
         return {}
 
+
+# ------------------------------------------------------------
 # Extract GPOS MarkToBase anchor data
+# ------------------------------------------------------------
+
 def extract_mark_attachment_data(font, lookup_index):
     """
     Extract mark-to-base anchor data from a GPOS lookup.
@@ -61,18 +96,23 @@ def extract_mark_attachment_data(font, lookup_index):
     return markClassByGlyph, anchorsByBaseGlyph, cmap
 
 
+# ------------------------------------------------------------
 # FontContext class
+# ------------------------------------------------------------
+
 class FontContext:
     """
-    Per-font context for classifiers.
+    Per-font context for classifiers and patchers.
 
     Includes:
         - TTFont
         - HBFont
         - cmap
         - markClassByGlyph (from curated lookup_index)
-        - anchorsByBaseGlyph (from curated lookup_index)
-        - optional per-font metrics
+        - anchorsByBaseGlyph (from GPOS lookup)
+        - human_anchors (curated)
+        - heuristic_anchors (optional)
+        - metrics (optional)
     """
 
     def __init__(
@@ -84,20 +124,33 @@ class FontContext:
         anchorsByBaseGlyph,
         metrics=None,
         label=None,
+        human_anchors=None,
+        heuristic_anchors=None,
     ):
         self.ttfont = ttfont
         self.hb_font = hb_font
         self.cmap = cmap
+
+        # GPOS-derived anchors
         self.markClassByGlyph = markClassByGlyph
         self.anchorsByBaseGlyph = anchorsByBaseGlyph
+
+        # Curated anchors (kept separate)
+        self.human_anchors = human_anchors or {}
+        self.heuristic_anchors = heuristic_anchors or {}
+
         self.metrics = metrics or {}
         self.label = label
+
+    # ------------------------------------------------------------
+    # Construction from a font file
+    # ------------------------------------------------------------
 
     @classmethod
     def from_path(cls, path, lookup_index, font_key=None, label=None):
         """
         Load TTFont + HBFont + cmap + GPOS anchors from a font file.
-        lookup_index is the curated index of the MarkToBase lookup.
+        Also loads human + heuristic anchors (kept separate).
         """
         ttfont = TTFont(path)
         fontdata = ttfont.reader.file.getvalue()
@@ -112,6 +165,10 @@ class FontContext:
             ttfont, lookup_index
         )
 
+        # Load curated anchors (kept separate)
+        human = load_human_anchors(font_key) if font_key else {}
+        heuristic = load_heuristic_anchors(font_key) if font_key else {}
+
         metrics = load_font_metrics(font_key) if font_key else {}
 
         return cls(
@@ -122,15 +179,16 @@ class FontContext:
             anchorsByBaseGlyph=anchorsByBaseGlyph,
             metrics=metrics,
             label=label,
+            human_anchors=human,
+            heuristic_anchors=heuristic,
         )
 
-    # Convenience helper
+    # ------------------------------------------------------------
+    # Convenience helpers
+    # ------------------------------------------------------------
+
     def glyph_name(self, cp):
         return self.cmap.get(cp)
-
-    # ------------------------------------------------------------------
-    # NEW HELPERS FOR DOTLESS SUBSTITUTION HANDLING
-    # ------------------------------------------------------------------
 
     def gid_from_codepoint(self, cp):
         """Return the glyph ID for a Unicode codepoint."""
@@ -143,7 +201,7 @@ class FontContext:
 
     def has_anchor_gid(self, gid, classIndex):
         """
-        Return True if the glyph ID has an anchor for the given mark class.
+        Return True if the glyph ID has a GPOS anchor for the given mark class.
         """
         if gid is None:
             return False
@@ -152,13 +210,9 @@ class FontContext:
             return False
         return classIndex in class_map
 
-    # ------------------------------------------------------------------
-    # Original anchor lookup (by codepoint)
-    # ------------------------------------------------------------------
-
     def has_anchor(self, base_cp, classIndex, cmap):
         """
-        Return True if the base glyph has an anchor for the given mark class.
+        Return True if the base glyph has a GPOS anchor for the given mark class.
         """
         base_gid = cmap.get(base_cp)
         if base_gid is None:
@@ -170,14 +224,43 @@ class FontContext:
 
         return classIndex in class_map
 
-"""
-Font registry
+    # ------------------------------------------------------------
+    # New: access curated anchors without merging
+    # ------------------------------------------------------------
 
-path is the font file
-lookup_index is the GPOS table index for mark-to-base anchors
-style is a controlled vocabulary (regular, italic, bold, bold_italic)
-label is a human-readable label.
-"""
+    def get_human_anchors(self):
+        return self.human_anchors
+
+    def get_heuristic_anchors(self):
+        return self.heuristic_anchors
+
+    # Optional: merge on demand
+    def merged_anchors(self, order=("human", "heuristic")):
+        """
+        Merge curated anchors in a caller-specified order.
+        Example:
+            order=("heuristic", "human")  # heuristic first, human overwrites
+        """
+        merged = {"bases": {}, "marks": {}}
+
+        for source in order:
+            anchors = (
+                self.human_anchors if source == "human"
+                else self.heuristic_anchors if source == "heuristic"
+                else {}
+            )
+
+            for section in ("bases", "marks"):
+                for cp, classes in anchors.get(section, {}).items():
+                    merged[section].setdefault(cp, {})
+                    merged[section][cp].update(classes)
+
+        return merged
+
+
+# ------------------------------------------------------------
+# Font registry
+# ------------------------------------------------------------
 
 FONTS = {
     "regular": {

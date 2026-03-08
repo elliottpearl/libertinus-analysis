@@ -1,48 +1,50 @@
 # font_patching.py
 
-from fontTools.ttLib import TTFont
+"""
+Patch Libertinus fonts using ONLY the human-curated anchors
+stored in data/fontanchors_human/<font_key>.py.
+
+This module uses FontContext as the canonical loader of all
+font metadata, state, and curated anchor information.
+"""
+
 from .font_context import FontContext, FONTS
 
 
 def patch_fontanchors_human(font_key):
     """
-    Patch a Libertinus font using ONLY the human-curated anchors in
-    data/fontanchors_human/<font_key>.py.
+    Patch a Libertinus font using ONLY the human-curated anchors.
 
-    This uses the EXACT legacy output filename convention:
+    Output filename follows legacy convention:
         <stem>-patch<suffix>
-    written to the same directory as the input font.
     """
 
     # ------------------------------------------------------------
-    # Load font metadata
+    # Load canonical metadata from FONTS
     # ------------------------------------------------------------
-    font_info = FONTS[font_key]
-    input_path = font_info["path"]
-    lookup_index = font_info["lookup_index"]
+    meta = FONTS[font_key]
+    input_path = meta["path"]
+    lookup_index = meta["lookup_index"]
 
-    # EXACT legacy behavior:
-    #   LibertinusSerif-Regular.otf → LibertinusSerif-Regular-patch.otf
+    # Legacy output naming
     output_path = input_path.with_name(f"{input_path.stem}-patch{input_path.suffix}")
 
     # ------------------------------------------------------------
-    # Load font + context
+    # Load full font context (canonical object blob)
     # ------------------------------------------------------------
     ctx = FontContext.from_path(
         path=input_path,
         lookup_index=lookup_index,
         font_key=font_key,
-        label=f"{font_key} (patched)",
+        label=meta.get("label", font_key),
     )
 
     ttfont = ctx.ttfont
     cmap = ctx.cmap
-
-    # Reverse cmap: glyphName → codepoint
     cmap_reverse = {g: u for u, g in cmap.items()}
 
     # ------------------------------------------------------------
-    # Load curated human anchors
+    # Load curated human anchors ONLY
     # ------------------------------------------------------------
     human = ctx.get_human_anchors()
     base_anchors = human.get("bases", {})
@@ -68,7 +70,6 @@ def patch_fontanchors_human(font_key):
         base_glyphs = sub.BaseCoverage.glyphs
 
         for i, glyph in enumerate(base_glyphs):
-
             cp = cmap_reverse.get(glyph)
             if cp is None:
                 continue
@@ -95,7 +96,6 @@ def patch_fontanchors_human(font_key):
         mark_glyphs = sub.MarkCoverage.glyphs
 
         for i, glyph in enumerate(mark_glyphs):
-
             cp = cmap_reverse.get(glyph)
             if cp is None:
                 continue
@@ -105,17 +105,14 @@ def patch_fontanchors_human(font_key):
                 markrec = mark_records[i]
 
                 mark_class = markrec.Class
-
-                # Only patch if we have data for this mark class
                 if mark_class in class_map:
                     x, y = class_map[mark_class]
-
                     anchor = markrec.MarkAnchor
                     anchor.XCoordinate = x
                     anchor.YCoordinate = y
 
     # ------------------------------------------------------------
-    # Save patched font (legacy behavior)
+    # Save patched font
     # ------------------------------------------------------------
     ttfont.save(output_path)
     print(f"Patched font saved to {output_path}")

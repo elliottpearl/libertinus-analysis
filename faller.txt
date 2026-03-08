@@ -1,0 +1,26 @@
+font base below above
+
+semibold italic
+tilde below
+a double acute above
+a tilde below double acute above (a below)
+a tilde below caron above (a below)
+u tilde below grave above (u below)
+
+italic
+i with tilde below and grave above
+i with tilde below and acute above
+i with tilde below and double grave above
+u tilde below
+
+bases
+a
+e
+i
+o
+u
+A
+I
+0x0190 Ɛ capital open e
+0x025B ɛ open e, and capital
+0x0254 ɔ open o

@@ -639,9 +639,38 @@ Dutch small capital ligature IJ with acute
 
 In an English LaTeX document, \verb|ij| and \verb|IJ| are kerned by the GPOS table to produce ij and IJ, so they look close together, but they are not substituted by the single glyph for the ligature.
 
-\subsection*{Fedotov}
+\subsection*{Tilde below, double acute above, double grave above, on vowels, in italic and semibold italic}
 
-i with grave above with tilde below
+Consider the tilde below. 
+There is the combining tilde below, U+0330, encoded in LaTeX as the codepoint \verb|\char"0330|.
+Remember to put the base before the combining mark in LaTeX, e.g. \verb|a\char"0330| a\char"0330.
+Three vowels (e, i, u) have precomposed characters in lowercase and capital, 
+encoded in LaTeX as these codpoints:
+
+\verb|\char"1E1A \char"1E1B \char"1E2C \char"1E2D \char"1E74 \char"1E75|
+\ribbiline {\char"1E1A\ \char"1E1B\ \char"1E2C\ \char"1E2D\ \char"1E74\ \char"1E75}
+
+E, e, I i, U, or u followed by \verb|\char"0330| will produce the precomposed character glyph.
+But A, a, O, o, or any other vowel followed by \verb|\char"0330| will be shaped 
+attaching the combining below tilde to that vowel at their below-anchor.
+Note the specific case of i. 
+\verb|i\char"0330 = \char"1E2D| i\char"0330\ = \char"1E2D\ is a dotted i (a precomposed glyph).
+
+Suppose you want a vowel with a tilde below, possibly also with a mark above, 
+especially acute, grave, caron, double acute, or double grave.
+In the specific case of i, the above mark will crash into the dotted i 
+unless you take care to encode the triplet starting with a dotless i, U+0131. 
+For example, consider the combining acute U+0301.
+
+\verb|i\char"0330\char"0301 = \char"1E2D\char"0301| \ribbiline{i\char"0330\char"0301\ \char"1E2D\char"0301}
+
+\verb|\char"0131\char"0330\char"0301| \ribbiline{\char"0131\char"0330\char"0301}
+
+But note that the position of the combining tilde below is bad in italic and semibold italic.
+This is because the below-anchor for the combining tilde below mark is bad.
+For tilde below, the precomposed character glyphs with i, e, and u 
+are sometimes good and sometimes bad in italic and semibold italic.
+
 
 \verb|\char"00EC\char"0330|  \ribbiline{\char"00EC\char"0330}
 

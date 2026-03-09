@@ -126,3 +126,26 @@ if __name__ == "__main__":
         outfile=outfile,
     )
 
+    # print complete grids
+    # classify_combo or classify_combo_sanity
+    classifier = classify_combo_sanity
+    chosen_base_groups = [
+        "BASE_LATIN",
+        "BASE_IPA"
+
+    ]
+    chosen_mark_groups = [
+        "MARK_ABOVE",
+        "MARK_BELOW"
+    ]
+    outfile = "latin_ipa_above_below.tex" 
+    print_combo_matrix(
+        chosen_fonts=chosen_fonts,
+        chosen_base_groups=chosen_base_groups,
+        chosen_mark_groups=chosen_mark_groups,
+        classifier=classifier,
+        builder=builder,
+        outfile=outfile,
+    )
+
+

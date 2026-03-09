@@ -233,3 +233,40 @@ A horizontal aspect is any feature that defines a **left or right boundary** who
 If you want to continue refining this, the next step is to add a compact table of canonical classifications for the Latin + IPA base set so the schema can be validated against real glyphs.
 
 
+# More notes
+
+The stem-midpoint $sm$ is the midpoint between two dominant vertical stems 
+(useful for letterforms like h, n, u, b, d, p, q), 
+or the midpoint of one dominant stem (useful for e.g. i, j, l), 
+or one dominant central band (useful for ligatures like œ).
+When the stem-midpoint is dominant, it is relevant for both the above-anchor and the below-anchor.
+Define the anchor offsets $as\delta = ax - sm$ and $bs\delta = bx - sm$.
+
+The bowl-midpoint ($acm$ and $bcm$) is the midpoint of the $X$ coordinate 
+of the inner and outer extrema of a bowl, 
+useful for bowl-dominated glyphs (e.g. c, o, e, a). 
+(The letter $c$ in in the bowl-midpoint $cxm$ recalls its appropriateness for the c letterform.)
+Note that these are calculated for the top bowl ($acm$) and bottom bowl ($bcm$) separately, when appropriate.
+Define the anchor offsets $ac\delta = ax - acm$ and $bc\delta = bx - bcm$.
+
+The vertex-midpoint ($avm$ and $bvm$) is the $X$ coordinate at the apex (top or bottom) 
+of a vertex-shaped glyph (e.g. v, w, y).
+Again, $avm$ and $bvm$ are determined separately, when appropriate.
+Define the anchor offsets $av\delta = ax - avm$ and $bv\delta = bx - bvm$.
+
+The normalized anchor offsets are defined by dividing the anchor offset by the bounding box witdh.
+
+For each glyph, there is one kind of midpoint (stem, bowl, or vertex) 
+that is most relevant to determining the above-anchor and below-anchor.
+Any human (or LLM) can determine these midpoint values by examining the control points 
+of the splineset of the glyph, when that mipoint is relevant for that glyph.
+I hope to be able to produce an algorithm that can calculate each kind of midpoint.
+Otherwise, I may have to ask an LLM to determine these relevant midpoint values per glyph, 
+as anchor $X$ coordinates.
+Note that a human (or LLM) can decide, per glyph, which midpoint (stem, bowl, apex) 
+is relevant to which anchor  (above, below) regardless of the exact glyph splineset, 
+but simply by knowing the glyph and font style (regular or italic).
+
+When a glyph has significant asymmetry, the designer may intentionally 
+offset the anchor from the semantic midpoint to avoid collisions (ascender/descender) 
+or for optical balance; the table rows with $\delta$ and $\%$ quantify that offset.

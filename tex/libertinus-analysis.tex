@@ -82,7 +82,7 @@
 
 % Helper commands for pretty printing samples in regular, italic, bold, bold italic
 
-\newcommand{\ribbi}[1]{#1
+\newcommand{\ribbi}[1]{#1\
 	
 	{\itshape #1}
 	
@@ -90,7 +90,7 @@
 	
 	{\itshape\bfseries #1}}
 
-\newcommand{\ribbiline}[1]{#1
+\newcommand{\ribbiline}[1]{#1\ 
 	{\itshape #1}
 	{\bfseries #1}
 	{\itshape\bfseries #1}}
@@ -101,8 +101,8 @@
 
 \subsection*{Anchor model}
 
-Libertinus has an anchor model where the base anchors are generally where the mark 
-would be placed relative to the base.
+Libertinus has an anchor model where the base anchors are set to a location 
+where the mark would be placed relative to the base.
 See the blue dots in the left panel of Figure \ref{fig:libertinus-geometry}; 
 from top to bottom, the above-anchor is the blue dot above the base glyph, 
 the overlay-anchor is blue dot inside the base glyph outline, and 
@@ -175,17 +175,19 @@ $bx$, $by$: $X$ and $Y$ coordinates of the below-anchor.
 
 The next few rows use the bounding box of the glyph, 
 because the midpoint of the width of the bounding box is a 
-naive candidate for $ax$ and $by$, 
-and the bounding box coordinates are easy to determine
+naive candidate for the $ax$ and $bx$, 
+and the bounding box coordinates are easy to determine.
 
 $bbm$: midpoint of the bounding box $X$ coordinate, 
-$(X_\mathrm{min} + X_\mathrm{max})/2$.
+$(X_\mathrm{min} + X_\mathrm{max})/2$, 
+where the bounding box is characterized by 
+$(X_\mathrm{min}, Y_\mathrm{min})$ and $(X_\mathrm{max}, Y_\mathrm{max})$.
 
 $abb\delta$: $X$ coordinate offset of above-anchor from midpoint of bounding box, 
 $ax - bbm$.
 
-$abb\%$: normalized offset, $abbx\delta$ divided by bounding box width, 
-$abbx\delta / (X_\mathrm{max} - X_\mathrm{min})$.
+$abb\%$: normalized offset, $abb\delta$ divided by bounding box width, 
+$abb\delta / (X_\mathrm{max} - X_\mathrm{min})$.
 
 $bbb\delta$: $X$ coordinate offset of below-anchor from midpoint of bounding box, 
 $bx - bbm$.
@@ -194,54 +196,17 @@ $bbb\%$: normalized offset, $bbb\delta$ divided by bounding box width,
 $bbb\delta / (X_\mathrm{max} - X_\mathrm{min})$.
 
 There are better ways to define the geometric horizontal center of a glyph than the bounding-box midpoint, 
-depending on the outline shape at the top or bottom.
-
-The stem-midpoint $sm$ is the midpoint between two dominant vertical stems 
-(useful for letterforms like h, n, u, b, d, p, q), 
-or the midpoint of one dominant stem (useful for e.g. i, j, l), 
-or one dominant central band (useful for ligatures like œ).
-When the stem-midpoint is dominant, it is relevant for both the above-anchor and the below-anchor.
-Define the anchor offsets $as\delta = ax - sm$ and $bs\delta = bx - sm$.
-
-The bowl-midpoint ($acm$ and $bcm$) is the midpoint of the $X$ coordinate 
-of the inner and outer extrema of a bowl, 
-useful for bowl-dominated glyphs (e.g. c, o, e, a). 
-(The letter $c$ in in the bowl-midpoint $cxm$ recalls its appropriateness for the c letterform.)
-Note that these are calculated for the top bowl ($acm$) and bottom bowl ($bcm$) separately, when appropriate.
-Define the anchor offsets $ac\delta = ax - acm$ and $bc\delta = bx - bcm$.
-
-The vertex-midpoint ($avm$ and $bvm$) is the $X$ coordinate at the apex (top or bottom) 
-of a vertex-shaped glyph (e.g. v, w, y).
-Again, $avm$ and $bvm$ are determined separately, when appropriate.
-Define the anchor offsets $av\delta = ax - avm$ and $bv\delta = bx - bvm$.
-
-The normalized anchor offsets are defined by dividing the anchor offset by the bounding box witdh.
-
-For each glyph, there is one kind of midpoint (stem, bowl, or vertex) 
-that is most relevant to determining the above-anchor and below-anchor.
-Any human (or LLM) can determine these midpoint values by examining the control points 
-of the splineset of the glyph, when that mipoint is relevant for that glyph.
-I hope to be able to produce an algorithm that can calculate each kind of midpoint.
-Otherwise, I may have to ask an LLM to determine these relevant midpoint values per glyph, 
-as anchor $X$ coordinates.
-Note that a human (or LLM) can decide, per glyph, which midpoint (stem, bowl, apex) 
-is relevant to which anchor  (above, below) regardless of the exact glyph splineset, 
-but simply by knowing the glyph and font style (regular or italic).
-
-When a glyph has significant asymmetry, the designer may intentionally 
-offset the anchor from the semantic midpoint to avoid collisions (ascender/descender) 
-or for optical balance; the table rows with $\delta$ and $\%$ quantify that offset.
-These offsets 
+depending on the outline at the top or bottom of the glyph.
 
 \subsection*{Vertical aspects, anchor $Y$ coordinates, and clearance}
 
 A font has at least five vertical aspects, where glyph outlines live inside: 
 descender height, baseline, x-height, ascender height, capital height.
-These vertical aspects are the gray horizontal lines of Figure \ref{fig:libertinus-geometry}. 
 The values or ranges of these $Y$ coordinates are in the first five rows 
 of Table \ref{fig:vertical-aspects-of-Libertinus}.
-If I showed you the bounding box coordinates of glyphs, these vertical aspects would be the 
-common $Y$ coordinates of those bounding boxes.
+These vertical aspects are the gray horizontal lines of Figure \ref{fig:libertinus-geometry}. 
+These vertical aspects are displayed in a FontForge glyph outline window as black horizontal guidelines 
+with red or blue shaded bands for ranges.
 I will label these as $yra$, $yrc$, $yrx$, $yr0$, $yrd$ because these are $Y$ values, 
 and r indicates a reference value. 
 a, c, x, 0, d indicate the five vertical aspects.
@@ -253,33 +218,34 @@ and find the common values according to the glyph's vertical aspects.
 There is no set name in font design for these above- or below-anchor $Y$ coordinate 
 reference values by ascender aspect, so I will call them
 $ayra$, $ayrc$, $ayrx$, $byr0$, $byrd$,
-These are the middle five rows of Table \ref{fig:vertical-aspects-of-Libertinus}
-For example, all glyphs that sit on the baseline have a below-anchor $Y$ coordinate $by = -110$, 
+These are the middle five rows of Table \ref{fig:vertical-aspects-of-Libertinus}.
+For example, all glyphs that sit on the baseline have below-anchor $Y$ coordinate $by = -110$, 
 and thus $byr0 = -110$.
 All capitals A--Z have $ay = 850$, and thus $ayrc = 850$. 
-Any glyph that descends to the descender value or range $byrd$ should have $by = byrd$ or $by \in byrd$.
+Any glyph that descends to the descender value or range $byrd$ should have $by = byrd$.
 
 The clearance is defined as the difference between the anchor reference value 
-and the its vertical aspect $Y$ value.
+and the vertical aspect $Y$ value.
 I will label these clearances as 
 $ay\delta a$, $ay\delta c$, $ay\delta x$, $by\delta 0$, $by\delta d$, 
 For example, capital letters A--Z have a bounding box with max $Y$ at 645, 
-and all capital letters A--Z have an above anchor at $Y = 885$. 
+and all capital letters A--Z have an above-anchor at $Y = 885$. 
 So the above-anchor capital clearance is $ay\delta c = 885 - 645 = 205$.
 Because of the weird anchor model for Libertinus, this clearance value is not the 
 exact vertical distance between a base and a mark, but this clearance value is still useful.
 
-A glyph may not be a full ascenders or a full descender, 
+A glyph may not be a full ascender or a full descender, 
 and its bounding box may not live closely within two vertical aspects.
 In such a case, the anchor $Y$ coordinate is set by looking for the nearest, or most suitable, 
 vertical aspect, and considering the clearance of that vertical aspect relative to the bounding box of the glyph.
 
 For example, see the calculation in a following section of the below-anchor for Q, 
-whose tail does not descend as deep as that of J. 
+whose tail does not descend as deep as the full descender j or g. 
 The clearance $byrd$ can be used to calculate $by$ of Q, after considering Q's bounding box min $Y$ coordinate, 
 as well as the shape of Q's tail.
 
-This is the heuristic algorithm for a glyph that is not a full ascender or descender. 
+This is the heuristic algorithm for calculating the $Y$ coordinate of the above- or below-anchor ($ay$ or $by$) 
+of a glyph that is not a full ascender or descender. 
 
 If $ay$ is not set for a glyph, find the most nearest, or most suitable, vertical aspect 
 -- ascender $a$, capital $c$, or x-height $x$.
@@ -298,18 +264,18 @@ $\epsilon$ is the correction for the vertical aspect range, usually for an overs
 	\setlength{\tabcolsep}{1pt}
 
 \begin{tabular}{l l r r r r}
-		& v. aspect	& Regular	& Italic	& Semibold	& Semibold Italic\\
-$yra$	& ascender	& 698	& 688--698& 690	& 688--698	\\
-$yrc$	& capital	& 645	& 645	& 645	& 645	\\
-$yrx$	& x-height	& 429	& 439, 432--446	& 433	& 447, 433--447\\
-$yr0$	& baseline	& 0		& 0		& 0		& 0		\\
-$yrd$	& descender	& -232	& -238--{-229}	& -238?	& -238--{-229}\\
+		& v. aspect	& Regular			& Italic			& Semibold	& Semibold Italic\\
+$yra$	& ascender	& $688	[688,698]$	& $688 [688,698]$	& $690$		& $698$ \\
+$yrc$	& capital	& $645	[645,658]$	& $645 [645,658]$	& $645$		& $645$ \\
+$yrx$	& x-height	& $429	[429,432]$	& $429 [429,432]$	& $433$		& $434 [433,447]$ \\
+$yr0$	& baseline	& $0 [-12,0]$		& $0 [-12,0]$		& $0$		& $0$ \\
+$yrd$	& descender	& $-232 [-238,-227]$& $-233 [-238,-227]$& $-238$	& $-232 [-238,-232]$ \\
 \hline
 $ayra$	& ascender	& 885	& 885--890	& 885	& 885--890	\\
 $ayrc$	& capital	& 850	& 850	& 805	& 850	\\
 $ayrx$	& x-height	& 645	& 645	& 645	& 645	\\
-$byr0$	& baseline	& -110	& -110	& -110	& -110	\\
-$byrd$	& descender	& -319	& -319	& -319	& -319	\\
+$byr0$	& baseline	& $-110$	& $-110$	& $-110$	& $-110$	\\
+$byrd$	& descender	& $-319$	& $-319$	& $-319$	& $-319$	\\
 \hline
 $ay\delta a$	& ascender	& 187	& 190	& 195	& 194	\\
 $ay\delta c$	& capital	& 205	& 205	& 205	& 205	\\
@@ -322,10 +288,10 @@ $by\delta d$	& descender	& 87	& 87	& 81	& 100	\\
 	
 \subsection*{Base coverage}
 
-Libertinus serif regular has good above- and below-anchors base coverage for A--Z, a--z, and IPA letters,
+Libertinus serif regular has good above- and below-anchor base coverage for A--Z, a--z, and IPA letters,
 in the sense that most anchors are defined. 
 But I will show later that some anchors are not set to good values.
-The base coverage gets worse for italic and semiibold.
+The base coverage gets worse for italic and semibold.
 Observe that many IPA letters reuse $ax = 209$ and $bx = 196$. 
 These are good anchors for the letter a, but these were just copied to some IPA letters 
 without regard to the letterform and are therefore bad anchors for those IPA letters.
@@ -398,7 +364,7 @@ Patched: {\LibertinusSerifPatch k\char"0320\ k\char"0320 o ok\char"0320}
 
 But there is no sane reason to put a below-mark on k, other than perhaps dot (which is a precomposed character), so this is not really a problem at all.
 
-\subsection*{Above anchor, a--z regular}
+\subsection*{Above-anchor, a--z regular}
 
 b, f, j, and t are missing the above-anchor.
 d and h have an above-anchor above the meanline but not above the ascender.
@@ -644,15 +610,15 @@ In an English LaTeX document, \verb|ij| and \verb|IJ| are kerned by the GPOS tab
 Consider the tilde below. 
 There is the combining tilde below, U+0330, encoded in LaTeX as the codepoint \verb|\char"0330|.
 Remember to put the base before the combining mark in LaTeX, e.g. \verb|a\char"0330| a\char"0330.
-Three vowels (e, i, u) have precomposed characters in lowercase and capital, 
-encoded in LaTeX as these codpoints:
+Three vowels (e, i, u) have precomposed characters -- lowercase and capital -- 
+encoded in LaTeX as these codepoints:
 
 \verb|\char"1E1A \char"1E1B \char"1E2C \char"1E2D \char"1E74 \char"1E75|
 \ribbiline {\char"1E1A\ \char"1E1B\ \char"1E2C\ \char"1E2D\ \char"1E74\ \char"1E75}
 
-E, e, I i, U, or u followed by \verb|\char"0330| will produce the precomposed character glyph.
-But A, a, O, o, or any other vowel followed by \verb|\char"0330| will be shaped 
-attaching the combining below tilde to that vowel at their below-anchor.
+E, e, I, i, U, or u followed by \verb|\char"0330| will produce the precomposed character glyph.
+A, a, O, and o, as well as any other IPA vowel with a below-anchor, followed by \verb|\char"0330| will be shaped 
+by attaching the combining below tilde to that vowel at their below-anchor.
 Note the specific case of i. 
 \verb|i\char"0330 = \char"1E2D| i\char"0330\ = \char"1E2D\ is a dotted i (a precomposed glyph).
 
@@ -662,7 +628,7 @@ In the specific case of i, the above mark will crash into the dotted i
 unless you take care to encode the triplet starting with a dotless i, U+0131. 
 For example, consider the combining acute U+0301.
 
-\verb|i\char"0330\char"0301 = \char"1E2D\char"0301| \ribbiline{i\char"0330\char"0301\ \char"1E2D\char"0301}
+\verb|i\char"0330\char"0301 = \char"1E2D\char"0301| \ribbiline{i\char"0330\char"0301} = \ribbiline{\char"1E2D\char"0301}
 
 \verb|\char"0131\char"0330\char"0301| \ribbiline{\char"0131\char"0330\char"0301}
 
@@ -670,7 +636,6 @@ But note that the position of the combining tilde below is bad in italic and sem
 This is because the below-anchor for the combining tilde below mark is bad.
 For tilde below, the precomposed character glyphs with i, e, and u 
 are sometimes good and sometimes bad in italic and semibold italic.
-
 
 \verb|\char"00EC\char"0330|  \ribbiline{\char"00EC\char"0330}
 

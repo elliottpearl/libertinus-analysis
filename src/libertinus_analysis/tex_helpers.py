@@ -66,7 +66,7 @@ def latex_font_style(font_key, text):
 # Classic classifier renderer
 # ----------------------------------------------------------------------
 
-def render_cell(base_cp, mark_cp, kind, infos):
+def render_cell_classic(base_cp, mark_cp, kind, infos):
     """
     Render a single grid cell for the classic classifier.
 
@@ -115,7 +115,7 @@ def render_cell(base_cp, mark_cp, kind, infos):
 # Sanity classifier renderer
 # ----------------------------------------------------------------------
 
-def render_cell_sanity(base_cp, mark_cp, kind, flags):
+def render_cell(base_cp, mark_cp, kind, flags):
     """
     Render a TeX cell for the IPA sanity classifier.
 

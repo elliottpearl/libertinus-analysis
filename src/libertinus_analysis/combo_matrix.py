@@ -4,8 +4,12 @@ from fontTools.ttLib import TTFont
 import uharfbuzz as hb
 
 from .font_context import FontContext
-from .classifiers import classify_combo, classify_combo_sanity
-from .tex_helpers import render_cell, render_cell_sanity, latex_font_cmd
+from .classifiers import (
+    classify_combo_classic,
+    classify_combo_sanity,
+    classify_combo_plain,
+)
+from .tex_helpers import render_cell_classic, render_cell, latex_font_cmd
 from .ipa_loader import unicode_groups, mark_class_index
 
 
@@ -20,20 +24,17 @@ class ComboMatrix:
     """
 
     def __init__(self, base_groups, mark_groups, fonts, classifier):
-        # Base and mark groups are dictionaries with "items" lists of codepoints.
         self.base_groups = base_groups
         self.mark_groups = mark_groups
-
-        # Fonts is a dict: font_key → { "path": ..., "lookup_index": ..., "label": ...,}
         self.fonts = fonts
 
-        # classifier is either classify_combo or classify_combo_sanity
+        # classifier is one of:
+        #   classify_combo_classic
+        #   classify_combo_sanity
+        #   classify_combo_plain
         self.classifier = classifier
 
-        # Filled by load_fonts(): font_key → FontContext
         self.font_contexts = {}
-
-        # Filled by classify(): (mark_cp, base_cp, font_key) → classifier output tuple
         self.grid = {}
 
     # Font loading and classification
@@ -53,10 +54,8 @@ class ComboMatrix:
         Classify all mark/base pairs for all fonts.
 
         The classifier returns:
-            - For classic classifier: (kind, infos, positions)
-            - For sanity classifier: (kind, flags, infos, positions)
-
-        This method stores the raw classifier output; rendering is handled later.
+            - classic: (kind, infos, positions)
+            - sanity/plain: (kind, flags, infos, positions)
         """
         for font_key, info in self.fonts.items():
             fontctx = self.font_contexts[font_key]
@@ -64,7 +63,6 @@ class ComboMatrix:
             for mark_group in self.mark_groups.values():
                 for mark_cp in mark_group["items"]:
                     classIndex = mark_class_index.get(mark_cp)
-                    markGlyph = fontctx.cmap.get(mark_cp)
 
                     for base_group in self.base_groups.values():
                         for base_cp in base_group["items"]:
@@ -83,7 +81,7 @@ class ComboMatrix:
     def _emit_mark_row(self, mark_cp, bases, font_key):
         """
         Emit one row of TeX cells for a given mark across all bases.
-        Rendering is delegated to render_cell() or render_cell_sanity().
+        Rendering is delegated to the appropriate renderer.
         """
         cells = []
 
@@ -91,57 +89,51 @@ class ComboMatrix:
             result = self.grid.get((mark_cp, base_cp, font_key))
 
             if result is None:
-                # Legacy fallback: treat missing combos as fallback
-                if self.classifier is classify_combo:
+                # Legacy fallback
+                if self.classifier is classify_combo_classic:
                     result = ("fallback", None, None)
                 else:
                     result = ("fallback", {}, None, None)
 
-            if self.classifier is classify_combo:
+            if self.classifier is classify_combo_classic:
                 kind, infos, positions = result
-                cell = render_cell(base_cp, mark_cp, kind, infos)
-            else:
+                cell = render_cell_classic(base_cp, mark_cp, kind, infos)
+
+            elif self.classifier in (classify_combo_sanity, classify_combo_plain):
                 kind, flags, infos, positions = result
-                cell = render_cell_sanity(base_cp, mark_cp, kind, flags)
+                cell = render_cell(base_cp, mark_cp, kind, flags)
+
+            else:
+                raise ValueError(f"Unknown classifier: {self.classifier}")
 
             cells.append(cell)
 
         return " ".join(cells)
 
     def _build_grid_body(self, marks, bases, font_key):
-        """
-        Build the full grid body (rows separated by blank lines).
-        """
         rows = []
         for m in marks:
             rows.append(self._emit_mark_row(m, bases, font_key))
-            rows.append("")  # blank line between rows
+            rows.append("")
         return "\n".join(rows)
 
     def _build_latex_grid_for_font(self, marks, bases, font_key, section_label=None):
-        """
-        Build a complete LaTeX grid for one font.
-        """
         info = self.fonts[font_key]
         label = section_label or info["label"]
 
         out = []
 
-        # Page break for large mark groups
         if len(marks) > 5:
             out.append(r"\newpage")
 
-        # Subsection header
         out.append(rf"\subsection*{{{label}}}")
         out.append("")
 
-        # Get LaTeX font command and grouping requirement
         cmd, needs_group = latex_font_cmd(font_key)
 
         if needs_group:
             out.append("{" + cmd)
 
-        # Grid body
         out.append("% grid. columns are bases, rows are marks.")
         out.append(self._build_grid_body(marks, bases, font_key))
 
@@ -153,10 +145,6 @@ class ComboMatrix:
     # Public builders
 
     def latex_grid(self):
-        """
-        Emit a grid-style report for all base_groups × mark_groups × fonts.
-        Returns a single LaTeX string.
-        """
         out = []
 
         for base_group_key, base_group in self.base_groups.items():
@@ -171,9 +159,7 @@ class ComboMatrix:
                 for font_key in self.fonts:
                     font_label = self.fonts[font_key]["label"]
 
-                    section_label = (
-                        f"{font_label}, {base_label}, {mark_label}"
-                    )
+                    section_label = f"{font_label}, {base_label}, {mark_label}"
 
                     out.append(
                         self._build_latex_grid_for_font(
@@ -187,12 +173,6 @@ class ComboMatrix:
         return "\n\n".join(out)
 
     def latex_paragraph(self):
-        """
-        Emit an IPA-style paragraph report:
-        - one mark per paragraph
-        - bases inline
-        - across all fonts
-        """
         out = []
 
         for mark_group in self.mark_groups.values():
@@ -211,4 +191,3 @@ class ComboMatrix:
                     out.append(paragraph)
 
         return "\n\n".join(out)
-        

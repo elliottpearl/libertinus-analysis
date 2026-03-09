@@ -6,7 +6,7 @@ Edit the configuration block below to choose:
 - fonts
 - base groups
 - mark groups
-- classifier
+- classifier: 
 - builder
 - output filename
 
@@ -22,7 +22,7 @@ from libertinus_analysis import (
     ComboMatrix
 )
 
-from libertinus_analysis.classifiers import classify_combo, classify_combo_sanity
+from libertinus_analysis.classifiers import classify_combo_classic, classify_combo_sanity, classify_combo_plain
 from libertinus_analysis.config import TEX_INPUT_DIR
 
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         "MARK_COMMON",
     ]
 
-    # classify_combo or classify_combo_sanity
+    # classify_combo_classic or classify_combo_sanity or classify_combo_plain
     classifier = classify_combo_sanity
 
     # "grid" or "paragraph"
@@ -127,8 +127,7 @@ if __name__ == "__main__":
     )
 
     # print complete grids
-    # classify_combo or classify_combo_sanity
-    classifier = classify_combo
+    classifier = classify_combo_plain
     chosen_base_groups = [
         "BASE_LATIN",
         "BASE_IPA"

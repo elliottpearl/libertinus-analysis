@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
     # print complete grids
     # classify_combo or classify_combo_sanity
-    classifier = classify_combo_sanity
+    classifier = classify_combo
     chosen_base_groups = [
         "BASE_LATIN",
         "BASE_IPA"

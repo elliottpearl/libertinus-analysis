@@ -1176,6 +1176,37 @@ Note that LSP uses the Libertinus fonts named ``Semibold``, e.g.
 \verb|LibertinusSerif-Semibold.otf|, for all boldface style.
 The grids use more complete sets of Latin and IPA bases and above and below marks.
 
+The classic grids use a simpler classifier that does not track GSUB
+expectations or linguistic support. Each cell is colored according to
+the shaping behavior observed in XeLaTeX with Libertinus Serif.
+
+\begin{itemize}
+
+\item \SUPPORTEDPREC{Blue} indicates that XeLaTeX used a precomposed
+Unicode character (NFC(base+mark) exists in the font).
+
+\item \SUPPORTEDANCH{Black} indicates that the mark was positioned
+using GPOS anchors.
+
+\item \SUPPORTEDFALL{Red} indicates fallback shaping: no precomposed
+glyph and no GPOS anchors were used.
+
+\item \UNSUPPORTEDPREC{Pale blue}, \UNSUPPORTEDANCH{Gray}, and
+\UNSUPPORTEDFALL{Pink} indicate the same three shaping modes, but for
+base–mark combinations that are not expected in linguistic notation.
+These colors simply fade the corresponding supported colors.
+
+\item \MISSINGGLYPH{Light gray} indicates that either the base or the
+mark glyph is missing from the font. In this case only the base glyph
+is shown.
+
+\end{itemize}
+
+Unlike the IPA–sanity grids, the classic grids do not detect GSUB
+failures (dotless i/j, alt-cap marks) and therefore do not use the
+green GSUB-failure colors.
+
+
 \input{input/latin_ipa_above_below.tex}
 
 \end{document}

@@ -6,22 +6,6 @@ from fontTools.ttLib import TTFont
 from .config import FONTS_DIR
 
 # ------------------------------------------------------------
-# Font metrics library loader
-# ------------------------------------------------------------
-
-def load_font_metrics(font_key):
-    """
-    Load per-font metrics from data/fontdata/<font_key>.py.
-    Returns {} if no module exists or if loading fails.
-    """
-    try:
-        module = __import__(f"data.fontdata.{font_key}", fromlist=["fontdata"])
-        return getattr(module, "fontdata", {})
-    except Exception:
-        return {}
-
-
-# ------------------------------------------------------------
 # Extract GPOS MarkToBase anchor data
 # ------------------------------------------------------------
 
@@ -81,12 +65,13 @@ class FontContext:
         - cmap
         - markClassByGlyph (from curated lookup_index)
         - anchorsByBaseGlyph (from GPOS lookup)
-        - metrics (python-extracted and stored font metrics)
+        
 
     NOTE:
         Does not load certain curated font information, such as 
         - data/fontdata/{font_key}.py (human curated anchors)
         - data/fontsemantics/{font_key}.json (LLM curated semantic tags)
+        - data/fontdata or data/legacy fontdata (old data files)
         which may be needed by client modules.
     """
 
@@ -97,7 +82,6 @@ class FontContext:
         cmap,
         markClassByGlyph,
         anchorsByBaseGlyph,
-        metrics=None,
         label=None,
     ):
         self.ttfont = ttfont
@@ -108,7 +92,6 @@ class FontContext:
         self.markClassByGlyph = markClassByGlyph
         self.anchorsByBaseGlyph = anchorsByBaseGlyph
 
-        self.metrics = metrics or {}
         self.label = label
 
     # ------------------------------------------------------------
@@ -134,16 +117,12 @@ class FontContext:
             ttfont, lookup_index
         )
 
-        # Load metrics (optional)
-        metrics = load_font_metrics(font_key) if font_key else {}
-
         return cls(
             ttfont=ttfont,
             hb_font=hb_font,
             cmap=cmap,
             markClassByGlyph=markClassByGlyph,
             anchorsByBaseGlyph=anchorsByBaseGlyph,
-            metrics=metrics,
             label=label,
         )
 

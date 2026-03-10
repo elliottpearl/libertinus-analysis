@@ -1,5 +1,5 @@
 # Anchor data, set by human operator
-```
+"""
 anchor class index 0 above
     superscript capitals from compute_baseanchor0()
 
@@ -11,7 +11,7 @@ anchor class index 3 above-right (left-angle)
     superscript capitals
         test 2 values computed with compute_baseanchor3(), clearance 0/80. Rejected.
         test 3 values computed with compute_baseanchor3(), clearance -20/70. Accepted.
-````
+"""
 
 anchors = {
 

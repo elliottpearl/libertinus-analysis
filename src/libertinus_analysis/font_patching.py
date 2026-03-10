@@ -18,14 +18,25 @@ from .font_context import FontContext, FONTS
 
 def load_human_anchors_runtime(font_key):
     """
-    Load curated anchors at patch time
+    Load curated anchors from:
+        data/fontanchors_human/<font_key>.py
+
+    Returns {} if the module does not exist or fails to load.
     """
+    module_name = f"data.fontanchors_human.{font_key}"
+
     try:
-        module = importlib.import_module(f"data.fontanchors_human.{font_key}")
-        importlib.reload(module)
-        return getattr(module, "anchors", {})
-    except Exception:
+        module = __import__(module_name, fromlist=["anchors"])
+    except Exception as e:
+        print(f"[WARN] Could not import {module_name}: {e}")
         return {}
+
+    anchors = getattr(module, "anchors", None)
+    if anchors is None:
+        print(f"[WARN] Module {module_name} has no 'anchors' dict")
+        return {}
+
+    return anchors
 
 def patch_fontanchors_human(font_key):
     """

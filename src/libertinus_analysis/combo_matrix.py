@@ -5,11 +5,10 @@ import uharfbuzz as hb
 
 from .font_context import FontContext
 from .classifiers import (
-    classify_combo_classic,
     classify_combo_sanity,
     classify_combo_plain,
 )
-from .tex_helpers import render_cell_classic, render_cell, latex_font_cmd
+from .tex_helpers import render_cell, latex_font_cmd
 from .ipa_loader import unicode_groups, mark_class_index
 
 
@@ -29,7 +28,6 @@ class ComboMatrix:
         self.fonts = fonts
 
         # classifier is one of:
-        #   classify_combo_classic
         #   classify_combo_sanity
         #   classify_combo_plain
         self.classifier = classifier
@@ -54,8 +52,7 @@ class ComboMatrix:
         Classify all mark/base pairs for all fonts.
 
         The classifier returns:
-            - classic: (kind, infos, positions)
-            - sanity/plain: (kind, flags, infos, positions)
+            (kind, flags, infos, positions)
         """
         for font_key, info in self.fonts.items():
             fontctx = self.font_contexts[font_key]
@@ -89,17 +86,9 @@ class ComboMatrix:
             result = self.grid.get((mark_cp, base_cp, font_key))
 
             if result is None:
-                # Legacy fallback
-                if self.classifier is classify_combo_classic:
-                    result = ("fallback", None, None)
-                else:
-                    result = ("fallback", {}, None, None)
+                result = ("fallback", {}, None, None)
 
-            if self.classifier is classify_combo_classic:
-                kind, infos, positions = result
-                cell = render_cell_classic(base_cp, mark_cp, kind, infos)
-
-            elif self.classifier in (classify_combo_sanity, classify_combo_plain):
+            if self.classifier in (classify_combo_sanity, classify_combo_plain):
                 kind, flags, infos, positions = result
                 cell = render_cell(base_cp, mark_cp, kind, flags)
 

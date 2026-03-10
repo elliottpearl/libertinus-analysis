@@ -57,8 +57,6 @@
 \definecolor{unsupportedanchor}{RGB}{180,180,180} % light gray
 \definecolor{unsupportedprec}{RGB}{150,190,255}   % pale blue
 \definecolor{unsupportedfall}{RGB}{255,180,200}   % light pink
-\definecolor{gsubfailsupported}{RGB}{0,150,0}     % green
-\definecolor{gsubfailunsupported}{RGB}{180,255,180} % light green
 \definecolor{missingglyph}{RGB}{200,200,200}      % light gray
 
 % Semantic wrappers
@@ -72,10 +70,6 @@
 \newcommand{\UNSUPPORTEDANCH}[1]{{\color{unsupportedanchor}#1}}
 \newcommand{\UNSUPPORTEDPREC}[1]{{\color{unsupportedprec}#1}}
 \newcommand{\UNSUPPORTEDFALL}[1]{{\color{unsupportedfall}#1}}
-
-% GSUB‑failure overrides
-\newcommand{\GSUBFAILSUPPORTED}[1]{{\color{gsubfailsupported}#1}}
-\newcommand{\GSUBFAILUNSUPPORTED}[1]{{\color{gsubfailunsupported}#1}}
 
 % Missing glyphs
 \newcommand{\MISSINGGLYPH}[1]{{\color{missingglyph}#1}}
@@ -1052,6 +1046,18 @@ The X coordinate depends on their bounding box and its xMax.
 To provide the desired clearance of 12 units, the anchor is at $X = \mathrm{xMax} + 26 + 12$.
 These anchor coordinate values were optimized for U+0315 but they work fine for U+0358.
 
+\subsection*{Dot removal}
+
+To do. 
+Check GSUB to see if dot removal for i and j is complete.
+
+\subsection*{Precomposed characters}
+To do.
+Check GSUB if an available precomposed character is encoded 
+by a doublet of the base and a combining mark, 
+or a triplet of the base and the two combining marks, in either mark order, 
+then the precomposed character should be be produced by the font's GSUB table.
+
 \newpage
 \section*{Bases}
 
@@ -1140,10 +1146,7 @@ A \SUPPORTEDPREC{blue} color means a precomposed glyph.
 A \SUPPORTEDFALL{red} color means harfbuzz fallback shaping
 (no anchors, no precomposed glyph, no GSUB substitution).
 
-A \GSUBFAILSUPPORTED{green} color means that a GSUB substitution 
-(to dotless i or j) was expected but did not occur.
-
-A faded color -- gray, light blue, pink, or light green -- means that the 
+A faded color -- gray, light blue, or pink -- means that the 
 base and mark combination is not reasonably expected in notation in linguistics.
 
 A gray color can also mean that mark glyph is missing in the font.
@@ -1184,9 +1187,6 @@ using GPOS anchors.
 
 \SUPPORTEDFALL{Red} indicates fallback shaping: no precomposed
 glyph and no GPOS anchors were used.
-
-\GSUBFAILSUPPORTED{green} indicated that a GSUB substitution 
-(to dotless i or j; alt cap mark; other precomposed) was expected but did not occur.
 
 \MISSINGGLYPH{Light gray} indicates that either the base or the
 mark glyph is missing from the font. In this case only the base glyph

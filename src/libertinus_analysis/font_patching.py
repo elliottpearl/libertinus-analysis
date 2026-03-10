@@ -3,40 +3,29 @@
 Patch Libertinus fonts using ONLY the human-curated anchors
 stored in data/fontanchors_human/<font_key>.py.
 
-This module uses FontContext as the canonical loader of all
-font metadata, state, and curated anchor information.
-
 This module is designed to be called from a wrapper script such as:
-    from libertinus_analysis.font_patching import fontanchors_human
+    from libertinus_analysis.font_patching import patch_fontanchors_human
     patch_fontanchors_human("regular")
     patch_fontanchors_human("italic")
 """
 
-import importlib
 from fontTools.ttLib.tables.otTables import Anchor, BaseRecord
 from .font_context import FontContext, FONTS
 
-def load_human_anchors_runtime(font_key):
-    """
-    Load curated anchors from:
-        data/fontanchors_human/<font_key>.py
+# Static imports of all curated anchor modules
+from data.fontanchors_human import regular
+from data.fontanchors_human import italic
+from data.fontanchors_human import semibold
+from data.fontanchors_human import semibold_italic
 
-    Returns {} if the module does not exist or fails to load.
-    """
-    module_name = f"data.fontanchors_human.{font_key}"
+# Map font_key → anchors dict
+HUMAN_ANCHORS = {
+    "regular": regular.anchors,
+    "italic": italic.anchors,
+    "semibold": semibold.anchors,
+    "semibold_italic": semibold_italic.anchors,
+}
 
-    try:
-        module = __import__(module_name, fromlist=["anchors"])
-    except Exception as e:
-        print(f"[WARN] Could not import {module_name}: {e}")
-        return {}
-
-    anchors = getattr(module, "anchors", None)
-    if anchors is None:
-        print(f"[WARN] Module {module_name} has no 'anchors' dict")
-        return {}
-
-    return anchors
 
 def patch_fontanchors_human(font_key):
     """
@@ -58,7 +47,7 @@ def patch_fontanchors_human(font_key):
     ctx = FontContext.from_path(
         path=input_path,
         lookup_index=lookup_index,
-        font_key=None,      # <— prevents FontContext from loading curated anchors
+        font_key=None,      # prevents FontContext from loading curated anchors
         label=meta.get("label", font_key),
     )
 
@@ -66,8 +55,8 @@ def patch_fontanchors_human(font_key):
     cmap = ctx.cmap
     cmap_reverse = {g: u for u, g in cmap.items()}
 
-    # Load curated anchors *now*, fresh
-    human = load_human_anchors_runtime(font_key)
+    # Load curated anchors directly from static mapping
+    human = HUMAN_ANCHORS.get(font_key, {})
     base_anchors = human.get("bases", {})
     mark_anchors = human.get("marks", {})
 
@@ -139,3 +128,4 @@ def patch_fontanchors_human(font_key):
 
     ttfont.save(output_path)
     print(f"Patched font saved to {output_path}")
+    

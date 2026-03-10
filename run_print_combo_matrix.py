@@ -22,7 +22,7 @@ from libertinus_analysis import (
     ComboMatrix
 )
 
-from libertinus_analysis.classifiers import classify_combo_classic, classify_combo_sanity, classify_combo_plain
+from libertinus_analysis.classifiers import classify_combo_sanity, classify_combo_plain
 from libertinus_analysis.config import TEX_INPUT_DIR
 
 

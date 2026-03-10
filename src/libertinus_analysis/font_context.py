@@ -5,37 +5,8 @@ from fontTools.ttLib import TTFont
 
 from .config import FONTS_DIR
 
-
 # ------------------------------------------------------------
-# Safe loaders for human + heuristic anchors
-# ------------------------------------------------------------
-
-def load_human_anchors(font_key):
-    """
-    Load curated human anchors from data/fontanchors_human/<font_key>.py.
-    Returns {} if the module does not exist.
-    """
-    try:
-        module = __import__(f"data.fontanchors_human.{font_key}", fromlist=["anchors"])
-        return getattr(module, "anchors", {})
-    except Exception:
-        return {}
-
-
-def load_heuristic_anchors(font_key):
-    """
-    Load heuristic anchors from data/fontanchors_heuristic/<font_key>.py.
-    Returns {} if the module does not exist.
-    """
-    try:
-        module = __import__(f"data.fontanchors_heuristic.{font_key}", fromlist=["anchors"])
-        return getattr(module, "anchors", {})
-    except Exception:
-        return {}
-
-
-# ------------------------------------------------------------
-# Optional metrics loader (unchanged)
+# Font metrics library loader
 # ------------------------------------------------------------
 
 def load_font_metrics(font_key):
@@ -102,7 +73,7 @@ def extract_mark_attachment_data(font, lookup_index):
 
 class FontContext:
     """
-    Per-font context for classifiers and patchers.
+    Per-font context for classifiers and analyzers.
 
     Includes:
         - TTFont
@@ -110,9 +81,13 @@ class FontContext:
         - cmap
         - markClassByGlyph (from curated lookup_index)
         - anchorsByBaseGlyph (from GPOS lookup)
-        - human_anchors (curated)
-        - heuristic_anchors (optional)
-        - metrics (optional)
+        - metrics (python-extracted and stored font metrics)
+
+    NOTE:
+        Does not load certain curated font information, such as 
+        - data/fontdata/{font_key}.py (human curated anchors)
+        - data/fontsemantics/{font_key}.json (LLM curated semantic tags)
+        which may be needed by client modules.
     """
 
     def __init__(
@@ -124,8 +99,6 @@ class FontContext:
         anchorsByBaseGlyph,
         metrics=None,
         label=None,
-        human_anchors=None,
-        heuristic_anchors=None,
     ):
         self.ttfont = ttfont
         self.hb_font = hb_font
@@ -134,10 +107,6 @@ class FontContext:
         # GPOS-derived anchors
         self.markClassByGlyph = markClassByGlyph
         self.anchorsByBaseGlyph = anchorsByBaseGlyph
-
-        # Curated anchors (kept separate)
-        self.human_anchors = human_anchors or {}
-        self.heuristic_anchors = heuristic_anchors or {}
 
         self.metrics = metrics or {}
         self.label = label
@@ -150,7 +119,7 @@ class FontContext:
     def from_path(cls, path, lookup_index, font_key=None, label=None):
         """
         Load TTFont + HBFont + cmap + GPOS anchors from a font file.
-        Also loads human + heuristic anchors (kept separate).
+        Curated anchors are no longer loaded here.
         """
         ttfont = TTFont(path)
         fontdata = ttfont.reader.file.getvalue()
@@ -165,10 +134,7 @@ class FontContext:
             ttfont, lookup_index
         )
 
-        # Load curated anchors (kept separate)
-        human = load_human_anchors(font_key) if font_key else {}
-        heuristic = load_heuristic_anchors(font_key) if font_key else {}
-
+        # Load metrics (optional)
         metrics = load_font_metrics(font_key) if font_key else {}
 
         return cls(
@@ -179,8 +145,6 @@ class FontContext:
             anchorsByBaseGlyph=anchorsByBaseGlyph,
             metrics=metrics,
             label=label,
-            human_anchors=human,
-            heuristic_anchors=heuristic,
         )
 
     # ------------------------------------------------------------
@@ -223,39 +187,6 @@ class FontContext:
             return False
 
         return classIndex in class_map
-
-    # ------------------------------------------------------------
-    # New: access curated anchors without merging
-    # ------------------------------------------------------------
-
-    def get_human_anchors(self):
-        return self.human_anchors
-
-    def get_heuristic_anchors(self):
-        return self.heuristic_anchors
-
-    # Optional: merge on demand
-    def merged_anchors(self, order=("human", "heuristic")):
-        """
-        Merge curated anchors in a caller-specified order.
-        Example:
-            order=("heuristic", "human")  # heuristic first, human overwrites
-        """
-        merged = {"bases": {}, "marks": {}}
-
-        for source in order:
-            anchors = (
-                self.human_anchors if source == "human"
-                else self.heuristic_anchors if source == "heuristic"
-                else {}
-            )
-
-            for section in ("bases", "marks"):
-                for cp, classes in anchors.get(section, {}).items():
-                    merged[section].setdefault(cp, {})
-                    merged[section][cp].update(classes)
-
-        return merged
 
 
 # ------------------------------------------------------------

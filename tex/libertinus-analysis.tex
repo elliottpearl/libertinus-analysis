@@ -1151,7 +1151,7 @@ base and mark combination is not reasonably expected in notation in linguistics.
 
 A gray color can also mean that mark glyph is missing in the font.
 In this case, just the gray base is printed.
-This on happens in Libertinus Serif Semibold and Semibold Italic for 
+This only happens in Libertinus Serif Semibold and Semibold Italic for 
 three below marks:
 o\char"0333\gs\ (U+0333 double macron below),
 o\char"033A\gs\ (U+033A inverted bridge below), and
@@ -1175,8 +1175,6 @@ because they are not expected in notation in linguistics.
 
 These grids display base and mark rendering in XeLaTeX documents in 
 Libertinus serif regular, italic, semibold and semibold italic.
-Note that LSP uses the Libertinus fonts named ``Semibold``, e.g. 
-\verb|LibertinusSerif-Semibold.otf|, for all boldface style.
 The grids use more complete sets of Latin and IPA bases and above and below marks.
 
 \SUPPORTEDPREC{Blue} indicates that XeLaTeX used a precomposed
@@ -1185,7 +1183,7 @@ Unicode character glyph.
 \SUPPORTEDANCH{Black} indicates that the mark was positioned
 using GPOS anchors.
 
-\SUPPORTEDFALL{Red} indicates fallback shaping: no precomposed
+\SUPPORTEDFALL{Red} indicates HarfBuzz fallback shaping: no precomposed
 glyph and no GPOS anchors were used.
 
 \MISSINGGLYPH{Light gray} indicates that either the base or the

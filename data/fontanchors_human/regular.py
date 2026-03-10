@@ -59,7 +59,7 @@ anchors = {
             2: (140, -110),
         },
         0x0074: {  # t
-            0: (139, 798),  # apex center; ymax+clearance
+            0: (139, 769),  # apex center; ascender clearance
         },
         0x007A: {  # z
             0: (220, 645),

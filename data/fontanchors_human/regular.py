@@ -29,8 +29,11 @@ anchors = {
             2: (227, -110),
         },
         0x0064: {  # d
-            0: (385, 885),  # center of stem; ascender aspect. FIX
-            2: (226, -110),
+            # 0: (385, 885),  # center of stem; ascender aspect. 234 is center left bowl edge + 5 overshooot and right stem right edge
+            # 0: (233, 885),  # xmid of left bowl and right stem; ascender aspect.
+            0: (234, 885),
+            # 2: (222, -110), # xmid of lower bowl extrema; baseline aspect.
+            2: (234, -110),
         },
         0x0066: {  # f
             0: (273, 885),  # apex of f

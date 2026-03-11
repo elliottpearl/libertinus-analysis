@@ -626,18 +626,136 @@ For example, consider the combining acute U+0301.
 
 \verb|\char"0131\char"0330\char"0301| \ribbiline{\char"0131\char"0330\char"0301}
 
+Recall that the canonical order for a triplet of a base and two combining marks (one below and one above) 
+is base + combining below mark + combining above mark, not base + above + below.
+
+Consider the wrong order:
+
+\verb|i\char"0301\char"0330| \ribbiline{i\char"0301\char"0330}
+
+\verb|i\char"0301| \ribbiline{i\char"0301}
+
+\verb|i\char"0330| \ribbiline{i\char"0330}
+
+\verb|\char"00EC\char"0330|  \ribbiline{\char"00EC\char"0330}
+
+\verb|\char"00EC|  \ribbiline{\char"00EC}
+
+\verb|\char"1E2D\char"0301| \ribbiline{\char"1E2D\char"0301}
+
+\verb|\char"1E2D| \ribbiline{\char"1E2D}
+
 But note that the position of the combining tilde below is bad in italic and semibold italic.
 This is because the below-anchor for the combining tilde below mark is bad.
 For tilde below, the precomposed character glyphs with i, e, and u 
 are sometimes good and sometimes bad in italic and semibold italic.
 
-\verb|\char"00EC\char"0330|  \ribbiline{\char"00EC\char"0330}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BASE VOWELS (NO MARKS)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\verb|\char"0131\char"0300\char"0330| \ribbiline{\char"0131\char"0300\char"0330}
+A E I O U \char"0190\ \char"0186\ 
+a e i o u \char"025B\ \char"0254\
 
-\verb|a\char"0330\char"030B| \ribbiline{a\char"0330\char"030B}
 
-\verb|a\char"0330| \ribbiline{a\char"0330}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SIMPLE ABOVE MARKS ONLY (NO TILDE BELOW)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Using precomposed where they exist, wrapped in \PREC{}
+% Using combining sequences for Ɛ/ɛ, Ɔ/ɔ
+% Using precomposed accented i (dotted) for this row
+
+% --- ACUTE (U+0301) ---
+\PREC{\char"00C1} \PREC{\char"00C9} \PREC{\char"00CD} \PREC{\char"00D3} \PREC{\char"00DA} 
+\char"0190\char"0301\ \char"0186\char"0301\
+\PREC{\char"00E1} \PREC{\char"00E9} \PREC{\char"00ED} \PREC{\char"00F3} \PREC{\char"00FA} 
+\char"025B\char"0301\ \char"0254\char"0301\
+
+% --- GRAVE (U+0300) ---
+\PREC{\char"00C0} \PREC{\char"00C8} \PREC{\char"00CC} \PREC{\char"00D2} \PREC{\char"00D9} 
+\char"0190\char"0300\ \char"0186\char"0300\
+\PREC{\char"00E0} \PREC{\char"00E8} \PREC{\char"00EC} \PREC{\char"00F2} \PREC{\char"00F9} 
+\char"025B\char"0300\ \char"0254\char"0300\
+
+% --- CARON (U+030C) ---
+\PREC{\char"01CD} \PREC{\char"01CE} \PREC{\char"01CF} \PREC{\char"01D1} \PREC{\char"01D3} 
+\char"0190\char"030C\ \char"0186\char"030C\
+\PREC{\char"01CE} \PREC{\char"011B} \PREC{\char"01D0} \PREC{\char"01D2} \PREC{\char"01D4} 
+\char"025B\char"030C\ \char"0254\char"030C\
+
+% --- DOUBLE ACUTE (U+030B) ---
+A\char"030B\ E\char"030B\ \char"0131\char"030B\ O\char"030B\ U\char"030B\ 
+\char"0190\char"030B\ \char"0186\char"030B\
+a\char"030B\ e\char"030B\ \char"0131\char"030B\ o\char"030B\ u\char"030B\ 
+\char"025B\char"030B\ \char"0254\char"030B\
+
+% --- DOUBLE GRAVE (U+030F) ---
+\PREC{\char"0200} \PREC{\char"0204} \PREC{\char"0208} \PREC{\char"020C} \PREC{\char"0210} 
+\char"0190\char"030F\ \char"0186\char"030F\
+\PREC{\char"0201} \PREC{\char"0205} \PREC{\char"0209} \PREC{\char"020D} \PREC{\char"0211} 
+\char"025B\char"030F\ \char"0254\char"030F\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TILDE BELOW ONLY (U+0330)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Using precomposed where they exist (A,E,I,O,U,a,e,i,o,u)
+% Using combining sequences for Ɛ/ɛ, Ɔ/ɔ
+% Using precomposed i-tilde-below (U+1E2D)
+
+\PREC{\char"1E00} \PREC{\char"1E0C} \PREC{\char"1E2C} \PREC{\char"1E4C} \PREC{\char"1E6C} 
+\char"0190\char"0330\ \char"0186\char"0330\
+\PREC{\char"1E01} \PREC{\char"1E0D} \PREC{\char"1E2D} \PREC{\char"1E4D} \PREC{\char"1E6D} 
+\char"025B\char"0330\ \char"0254\char"0330\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TRIPLETS: TILDE BELOW + ABOVE MARK
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ALWAYS using dotless i (U+0131)
+% ALWAYS using combining marks (no precomposed exist for these)
+
+% --- TILDE BELOW + ACUTE ---
+A\char"0330\char"0301\ E\char"0330\char"0301\ \char"0131\char"0330\char"0301\ 
+O\char"0330\char"0301\ U\char"0330\char"0301\ 
+\char"0190\char"0330\char"0301\ \char"0186\char"0330\char"0301\
+a\char"0330\char"0301\ e\char"0330\char"0301\ \char"0131\char"0330\char"0301\ 
+o\char"0330\char"0301\ u\char"0330\char"0301\ 
+\char"025B\char"0330\char"0301\ \char"0254\char"0330\char"0301\
+
+% --- TILDE BELOW + GRAVE ---
+A\char"0330\char"0300\ E\char"0330\char"0300\ \char"0131\char"0330\char"0300\ 
+O\char"0330\char"0300\ U\char"0330\char"0300\ 
+\char"0190\char"0330\char"0300\ \char"0186\char"0330\char"0300\
+a\char"0330\char"0300\ e\char"0330\char"0300\ \char"0131\char"0330\char"0300\ 
+o\char"0330\char"0300\ u\char"0330\char"0300\ 
+\char"025B\char"0330\char"0300\ \char"0254\char"0330\char"0300\
+
+% --- TILDE BELOW + CARON ---
+A\char"0330\char"030C\ E\char"0330\char"030C\ \char"0131\char"0330\char"030C\ 
+O\char"0330\char"030C\ U\char"0330\char"030C\ 
+\char"0190\char"0330\char"030C\ \char"0186\char"0330\char"030C\
+a\char"0330\char"030C\ e\char"0330\char"030C\ \char"0131\char"0330\char"030C\ 
+o\char"0330\char"030C\ u\char"0330\char"030C\ 
+\char"025B\char"0330\char"030C\ \char"0254\char"0330\char"030C\
+
+% --- TILDE BELOW + DOUBLE ACUTE ---
+A\char"0330\char"030B\ E\char"0330\char"030B\ \char"0131\char"0330\char"030B\ 
+O\char"0330\char"030B\ U\char"0330\char"030B\ 
+\char"0190\char"0330\char"030B\ \char"0186\char"0330\char"030B\
+a\char"0330\char"030B\ e\char"0330\char"030B\ \char"0131\char"0330\char"030B\ 
+o\char"0330\char"030B\ u\char"0330\char"030B\ 
+\char"025B\char"0330\char"030B\ \char"0254\char"0330\char"030B\
+
+% --- TILDE BELOW + DOUBLE GRAVE ---
+A\char"0330\char"030F\ E\char"0330\char"030F\ \char"0131\char"0330\char"030F\ 
+O\char"0330\char"030F\ U\char"0330\char"030F\ 
+\char"0190\char"0330\char"030F\ \char"0186\char"0330\char"030F\
+a\char"0330\char"030F\ e\char"0330\char"030F\ \char"0131\char"0330\char"030F\ 
+o\char"0330\char"030F\ u\char"0330\char"030F\ 
+\char"025B\char"0330\char"030F\ \char"0254\char"0330\char"030F\
+
+
 
 Patched
 
@@ -796,6 +914,18 @@ Gentium Plus
 {\char"0061\char"0300} {\char"0062\char"0300} {\char"0063\char"0300} {\char"0064\char"0300} {\char"0065\char"0300} {\char"0066\char"0300} {\char"0067\char"0300} {\char"0068\char"0300} {\char"0069\char"0300} {\char"006A\char"0300} {\char"006B\char"0300} {\char"006C\char"0300} {\char"006D\char"0300} {\char"006E\char"0300} {\char"006F\char"0300} {\char"0070\char"0300} {\char"0071\char"0300} {\char"0072\char"0300} {\char"0073\char"0300} {\char"0074\char"0300} {\char"0075\char"0300} {\char"0076\char"0300} {\char"0077\char"0300} {\char"0078\char"0300} {\char"0079\char"0300} {\char"007A\char"0300}
 {\char"00C6\char"0300} {\char"00E6\char"0300} {\char"0152\char"0300} {\char"0153\char"0300} {\char"00D8\char"0300} {\char"00F8\char"0300} {\char"00D0\char"0300} {\char"00F0\char"0300} {\char"00DE\char"0300} {\char"00FE\char"0300} {\char"00DF\char"0300} {\char"017F\char"0300} {\char"0110\char"0300} {\char"0111\char"0300} {\char"0126\char"0300} {\char"0127\char"0300} {\char"0131\char"0300} {\char"0237\char"0300} {\char"0141\char"0300} {\char"0142\char"0300} {\char"0181\char"0300} {\char"0182\char"0300}
 }
+
+\subsection*{Dot removal}
+
+To do. 
+Check GSUB to see if dot removal for i and j is complete.
+
+\subsection*{Precomposed characters}
+To do.
+Check GSUB if an available precomposed character is encoded 
+by a doublet of the base and a combining mark, 
+or a triplet of the base and the two combining marks, in either mark order, 
+then the precomposed character should be be produced by the font's GSUB table.
 
 \newpage
 \section*{Marks}
@@ -1045,18 +1175,6 @@ So their anchor will be at $Y = 630 - 62 + 80 = 648$.
 The X coordinate depends on their bounding box and its xMax.
 To provide the desired clearance of 12 units, the anchor is at $X = \mathrm{xMax} + 26 + 12$.
 These anchor coordinate values were optimized for U+0315 but they work fine for U+0358.
-
-\subsection*{Dot removal}
-
-To do. 
-Check GSUB to see if dot removal for i and j is complete.
-
-\subsection*{Precomposed characters}
-To do.
-Check GSUB if an available precomposed character is encoded 
-by a doublet of the base and a combining mark, 
-or a triplet of the base and the two combining marks, in either mark order, 
-then the precomposed character should be be produced by the font's GSUB table.
 
 \newpage
 \section*{Bases}

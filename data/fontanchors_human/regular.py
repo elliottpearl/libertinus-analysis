@@ -67,15 +67,143 @@ anchors = {
         0x007A: {  # z
             0: (220, 645),
         },
+        0x00C0: { # A grave
+            2: (308,-110), # A anchor below
+        },
+        0x00C1: { # Á A acute
+            2: (308,-110), # A anchor below
+        },
+        # 0x00C8: { # E grave
+        #    2: (287, -110), # E below anchor
+        # },
+        0x00C9: { # É E acute
+            2: (287, -110), # E below anchor
+        },
+        0x00CC: { # I grave
+            2: (147,-110),  # I below anchor
+        },
+        0x00CD: { # Í I acute
+            2: (147,-110),  # I below anchor
+        },
+        0x00D9: { # U grave
+            2: (328,-110),  # U below anchor
+        },
+        0x00DA: { # Ú U acute
+            2: (328,-110),  # U below anchor
+        },
+        0x00E0: { # a grave
+            2: (196, -110),
+        },
+        0x00E1: { # á a acute
+            2: (196, -110),
+        },
         0x00E6: {  # æ ae ligature
             0: (350, 645),
             2: (327, -110),
+        },
+        0x00E8: { # e grave
+            2: (234, -110),
+        },
+        0x00E9: { # é e acute
+            2: (234, -110),
+        },
+        0x00EC: { # i grave
+            2: (136, -110),
+        },
+        0x00ED: { # í i acute
+            2: (136, -110),
+        },
+        # 0x00F2: { # o grave
+        #     2: (243, -110),
+        # },
+        # 0x00F3: { # ó o acute
+        #    2: (243, -110),
+        # },
+        0x00F9: { # u grave
+            2: (239, -110),
+        },        
+        0x00FA: { # ú u acute
+            2: (239, -110),
+        },        
+        0x011A: { # Ě E caron
+            2: (287,-110),
+        },
+        0x011B: { # ě e caron
+            2: (234,-110),
         },
         0x014B: {  # ŋ eng
             2: (265, -319),  # ymin close to ascender height
         },
         0x0153: {  # œ oe ligature
             2: (408, -110),  # center of vertical band
+        },
+        0x0170: { # Ű U double acute
+            2: (328, -110),
+        },
+        0x0171: { # ű u double acute
+            2: (239, -110),
+        },
+        0x0186: { # Ɔ open O
+            0: (290, 850), # xmid bowl, capital aspect
+            2: (294, -110), # xmid bowl, baseline aspect
+        },
+        0x0190: {  # Ɛ open E
+            0: (248, 850),  # xmid bbox, capital aspect
+            2: (248, -110),
+        },
+        0x01CD: { # Ǎ A caron
+            2: (308,-110),
+        },
+        0x01CE: { # ǎ a caron
+            2: (196,-110),
+        },
+        0x01CF: { # Ǐ I caron
+            2: (147,-110),
+        },
+        0x01D0: { # ǐ i caron
+            2: (136,-110),
+        },
+        # 0x01D1: { # Ǒ O caron
+        #    2: (350,-110),
+        # },
+        0x01D2: { # ǒ o caron
+            2: (243,-110),
+        },
+        0x01D3: { # Ǔ U caron
+            2: (328,-110),
+        },
+        0x01D4: { # ǔ u caron
+            2: (239,-110),
+        },
+        0x0200: { # Ȁ A double grave
+            2: (308, -110),
+        },
+        0x0201: { # ȁ a double grave
+            2: (196, -110),
+        },
+        0x0204: { # Ȅ E double grave
+            2: (287, -110),
+        },
+        0x0205: { # ȅ e double grave
+            2: (234, -110),
+        },
+        0x0208: { # Ȉ I double grave
+            2: (147, -110),
+        },
+        0x0209: { # ȉ i double grave
+            2: (136, -110),
+        },
+        # 0x020C: { # Ȍ O double grave
+        #    2: (350, -110),
+        # },
+        # 0x020D: { # ȍ o double grave
+        #    2: (243, -110),
+        # },
+        0x0214: { # Ȕ U double grave  
+           2: (328, -110),
+        },
+        0x0215: { # ȕ u double grave  
+           2: (239, -110),
         },
         0x0276: {  # ɶ OE ligature
             0: (361, 645),  # center of lig band
@@ -152,6 +280,16 @@ anchors = {
         0x0273: {  # ɳ n-retroflex-hook
             2: (262, -308),  # -319 + 11
         },
+        0x1E1A: {  # Ḛ E tilde below
+            0: (281, 850), # E above anchor
+        },
+        0x1E74: {  # Ṵ U tilde below
+            0: (346, 850), # U above anchor
+        },
+        0x1E75: {  # ṵ u tilde below
+            0: (255, 645), # u above anchor
+        },
+
 
         # Superscript consonants
         0x02B0: {

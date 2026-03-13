@@ -9,6 +9,7 @@ This module is designed to be called from a wrapper script such as:
     patch_fontanchors_human("italic")
 """
 
+from fontTools.feaLib.builder import addOpenTypeFeatures
 from fontTools.ttLib.tables.otTables import Anchor, BaseRecord
 from .font_context import FontContext, FONTS
 
@@ -125,6 +126,18 @@ def patch_fontanchors_human(font_key):
                     anchor = markrec.MarkAnchor
                     anchor.XCoordinate = x
                     anchor.YCoordinate = y
+
+
+    # ------------------------------------------------------------
+    # 3. Patch GSUB using human-curated .fea file
+    # ------------------------------------------------------------
+    ccmp_fea_path = "data/fea/ccmp.fea"
+
+    try:
+        addOpenTypeFeatures(ttfont, ccmp_fea_path)
+        print(f"Applied GSUB features from {ccmp_fea_path}")
+    except Exception as e:
+        print(f"WARNING: Failed to apply GSUB features from {ccmp_fea_path}: {e}")
 
     ttfont.save(output_path)
     print(f"Patched font saved to {output_path}")

@@ -59,7 +59,7 @@ feature ccmp {
   sub @dotted' @accents by @dotless;
   sub @capitals @accents' lookup ccmp_cap_accents;
 
-} ccmp
+} ccmp;
 
 # Hebrew
 

@@ -3,13 +3,13 @@ lookup ccmp_cap_accents {
   sub gravecomb       by grave.cap;
   sub uni0302         by circumflex.cap;
   sub uni0306         by breve.cap;
-# Add 7 .cap marks from existing custom glyphs
+# Add 6 .cap marks from existing custom glyphs
   sub uni030C         by caron.cap;
   sub uni030B         by hungarumlaut.cap;
   sub uni030F         by uni030F.cap;
   sub uni0311         by breveinvertedcmb.cap;
   sub uni0308         by dieresis.cap;
-  sub uni0307         by dotaccent.cap;
+#  sub uni0307         by dotaccent.cap;
   sub hookabovecomb   by hookabovecomb.cap;
 } ccmp_cap_accents;
 
@@ -19,9 +19,9 @@ feature ccmp {
   @dotless  = [dotlessi uni0237 uni0249.dotless uni0268.dotless];
 
   @accents  = [
-    gravecomb acutecomb uni0302 tildecomb uni0304 uni0306
-    uni0307 uni0308 hookabovecomb uni030A uni030B uni030C uni030D
-    uni030E uni030F uni0310 uni0311 uni0312 uni0313 uni0314 uni0315
+    gravecomb acutecomb uni0302 tildecomb uni0304 uni0306 uni0307 
+    uni0308 hookabovecomb uni030A uni030B uni030C uni030D uni030E 
+    uni030F uni0310 uni0311 uni0312 uni0313 uni0314 uni0315
     uni031A uni0351 uni0357 uni0358
   ];
 
@@ -35,25 +35,21 @@ feature ccmp {
     Alpha Beta Gamma uni0394 Epsilon Zeta Eta Theta Iota 
     Kappa Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau 
     Upsilon Phi Chi Psi 
-    uni03A9 uni0404 uni0405 uni0406 uni0408 uni0409 uni040A 
-    uni040B uni040F uni0410 uni0411 uni0412 uni0413 uni0414 
-    uni0415 uni0416 uni0417 uni0418 uni041A uni041B uni041C 
-    uni041D uni041E uni041F uni0420 uni0421 uni0422 uni0423 
-    uni0424 uni0425 uni0426 uni0427 uni0428 uni0429 uni042A 
-    uni042B uni042C uni042D uni042E uni042F
+    uni03A9 uni0404 uni0405 uni0406 uni0408 uni0409 uni040A uni040B 
+    uni040F uni0410 uni0411 uni0412 uni0413 uni0414 uni0415 uni0416 
+    uni0417 uni0418 uni041A uni041B uni041C uni041D uni041E uni041F 
+    uni0420 uni0421 uni0422 uni0423 uni0424 uni0425 uni0426 uni0427 
+    uni0428 uni0429 uni042A uni042B uni042C uni042D uni042E uni042F
     # add
-    OE Oslash Eth Eng Schwa RevEpsilon RevOpenEpsilon Esh Ezh 
-    uni01AE uni0181 uni0182 uni0184 uni0186 uni0187 uni0189 
-    uni018A uni018B uni018E uni018F uni0190 uni0191 uni0193 
-    uni0194 uni0196 uni0197 uni0198 uni019C uni019D uni019F 
-    uni01A0 uni01A2 uni01A4 uni01A6 uni01A7 uni01A9 uni01AC 
-    uni01AF uni01B1 uni01B2 uni01B3 uni01B5 uni01B7 uni01B8 
-    uni01BC uni01C4 uni01C7 uni01CA uni1EA0 uni1EB8 uni1E1A 
-    uni1E24 uni1ECA uni1E2C uni1ECC uni1E5A uni1E62 uni1E6C 
-    uni1EE4 uni1E7C uni1E92
-    Acedilla Aogonek Ecedilla Eogonek Gcedilla Iogonek 
-    Kcedilla Lcedilla Ncedilla Oogonek Rcedilla Scedilla 
-    Tcedilla Uogonek Zcedilla
+    OE Oslash Eth Eng Scedilla Aogonek Eogonek Iogonek Uogonek 
+    uni01A9 uni01B7 uni018F uni01AE uni0181 uni0182 uni0184 uni0186 
+    uni0187 uni0189 uni018A uni018B uni018E uni018F uni0190 uni0191 
+    uni0193 uni0194 uni0196 uni0197 uni0198 uni019C uni019D uni019F 
+    uni01A2 uni01A4 uni01A6 uni01A7 uni01A9 uni01AC uni01B1 uni01B2 
+    uni01B3 uni01B5 uni01B7 uni01B8 uni01BC uni01C4 uni01C7 uni01CA 
+    uni1EA0 uni1EB8 uni1E1A uni1E24 uni1ECA uni1E2C uni1ECC uni1E5A 
+    uni1E62 uni1E6C uni1EE4 uni1E7C uni1E92 uni0122 uni0136 uni013B 
+    uni0156 uni0145 uni0162 uni0228 uni1E28 uni01EA    
 ];
 
   sub @dotted' @accents by @dotless;

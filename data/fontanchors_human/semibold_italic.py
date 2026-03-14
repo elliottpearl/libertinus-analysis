@@ -10,6 +10,11 @@ anchors = {
         0x0066: { # f
             2: (62, -319),  # below anchor
         },
+        0xE100: { # en space with anchor, en = 5606
+            0: (303,645),
+            2: (303,-110),
+        },
+
     },
     "marks": {
         0x030B: { # double acute above

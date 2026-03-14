@@ -289,6 +289,10 @@ anchors = {
         0x1E75: {  # ṵ u tilde below
             0: (255, 645), # u above anchor
         },
+        0xE100: { # en space with anchor, en = 542
+            0: (271,645),
+            2: (271,-110),
+        },
 
 
         # Superscript consonants

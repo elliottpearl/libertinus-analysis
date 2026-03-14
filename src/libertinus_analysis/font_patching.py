@@ -12,6 +12,8 @@ This module is designed to be called from a wrapper script such as:
 from fontTools.feaLib.builder import Builder
 from fontTools.ttLib.tables.otTables import Anchor, BaseRecord
 from .font_context import FontContext, FONTS
+from .font_patching_helpers import add_spacing_base_glyph
+
 
 # Static imports of all curated anchor modules
 from data.fontanchors_human import regular
@@ -53,6 +55,13 @@ def patch_fontanchors_human(font_key):
     )
 
     ttfont = ctx.ttfont
+
+    # add glyph for spacing
+    add_spacing_base_glyph(ttfont, font_key)
+
+    # refresh cmap
+    ctx.cmap = ttfont.getBestCmap()
+
     cmap = ctx.cmap
     cmap_reverse = {g: u for u, g in cmap.items()}
 

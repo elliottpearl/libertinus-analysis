@@ -872,15 +872,25 @@ u\char"0330\char"030F\
 
 \subsection*{Mark over space}
 
-\verb|-k\char"030F\char"E100\cgj\char"030F| 
+I added a new en-width x-height PUA character, U+E100, with anchors.
+To float an above mark, say double grave U+030F over a space, write \verb|\char"E100 \char"030F|
+But in practice, the floating mark carries the same tonal specification as the preceding vowel, 
+and therefore must align exactly with the height of that vowel's combining mark.
+To ensure this mark alignment, insert \verb|\cgj| in the prior vowel + mark combo, 
+to force anchor positioning without substituting a precomposed glyph there.
+
+Example
+
+\verb|-ke\cgj\char"030F \char"E100 \char"030F\| 
 
 Original
 
-\ribbiline{-ke\char"030F\char"E100\cgj\char"030F\ }
+\ribbiline{-ke\cgj\char"030F \char"E100 \char"030F\ }
 
 Patched
 
-{\LibertinusSerifPatch \ribbiline{-ke\char"030F\char"E100\cgj\char"030F\ }}
+{\LibertinusSerifPatch \ribbiline{-ke\cgj\char"030F \char"E100 \char"030F\ }}
+
 
 \subsection*{f with dot below}
 

@@ -8,6 +8,10 @@ anchors = {
             0: (219, 645),  # x scaled from regular
             2: (205, -110),
         },
+        0x0065: {  # e
+            0: (249, 645),  # x of ymax
+        },
+
         0xE100: { # en space with anchor, en = 563
             0: (282,645),
             2: (282,-110),

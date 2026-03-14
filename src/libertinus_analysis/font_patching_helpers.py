@@ -59,13 +59,14 @@ def add_spacing_base_glyph(ttfont, font_key):
 
     # 2. Valid Type 2 CharString program (OPERANDS FIRST, THEN OPERATOR)
     program = [
+        width,          # CFF width operand (required!)
         0, 0, "rmoveto",
         0, xh, "rlineto",
         "endchar",
     ]
 
     # 3. Clone an existing CharString to get the correct class
-    template = cs["space"]
+    template = cs["n"]
 
     new_cs = template.__class__(
         globalSubrs=template.globalSubrs,

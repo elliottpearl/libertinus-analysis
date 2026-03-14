@@ -10,6 +10,9 @@
 \usepackage{expl3}
 \usepackage{multirow}
 
+% combining graphe joiner
+\newcommand{\cgj}{\char"034F }
+
 % Page options
 
 \geometry{
@@ -655,6 +658,9 @@ Precomposed characters are blue and therefore cannot be changed unless their gly
 Black combinations of vowels and marks are shaped by anchors 
 and therefore can be changed by setting good anchors.
 
+Use the combining graphem joiner (CGJ) character U+034F, \verb|\char"034F|, 
+or \verb|\cgj| if loaded by some package.
+
 \ribbiline{A E I O U \char"0190\ \char"0186\ a e i o u \char"025B\ \char"0254\ }
 
 % ACUTE (U+0301)
@@ -791,28 +797,12 @@ a\char"030B\ e\char"030B\ \char"0131\char"030B\ \PREC{\char"0151} \PREC{\char"01
 a\char"0330\ \PREC{\char"1E1B} \PREC{\char"1E2D} o\char"0330\ \PREC{\char"1E75} \char"025B\char"0330\ \char"0254\char"0330\ }
 
 % TILDE BELOW + ACUTE
-\ribbiline{A\char"0330\char"0301\ 
-E\char"0330\char"0301\ 
-I\char"0330\char"0301\ 
-O\char"0330\char"0301\ 
-U\char"0330\char"0301\ 
-\char"0190\char"0330\char"0301\ 
-\char"0186\char"0330\char"0301\
-a\char"0330\char"0301\ 
-e\char"0330\char"0301\ 
-\char"0131\char"0330\char"0301\ 
-o\char"0330\char"0301\ 
-u\char"0330\char"0301\ 
-\char"025B\char"0330\char"0301\ 
-\char"0254\char"0330\char"0301\ }
+%\ribbiline{A\char"0330\char"0301\ E\char"0330\char"0301\ I\char"0330\char"0301\ O\char"0330\char"0301\ U\char"0330\char"0301\ \char"0190\char"0330\char"0301\ \char"0186\char"0330\char"0301\
+%a\char"0330\char"0301\ e\char"0330\char"0301\ \char"0131\char"0330\char"0301\ o\char"0330\char"0301\ u\char"0330\char"0301\ \char"025B\char"0330\char"0301\ \char"0254\char"0330\char"0301\ }
 
 % VOWEL WITH ACUTE + TILDE BELOW
-\ribbiline{\char"00C1\char"0330\ \char"00C9\char"0330\ \char"00CD\char"0330\ \char"00D3\char"0330\ \char"00DA\char"0330\ \char"0190\char"0301\ \char"0186\char"0301\
-\char"00E1\char"0330\ \char"00E9\char"0330\ \char"00ED\char"0330\ \char"00F3\char"0330\ \char"00FA\char"0330\ \char"025B\char"0301\ \char"0254\char"0301\ }
-
-% VOWEL WITH TIDLE BELOW + ACUTE
-\ribbiline{A\char"0330\char"0301\ \PREC{\char"1E1A\char"0301} \PREC{\char"1E2C\char"0301} O\char"0330\char"0301\ \PREC{\char"1E74\char"0301} \char"0190\char"0330\char"0301\ \char"0186\char"0330\char"0301\
-a\char"0330\char"0301\ \PREC{\char"1E1B\char"0301} \PREC{\char"1E2D\char"0301} o\char"0330\char"0301\ \PREC{\char"1E75\char"0301} \char"025B\char"0330\char"0301\ \char"0254\char"0330\char"0301\ }
+\ribbiline{\char"00C1\cgj\char"0330\ \char"00C9\cgj\char"0330\ \char"00CD\cgj\char"0330\ \char"00D3\cgj\char"0330\ \char"00DA\cgj\char"0330\ \char"0190\char"0301\char"0330\ \char"0186\char"0301\char"0330\
+\char"00E1\cgj\char"0330\ \char"00E9\cgj\char"0330\ \char"00ED\cgj\char"0330\ \char"00F3\cgj\char"0330\ \char"00FA\cgj\char"0330\ \char"025B\char"0301\char"0330\ \char"0254\char"0301\char"0330\ }
 
 % TILDE BELOW + GRAVE
 \ribbiline{A\char"0330\char"0300\ 

@@ -294,7 +294,6 @@ anchors = {
             2: (271,-110),
         },
 
-
         # Superscript consonants
         0x02B0: {
             0: (155, 914),

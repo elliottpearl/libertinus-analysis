@@ -9,6 +9,7 @@
 \usepackage{caption}
 \usepackage{expl3}
 \usepackage{multirow}
+\usepackage[linguistics]{forest}
 
 % combining graphe joiner
 \newcommand{\cgj}{\char"034F }
@@ -100,8 +101,8 @@
 
 \subsection*{Anchor model}
 
-Libertinus has an anchor model where the base anchors are set to a location 
-where the mark would be placed relative to the base.
+Libertinus has an anchor model where the base anchors are set to locations 
+where the marks would be placed relative to the base.
 See the blue dots in the left panel of Figure \ref{fig:libertinus-geometry}; 
 from top to bottom, the above-anchor is the blue dot above the base glyph, 
 the overlay-anchor is blue dot inside the base glyph outline, and 
@@ -174,10 +175,10 @@ $bx$, $by$: $X$ and $Y$ coordinates of the below-anchor.
 
 The next few rows use the bounding box of the glyph, 
 because the midpoint of the width of the bounding box is a 
-naive candidate for the $ax$ and $bx$, 
+naive candidate for $ax$ and $bx$, 
 and the bounding box coordinates are easy to determine.
 
-$bbm$: midpoint of the bounding box $X$ coordinate, 
+$bbm$: midpoint of the bounding box $X$ coordinates, 
 $(X_\mathrm{min} + X_\mathrm{max})/2$, 
 where the bounding box is characterized by 
 $(X_\mathrm{min}, Y_\mathrm{min})$ and $(X_\mathrm{max}, Y_\mathrm{max})$.
@@ -194,7 +195,7 @@ $bx - bbm$.
 $bbb\%$: normalized offset, $bbb\delta$ divided by bounding box width, 
 $bbb\delta / (X_\mathrm{max} - X_\mathrm{min})$.
 
-There are better ways to define the geometric horizontal center of a glyph than the bounding-box midpoint, 
+There are better ways to define the geometric horizontal center of a glyph than the bounding box midpoint, 
 depending on the outline at the top or bottom of the glyph.
 
 \subsection*{Vertical aspects, anchor $Y$ coordinates, and clearance}
@@ -221,13 +222,13 @@ These are the middle five rows of Table \ref{fig:vertical-aspects-of-Libertinus}
 For example, all glyphs that sit on the baseline have below-anchor $Y$ coordinate $by = -110$, 
 and thus $byr0 = -110$.
 All capitals A--Z have $ay = 850$, and thus $ayrc = 850$. 
-Any glyph that descends to the descender value or range $byrd$ should have $by = byrd$.
+Any glyph that descends to the descender value or range $yrd$ should have $by = byrd$.
 
 The clearance is defined as the difference between the anchor reference value 
 and the vertical aspect $Y$ value.
 I will label these clearances as 
 $ay\delta a$, $ay\delta c$, $ay\delta x$, $by\delta 0$, $by\delta d$, 
-For example, capital letters A--Z have a bounding box with max $Y$ at 645, 
+For example, capital letters A--Z have a bounding box with $Y_\mathrm{max}$ at 645, 
 and all capital letters A--Z have an above-anchor at $Y = 885$. 
 So the above-anchor capital clearance is $ay\delta c = 885 - 645 = 205$.
 Because of the weird anchor model for Libertinus, this clearance value is not the 
@@ -240,21 +241,23 @@ vertical aspect, and considering the clearance of that vertical aspect relative 
 
 For example, see the calculation in a following section of the below-anchor for Q, 
 whose tail does not descend as deep as the full descender j or g. 
-The clearance $byrd$ can be used to calculate $by$ of Q, after considering Q's bounding box min $Y$ coordinate, 
+The clearance $by\delta d$ can be used to calculate $by$ of Q, after considering Q's bounding box $Y_\mathrm{min}$, 
 as well as the shape of Q's tail.
 
 This is the heuristic algorithm for calculating the $Y$ coordinate of the above- or below-anchor ($ay$ or $by$) 
 of a glyph that is not a full ascender or descender. 
 
-If $ay$ is not set for a glyph, find the most nearest, or most suitable, vertical aspect 
+If $ay$ is not set for a glyph, find the nearest, or most suitable, vertical aspect 
 -- ascender $a$, capital $c$, or x-height $x$.
-Then $ay = Y + ay\delta[acx] - \epsilon$ , where $Y$ = max $Y$ of the bounding box of the glyph, and 
-$\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
+Then $ay = Y_\mathrm{max} + ay\delta[acx] - \epsilon$, 
+where $Y_\mathrm{max}$ is the maximum $Y$ coordinate of bounding box of the glyph, 
+and $\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
 
-If $by$ is not set for a glyph, find the most nearest, or most suitable, vertical aspect 
+If $by$ is not set for a glyph, find the nearest, or most suitable, vertical aspect 
 -- baselines $0$ or desender $d$.
-Then $by = Y + by\delta[0d] + \epsilon$ , where $Y$ = min $Y$ of the bounding box of the glyph, and 
-$\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
+Then $by = Y_\mathrm{min} + by\delta[0d] + \epsilon$, 
+where $Y_\mathrm{min}$ in the minimum $Y$ coordinate of the bounding box of the glyph, 
+and $\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
 
 \begin{table}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
@@ -262,7 +265,7 @@ $\epsilon$ is the correction for the vertical aspect range, usually for an overs
 	\label{fig:vertical-aspects-of-Libertinus}
 	\setlength{\tabcolsep}{1pt}
 
-\begin{tabular}{l l r r r r}
+\begin{tabular}{l  l  r  r  r  r}
 		& v. aspect	& Regular			& Italic			& Semibold	& Semibold Italic\\
 $yra$	& ascender	& $688	[688,698]$	& $688 [688,698]$	& $690$		& $698$ \\
 $yrc$	& capital	& $645	[645,658]$	& $645 [645,658]$	& $645$		& $645$ \\
@@ -276,11 +279,11 @@ $ayrx$	& x-height	& 645	& 645	& 645	& 645	\\
 $byr0$	& baseline	& $-110$	& $-110$	& $-110$	& $-110$	\\
 $byrd$	& descender	& $-319$	& $-319$	& $-319$	& $-319$	\\
 \hline
-$ay\delta a$	& ascender	& 187	& 190	& 195	& 194	\\
-$ay\delta c$	& capital	& 205	& 205	& 205	& 205	\\
-$ay\delta x$	& x-height	& 216	& 216	& 212	& 198	\\
-$by\delta 0$	& baseline	& 110	& 110	& 110	& 110	\\
-$by\delta d$	& descender	& 87	& 87	& 81	& 100	\\
+$ay\delta a$	& ascender	& $187$	& $190$	& $195$	& $194$	\\
+$ay\delta c$	& capital	& $205$	& $205$	& $205$	& $205$	\\
+$ay\delta x$	& x-height	& $216$	& $216$	& $212$	& $198$	\\
+$by\delta 0$	& baseline	& $110$	& $110$	& $110$	& $110$	\\
+$by\delta d$	& descender	& $87$	& $87$	& $81$	& $100$	\\
 \end{tabular}
 
 \end{table}
@@ -304,7 +307,7 @@ Look at the J column in the grid labeled regular, Latin, below, which is later i
 The below-marks are set with too much clearance below J. 
 
 Q has no below-anchor (Table \ref{table:fontmetrics_AZ}).
-By harfbuzz fallback shaping (in the absence of anchors), a below-marks will be place below the baseline, 
+By HarfBuzz fallback shaping (in the absence of anchors), a below-marks will be place below the baseline, 
 without considering descenders.
 Look at the J column in the grid labeled regular, Latin, below, which is later in this document.
 All the below-marks crash into Q's descender.
@@ -908,15 +911,15 @@ Here are some letters with a dot below.
 	x\char"0323}
 
 The left group of letters -- a b d e h i k l m n o r s t u v w y z -- have a precomposed character.
-For the right group of letters -- c f g j p q x -- the dot is placed according to the below-anchor (if the below-anchor is defined for the letter) or by harfbuzz fallback shaping (placing the dot below the baseline, regardless of the letter's bounding box).
+For the right group of letters -- c f g j p q x -- the dot is placed according to the below-anchor (if the below-anchor is defined for the letter) or by HarfBuzz fallback shaping (placing the dot below the baseline, regardless of the letter's bounding box).
 
 In all styles -- regular, italic, semibold, and semibold italic -- the precomposed glyph of y with dot below places the dot beside the descender, even though the y has a below-anchor below the descender.
 
 Do the letters c, f, g, j, p, q, and x have good below-anchors?
 In regular, the below-anchor of all these combining bases is below the glyph outline (good).
 In italic, the below-anchor of f, p, and q is beside the descender (bad), the below-anchor of g and j is below the descender (good), and the below-anchor of c and x is below the baseline (good).
-In semibold, the below-anchor of g and j is below the descender (good), but the other bases -- c, f, p, q -- have no below-anchor, and harfbuzz fallback positioning places the combining dot below the baseline, not below the bounding box; for c, f and x this is good, but for p and q this is bad, because of the descenders.
-In semibold italic, the below-anchor of c, g, j, p and q is below the glyph outline (good), the below-anchor of f is inside the descender (very bad), and x has no below-anchor but harfbuzz fallback positioning places the combining dot below the baseline (good).
+In semibold, the below-anchor of g and j is below the descender (good), but the other bases -- c, f, p, q -- have no below-anchor, and HarfBuzz fallback positioning places the combining dot below the baseline, not below the bounding box; for c, f and x this is good, but for p and q this is bad, because of the descenders.
+In semibold italic, the below-anchor of c, g, j, p and q is below the glyph outline (good), the below-anchor of f is inside the descender (very bad), and x has no below-anchor but HarfBuzz fallback positioning places the combining dot below the baseline (good).
 
 Which dots are used in precomposed characters and how big are the dots?
 In all styles (except semibold italic), the precomposed characters reference the dot of \verb|uni0307|, combining dot above, U+0307, and take care to translate this above-mark to a position below the letter outline, except for m, which references \verb|dotbelowcomb|, combining dot below, U+0323.
@@ -1106,12 +1109,10 @@ O+0305 combining overline and U+0332 combining low line are applied by GSUB look
 GSUB lookup 51 effectively classifies the glyphs by width, and GSUB lookups 52--82 provide the appropriate custom-width mark for the base width class. 
 Semibold and semibold italic do not have any combining low lines. 
 Custom-width line marks do not have anchors. 
-They are positioned by harfbuzz fallback shaping. 
+They are positioned by HarfBuzz fallback shaping. 
 The overlines are above the ascender line, so they are above all bases. 
 The low lines are below the baseline, but above the descender line, and so they cut though any descenders.
 If a new glyph is added, and you want to support custom-width line marks for it, then remember to classify the new glyph in GSUB lookup 51.
-
-%\input{input/latin-ipa-line.tex}
 
 \ribbi{
 	\char"0041\char"0305\gs \char"0042\char"0305\gs \char"0043\char"0305\gs \char"0044\char"0305\gs \char"0045\char"0305\gs \char"0046\char"0305\gs \char"0047\char"0305\gs \char"0048\char"0305\gs \char"0049\char"0305\gs \char"004A\char"0305\gs \char"004B\char"0305\gs \char"004C\char"0305\gs \char"004D\char"0305\gs \char"004E\char"0305\gs \char"004F\char"0305\gs \char"0050\char"0305\gs \char"0051\char"0305\gs \char"0052\char"0305\gs \char"0053\char"0305\gs \char"0054\char"0305\gs \char"0055\char"0305\gs \char"0056\char"0305\gs \char"0057\char"0305\gs \char"0058\char"0305\gs \char"0059\char"0305\gs \char"005A\char"0305\gs \char"0061\char"0305\gs \char"0062\char"0305\gs \char"0063\char"0305\gs \char"0064\char"0305\gs \char"0065\char"0305\gs \char"0066\char"0305\gs \char"0067\char"0305\gs \char"0068\char"0305\gs \char"0069\char"0305\gs \char"006A\char"0305\gs \char"006B\char"0305\gs \char"006C\char"0305\gs \char"006D\char"0305\gs \char"006E\char"0305\gs \char"006F\char"0305\gs \char"0070\char"0305\gs \char"0071\char"0305\gs \char"0072\char"0305\gs \char"0073\char"0305\gs \char"0074\char"0305\gs \char"0075\char"0305\gs \char"0076\char"0305\gs \char"0077\char"0305\gs \char"0078\char"0305\gs \char"0079\char"0305\gs \char"007A\char"0305\gs \char"00C6\char"0305\gs \char"00E6\char"0305\gs \char"0152\char"0305\gs \char"0153\char"0305\gs \char"00D8\char"0305\gs \char"00F8\char"0305\gs \char"00D0\char"0305\gs \char"00F0\char"0305\gs \char"00DE\char"0305\gs \char"00FE\char"0305\gs \char"00DF\char"0305\gs \char"017F\char"0305\gs \char"0110\char"0305\gs \char"0111\char"0305\gs \char"0126\char"0305\gs \char"0127\char"0305\gs \char"0131\char"0305\gs \char"0237\char"0305\gs \char"0141\char"0305\gs \char"0142\char"0305\gs \char"0181\char"0305\gs \char"0182\char"0305
@@ -1196,12 +1197,10 @@ inverting the desired size difference.
 
 There are only a few IPA superscript letters that may serve as the possible host of U+0315 or U+0358 
 on superscript consonants or on superscript consonant clusters.
-In Libertinus, regrettably none of these characters has the anchor (anchor 1), so the mark (U+0315 and U+0358) is positioned by harfbuzz fallback shaping, which seems to place the mark at the right boundary of the glyph at a constant vertical aspect (effectively at the superscript x-height).
+In Libertinus, regrettably none of these characters has the anchor (anchor 1), so the mark (U+0315 and U+0358) is positioned by HarfBuzz fallback shaping, which seems to place the mark at the right boundary of the glyph at a constant vertical aspect (effectively at the superscript x-height).
 
 These IPA marks U+0315 and U+0358 should only be used in regular (not italic and not semibold).
 Regrettably, in Libertinus serif semibold, U+0358 looks like a grave, not a dot, and there is no U+0358 glyph in Libertinus serif semibold italic.
-
-%\input{input/above-right.tex}
 
 There are three comma/apostrophe glyphs that could possibly mark glottalization: 
 U+0313 combining comma above, U+0315 combining comma above right, and U+02BC modifier letter apostrophe.
@@ -1379,7 +1378,7 @@ A \SUPPORTEDANCH{black} color means GPOS anchor positioning.
 
 A \SUPPORTEDPREC{blue} color means a precomposed glyph.
 
-A \SUPPORTEDFALL{red} color means harfbuzz fallback shaping
+A \SUPPORTEDFALL{red} color means HarfBuzz fallback shaping
 (no anchors, no precomposed glyph, no GSUB substitution).
 
 A faded color -- gray, light blue, or pink -- means that the 

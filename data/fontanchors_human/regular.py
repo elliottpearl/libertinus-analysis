@@ -205,13 +205,12 @@ anchors = {
         0x0215: { # ȕ u double grave  
            2: (239, -110),
         },
-        0x0276: {  # ɶ OE ligature
-            0: (361, 645),  # center of lig band
-            2: (361, -110),
-        },
         0x0253: {  # ɓ b-hook
             0: (255, 885),  # x at ymax
             2: (235, -110),  # x at ymin
+        },
+        0x0257: { # ɗ d-hook
+            0: (218, 885), 
         },
         0x0260: {  # ɠ g-hook
             0: (239, 885),  # matches 0x0261
@@ -236,6 +235,10 @@ anchors = {
         0x0275: {  # ɵ barred-o
             0: (238, 645),  # x from o
             2: (243, -110),
+        },
+        0x0276: {  # ɶ OE ligature
+            0: (361, 645),  # center of lig band
+            2: (361, -110),
         },
         0x027A: {  # ɺ turned-r-long-leg
             0: (208, 885),  # ascender aspect

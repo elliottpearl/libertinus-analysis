@@ -10,9 +10,9 @@ anchors = {
         0x0066: { # f
             2: (62, -319),  # below anchor
         },
-        0xE100: { # en space with anchor, en = 5606
-            0: (303,645),
-            2: (303,-110),
+        0xE100: { # en space with anchor, width = 280
+            0: (140,645),
+            2: (140,-110),
         },
 
     },

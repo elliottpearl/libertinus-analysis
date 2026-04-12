@@ -17,10 +17,10 @@ anchors = {
 
     "bases": {
         0x004A: {  # J
-            2: (109, -272),
+            2: (109, -254), # -272
         },
         0x0051: {  # Q
-            2: (350, -309),
+            2: (350, -291), # -309
         },
         0x0062: {  # b
             0: (279, 885),  # apex of bowl
@@ -292,9 +292,9 @@ anchors = {
         0x1E75: {  # ṵ u tilde below
             0: (255, 645), # u above anchor
         },
-        0xE100: { # en space with anchor, en = 542
-            0: (271,645),
-            2: (271,-110),
+        0xE100: { # en space with anchor, width = 280
+            0: (140,645),
+            2: (140,-110),
         },
 
         # Superscript consonants

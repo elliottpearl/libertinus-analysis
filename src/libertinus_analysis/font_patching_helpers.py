@@ -4,11 +4,13 @@ def add_spacing_base_glyph(ttfont, font_key):
     """
     Create the invisible spacing-base glyph U+E100 ("space_en_base"):
 
-    - width = width of 'n' (per style)
-    - outline height = x-height (per style)
-    - anchors will be added later by curated anchor patcher
+    - width = style-specific hardcoded width (YWIDTHS)
+    - outline height = x-height (XHEIGHTS)
+    - anchors overwritten here
     - GDEF class = base
-    - CFF-safe CharString
+    - preserves legacy CFF behavior including charStringsIndex.append(None)
+
+    Anchors are set later.
     """
 
     codepoint = 0xE100
@@ -19,13 +21,8 @@ def add_spacing_base_glyph(ttfont, font_key):
     if codepoint in cmap:
         return
 
-    # Width = width of 'n'
+    # Load hmtx
     hmtx = ttfont["hmtx"]
-    if "n" not in hmtx.metrics:
-        raise ValueError("Font has no 'n' glyph; cannot determine width.")
-    n_width, _ = hmtx["n"]
-    width = n_width
-    # print(f"[diagnostic] width('n') = {n_width} for {font_key}")
 
     # Style-specific x-height
     XHEIGHTS = {
@@ -36,6 +33,15 @@ def add_spacing_base_glyph(ttfont, font_key):
     }
     xh = XHEIGHTS[font_key]
 
+    # Style-specific width
+    YWIDTHS = {
+        "regular": 280,
+        "italic": 320,
+        "semibold": 300,
+        "semibold_italic": 280,
+    }
+    width = YWIDTHS[font_key]
+
     # Add glyph to glyph order
     glyph_order = ttfont.getGlyphOrder()
     if glyph_name not in glyph_order:
@@ -45,29 +51,30 @@ def add_spacing_base_glyph(ttfont, font_key):
     # Add to cmap
     cmap[codepoint] = glyph_name
 
-    # Add to hmtx
-    hmtx.metrics[glyph_name] = (width, 0)
+    # Add to hmtx (LSB = 0)
+    lsb = 0
+    hmtx.metrics[glyph_name] = (width, lsb)
+    # rsb = 0
+    # anchor_x = lsb + (width - lsb - rsb) / 2
 
-    # --- CFF CharString creation ------------------------------------
-
+    # --- CFF CharString creation (legacy structure preserved) ---
     cff = ttfont["CFF "].cff
     top = cff.topDictIndex[0]
     cs = top.CharStrings
 
-    # 1. Extend the CharStrings INDEX using the public API
+    # 1. Extend the CharStrings INDEX
     cs.charStringsIndex.append(None)
 
-    # 2. Valid Type 2 CharString program (OPERANDS FIRST, THEN OPERATOR)
+    # 2. Valid Type 2 CharString program
     program = [
-        width,          # CFF width operand (required!)
+        width,          # width operand
         0, 0, "rmoveto",
         0, xh, "rlineto",
         "endchar",
     ]
 
-    # 3. Clone an existing CharString to get the correct class
+    # 3. Clone an existing CharString to get correct class
     template = cs["n"]
-
     new_cs = template.__class__(
         globalSubrs=template.globalSubrs,
         private=template.private,
@@ -78,8 +85,7 @@ def add_spacing_base_glyph(ttfont, font_key):
     # 4. Assign into CharStrings mapping
     cs[glyph_name] = new_cs
 
-    # --- GDEF classification -----------------------------------------
-
+    # --- GDEF classification (legacy) ---
     if "GDEF" in ttfont:
         gdef = ttfont["GDEF"].table
         if gdef.GlyphClassDef is None:
@@ -91,5 +97,3 @@ def add_spacing_base_glyph(ttfont, font_key):
             gdef.GlyphClassDef.classDefs = {}
 
         gdef.GlyphClassDef.classDefs[glyph_name] = 1
-
-        

@@ -1,0 +1,2031 @@
+U+00F2 ograve:
+  component 0: gravecomb (U+0300) tx=380.0 ty=-37.0
+    implied base 'above' from gravecomb.above(mark): (238.0, 646.0)
+    implied mark-to-mark 'aboveMark' for gravecomb: (-125.0, 871.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+    implied mark 'above' for o: (255.0, 834.0)
+
+U+00F3 oacute:
+  component 0: acutecomb (U+0301) tx=422.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (231.0, 645.0)
+    implied mark-to-mark 'aboveMark' for acutecomb: (-167.0, 871.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+    implied mark 'above' for o: (255.0, 834.0)
+
+U+00F4 ocircumflex:
+  component 0: uni0302 (U+0302) tx=391.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (252.0, 646.0)
+    implied mark-to-mark 'aboveMark' for uni0302: (-136.0, 884.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+    implied mark 'above' for o: (255.0, 833.0)
+
+U+00F5 otilde:
+  component 0: tildecomb (U+0303) tx=388.0 ty=-48.0
+    implied base 'above' from tildecomb.above(mark): (239.0, 649.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-148.0, 857.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+    implied mark 'above' for o: (240.0, 809.0)
+
+U+00F6 odieresis:
+  component 0: uni0308 (U+0308) tx=462.0 ty=2.0
+    implied base 'above' from uni0308.above(mark): (252.0, 647.0)
+    implied mark-to-mark 'aboveMark' for uni0308: (-207.0, 832.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+    implied mark 'above' for o: (255.0, 834.0)
+
+U+00F9 ugrave:
+  component 0: gravecomb (U+0300) tx=375.0 ty=-37.0
+    implied base 'above' from gravecomb.above(mark): (233.0, 646.0)
+    implied mark-to-mark 'aboveMark' for gravecomb: (-120.0, 871.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+    implied mark 'above' for u: (255.0, 834.0)
+
+U+00FA uacute:
+  component 0: acutecomb (U+0301) tx=449.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (258.0, 645.0)
+    implied mark-to-mark 'aboveMark' for acutecomb: (-194.0, 871.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+    implied mark 'above' for u: (255.0, 834.0)
+
+U+00FB ucircumflex:
+  component 0: uni0302 (U+0302) tx=386.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (247.0, 646.0)
+    implied mark-to-mark 'aboveMark' for uni0302: (-139.0, 885.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+    implied mark 'above' for u: (247.0, 834.0)
+
+U+0115 ebreve:
+  component 0: uni0306 (U+0306) tx=389.0 ty=-28.0
+    implied base 'above' from uni0306.above(mark): (228.0, 653.0)
+    implied mark-to-mark 'aboveMark' for uni0306: (-162.0, 823.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (227.0, 795.0)
+
+U+0116 Edotaccent:
+  component 0: Epsilon (U+0395) tx=0.0 ty=0.0
+  component 1: uni0358 (U+0358) tx=284.0 ty=113.0
+
+U+0117 edotaccent:
+  component 0: uni0307 (U+0307) tx=410.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (230.0, 690.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (230.0, 795.0)
+
+U+0118 Eogonek: not built from exactly 2 references (has 0)
+U+0119 eogonek: not built from exactly 2 references (has 0)
+U+011A Ecaron:
+  component 0: caron.cap (U+-001) tx=473.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (293.0, 812.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+011B ecaron:
+  component 0: uni030C (U+030C) tx=428.0 ty=-32.0
+    implied base 'above' from uni030C.above(mark): (223.0, 644.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+
+U+011C Gcircumflex:
+  component 0: circumflex.cap (U+-001) tx=496.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (363.0, 850.0)
+  component 1: G (U+0047) tx=0.0 ty=0.0
+
+U+011D gcircumflex:
+  component 0: uni0302 (U+0302) tx=369.0 ty=-52.0
+    implied base 'above' from uni0302.above(mark): (230.0, 645.0)
+  component 1: g (U+0067) tx=0.0 ty=0.0
+
+U+011E Gbreve:
+  component 0: breve.cap (U+-001) tx=513.0 ty=149.0
+    implied base 'above' from breve.cap.above(mark): (352.0, 807.0)
+  component 1: G (U+0047) tx=0.0 ty=0.0
+
+U+011F gbreve:
+  component 0: uni0306 (U+0306) tx=381.0 ty=-32.0
+    implied base 'above' from uni0306.above(mark): (220.0, 649.0)
+  component 1: g (U+0067) tx=0.0 ty=0.0
+
+U+0120 Gdotaccent:
+  component 0: uni0358 (U+0358) tx=370.0 ty=113.0
+  component 1: G (U+0047) tx=0.0 ty=0.0
+
+U+0121 gdotaccent:
+  component 0: uni0307 (U+0307) tx=410.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (230.0, 690.0)
+  component 1: g (U+0067) tx=0.0 ty=0.0
+
+U+0122 uni0122:
+  component 0: uni0326 (U+0326) tx=625.0 ty=0.0
+  component 1: G (U+0047) tx=0.0 ty=0.0
+
+U+0123 uni0123:
+  component 0: uni0312 (U+0312) tx=324.0 ty=43.0
+    implied base 'above' from uni0312.above(mark): (214.0, 648.0)
+  component 1: g (U+0067) tx=0.0 ty=0.0
+
+U+0124 Hcircumflex:
+  component 0: circumflex.cap (U+-001) tx=499.0 ty=164.0
+    implied base 'above' from circumflex.cap.above(mark): (366.0, 848.0)
+  component 1: H (U+0048) tx=0.0 ty=0.0
+
+U+0125 hcircumflex: not built from exactly 2 references (has 1)
+U+0128 Itilde:
+  component 0: tildecomb (U+0303) tx=297.0 ty=123.0
+    implied base 'above' from tildecomb.above(mark): (148.0, 820.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+0129 itilde: not built from exactly 2 references (has 1)
+U+012A Imacron:
+  component 0: uni0304 (U+0304) tx=360.0 ty=210.0
+    implied base 'above' from uni0304.above(mark): (151.0, 854.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+012B imacron: not built from exactly 2 references (has 1)
+U+012C Ibreve:
+  component 0: breve.cap (U+-001) tx=310.0 ty=148.0
+    implied base 'above' from breve.cap.above(mark): (149.0, 806.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+012D ibreve: not built from exactly 2 references (has 1)
+U+012E Iogonek: not built from exactly 2 references (has 0)
+U+012F iogonek: not built from exactly 2 references (has 1)
+U+0130 Idotaccent:
+  component 0: uni0358 (U+0358) tx=163.0 ty=113.0
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+1E00 uni1E00:
+  component 0: uni030A (U+030A) tx=518.0 ty=-785.0
+    implied base 'above' from uni030A.above(mark): (334.0, -77.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+1E01 uni1E01:
+  component 0: uni030A (U+030A) tx=406.0 ty=-786.0
+    implied base 'above' from uni030A.above(mark): (222.0, -78.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+
+U+1E02 uni1E02:
+  component 0: uni0358 (U+0358) tx=290.0 ty=114.0
+  component 1: B (U+0042) tx=0.0 ty=0.0
+
+U+1E03 uni1E03:
+  component 0: uni0307 (U+0307) tx=448.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (268.0, 690.0)
+  component 1: b (U+0062) tx=0.0 ty=0.0
+
+U+1E04 uni1E04:
+  component 0: uni0307 (U+0307) tx=450.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (270.0, -65.0)
+  component 1: B (U+0042) tx=0.0 ty=0.0
+
+U+1E05 uni1E05:
+  component 0: uni0307 (U+0307) tx=405.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (225.0, -65.0)
+  component 1: b (U+0062) tx=0.0 ty=0.0
+
+U+1E08 uni1E08:
+  component 0: acute.cap (U+-001) tx=565.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (355.0, 819.0)
+  component 1: Ccedilla (U+00C7) tx=0.0 ty=0.0
+
+U+1E09 uni1E09:
+  component 0: ccedilla (U+00E7) tx=0.0 ty=0.0
+  component 1: acutecomb (U+0301) tx=438.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (247.0, 645.0)
+
+U+1E0A uni1E0A:
+  component 0: uni0358 (U+0358) tx=310.0 ty=114.0
+  component 1: D (U+0044) tx=0.0 ty=0.0
+
+U+1E0B uni1E0B:
+  component 0: uni0307 (U+0307) tx=358.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (178.0, 690.0)
+  component 1: d (U+0064) tx=0.0 ty=0.0
+
+U+1E0C uni1E0C:
+  component 0: uni0307 (U+0307) tx=470.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (290.0, -65.0)
+  component 1: D (U+0044) tx=0.0 ty=0.0
+
+U+1E0D uni1E0D:
+  component 0: uni0307 (U+0307) tx=415.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (235.0, -65.0)
+  component 1: d (U+0064) tx=0.0 ty=0.0
+
+U+1E0E uni1E0E:
+  component 0: uni0331 (U+0331) tx=523.0 ty=0.0
+  component 1: D (U+0044) tx=0.0 ty=0.0
+
+U+1E0F uni1E0F:
+  component 0: uni0331 (U+0331) tx=474.0 ty=0.0
+  component 1: d (U+0064) tx=0.0 ty=0.0
+
+U+1E10 uni1E10:
+  component 0: uni0326 (U+0326) tx=570.0 ty=0.0
+  component 1: D (U+0044) tx=0.0 ty=0.0
+
+U+1E11 uni1E11:
+  component 0: uni0326 (U+0326) tx=480.0 ty=0.0
+  component 1: d (U+0064) tx=0.0 ty=0.0
+
+U+1E12 uni1E12:
+  component 0: uni0302 (U+0302) tx=406.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (267.0, -57.0)
+  component 1: D (U+0044) tx=0.0 ty=0.0
+
+U+1E13 uni1E13:
+  component 0: uni0302 (U+0302) tx=355.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (216.0, -57.0)
+  component 1: d (U+0064) tx=0.0 ty=0.0
+
+U+1E14 uni1E14:
+  component 0: Epsilon (U+0395) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=515.0 ty=178.0
+    implied base 'above' from uni0304.above(mark): (306.0, 822.0)
+
+U+1E15 uni1E15: not built from exactly 2 references (has 1)
+U+1E16 uni1E16:
+  component 0: Epsilon (U+0395) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=458.0 ty=178.0
+    implied base 'above' from uni0304.above(mark): (249.0, 822.0)
+
+U+1E17 uni1E17: not built from exactly 2 references (has 1)
+U+1E18 uni1E18:
+  component 0: Epsilon (U+0395) tx=0.0 ty=0.0
+  component 1: uni0302 (U+0302) tx=414.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (275.0, -57.0)
+
+U+1E19 uni1E19:
+  component 0: uni0302 (U+0302) tx=361.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (222.0, -57.0)
+    implied mark-to-mark 'aboveMark' for uni0302: (-130.0, 1399.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (231.0, 645.0)
+
+U+1E1A uni1E1A:
+  component 0: Epsilon (U+0395) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=420.0 ty=-738.0
+    implied base 'above' from tildecomb.above(mark): (271.0, -41.0)
+
+U+1E1B uni1E1B:
+  component 0: tildecomb (U+0303) tx=372.0 ty=-736.0
+    implied base 'above' from tildecomb.above(mark): (223.0, -39.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-141.0, 1381.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (231.0, 645.0)
+
+U+1E1E uni1E1E:
+  component 0: uni0358 (U+0358) tx=268.0 ty=114.0
+  component 1: F (U+0046) tx=0.0 ty=0.0
+
+U+1E1F uni1E1F:
+  component 0: uni0307 (U+0307) tx=434.0 ty=231.0
+    implied base 'above' from uni0307.above(mark): (254.0, 898.0)
+  component 1: f (U+0066) tx=0.0 ty=0.0
+
+U+1E20 uni1E20:
+  component 0: uni0304 (U+0304) tx=578.0 ty=210.0
+    implied base 'above' from uni0304.above(mark): (369.0, 854.0)
+  component 1: G (U+0047) tx=0.0 ty=0.0
+
+U+1E21 uni1E21:
+  component 0: uni0304 (U+0304) tx=453.0 ty=-17.0
+    implied base 'above' from uni0304.above(mark): (244.0, 627.0)
+  component 1: g (U+0067) tx=0.0 ty=0.0
+
+U+1E22 uni1E22:
+  component 0: uni0358 (U+0358) tx=390.0 ty=113.0
+  component 1: H (U+0048) tx=0.0 ty=0.0
+
+U+1E23 uni1E23:
+  component 0: uni0307 (U+0307) tx=468.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (288.0, 690.0)
+  component 1: h (U+0068) tx=0.0 ty=0.0
+
+U+1E24 uni1E24:
+  component 0: uni0307 (U+0307) tx=554.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (374.0, -65.0)
+  component 1: H (U+0048) tx=0.0 ty=0.0
+
+U+1E25 uni1E25:
+  component 0: uni0307 (U+0307) tx=440.0 ty=-733.0
+    implied base 'above' from uni0307.above(mark): (260.0, -66.0)
+  component 1: h (U+0068) tx=0.0 ty=0.0
+
+U+1E26 uni1E26:
+  component 0: dieresis.cap (U+-001) tx=601.0 ty=0.0
+    implied base 'above' from dieresis.cap.above(mark): (364.0, 807.0)
+  component 1: H (U+0048) tx=0.0 ty=0.0
+
+U+1E27 uni1E27: not built from exactly 2 references (has 1)
+U+1E28 uni1E28: not built from exactly 2 references (has 0)
+U+1E29 uni1E29: not built from exactly 2 references (has 0)
+U+1E2A uni1E2A:
+  component 0: uni032E (U+032E) tx=613.0 ty=0.0
+  component 1: H (U+0048) tx=0.0 ty=0.0
+
+U+1E2B uni1E2B:
+  component 0: uni032E (U+032E) tx=523.0 ty=0.0
+  component 1: h (U+0068) tx=0.0 ty=0.0
+
+U+1E2C uni1E2C:
+  component 0: tildecomb (U+0303) tx=300.0 ty=-738.0
+    implied base 'above' from tildecomb.above(mark): (151.0, -41.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-154.0, 1588.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+    implied mark 'above' for I: (146.0, 850.0)
+
+U+1E2D uni1E2D:
+  component 0: tildecomb (U+0303) tx=286.0 ty=-738.0
+    implied base 'above' from tildecomb.above(mark): (137.0, -41.0)
+  component 1: i (U+0069) tx=0.0 ty=0.0
+
+U+1E2E uni1E2E: not built from exactly 2 references (has 1)
+U+1E2F uni1E2F: not built from exactly 2 references (has 1)
+U+1E30 uni1E30:
+  component 0: acute.cap (U+-001) tx=566.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (356.0, 819.0)
+  component 1: K (U+004B) tx=0.0 ty=0.0
+
+U+1E31 uni1E31:
+  component 0: acutecomb (U+0301) tx=499.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (308.0, 645.0)
+  component 1: k (U+006B) tx=0.0 ty=0.0
+
+U+1E32 uni1E32:
+  component 0: uni0307 (U+0307) tx=506.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (326.0, -65.0)
+  component 1: K (U+004B) tx=0.0 ty=0.0
+
+U+1E33 uni1E33:
+  component 0: uni0307 (U+0307) tx=432.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (252.0, -65.0)
+  component 1: k (U+006B) tx=0.0 ty=0.0
+
+U+1E34 uni1E34:
+  component 0: uni0331 (U+0331) tx=579.0 ty=0.0
+  component 1: K (U+004B) tx=0.0 ty=0.0
+
+U+1E35 uni1E35:
+  component 0: uni0331 (U+0331) tx=503.0 ty=0.0
+  component 1: k (U+006B) tx=0.0 ty=0.0
+
+U+1E36 uni1E36:
+  component 0: uni0307 (U+0307) tx=457.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (277.0, -65.0)
+  component 1: L (U+004C) tx=0.0 ty=0.0
+
+U+1E37 uni1E37:
+  component 0: uni0307 (U+0307) tx=312.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (132.0, -65.0)
+  component 1: l (U+006C) tx=0.0 ty=0.0
+
+U+1E38 uni1E38:
+  component 0: uni1E36 (U+1E36) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=362.0 ty=178.0
+    implied base 'above' from uni0304.above(mark): (153.0, 822.0)
+
+U+1E39 uni1E39:
+  component 0: uni1E37 (U+1E37) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=336.0 ty=201.0
+    implied base 'above' from uni0304.above(mark): (127.0, 845.0)
+
+U+1E3A uni1E3A:
+  component 0: uni0331 (U+0331) tx=511.0 ty=0.0
+  component 1: L (U+004C) tx=0.0 ty=0.0
+
+U+1E3B uni1E3B:
+  component 0: uni0331 (U+0331) tx=370.0 ty=0.0
+  component 1: l (U+006C) tx=0.0 ty=0.0
+
+U+1E3C uni1E3C:
+  component 0: uni0302 (U+0302) tx=421.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (282.0, -57.0)
+  component 1: L (U+004C) tx=0.0 ty=0.0
+
+U+1E3D uni1E3D:
+  component 0: uni0302 (U+0302) tx=272.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (133.0, -57.0)
+  component 1: l (U+006C) tx=0.0 ty=0.0
+
+U+1E3E uni1E3E:
+  component 0: acute.cap (U+-001) tx=621.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (411.0, 819.0)
+  component 1: M (U+004D) tx=0.0 ty=0.0
+
+U+1E3F uni1E3F:
+  component 0: acutecomb (U+0301) tx=557.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (366.0, 645.0)
+  component 1: m (U+006D) tx=0.0 ty=0.0
+
+U+1E40 uni1E40:
+  component 0: uni0358 (U+0358) tx=437.0 ty=114.0
+  component 1: M (U+004D) tx=0.0 ty=0.0
+
+U+1E41 uni1E41:
+  component 0: uni0307 (U+0307) tx=572.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (392.0, 690.0)
+  component 1: m (U+006D) tx=0.0 ty=0.0
+
+U+1E42 uni1E42:
+  component 0: uni0307 (U+0307) tx=576.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (396.0, -65.0)
+  component 1: M (U+004D) tx=0.0 ty=0.0
+
+U+1E43 uni1E43:
+  component 0: dotbelowcomb (U+0323) tx=624.0 ty=3.0
+  component 1: m (U+006D) tx=0.0 ty=0.0
+
+U+1E44 uni1E44:
+  component 0: uni0358 (U+0358) tx=370.0 ty=114.0
+  component 1: N (U+004E) tx=0.0 ty=0.0
+
+U+1E45 uni1E45:
+  component 0: uni0307 (U+0307) tx=468.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (288.0, 690.0)
+  component 1: n (U+006E) tx=0.0 ty=0.0
+
+U+1E46 uni1E46:
+  component 0: uni0307 (U+0307) tx=530.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (350.0, -65.0)
+  component 1: N (U+004E) tx=0.0 ty=0.0
+
+U+1E47 uni1E47:
+  component 0: uni0307 (U+0307) tx=445.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (265.0, -65.0)
+  component 1: n (U+006E) tx=0.0 ty=0.0
+
+U+1E48 uni1E48:
+  component 0: uni0331 (U+0331) tx=596.0 ty=0.0
+  component 1: N (U+004E) tx=0.0 ty=0.0
+
+U+1E49 uni1E49:
+  component 0: uni0331 (U+0331) tx=502.0 ty=0.0
+  component 1: n (U+006E) tx=0.0 ty=0.0
+
+U+1E4A uni1E4A:
+  component 0: uni0302 (U+0302) tx=490.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (351.0, -57.0)
+  component 1: N (U+004E) tx=0.0 ty=0.0
+
+U+1E4B uni1E4B:
+  component 0: uni0302 (U+0302) tx=408.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (269.0, -57.0)
+  component 1: n (U+006E) tx=0.0 ty=0.0
+
+U+1E4C uni1E4C: not built from exactly 2 references (has 1)
+U+1E4D uni1E4D:
+  component 0: tildecomb (U+0303) tx=388.0 ty=-70.0
+    implied base 'above' from tildecomb.above(mark): (239.0, 627.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+
+U+1E4E uni1E4E: not built from exactly 2 references (has 1)
+U+1E4F uni1E4F: not built from exactly 2 references (has 3)
+U+1E54 uni1E54:
+  component 0: acute.cap (U+-001) tx=501.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (291.0, 819.0)
+  component 1: P (U+0050) tx=0.0 ty=0.0
+
+U+1E55 uni1E55:
+  component 0: acutecomb (U+0301) tx=465.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (274.0, 645.0)
+  component 1: p (U+0070) tx=0.0 ty=0.0
+
+U+1E56 uni1E56:
+  component 0: uni0358 (U+0358) tx=300.0 ty=114.0
+  component 1: P (U+0050) tx=0.0 ty=0.0
+
+U+1E57 uni1E57:
+  component 0: uni0307 (U+0307) tx=448.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (268.0, 690.0)
+  component 1: p (U+0070) tx=0.0 ty=0.0
+
+U+1E58 uni1E58:
+  component 0: uni0358 (U+0358) tx=290.0 ty=114.0
+  component 1: R (U+0052) tx=0.0 ty=0.0
+
+U+1E59 uni1E59:
+  component 0: uni0307 (U+0307) tx=387.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (207.0, 690.0)
+  component 1: r (U+0072) tx=0.0 ty=0.0
+
+U+1E5A uni1E5A:
+  component 0: uni0307 (U+0307) tx=473.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (293.0, -65.0)
+  component 1: R (U+0052) tx=0.0 ty=0.0
+
+U+1E5B uni1E5B:
+  component 0: uni0307 (U+0307) tx=306.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (126.0, -65.0)
+  component 1: r (U+0072) tx=0.0 ty=0.0
+
+U+1E5C uni1E5C:
+  component 0: uni1E5A (U+1E5A) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=482.0 ty=178.0
+    implied base 'above' from uni0304.above(mark): (273.0, 822.0)
+
+U+1E5D uni1E5D:
+  component 0: uni1E5B (U+1E5B) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=402.0 ty=-14.0
+    implied base 'above' from uni0304.above(mark): (193.0, 630.0)
+
+U+1E5E uni1E5E:
+  component 0: uni0331 (U+0331) tx=556.0 ty=0.0
+  component 1: R (U+0052) tx=0.0 ty=0.0
+
+U+1E5F uni1E5F:
+  component 0: uni0331 (U+0331) tx=397.0 ty=0.0
+  component 1: r (U+0072) tx=0.0 ty=0.0
+
+U+1E60 uni1E60:
+  component 0: uni0405 (U+0405) tx=0.0 ty=0.0
+  component 1: uni0358 (U+0358) tx=240.0 ty=114.0
+
+U+1E61 uni1E61:
+  component 0: uni0307 (U+0307) tx=389.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (209.0, 690.0)
+  component 1: s (U+0073) tx=0.0 ty=0.0
+
+U+1E62 uni1E62:
+  component 0: uni0405 (U+0405) tx=0.0 ty=0.0
+  component 1: uni0307 (U+0307) tx=408.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (228.0, -65.0)
+
+U+1E63 uni1E63:
+  component 0: uni0307 (U+0307) tx=370.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (190.0, -65.0)
+  component 1: s (U+0073) tx=0.0 ty=0.0
+
+U+1E64 uni1E64: not built from exactly 2 references (has 3)
+U+1E65 uni1E65:
+  component 0: acutecomb (U+0301) tx=392.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (201.0, 645.0)
+  component 1: s (U+0073) tx=0.0 ty=0.0
+
+U+1E66 uni1E66:
+  component 0: Scaron (U+0160) tx=0.0 ty=0.0
+  component 1: uni0358 (U+0358) tx=254.0 ty=202.0
+
+U+1E67 uni1E67: not built from exactly 2 references (has 1)
+U+1E68 uni1E68:
+  component 0: uni1E62 (U+1E62) tx=0.0 ty=0.0
+  component 1: uni0358 (U+0358) tx=250.0 ty=114.0
+
+U+1E69 uni1E69:
+  component 0: uni1E63 (U+1E63) tx=0.0 ty=0.0
+  component 1: uni0307 (U+0307) tx=368.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (188.0, 690.0)
+
+U+1E6A uni1E6A:
+  component 0: uni0358 (U+0358) tx=321.0 ty=114.0
+  component 1: T (U+0054) tx=0.0 ty=0.0
+
+U+1E6B uni1E6B:
+  component 0: uni0307 (U+0307) tx=314.0 ty=154.0
+    implied base 'above' from uni0307.above(mark): (134.0, 821.0)
+  component 1: t (U+0074) tx=0.0 ty=0.0
+
+U+1E6C uni1E6C:
+  component 0: uni0307 (U+0307) tx=480.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (300.0, -65.0)
+  component 1: T (U+0054) tx=0.0 ty=0.0
+
+U+1E6D uni1E6D:
+  component 0: uni0307 (U+0307) tx=362.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (182.0, -65.0)
+  component 1: t (U+0074) tx=0.0 ty=0.0
+
+U+1E6E uni1E6E:
+  component 0: uni0331 (U+0331) tx=540.0 ty=0.0
+  component 1: T (U+0054) tx=0.0 ty=0.0
+
+U+1E6F uni1E6F:
+  component 0: uni0331 (U+0331) tx=404.0 ty=0.0
+  component 1: t (U+0074) tx=0.0 ty=0.0
+
+U+1E72 uni1E72:
+  component 0: uni0308 (U+0308) tx=542.0 ty=-686.0
+    implied base 'above' from uni0308.above(mark): (332.0, -41.0)
+    implied mark-to-mark 'aboveMark' for uni0308: (-196.0, 1536.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+    implied mark 'above' for U: (346.0, 850.0)
+
+U+1E73 uni1E73:
+  component 0: uni0308 (U+0308) tx=453.0 ty=-686.0
+    implied base 'above' from uni0308.above(mark): (243.0, -41.0)
+    implied mark-to-mark 'aboveMark' for uni0308: (-198.0, 1331.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+    implied mark 'above' for u: (255.0, 645.0)
+
+U+1E74 uni1E74:
+  component 0: tildecomb (U+0303) tx=486.0 ty=-738.0
+    implied base 'above' from tildecomb.above(mark): (337.0, -41.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+1E75 uni1E75:
+  component 0: tildecomb (U+0303) tx=396.0 ty=-738.0
+    implied base 'above' from tildecomb.above(mark): (247.0, -41.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+1E76 uni1E76:
+  component 0: uni0302 (U+0302) tx=473.0 ty=-755.0
+    implied base 'above' from uni0302.above(mark): (334.0, -58.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+1E77 uni1E77:
+  component 0: uni0302 (U+0302) tx=381.0 ty=-754.0
+    implied base 'above' from uni0302.above(mark): (242.0, -57.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+1E78 uni1E78: not built from exactly 2 references (has 1)
+U+1E79 uni1E79: not built from exactly 2 references (has 1)
+U+00C0 Agrave:
+  component 0: grave.cap (U+-001) tx=501.0 ty=127.0
+    implied base 'above' from grave.cap.above(mark): (326.0, 818.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+00C1 Aacute:
+  component 0: acute.cap (U+-001) tx=574.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (364.0, 820.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+00C2 Acircumflex:
+  component 0: circumflex.cap (U+-001) tx=490.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (357.0, 850.0)
+    implied mark-to-mark 'aboveMark' for circumflex.cap: (-128.0, 728.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+    implied mark 'above' for A: (362.0, 894.0)
+
+U+00C3 Atilde:
+  component 0: tildecomb (U+0303) tx=506.0 ty=126.0
+    implied base 'above' from tildecomb.above(mark): (357.0, 823.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-142.0, 768.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+    implied mark 'above' for A: (364.0, 894.0)
+
+U+00C5 Aring: not built from exactly 2 references (has 0)
+U+00C7 Ccedilla: not built from exactly 2 references (has 0)
+U+00C8 Egrave:
+  component 0: grave.cap (U+-001) tx=462.0 ty=126.0
+    implied base 'above' from grave.cap.above(mark): (287.0, 817.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+00C9 Eacute:
+  component 0: acute.cap (U+-001) tx=507.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (297.0, 820.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+00CA Ecircumflex:
+  component 0: circumflex.cap (U+-001) tx=428.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (295.0, 850.0)
+    implied mark-to-mark 'aboveMark' for circumflex.cap: (-132.0, 728.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+00CB Edieresis:
+  component 0: dieresis.cap (U+-001) tx=516.0 ty=0.0
+    implied base 'above' from dieresis.cap.above(mark): (279.0, 807.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+00CC Igrave:
+  component 0: grave.cap (U+-001) tx=316.0 ty=126.0
+    implied base 'above' from grave.cap.above(mark): (141.0, 817.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+00CD Iacute:
+  component 0: acute.cap (U+-001) tx=367.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (157.0, 819.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+00CE Icircumflex:
+  component 0: circumflex.cap (U+-001) tx=278.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (145.0, 850.0)
+    implied mark-to-mark 'aboveMark' for circumflex.cap: (-134.0, 728.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+    implied mark 'above' for I: (144.0, 894.0)
+
+U+00CF Idieresis:
+  component 0: dieresis.cap (U+-001) tx=387.0 ty=0.0
+    implied base 'above' from dieresis.cap.above(mark): (150.0, 807.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+    implied mark 'above' for I: (148.0, 894.0)
+
+U+00D2 Ograve:
+  component 0: grave.cap (U+-001) tx=521.0 ty=128.0
+    implied base 'above' from grave.cap.above(mark): (346.0, 819.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+    implied mark 'above' for O: (344.0, 894.0)
+
+U+00D3 Oacute:
+  component 0: acute.cap (U+-001) tx=544.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (334.0, 820.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+    implied mark 'above' for O: (344.0, 894.0)
+
+U+00D4 Ocircumflex:
+  component 0: circumflex.cap (U+-001) tx=479.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (346.0, 850.0)
+    implied mark-to-mark 'aboveMark' for circumflex.cap: (-135.0, 728.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+    implied mark 'above' for O: (344.0, 894.0)
+
+U+00D5 Otilde:
+  component 0: tildecomb (U+0303) tx=494.0 ty=124.0
+    implied base 'above' from tildecomb.above(mark): (345.0, 821.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-150.0, 770.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+    implied mark 'above' for O: (344.0, 894.0)
+
+U+00D9 Ugrave:
+  component 0: grave.cap (U+-001) tx=493.0 ty=127.0
+    implied base 'above' from grave.cap.above(mark): (318.0, 818.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+    implied mark 'above' for U: (344.0, 894.0)
+
+U+00DA Uacute:
+  component 0: acute.cap (U+-001) tx=562.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (352.0, 819.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+    implied mark 'above' for U: (344.0, 894.0)
+
+U+00DB Ucircumflex:
+  component 0: circumflex.cap (U+-001) tx=481.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (348.0, 850.0)
+    implied mark-to-mark 'aboveMark' for circumflex.cap: (-137.0, 728.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+    implied mark 'above' for U: (344.0, 894.0)
+
+U+00DD Yacute:
+  component 0: acute.cap (U+-001) tx=517.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (307.0, 820.0)
+  component 1: Y (U+0059) tx=0.0 ty=0.0
+    implied mark 'above' for Y: (344.0, 894.0)
+
+U+00E0 agrave:
+  component 0: gravecomb (U+0300) tx=352.0 ty=-37.0
+    implied base 'above' from gravecomb.above(mark): (210.0, 646.0)
+    implied mark-to-mark 'aboveMark' for gravecomb: (-97.0, 871.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+    implied mark 'above' for a: (255.0, 834.0)
+
+U+00E1 aacute:
+  component 0: acutecomb (U+0301) tx=396.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (205.0, 645.0)
+    implied mark-to-mark 'aboveMark' for acutecomb: (-141.0, 871.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+    implied mark 'above' for a: (255.0, 834.0)
+
+U+00E2 acircumflex:
+  component 0: uni0302 (U+0302) tx=354.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (215.0, 646.0)
+    implied mark-to-mark 'aboveMark' for uni0302: (-140.0, 885.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+    implied mark 'above' for a: (214.0, 834.0)
+
+U+00E3 atilde:
+  component 0: tildecomb (U+0303) tx=367.0 ty=-48.0
+    implied base 'above' from tildecomb.above(mark): (218.0, 649.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-149.0, 858.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+    implied mark 'above' for a: (218.0, 810.0)
+
+U+00E4 adieresis:
+  component 0: uni0308 (U+0308) tx=424.0 ty=2.0
+    implied base 'above' from uni0308.above(mark): (214.0, 647.0)
+    implied mark-to-mark 'aboveMark' for uni0308: (-169.0, 832.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+    implied mark 'above' for a: (255.0, 834.0)
+
+U+00E5 aring:
+  component 0: uni030A (U+030A) tx=392.0 ty=-71.0
+    implied base 'above' from uni030A.above(mark): (208.0, 637.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+    implied mark 'above' for a: (224.0, 844.0)
+
+U+00E7 ccedilla: not built from exactly 2 references (has 0)
+U+00E8 egrave:
+  component 0: gravecomb (U+0300) tx=366.0 ty=-37.0
+    implied base 'above' from gravecomb.above(mark): (224.0, 646.0)
+    implied mark-to-mark 'aboveMark' for gravecomb: (-111.0, 871.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (255.0, 834.0)
+
+U+00E9 eacute:
+  component 0: acutecomb (U+0301) tx=422.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (231.0, 645.0)
+    implied mark-to-mark 'aboveMark' for acutecomb: (-167.0, 871.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (255.0, 834.0)
+
+U+00EA ecircumflex:
+  component 0: uni0302 (U+0302) tx=372.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (233.0, 646.0)
+    implied mark-to-mark 'aboveMark' for uni0302: (-117.0, 885.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (255.0, 834.0)
+
+U+00EB edieresis:
+  component 0: uni0308 (U+0308) tx=440.0 ty=2.0
+    implied base 'above' from uni0308.above(mark): (230.0, 647.0)
+    implied mark-to-mark 'aboveMark' for uni0308: (-185.0, 832.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (255.0, 834.0)
+
+U+00EC igrave:
+  component 0: gravecomb (U+0300) tx=255.0 ty=-37.0
+    implied base 'above' from gravecomb.above(mark): (113.0, 646.0)
+    implied mark-to-mark 'aboveMark' for gravecomb: (0.0, 871.0)
+  component 1: dotlessi (U+0131) tx=0.0 ty=0.0
+    implied mark 'above' for dotlessi: (255.0, 834.0)
+
+U+00ED iacute:
+  component 0: acutecomb (U+0301) tx=315.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (124.0, 645.0)
+    implied mark-to-mark 'aboveMark' for acutecomb: (-170.0, 871.0)
+  component 1: dotlessi (U+0131) tx=0.0 ty=0.0
+    implied mark 'above' for dotlessi: (145.0, 834.0)
+
+U+00EE icircumflex:
+  component 0: uni0302 (U+0302) tx=264.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (125.0, 646.0)
+    implied mark-to-mark 'aboveMark' for uni0302: (-9.0, 885.0)
+  component 1: dotlessi (U+0131) tx=0.0 ty=0.0
+    implied mark 'above' for dotlessi: (255.0, 834.0)
+
+U+00EF idieresis:
+  component 0: uni0308 (U+0308) tx=337.0 ty=2.0
+    implied base 'above' from uni0308.above(mark): (127.0, 647.0)
+    implied mark-to-mark 'aboveMark' for uni0308: (-200.0, 793.0)
+  component 1: dotlessi (U+0131) tx=0.0 ty=0.0
+    implied mark 'above' for dotlessi: (137.0, 795.0)
+
+U+00FC udieresis:
+  component 0: uni0308 (U+0308) tx=464.0 ty=2.0
+    implied base 'above' from uni0308.above(mark): (254.0, 647.0)
+    implied mark-to-mark 'aboveMark' for uni0308: (-209.0, 832.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+    implied mark 'above' for u: (255.0, 834.0)
+
+U+00FD yacute:
+  component 0: acutecomb (U+0301) tx=467.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (276.0, 645.0)
+    implied mark-to-mark 'aboveMark' for acutecomb: (-212.0, 871.0)
+  component 1: y (U+0079) tx=0.0 ty=0.0
+    implied mark 'above' for y: (255.0, 834.0)
+
+U+00FF ydieresis:
+  component 0: uni0308 (U+0308) tx=481.0 ty=2.0
+    implied base 'above' from uni0308.above(mark): (271.0, 647.0)
+    implied mark-to-mark 'aboveMark' for uni0308: (-226.0, 832.0)
+  component 1: y (U+0079) tx=0.0 ty=0.0
+    implied mark 'above' for y: (255.0, 834.0)
+
+U+0100 Amacron:
+  component 0: uni0304 (U+0304) tx=567.0 ty=203.0
+    implied base 'above' from uni0304.above(mark): (358.0, 847.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+0101 amacron:
+  component 0: uni0304 (U+0304) tx=427.0 ty=-17.0
+    implied base 'above' from uni0304.above(mark): (218.0, 627.0)
+    implied mark-to-mark 'aboveMark' for uni0304: (-218.0, 732.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+    implied mark 'above' for a: (209.0, 715.0)
+
+U+0102 Abreve:
+  component 0: breve.cap (U+-001) tx=519.0 ty=147.0
+    implied base 'above' from breve.cap.above(mark): (358.0, 805.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+0103 abreve:
+  component 0: uni0306 (U+0306) tx=367.0 ty=-29.0
+    implied base 'above' from uni0306.above(mark): (206.0, 652.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+
+U+0104 Aogonek: not built from exactly 2 references (has 0)
+U+0105 aogonek: not built from exactly 2 references (has 0)
+U+0106 Cacute:
+  component 0: acute.cap (U+-001) tx=549.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (339.0, 819.0)
+  component 1: C (U+0043) tx=0.0 ty=0.0
+
+U+0107 cacute:
+  component 0: acutecomb (U+0301) tx=406.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (215.0, 645.0)
+  component 1: c (U+0063) tx=0.0 ty=0.0
+
+U+0108 Ccircumflex:
+  component 0: circumflex.cap (U+-001) tx=489.0 ty=167.0
+    implied base 'above' from circumflex.cap.above(mark): (356.0, 851.0)
+  component 1: C (U+0043) tx=0.0 ty=0.0
+
+U+0109 ccircumflex:
+  component 0: uni0302 (U+0302) tx=362.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (223.0, 646.0)
+    implied mark-to-mark 'aboveMark' for uni0302: (-135.0, 846.0)
+  component 1: c (U+0063) tx=0.0 ty=0.0
+    implied mark 'above' for c: (227.0, 795.0)
+
+U+010A Cdotaccent:
+  component 0: uni0358 (U+0358) tx=370.0 ty=113.0
+  component 1: C (U+0043) tx=0.0 ty=0.0
+
+U+010B cdotaccent:
+  component 0: uni0307 (U+0307) tx=409.0 ty=24.0
+    implied base 'above' from uni0307.above(mark): (229.0, 691.0)
+  component 1: c (U+0063) tx=0.0 ty=0.0
+    implied mark 'above' for c: (227.0, 795.0)
+
+U+010C Ccaron:
+  component 0: caron.cap (U+-001) tx=538.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (358.0, 812.0)
+  component 1: C (U+0043) tx=0.0 ty=0.0
+
+U+010D ccaron:
+  component 0: uni030C (U+030C) tx=431.0 ty=-31.0
+    implied base 'above' from uni030C.above(mark): (226.0, 645.0)
+    implied mark-to-mark 'aboveMark' for uni030C: (-204.0, 826.0)
+  component 1: c (U+0063) tx=0.0 ty=0.0
+    implied mark 'above' for c: (227.0, 795.0)
+
+U+010E Dcaron:
+  component 0: caron.cap (U+-001) tx=496.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (316.0, 812.0)
+  component 1: D (U+0044) tx=0.0 ty=0.0
+
+U+010F dcaron:
+  component 0: uni02BC (U+02BC) tx=424.0 ty=46.0
+  component 1: d (U+0064) tx=0.0 ty=0.0
+
+U+0110 Dcroat: not built from exactly 2 references (has 0)
+U+0111 dcroat: not built from exactly 2 references (has 0)
+U+0112 Emacron:
+  component 0: Epsilon (U+0395) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=480.0 ty=210.0
+    implied base 'above' from uni0304.above(mark): (271.0, 854.0)
+
+U+0113 emacron:
+  component 0: uni0304 (U+0304) tx=442.0 ty=-17.0
+    implied base 'above' from uni0304.above(mark): (233.0, 627.0)
+    implied mark-to-mark 'aboveMark' for uni0304: (-215.0, 715.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (227.0, 698.0)
+
+U+0114 Ebreve:
+  component 0: breve.cap (U+-001) tx=441.0 ty=146.0
+    implied base 'above' from breve.cap.above(mark): (280.0, 804.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+0134 Jcircumflex:
+  component 0: circumflex.cap (U+-001) tx=310.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (177.0, 850.0)
+  component 1: J (U+004A) tx=0.0 ty=0.0
+
+U+0135 jcircumflex:
+  component 0: uni0302 (U+0302) tx=290.0 ty=-53.0
+    implied base 'above' from uni0302.above(mark): (151.0, 644.0)
+  component 1: uni0237 (U+0237) tx=0.0 ty=0.0
+
+U+0136 uni0136:
+  component 0: uni0326 (U+0326) tx=602.0 ty=0.0
+  component 1: K (U+004B) tx=0.0 ty=0.0
+
+U+0137 uni0137:
+  component 0: uni0326 (U+0326) tx=516.0 ty=0.0
+  component 1: k (U+006B) tx=0.0 ty=0.0
+
+U+0139 Lacute:
+  component 0: acute.cap (U+-001) tx=349.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (139.0, 819.0)
+  component 1: L (U+004C) tx=0.0 ty=0.0
+
+U+013A lacute:
+  component 0: acute.cap (U+-001) tx=360.0 ty=154.0
+    implied base 'above' from acute.cap.above(mark): (150.0, 847.0)
+  component 1: l (U+006C) tx=0.0 ty=0.0
+
+U+013B uni013B:
+  component 0: uni0326 (U+0326) tx=527.0 ty=0.0
+  component 1: L (U+004C) tx=0.0 ty=0.0
+
+U+013C uni013C:
+  component 0: uni0326 (U+0326) tx=382.0 ty=0.0
+  component 1: l (U+006C) tx=0.0 ty=0.0
+
+U+013D Lcaron:
+  component 0: uni02BC (U+02BC) tx=321.0 ty=46.0
+  component 1: L (U+004C) tx=0.0 ty=0.0
+
+U+013E lcaron:
+  component 0: uni02BC (U+02BC) tx=186.0 ty=46.0
+  component 1: l (U+006C) tx=0.0 ty=0.0
+
+U+013F Ldot:
+  component 0: uni0358 (U+0358) tx=355.0 ty=-305.0
+  component 1: L (U+004C) tx=0.0 ty=0.0
+
+U+0140 ldot: not built from exactly 2 references (has 1)
+U+0141 Lslash: not built from exactly 2 references (has 0)
+U+0142 lslash: not built from exactly 2 references (has 0)
+U+0143 Nacute:
+  component 0: acute.cap (U+-001) tx=540.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (330.0, 820.0)
+  component 1: N (U+004E) tx=0.0 ty=0.0
+
+U+0144 nacute:
+  component 0: acutecomb (U+0301) tx=466.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (275.0, 645.0)
+  component 1: n (U+006E) tx=0.0 ty=0.0
+
+U+0145 uni0145:
+  component 0: uni0326 (U+0326) tx=608.0 ty=0.0
+  component 1: N (U+004E) tx=0.0 ty=0.0
+
+U+0146 uni0146:
+  component 0: uni0326 (U+0326) tx=511.0 ty=0.0
+  component 1: n (U+006E) tx=0.0 ty=0.0
+
+U+0147 Ncaron:
+  component 0: caron.cap (U+-001) tx=536.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (356.0, 812.0)
+  component 1: N (U+004E) tx=0.0 ty=0.0
+
+U+0148 ncaron:
+  component 0: uni030C (U+030C) tx=475.0 ty=-30.0
+    implied base 'above' from uni030C.above(mark): (270.0, 646.0)
+  component 1: n (U+006E) tx=0.0 ty=0.0
+
+U+0149 napostrophe:
+  component 0: uni02BC (U+02BC) tx=-7.0 ty=46.0
+  component 1: n (U+006E) tx=13.0 ty=0.0
+
+U+014C Omacron:
+  component 0: uni0304 (U+0304) tx=563.0 ty=210.0
+    implied base 'above' from uni0304.above(mark): (354.0, 854.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+014D omacron:
+  component 0: uni0304 (U+0304) tx=465.0 ty=-17.0
+    implied base 'above' from uni0304.above(mark): (256.0, 627.0)
+    implied mark-to-mark 'aboveMark' for uni0304: (-213.0, 797.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+    implied mark 'above' for o: (252.0, 780.0)
+
+U+014E Obreve:
+  component 0: breve.cap (U+-001) tx=515.0 ty=148.0
+    implied base 'above' from breve.cap.above(mark): (354.0, 806.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+014F obreve:
+  component 0: uni0306 (U+0306) tx=400.0 ty=-31.0
+    implied base 'above' from uni0306.above(mark): (239.0, 650.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+
+U+0150 Ohungarumlaut:
+  component 0: hungarumlaut.cap (U+-001) tx=604.0 ty=88.0
+    implied base 'above' from hungarumlaut.cap.above(mark): (378.0, 835.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+0151 ohungarumlaut:
+  component 0: uni030B (U+030B) tx=436.0 ty=-80.0
+    implied base 'above' from uni030B.above(mark): (217.0, 634.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+
+U+0154 Racute:
+  component 0: acute.cap (U+-001) tx=469.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (259.0, 820.0)
+  component 1: R (U+0052) tx=0.0 ty=0.0
+
+U+0155 racute:
+  component 0: acutecomb (U+0301) tx=393.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (202.0, 645.0)
+  component 1: r (U+0072) tx=0.0 ty=0.0
+
+U+0156 uni0156:
+  component 0: uni0326 (U+0326) tx=560.0 ty=0.0
+  component 1: R (U+0052) tx=0.0 ty=0.0
+
+U+0157 uni0157:
+  component 0: uni0326 (U+0326) tx=387.0 ty=0.0
+  component 1: r (U+0072) tx=0.0 ty=0.0
+
+U+0158 Rcaron:
+  component 0: caron.cap (U+-001) tx=449.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (269.0, 812.0)
+  component 1: R (U+0052) tx=0.0 ty=0.0
+
+U+0159 rcaron:
+  component 0: uni030C (U+030C) tx=404.0 ty=-30.0
+    implied base 'above' from uni030C.above(mark): (199.0, 646.0)
+  component 1: r (U+0072) tx=0.0 ty=0.0
+
+U+015A Sacute:
+  component 0: acute.cap (U+-001) tx=439.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (229.0, 820.0)
+  component 1: uni0405 (U+0405) tx=0.0 ty=0.0
+
+U+015B sacute:
+  component 0: acutecomb (U+0301) tx=379.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (188.0, 645.0)
+  component 1: s (U+0073) tx=0.0 ty=0.0
+
+U+015C Scircumflex:
+  component 0: circumflex.cap (U+-001) tx=361.0 ty=173.0
+    implied base 'above' from circumflex.cap.above(mark): (228.0, 857.0)
+  component 1: uni0405 (U+0405) tx=0.0 ty=0.0
+
+U+015D scircumflex:
+  component 0: uni0302 (U+0302) tx=334.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (195.0, 646.0)
+  component 1: s (U+0073) tx=0.0 ty=0.0
+
+U+015E Scedilla: not built from exactly 2 references (has 0)
+U+015F scedilla: not built from exactly 2 references (has 0)
+U+0160 Scaron:
+  component 0: caron.cap (U+-001) tx=420.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (240.0, 812.0)
+  component 1: uni0405 (U+0405) tx=0.0 ty=0.0
+
+U+0161 scaron:
+  component 0: uni030C (U+030C) tx=398.0 ty=-31.0
+    implied base 'above' from uni030C.above(mark): (193.0, 645.0)
+    implied mark-to-mark 'aboveMark' for uni030C: (-204.0, 826.0)
+  component 1: s (U+0073) tx=0.0 ty=0.0
+    implied mark 'above' for s: (194.0, 795.0)
+
+U+0162 uni0162: not built from exactly 2 references (has 0)
+U+0163 uni0163: not built from exactly 2 references (has 0)
+U+0164 Tcaron:
+  component 0: caron.cap (U+-001) tx=482.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (302.0, 812.0)
+  component 1: T (U+0054) tx=0.0 ty=0.0
+
+U+0165 tcaron:
+  component 0: uni02BC (U+02BC) tx=187.0 ty=46.0
+  component 1: t (U+0074) tx=0.0 ty=0.0
+
+U+0168 Utilde:
+  component 0: tildecomb (U+0303) tx=497.0 ty=124.0
+    implied base 'above' from tildecomb.above(mark): (348.0, 821.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+0169 utilde:
+  component 0: tildecomb (U+0303) tx=408.0 ty=-48.0
+    implied base 'above' from tildecomb.above(mark): (259.0, 649.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-147.0, 857.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+    implied mark 'above' for u: (261.0, 809.0)
+
+U+016A Umacron:
+  component 0: uni0304 (U+0304) tx=558.0 ty=209.0
+    implied base 'above' from uni0304.above(mark): (349.0, 853.0)
+    implied mark-to-mark 'aboveMark' for uni0304: (-212.0, 791.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+    implied mark 'above' for U: (346.0, 1000.0)
+
+U+016B umacron:
+  component 0: uni0304 (U+0304) tx=468.0 ty=-17.0
+    implied base 'above' from uni0304.above(mark): (259.0, 627.0)
+    implied mark-to-mark 'aboveMark' for uni0304: (-209.0, 788.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+    implied mark 'above' for u: (259.0, 771.0)
+
+U+016C Ubreve:
+  component 0: breve.cap (U+-001) tx=509.0 ty=147.0
+    implied base 'above' from breve.cap.above(mark): (348.0, 805.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+016D ubreve:
+  component 0: uni0306 (U+0306) tx=410.0 ty=-30.0
+    implied base 'above' from uni0306.above(mark): (249.0, 651.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+016E Uring:
+  component 0: uni030A (U+030A) tx=529.0 ty=70.0
+    implied base 'above' from uni030A.above(mark): (345.0, 778.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+016F uring:
+  component 0: uni030A (U+030A) tx=424.0 ty=-70.0
+    implied base 'above' from uni030A.above(mark): (240.0, 638.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+0170 Uhungarumlaut:
+  component 0: hungarumlaut.cap (U+-001) tx=615.0 ty=88.0
+    implied base 'above' from hungarumlaut.cap.above(mark): (389.0, 835.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+0171 uhungarumlaut:
+  component 0: uni030B (U+030B) tx=462.0 ty=-80.0
+    implied base 'above' from uni030B.above(mark): (243.0, 634.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+0174 Wcircumflex:
+  component 0: circumflex.cap (U+-001) tx=589.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (456.0, 850.0)
+  component 1: W (U+0057) tx=0.0 ty=0.0
+
+U+0175 wcircumflex: not built from exactly 2 references (has 1)
+U+0176 Ycircumflex:
+  component 0: circumflex.cap (U+-001) tx=425.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (292.0, 850.0)
+  component 1: Y (U+0059) tx=0.0 ty=0.0
+
+U+0177 ycircumflex:
+  component 0: uni0302 (U+0302) tx=414.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (275.0, 646.0)
+  component 1: y (U+0079) tx=0.0 ty=0.0
+
+U+0178 Ydieresis:
+  component 0: uni0308 (U+0308) tx=516.0 ty=178.0
+    implied base 'above' from uni0308.above(mark): (306.0, 823.0)
+  component 1: Y (U+0059) tx=0.0 ty=0.0
+
+U+0179 Zacute:
+  component 0: acute.cap (U+-001) tx=505.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (295.0, 820.0)
+  component 1: Z (U+005A) tx=0.0 ty=0.0
+
+U+017A zacute:
+  component 0: acutecomb (U+0301) tx=408.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (217.0, 645.0)
+  component 1: z (U+007A) tx=0.0 ty=0.0
+
+U+017B Zdotaccent:
+  component 0: uni0358 (U+0358) tx=324.0 ty=110.0
+  component 1: Z (U+005A) tx=0.0 ty=0.0
+
+U+017C zdotaccent:
+  component 0: uni0307 (U+0307) tx=395.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (215.0, 690.0)
+  component 1: z (U+007A) tx=0.0 ty=0.0
+
+U+017D Zcaron:
+  component 0: caron.cap (U+-001) tx=485.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (305.0, 812.0)
+  component 1: Z (U+005A) tx=0.0 ty=0.0
+
+U+017E zcaron:
+  component 0: uni030C (U+030C) tx=417.0 ty=-32.0
+    implied base 'above' from uni030C.above(mark): (212.0, 644.0)
+  component 1: z (U+007A) tx=0.0 ty=0.0
+
+U+019E uni019E: not built from exactly 2 references (has 0)
+U+01A0 Ohorn: not built from exactly 2 references (has 0)
+U+01A1 ohorn: not built from exactly 2 references (has 0)
+U+01A7 uni01A7: not built from exactly 2 references (has 0)
+U+01A8 uni01A8: not built from exactly 2 references (has 0)
+U+01AF Uhorn: not built from exactly 2 references (has 0)
+U+01B0 uhorn: not built from exactly 2 references (has 0)
+U+01B5 uni01B5: not built from exactly 2 references (has 0)
+U+01B6 uni01B6: not built from exactly 2 references (has 0)
+U+01CD uni01CD:
+  component 0: caron.cap (U+-001) tx=541.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (361.0, 812.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+01CE uni01CE:
+  component 0: uni030C (U+030C) tx=418.0 ty=-30.0
+    implied base 'above' from uni030C.above(mark): (213.0, 646.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+
+U+01CF uni01CF:
+  component 0: caron.cap (U+-001) tx=327.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (147.0, 812.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+01D0 uni01D0:
+  component 0: uni030C (U+030C) tx=334.0 ty=-33.0
+    implied base 'above' from uni030C.above(mark): (129.0, 643.0)
+  component 1: dotlessi (U+0131) tx=0.0 ty=0.0
+
+U+01D1 uni01D1:
+  component 0: caron.cap (U+-001) tx=531.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (351.0, 812.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+01D2 uni01D2:
+  component 0: uni030C (U+030C) tx=443.0 ty=-31.0
+    implied base 'above' from uni030C.above(mark): (238.0, 645.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+
+U+01D3 uni01D3:
+  component 0: caron.cap (U+-001) tx=531.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (351.0, 812.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+01D4 uni01D4:
+  component 0: uni030C (U+030C) tx=457.0 ty=-31.0
+    implied base 'above' from uni030C.above(mark): (252.0, 645.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+01D5 uni01D5:
+  component 0: Udieresis.alt (U+-001) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=566.0 ty=265.0
+    implied base 'above' from uni0304.above(mark): (357.0, 909.0)
+
+U+01D6 uni01D6:
+  component 0: udieresis (U+00FC) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=467.0 ty=130.0
+    implied base 'above' from uni0304.above(mark): (258.0, 774.0)
+
+U+01D7 uni01D7: not built from exactly 2 references (has 1)
+U+01D8 uni01D8: not built from exactly 2 references (has 1)
+U+01D9 uni01D9: not built from exactly 2 references (has 1)
+U+01DA uni01DA: not built from exactly 2 references (has 1)
+U+01DB uni01DB: not built from exactly 2 references (has 1)
+U+01DC uni01DC: not built from exactly 2 references (has 1)
+U+01DE uni01DE:
+  component 0: Adieresis.alt (U+-001) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=577.0 ty=265.0
+    implied base 'above' from uni0304.above(mark): (368.0, 909.0)
+
+U+01DF uni01DF:
+  component 0: adieresis (U+00E4) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=426.0 ty=131.0
+    implied base 'above' from uni0304.above(mark): (217.0, 775.0)
+
+U+01E0 uni01E0: not built from exactly 2 references (has 1)
+U+01E1 uni01E1:
+  component 0: uni0227 (U+0227) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=427.0 ty=130.0
+    implied base 'above' from uni0304.above(mark): (218.0, 774.0)
+
+U+01E4 uni01E4: not built from exactly 2 references (has 0)
+U+01E5 uni01E5: not built from exactly 2 references (has 0)
+U+01E6 Gcaron:
+  component 0: caron.cap (U+-001) tx=547.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (367.0, 812.0)
+  component 1: G (U+0047) tx=0.0 ty=0.0
+
+U+01E7 gcaron:
+  component 0: uni030C (U+030C) tx=424.0 ty=-25.0
+    implied base 'above' from uni030C.above(mark): (219.0, 651.0)
+  component 1: g (U+0067) tx=0.0 ty=0.0
+
+U+01E8 uni01E8:
+  component 0: caron.cap (U+-001) tx=530.0 ty=173.0
+    implied base 'above' from caron.cap.above(mark): (350.0, 812.0)
+  component 1: K (U+004B) tx=0.0 ty=0.0
+
+U+01E9 uni01E9:
+  component 0: uni030C (U+030C) tx=515.0 ty=111.0
+    implied base 'above' from uni030C.above(mark): (310.0, 787.0)
+  component 1: k (U+006B) tx=0.0 ty=0.0
+
+U+01EA uni01EA: not built from exactly 2 references (has 0)
+U+01EB uni01EB: not built from exactly 2 references (has 0)
+U+01EC uni01EC:
+  component 0: uni01EA (U+01EA) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=561.0 ty=178.0
+    implied base 'above' from uni0304.above(mark): (352.0, 822.0)
+
+U+01ED uni01ED:
+  component 0: uni01EB (U+01EB) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=464.0 ty=-17.0
+    implied base 'above' from uni0304.above(mark): (255.0, 627.0)
+
+U+01EF uni01EF:
+  component 0: uni0292 (U+0292) tx=0.0 ty=0.0
+  component 1: uni030C (U+030C) tx=401.0 ty=-33.0
+    implied base 'above' from uni030C.above(mark): (196.0, 643.0)
+
+U+01FA Aringacute: not built from exactly 2 references (has 0)
+U+01FB aringacute: not built from exactly 2 references (has 1)
+U+0200 uni0200:
+  component 0: uni030F.cap (U+-001) tx=548.0 ty=79.0
+    implied base 'above' from uni030F.cap.above(mark): (328.0, 824.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+0201 uni0201:
+  component 0: uni030F (U+030F) tx=346.0 ty=-106.0
+    implied base 'above' from uni030F.above(mark): (206.0, 652.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+
+U+0202 uni0202:
+  component 0: breveinvertedcmb.cap (U+-001) tx=523.0 ty=147.0
+    implied base 'above' from breveinvertedcmb.cap.above(mark): (363.0, 805.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+0203 uni0203:
+  component 0: uni0311 (U+0311) tx=426.0 ty=0.0
+    implied base 'above' from uni0311.above(mark): (221.0, 645.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+
+U+0204 uni0204:
+  component 0: uni030F.cap (U+-001) tx=501.0 ty=83.0
+    implied base 'above' from uni030F.cap.above(mark): (281.0, 828.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+0205 uni0205:
+  component 0: uni030F (U+030F) tx=353.0 ty=-99.0
+    implied base 'above' from uni030F.above(mark): (213.0, 659.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+
+U+0206 uni0206:
+  component 0: breveinvertedcmb.cap (U+-001) tx=445.0 ty=147.0
+    implied base 'above' from breveinvertedcmb.cap.above(mark): (285.0, 805.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+0207 uni0207:
+  component 0: uni0311 (U+0311) tx=434.0 ty=1.0
+    implied base 'above' from uni0311.above(mark): (229.0, 646.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+
+U+0208 uni0208:
+  component 0: uni030F.cap (U+-001) tx=354.0 ty=90.0
+    implied base 'above' from uni030F.cap.above(mark): (134.0, 835.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+0209 uni0209:
+  component 0: uni030F (U+030F) tx=241.0 ty=-72.0
+    implied base 'above' from uni030F.above(mark): (101.0, 686.0)
+  component 1: dotlessi (U+0131) tx=0.0 ty=0.0
+
+U+020A uni020A:
+  component 0: breveinvertedcmb.cap (U+-001) tx=310.0 ty=146.0
+    implied base 'above' from breveinvertedcmb.cap.above(mark): (150.0, 804.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+020B uni020B: not built from exactly 2 references (has 1)
+U+020C uni020C:
+  component 0: uni030F.cap (U+-001) tx=536.0 ty=83.0
+    implied base 'above' from uni030F.cap.above(mark): (316.0, 828.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+020D uni020D:
+  component 0: uni030F (U+030F) tx=376.0 ty=-99.0
+    implied base 'above' from uni030F.above(mark): (236.0, 659.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+
+U+020E uni020E:
+  component 0: breveinvertedcmb.cap (U+-001) tx=510.0 ty=147.0
+    implied base 'above' from breveinvertedcmb.cap.above(mark): (350.0, 805.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+020F uni020F:
+  component 0: uni0311 (U+0311) tx=448.0 ty=0.0
+    implied base 'above' from uni0311.above(mark): (243.0, 645.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+
+U+0214 uni0214:
+  component 0: uni030F.cap (U+-001) tx=542.0 ty=73.0
+    implied base 'above' from uni030F.cap.above(mark): (322.0, 818.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+0215 uni0215:
+  component 0: uni030F (U+030F) tx=373.0 ty=-99.0
+    implied base 'above' from uni030F.above(mark): (233.0, 659.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+0216 uni0216:
+  component 0: breveinvertedcmb.cap (U+-001) tx=511.0 ty=147.0
+    implied base 'above' from breveinvertedcmb.cap.above(mark): (351.0, 805.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+0217 uni0217:
+  component 0: uni0311 (U+0311) tx=459.0 ty=0.0
+    implied base 'above' from uni0311.above(mark): (254.0, 645.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+0226 uni0226:
+  component 0: uni0358 (U+0358) tx=372.0 ty=114.0
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+0227 uni0227:
+  component 0: uni0307 (U+0307) tx=396.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (216.0, 690.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+
+U+0228 uni0228: not built from exactly 2 references (has 0)
+U+0229 uni0229: not built from exactly 2 references (has 0)
+U+022A uni022A: not built from exactly 2 references (has 1)
+U+022B uni022B:
+  component 0: odieresis (U+00F6) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=456.0 ty=130.0
+    implied base 'above' from uni0304.above(mark): (247.0, 774.0)
+
+U+022C uni022C: not built from exactly 2 references (has 1)
+U+022D uni022D:
+  component 0: otilde (U+00F5) tx=0.0 ty=0.0
+  component 1: uni0304 (U+0304) tx=449.0 ty=130.0
+    implied base 'above' from uni0304.above(mark): (240.0, 774.0)
+
+U+022E uni022E:
+  component 0: uni0358 (U+0358) tx=357.0 ty=111.0
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+022F uni022F:
+  component 0: uni0307 (U+0307) tx=418.0 ty=22.0
+    implied base 'above' from uni0307.above(mark): (238.0, 689.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+
+U+1E7A uni1E7A: not built from exactly 2 references (has 1)
+U+1E7B uni1E7B:
+  component 0: umacron (U+016B) tx=0.0 ty=0.0
+  component 1: uni0308 (U+0308) tx=473.0 ty=111.0
+    implied base 'above' from uni0308.above(mark): (263.0, 756.0)
+
+U+1E7C uni1E7C:
+  component 0: tildecomb (U+0303) tx=470.0 ty=126.0
+    implied base 'above' from tildecomb.above(mark): (321.0, 823.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-151.0, 829.0)
+  component 1: V (U+0056) tx=0.0 ty=0.0
+    implied mark 'above' for V: (319.0, 955.0)
+
+U+1E7D uni1E7D:
+  component 0: tildecomb (U+0303) tx=409.0 ty=-48.0
+    implied base 'above' from tildecomb.above(mark): (260.0, 649.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-151.0, 856.0)
+  component 1: v (U+0076) tx=0.0 ty=0.0
+    implied mark 'above' for v: (258.0, 808.0)
+
+U+1E7E uni1E7E:
+  component 0: uni0307 (U+0307) tx=483.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (303.0, -65.0)
+  component 1: V (U+0056) tx=0.0 ty=0.0
+
+U+1E7F uni1E7F:
+  component 0: uni0307 (U+0307) tx=422.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (242.0, -65.0)
+  component 1: v (U+0076) tx=0.0 ty=0.0
+
+U+1E80 Wgrave:
+  component 0: grave.cap (U+-001) tx=584.0 ty=127.0
+    implied base 'above' from grave.cap.above(mark): (409.0, 818.0)
+  component 1: W (U+0057) tx=0.0 ty=0.0
+
+U+1E81 wgrave: not built from exactly 2 references (has 1)
+U+1E82 Wacute:
+  component 0: acute.cap (U+-001) tx=667.0 ty=126.0
+    implied base 'above' from acute.cap.above(mark): (457.0, 819.0)
+  component 1: W (U+0057) tx=0.0 ty=0.0
+
+U+1E83 wacute: not built from exactly 2 references (has 1)
+U+1E84 Wdieresis:
+  component 0: uni0308 (U+0308) tx=664.0 ty=185.0
+    implied base 'above' from uni0308.above(mark): (454.0, 830.0)
+  component 1: W (U+0057) tx=0.0 ty=0.0
+
+U+1E85 wdieresis: not built from exactly 2 references (has 1)
+U+1E8A uni1E8A:
+  component 0: uni0358 (U+0358) tx=343.0 ty=114.0
+  component 1: X (U+0058) tx=0.0 ty=0.0
+
+U+1E8B uni1E8B:
+  component 0: uni0307 (U+0307) tx=432.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (252.0, 690.0)
+  component 1: x (U+0078) tx=0.0 ty=0.0
+
+U+1E8C uni1E8C:
+  component 0: dieresis.cap (U+-001) tx=572.0 ty=2.0
+    implied base 'above' from dieresis.cap.above(mark): (335.0, 809.0)
+  component 1: X (U+0058) tx=0.0 ty=0.0
+
+U+1E8D uni1E8D:
+  component 0: uni0308 (U+0308) tx=463.0 ty=0.0
+    implied base 'above' from uni0308.above(mark): (253.0, 645.0)
+  component 1: x (U+0078) tx=0.0 ty=0.0
+
+U+1E8E uni1E8E:
+  component 0: uni0358 (U+0358) tx=301.0 ty=114.0
+  component 1: Y (U+0059) tx=0.0 ty=0.0
+
+U+1E8F uni1E8F:
+  component 0: uni0307 (U+0307) tx=448.0 ty=23.0
+    implied base 'above' from uni0307.above(mark): (268.0, 690.0)
+  component 1: y (U+0079) tx=0.0 ty=0.0
+
+U+1E90 uni1E90:
+  component 0: circumflex.cap (U+-001) tx=457.0 ty=166.0
+    implied base 'above' from circumflex.cap.above(mark): (324.0, 850.0)
+  component 1: Z (U+005A) tx=0.0 ty=0.0
+
+U+1E91 uni1E91:
+  component 0: uni0302 (U+0302) tx=356.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (217.0, 646.0)
+  component 1: z (U+007A) tx=0.0 ty=0.0
+
+U+1E92 uni1E92:
+  component 0: uni0307 (U+0307) tx=495.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (315.0, -65.0)
+  component 1: Z (U+005A) tx=0.0 ty=0.0
+
+U+1E93 uni1E93:
+  component 0: uni0307 (U+0307) tx=388.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (208.0, -65.0)
+  component 1: z (U+007A) tx=0.0 ty=0.0
+
+U+1E94 uni1E94:
+  component 0: uni0331 (U+0331) tx=549.0 ty=0.0
+  component 1: Z (U+005A) tx=0.0 ty=0.0
+
+U+1E95 uni1E95:
+  component 0: uni0331 (U+0331) tx=440.0 ty=0.0
+  component 1: z (U+007A) tx=0.0 ty=0.0
+
+U+1EA0 uni1EA0:
+  component 0: uni0307 (U+0307) tx=518.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (338.0, -65.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+1EA1 uni1EA1:
+  component 0: uni0307 (U+0307) tx=395.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (215.0, -65.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+
+U+1EA2 uni1EA2:
+  component 0: hookabovecomb.cap (U+-001) tx=526.0 ty=34.0
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+1EA3 uni1EA3:
+  component 0: hookabovecomb (U+0309) tx=370.0 ty=-124.0
+    implied base 'above' from hookabovecomb.above(mark): (210.0, 641.0)
+  component 1: a (U+0061) tx=0.0 ty=0.0
+
+U+1EA4 uni1EA4: not built from exactly 2 references (has 1)
+U+1EA5 uni1EA5: not built from exactly 2 references (has 1)
+U+1EA6 uni1EA6: not built from exactly 2 references (has 1)
+U+1EA7 uni1EA7: not built from exactly 2 references (has 1)
+U+1EA8 uni1EA8:
+  component 0: hookabovecomb.cap (U+-001) tx=686.0 ty=90.0
+  component 1: Acircumflex (U+00C2) tx=0.0 ty=0.0
+
+U+1EA9 uni1EA9:
+  component 0: acircumflex (U+00E2) tx=0.0 ty=0.0
+  component 1: hookabovecomb (U+0309) tx=499.0 ty=-27.0
+    implied base 'above' from hookabovecomb.above(mark): (339.0, 738.0)
+
+U+1EAA uni1EAA:
+  component 0: circumflex.cap (U+-001) tx=490.0 ty=140.0
+    implied base 'above' from circumflex.cap.above(mark): (357.0, 824.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+1EAB uni1EAB:
+  component 0: acircumflex (U+00E2) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=367.0 ty=123.0
+    implied base 'above' from tildecomb.above(mark): (218.0, 820.0)
+
+U+1EAC uni1EAC:
+  component 0: circumflex.cap (U+-001) tx=490.0 ty=165.0
+    implied base 'above' from circumflex.cap.above(mark): (357.0, 849.0)
+  component 1: uni1EA0 (U+1EA0) tx=0.0 ty=0.0
+
+U+1EAD uni1EAD:
+  component 0: uni1EA1 (U+1EA1) tx=0.0 ty=0.0
+  component 1: uni0302 (U+0302) tx=362.0 ty=-52.0
+    implied base 'above' from uni0302.above(mark): (223.0, 645.0)
+
+U+1EAE uni1EAE: not built from exactly 2 references (has 1)
+U+1EAF uni1EAF: not built from exactly 2 references (has 1)
+U+1EB0 uni1EB0: not built from exactly 2 references (has 1)
+U+1EB1 uni1EB1: not built from exactly 2 references (has 1)
+U+1EB2 uni1EB2:
+  component 0: hookabovecomb.cap (U+-001) tx=525.0 ty=112.0
+  component 1: Abreve (U+0102) tx=0.0 ty=0.0
+
+U+1EB3 uni1EB3:
+  component 0: abreve (U+0103) tx=0.0 ty=0.0
+  component 1: hookabovecomb (U+0309) tx=367.0 ty=-31.0
+    implied base 'above' from hookabovecomb.above(mark): (207.0, 734.0)
+
+U+1EB4 uni1EB4:
+  component 0: breve.cap (U+-001) tx=519.0 ty=128.0
+    implied base 'above' from breve.cap.above(mark): (358.0, 786.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+1EB5 uni1EB5:
+  component 0: abreve (U+0103) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=359.0 ty=122.0
+    implied base 'above' from tildecomb.above(mark): (210.0, 819.0)
+
+U+1EB6 uni1EB6:
+  component 0: breve.cap (U+-001) tx=516.0 ty=147.0
+    implied base 'above' from breve.cap.above(mark): (355.0, 805.0)
+  component 1: uni1EA0 (U+1EA0) tx=0.0 ty=0.0
+
+U+1EB7 uni1EB7:
+  component 0: uni1EA1 (U+1EA1) tx=0.0 ty=0.0
+  component 1: uni0306 (U+0306) tx=375.0 ty=-30.0
+    implied base 'above' from uni0306.above(mark): (214.0, 651.0)
+
+U+1EB8 uni1EB8:
+  component 0: Epsilon (U+0395) tx=0.0 ty=0.0
+  component 1: uni0307 (U+0307) tx=471.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (291.0, -65.0)
+
+U+1EB9 uni1EB9:
+  component 0: uni0307 (U+0307) tx=408.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (228.0, -65.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (231.0, 645.0)
+
+U+1EBA uni1EBA:
+  component 0: hookabovecomb.cap (U+-001) tx=463.0 ty=34.0
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+1EBB uni1EBB:
+  component 0: hookabovecomb (U+0309) tx=386.0 ty=-124.0
+    implied base 'above' from hookabovecomb.above(mark): (226.0, 641.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+
+U+1EBC uni1EBC:
+  component 0: Epsilon (U+0395) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=464.0 ty=115.0
+    implied base 'above' from tildecomb.above(mark): (315.0, 812.0)
+
+U+1EBD uni1EBD:
+  component 0: tildecomb (U+0303) tx=373.0 ty=-48.0
+    implied base 'above' from tildecomb.above(mark): (224.0, 649.0)
+    implied mark-to-mark 'aboveMark' for tildecomb: (-144.0, 857.0)
+  component 1: e (U+0065) tx=0.0 ty=0.0
+    implied mark 'above' for e: (229.0, 809.0)
+
+U+1EBE uni1EBE: not built from exactly 2 references (has 1)
+U+1EBF uni1EBF: not built from exactly 2 references (has 1)
+U+1EC0 uni1EC0: not built from exactly 2 references (has 1)
+U+1EC1 uni1EC1: not built from exactly 2 references (has 1)
+U+1EC2 uni1EC2: not built from exactly 2 references (has 3)
+U+1EC3 uni1EC3:
+  component 0: ecircumflex (U+00EA) tx=0.0 ty=0.0
+  component 1: hookabovecomb (U+0309) tx=516.0 ty=-27.0
+    implied base 'above' from hookabovecomb.above(mark): (356.0, 738.0)
+
+U+1EC4 uni1EC4:
+  component 0: circumflex.cap (U+-001) tx=428.0 ty=134.0
+    implied base 'above' from circumflex.cap.above(mark): (295.0, 818.0)
+  component 1: Epsilon (U+0395) tx=0.0 ty=0.0
+
+U+1EC5 uni1EC5:
+  component 0: ecircumflex (U+00EA) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=387.0 ty=119.0
+    implied base 'above' from tildecomb.above(mark): (238.0, 816.0)
+
+U+1EC6 uni1EC6:
+  component 0: circumflex.cap (U+-001) tx=411.0 ty=167.0
+    implied base 'above' from circumflex.cap.above(mark): (278.0, 851.0)
+  component 1: uni1EB8 (U+1EB8) tx=0.0 ty=0.0
+
+U+1EC7 uni1EC7:
+  component 0: uni1EB9 (U+1EB9) tx=0.0 ty=0.0
+  component 1: uni0302 (U+0302) tx=367.0 ty=-51.0
+    implied base 'above' from uni0302.above(mark): (228.0, 646.0)
+
+U+1EC8 uni1EC8:
+  component 0: hookabovecomb.cap (U+-001) tx=316.0 ty=34.0
+  component 1: I (U+0049) tx=0.0 ty=0.0
+
+U+1EC9 uni1EC9:
+  component 0: hookabovecomb (U+0309) tx=296.0 ty=-124.0
+    implied base 'above' from hookabovecomb.above(mark): (136.0, 641.0)
+  component 1: dotlessi (U+0131) tx=0.0 ty=0.0
+
+U+1ECA uni1ECA:
+  component 0: uni0307 (U+0307) tx=331.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (151.0, -65.0)
+  component 1: I (U+0049) tx=0.0 ty=0.0
+    implied mark 'above' for I: (146.0, 850.0)
+
+U+1ECB uni1ECB:
+  component 0: uni0307 (U+0307) tx=317.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (137.0, -65.0)
+  component 1: i (U+0069) tx=0.0 ty=0.0
+    implied mark 'above' for i: (132.0, 775.0)
+
+U+1ECC uni1ECC:
+  component 0: uni0307 (U+0307) tx=535.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (355.0, -65.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+1ECD uni1ECD:
+  component 0: uni0307 (U+0307) tx=424.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (244.0, -65.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+    implied mark 'above' for o: (231.0, 645.0)
+
+U+1ECE uni1ECE:
+  component 0: hookabovecomb.cap (U+-001) tx=510.0 ty=58.0
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+1ECF uni1ECF:
+  component 0: hookabovecomb (U+0309) tx=397.0 ty=-124.0
+    implied base 'above' from hookabovecomb.above(mark): (237.0, 641.0)
+  component 1: o (U+006F) tx=0.0 ty=0.0
+
+U+1ED0 uni1ED0: not built from exactly 2 references (has 1)
+U+1ED1 uni1ED1: not built from exactly 2 references (has 1)
+U+1ED2 uni1ED2: not built from exactly 2 references (has 1)
+U+1ED3 uni1ED3: not built from exactly 2 references (has 1)
+U+1ED4 uni1ED4:
+  component 0: hookabovecomb.cap (U+-001) tx=664.0 ty=94.0
+  component 1: Ocircumflex (U+00D4) tx=0.0 ty=0.0
+
+U+1ED5 uni1ED5:
+  component 0: ocircumflex (U+00F4) tx=0.0 ty=0.0
+  component 1: hookabovecomb (U+0309) tx=528.0 ty=-27.0
+    implied base 'above' from hookabovecomb.above(mark): (368.0, 738.0)
+
+U+1ED6 uni1ED6:
+  component 0: circumflex.cap (U+-001) tx=479.0 ty=138.0
+    implied base 'above' from circumflex.cap.above(mark): (346.0, 822.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+1ED7 uni1ED7:
+  component 0: ocircumflex (U+00F4) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=399.0 ty=124.0
+    implied base 'above' from tildecomb.above(mark): (250.0, 821.0)
+
+U+1ED8 uni1ED8:
+  component 0: circumflex.cap (U+-001) tx=480.0 ty=167.0
+    implied base 'above' from circumflex.cap.above(mark): (347.0, 851.0)
+  component 1: uni1ECC (U+1ECC) tx=0.0 ty=0.0
+
+U+1ED9 uni1ED9:
+  component 0: uni1ECD (U+1ECD) tx=0.0 ty=0.0
+  component 1: uni0302 (U+0302) tx=384.0 ty=-50.0
+    implied base 'above' from uni0302.above(mark): (245.0, 647.0)
+
+U+1EDA uni1EDA:
+  component 0: acute.cap (U+-001) tx=554.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (344.0, 820.0)
+  component 1: Ohorn (U+01A0) tx=0.0 ty=0.0
+
+U+1EDB uni1EDB:
+  component 0: ohorn (U+01A1) tx=0.0 ty=0.0
+  component 1: acutecomb (U+0301) tx=429.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (238.0, 645.0)
+
+U+1EDC uni1EDC:
+  component 0: grave.cap (U+-001) tx=508.0 ty=126.0
+    implied base 'above' from grave.cap.above(mark): (333.0, 817.0)
+  component 1: Ohorn (U+01A0) tx=0.0 ty=0.0
+
+U+1EDD uni1EDD:
+  component 0: ohorn (U+01A1) tx=0.0 ty=0.0
+  component 1: gravecomb (U+0300) tx=361.0 ty=-37.0
+    implied base 'above' from gravecomb.above(mark): (219.0, 646.0)
+
+U+1EDE uni1EDE:
+  component 0: hookabovecomb.cap (U+-001) tx=524.0 ty=34.0
+  component 1: Ohorn (U+01A0) tx=0.0 ty=0.0
+
+U+1EDF uni1EDF:
+  component 0: ohorn (U+01A1) tx=0.0 ty=0.0
+  component 1: hookabovecomb (U+0309) tx=400.0 ty=-124.0
+    implied base 'above' from hookabovecomb.above(mark): (240.0, 641.0)
+
+U+1EE0 uni1EE0:
+  component 0: Ohorn (U+01A0) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=489.0 ty=122.0
+    implied base 'above' from tildecomb.above(mark): (340.0, 819.0)
+
+U+1EE1 uni1EE1: not built from exactly 2 references (has 1)
+U+1EE2 uni1EE2:
+  component 0: Ohorn (U+01A0) tx=0.0 ty=0.0
+  component 1: uni0307 (U+0307) tx=535.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (355.0, -65.0)
+
+U+1EE3 uni1EE3:
+  component 0: ohorn (U+01A1) tx=0.0 ty=0.0
+  component 1: uni0307 (U+0307) tx=422.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (242.0, -65.0)
+
+U+1EE4 uni1EE4:
+  component 0: uni0307 (U+0307) tx=523.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (343.0, -65.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+1EE5 uni1EE5:
+  component 0: uni0307 (U+0307) tx=426.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (246.0, -65.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+1EE6 uni1EE6:
+  component 0: hookabovecomb.cap (U+-001) tx=510.0 ty=34.0
+  component 1: U (U+0055) tx=0.0 ty=0.0
+
+U+1EE7 uni1EE7:
+  component 0: hookabovecomb (U+0309) tx=410.0 ty=-124.0
+    implied base 'above' from hookabovecomb.above(mark): (250.0, 641.0)
+  component 1: u (U+0075) tx=0.0 ty=0.0
+
+U+1EE8 uni1EE8:
+  component 0: acute.cap (U+-001) tx=564.0 ty=127.0
+    implied base 'above' from acute.cap.above(mark): (354.0, 820.0)
+  component 1: Uhorn (U+01AF) tx=0.0 ty=0.0
+
+U+1EE9 uni1EE9:
+  component 0: uhorn (U+01B0) tx=0.0 ty=0.0
+  component 1: acutecomb (U+0301) tx=427.0 ty=-37.0
+    implied base 'above' from acutecomb.above(mark): (236.0, 645.0)
+
+U+1EEA uni1EEA:
+  component 0: grave.cap (U+-001) tx=505.0 ty=127.0
+    implied base 'above' from grave.cap.above(mark): (330.0, 818.0)
+  component 1: Uhorn (U+01AF) tx=0.0 ty=0.0
+
+U+1EEB uni1EEB:
+  component 0: uhorn (U+01B0) tx=0.0 ty=0.0
+  component 1: gravecomb (U+0300) tx=370.0 ty=-37.0
+    implied base 'above' from gravecomb.above(mark): (228.0, 646.0)
+
+U+1EEC uni1EEC:
+  component 0: hookabovecomb.cap (U+-001) tx=512.0 ty=34.0
+  component 1: Uhorn (U+01AF) tx=0.0 ty=0.0
+
+U+1EED uni1EED:
+  component 0: uhorn (U+01B0) tx=0.0 ty=0.0
+  component 1: hookabovecomb (U+0309) tx=410.0 ty=-124.0
+    implied base 'above' from hookabovecomb.above(mark): (250.0, 641.0)
+
+U+1EEE uni1EEE:
+  component 0: Uhorn (U+01AF) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=510.0 ty=125.0
+    implied base 'above' from tildecomb.above(mark): (361.0, 822.0)
+
+U+1EEF uni1EEF:
+  component 0: uhorn (U+01B0) tx=0.0 ty=0.0
+  component 1: tildecomb (U+0303) tx=381.0 ty=-48.0
+    implied base 'above' from tildecomb.above(mark): (232.0, 649.0)
+
+U+1EF0 uni1EF0:
+  component 0: Uhorn (U+01AF) tx=0.0 ty=0.0
+  component 1: uni0307 (U+0307) tx=515.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (335.0, -65.0)
+
+U+1EF1 uni1EF1:
+  component 0: uhorn (U+01B0) tx=0.0 ty=0.0
+  component 1: uni0307 (U+0307) tx=423.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (243.0, -65.0)
+
+U+1EF2 Ygrave:
+  component 0: grave.cap (U+-001) tx=444.0 ty=126.0
+    implied base 'above' from grave.cap.above(mark): (269.0, 817.0)
+  component 1: Y (U+0059) tx=0.0 ty=0.0
+
+U+1EF3 ygrave:
+  component 0: gravecomb (U+0300) tx=383.0 ty=-37.0
+    implied base 'above' from gravecomb.above(mark): (241.0, 646.0)
+  component 1: y (U+0079) tx=0.0 ty=0.0
+
+U+1EF4 uni1EF4:
+  component 0: uni0307 (U+0307) tx=475.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (295.0, -65.0)
+  component 1: Y (U+0059) tx=0.0 ty=0.0
+
+U+1EF5 uni1EF5:
+  component 0: uni0307 (U+0307) tx=546.0 ty=-732.0
+    implied base 'above' from uni0307.above(mark): (366.0, -65.0)
+  component 1: y (U+0079) tx=0.0 ty=0.0
+
+U+1EF6 uni1EF6:
+  component 0: hookabovecomb.cap (U+-001) tx=468.0 ty=34.0
+  component 1: Y (U+0059) tx=0.0 ty=0.0
+
+U+1EF7 uni1EF7:
+  component 0: hookabovecomb (U+0309) tx=429.0 ty=-124.0
+    implied base 'above' from hookabovecomb.above(mark): (269.0, 641.0)
+  component 1: y (U+0079) tx=0.0 ty=0.0
+
+U+1EF8 uni1EF8:
+  component 0: tildecomb (U+0303) tx=443.0 ty=125.0
+    implied base 'above' from tildecomb.above(mark): (294.0, 822.0)
+  component 1: Y (U+0059) tx=0.0 ty=0.0
+
+U+1EF9 uni1EF9:
+  component 0: tildecomb (U+0303) tx=426.0 ty=-48.0
+    implied base 'above' from tildecomb.above(mark): (277.0, 649.0)
+  component 1: y (U+0079) tx=0.0 ty=0.0
+
+U+0180 uni0180: not built from exactly 2 references (has 0)
+U+0183 uni0183: not built from exactly 2 references (has 0)
+U+0185 uni0185: not built from exactly 2 references (has 0)
+U+0188 uni0188: not built from exactly 2 references (has 0)
+U+018C uni018C: not built from exactly 2 references (has 0)
+U+0199 uni0199: not built from exactly 2 references (has 0)
+U+019A uni019A: not built from exactly 2 references (has 0)
+U+01A3 uni01A3: not built from exactly 2 references (has 0)
+U+01A4 uni01A4: not built from exactly 2 references (has 0)
+U+01A5 uni01A5: not built from exactly 2 references (has 0)
+U+01AB uni01AB: not built from exactly 2 references (has 0)
+U+01AC uni01AC: not built from exactly 2 references (has 0)
+U+01AD uni01AD: not built from exactly 2 references (has 0)
+U+01AE uni01AE: not built from exactly 2 references (has 0)
+U+01B2 uni01B2: not built from exactly 2 references (has 0)
+U+01B3 uni01B3: not built from exactly 2 references (has 0)
+U+01B4 uni01B4: not built from exactly 2 references (has 0)
+U+01BA uni01BA: not built from exactly 2 references (has 0)
+U+01BD uni01BD: not built from exactly 2 references (has 0)
+U+01BE uni01BE: not built from exactly 2 references (has 0)
+U+01BF uni01BF: not built from exactly 2 references (has 0)
+U+00C4 Adieresis:
+  component 0: dieresis.cap (U+-001) tx=594.0 ty=0.0
+    implied base 'above' from dieresis.cap.above(mark): (357.0, 807.0)
+  component 1: A (U+0041) tx=0.0 ty=0.0
+
+U+00D6 Odieresis:
+  component 0: dieresis.cap (U+-001) tx=585.0 ty=1.0
+    implied base 'above' from dieresis.cap.above(mark): (348.0, 808.0)
+  component 1: O (U+004F) tx=0.0 ty=0.0
+
+U+00DC Udieresis:
+  component 0: dieresis.cap (U+-001) tx=584.0 ty=1.0
+    implied base 'above' from dieresis.cap.above(mark): (347.0, 808.0)
+  component 1: U (U+0055) tx=0.0 ty=0.0
+

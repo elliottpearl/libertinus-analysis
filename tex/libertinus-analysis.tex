@@ -9,10 +9,6 @@
 \usepackage{caption}
 \usepackage{expl3}
 \usepackage{multirow}
-\usepackage[linguistics]{forest}
-
-% combining graphe joiner
-\newcommand{\cgj}{\char"034F }
 
 % Page options
 
@@ -53,7 +49,7 @@
 	Language = Dutch,
 ]{LibertinusSerif-Regular.otf}
 
-% Color definitions for combining mark diagnostics
+% Color definitions for combining mark grids/tables
 
 \definecolor{supportedanchor}{RGB}{0,0,0}        % black
 \definecolor{supportedprec}{RGB}{0,0,180}        % blue
@@ -64,20 +60,12 @@
 \definecolor{missingglyph}{RGB}{200,200,200}      % light gray
 
 \newcommand{\PREC}[1]{{\color{supportedprec}#1}}
-
-% Semantic wrappers
-
-% Supported combinations
 \newcommand{\SUPPORTEDANCH}[1]{{\color{supportedanchor}#1}}
 \newcommand{\SUPPORTEDPREC}[1]{{\color{supportedprec}#1}}
 \newcommand{\SUPPORTEDFALL}[1]{{\color{supportedfall}#1}}
-
-% Unsupported combinations
 \newcommand{\UNSUPPORTEDANCH}[1]{{\color{unsupportedanchor}#1}}
 \newcommand{\UNSUPPORTEDPREC}[1]{{\color{unsupportedprec}#1}}
 \newcommand{\UNSUPPORTEDFALL}[1]{{\color{unsupportedfall}#1}}
-
-% Missing glyphs
 \newcommand{\MISSINGGLYPH}[1]{{\color{missingglyph}#1}}
 
 % Helper commands for pretty printing samples in regular, italic, bold, bold italic
@@ -94,6 +82,10 @@
 	{\itshape #1}
 	{\bfseries #1}
 	{\itshape\bfseries #1}}
+
+% combining grapheme joiner
+\newcommand{\cgj}{\char"034F }
+
 
 \begin{document}
 
@@ -142,7 +134,8 @@ by superimposing their below-anchors.
 \end{figure}
 
 %Libertinus serif has few mark positioning GPOS tables.
-%Regular has two mark-to-base LookupList tables: index 7 for Hebrew and index 4 for latin and other scripts;
+%Regular has two mark-to-base LookupList tables: 
+%index 7 for Hebrew and index 4 for latin and other scripts;
 %one mark-to-mark LookupList table, index 5.
 
 \newpage
@@ -150,7 +143,9 @@ by superimposing their below-anchors.
 
 See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 
 (regular, italic, semibold, semibold italic) in four tables 
-(Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2}). 
+(Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2}).
+Recall that Language Science Press uses semibold Libertinus fonts, e.g. 
+\verb|LibertinusSerif-Semibold.otf|, for all boldface style.
 
 \input{input/fontmetrics_AZ.tex}
 
@@ -162,7 +157,7 @@ See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libe
 
 \subsubsection*{Table row headings}
 
-hex: 4-hex Unicode character codepoint.
+hex: Unicode character codepoint in 4-hex.
 
 reg, it, sb, si: regular, italic, semibold, semibold italic. 
 In that row, the character is printed alone, with combining dot above, and with combining macron below, 
@@ -178,108 +173,111 @@ because the midpoint of the width of the bounding box is a
 naive candidate for $ax$ and $bx$, 
 and the bounding box coordinates are easy to determine.
 
-$bbm$: midpoint of the bounding box $X$ coordinates, 
+$□xm$: midpoint of the bounding box $X$ coordinates, 
 $(X_\mathrm{min} + X_\mathrm{max})/2$, 
 where the bounding box is characterized by 
 $(X_\mathrm{min}, Y_\mathrm{min})$ and $(X_\mathrm{max}, Y_\mathrm{max})$.
 
-$abb\delta$: $X$ coordinate offset of above-anchor from midpoint of bounding box, 
+$ax\delta$: $X$ coordinate offset of above-anchor from midpoint of bounding box, 
 $ax - bbm$.
 
-$abb\%$: normalized offset, $abb\delta$ divided by bounding box width, 
+$ax\%$: normalized offset, $abb\delta$ divided by bounding box width, 
 $abb\delta / (X_\mathrm{max} - X_\mathrm{min})$.
 
-$bbb\delta$: $X$ coordinate offset of below-anchor from midpoint of bounding box, 
+$bx\delta$: $X$ coordinate offset of below-anchor from midpoint of bounding box, 
 $bx - bbm$.
 
-$bbb\%$: normalized offset, $bbb\delta$ divided by bounding box width, 
+$bx\%$: normalized offset, $bbb\delta$ divided by bounding box width, 
 $bbb\delta / (X_\mathrm{max} - X_\mathrm{min})$.
 
 There are better ways to define the geometric horizontal center of a glyph than the bounding box midpoint, 
 depending on the outline at the top or bottom of the glyph.
 
-\subsection*{Vertical aspects, anchor $Y$ coordinates, and clearance}
+\subsection*{Vertical aspects, anchor $Y$ coordinates and reference, and clearance}
 
-A font has at least five vertical aspects, where glyph outlines live inside: 
+A font has at least five vertical aspects where glyph outlines live inside: 
 descender height, baseline, x-height, ascender height, capital height.
 The values or ranges of these $Y$ coordinates are in the first five rows 
 of Table \ref{fig:vertical-aspects-of-Libertinus}.
 These vertical aspects are the gray horizontal lines of Figure \ref{fig:libertinus-geometry}. 
 These vertical aspects are displayed in a FontForge glyph outline window as black horizontal guidelines 
 with red or blue shaded bands for ranges.
-I will label these as $yra$, $yrc$, $yrx$, $yr0$, $yrd$ because these are $Y$ values, 
+I denote these as $yra$, $yrc$, $yrx$, $yr0$, $yrd$ because they are $Y$ values, 
 and r indicates a reference value. 
 a, c, x, 0, d indicate the five vertical aspects.
 
-In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor or a below-anchor is at 
-a common value depending on where the glyph outline lives relative to a vertical aspect.
+In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor ($ay$) or a below-anchor ($by$) 
+is at a stable value depending on where the glyph outline lives relative to a vertical aspect.
 See the rows for $ay$ and $by$ in Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2} 
 and find the common values according to the glyph's vertical aspects.
 There is no set name in font design for these above- or below-anchor $Y$ coordinate 
-reference values by ascender aspect, so I will call them
+reference values by ascender aspect, so I will denote them
 $ayra$, $ayrc$, $ayrx$, $byr0$, $byrd$,
 These are the middle five rows of Table \ref{fig:vertical-aspects-of-Libertinus}.
 For example, all glyphs that sit on the baseline have below-anchor $Y$ coordinate $by = -110$, 
 and thus $byr0 = -110$.
 All capitals A--Z have $ay = 850$, and thus $ayrc = 850$. 
-Any glyph that descends to the descender value or range $yrd$ should have $by = byrd$.
+Any glyph that descends to the descender value $yrd = -232$ or descender range $[-238, -227]$ 
+should have $by = byrd = -319$.
 
 The clearance is defined as the difference between the anchor reference value 
 and the vertical aspect $Y$ value.
-I will label these clearances as 
-$ay\delta a$, $ay\delta c$, $ay\delta x$, $by\delta 0$, $by\delta d$, 
-For example, capital letters A--Z have a bounding box with $Y_\mathrm{max}$ at 645, 
-and all capital letters A--Z have an above-anchor at $Y = 885$. 
-So the above-anchor capital clearance is $ay\delta c = 885 - 645 = 205$.
+I will denote these clearances as 
+$ay\delta a$, $ay\delta c$, $ay\delta x$, $by\delta 0$, $by\delta d$.
+So, $ay\delta a = ayra - yra$ etc.
+For example, capital letters A--Z have a capital height $yrc = 645$, 
+and all capital letters A--Z have an above-anchor $Y$ coordinate at $ayrc = 850$. 
+So the above-anchor clearance for capitals is $ay\delta c = ayrc - yec = 850 - 645 = 205$.
 Because of the weird anchor model for Libertinus, this clearance value is not the 
 exact vertical distance between a base and a mark, but this clearance value is still useful.
 
 A glyph may not be a full ascender or a full descender, 
 and its bounding box may not live closely within two vertical aspects.
 In such a case, the anchor $Y$ coordinate is set by looking for the nearest, or most suitable, 
-vertical aspect, and considering the clearance of that vertical aspect relative to the bounding box of the glyph.
+vertical aspect, and considering the clearance of that vertical aspect relative 
+to the bounding box of the glyph.
 
-For example, see the calculation in a following section of the below-anchor for Q, 
-whose tail does not descend as deep as the full descender j or g. 
-The clearance $by\delta d$ can be used to calculate $by$ of Q, after considering Q's bounding box $Y_\mathrm{min}$, 
-as well as the shape of Q's tail.
+%For example, see the calculation in a following section of the below-anchor for Q, 
+%whose tail does not descend as deep as the full descender j or g. 
+%The clearance $by\delta d$ can be used to calculate $by$ of Q, after considering Q's 
+%bounding box $Y_\mathrm{min}$, as well as the shape of Q's tail.
 
-This is the heuristic algorithm for calculating the $Y$ coordinate of the above- or below-anchor ($ay$ or $by$) 
-of a glyph that is not a full ascender or descender. 
+Here is the heuristic algorithm for calculating the $Y$ coordinate of the above- or below-anchor 
+($ay$ or $by$) of a glyph that is not a full ascender or descender. 
 
-If $ay$ is not set for a glyph, find the nearest, or most suitable, vertical aspect 
--- ascender $a$, capital $c$, or x-height $x$.
+Consider a glyph that is not a full ascender. 
+Find the nearest, or most suitable, vertical aspect -- ascender $a$, capital $c$, or x-height $x$.
 Then $ay = Y_\mathrm{max} + ay\delta[acx] - \epsilon$, 
 where $Y_\mathrm{max}$ is the maximum $Y$ coordinate of bounding box of the glyph, 
 and $\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
 
-If $by$ is not set for a glyph, find the nearest, or most suitable, vertical aspect 
--- baselines $0$ or desender $d$.
+Consider a glyph that is not a full descender. 
+Find the nearest, or most suitable, vertical aspect -- baseline $0$ or desender $d$.
 Then $by = Y_\mathrm{min} + by\delta[0d] + \epsilon$, 
 where $Y_\mathrm{min}$ in the minimum $Y$ coordinate of the bounding box of the glyph, 
 and $\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
 
 \begin{table}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
-	\caption{Vertical aspects, and anchor $Y$ coordinates and clearances of Libertinus}
+	\caption{Vertical aspects, anchor $Y$ references, and clearances of Libertinus}
 	\label{fig:vertical-aspects-of-Libertinus}
-	\setlength{\tabcolsep}{1pt}
+	\setlength{\tabcolsep}{2pt}
 
 \begin{tabular}{l  l  r  r  r  r}
-		& v. aspect	& Regular			& Italic			& Semibold	& Semibold Italic\\
-$yra$	& ascender	& $688	[688,698]$	& $688 [688,698]$	& $690$		& $698$ \\
-$yrc$	& capital	& $645	[645,658]$	& $645 [645,658]$	& $645$		& $645$ \\
-$yrx$	& x-height	& $429	[429,432]$	& $429 [429,432]$	& $433$		& $434 [433,447]$ \\
-$yr0$	& baseline	& $0 [-12,0]$		& $0 [-12,0]$		& $0$		& $0$ \\
-$yrd$	& descender	& $-232 [-238,-227]$& $-233 [-238,-227]$& $-238$	& $-232 [-238,-232]$ \\
+		& v. aspect	& regular			& italic			& semibold	& semibold italic\\
+$yra$	& ascender	& $688,	[688,698]$	& $688, [688,698]$	& $690$		& $698$ \\
+$yrc$	& capital	& $645,	[645,658]$	& $645, [645,658]$	& $645$		& $645$ \\
+$yrx$	& x-height	& $429,	[429,432]$	& $429, [429,432]$	& $433$		& $434, [433,447]$ \\
+$yr0$	& baseline	& $0, [-12,0]$		& $0, [-12,0]$		& $0$		& $0$ \\
+$yrd$	& descender	& $-232, [-238,-227]$& $-233, [-238,-227]$& $-238$	& $-232, [-238,-232]$ \\
 \hline
-$ayra$	& ascender	& 885	& 885--890	& 885	& 885--890	\\
-$ayrc$	& capital	& 850	& 850	& 805	& 850	\\
-$ayrx$	& x-height	& 645	& 645	& 645	& 645	\\
+$ayra$	& ascender	& $885$	& $890$	& $885$	& $890$	\\
+$ayrc$	& capital	& $850$	& $850$	& $805$	& $850$	\\
+$ayrx$	& x-height	& $645$	& $645$	& $645$	& $645$	\\
 $byr0$	& baseline	& $-110$	& $-110$	& $-110$	& $-110$	\\
 $byrd$	& descender	& $-319$	& $-319$	& $-319$	& $-319$	\\
 \hline
-$ay\delta a$	& ascender	& $187$	& $190$	& $195$	& $194$	\\
+$ay\delta a$	& ascender	& $187$	& $202$	& $195$	& $192$	\\
 $ay\delta c$	& capital	& $205$	& $205$	& $205$	& $205$	\\
 $ay\delta x$	& x-height	& $216$	& $216$	& $212$	& $198$	\\
 $by\delta 0$	& baseline	& $110$	& $110$	& $110$	& $110$	\\
@@ -298,59 +296,73 @@ Observe that many IPA letters reuse $ax = 209$ and $bx = 196$.
 These are good anchors for the letter a, but these were just copied to some IPA letters 
 without regard to the letterform and are therefore bad anchors for those IPA letters.
 
-\subsection*{Patch J and Q regular, below-anchor}
+\section*{Anchor survey, with patches}
+
+I will systematically survey above- and below anchors in the four font font styles, 
+commenting on any features and patching any problems. 
+Refer to Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2} for anchor values.
+Missing anchors are readily apparaent as blank entries.
+Large anchor-midpoint offset values ($ax\delta$, $bx\delta$) indicate possible problems, 
+but these can often be explained by glyph symmetry.
+
+\subsection*{A--Z, regular, above- and below-anchor}
+
+The above-anchors of A--Z regular are good. 
+
+The above-anchor of D is just right of the major stem, not right enough to be centered over the bowl.
+For D, $ax = 306$.
+Consider the precomposed characters Ď (U+010E) and Ḋ (U+1E0A).
+The designer drew their glyphs with the mark centered at $X = 312$ and $296$ respectively.
+So, this is a deliberate design decision to keep the mark closer to the stem, not centered over the bowl.
+
+Similarly, the above anchor of F is just right of the major stem, not right enough to be centered over cross strokes.
+For F, $ax = 284$.
+For Ḟ (U+1E1E), the dot is centered at $X = 254$.
+So, the designer is deliberately choosing to keep the mark cloder to the stem.
+
+The above-anchor of L is centered over the major stem, which is a valid design choice.
+
+The below-anchors of A--Z regular are good. 
+But J's below anchor is too low, and Q is missing a below-anchor.
+Even though J and Q arguably do not need below-anchors for linguistic notation, 
+I will set this anchor by the heuristic algorithm.
+
+\subsubsection*{Patch J regular, below-anchor}
 
 J's below-anchor is too low.
-In Table \ref{table:fontmetrics_AZ}, the $Y$ coordinate of the below-anchor of J is the same as that of the lowercase letters with descenders. 
-But the descender of J is not as low as that of j, p, q etc.
-Look at the J column in the grid labeled regular, Latin, below, which is later in this document.
-The below-marks are set with too much clearance below J. 
+For J, $by = 319$, but J is not a full descender; 
+its bbox $Y_\mathrm{min} = -172$, which is well above $yrd = -232$.
+Yes, the designer set $by = byrd = -319$ for J in all fout font styles, but this is arguably too low.
+According to the heuristic algorithm, the below-anchor anchor should be at 
+$by = Y_\mathrm{min} - by\delta d + \epsilon = -172 -87 + 5 = -254$, 
+where $\epsilon = 5$ accounts for the overshoot of J's tail.
 
-Q has no below-anchor (Table \ref{table:fontmetrics_AZ}).
-By HarfBuzz fallback shaping (in the absence of anchors), a below-marks will be place below the baseline, 
-without considering descenders.
-Look at the J column in the grid labeled regular, Latin, below, which is later in this document.
-All the below-marks crash into Q's descender.
+\subsubsection*{Patch Q regular, below-anchor}
 
-Let's analyze the below-anchors in order to set the below-anchor for J and Q. 
-The below clearance is clearly 110 units on the $Y$ axis, as can be seen from the below-anchor $Y$ coordinate of the letters that sit on the baseline.
-What should the below-anchor $Y$ coordinate be for J and Q?
-For the $Y$ coordinate, the lower bound of the J bounding box is at $Y = -172$. 
-So, the below-anchor $Y$ coordinate of J should arguably be $Y = -172 - 110 = -282$.
-But the designer set it at $Y = -319$, which is too low.
-For the $Y$ coordinate, the lower bound of the Q bounding box is at $Y = -209$. 
-So, the below-anchor $Y$ coordinate of Q should arguably be $Y = -209 - 110 = -319$.
-But the J and Q have curves at the bottoms of their descenders, and to account for overshoot, 
-the anchor should be moved up by a few units. 
-But what is the proper overshoot correction?
-The O has a baseline overshoot of 10 units. 
-So, the below-anchor $Y$ coordinate of J should really be $Y = -282 + 10 = -272$, 
-and the below-anchor $Y$ coordinate of Q should really be $Y = -319 + 10 = -309$.
+Q has bbox $Y_\mathrm{min} = -209$.
+Again, according to the heuristic algorithm, the below-anchor anchor should be at 
+$by = Y_\mathrm{min} - by\delta d + \epsilon = -209 -87 + 5 = -291$, 
+where $\epsilon = 5$ accounts for the overshoot of Q's tail.
+For $bx$, observe that O and Q have the same counter outline, literally.
+So, the below-anchor for Q should be at $bx = 350$, the same as that for O.
 
-Now, let's decide below-anchor $X$ coordinate of Q. 
-The Q and O are drawn with the same main oval outline coordinates. 
-So, the below-anchor $X$ coordinate of Q should the same as that for O, which is $X = 350$.
+\subsection*{a--z, regular, above- and below-anchor}
 
-That is, the below-anchor of J should be $(109,-272)$, and the below-anchor of Q should be $(350,-309)$. 
-Here is this positioning of J and Q in a patched version of the font (woth O and X for comparison only).
+b, f, j, and t are missing above-anchors.
+Some letters (n, p, r, v, w, x, z) should have $ay$ regularized to $645$, not $646$.
+For d, h, and k, the above-anchor is centered above the body, not the ascender; 
+this is good design choice, but care must be taken to avoid collision between an above-mark and an ascender.
+For d and h, $ay$ is at the x-height anchor reference, and therefore wide marks collide with the ascender.
+For k, $ay$ is a bit higher, but not at the full ascender anchor references, 
+and therefore the widest marks collide with the ascender.
 
-Original: X\char"0320 J\char"0320 Q\char"0320 O\char"0320
+The below-anchor of k is too low. 
+Otherwise, the below-anchors of a--z are good.
 
-Patched: {\LibertinusSerifPatch X\char"0320 J\char"0320 Q\char"0320 O\char"0320}
+\subsubsection*{Patch k regular, below-anchor}
 
-%   A    B    C    D    E    F    G   H     I    J    K    L    M    N   O     P    Q   R     S    T    U    V    W    X    Y    Z
-% 354  267  340  306  281  284  365  361  150  182  336  151  431  346  335  277  348  269  232  307  346  336  450  332  295  320
-% 850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850  850
-% 308  268  363  309  287  209  367  362  147  109  342  262  393  348  350  240  350  258  234  300  328  318  479  307  295  287
-%-110 -110 -110 -110 -110 -110 -110 -110 -110 -272 -110 -110 -110 -110 -110 -110 -309 -110 -110 -110 -110 -110 -110 -110 -110 -110
-
-But there is no sane reason to put a below-mark on J or Q, so this is not really a problem at all.
-
-\subsection*{Patch k regular, below-anchor, $Y$ coordinate}
-
-The below-anchor of k, regular, is at $Y = -214$. 
-But it should be at $Y = -110$, like all other letters that sit on the baseline.
-That is, the below-anchor of k should be $(109,-110)$.
+For k, $by -214$. 
+But it should be at $byr0 = -110$, like all other letters that sit on the baseline.
 
 Here is this positioning of k in a patched version of the font (with o for comparison only).
 
@@ -358,13 +370,21 @@ Original: k\char"0320\ k\char"0320 o ok\char"0320
 
 Patched: {\LibertinusSerifPatch k\char"0320\ k\char"0320 o ok\char"0320}
 
-%   a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s    t    u    v    w    x    y    z
-% 209       242  218  243       231  299  137       306  135  392  264  238  271  238  191  206       255  256  345  256  262  220
-% 645       645  645  645       645  645  795       784  885  645  646  645  646  645  646  645       645  646  646  646  645  646
-% 196  234  236  221  234  132  229  272  136  109  290  135  408  265  243  179  348  135  196  163  239  241  352  224  242  207
-%-110 -110 -110 -110 -110 -110 -319 -110 -110 -319 -110 -110 -110 -110 -110 -319 -319 -110 -110 -110 -110 -110 -110 -110 -319 -110
+\subsubsection*{Patch b regular, above-anchor}
 
-But there is no sane reason to put a below-mark on k, other than perhaps dot (which is a precomposed character), so this is not really a problem at all.
+\subsubsection*{Patch d regular, above-anchor}
+
+\subsubsection*{Patch f regular, above-anchor}
+
+\subsubsection*{Patch h regular, above-anchor}
+
+\subsubsection*{Patch j regular, above-anchor}
+
+\subsubsection*{Patch n, p, r, v, w, x, z regular, above-anchor}
+
+In my patched version of the font, I regularize $ay$ to $ayr0 = 645$ 
+for all letters that sit at the x-height, including n, p, r, v, w, x, z.
+
 
 \subsection*{Above-anchor, a--z regular}
 
@@ -661,8 +681,8 @@ Precomposed characters are blue and therefore cannot be changed unless their gly
 Black combinations of vowels and marks are shaped by anchors 
 and therefore can be changed by setting good anchors.
 
-Use the combining graphem joiner (CGJ) character U+034F, \verb|\char"034F|, 
-or \verb|\cgj| if loaded by some package.
+Use the combining grapheme joiner (CGJ) character U+034F, \verb|\char"034F|, 
+or \verb|\cgj| if loaded by some package, to force the shaper to use combining marks instead of precomposed glyphs.
 
 \ribbiline{A E I O U \char"0190\ \char"0186\ a e i o u \char"025B\ \char"0254\ }
 
@@ -876,23 +896,29 @@ u\char"0330\char"030F\
 \subsection*{Mark over space}
 
 I added a new en-width x-height PUA character, U+E100, with anchors.
-To float an above mark, say double grave U+030F over a space, write \verb|\char"E100 \char"030F|
+To float an above mark, say double grave U+030F over a space, write \verb|\char"E100\char"030F|
 But in practice, the floating mark carries the same tonal specification as the preceding vowel, 
 and therefore must align exactly with the height of that vowel's combining mark.
-To ensure this mark alignment, insert \verb|\cgj| in the prior vowel + mark combo, 
-to force anchor positioning without substituting a precomposed glyph there.
+To ensure this mark alignment, insert a combining grapheme joiner, \verb|\cgj|, 
+in the prior vowel + mark combo, to force anchor positioning without substituting a precomposed glyph there.
+Note that in Libertinus, the two graves in the U+030F glyph are not translates of an identical outline;
+this is a deliberate design choice by the designer.
 
-Example
 
-\verb|-ke\cgj\char"030F \char"E100 \char"030F\| 
+Original 
 
-Original
+\verb|-ke\char"030F\ \char"030F|  
+\ribbiline{-ke\char"030F\ \char"030F\ }  
 
-\ribbiline{-ke\cgj\char"030F \char"E100 \char"030F\ }
+Patched without CGJ 
 
-Patched
+\verb|-ke\char"030F \char"E100\char"030F|
+{\LibertinusSerifPatch \ribbiline{-ke\char"030F \char"E100\char"030F\ }}
 
-{\LibertinusSerifPatch \ribbiline{-ke\cgj\char"030F \char"E100 \char"030F\ }}
+Patched with CGJ
+
+\verb|-ke\cgj\char"030F \char"E100\char"030F|
+{\LibertinusSerifPatch \ribbiline{-ke\cgj\char"030F \char"E100\char"030F\ }}
 
 
 \subsection*{f with dot below}
@@ -1051,6 +1077,8 @@ then the precomposed character should be be produced by the font's GSUB table.
 \newpage
 \section*{Marks}
 
+Here is a catalog of combining marks in Unicode, grouped by the 7 GPOS anchor class indices in Libertinus (0--6).
+
 \subsection*{Above marks -- GPOS anchor 0}
 
 \ribbi{
@@ -1105,7 +1133,7 @@ then the precomposed character should be be produced by the font's GSUB table.
 \newpage
 \subsection*{Overline and low line}
 
-O+0305 combining overline and U+0332 combining low line are applied by GSUB lookups that substitute a custom-width line mark according to width classes. 
+U+0305 combining overline and U+0332 combining low line are applied by GSUB lookups that substitute a custom-width line mark according to width classes. 
 GSUB lookup 51 effectively classifies the glyphs by width, and GSUB lookups 52--82 provide the appropriate custom-width mark for the base width class. 
 Semibold and semibold italic do not have any combining low lines. 
 Custom-width line marks do not have anchors. 
@@ -1296,6 +1324,8 @@ These anchor coordinate values were optimized for U+0315 but they work fine for 
 \newpage
 \section*{Bases}
 
+Here are some subgroups of bases.
+
 \subsection*{Latin}
 
 \ribbi{
@@ -1367,12 +1397,12 @@ These anchor coordinate values were optimized for U+0315 but they work fine for 
 }
 
 \newpage
-\section*{Base and mark shaping}
+\section*{Base and mark shaping -- Linguistics notation}
 
 These grids display base and mark rendering in XeLaTeX documents in 
 Libertinus serif regular, italic, semibold and semibold italic.
-Note that LSP uses the Libertinus fonts named ``Semibold``, e.g. 
-\verb|LibertinusSerif-Semibold.otf|, for all boldface style.
+
+The grids use Latin in IPA bases and combining marks that are used in linguistics notation.
 
 A \SUPPORTEDANCH{black} color means GPOS anchor positioning.
 
@@ -1394,36 +1424,29 @@ o\char"033B\gs\ (U+033B square below).
 Otherwise, all considered base and mark combinations can be drawn in 
 XeLaTeX documents in Libertinus without tofu for missing glyphs.
 
-There are separate grids for common marks (for IPA etc.) and 
-rare marks (for UPA etc.). 
-Each grid considers all possible bases for marks in that grid, 
-and so the grid is actually a complete matrix or grid or table,
-but with faded colors indicating combinations that can be ignored
-because they are not expected in notation in linguistics.
-
 \input{input/mark_base_common.tex}
 
 \input{input/mark_base_rare.tex}
 
 \newpage
-\section*{Base and mark shaping  (complete)}
+\section*{Base and mark shaping  -- Complete}
 
 These grids display base and mark rendering in XeLaTeX documents in 
 Libertinus serif regular, italic, semibold and semibold italic.
 The grids use more complete sets of Latin and IPA bases and above and below marks.
 
-\SUPPORTEDPREC{Blue} indicates that XeLaTeX used a precomposed
+\SUPPORTEDPREC{Blue} indicates that XeLaTeX uses a precomposed
 Unicode character glyph.
 
-\SUPPORTEDANCH{Black} indicates that the mark was positioned
+\SUPPORTEDANCH{Black} indicates that the mark is positioned
 using GPOS anchors.
 
 \SUPPORTEDFALL{Red} indicates HarfBuzz fallback shaping: no precomposed
-glyph and no GPOS anchors were used.
+glyph and no GPOS anchors are used.
 
 \MISSINGGLYPH{Light gray} indicates that either the base or the
-mark glyph is missing from the font. In this case only the base glyph
-is shown.
+mark glyph is missing from the font. 
+In this case only the base glyph is shown.
 
 \input{input/latin_ipa_above_below.tex}
 

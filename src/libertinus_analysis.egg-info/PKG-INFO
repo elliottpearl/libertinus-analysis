@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: libertinus_analysis
+Version: 0.1.0
+Summary: Analysis of combining marks in Libertinus
+Author: Elliott Pearl
+License-File: LICENSE
+Requires-Dist: fonttools
+Requires-Dist: uharfbuzz
+Dynamic: license-file

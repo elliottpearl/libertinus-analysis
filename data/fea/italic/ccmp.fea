@@ -23,6 +23,10 @@ feature ccmp {
     uni0308 hookabovecomb uni030A uni030B uni030C uni030D uni030E 
     uni030F uni0310 uni0311 uni0312 uni0313 uni0314 uni0315
     uni031A uni0351 uni0357 uni0358
+    # add 
+    uni033D uni033E uni0346 uni034A uni034B uni034C uni0350 uni0352 
+    uni035B
+
   ];
 
   # update Latin + IPA capitals

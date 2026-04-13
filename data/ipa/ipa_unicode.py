@@ -399,8 +399,7 @@ BASE_HEURISTICS = [
 # anchor 0 (count: 21)
 MARK_ABOVE = [
     0x0300,0x0301,0x0302,0x0303,0x0304,0x0306,0x0307,0x0308,0x0309,0x030A,
-    0x030B,0x030C,0x030D,0x030F,0x0310,0x0311,0x0312,0x0313,0x033D,0x033E,
-    0x033F,
+    0x030B,0x030C,0x030D,0x030F,0x0310,0x0311,0x0312,0x033D,0x033E,0x033F,
     # 0x0305,  # overline
     0x030E,  # double vertical line above
     0x0346,  # bridge above
@@ -445,11 +444,32 @@ MARK_BELOW = [
 
 # greek
 MARK_GREEK = [
-    0x0314,  # reversed comma above
-    0x0342,  # Greek perispomeni (above)
-    0x0344,  # dialytika + tonos (above)
+    0x0300,0x0301,0x0303,0x0304,0x0306,0x0307,0x0308,0x0323, 
+    # Greek specific
+    0x0313,  # comma (above)
+    0x0314,  # reversed comma (above)
+    # 0x0340 grave tone above, deprecated
+    # 0x0341 acute tone above , deprecated
+    0x0342,  # perispomeni (above)
+    # 0x0344,  # dialytika + tonos (above), deprecated by normalization
+    # 0x0343,  # koronis, deprecated by normalization
     0x0345,  # ypogegrammeni (canonical below)
 ]
+
+# Complete list of Greek mark–mark pairs requiring mkmk anchors
+# Above–above (10 total):
+# 0313 + 0301
+# 0314 + 0301
+# 0313 + 0300
+# 0314 + 0300
+# 0313 + 0342
+# 0314 + 0342
+# 0308 + 0301
+# 0313 + 0308
+# 0314 + 0308
+# 0301 + 0308 (reordered to #7)
+# Below–below (1 optional):
+# 0345 + 0323 (rare)
 
 # anchor 3
 MARK_LEFT_ANGLE = [

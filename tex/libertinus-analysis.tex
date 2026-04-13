@@ -472,7 +472,12 @@ For E, F, P and R, the above-anchor is optically centered above the glyph, not a
 \caption{Above-anchor $X$ coordinate alignment.
 	 In the left panel, the 26×26 grid shows letters A--Z aligned at the their above-anchor.
 	 The right panel shows how hard it is to discern bad $X$ coordinates.
-	 The right panel shows N aligned with letters at their above-anchor, starting at the first column with N's above-anchor as currently set by the font, and then spoofing increasing bad values for the $X$ coordinate of N's above-anchor, by 5 UPM per column. At the rightmost column, it becomes evident that the (spoofed) $X$ coordinate of N's above-anchor is bad, because in that column the black Ns are too far right of the gray letters below them.
+	 The right panel shows N aligned with letters at their above-anchor, 
+	 starting at the first column with Ns above-anchor as currently set by the font, 
+	 and then spoofing increasing bad values for the $X$ coordinate of N's above-anchor, 
+	 by 5 UPM per column. At the rightmost column, it becomes evident that 
+	 the (spoofed) $X$ coordinate of N's above-anchor is bad, because 
+	 in that column the black Ns are too far right of the gray letters below them.
 }
 \label{fig:above-anchor-X-coordintate-alignment}
 \end{figure}
@@ -480,7 +485,8 @@ For E, F, P and R, the above-anchor is optically centered above the glyph, not a
 \newpage
 \subsection*{Comma-style marks}
 
-Libertinus has a some (precomposed) glyphs for Unicode characters (with code points) where the caron or cedilla has a comma-style shape, instead of a wedge or hook as might be naively expected.
+Libertinus has a some (precomposed) glyphs for Unicode characters (with code points) where 
+the caron or cedilla has a comma-style shape, instead of a wedge or hook as might be naively expected.
 But all of these are appropriate for Czech/Slovak orthography (caron or \textit{háček}) 
 or Latvian orthography (cedilla, but really the comma-above mark or \textit{komatiņš}, 
 by a known mistake in Unicode). 
@@ -575,7 +581,8 @@ I think the cedilla on a D or d should be hook-like, but I do not really know.
 
 The other characters -- c, e, h, s, t -- with a cedilla should definitely be hook-like, and they are so in Libertinus.
 
-Somewhat mysteriously, if the LaTeX source tries to combine any of these letters -- c, d, e, g, h, k, l, n, r, s, t -- with the combining cedilla, U+0327, then the precomposed character is produced. 
+Somewhat mysteriously, if the LaTeX source tries to combine any of these letters -- c, d, e, g, h, k, l, n, r, s, t -- 
+with the combining cedilla, U+0327, then the precomposed character is produced. 
 
 \verb|c\char"0327| \ribbiline{c\char"0327}
 
@@ -599,7 +606,8 @@ Somewhat mysteriously, if the LaTeX source tries to combine any of these letters
 
 \verb|t\char"0327| \ribbiline{t\char"0327}
 
-This behavior does not make sense for the Latvian \textit{komatiņš} bases -- g, k, l, n, r  -- because any person trying to produce Latvian g with \textit{komatiņš} would not try \verb|g\char"0327| or \verb|\c{g}|.
+This behavior does not make sense for the Latvian \textit{komatiņš} bases -- g, k, l, n, r  -- 
+because any person trying to produce Latvian g with \textit{komatiņš} would not try \verb|g\char"0327| or \verb|\c{g}|.
 
 This behavior is tolerable for the other bases --  c, d, e, h, s, t.
 
@@ -632,7 +640,8 @@ Dutch small ligature ij with acute
 \verb|{\SerifRegularDutch \textsc{\char"0133\char"0301}}|
 Dutch small capital ligature IJ with acute
 
-In an English LaTeX document, \verb|ij| and \verb|IJ| are kerned by the GPOS table to produce ij and IJ, so they look close together, but they are not substituted by the single glyph for the ligature.
+In an English LaTeX document, \verb|ij| and \verb|IJ| are kerned by the GPOS table to produce ij and IJ, 
+so they look close together, but they are not substituted by the single glyph for the ligature.
 
 \subsection*{Tilde below, double acute above, double grave above, on vowels, in italic and semibold italic}
 
@@ -1077,15 +1086,17 @@ then the precomposed character should be be produced by the font's GSUB table.
 \newpage
 \section*{Marks}
 
-Here is a catalog of combining marks in Unicode, grouped by the 7 GPOS anchor class indices in Libertinus (0--6).
+Here is a catalog of combining marks in Unicode, grouped by the seven GPOS anchor class indices in Libertinus (0--6).
 
 \subsection*{Above marks -- GPOS anchor 0}
 
 \ribbi{
-	x\char"0300\gs x\char"0301\gs x\char"0302\gs x\char"0303\gs x\char"0304\gs x\char"0306\gs x\char"0307\gs x\char"0308\gs x\char"0309\gs x\char"030A\gs x\char"030B\gs x\char"030C\gs x\char"030D\gs x\char"030F\gs x\char"0310\gs x\char"0311\gs x\char"0312\gs x\char"0313\gs x\char"033D\gs x\char"033E\gs x\char"033F\gs
-	% Rare above marks
-	\gs\gs
-	x\char"030E\gs x\char"0314\gs x\char"0340\gs x\char"0341\gs x\char"0342\gs x\char"0343\gs x\char"0344\gs x\char"0346\gs x\char"034A\gs x\char"034B\gs x\char"034C\gs x\char"0350\gs x\char"0351\gs x\char"0352\gs x\char"0357\gs x\char"035B\gs
+	x\char"0300\gs x\char"0301\gs x\char"0302\gs x\char"0303\gs x\char"0304\gs 
+	x\char"0306\gs x\char"0307\gs x\char"0308\gs x\char"0309\gs x\char"030A\gs 
+	x\char"030B\gs x\char"030C\gs x\char"030D\gs x\char"030F\gs x\char"0310\gs 
+	x\char"0311\gs x\char"0312\gs x\char"033D\gs x\char"033E\gs x\char"033F\gs 
+	x\char"030E\gs x\char"0346\gs x\char"034A\gs x\char"034B\gs x\char"034C\gs 
+	x\char"0350\gs x\char"0351\gs x\char"0352\gs x\char"0357\gs x\char"035B\gs
 }
 
 \subsection*{Below marks -- GPOS anchor 2} 
@@ -1094,7 +1105,7 @@ Here is a catalog of combining marks in Unicode, grouped by the 7 GPOS anchor cl
 	x\char"0316\gs x\char"0317\gs x\char"0318\gs x\char"0319\gs x\char"031C\gs x\char"0320\gs x\char"0323\gs x\char"0324\gs x\char"0325\gs x\char"0326\gs x\char"0329\gs x\char"032A\gs x\char"032B\gs x\char"032C\gs x\char"032D\gs x\char"032E\gs x\char"032F\gs
 	% Rare below marks
 	\gs\gs
-	x\char"031D\gs x\char"031E\gs x\char"031F\gs x\char"0330\gs x\char"0331\gs x\char"0333\gs x\char"0339\gs x\char"033A\gs x\char"033B\gs x\char"033C\gs x\char"0345\gs x\char"0347\gs x\char"0348\gs x\char"0349\gs x\char"034D\gs x\char"034E\gs
+	x\char"031D\gs x\char"031E\gs x\char"031F\gs x\char"0330\gs x\char"0331\gs x\char"0333\gs x\char"0339\gs x\char"033A\gs x\char"033B\gs x\char"033C\gs x\char"0347\gs x\char"0348\gs x\char"0349\gs x\char"034D\gs x\char"034E\gs
 }
 
 \subsection*{Left angle -- GPOS anchor 3}
@@ -1128,6 +1139,25 @@ Here is a catalog of combining marks in Unicode, grouped by the 7 GPOS anchor cl
 	x\char"0360 x\gs 
 	x\char"0361 x\gs 
 	x\char"0362 x\gs
+}
+
+\subsection*{Greek marks}
+
+\ribbi{
+	τ\char"0300\gs τ\char"0301\gs τ\char"0303\gs τ\char"0304\gs τ\char"0306\gs τ\char"0307\gs τ\char"0308\gs τ\char"0323\gs 
+
+	τ\char"0313\gs τ\char"0314\gs τ\char"0342\gs τ\char"0345\gs
+
+	τ\char"0313\char"0301\gs 
+	τ\char"0314\char"0301\gs 
+	τ\char"0313\char"0300\gs 
+	τ\char"0314\char"0300\gs
+	τ\char"0313\char"0342\gs 
+	τ\char"0314\char"0342\gs 
+	τ\char"0308\char"0301\gs 
+	τ\char"0313\char"0308\gs
+	τ\char"0314\char"0308\gs 
+	τ\char"0345\char"0323\gs 
 }
 
 \newpage

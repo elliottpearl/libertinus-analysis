@@ -586,6 +586,31 @@ MARK_RARE = [
     0x034E, # upwards arrow below (UPA)
 ]
 
+# 
+mark_small_capital_glyph = [
+    "grave.cap",
+    "acute.cap",
+    "circumflex.cap",
+    "caron.cap",
+    "breve.cap",
+    "hungarumlaut.cap",
+    "uni030F.cap", # double grave
+    "breveinvertedcmb.cap",
+#    "breve.cyrcap",
+#    "breve.cyr",
+    "dieresis.cap",
+    "hookabovecomb.cap",
+    "dotaccent.cap",
+]
+
+mark_superscript_glyph = [
+    "gravecomb.sups",
+    "acutecomb.sups",
+    "uni0302.sups", # circumflex
+    "tildecomb.sups",
+    "uni0304.sups", # macron
+]
+
 # Above- and below combining marks used in linguistics, with their bases.
 # Common marks are used in IPA, tone, phonation, ATR/RTR, transliteration.
 # Rare marks are used in in UPA, Slavicist, Africanist, and historical phonetics.

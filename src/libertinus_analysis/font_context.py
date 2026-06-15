@@ -14,41 +14,59 @@ def extract_mark_attachment_data(font, lookup_index):
     Extract mark-to-base anchor data from a GPOS lookup.
 
     Returns:
-        markClassByGlyph:   mark glyphName → classIndex
-        anchorsByBaseGlyph: base glyphName → {classIndex: anchor}
-        cmap:               Unicode → glyphName
+        anchorsByGlyph: glyphName → {classIndex: anchorRecord}
+        cmap:           Unicode → glyphName
+
+    NOTE:
+        anchorsByGlyph includes BOTH:
+            - mark anchors (from MarkArray)
+            - base anchors (from BaseArray)
+
+        This normalizes the anchor model so downstream code does not
+        need to distinguish base vs mark glyphs.
     """
     cmap = font.getBestCmap()
     gpos = font["GPOS"].table
     lookup = gpos.LookupList.Lookup[lookup_index]
 
-    markClassByGlyph = {}
-    anchorsByBaseGlyph = {}
+    anchorsByGlyph = {}
 
     for sub in lookup.SubTable:
         if sub.LookupType != 4:  # MarkToBase
             continue
 
-        # MARK ARRAY
+        # -------------------------
+        # MARK ARRAY (mark anchors)
+        # -------------------------
         mark_records = sub.MarkArray.MarkRecord
         mark_glyphs = sub.MarkCoverage.glyphs
 
         for i, glyph in enumerate(mark_glyphs):
-            markClassByGlyph[glyph] = mark_records[i].Class
+            cls = mark_records[i].Class
+            anchor = mark_records[i].MarkAnchor
 
-        # BASE ARRAY
+            if anchor is not None:
+                anchorsByGlyph[glyph] = {cls: anchor}
+            else:
+                anchorsByGlyph[glyph] = {}
+
+        # -------------------------
+        # BASE ARRAY (base anchors)
+        # -------------------------
         base_records = sub.BaseArray.BaseRecord
         base_glyphs = sub.BaseCoverage.glyphs
 
         for i, glyph in enumerate(base_glyphs):
             baserec = base_records[i]
             anchors = {}
+
             for classIndex, anchor in enumerate(baserec.BaseAnchor):
                 if anchor is not None:
                     anchors[classIndex] = anchor
-            anchorsByBaseGlyph[glyph] = anchors
 
-    return markClassByGlyph, anchorsByBaseGlyph, cmap
+            anchorsByGlyph[glyph] = anchors
+
+    return anchorsByGlyph, cmap
 
 
 # ------------------------------------------------------------
@@ -63,16 +81,10 @@ class FontContext:
         - TTFont
         - HBFont
         - cmap
-        - markClassByGlyph (from curated lookup_index)
-        - anchorsByBaseGlyph (from GPOS lookup)
-        
+        - anchorsByGlyph (anchors for both base and mark glyphs)
 
     NOTE:
-        Does not load certain curated font information, such as 
-        - data/fontdata/{font_key}.py (human curated anchors)
-        - data/fontsemantics/{font_key}.json (LLM curated semantic tags)
-        - data/fontdata or data/legacy fontdata (old data files)
-        which may be needed by client modules.
+        anchorsByBaseGlyph is preserved as a compatibility alias.
     """
 
     def __init__(
@@ -80,17 +92,18 @@ class FontContext:
         ttfont,
         hb_font,
         cmap,
-        markClassByGlyph,
-        anchorsByBaseGlyph,
+        anchorsByGlyph,
         label=None,
     ):
         self.ttfont = ttfont
         self.hb_font = hb_font
         self.cmap = cmap
 
-        # GPOS-derived anchors
-        self.markClassByGlyph = markClassByGlyph
-        self.anchorsByBaseGlyph = anchorsByBaseGlyph
+        # Unified GPOS-derived anchors
+        self.anchorsByGlyph = anchorsByGlyph
+
+        # Backwards compatibility alias
+        self.anchorsByBaseGlyph = anchorsByGlyph
 
         self.label = label
 
@@ -102,7 +115,6 @@ class FontContext:
     def from_path(cls, path, lookup_index, font_key=None, label=None):
         """
         Load TTFont + HBFont + cmap + GPOS anchors from a font file.
-        Curated anchors are no longer loaded here.
         """
         ttfont = TTFont(path)
         fontdata = ttfont.reader.file.getvalue()
@@ -112,8 +124,7 @@ class FontContext:
 
         cmap = ttfont.getBestCmap()
 
-        # Extract anchors using curated lookup_index
-        markClassByGlyph, anchorsByBaseGlyph, _ = extract_mark_attachment_data(
+        anchorsByGlyph, _ = extract_mark_attachment_data(
             ttfont, lookup_index
         )
 
@@ -121,8 +132,7 @@ class FontContext:
             ttfont=ttfont,
             hb_font=hb_font,
             cmap=cmap,
-            markClassByGlyph=markClassByGlyph,
-            anchorsByBaseGlyph=anchorsByBaseGlyph,
+            anchorsByGlyph=anchorsByGlyph,
             label=label,
         )
 
@@ -148,7 +158,7 @@ class FontContext:
         """
         if gid is None:
             return False
-        class_map = self.anchorsByBaseGlyph.get(gid)
+        class_map = self.anchorsByGlyph.get(gid)
         if class_map is None:
             return False
         return classIndex in class_map
@@ -161,7 +171,7 @@ class FontContext:
         if base_gid is None:
             return False
 
-        class_map = self.anchorsByBaseGlyph.get(base_gid)
+        class_map = self.anchorsByGlyph.get(base_gid)
         if class_map is None:
             return False
 

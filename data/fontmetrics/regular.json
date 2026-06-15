@@ -11744,6 +11744,1494 @@
         "has_overhang_right": false
       }
     },
+    "0x0300": {
+      "glyph": "gravecomb",
+      "bbox": [
+        -238,
+        547,
+        -80,
+        710
+      ],
+      "anchors": {
+        "0": [
+          -142,
+          683
+        ]
+      },
+      "width": 0,
+      "lsb": -238,
+      "rsb": 80,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0301": {
+      "glyph": "acutecomb",
+      "bbox": [
+        -239,
+        548,
+        -80,
+        710
+      ],
+      "anchors": {
+        "0": [
+          -191,
+          682
+        ]
+      },
+      "width": 0,
+      "lsb": -239,
+      "rsb": 80,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0302": {
+      "glyph": "uni0302",
+      "bbox": [
+        -266,
+        554,
+        -14,
+        713
+      ],
+      "anchors": {
+        "0": [
+          -139,
+          697
+        ]
+      },
+      "width": 0,
+      "lsb": -266,
+      "rsb": 14,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0303": {
+      "glyph": "tildecomb",
+      "bbox": [
+        -288,
+        568,
+        -10,
+        674
+      ],
+      "anchors": {
+        "0": [
+          -149,
+          697
+        ]
+      },
+      "width": 0,
+      "lsb": -288,
+      "rsb": 10,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0304": {
+      "glyph": "uni0304",
+      "bbox": [
+        -342,
+        535,
+        -81,
+        585
+      ],
+      "anchors": {
+        "0": [
+          -209,
+          644
+        ]
+      },
+      "width": 0,
+      "lsb": -342,
+      "rsb": 81,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0306": {
+      "glyph": "uni0306",
+      "bbox": [
+        -296,
+        529,
+        -26,
+        676
+      ],
+      "anchors": {
+        "0": [
+          -161,
+          681
+        ]
+      },
+      "width": 0,
+      "lsb": -296,
+      "rsb": 26,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0307": {
+      "glyph": "uni0307",
+      "bbox": [
+        -230,
+        524,
+        -130,
+        624
+      ],
+      "anchors": {
+        "0": [
+          -180,
+          667
+        ]
+      },
+      "width": 0,
+      "lsb": -230,
+      "rsb": 130,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0308": {
+      "glyph": "uni0308",
+      "bbox": [
+        -341,
+        526,
+        -78,
+        621
+      ],
+      "anchors": {
+        "0": [
+          -210,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -341,
+      "rsb": 78,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0309": {
+      "glyph": "hookabovecomb",
+      "bbox": [
+        -234,
+        612,
+        -88,
+        781
+      ],
+      "anchors": {
+        "0": [
+          -160,
+          765
+        ]
+      },
+      "width": 0,
+      "lsb": -234,
+      "rsb": 88,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x030A": {
+      "glyph": "uni030A",
+      "bbox": [
+        -270,
+        568,
+        -94,
+        738
+      ],
+      "anchors": {
+        "0": [
+          -184,
+          708
+        ]
+      },
+      "width": 0,
+      "lsb": -270,
+      "rsb": 94,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x030B": {
+      "glyph": "uni030B",
+      "bbox": [
+        -300,
+        557,
+        -39,
+        733
+      ],
+      "anchors": {
+        "0": [
+          -219,
+          714
+        ]
+      },
+      "width": 0,
+      "lsb": -300,
+      "rsb": 39,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x030C": {
+      "glyph": "uni030C",
+      "bbox": [
+        -330,
+        533,
+        -77,
+        676
+      ],
+      "anchors": {
+        "0": [
+          -205,
+          676
+        ]
+      },
+      "width": 0,
+      "lsb": -330,
+      "rsb": 77,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x030D": {
+      "glyph": "uni030D",
+      "bbox": [
+        -181,
+        548,
+        -127,
+        710
+      ],
+      "anchors": {
+        "0": [
+          -155,
+          688
+        ]
+      },
+      "width": 0,
+      "lsb": -181,
+      "rsb": 127,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x030E": {
+      "glyph": "uni030E",
+      "bbox": [
+        -319,
+        539,
+        -170,
+        719
+      ],
+      "anchors": {
+        "0": [
+          -245,
+          719
+        ]
+      },
+      "width": 0,
+      "lsb": -319,
+      "rsb": 170,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x030F": {
+      "glyph": "uni030F",
+      "bbox": [
+        -298,
+        581,
+        -37,
+        757
+      ],
+      "anchors": {
+        "0": [
+          -140,
+          758
+        ]
+      },
+      "width": 0,
+      "lsb": -298,
+      "rsb": 37,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0310": {
+      "glyph": "uni0310",
+      "bbox": [
+        -386,
+        529,
+        -116,
+        745
+      ],
+      "anchors": {
+        "0": [
+          -251,
+          675
+        ]
+      },
+      "width": 0,
+      "lsb": -386,
+      "rsb": 116,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0311": {
+      "glyph": "uni0311",
+      "bbox": [
+        -343,
+        498,
+        -73,
+        645
+      ],
+      "anchors": {
+        "0": [
+          -205,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -343,
+      "rsb": 73,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0312": {
+      "glyph": "uni0312",
+      "bbox": [
+        -158,
+        468,
+        -45,
+        650
+      ],
+      "anchors": {
+        "0": [
+          -110,
+          605
+        ]
+      },
+      "width": 0,
+      "lsb": -158,
+      "rsb": 45,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0316": {
+      "glyph": "uni0316",
+      "bbox": [
+        -339,
+        -219,
+        -157,
+        -78
+      ],
+      "anchors": {
+        "2": [
+          -219,
+          -133
+        ]
+      },
+      "width": 0,
+      "lsb": -339,
+      "rsb": 157,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0317": {
+      "glyph": "uni0317",
+      "bbox": [
+        -310,
+        -214,
+        -139,
+        -68
+      ],
+      "anchors": {
+        "2": [
+          -210,
+          -132
+        ]
+      },
+      "width": 0,
+      "lsb": -310,
+      "rsb": 139,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0318": {
+      "glyph": "uni0318",
+      "bbox": [
+        -330,
+        -238,
+        -168,
+        -56
+      ],
+      "anchors": {
+        "2": [
+          -224,
+          -148
+        ]
+      },
+      "width": 0,
+      "lsb": -330,
+      "rsb": 168,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0319": {
+      "glyph": "uni0319",
+      "bbox": [
+        -330,
+        -237,
+        -168,
+        -55
+      ],
+      "anchors": {
+        "2": [
+          -285,
+          -147
+        ]
+      },
+      "width": 0,
+      "lsb": -330,
+      "rsb": 168,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x031C": {
+      "glyph": "uni031C",
+      "bbox": [
+        -317,
+        -244,
+        -207,
+        -52
+      ],
+      "anchors": {
+        "2": [
+          -216,
+          -146
+        ]
+      },
+      "width": 0,
+      "lsb": -317,
+      "rsb": 207,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x031D": {
+      "glyph": "uni031D",
+      "bbox": [
+        -340,
+        -228,
+        -158,
+        -66
+      ],
+      "anchors": {
+        "2": [
+          -249,
+          -143
+        ]
+      },
+      "width": 0,
+      "lsb": -340,
+      "rsb": 158,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x031E": {
+      "glyph": "uni031E",
+      "bbox": [
+        -340,
+        -228,
+        -158,
+        -66
+      ],
+      "anchors": {
+        "2": [
+          -247,
+          -106
+        ]
+      },
+      "width": 0,
+      "lsb": -340,
+      "rsb": 158,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x031F": {
+      "glyph": "uni031F",
+      "bbox": [
+        -350,
+        -238,
+        -153,
+        -53
+      ],
+      "anchors": {
+        "2": [
+          -249,
+          -145
+        ]
+      },
+      "width": 0,
+      "lsb": -350,
+      "rsb": 153,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0320": {
+      "glyph": "uni0320",
+      "bbox": [
+        -350,
+        -167,
+        -153,
+        -124
+      ],
+      "anchors": {
+        "2": [
+          -253,
+          -148
+        ]
+      },
+      "width": 0,
+      "lsb": -350,
+      "rsb": 153,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0323": {
+      "glyph": "dotbelowcomb",
+      "bbox": [
+        -270,
+        -214,
+        -162,
+        -106
+      ],
+      "anchors": {
+        "2": [
+          -216,
+          -113
+        ]
+      },
+      "width": 0,
+      "lsb": -270,
+      "rsb": 162,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0324": {
+      "glyph": "uni0324",
+      "bbox": [
+        -370,
+        -214,
+        -64,
+        -106
+      ],
+      "anchors": {
+        "2": [
+          -218,
+          -116
+        ]
+      },
+      "width": 0,
+      "lsb": -370,
+      "rsb": 64,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0325": {
+      "glyph": "uni0325",
+      "bbox": [
+        -305,
+        -202,
+        -129,
+        -32
+      ],
+      "anchors": {
+        "2": [
+          -218,
+          -116
+        ]
+      },
+      "width": 0,
+      "lsb": -305,
+      "rsb": 129,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0326": {
+      "glyph": "uni0326",
+      "bbox": [
+        -302,
+        -226,
+        -188,
+        -41
+      ],
+      "anchors": {
+        "2": [
+          -255,
+          -82
+        ]
+      },
+      "width": 0,
+      "lsb": -302,
+      "rsb": 188,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0329": {
+      "glyph": "uni0329",
+      "bbox": [
+        -283,
+        -237,
+        -229,
+        -60
+      ],
+      "anchors": {
+        "2": [
+          -257,
+          -122
+        ]
+      },
+      "width": 0,
+      "lsb": -283,
+      "rsb": 229,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032A": {
+      "glyph": "uni032A",
+      "bbox": [
+        -375,
+        -209,
+        -135,
+        -88
+      ],
+      "anchors": {
+        "2": [
+          -253,
+          -113
+        ]
+      },
+      "width": 0,
+      "lsb": -375,
+      "rsb": 135,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032B": {
+      "glyph": "uni032B",
+      "bbox": [
+        -407,
+        -225,
+        -96,
+        -73
+      ],
+      "anchors": {
+        "2": [
+          -251,
+          -108
+        ]
+      },
+      "width": 0,
+      "lsb": -407,
+      "rsb": 96,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032C": {
+      "glyph": "uni032C",
+      "bbox": [
+        -330,
+        -220,
+        -77,
+        -77
+      ],
+      "anchors": {
+        "2": [
+          -204,
+          -116
+        ]
+      },
+      "width": 0,
+      "lsb": -330,
+      "rsb": 77,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032D": {
+      "glyph": "uni032D",
+      "bbox": [
+        -322,
+        -225,
+        -68,
+        -82
+      ],
+      "anchors": {
+        "2": [
+          -195,
+          -133
+        ]
+      },
+      "width": 0,
+      "lsb": -322,
+      "rsb": 68,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032E": {
+      "glyph": "uni032E",
+      "bbox": [
+        -387,
+        -210,
+        -117,
+        -63
+      ],
+      "anchors": {
+        "2": [
+          -251,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -387,
+      "rsb": 117,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032F": {
+      "glyph": "uni032F",
+      "bbox": [
+        -386,
+        -226,
+        -116,
+        -79
+      ],
+      "anchors": {
+        "2": [
+          -250,
+          -116
+        ]
+      },
+      "width": 0,
+      "lsb": -386,
+      "rsb": 116,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0330": {
+      "glyph": "uni0330",
+      "bbox": [
+        -344,
+        -128,
+        -66,
+        -22
+      ],
+      "anchors": {
+        "2": [
+          -213,
+          -70
+        ]
+      },
+      "width": 0,
+      "lsb": -344,
+      "rsb": 66,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0331": {
+      "glyph": "uni0331",
+      "bbox": [
+        -360,
+        -131,
+        -120,
+        -87
+      ],
+      "anchors": {
+        "2": [
+          -244,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -360,
+      "rsb": 120,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0333": {
+      "glyph": "uni0333",
+      "bbox": [
+        -370,
+        -211,
+        -110,
+        -77
+      ],
+      "anchors": {
+        "2": [
+          -244,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -370,
+      "rsb": 110,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0339": {
+      "glyph": "uni0339",
+      "bbox": [
+        -233,
+        -244,
+        -123,
+        -52
+      ],
+      "anchors": {
+        "2": [
+          -216,
+          -146
+        ]
+      },
+      "width": 0,
+      "lsb": -233,
+      "rsb": 123,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033A": {
+      "glyph": "uni033A",
+      "bbox": [
+        -375,
+        -209,
+        -135,
+        -88
+      ],
+      "anchors": {
+        "2": [
+          -253,
+          -113
+        ]
+      },
+      "width": 0,
+      "lsb": -375,
+      "rsb": 135,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033B": {
+      "glyph": "uni033B",
+      "bbox": [
+        -343,
+        -238,
+        -161,
+        -72
+      ],
+      "anchors": {
+        "2": [
+          -246,
+          -113
+        ]
+      },
+      "width": 0,
+      "lsb": -343,
+      "rsb": 161,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033C": {
+      "glyph": "uni033C",
+      "bbox": [
+        -407,
+        -225,
+        -96,
+        -73
+      ],
+      "anchors": {
+        "2": [
+          -251,
+          -108
+        ]
+      },
+      "width": 0,
+      "lsb": -407,
+      "rsb": 96,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033D": {
+      "glyph": "uni033D",
+      "bbox": [
+        -362,
+        439,
+        -159,
+        642
+      ],
+      "anchors": {
+        "0": [
+          -265,
+          605
+        ]
+      },
+      "width": 0,
+      "lsb": -362,
+      "rsb": 159,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033E": {
+      "glyph": "uni033E",
+      "bbox": [
+        -289,
+        441,
+        -205,
+        663
+      ],
+      "anchors": {
+        "0": [
+          -265,
+          605
+        ]
+      },
+      "width": 0,
+      "lsb": -289,
+      "rsb": 205,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033F": {
+      "glyph": "uni033F",
+      "bbox": [
+        -430,
+        479,
+        -50,
+        613
+      ],
+      "anchors": {
+        "0": [
+          -235,
+          611
+        ]
+      },
+      "width": 0,
+      "lsb": -430,
+      "rsb": 50,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0346": {
+      "glyph": "uni0346",
+      "bbox": [
+        -375,
+        481,
+        -135,
+        602
+      ],
+      "anchors": {
+        "0": [
+          -251,
+          621
+        ]
+      },
+      "width": 0,
+      "lsb": -375,
+      "rsb": 135,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0347": {
+      "glyph": "uni0347",
+      "bbox": [
+        -430,
+        -211,
+        -50,
+        -77
+      ],
+      "anchors": {
+        "2": [
+          -244,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -430,
+      "rsb": 50,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0348": {
+      "glyph": "uni0348",
+      "bbox": [
+        -270,
+        -225,
+        -120,
+        -48
+      ],
+      "anchors": {
+        "2": [
+          -197,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -270,
+      "rsb": 120,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0349": {
+      "glyph": "uni0349",
+      "bbox": [
+        -262,
+        -186,
+        -116,
+        -65
+      ],
+      "anchors": {
+        "2": [
+          -192,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -262,
+      "rsb": 116,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x034A": {
+      "glyph": "uni034A",
+      "bbox": [
+        -356,
+        494,
+        -78,
+        667
+      ],
+      "anchors": {
+        "0": [
+          -215,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -356,
+      "rsb": 78,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x034B": {
+      "glyph": "uni034B",
+      "bbox": [
+        -356,
+        468,
+        -78,
+        702
+      ],
+      "anchors": {
+        "0": [
+          -205,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -356,
+      "rsb": 78,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x034C": {
+      "glyph": "uni034C",
+      "bbox": [
+        -373,
+        504,
+        -104,
+        671
+      ],
+      "anchors": {
+        "0": [
+          -235,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -373,
+      "rsb": 104,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x034D": {
+      "glyph": "uni034D",
+      "bbox": [
+        -414,
+        -221,
+        -43,
+        -46
+      ],
+      "anchors": {
+        "2": [
+          -222,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -414,
+      "rsb": 43,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x034E": {
+      "glyph": "uni034E",
+      "bbox": [
+        -316,
+        -230,
+        -141,
+        -28
+      ],
+      "anchors": {
+        "2": [
+          -227,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -316,
+      "rsb": 141,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0350": {
+      "glyph": "uni0350",
+      "bbox": [
+        -299,
+        500,
+        -67,
+        696
+      ],
+      "anchors": {
+        "0": [
+          -201,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -299,
+      "rsb": 67,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0351": {
+      "glyph": "uni0351",
+      "bbox": [
+        -220,
+        509,
+        -91,
+        692
+      ],
+      "anchors": {
+        "0": [
+          -171,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -220,
+      "rsb": 91,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0352": {
+      "glyph": "uni0352",
+      "bbox": [
+        -386,
+        509,
+        -116,
+        725
+      ],
+      "anchors": {
+        "0": [
+          -251,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -386,
+      "rsb": 116,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0357": {
+      "glyph": "uni0357",
+      "bbox": [
+        -205,
+        519,
+        -77,
+        702
+      ],
+      "anchors": {
+        "0": [
+          -171,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -205,
+      "rsb": 77,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x035B": {
+      "glyph": "uni035B",
+      "bbox": [
+        -280,
+        489,
+        -69,
+        718
+      ],
+      "anchors": {
+        "0": [
+          -164,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -280,
+      "rsb": 69,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
     "0x0391": {
       "glyph": "Alpha",
       "bbox": [
@@ -20831,6 +22319,385 @@
       "width": 529,
       "lsb": 35,
       "rsb": 34,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "grave.cap": {
+      "glyph": "grave.cap",
+      "bbox": [
+        -293,
+        571,
+        -81,
+        691
+      ],
+      "anchors": {
+        "0": [
+          -175,
+          691
+        ]
+      },
+      "width": 0,
+      "lsb": -293,
+      "rsb": 81,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "acute.cap": {
+      "glyph": "acute.cap",
+      "bbox": [
+        -296,
+        571,
+        -95,
+        693
+      ],
+      "anchors": {
+        "0": [
+          -210,
+          693
+        ]
+      },
+      "width": 0,
+      "lsb": -296,
+      "rsb": 95,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "circumflex.cap": {
+      "glyph": "circumflex.cap",
+      "bbox": [
+        -253,
+        524,
+        -10,
+        648
+      ],
+      "anchors": {
+        "0": [
+          -133,
+          684
+        ]
+      },
+      "width": 0,
+      "lsb": -253,
+      "rsb": 10,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "caron.cap": {
+      "glyph": "caron.cap",
+      "bbox": [
+        -306,
+        524,
+        -62,
+        639
+      ],
+      "anchors": {
+        "0": [
+          -180,
+          639
+        ]
+      },
+      "width": 0,
+      "lsb": -306,
+      "rsb": 62,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "breve.cap": {
+      "glyph": "breve.cap",
+      "bbox": [
+        -297,
+        544,
+        -25,
+        657
+      ],
+      "anchors": {
+        "0": [
+          -161,
+          658
+        ]
+      },
+      "width": 0,
+      "lsb": -297,
+      "rsb": 25,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "hungarumlaut.cap": {
+      "glyph": "hungarumlaut.cap",
+      "bbox": [
+        -354,
+        597,
+        -101,
+        747
+      ],
+      "anchors": {
+        "0": [
+          -226,
+          747
+        ]
+      },
+      "width": 0,
+      "lsb": -354,
+      "rsb": 101,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "uni030F.cap": {
+      "glyph": "uni030F.cap",
+      "bbox": [
+        -354,
+        597,
+        -101,
+        747
+      ],
+      "anchors": {
+        "0": [
+          -220,
+          745
+        ]
+      },
+      "width": 0,
+      "lsb": -354,
+      "rsb": 101,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "breveinvertedcmb.cap": {
+      "glyph": "breveinvertedcmb.cap",
+      "bbox": [
+        -298,
+        544,
+        -26,
+        657
+      ],
+      "anchors": {
+        "0": [
+          -160,
+          658
+        ]
+      },
+      "width": 0,
+      "lsb": -298,
+      "rsb": 26,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "dieresis.cap": {
+      "glyph": "dieresis.cap",
+      "bbox": [
+        -381,
+        709,
+        -96,
+        805
+      ],
+      "anchors": {
+        "0": [
+          -237,
+          807
+        ]
+      },
+      "width": 0,
+      "lsb": -381,
+      "rsb": 96,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "hookabovecomb.cap": {
+      "glyph": "hookabovecomb.cap",
+      "bbox": [
+        -247,
+        632,
+        -86,
+        781
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -247,
+      "rsb": 86,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "dotaccent.cap": {
+      "glyph": "dotaccent.cap",
+      "bbox": [
+        94,
+        588,
+        198,
+        692
+      ],
+      "anchors": {
+        "0": [
+          146,
+          686
+        ]
+      },
+      "width": 291,
+      "lsb": 94,
+      "rsb": 93,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "gravecomb.sups": {
+      "glyph": "gravecomb.sups",
+      "bbox": [
+        -167,
+        383,
+        -56,
+        497
+      ],
+      "anchors": {
+        "0": [
+          -99,
+          478
+        ]
+      },
+      "width": 0,
+      "lsb": -167,
+      "rsb": 56,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "acutecomb.sups": {
+      "glyph": "acutecomb.sups",
+      "bbox": [
+        -167,
+        384,
+        -56,
+        497
+      ],
+      "anchors": {
+        "0": [
+          -134,
+          477
+        ]
+      },
+      "width": 0,
+      "lsb": -167,
+      "rsb": 56,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "uni0302.sups": {
+      "glyph": "uni0302.sups",
+      "bbox": [
+        -186,
+        388,
+        -10,
+        499
+      ],
+      "anchors": {
+        "0": [
+          -97,
+          488
+        ]
+      },
+      "width": 0,
+      "lsb": -186,
+      "rsb": 10,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "tildecomb.sups": {
+      "glyph": "tildecomb.sups",
+      "bbox": [
+        -202,
+        398,
+        -7,
+        472
+      ],
+      "anchors": {
+        "0": [
+          -97,
+          488
+        ]
+      },
+      "width": 0,
+      "lsb": -202,
+      "rsb": 7,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "uni0304.sups": {
+      "glyph": "uni0304.sups",
+      "bbox": [
+        -239,
+        375,
+        -57,
+        410
+      ],
+      "anchors": {
+        "0": [
+          -146,
+          452
+        ]
+      },
+      "width": 0,
+      "lsb": -239,
+      "rsb": 57,
       "tags": {
         "has_left_weight": false,
         "has_right_weight": false,

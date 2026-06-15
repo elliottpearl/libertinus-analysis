@@ -9902,6 +9902,1494 @@
         "has_overhang_right": true
       }
     },
+    "0x0300": {
+      "glyph": "gravecomb",
+      "bbox": [
+        -100,
+        547,
+        35,
+        710
+      ],
+      "anchors": {
+        "0": [
+          -3,
+          683
+        ]
+      },
+      "width": 0,
+      "lsb": -100,
+      "rsb": -35,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0301": {
+      "glyph": "acutecomb",
+      "bbox": [
+        -125,
+        548,
+        58,
+        710
+      ],
+      "anchors": {
+        "0": [
+          -52,
+          682
+        ]
+      },
+      "width": 0,
+      "lsb": -125,
+      "rsb": -58,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0302": {
+      "glyph": "uni0302",
+      "bbox": [
+        -151,
+        554,
+        103,
+        697
+      ],
+      "anchors": {
+        "0": [
+          3,
+          697
+        ]
+      },
+      "width": 0,
+      "lsb": -151,
+      "rsb": -103,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0303": {
+      "glyph": "tildecomb",
+      "bbox": [
+        -170,
+        574,
+        125,
+        670
+      ],
+      "anchors": {
+        "0": [
+          -17,
+          697
+        ]
+      },
+      "width": 0,
+      "lsb": -170,
+      "rsb": -125,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0304": {
+      "glyph": "uni0304",
+      "bbox": [
+        -240,
+        538,
+        45,
+        582
+      ],
+      "anchors": {
+        "0": [
+          -78,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -240,
+      "rsb": -45,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0306": {
+      "glyph": "uni0306",
+      "bbox": [
+        -161,
+        529,
+        109,
+        676
+      ],
+      "anchors": {
+        "0": [
+          -22,
+          681
+        ]
+      },
+      "width": 0,
+      "lsb": -161,
+      "rsb": -109,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0307": {
+      "glyph": "uni0307",
+      "bbox": [
+        -103,
+        556,
+        -7,
+        652
+      ],
+      "anchors": {
+        "0": [
+          -40,
+          689
+        ]
+      },
+      "width": 0,
+      "lsb": -103,
+      "rsb": 7,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0308": {
+      "glyph": "uni0308",
+      "bbox": [
+        -220,
+        527,
+        32,
+        619
+      ],
+      "anchors": {
+        "0": [
+          -79,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -220,
+      "rsb": -32,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0309": {
+      "glyph": "hookabovecomb",
+      "bbox": [
+        -87,
+        612,
+        60,
+        781
+      ],
+      "anchors": {
+        "0": [
+          -4,
+          765
+        ]
+      },
+      "width": 0,
+      "lsb": -87,
+      "rsb": -60,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x030A": {
+      "glyph": "uni030A",
+      "bbox": [
+        -137,
+        570,
+        40,
+        736
+      ],
+      "anchors": {
+        "0": [
+          -40,
+          708
+        ]
+      },
+      "width": 0,
+      "lsb": -137,
+      "rsb": -40,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x030B": {
+      "glyph": "uni030B",
+      "bbox": [
+        -184,
+        557,
+        102,
+        733
+      ],
+      "anchors": {
+        "0": [
+          -74,
+          714
+        ]
+      },
+      "width": 0,
+      "lsb": -184,
+      "rsb": -102,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x030C": {
+      "glyph": "uni030C",
+      "bbox": [
+        -195,
+        533,
+        58,
+        676
+      ],
+      "anchors": {
+        "0": [
+          -67,
+          676
+        ]
+      },
+      "width": 0,
+      "lsb": -195,
+      "rsb": -58,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x030D": {
+      "glyph": "uni030D",
+      "bbox": [
+        -68,
+        548,
+        16,
+        710
+      ],
+      "anchors": {
+        "0": [
+          -15,
+          688
+        ]
+      },
+      "width": 0,
+      "lsb": -68,
+      "rsb": -16,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x030E": {
+      "glyph": "uni030E",
+      "bbox": [
+        -209,
+        539,
+        -24,
+        719
+      ],
+      "anchors": {
+        "0": [
+          -99,
+          719
+        ]
+      },
+      "width": 0,
+      "lsb": -209,
+      "rsb": 24,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x030F": {
+      "glyph": "uni030F",
+      "bbox": [
+        -153,
+        581,
+        84,
+        757
+      ],
+      "anchors": {
+        "0": [
+          14,
+          758
+        ]
+      },
+      "width": 0,
+      "lsb": -153,
+      "rsb": -84,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0310": {
+      "glyph": "uni0310",
+      "bbox": [
+        -251,
+        529,
+        19,
+        745
+      ],
+      "anchors": {
+        "0": [
+          -114,
+          675
+        ]
+      },
+      "width": 0,
+      "lsb": -251,
+      "rsb": -19,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0311": {
+      "glyph": "uni0311",
+      "bbox": [
+        -239,
+        498,
+        31,
+        645
+      ],
+      "anchors": {
+        "0": [
+          -74,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -239,
+      "rsb": -31,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0312": {
+      "glyph": "uni0312",
+      "bbox": [
+        -50,
+        468,
+        83,
+        650
+      ],
+      "anchors": {
+        "0": [
+          13,
+          605
+        ]
+      },
+      "width": 0,
+      "lsb": -50,
+      "rsb": -83,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0316": {
+      "glyph": "uni0316",
+      "bbox": [
+        -365,
+        -219,
+        -198,
+        -78
+      ],
+      "anchors": {
+        "2": [
+          -246,
+          -133
+        ]
+      },
+      "width": 0,
+      "lsb": -365,
+      "rsb": 198,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0317": {
+      "glyph": "uni0317",
+      "bbox": [
+        -351,
+        -214,
+        -163,
+        -68
+      ],
+      "anchors": {
+        "2": [
+          -237,
+          -132
+        ]
+      },
+      "width": 0,
+      "lsb": -351,
+      "rsb": 163,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0318": {
+      "glyph": "uni0318",
+      "bbox": [
+        -360,
+        -238,
+        -180,
+        -56
+      ],
+      "anchors": {
+        "2": [
+          -254,
+          -148
+        ]
+      },
+      "width": 0,
+      "lsb": -360,
+      "rsb": 180,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0319": {
+      "glyph": "uni0319",
+      "bbox": [
+        -377,
+        -237,
+        -197,
+        -55
+      ],
+      "anchors": {
+        "2": [
+          -315,
+          -147
+        ]
+      },
+      "width": 0,
+      "lsb": -377,
+      "rsb": 197,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x031C": {
+      "glyph": "uni031C",
+      "bbox": [
+        -349,
+        -244,
+        -218,
+        -52
+      ],
+      "anchors": {
+        "2": [
+          -246,
+          -146
+        ]
+      },
+      "width": 0,
+      "lsb": -349,
+      "rsb": 218,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x031D": {
+      "glyph": "uni031D",
+      "bbox": [
+        -382,
+        -228,
+        -200,
+        -66
+      ],
+      "anchors": {
+        "2": [
+          -278,
+          -143
+        ]
+      },
+      "width": 0,
+      "lsb": -382,
+      "rsb": 200,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x031E": {
+      "glyph": "uni031E",
+      "bbox": [
+        -358,
+        -228,
+        -176,
+        -66
+      ],
+      "anchors": {
+        "2": [
+          -269,
+          -106
+        ]
+      },
+      "width": 0,
+      "lsb": -358,
+      "rsb": 176,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x031F": {
+      "glyph": "uni031F",
+      "bbox": [
+        -380,
+        -238,
+        -182,
+        -53
+      ],
+      "anchors": {
+        "2": [
+          -278,
+          -145
+        ]
+      },
+      "width": 0,
+      "lsb": -380,
+      "rsb": 182,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0320": {
+      "glyph": "uni0320",
+      "bbox": [
+        -380,
+        -167,
+        -182,
+        -124
+      ],
+      "anchors": {
+        "2": [
+          -283,
+          -148
+        ]
+      },
+      "width": 0,
+      "lsb": -380,
+      "rsb": 182,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0323": {
+      "glyph": "dotbelowcomb",
+      "bbox": [
+        -294,
+        -171,
+        -184,
+        -63
+      ],
+      "anchors": {
+        "2": [
+          -239,
+          -113
+        ]
+      },
+      "width": 0,
+      "lsb": -294,
+      "rsb": 184,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0324": {
+      "glyph": "uni0324",
+      "bbox": [
+        -394,
+        -171,
+        -86,
+        -63
+      ],
+      "anchors": {
+        "2": [
+          -242,
+          -116
+        ]
+      },
+      "width": 0,
+      "lsb": -394,
+      "rsb": 86,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0325": {
+      "glyph": "uni0325",
+      "bbox": [
+        -329,
+        -200,
+        -152,
+        -34
+      ],
+      "anchors": {
+        "2": [
+          -242,
+          -116
+        ]
+      },
+      "width": 0,
+      "lsb": -329,
+      "rsb": 152,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0326": {
+      "glyph": "uni0326",
+      "bbox": [
+        -344,
+        -226,
+        -211,
+        -41
+      ],
+      "anchors": {
+        "2": [
+          -272,
+          -82
+        ]
+      },
+      "width": 0,
+      "lsb": -344,
+      "rsb": 211,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0329": {
+      "glyph": "uni0329",
+      "bbox": [
+        -330,
+        -237,
+        -242,
+        -60
+      ],
+      "anchors": {
+        "2": [
+          -282,
+          -122
+        ]
+      },
+      "width": 0,
+      "lsb": -330,
+      "rsb": 242,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032A": {
+      "glyph": "uni032A",
+      "bbox": [
+        -416,
+        -209,
+        -156,
+        -88
+      ],
+      "anchors": {
+        "2": [
+          -276,
+          -113
+        ]
+      },
+      "width": 0,
+      "lsb": -416,
+      "rsb": 156,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032B": {
+      "glyph": "uni032B",
+      "bbox": [
+        -426,
+        -225,
+        -115,
+        -73
+      ],
+      "anchors": {
+        "2": [
+          -273,
+          -108
+        ]
+      },
+      "width": 0,
+      "lsb": -426,
+      "rsb": 115,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032C": {
+      "glyph": "uni032C",
+      "bbox": [
+        -348,
+        -220,
+        -95,
+        -77
+      ],
+      "anchors": {
+        "2": [
+          -228,
+          -116
+        ]
+      },
+      "width": 0,
+      "lsb": -348,
+      "rsb": 95,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032D": {
+      "glyph": "uni032D",
+      "bbox": [
+        -365,
+        -225,
+        -111,
+        -82
+      ],
+      "anchors": {
+        "2": [
+          -222,
+          -133
+        ]
+      },
+      "width": 0,
+      "lsb": -365,
+      "rsb": 111,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032E": {
+      "glyph": "uni032E",
+      "bbox": [
+        -396,
+        -210,
+        -126,
+        -63
+      ],
+      "anchors": {
+        "2": [
+          -275,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -396,
+      "rsb": 126,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x032F": {
+      "glyph": "uni032F",
+      "bbox": [
+        -429,
+        -226,
+        -160,
+        -79
+      ],
+      "anchors": {
+        "2": [
+          -274,
+          -116
+        ]
+      },
+      "width": 0,
+      "lsb": -429,
+      "rsb": 160,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0330": {
+      "glyph": "uni0330",
+      "bbox": [
+        -368,
+        -122,
+        -72,
+        -26
+      ],
+      "anchors": {
+        "2": [
+          -227,
+          -70
+        ]
+      },
+      "width": 0,
+      "lsb": -368,
+      "rsb": 72,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0331": {
+      "glyph": "uni0331",
+      "bbox": [
+        -384,
+        -131,
+        -140,
+        -87
+      ],
+      "anchors": {
+        "2": [
+          -266,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -384,
+      "rsb": 140,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0333": {
+      "glyph": "uni0333",
+      "bbox": [
+        -410,
+        -211,
+        -128,
+        -77
+      ],
+      "anchors": {
+        "2": [
+          -266,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -410,
+      "rsb": 128,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0339": {
+      "glyph": "uni0339",
+      "bbox": [
+        -282,
+        -244,
+        -151,
+        -52
+      ],
+      "anchors": {
+        "2": [
+          -246,
+          -146
+        ]
+      },
+      "width": 0,
+      "lsb": -282,
+      "rsb": 151,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033A": {
+      "glyph": "uni033A",
+      "bbox": [
+        -414,
+        -209,
+        -155,
+        -88
+      ],
+      "anchors": {
+        "2": [
+          -276,
+          -113
+        ]
+      },
+      "width": 0,
+      "lsb": -414,
+      "rsb": 155,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033B": {
+      "glyph": "uni033B",
+      "bbox": [
+        -391,
+        -238,
+        -176,
+        -72
+      ],
+      "anchors": {
+        "2": [
+          -269,
+          -113
+        ]
+      },
+      "width": 0,
+      "lsb": -391,
+      "rsb": 176,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033C": {
+      "glyph": "uni033C",
+      "bbox": [
+        -448,
+        -225,
+        -137,
+        -73
+      ],
+      "anchors": {
+        "2": [
+          -273,
+          -108
+        ]
+      },
+      "width": 0,
+      "lsb": -448,
+      "rsb": 137,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033D": {
+      "glyph": "uni033D",
+      "bbox": [
+        -267,
+        439,
+        -34,
+        642
+      ],
+      "anchors": {
+        "0": [
+          -142,
+          605
+        ]
+      },
+      "width": 0,
+      "lsb": -267,
+      "rsb": 34,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033E": {
+      "glyph": "uni033E",
+      "bbox": [
+        -186,
+        441,
+        -82,
+        663
+      ],
+      "anchors": {
+        "0": [
+          -142,
+          605
+        ]
+      },
+      "width": 0,
+      "lsb": -186,
+      "rsb": 82,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x033F": {
+      "glyph": "uni033F",
+      "bbox": [
+        -330,
+        479,
+        72,
+        613
+      ],
+      "anchors": {
+        "0": [
+          -111,
+          611
+        ]
+      },
+      "width": 0,
+      "lsb": -330,
+      "rsb": -72,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0346": {
+      "glyph": "uni0346",
+      "bbox": [
+        -275,
+        481,
+        -16,
+        602
+      ],
+      "anchors": {
+        "0": [
+          -125,
+          621
+        ]
+      },
+      "width": 0,
+      "lsb": -275,
+      "rsb": 16,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0347": {
+      "glyph": "uni0347",
+      "bbox": [
+        -470,
+        -211,
+        -68,
+        -77
+      ],
+      "anchors": {
+        "2": [
+          -266,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -470,
+      "rsb": 68,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0348": {
+      "glyph": "uni0348",
+      "bbox": [
+        -315,
+        -225,
+        -131,
+        -48
+      ],
+      "anchors": {
+        "2": [
+          -219,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -315,
+      "rsb": 131,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0349": {
+      "glyph": "uni0349",
+      "bbox": [
+        -280,
+        -186,
+        -132,
+        -65
+      ],
+      "anchors": {
+        "2": [
+          -214,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -280,
+      "rsb": 132,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x034A": {
+      "glyph": "uni034A",
+      "bbox": [
+        -246,
+        494,
+        49,
+        667
+      ],
+      "anchors": {
+        "0": [
+          -84,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -246,
+      "rsb": -49,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x034B": {
+      "glyph": "uni034B",
+      "bbox": [
+        -244,
+        468,
+        51,
+        702
+      ],
+      "anchors": {
+        "0": [
+          -74,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -244,
+      "rsb": -51,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x034C": {
+      "glyph": "uni034C",
+      "bbox": [
+        -267,
+        504,
+        29,
+        671
+      ],
+      "anchors": {
+        "0": [
+          -104,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -267,
+      "rsb": -29,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x034D": {
+      "glyph": "uni034D",
+      "bbox": [
+        -442,
+        -221,
+        -69,
+        -46
+      ],
+      "anchors": {
+        "2": [
+          -244,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -442,
+      "rsb": 69,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x034E": {
+      "glyph": "uni034E",
+      "bbox": [
+        -350,
+        -230,
+        -168,
+        -28
+      ],
+      "anchors": {
+        "2": [
+          -249,
+          -110
+        ]
+      },
+      "width": 0,
+      "lsb": -350,
+      "rsb": 168,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": false
+      }
+    },
+    "0x0350": {
+      "glyph": "uni0350",
+      "bbox": [
+        -198,
+        500,
+        57,
+        696
+      ],
+      "anchors": {
+        "0": [
+          -70,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -198,
+      "rsb": -57,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0351": {
+      "glyph": "uni0351",
+      "bbox": [
+        -100,
+        509,
+        38,
+        692
+      ],
+      "anchors": {
+        "0": [
+          -40,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -100,
+      "rsb": -38,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0352": {
+      "glyph": "uni0352",
+      "bbox": [
+        -266,
+        509,
+        4,
+        725
+      ],
+      "anchors": {
+        "0": [
+          -120,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -266,
+      "rsb": -4,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x0357": {
+      "glyph": "uni0357",
+      "bbox": [
+        -98,
+        519,
+        49,
+        702
+      ],
+      "anchors": {
+        "0": [
+          -40,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -98,
+      "rsb": -49,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "0x035B": {
+      "glyph": "uni035B",
+      "bbox": [
+        -160,
+        489,
+        57,
+        718
+      ],
+      "anchors": {
+        "0": [
+          -33,
+          645
+        ]
+      },
+      "width": 0,
+      "lsb": -160,
+      "rsb": -57,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
     "0x0391": {
       "glyph": "Alpha",
       "bbox": [
@@ -18447,6 +19935,201 @@
         "has_left_weight": true,
         "has_right_weight": false,
         "is_symmetric": false,
+        "has_overhang_right": true
+      }
+    },
+    "grave.cap": {
+      "glyph": "grave.cap",
+      "bbox": [
+        -145,
+        571,
+        55,
+        691
+      ],
+      "anchors": {
+        "1": [
+          -66,
+          588
+        ]
+      },
+      "width": 0,
+      "lsb": -145,
+      "rsb": -55,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "acute.cap": {
+      "glyph": "acute.cap",
+      "bbox": [
+        -162,
+        571,
+        65,
+        691
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -162,
+      "rsb": -65,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "circumflex.cap": {
+      "glyph": "circumflex.cap",
+      "bbox": [
+        -127,
+        524,
+        116,
+        639
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -127,
+      "rsb": -116,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "caron.cap": {
+      "glyph": "caron.cap",
+      "bbox": [
+        -163,
+        524,
+        81,
+        639
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -163,
+      "rsb": -81,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "breve.cap": {
+      "glyph": "breve.cap",
+      "bbox": [
+        -146,
+        544,
+        125,
+        657
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -146,
+      "rsb": -125,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "hungarumlaut.cap": {
+      "glyph": "hungarumlaut.cap",
+      "bbox": [
+        -213,
+        598,
+        62,
+        747
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -213,
+      "rsb": -62,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "uni030F.cap": {
+      "glyph": "uni030F.cap",
+      "bbox": [
+        -194,
+        598,
+        42,
+        747
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -194,
+      "rsb": -42,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "breveinvertedcmb.cap": {
+      "glyph": "breveinvertedcmb.cap",
+      "bbox": [
+        -171,
+        544,
+        101,
+        658
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -171,
+      "rsb": -101,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "dieresis.cap": {
+      "glyph": "dieresis.cap",
+      "bbox": [
+        -233,
+        704,
+        49,
+        795
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -233,
+      "rsb": -49,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
+        "has_overhang_right": true
+      }
+    },
+    "hookabovecomb.cap": {
+      "glyph": "hookabovecomb.cap",
+      "bbox": [
+        -119,
+        632,
+        42,
+        781
+      ],
+      "anchors": {},
+      "width": 0,
+      "lsb": -119,
+      "rsb": -42,
+      "tags": {
+        "has_left_weight": false,
+        "has_right_weight": false,
+        "is_symmetric": true,
         "has_overhang_right": true
       }
     }

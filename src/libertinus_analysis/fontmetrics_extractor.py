@@ -3,7 +3,9 @@
 # Extract bbox, anchors, horizontal metrics (width, lsb, rsb),
 # and semantic tags for:
 #   - all BASE_COVERAGE codepoints (encoded glyphs)
+#   - MARK_ABOVE and MARK_BELOW
 #   - all base_small_capital_glyph names (unencoded small-cap bases)
+#   - mark_small_capital_glyph and mark_superscript_glyph custom glyuphs
 #
 # Writes JSON to data/fontmetrics/<font_key>.json.
 
@@ -15,9 +17,20 @@ from fontTools.pens.boundsPen import BoundsPen
 from .font_context import extract_mark_attachment_data
 from .font_context import FONTS
 
-from data.ipa.ipa_unicode import BASE_COVERAGE, base_small_capital_glyph
+from data.ipa.ipa_unicode import (
+    BASE_COVERAGE,
+    MARK_ABOVE,
+    MARK_BELOW,
+    base_small_capital_glyph,
+    mark_small_capital_glyph,
+    mark_superscript_glyph,
+)
 from .fontmetrics_extract_tags import compute_semantic_tags
 
+
+# ------------------------------------------------------------
+# JSON helpers
+# ------------------------------------------------------------
 
 def load_fontmetrics_json(font_key):
     path = Path("data/fontmetrics") / f"{font_key}.json"
@@ -27,6 +40,7 @@ def load_fontmetrics_json(font_key):
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
+    # Legacy compatibility
     if "codepoint" not in data and "glyphs" in data:
         data = {
             "codepoint": data.get("glyphs", {}),
@@ -47,6 +61,10 @@ def write_fontmetrics_json(font_key, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
+# ------------------------------------------------------------
+# Geometry helpers
+# ------------------------------------------------------------
+
 def get_glyph_bbox(glyph_set, glyph_name):
     g = glyph_set[glyph_name]
     pen = BoundsPen(glyph_set)
@@ -57,10 +75,14 @@ def get_glyph_bbox(glyph_set, glyph_name):
     return (round(xMin), round(yMin), round(xMax), round(yMax))
 
 
-def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname):
+# ------------------------------------------------------------
+# Build JSON entry for a single glyph
+# ------------------------------------------------------------
+
+def build_glyph_entry(ttfont, glyph_set, anchorsByGlyph, gname):
     bbox = get_glyph_bbox(glyph_set, gname)
 
-    anchors = anchorsByBaseGlyph.get(gname, {})
+    anchors = anchorsByGlyph.get(gname, {})
     anchors_json = {
         str(classIndex): [anchor.XCoordinate, anchor.YCoordinate]
         for classIndex, anchor in anchors.items()
@@ -89,6 +111,10 @@ def build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname):
     }
 
 
+# ------------------------------------------------------------
+# Main extraction entry point
+# ------------------------------------------------------------
+
 def extract_fontmetrics(font_key, lookup_index):
     font_path = FONTS[font_key]["path"]
 
@@ -96,33 +122,49 @@ def extract_fontmetrics(font_key, lookup_index):
     glyph_set = ttfont.getGlyphSet()
     cmap = ttfont.getBestCmap()
 
-    markClassByGlyph, anchorsByBaseGlyph, _ = extract_mark_attachment_data(
-        ttfont, lookup_index
-    )
+    # NEW: unified anchor model
+    anchorsByGlyph, _ = extract_mark_attachment_data(ttfont, lookup_index)
 
     out = {"codepoint": {}, "glyph": {}}
 
+    # Reverse cmap: glyph → list of codepoints
     rev_cmap = {}
     for cp, gname in cmap.items():
         rev_cmap.setdefault(gname, []).append(cp)
 
+    # ------------------------------------------------------------
+    # Extract metrics for encoded glyphs (by codepoint)
+    # ------------------------------------------------------------
+
+    CP = BASE_COVERAGE + MARK_BELOW + MARK_ABOVE
+
     for gname in ttfont.getGlyphOrder():
         cps = rev_cmap.get(gname, [])
-        cps_in_base = [cp for cp in cps if cp in BASE_COVERAGE]
-        if not cps_in_base:
+        cps_in_scope = [cp for cp in cps if cp in CP]
+        if not cps_in_scope:
             continue
 
-        entry = build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, gname)
+        entry = build_glyph_entry(ttfont, glyph_set, anchorsByGlyph, gname)
 
-        for cp in cps_in_base:
+        for cp in cps_in_scope:
             key = f"0x{cp:04X}"
             out["codepoint"][key] = entry
 
-    for sc_name in base_small_capital_glyph:
+    # ------------------------------------------------------------
+    # Extract metrics for unencoded glyphs (by glyph name)
+    # ------------------------------------------------------------
+
+    glyph_names = (
+        base_small_capital_glyph
+        + mark_small_capital_glyph
+        + mark_superscript_glyph
+    )
+
+    for sc_name in glyph_names:
         if sc_name not in glyph_set:
             continue
 
-        entry = build_glyph_entry(ttfont, glyph_set, anchorsByBaseGlyph, sc_name)
+        entry = build_glyph_entry(ttfont, glyph_set, anchorsByGlyph, sc_name)
         out["glyph"][sc_name] = entry
 
     return out

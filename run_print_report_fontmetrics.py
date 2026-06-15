@@ -49,16 +49,29 @@ def main():
     # ------------------------------------------------------------------
 
     # tag for latex label and filename
-    tag = "az"
+    #tag = "az"
     tag = "AZ"
     #tag = "ipa1"
     #tag = "ipa2"
+    #tag = "above"
+    #tag = "below"
     # Human readable caption
     #mycaption = "IPA, pt. 1/2"
+    #mycaption = "IPA, pt. 2/2"
+    #mycaption = "a--z"
     mycaption = "A--Z"
+    #mycaption = "above marks"
+    #mycaption = "below marks"
 
     # table_body = make_fontmetrics_table(bases_1)
     table_body = make_fontmetrics_table(bases)
+
+    # mark table
+    # marks = [chr(cp) for cp in unicode_groups["MARK_BELOW"]["items"]]
+    # table_body = make_fontmetrics_table_for_marks(marks, anchor_id="2")
+    # marks = [chr(cp) for cp in unicode_groups["MARK_ABOVE"]["items"]]
+    # table_body = make_fontmetrics_table_for_marks(marks, anchor_id="0")
+
 
     # Wrap in a full LaTeX table environment
     latex_table = wrap_in_table_environment(
@@ -72,6 +85,8 @@ def main():
     out_path.write_text(latex_table, encoding="utf-8")
 
     print(f"Wrote LaTeX fontmetrics report to: {out_path}")
+
+
 
 
 if __name__ == "__main__":

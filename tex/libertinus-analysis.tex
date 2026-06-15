@@ -143,7 +143,7 @@ by superimposing their below-anchors.
 
 See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 
 (regular, italic, semibold, semibold italic) in four tables 
-(Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2}).
+(Tables \ref{table:fontmetrics_AZ}, \ref{table:fontmetrics_az}, \ref{table:fontmetrics_latinIPA_1}, \ref{table:fontmetrics_latinIPA_2}, \ref{table:fontmetrics_latinIPA_3}, \ref{table:fontmetrics_latinIPA_4}).
 Recall that Language Science Press uses semibold Libertinus fonts, e.g. 
 \verb|LibertinusSerif-Semibold.otf|, for all boldface style.
 
@@ -151,9 +151,20 @@ Recall that Language Science Press uses semibold Libertinus fonts, e.g.
 
 \input{input/fontmetrics_az.tex}
 
-\input{input/fontmetrics_ipa1.tex}
+%\input{input/fontmetrics_ipa1.tex}
+%\input{input/fontmetrics_ipa2.tex}
+\input{input/fontmetrics_latinIPA_1.tex}
 
-\input{input/fontmetrics_ipa2.tex}
+\input{input/fontmetrics_latinIPA_2.tex}
+
+\input{input/fontmetrics_latinIPA_3.tex}
+
+\input{input/fontmetrics_latinIPA_4.tex}
+
+\input{input/fontmetrics_above.tex}
+
+\input{input/fontmetrics_below.tex}
+
 
 \subsubsection*{Table row headings}
 
@@ -208,7 +219,7 @@ a, c, x, 0, d indicate the five vertical aspects.
 
 In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor ($ay$) or a below-anchor ($by$) 
 is at a stable value depending on where the glyph outline lives relative to a vertical aspect.
-See the rows for $ay$ and $by$ in Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2} 
+See the rows for $ay$ and $by$ in Tables \ref{table:fontmetrics_AZ} and \ref{table:fontmetrics_az} 
 and find the common values according to the glyph's vertical aspects.
 There is no set name in font design for these above- or below-anchor $Y$ coordinate 
 reference values by ascender aspect, so I will denote them
@@ -300,7 +311,7 @@ without regard to the letterform and are therefore bad anchors for those IPA let
 
 I will systematically survey above- and below anchors in the four font font styles, 
 commenting on any features and patching any problems. 
-Refer to Tables \ref{table:fontmetrics_AZ}--\ref{table:fontmetrics_ipa2} for anchor values.
+Refer to Tables \ref{table:fontmetrics_AZ} and \ref{table:fontmetrics_az} for anchor values.
 Missing anchors are readily apparaent as blank entries.
 Large anchor-midpoint offset values ($ax\delta$, $bx\delta$) indicate possible problems, 
 but these can often be explained by glyph symmetry.
@@ -370,15 +381,22 @@ Original: k\char"0320\ k\char"0320 o ok\char"0320
 
 Patched: {\LibertinusSerifPatch k\char"0320\ k\char"0320 o ok\char"0320}
 
-\subsubsection*{Patch b regular, above-anchor}
+\subsubsection*{Patch b, d, f, h regular, above-anchor}
 
-\subsubsection*{Patch d regular, above-anchor}
+For b, d, f, and h, set $ay = ayr0 = 885$.
 
-\subsubsection*{Patch f regular, above-anchor}
-
-\subsubsection*{Patch h regular, above-anchor}
+For $ax$ for b, d, f, and h, there are at least two strategies.
+First, set $ax$ at the bowl apex.
+So, for f, set $ax = 279$ at the apex of the bowl.
+But for b, d, and h, you could set $ax$ centered horizontally over the bowl, 
+in which case you also need to decide which two vertical aspects 
+of the bowl should be used for the centering.
 
 \subsubsection*{Patch j regular, above-anchor}
+
+j needs an above anchor for the rare case of an above-mark that is placed over the dot.
+i does have an above-anchor at $(137, 795)$, and the outlines of the top of  
+
 
 \subsubsection*{Patch n, p, r, v, w, x, z regular, above-anchor}
 

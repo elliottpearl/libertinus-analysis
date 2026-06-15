@@ -1,0 +1,101 @@
+=== Added codepoints ===
+
+=== Removed codepoints ===
+U+1D35 → uni1D35
+U+1DA4 → uni1DA4
+U+1DB6 → uni1DB6
+U+25CC → circledotted
+U+A71B → uniA71B
+U+A71C → uniA71C
+U+A789 → uniA789
+U+A78B → uniA78B
+U+A78C → uniA78C
+U+E801 → uniE801
+U+E802 → uniE802
+U+E803 → uniE803
+U+FB20 → ayin
+U+FB29 → uniFB29
+U+FB2A → shinshindot
+U+FB2B → shinsindot
+U+FB2C → shindageshshindot
+U+FB2D → shindageshsindot
+U+FB2E → alefpatah
+U+FB2F → alefqamats
+U+FB30 → alefmapiq
+U+FB31 → betdagesh
+U+FB32 → gimeldagesh
+U+FB33 → daletdagesh
+U+FB34 → hedagesh
+U+FB35 → vavdagesh
+U+FB36 → zayindagesh
+U+FB38 → tetdagesh
+U+FB39 → yoddagesh
+U+FB3A → finalkafdagesh
+U+FB3B → kafdagesh
+U+FB3C → lameddagesh
+U+FB3E → memdagesh
+U+FB40 → nundagesh
+U+FB41 → samekhdagesh
+U+FB43 → finalpedagesh
+U+FB44 → pedagesh
+U+FB46 → tsadidagesh
+U+FB47 → qofdagesh
+U+FB48 → reshdagesh
+U+FB49 → shindagesh
+U+FB4A → tavdagesh
+U+FB4B → vavholam
+U+FB4C → betrafe
+U+FB4D → kafrafe
+U+FB4E → perafe
+U+1D106 → u1D106
+U+1D107 → u1D107
+
+=== Changed mappings ===
+U+05B0: sheva → uni05B0
+U+05B1: hatafsegol → uni05B1
+U+05B2: hatafpatah → uni05B2
+U+05B3: hatafqamats → uni05B3
+U+05B4: hiriq → uni05B4
+U+05B5: tsere → uni05B5
+U+05B6: segol → uni05B6
+U+05B7: patah → uni05B7
+U+05B8: qamats → uni05B8
+U+05B9: holam → uni05B9
+U+05BA: holamhaser → uni05BA
+U+05BB: qubuts → uni05BB
+U+05BC: dagesh → uni05BC
+U+05BD: meteg → uni05BD
+U+05BE: maqaf → uni05BE
+U+05BF: rafe → uni05BF
+U+05C0: paseq → uni05C0
+U+05C1: shindot → uni05C1
+U+05C2: sindot → uni05C2
+U+05C3: sofpasuq → uni05C3
+U+05C6: invertednun → uni05C6
+U+05D0: alef → uni05D0
+U+05D1: bet → uni05D1
+U+05D2: gimel → uni05D2
+U+05D3: dalet → uni05D3
+U+05D4: he → uni05D4
+U+05D5: vav → uni05D5
+U+05D6: zayin → uni05D6
+U+05D7: het → uni05D7
+U+05D8: tet → uni05D8
+U+05D9: yod → uni05D9
+U+05DA: finalkaf → uni05DA
+U+05DB: kaf → uni05DB
+U+05DC: lamed → uni05DC
+U+05DD: finalmem → uni05DD
+U+05DE: mem → uni05DE
+U+05DF: finalnun → uni05DF
+U+05E0: nun → uni05E0
+U+05E1: samekh → uni05E1
+U+05E2: ayin → uni05E2
+U+05E3: finalpe → uni05E3
+U+05E4: pe → uni05E4
+U+05E5: finaltsadi → uni05E5
+U+05E6: tsadi → uni05E6
+U+05E7: qof → uni05E7
+U+05E8: resh → uni05E8
+U+05E9: shin → uni05E9
+U+05EA: tav → uni05EA

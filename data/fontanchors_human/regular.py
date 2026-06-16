@@ -425,8 +425,13 @@ anchors = {
         },
     },
 
-# Add any combining marks manually
     "marks": {
-        
+        # (none yet)
+    },
+
+    "marks_by_name": {
+        "hookabovecomb.cap": {
+            0: (-165,781),
+        }
     },
 }

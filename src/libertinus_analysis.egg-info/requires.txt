@@ -1,2 +1,2 @@
-fonttools
+fonttools[lxml,ufo]
 uharfbuzz

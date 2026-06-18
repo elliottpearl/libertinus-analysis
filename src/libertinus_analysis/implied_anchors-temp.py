@@ -1,7 +1,12 @@
+# abandoned code; build report as a string; analyzes cap alt marks
 import fontforge
 import unicodedata
 
-from .config import FONTS_DIR
+print("FontForge module:", fontforge)
+print("FontForge version:", getattr(fontforge, "version", None))
+print("FontForge dir:", getattr(fontforge, "__file__", None))
+
+
 
 from data.ipa.ipa_unicode import (
     PRECOMPOSED_CAPITAL_VOWELS,
@@ -38,6 +43,7 @@ def normalize_anchor_name(name):
     return n
 
 def classify_component(glyph):
+    # Unicode-based classification
     cat = None
     if glyph.unicode is not None:
         try:
@@ -47,9 +53,15 @@ def classify_component(glyph):
 
     kinds = {a[1] for a in glyph.anchorPoints}
 
+    # Existing mark logic
     if cat == "Mn" or "mark" in kinds:
         return "mark"
 
+    # NEW: treat all .cap glyphs as marks
+    if glyph.glyphname.endswith(".cap"):
+        return "mark"
+
+    # Existing base logic
     if cat and cat.startswith("L"):
         return "base"
     if "base" in kinds or "basemark" in kinds:
@@ -110,6 +122,39 @@ def get_expected_marks(cp):
     return expected
 
 def analyze(font):
+
+    count_total = 0
+    count_unicode = 0
+    count_precomposed = 0
+
+    for g in font.glyphs():
+        count_total += 1
+        if g.unicode is not None:
+            count_unicode += 1
+            if g.unicode in PRECOMPOSED_ALL:
+                count_precomposed += 1
+
+    for g in font.glyphs():
+        if g.unicode in PRECOMPOSED_ALL:
+            print("Sample glyph:", g.glyphname, f"U+{g.unicode:04X}")
+            print("  references:", g.references)
+            print("  anchorPoints:", g.anchorPoints)
+            break
+
+    print("DEBUG:", count_total, "glyphs total")
+    print("DEBUG:", count_unicode, "glyphs with Unicode")
+    print("DEBUG:", count_precomposed, "glyphs in PRECOMPOSED_ALL")
+ 
+    print("DEBUG: glyphs in PRECOMPOSED_ALL with >=2 refs:",
+          sum(1 for g in font.glyphs()
+              if g.unicode in PRECOMPOSED_ALL and len(g.references) >= 2))
+
+
+
+
+
+    lines = []
+
     for g in font.glyphs():
         if g.unicode is None or g.unicode not in PRECOMPOSED_ALL:
             continue
@@ -121,7 +166,7 @@ def analyze(font):
         cp = g.unicode
         char = chr(cp)
         name = unicode_name_lower(cp)
-        print(f"U+{cp:04X} {char}  {name}:")
+        lines.append(f"U+{cp:04X} {char}  {name}:")
 
         comp_info = []
         base_indices = []
@@ -142,9 +187,8 @@ def analyze(font):
 
             uni = refglyph.unicode
             uni_str = f"U+{uni:04X}" if uni is not None else "U+----"
-            print(f"  component {i}: {refname} ({uni_str}) [{cls}]")
+            lines.append(f"  component {i}: {refname} ({uni_str}) [{cls}]")
 
-        # Semantic mark check
         expected_marks = get_expected_marks(cp)
 
         if expected_marks:
@@ -158,23 +202,27 @@ def analyze(font):
             if unexpected:
                 exp_str = ", ".join(f"U+{u:04X}" for u in expected_marks)
                 act_str = ", ".join(f"U+{u:04X}" for u in actual_marks)
-                print(f"  Combined with unexpected mark: expected {{{exp_str}}}, found {{{act_str}}}\n")
+                lines.append(
+                    f"  Combined with unexpected mark: expected {{{exp_str}}}, found {{{act_str}}}"
+                )
+                lines.append("")
                 continue
 
-        # Structural checks
         if len(base_indices) != 1:
-            print("  No implied anchors (no single base component)\n")
+            lines.append("  No implied anchors (no single base component)")
+            lines.append("")
             continue
 
         if len(mark_indices) == 0:
-            print("  No implied anchors (no mark components)\n")
+            lines.append("  No implied anchors (no mark components)")
+            lines.append("")
             continue
 
         if len(other_indices) > 0:
-            print("  No implied anchors (mixed components)\n")
+            lines.append("  No implied anchors (mixed components)")
+            lines.append("")
             continue
 
-        # Compute transformed anchors
         transformed_positions = {}
         any_anchor_present = False
 
@@ -197,16 +245,17 @@ def analyze(font):
                 any_anchor_present = True
 
         if not any_anchor_present:
-            print("  Combined at implied anchors (no existing anchors)\n")
+            lines.append("  Combined at implied anchors (no existing anchors)")
+            lines.append("")
             continue
 
-        # Base anchor defines implied anchor
         base_i = base_indices[0]
         _, base_refname, base_refglyph, _, base_transform = comp_info[base_i]
         has_base_anchor, base_pos, _ = transformed_positions[base_refglyph.glyphname]
 
         if not has_base_anchor:
-            print("  Combined at implied anchors (base missing anchor)\n")
+            lines.append("  Combined at implied anchors (base missing anchor)")
+            lines.append("")
             continue
 
         implied_x, implied_y = base_pos
@@ -231,13 +280,15 @@ def analyze(font):
                 composite_inconsistent = True
 
         if not composite_inconsistent:
-            print("  Combined at existing anchors\n")
-            print()
+            lines.append("  Combined at existing anchors")
+            lines.append("")
             continue
 
         dx_report = int(round(max_dx))
         dy_report = int(round(max_dy))
-        print(f"  Combined at implied anchors, offset dx = {dx_report}, dy = {dy_report}")
+        lines.append(
+            f"  Combined at implied anchors, offset dx = {dx_report}, dy = {dy_report}"
+        )
 
         for i, refname, refglyph, cls, transform in comp_info:
             has_anchor, pos, _ = transformed_positions[refglyph.glyphname]
@@ -251,8 +302,10 @@ def analyze(font):
 
             uni = refglyph.unicode
             uni_str = f"0x{uni:04X}" if uni is not None else "NONE"
-            print(f"  {uni_str}: {{ # {refglyph.glyphname}")
-            print(f"    {idx}: ({gx},{gy}),")
-            print("  },")
+            lines.append(f"  {uni_str}: {{ # {refglyph.glyphname}")
+            lines.append(f"    {idx}: ({gx},{gy}),")
+            lines.append("  },")
 
-        print()
+        lines.append("")
+
+    return "\n".join(lines)

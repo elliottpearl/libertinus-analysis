@@ -1,3 +1,0 @@
-fonttools[ufo,lxml]
-uharfbuzz
-# Requires system package: sudo apt install fontforge python3-fontforge

@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Analysis of combining marks in Libertinus"
 authors = [{ name = "Elliott Pearl" }]
 dependencies = [
-    "fonttools",
+    "fonttools[ufo,lxml]",
     "uharfbuzz"
 ]
 

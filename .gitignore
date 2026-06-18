@@ -1,5 +1,6 @@
 # Virtual environment
 .venv/
+.venv-fontforge/
 
 # Python cache
 __pycache__/
@@ -14,3 +15,6 @@ __pycache__/
 
 # VS Code settings (optional)
 .vscode/
+
+# pip cruft
+*.egg-info/

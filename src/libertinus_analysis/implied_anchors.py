@@ -154,18 +154,24 @@ def analyze(font):
         expected_marks = get_expected_marks(cp)
 
         if expected_marks:
-            actual_marks = {
+            actual_unicode_marks = {
                 refglyph.unicode
                 for (_, _, refglyph, cls, _) in comp_info
-                if cls == "mark" and refglyph.unicode is not None
+                if (
+                    cls == "mark"
+                    and refglyph.unicode is not None
+                    and refglyph.unicode >= 0
+                    and unicodedata.category(chr(refglyph.unicode)) == "Mn"
+                )
             }
 
-            unexpected = actual_marks - expected_marks
-            if unexpected:
-                exp_str = ", ".join(f"U+{u:04X}" for u in expected_marks)
-                act_str = ", ".join(f"U+{u:04X}" for u in actual_marks)
-                print(f"  Combined with unexpected mark: expected {{{exp_str}}}, found {{{act_str}}}\n")
-                continue
+            if actual_unicode_marks:
+                unexpected = actual_unicode_marks - expected_marks
+                if unexpected:
+                    exp_str = ", ".join(f"U+{u:04X}" for u in expected_marks)
+                    act_str = ", ".join(f"U+{u:04X}" for u in actual_unicode_marks)
+                    print(f"  Combined with unexpected mark: expected {{{exp_str}}}, found {{{act_str}}}\n")
+                    continue
 
         # Structural checks
         if len(base_indices) != 1:
@@ -217,14 +223,18 @@ def analyze(font):
 
         implied_x, implied_y = base_pos
 
-        composite_inconsistent = False
+        # NEW FLAGS
+        composite_inconsistent_geom = False
+        missing_anchor_component = False
         max_dx = 0.0
         max_dy = 0.0
 
+        # UPDATED LOOP
         for i, refname, refglyph, cls, transform in comp_info:
             has_anchor, pos, _ = transformed_positions[refglyph.glyphname]
+
             if not has_anchor:
-                composite_inconsistent = True
+                missing_anchor_component = True
                 continue
 
             x, y = pos
@@ -234,20 +244,26 @@ def analyze(font):
             max_dy = max(max_dy, abs(dy))
 
             if abs(dx) > TOLERANCE or abs(dy) > TOLERANCE:
-                composite_inconsistent = True
+                composite_inconsistent_geom = True
 
-        if not composite_inconsistent:
+        # EXISTING ANCHORS CASE (unchanged)
+        if not composite_inconsistent_geom and not missing_anchor_component:
             print("  Combined at existing anchors\n")
             print()
             continue
 
-        dx_report = int(round(max_dx))
-        dy_report = int(round(max_dy))
-        print(f"  Combined at implied anchors, offset dx = {dx_report}, dy = {dy_report}")
+        # IMPLIED ANCHOR REPORTING
+        if composite_inconsistent_geom:
+            dx_report = int(round(max_dx))
+            dy_report = int(round(max_dy))
+            print(f"  Combined at implied anchors, offset dx = {dx_report}, dy = {dy_report}")
+        else:
+            print("  Combined at implied anchors")
 
+        # Emit implied anchors for missing-anchor components
         for i, refname, refglyph, cls, transform in comp_info:
             has_anchor, pos, _ = transformed_positions[refglyph.glyphname]
-            if not has_anchor:
+            if has_anchor:
                 continue
 
             gx, gy = inverse_transform_point(implied_x, implied_y, transform)

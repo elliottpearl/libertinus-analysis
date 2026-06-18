@@ -6,17 +6,23 @@ U+00C3 Ã  Latin capital letter a with tilde:
 U+00C4 Ä  Latin capital letter a with diaeresis:
   component 0: Alpha (U+0391) [base]
   component 1: dieresis.cap (U+-001) [mark]
-  Combined with unexpected mark: expected {U+0308}, found {U+-001}
+  Combined at implied anchors (no existing anchors)
 
 U+00CB Ë  Latin capital letter e with diaeresis:
   component 0: dieresis.cap (U+-001) [mark]
   component 1: E (U+0045) [base]
-  Combined with unexpected mark: expected {U+0308}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # dieresis.cap
+    2: (-230,849),
+  },
 
 U+00CF Ï  Latin capital letter i with diaeresis:
   component 0: dieresis.cap (U+-001) [mark]
   component 1: I (U+0049) [base]
-  Combined with unexpected mark: expected {U+0308}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # dieresis.cap
+    2: (-273,850),
+  },
 
 U+00D5 Õ  Latin capital letter o with tilde:
   component 0: tilde (U+02DC) [other]
@@ -26,34 +32,28 @@ U+00D5 Õ  Latin capital letter o with tilde:
 U+00D6 Ö  Latin capital letter o with diaeresis:
   component 0: dieresis.cap (U+-001) [mark]
   component 1: O (U+004F) [base]
-  Combined with unexpected mark: expected {U+0308}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # dieresis.cap
+    2: (-273,849),
+  },
 
 U+00DC Ü  Latin capital letter u with diaeresis:
   component 0: dieresis.cap (U+-001) [mark]
   component 1: U (U+0055) [base]
-  Combined with unexpected mark: expected {U+0308}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # dieresis.cap
+    2: (-267,849),
+  },
 
 U+00E0 à  Latin small letter a with grave:
   component 0: gravecomb (U+0300) [mark]
   component 1: a (U+0061) [base]
   Combined at implied anchors, offset dx = 149, dy = 0
-  0x0300: { # gravecomb
-    0: (7,683),
-  },
-  0x0061: { # a
-    0: (379,645),
-  },
 
 U+00E1 á  Latin small letter a with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: a (U+0061) [base]
   Combined at implied anchors, offset dx = 155, dy = 8
-  0x0301: { # acutecomb
-    0: (-36,690),
-  },
-  0x0061: { # a
-    0: (379,645),
-  },
 
 U+00E2 â  Latin small letter a with circumflex:
   component 0: circumflex (U+02C6) [base]
@@ -69,45 +69,21 @@ U+00E4 ä  Latin small letter a with diaeresis:
   component 0: uni0308 (U+0308) [mark]
   component 1: a (U+0061) [base]
   Combined at implied anchors, offset dx = 114, dy = 6
-  0x0308: { # uni0308
-    0: (-96,651),
-  },
-  0x0061: { # a
-    0: (379,645),
-  },
 
 U+00E5 å  Latin small letter a with ring above:
   component 0: uni030A (U+030A) [mark]
   component 1: a (U+0061) [base]
   Combined at implied anchors, offset dx = 157, dy = 23
-  0x030A: { # uni030A
-    0: (-27,731),
-  },
-  0x0061: { # a
-    0: (379,645),
-  },
 
 U+00E8 è  Latin small letter e with grave:
   component 0: gravecomb (U+0300) [mark]
   component 1: e (U+0065) [base]
   Combined at implied anchors, offset dx = 19, dy = 0
-  0x0300: { # gravecomb
-    0: (-123,683),
-  },
-  0x0065: { # e
-    0: (243,645),
-  },
 
 U+00E9 é  Latin small letter e with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: e (U+0065) [base]
   Combined at implied anchors, offset dx = 12, dy = 6
-  0x0301: { # acutecomb
-    0: (-179,688),
-  },
-  0x0065: { # e
-    0: (243,645),
-  },
 
 U+00EA ê  Latin small letter e with circumflex:
   component 0: circumflex (U+02C6) [base]
@@ -118,34 +94,16 @@ U+00EB ë  Latin small letter e with diaeresis:
   component 0: uni0308 (U+0308) [mark]
   component 1: e (U+0065) [base]
   Combined at implied anchors, offset dx = 30, dy = 10
-  0x0308: { # uni0308
-    0: (-240,655),
-  },
-  0x0065: { # e
-    0: (243,645),
-  },
 
 U+00EC ì  Latin small letter i with grave:
   component 0: gravecomb (U+0300) [mark]
   component 1: dotlessi (U+0131) [base]
   Combined at implied anchors, offset dx = 5, dy = 0
-  0x0300: { # gravecomb
-    0: (-137,683),
-  },
-  0x0131: { # dotlessi
-    0: (132,645),
-  },
 
 U+00ED í  Latin small letter i with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: dotlessi (U+0131) [base]
   Combined at implied anchors, offset dx = 6, dy = 6
-  0x0301: { # acutecomb
-    0: (-197,688),
-  },
-  0x0131: { # dotlessi
-    0: (132,645),
-  },
 
 U+00EE î  Latin small letter i with circumflex:
   component 0: circumflex (U+02C6) [base]
@@ -156,34 +114,16 @@ U+00EF ï  Latin small letter i with diaeresis:
   component 0: uni0308 (U+0308) [mark]
   component 1: dotlessi (U+0131) [base]
   Combined at implied anchors, offset dx = 56, dy = 6
-  0x0308: { # uni0308
-    0: (-266,651),
-  },
-  0x0131: { # dotlessi
-    0: (132,645),
-  },
 
 U+00F2 ò  Latin small letter o with grave:
   component 0: gravecomb (U+0300) [mark]
   component 1: o (U+006F) [base]
   Combined at implied anchors, offset dx = 16, dy = 0
-  0x0300: { # gravecomb
-    0: (-126,683),
-  },
-  0x006F: { # o
-    0: (238,645),
-  },
 
 U+00F3 ó  Latin small letter o with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: o (U+006F) [base]
   Combined at implied anchors, offset dx = 65, dy = 6
-  0x0301: { # acutecomb
-    0: (-126,688),
-  },
-  0x006F: { # o
-    0: (238,645),
-  },
 
 U+00F4 ô  Latin small letter o with circumflex:
   component 0: circumflex (U+02C6) [base]
@@ -199,34 +139,16 @@ U+00F6 ö  Latin small letter o with diaeresis:
   component 0: uni0308 (U+0308) [mark]
   component 1: o (U+006F) [base]
   Combined at implied anchors, offset dx = 11, dy = 6
-  0x0308: { # uni0308
-    0: (-221,651),
-  },
-  0x006F: { # o
-    0: (238,645),
-  },
 
 U+00FD ý  Latin small letter y with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: y (U+0079) [base]
   Combined at implied anchors, offset dx = 43, dy = 7
-  0x0301: { # acutecomb
-    0: (-148,689),
-  },
-  0x0079: { # y
-    0: (262,645),
-  },
 
 U+00FF ÿ  Latin small letter y with diaeresis:
   component 0: uni0308 (U+0308) [mark]
   component 1: y (U+0079) [base]
   Combined at implied anchors, offset dx = 9, dy = 6
-  0x0308: { # uni0308
-    0: (-219,651),
-  },
-  0x0079: { # y
-    0: (262,645),
-  },
 
 U+0100 Ā  Latin capital letter a with macron:
   component 0: Alpha (U+0391) [base]
@@ -247,12 +169,6 @@ U+0107 ć  Latin small letter c with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: c (U+0063) [base]
   Combined at implied anchors, offset dx = 34, dy = 6
-  0x0301: { # acutecomb
-    0: (-157,688),
-  },
-  0x0063: { # c
-    0: (242,645),
-  },
 
 U+0109 ĉ  Latin small letter c with circumflex:
   component 0: circumflex (U+02C6) [base]
@@ -328,12 +244,6 @@ U+0121 ġ  Latin small letter g with dot above:
   component 0: uni0307 (U+0307) [mark]
   component 1: g (U+0067) [base]
   Combined at implied anchors, offset dx = 48, dy = 12
-  0x0307: { # uni0307
-    0: (-132,679),
-  },
-  0x0067: { # g
-    0: (291,645),
-  },
 
 U+0122 Ģ  Latin capital letter g with cedilla:
   component 0: uni0326 (U+0326) [mark]
@@ -428,7 +338,10 @@ U+014F ŏ  Latin small letter o with breve:
 U+0150 Ő  Latin capital letter o with double acute:
   component 0: hungarumlaut.cap (U+-001) [mark]
   component 1: O (U+004F) [base]
-  Combined with unexpected mark: expected {U+030B}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # hungarumlaut.cap
+    0: (-286,762),
+  },
 
 U+0151 ő  Latin small letter o with double acute:
   component 0: hungarumlaut (U+02DD) [other]
@@ -439,12 +352,6 @@ U+0155 ŕ  Latin small letter r with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: r (U+0072) [base]
   Combined at implied anchors, offset dx = 55, dy = 9
-  0x0301: { # acutecomb
-    0: (-246,691),
-  },
-  0x0072: { # r
-    0: (191,646),
-  },
 
 U+0156 Ŗ  Latin capital letter r with cedilla:
   component 0: uni0326 (U+0326) [mark]
@@ -465,12 +372,6 @@ U+015B ś  Latin small letter s with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: s (U+0073) [base]
   Combined at implied anchors, offset dx = 127, dy = 9
-  0x0301: { # acutecomb
-    0: (-64,691),
-  },
-  0x0073: { # s
-    0: (326,645),
-  },
 
 U+015D ŝ  Latin small letter s with circumflex:
   component 0: circumflex (U+02C6) [base]
@@ -486,12 +387,6 @@ U+0168 Ũ  Latin capital letter u with tilde:
   component 0: tildecomb (U+0303) [mark]
   component 1: U (U+0055) [base]
   Combined at implied anchors, offset dx = 21, dy = 29
-  0x0303: { # tildecomb
-    0: (-155,729),
-  },
-  0x0055: { # U
-    0: (346,850),
-  },
 
 U+016A Ū  Latin capital letter u with macron:
   component 0: uni02C9 (U+02C9) [base]
@@ -506,7 +401,10 @@ U+016E Ů  Latin capital letter u with ring above:
 U+0170 Ű  Latin capital letter u with double acute:
   component 0: hungarumlaut.cap (U+-001) [mark]
   component 1: U (U+0055) [base]
-  Combined with unexpected mark: expected {U+030B}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # hungarumlaut.cap
+    0: (-273,762),
+  },
 
 U+0175 ŵ  Latin small letter w with circumflex:
   component 0: circumflex (U+02C6) [base]
@@ -522,23 +420,11 @@ U+0178 Ÿ  Latin capital letter y with diaeresis:
   component 0: uni0308 (U+0308) [mark]
   component 1: Y (U+0059) [base]
   Combined at implied anchors, offset dx = 86, dy = 33
-  0x0308: { # uni0308
-    0: (-296,678),
-  },
-  0x0059: { # Y
-    0: (295,850),
-  },
 
 U+017A ź  Latin small letter z with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: z (U+007A) [base]
   Combined at implied anchors, offset dx = 31, dy = 8
-  0x0301: { # acutecomb
-    0: (-160,690),
-  },
-  0x007A: { # z
-    0: (220,646),
-  },
 
 U+017B Ż  Latin capital letter z with dot above:
   component 0: dotaccent (U+02D9) [other]
@@ -613,129 +499,111 @@ U+01EF ǯ  Latin small letter ezh with caron:
 U+0200 Ȁ  Latin capital letter a with double grave:
   component 0: Alpha (U+0391) [base]
   component 1: uni030F.cap (U+-001) [mark]
-  Combined with unexpected mark: expected {U+030F}, found {U+-001}
+  Combined at implied anchors (no existing anchors)
 
 U+0201 ȁ  Latin small letter a with double grave:
   component 0: uni030F (U+030F) [mark]
   component 1: a (U+0061) [base]
   Combined at implied anchors, offset dx = 173, dy = 7
-  0x030F: { # uni030F
-    0: (33,751),
-  },
-  0x0061: { # a
-    0: (379,645),
-  },
 
 U+0202 Ȃ  Latin capital letter a with inverted breve:
   component 0: Alpha (U+0391) [base]
   component 1: breveinvertedcmb.cap (U+-001) [mark]
-  Combined with unexpected mark: expected {U+0311}, found {U+-001}
+  Combined at implied anchors (no existing anchors)
 
 U+0203 ȃ  Latin small letter a with inverted breve:
   component 0: uni0311 (U+0311) [mark]
   component 1: a (U+0061) [base]
   Combined at implied anchors, offset dx = 107, dy = 0
-  0x0311: { # uni0311
-    0: (-98,645),
-  },
-  0x0061: { # a
-    0: (379,645),
-  },
 
 U+0204 Ȅ  Latin capital letter e with double grave:
   component 0: uni030F.cap (U+-001) [mark]
   component 1: E (U+0045) [base]
-  Combined with unexpected mark: expected {U+030F}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # uni030F.cap
+    0: (-229,767),
+  },
 
 U+0205 ȅ  Latin small letter e with double grave:
   component 0: uni030F (U+030F) [mark]
   component 1: e (U+0065) [base]
   Combined at implied anchors, offset dx = 9, dy = 14
-  0x030F: { # uni030F
-    0: (-131,744),
-  },
-  0x0065: { # e
-    0: (243,645),
-  },
 
 U+0206 Ȇ  Latin capital letter e with inverted breve:
   component 0: breveinvertedcmb.cap (U+-001) [mark]
   component 1: E (U+0045) [base]
-  Combined with unexpected mark: expected {U+0311}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # breveinvertedcmb.cap
+    0: (-221,703),
+  },
 
 U+0207 ȇ  Latin small letter e with inverted breve:
   component 0: uni0311 (U+0311) [mark]
   component 1: e (U+0065) [base]
   Combined at implied anchors, offset dx = 16, dy = 1
-  0x0311: { # uni0311
-    0: (-221,644),
-  },
-  0x0065: { # e
-    0: (243,645),
-  },
 
 U+0208 Ȉ  Latin capital letter i with double grave:
   component 0: uni030F.cap (U+-001) [mark]
   component 1: I (U+0049) [base]
-  Combined with unexpected mark: expected {U+030F}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # uni030F.cap
+    0: (-213,760),
+  },
 
 U+0209 ȉ  Latin small letter i with double grave:
   component 0: uni030F (U+030F) [mark]
   component 1: dotlessi (U+0131) [base]
   Combined at implied anchors, offset dx = 16, dy = 41
-  0x030F: { # uni030F
-    0: (-124,717),
-  },
-  0x0131: { # dotlessi
-    0: (132,645),
-  },
 
 U+020A Ȋ  Latin capital letter i with inverted breve:
   component 0: breveinvertedcmb.cap (U+-001) [mark]
   component 1: I (U+0049) [base]
-  Combined with unexpected mark: expected {U+0311}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # breveinvertedcmb.cap
+    0: (-228,704),
+  },
 
 U+020C Ȍ  Latin capital letter o with double grave:
   component 0: uni030F.cap (U+-001) [mark]
   component 1: O (U+004F) [base]
-  Combined with unexpected mark: expected {U+030F}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # uni030F.cap
+    0: (-210,767),
+  },
 
 U+020D ȍ  Latin small letter o with double grave:
   component 0: uni030F (U+030F) [mark]
   component 1: o (U+006F) [base]
   Combined at implied anchors, offset dx = 9, dy = 14
-  0x030F: { # uni030F
-    0: (-149,744),
-  },
-  0x006F: { # o
-    0: (238,645),
-  },
 
 U+020E Ȏ  Latin capital letter o with inverted breve:
   component 0: breveinvertedcmb.cap (U+-001) [mark]
   component 1: O (U+004F) [base]
-  Combined with unexpected mark: expected {U+0311}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # breveinvertedcmb.cap
+    0: (-239,703),
+  },
 
 U+020F ȏ  Latin small letter o with inverted breve:
   component 0: uni0311 (U+0311) [mark]
   component 1: o (U+006F) [base]
   Combined at implied anchors, offset dx = 13, dy = 0
-  0x0311: { # uni0311
-    0: (-218,645),
-  },
-  0x006F: { # o
-    0: (238,645),
-  },
 
 U+0214 Ȕ  Latin capital letter u with double grave:
   component 0: uni030F.cap (U+-001) [mark]
   component 1: U (U+0055) [base]
-  Combined with unexpected mark: expected {U+030F}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # uni030F.cap
+    0: (-196,777),
+  },
 
 U+0216 Ȗ  Latin capital letter u with inverted breve:
   component 0: breveinvertedcmb.cap (U+-001) [mark]
   component 1: U (U+0055) [base]
-  Combined with unexpected mark: expected {U+0311}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # breveinvertedcmb.cap
+    0: (-220,703),
+  },
 
 U+0226 Ȧ  Latin capital letter a with dot above:
   component 0: Alpha (U+0391) [base]
@@ -801,12 +669,6 @@ U+1E09 ḉ  Latin small letter c with cedilla and acute:
   component 0: ccedilla (U+00E7) [base]
   component 1: acutecomb (U+0301) [mark]
   Combined at implied anchors, offset dx = 8, dy = 193
-  0x00E7: { # ccedilla
-    0: (255,834),
-  },
-  0x0301: { # acutecomb
-    0: (-183,875),
-  },
 
 U+1E0A Ḋ  Latin capital letter d with dot above:
   component 0: dotaccent (U+02D9) [other]
@@ -831,17 +693,17 @@ U+1E0D ḍ  Latin small letter d with dot below:
 U+1E0E Ḏ  Latin capital letter d with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: D (U+0044) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x0044: { # D
-    0: (306,850),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-218,876),
   },
 
 U+1E0F ḏ  Latin small letter d with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: d (U+0064) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x0064: { # d
-    0: (218,645),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-277,675),
   },
 
 U+1E12 Ḓ  Latin capital letter d with circumflex below:
@@ -917,7 +779,10 @@ U+1E25 ḥ  Latin small letter h with dot below:
 U+1E26 Ḧ  Latin capital letter h with diaeresis:
   component 0: dieresis.cap (U+-001) [mark]
   component 1: H (U+0048) [base]
-  Combined with unexpected mark: expected {U+0308}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # dieresis.cap
+    2: (-253,846),
+  },
 
 U+1E27 ḧ  Latin small letter h with diaeresis:
   component 0: uni210E (U+210E) [base]
@@ -927,17 +792,17 @@ U+1E27 ḧ  Latin small letter h with diaeresis:
 U+1E2A Ḫ  Latin capital letter h with breve below:
   component 0: uni032E (U+032E) [mark]
   component 1: H (U+0048) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x0048: { # H
-    0: (361,850),
+  Combined at implied anchors
+  0x032E: { # uni032E
+    2: (-255,850),
   },
 
 U+1E2B ḫ  Latin small letter h with breve below:
   component 0: uni032E (U+032E) [mark]
   component 1: h (U+0068) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x0068: { # h
-    0: (469,645),
+  Combined at implied anchors
+  0x032E: { # uni032E
+    2: (-54,645),
   },
 
 U+1E2C Ḭ  Latin capital letter i with tilde below:
@@ -954,12 +819,6 @@ U+1E31 ḱ  Latin small letter k with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: k (U+006B) [base]
   Combined at implied anchors, offset dx = 2, dy = 142
-  0x0301: { # acutecomb
-    0: (-193,824),
-  },
-  0x006B: { # k
-    0: (306,784),
-  },
 
 U+1E32 Ḳ  Latin capital letter k with dot below:
   component 0: dotaccent (U+02D9) [other]
@@ -974,17 +833,17 @@ U+1E33 ḳ  Latin small letter k with dot below:
 U+1E34 Ḵ  Latin capital letter k with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: K (U+004B) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x004B: { # K
-    0: (336,850),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-250,877),
   },
 
 U+1E35 ḵ  Latin small letter k with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: k (U+006B) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x006B: { # k
-    0: (306,784),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-206,812),
   },
 
 U+1E36 Ḷ  Latin capital letter l with dot below:
@@ -1010,9 +869,9 @@ U+1E39 ḹ  Latin small letter l with dot below and macron:
 U+1E3A Ḻ  Latin capital letter l with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: L (U+004C) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x004C: { # L
-    0: (149,850),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-373,876),
   },
 
 U+1E3B ḻ  Latin small letter l with line below:
@@ -1043,9 +902,9 @@ U+1E42 Ṃ  Latin capital letter m with dot below:
 U+1E43 ṃ  Latin small letter m with dot below:
   component 0: dotbelowcomb (U+0323) [mark]
   component 1: m (U+006D) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x006D: { # m
-    0: (392,645),
+  Combined at implied anchors
+  0x0323: { # dotbelowcomb
+    2: (-224,642),
   },
 
 U+1E44 Ṅ  Latin capital letter n with dot above:
@@ -1072,23 +931,11 @@ U+1E4F ṏ  Latin small letter o with tilde and diaeresis:
   component 0: otilde (U+00F5) [base]
   component 1: uni0308 (U+0308) [mark]
   Combined at implied anchors, offset dx = 23, dy = 57
-  0x00F5: { # otilde
-    0: (255,834),
-  },
-  0x0308: { # uni0308
-    0: (-233,702),
-  },
 
 U+1E55 ṕ  Latin small letter p with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: p (U+0070) [base]
   Combined at implied anchors, offset dx = 4, dy = 9
-  0x0301: { # acutecomb
-    0: (-195,691),
-  },
-  0x0070: { # p
-    0: (271,646),
-  },
 
 U+1E56 Ṗ  Latin capital letter p with dot above:
   component 0: dotaccent (U+02D9) [other]
@@ -1133,17 +980,17 @@ U+1E5D ṝ  Latin small letter r with dot below and macron:
 U+1E5E Ṟ  Latin capital letter r with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: R (U+0052) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x0052: { # R
-    0: (269,850),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-295,878),
   },
 
 U+1E5F ṟ  Latin small letter r with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: r (U+0072) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x0072: { # r
-    0: (191,646),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-222,672),
   },
 
 U+1E60 Ṡ  Latin capital letter s with dot above:
@@ -1170,12 +1017,6 @@ U+1E64 Ṥ  Latin capital letter s with acute and dot above:
   component 0: uni0307 (U+0307) [mark]
   component 1: S (U+0053) [base]
   Combined at implied anchors, offset dx = 102, dy = 30
-  0x0307: { # uni0307
-    0: (-78,697),
-  },
-  0x0053: { # S
-    0: (232,850),
-  },
 
 U+1E68 Ṩ  Latin capital letter s with dot below and dot above:
   component 0: dotaccent (U+02D9) [other]
@@ -1201,9 +1042,9 @@ U+1E6C Ṭ  Latin capital letter t with dot below:
 U+1E6E Ṯ  Latin capital letter t with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: T (U+0054) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x0054: { # T
-    0: (307,850),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-225,879),
   },
 
 U+1E72 Ṳ  Latin capital letter u with diaeresis below:
@@ -1225,12 +1066,6 @@ U+1E7B ṻ  Latin small letter u with macron and diaeresis:
   component 0: umacron (U+016B) [base]
   component 1: uni0308 (U+0308) [mark]
   Combined at implied anchors, offset dx = 63, dy = 45
-  0x016B: { # umacron
-    0: (247,795),
-  },
-  0x0308: { # uni0308
-    0: (-273,690),
-  },
 
 U+1E7C Ṽ  Latin capital letter v with tilde:
   component 0: tilde (U+02DC) [other]
@@ -1256,45 +1091,21 @@ U+1E81 ẁ  Latin small letter w with grave:
   component 0: gravecomb (U+0300) [mark]
   component 1: w (U+0077) [base]
   Combined at implied anchors, offset dx = 11, dy = 2
-  0x0300: { # gravecomb
-    0: (-131,685),
-  },
-  0x0077: { # w
-    0: (345,646),
-  },
 
 U+1E83 ẃ  Latin small letter w with acute:
   component 0: acutecomb (U+0301) [mark]
   component 1: w (U+0077) [base]
   Combined at implied anchors, offset dx = 17, dy = 8
-  0x0301: { # acutecomb
-    0: (-174,690),
-  },
-  0x0077: { # w
-    0: (345,646),
-  },
 
 U+1E84 Ẅ  Latin capital letter w with diaeresis:
   component 0: uni0308 (U+0308) [mark]
   component 1: W (U+0057) [base]
   Combined at implied anchors, offset dx = 72, dy = 26
-  0x0308: { # uni0308
-    0: (-282,671),
-  },
-  0x0057: { # W
-    0: (450,850),
-  },
 
 U+1E85 ẅ  Latin small letter w with diaeresis:
   component 0: uni0308 (U+0308) [mark]
   component 1: w (U+0077) [base]
   Combined at implied anchors, offset dx = 55, dy = 7
-  0x0308: { # uni0308
-    0: (-265,652),
-  },
-  0x0077: { # w
-    0: (345,646),
-  },
 
 U+1E8A Ẋ  Latin capital letter x with dot above:
   component 0: dotaccent (U+02D9) [other]
@@ -1309,7 +1120,10 @@ U+1E8B ẋ  Latin small letter x with dot above:
 U+1E8C Ẍ  Latin capital letter x with diaeresis:
   component 0: dieresis.cap (U+-001) [mark]
   component 1: X (U+0058) [base]
-  Combined with unexpected mark: expected {U+0308}, found {U+-001}
+  Combined at implied anchors
+  0x-001: { # dieresis.cap
+    2: (-250,848),
+  },
 
 U+1E8D ẍ  Latin small letter x with diaeresis:
   component 0: uni0308 (U+0308) [mark]
@@ -1344,17 +1158,17 @@ U+1E93 ẓ  Latin small letter z with dot below:
 U+1E94 Ẕ  Latin capital letter z with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: Z (U+005A) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x005A: { # Z
-    0: (320,850),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-216,876),
   },
 
 U+1E95 ẕ  Latin small letter z with line below:
   component 0: uni0331 (U+0331) [mark]
   component 1: z (U+007A) [base]
-  Combined at implied anchors, offset dx = 0, dy = 0
-  0x007A: { # z
-    0: (220,646),
+  Combined at implied anchors
+  0x0331: { # uni0331
+    2: (-249,672),
   },
 
 U+1EA0 Ạ  Latin capital letter a with dot below:
@@ -1370,34 +1184,22 @@ U+1EA1 ạ  Latin small letter a with dot below:
 U+1EA2 Ả  Latin capital letter a with hook above:
   component 0: Alpha (U+0391) [base]
   component 1: hookabovecomb.cap (U+-001) [mark]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors (base missing anchor)
 
 U+1EA3 ả  Latin small letter a with hook above:
   component 0: hookabovecomb (U+0309) [mark]
   component 1: a (U+0061) [base]
   Combined at implied anchors, offset dx = 155, dy = 4
-  0x0309: { # hookabovecomb
-    0: (-5,769),
-  },
-  0x0061: { # a
-    0: (379,645),
-  },
 
 U+1EA8 Ẩ  Latin capital letter a with circumflex and hook above:
   component 0: Acircumflex (U+00C2) [base]
   component 1: hookabovecomb.cap (U+-001) [mark]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors, offset dx = 161, dy = 159
 
 U+1EA9 ẩ  Latin small letter a with circumflex and hook above:
   component 0: acircumflex (U+00E2) [base]
   component 1: hookabovecomb (U+0309) [mark]
   Combined at implied anchors, offset dx = 133, dy = 90
-  0x00E2: { # acircumflex
-    0: (214,834),
-  },
-  0x0309: { # hookabovecomb
-    0: (-293,855),
-  },
 
 U+1EAB ẫ  Latin small letter a with circumflex and tilde:
   component 0: tilde (U+02DC) [other]
@@ -1437,18 +1239,12 @@ U+1EB9 ẹ  Latin small letter e with dot below:
 U+1EBA Ẻ  Latin capital letter e with hook above:
   component 0: hookabovecomb.cap (U+-001) [mark]
   component 1: E (U+0045) [base]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors, offset dx = 61, dy = 139
 
 U+1EBB ẻ  Latin small letter e with hook above:
   component 0: hookabovecomb (U+0309) [mark]
   component 1: e (U+0065) [base]
   Combined at implied anchors, offset dx = 39, dy = 4
-  0x0309: { # hookabovecomb
-    0: (-121,769),
-  },
-  0x0065: { # e
-    0: (243,645),
-  },
 
 U+1EBC Ẽ  Latin capital letter e with tilde:
   component 0: tilde (U+02DC) [other]
@@ -1463,18 +1259,12 @@ U+1EBD ẽ  Latin small letter e with tilde:
 U+1EC2 Ể  Latin capital letter e with circumflex and hook above:
   component 0: Ecircumflex (U+00CA) [base]
   component 1: hookabovecomb.cap (U+-001) [mark]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors, offset dx = 212, dy = 156
 
 U+1EC3 ể  Latin small letter e with circumflex and hook above:
   component 0: ecircumflex (U+00EA) [base]
   component 1: hookabovecomb (U+0309) [mark]
   Combined at implied anchors, offset dx = 109, dy = 90
-  0x00EA: { # ecircumflex
-    0: (255,834),
-  },
-  0x0309: { # hookabovecomb
-    0: (-269,855),
-  },
 
 U+1EC5 ễ  Latin small letter e with circumflex and tilde:
   component 0: tilde (U+02DC) [other]
@@ -1489,18 +1279,12 @@ U+1EC7 ệ  Latin small letter e with circumflex and dot below:
 U+1EC8 Ỉ  Latin capital letter i with hook above:
   component 0: hookabovecomb.cap (U+-001) [mark]
   component 1: I (U+0049) [base]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors, offset dx = 51, dy = 139
 
 U+1EC9 ỉ  Latin small letter i with hook above:
   component 0: hookabovecomb (U+0309) [mark]
   component 1: dotlessi (U+0131) [base]
   Combined at implied anchors, offset dx = 3, dy = 4
-  0x0309: { # hookabovecomb
-    0: (-163,769),
-  },
-  0x0131: { # dotlessi
-    0: (132,645),
-  },
 
 U+1ECA Ị  Latin capital letter i with dot below:
   component 0: dotaccent (U+02D9) [other]
@@ -1525,34 +1309,22 @@ U+1ECD ọ  Latin small letter o with dot below:
 U+1ECE Ỏ  Latin capital letter o with hook above:
   component 0: hookabovecomb.cap (U+-001) [mark]
   component 1: O (U+004F) [base]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors, offset dx = 60, dy = 139
 
 U+1ECF ỏ  Latin small letter o with hook above:
   component 0: hookabovecomb (U+0309) [mark]
   component 1: o (U+006F) [base]
   Combined at implied anchors, offset dx = 22, dy = 4
-  0x0309: { # hookabovecomb
-    0: (-138,769),
-  },
-  0x006F: { # o
-    0: (238,645),
-  },
 
 U+1ED4 Ổ  Latin capital letter o with circumflex and hook above:
   component 0: hookabovecomb.cap (U+-001) [mark]
   component 1: O (U+004F) [base]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors, offset dx = 219, dy = 111
 
 U+1ED5 ổ  Latin small letter o with circumflex and hook above:
   component 0: ocircumflex (U+00F4) [base]
   component 1: hookabovecomb (U+0309) [mark]
   Combined at implied anchors, offset dx = 118, dy = 91
-  0x00F4: { # ocircumflex
-    0: (255,833),
-  },
-  0x0309: { # hookabovecomb
-    0: (-278,856),
-  },
 
 U+1ED7 ỗ  Latin small letter o with circumflex and tilde:
   component 0: tilde (U+02DC) [other]
@@ -1577,7 +1349,7 @@ U+1EDD ờ  Latin small letter o with horn and grave:
 U+1EDE Ở  Latin capital letter o with horn and hook above:
   component 0: Ohorn (U+01A0) [base]
   component 1: hookabovecomb.cap (U+-001) [mark]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors (base missing anchor)
 
 U+1EDF ở  Latin small letter o with horn and hook above:
   component 0: ohorn (U+01A1) [base]
@@ -1602,7 +1374,7 @@ U+1EE4 Ụ  Latin capital letter u with dot below:
 U+1EE6 Ủ  Latin capital letter u with hook above:
   component 0: hookabovecomb.cap (U+-001) [mark]
   component 1: U (U+0055) [base]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors, offset dx = 37, dy = 139
 
 U+1EE9 ứ  Latin small letter u with horn and acute:
   component 0: uhorn (U+01B0) [base]
@@ -1617,7 +1389,7 @@ U+1EEB ừ  Latin small letter u with horn and grave:
 U+1EEC Ử  Latin capital letter u with horn and hook above:
   component 0: Uhorn (U+01AF) [base]
   component 1: hookabovecomb.cap (U+-001) [mark]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors (base missing anchor)
 
 U+1EED ử  Latin small letter u with horn and hook above:
   component 0: uhorn (U+01B0) [base]
@@ -1643,12 +1415,6 @@ U+1EF3 ỳ  Latin small letter y with grave:
   component 0: gravecomb (U+0300) [mark]
   component 1: y (U+0079) [base]
   Combined at implied anchors, offset dx = 61, dy = 0
-  0x0300: { # gravecomb
-    0: (-81,683),
-  },
-  0x0079: { # y
-    0: (262,645),
-  },
 
 U+1EF4 Ỵ  Latin capital letter y with dot below:
   component 0: dotaccent (U+02D9) [other]
@@ -1663,18 +1429,12 @@ U+1EF5 ỵ  Latin small letter y with dot below:
 U+1EF6 Ỷ  Latin capital letter y with hook above:
   component 0: hookabovecomb.cap (U+-001) [mark]
   component 1: Y (U+0059) [base]
-  Combined with unexpected mark: expected {U+0309}, found {U+-001}
+  Combined at implied anchors, offset dx = 61, dy = 139
 
 U+1EF7 ỷ  Latin small letter y with hook above:
   component 0: hookabovecomb (U+0309) [mark]
   component 1: y (U+0079) [base]
   Combined at implied anchors, offset dx = 33, dy = 4
-  0x0309: { # hookabovecomb
-    0: (-127,769),
-  },
-  0x0079: { # y
-    0: (262,645),
-  },
 
 U+1EF8 Ỹ  Latin capital letter y with tilde:
   component 0: tilde (U+02DC) [other]

@@ -147,4 +147,21 @@ if __name__ == "__main__":
         outfile=outfile,
     )
 
+    # print cap alt grids
+    classifier = classify_combo_plain
+    chosen_base_groups = [
+        "BASE_CAP",
+    ]
+    chosen_mark_groups = [
+        "MARK_CAP",
+    ]
+    outfile = "cap_alt.tex" 
+    print_combo_matrix(
+        chosen_fonts=chosen_fonts,
+        chosen_base_groups=chosen_base_groups,
+        chosen_mark_groups=chosen_mark_groups,
+        classifier=classifier,
+        builder=builder,
+        outfile=outfile,
+    )
 

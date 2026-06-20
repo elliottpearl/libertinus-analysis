@@ -7,11 +7,11 @@ lookup ccmp_cap_accents {
   sub uni0307         by dotaccent.cap;
   sub uni0308         by dieresis.cap;
   sub hookabovecomb   by hookabovecomb.cap;
-} sub uni030B         by hungarumlaut.cap;
+  sub uni030B         by hungarumlaut.cap;
   sub uni030C         by caron.cap;
   sub uni030F         by uni030F.cap;
   sub uni0311         by breveinvertedcmb.cap;
-  ccmp_cap_accents;
+} ccmp_cap_accents;
 
 feature ccmp {
 

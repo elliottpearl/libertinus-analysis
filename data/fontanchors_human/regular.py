@@ -137,6 +137,9 @@ anchors = {
         0x0153: {  # œ oe ligature
             2: (408, -110),  # center of vertical band
         },
+        0x015E: { # S with cedilla
+            0: (232, 850),  # S
+        },
         0x0170: { # Ű U double acute
             2: (328, -110),
         },
@@ -150,6 +153,10 @@ anchors = {
         0x0190: {  # Ɛ open E
             0: (248, 850),  # xmid bbox, capital aspect
             2: (248, -110),
+        },
+        0x01A9: { # Esh
+            0: (268, 850), # xm above
+            2: (277, -110), # xm below
         },
         0x01CD: { # Ǎ A caron
             2: (308,-110),

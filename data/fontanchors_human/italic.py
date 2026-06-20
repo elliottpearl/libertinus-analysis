@@ -6,16 +6,16 @@ anchors = {
         0x0061: { # a
             2: (251, -110),  # was (174, -108). x-mid of (78,175.5) to (423.5,75.5) on right edge
         },
-
         0x0066: { # f
             2: (30, -319),  # below anchor
+        },
+        0x015E: { # S with cedilla
+            0: (402, 850),  # S
         },
         0xE100: { # en space with anchor, width = 320
             0: (160,645),
             2: (160,-110),
         },
-
-
     },
     "marks": {
         0x030B: { # double acute above

@@ -131,6 +131,9 @@ anchors = {
         0x011B: { # ě e caron
             2: (234,-110),
         },
+        0x0122: { # Ģ G cedilla/comma
+            0: (365, 850), # G
+        },
         0x014B: {  # ŋ eng
             2: (265, -319),  # ymin close to ascender height
         },
@@ -150,6 +153,10 @@ anchors = {
             0: (290, 850), # xmid bowl, capital aspect
             2: (294, -110), # xmid bowl, baseline aspect
         },
+        0x018F: { # Schwa
+            0: (327,850), # xm
+            2: (316,-110) # ymin
+        },
         0x0190: {  # Ɛ open E
             0: (248, 850),  # xmid bbox, capital aspect
             2: (248, -110),
@@ -157,6 +164,9 @@ anchors = {
         0x01A9: { # Esh
             0: (268, 850), # xm above
             2: (277, -110), # xm below
+        },
+        0x01B7: { # Ezh
+            0: (307, 850), # xm above
         },
         0x01CD: { # Ǎ A caron
             2: (308,-110),

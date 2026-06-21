@@ -9,6 +9,9 @@ anchors = {
         0x0066: { # f
             2: (30, -319),  # below anchor
         },
+        0x0122: { # Ģ G cedilla/comma
+            0: (513, 850), # G
+        },
         0x015E: { # S with cedilla
             0: (402, 850),  # S
         },

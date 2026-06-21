@@ -13,12 +13,22 @@ anchors = {
         0x0065: {  # e
             0: (249, 645),  # x of ymax
         },
+        0x0122: { # Ģ G cedilla/comma
+            0: (383, 805), # ymax
+        },
         0x015E: { # S with cedilla
-            2: (252, 805),  # S
+            0: (252, 805),  # S
+        },
+        0x018F: { # Schwa
+            0: (353, 805), # xm
+            2: (343,-110) # ymin
         },
         0x01A9: { # Esh
-            0: (283, 850), # xm above
+            0: (283, 805), # xm above
             2: (298, -110) # xm below
+        },
+        0x01B7: { # Ezh
+            0: (321, 805), # xm above
         },
         0xE100: { # en space with anchor, width = 300
             0: (150,645),

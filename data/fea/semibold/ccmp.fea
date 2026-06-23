@@ -27,30 +27,33 @@ feature ccmp {
 
   # update Latin + IPA capitals
   @capitals = [
-    # add T V W Y to A-Z
+    # add T V W Y to A-Z 
+    # even though these four capitals do not really expect above marks
     A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-    # remove Acircumflex Ocircumflex
-    # keep next block
-    AE Ccedilla Thorn
+    # remove AE Acircumflex Ocircumflex because all combinations are already precomposed
+    # remove Ccedilla because it takes no above marks, semantically
+    # remove Thorn because it takes no above marks, semantically
+    # keep Greek capitals, even though this makes no sense in general
+    # because all expected Greek capitals with marks are already precomposed
     Alpha Beta Gamma uni0394 Epsilon Zeta Eta Theta Iota 
     Kappa Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau 
-    Upsilon Phi Chi Psi 
-    uni03A9 uni0404 uni0405 uni0406 uni0408 uni0409 uni040A uni040B 
-    uni040F uni0410 uni0411 uni0412 uni0413 uni0414 uni0415 uni0416 
-    uni0417 uni0418 uni041A uni041B uni041C uni041D uni041E uni041F 
-    uni0420 uni0421 uni0422 uni0423 uni0424 uni0425 uni0426 uni0427 
-    uni0428 uni0429 uni042A uni042B uni042C uni042D uni042E uni042F
-    # add
-    OE Oslash Eth Eng Scedilla Aogonek Eogonek Iogonek Uogonek 
-    uni01A9 uni01B7 uni018F uni01AE uni0181 uni0182 uni0184 uni0186 
-    uni0187 uni0189 uni018A uni018B uni018E uni018F uni0190 uni0191 
-    uni0193 uni0194 uni0196 uni0197 uni0198 uni019C uni019D uni019F 
-    uni01A2 uni01A4 uni01A6 uni01A7 uni01A9 uni01AC uni01B1 uni01B2 
-    uni01B3 uni01B5 uni01B7 uni01B8 uni01BC uni01C4 uni01C7 uni01CA 
-    uni1EA0 uni1EB8 uni1E1A uni1E24 uni1ECA uni1E2C uni1ECC uni1E5A 
-    uni1E62 uni1E6C uni1EE4 uni1E7C uni1E92 uni0122 uni0136 uni013B 
-    uni0156 uni0145 uni0162 uni0228 uni1E28 uni01EA    
-];
+    Upsilon Phi Chi Psi uni03A9 
+    # keep Cyrillic capitals, even though this makes no sense in general
+    # because all expected Cyrillic capitals with marks are already precomposed
+    uni0404 uni0405 uni0406 uni0408 uni0409 uni040A uni040B uni040F 
+    uni0410 uni0411 uni0412 uni0413 uni0414 uni0415 uni0416 uni0417 
+    uni0418 uni041A uni041B uni041C uni041D uni041E uni041F uni0420 
+    uni0421 uni0422 uni0423 uni0424 uni0425 uni0426 uni0427 uni0428 
+    uni0429 uni042A uni042B uni042C uni042D uni042E uni042F
+    # add more capitals
+    # IPA/UPA capitals
+    uni0186 uni018F uni0190 uni019F uni01A9 uni01B1 uni01B2 uni01B3 
+    uni01B5 
+    # uni01B7 
+    # dot/tilde below
+    uni1E1A uni1E24 uni1E2C uni1E5A uni1E62 uni1E6C uni1E7E uni1E92 
+    uni1EA0 uni1EB8 uni1ECA uni1ECC uni1EE4  
+  ];
 
   sub @dotted' @accents by @dotless;
   sub @capitals @accents' lookup ccmp_cap_accents;

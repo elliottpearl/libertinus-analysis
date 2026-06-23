@@ -3,6 +3,9 @@
 anchors = {
 
     "bases": {
+        0x004F: { # O
+            0 : (363, 805), # normalize ay
+        },
         0x0053: { # S
             0: (252, 805),  # S, normalize 805
         },
@@ -22,6 +25,9 @@ anchors = {
         0x018F: { # Schwa
             0: (353, 805), # xm
             2: (343,-110) # ymin
+        },
+        0x19F: { # O middle tilde
+            0 : (363, 805), # O
         },
         0x01A9: { # Esh
             0: (283, 805), # xm above

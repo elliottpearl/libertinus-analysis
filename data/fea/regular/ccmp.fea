@@ -33,10 +33,7 @@ feature ccmp {
     # add T V W Y to A-Z 
     # even though these four capitals do not really expect above marks
     A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-    # remove Acircumflex Ocircumflex 
-    # because all combinations are already precomposed
-    # keep this
-    AE 
+    # remove AE Acircumflex Ocircumflex because all combinations are already precomposed
     # remove Ccedilla because it takes no above marks, semantically
     # remove Thorn because it takes no above marks, semantically
     # keep Greek capitals, even though this makes no sense in general
@@ -52,13 +49,14 @@ feature ccmp {
     uni0421 uni0422 uni0423 uni0424 uni0425 uni0426 uni0427 uni0428 
     uni0429 uni042A uni042B uni042C uni042D uni042E uni042F
     # add more capitals
-    # dot/tilde below
-    uni1E1A uni1E24 uni1E2C uni1E5A uni1E62 uni1E6C uni1E7C uni1E92 
-    uni1EA0 uni1EB8 uni1ECA uni1ECC uni1EE4  
     # IPA/UPA capitals
     uni0186 uni018F uni0190 uni019F uni01A9 uni01B1 uni01B2 uni01B3 
-    uni01B5 uni01B7 uni01BC 
-];
+    uni01B5 
+    # uni01B7 
+    # dot/tilde below
+    uni1E1A uni1E24 uni1E2C uni1E5A uni1E62 uni1E6C uni1E7E uni1E92 
+    uni1EA0 uni1EB8 uni1ECA uni1ECC uni1EE4  
+  ];
 
   sub @dotted' @accents by @dotless;
   sub @capitals @accents' lookup ccmp_cap_accents;

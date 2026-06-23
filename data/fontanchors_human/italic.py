@@ -3,6 +3,9 @@
 
 anchors = {
     "bases": {
+        0x04F: { # 
+            2: (310, -110) # normalize by
+        },
         0x0061: { # a
             2: (251, -110),  # was (174, -108). x-mid of (78,175.5) to (423.5,75.5) on right edge
         },
@@ -14,6 +17,10 @@ anchors = {
         },
         0x015E: { # S with cedilla
             0: (402, 850),  # S
+        },
+        0x19F: { # O middle tilde
+            0: (515, 850), # O
+            2: (310, -110) # O
         },
         0xE100: { # en space with anchor, width = 320
             0: (160,645),

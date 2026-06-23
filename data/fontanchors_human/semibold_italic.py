@@ -16,6 +16,10 @@ anchors = {
         0x015E: { # S with cedilla
             0: (232, 805),  # S
         },
+        0x19F: { # O middle tilde
+            0: (335, 805), # O
+            2: (350, -110), # O 
+        },
         0xE100: { # en space with anchor, width = 280
             0: (140,645),
             2: (140,-110),

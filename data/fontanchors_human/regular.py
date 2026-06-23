@@ -11,6 +11,8 @@ anchor class index 3 above-right (left-angle)
     superscript capitals
         test 2 values computed with compute_baseanchor3(), clearance 0/80. Rejected.
         test 3 values computed with compute_baseanchor3(), clearance -20/70. Accepted.
+
+TODO: delete any human anchor for AE, Ezh and any letter whose only expected combinations are precomposed.        
 """
 
 anchors = {
@@ -160,6 +162,9 @@ anchors = {
         0x0190: {  # Ɛ open E
             0: (248, 850),  # xmid bbox, capital aspect
             2: (248, -110),
+        },
+        0x19F: { # O middle tilde
+            0 : (335, 850), # O
         },
         0x01A9: { # Esh
             0: (268, 850), # xm above

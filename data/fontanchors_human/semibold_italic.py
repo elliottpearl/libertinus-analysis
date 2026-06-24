@@ -20,6 +20,10 @@ anchors = {
             0: (335, 805), # O
             2: (350, -110), # O 
         },
+        0x01B1: { # Upsilon
+            0: (506, 850), # italic lane
+            2: (311, -110), # italic lane
+        },
         0xE100: { # en space with anchor, width = 280
             0: (140,645),
             2: (140,-110),

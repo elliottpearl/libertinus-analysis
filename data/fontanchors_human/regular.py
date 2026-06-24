@@ -170,6 +170,10 @@ anchors = {
             0: (268, 850), # xm above
             2: (277, -110), # xm below
         },
+        0x01B1: { # Upsilon
+            0: (329, 850), # xm above
+            2: (327, -110), # ymin
+        },
         0x01B7: { # Ezh
             0: (307, 850), # xm above
         },

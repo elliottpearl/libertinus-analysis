@@ -3,6 +3,10 @@
 
 anchors = {
     "bases": {
+        0x0059: { # Y
+            0: (469, 850), # italic lane
+            2: (277, -110) # italic lane
+        },
         0x0061: { # a
             # 0: (340, 645),  # test was (379,645)
             2: (277, -110),  # x-mid of (78,132) to (475,132) on right edge
@@ -23,6 +27,18 @@ anchors = {
         0x01B1: { # Upsilon
             0: (506, 850), # italic lane
             2: (311, -110), # italic lane
+        },
+        0x01B2: { # V hook
+            0: (498, 850), # italic lane
+            2: (303, -110) # italic lane
+        },
+        0x01B3: { # Y hook
+            0: (541, 850), # italic lane of stem
+            2: (379, -110) # italic lane of stem
+        },
+        0x01B5: { # Z stroke
+            0: (462, 850), # italic lane
+            2: (267, -110) # italic lane
         },
         0xE100: { # en space with anchor, width = 280
             0: (140,645),

@@ -9,6 +9,13 @@ anchors = {
         0x0053: { # S
             0: (252, 805),  # S, normalize 805
         },
+        0x0059: { # Y
+            2: (316, -110) # Z normalize by
+        },
+        0x005A: { # Z
+            0: (321, 805), # normalize ay
+            2: (308, -110) # normalize by
+        },
         0x0061: {  # a
             0: (219, 645),  # x scaled from regular
             2: (205, -110),
@@ -34,8 +41,20 @@ anchors = {
             2: (298, -110) # xm below
         },
         0x01B1: { # Upsilon
-            0: (337, 805), # xm above
-            2: (339, -110), # ymin
+            0: (361, 805), # xm above
+            2: (333, -110), # ymin
+        },
+        0x01B2: { # V hook
+            0: (369, 805), # xm above
+            2: (324, -110) # ymin
+        },
+        0x01B3: { # Y hook
+            0: (295, 850), # Y
+            2: (295, -110) # Y
+        },
+        0x01B5: { # Z stroke
+            0: (316, 805), # Z
+            2: (316, -110) # Z
         },
         0x01B7: { # Ezh
             0: (321, 805), # xm above

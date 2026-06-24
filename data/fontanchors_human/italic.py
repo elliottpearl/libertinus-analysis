@@ -6,6 +6,9 @@ anchors = {
         0x04F: { # 
             2: (310, -110) # normalize by
         },
+        0x0059: { # Y
+             2: (270, -110) # Y normalize
+        },
         0x0061: { # a
             2: (251, -110),  # was (174, -108). x-mid of (78,175.5) to (423.5,75.5) on right edge
         },
@@ -25,6 +28,18 @@ anchors = {
         0x01B1: { # Upsilon
             0: (513, 850), # italic lane
             2: (310, -110), # italic lane
+        },
+        0x01B2: { # V hook
+            0: (506, 850), # italic lane
+            2: (302, -110) # italic lane
+        },
+        0x01B3: { # Y hook
+            0: (511, 850), # italic lane of stem
+            2: (342, -110) # italic lane of stem
+        },
+        0x01B5: { # Z stroke
+            0: (489, 850), # italic lane
+            2: (286, -110) # italic lane
         },
         0xE100: { # en space with anchor, width = 320
             0: (160,645),

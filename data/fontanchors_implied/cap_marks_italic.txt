@@ -1,0 +1,104 @@
+acute.cap:
+  WARNING: acute.cap: base 'Alpha' has no 'above' anchor
+  bases: E, I, O, U, Y, G, K, L, N, R, S, Z
+  avg: (-50.3, 724.0)
+  x-range: -121.0 .. 40.0
+  y-range: 723.0 .. 725.0
+
+grave.cap:
+  WARNING: grave.cap: base 'Alpha' has no 'above' anchor
+  bases: E, I, O, U, W, Y
+  avg: (11.3, 724.2)
+  x-range: -46.0 .. 66.0
+  y-range: 723.0 .. 725.0
+
+circumflex.cap:
+  WARNING: circumflex.cap: base 'Alpha' has no 'above' anchor
+  WARNING: circumflex.cap: U+0134 'Jcircumflex' unexpected structure (0 components)
+  bases: E, I, O, U, Z, H
+  avg: (10.5, 680.3)
+  x-range: -19.0 .. 51.0
+  y-range: 678.0 .. 686.0
+
+breve.cap:
+  WARNING: breve.cap: base 'Alpha' has no 'above' anchor
+  bases: E, I, O, U
+  avg: (-12.2, 702.8)
+  x-range: -28.0 .. 15.0
+  y-range: 702.0 .. 704.0
+
+dotaccent.cap:
+  WARNING: dotaccent.cap: U+0226 'uni0226' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+0226 'uni0226' missing base or mark
+  WARNING: dotaccent.cap: U+1E02 'uni1E02' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+1E02 'uni1E02' missing base or mark
+  WARNING: dotaccent.cap: U+010A 'Cdotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+010A 'Cdotaccent' missing base or mark
+  WARNING: dotaccent.cap: U+1E0A 'uni1E0A' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+1E0A 'uni1E0A' missing base or mark
+  WARNING: dotaccent.cap: U+0116 'Edotaccent' unexpected structure (1 components)
+  WARNING: dotaccent.cap: U+0120 'Gdotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+0120 'Gdotaccent' missing base or mark
+  WARNING: dotaccent.cap: U+1E22 'uni1E22' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+1E22 'uni1E22' missing base or mark
+  WARNING: dotaccent.cap: U+0130 'Idotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+0130 'Idotaccent' missing base or mark
+  WARNING: dotaccent.cap: U+1E40 'uni1E40' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+1E40 'uni1E40' missing base or mark
+  WARNING: dotaccent.cap: U+1E44 'uni1E44' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+1E44 'uni1E44' missing base or mark
+  WARNING: dotaccent.cap: U+1E56 'uni1E56' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+1E56 'uni1E56' missing base or mark
+  WARNING: dotaccent.cap: U+015A 'Sacute' expected mark 'dotaccent.cap', found 'acute.cap'
+  WARNING: dotaccent.cap: U+1E6A 'uni1E6A' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+1E6A 'uni1E6A' missing base or mark
+  WARNING: dotaccent.cap: U+017B 'Zdotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: U+017B 'Zdotaccent' missing base or mark
+  (no usable data)
+
+dieresis.cap:
+  WARNING: dieresis.cap: base 'Alpha' has no 'above' anchor
+  WARNING: dieresis.cap: U+1E84 'Wdieresis' unexpected component 'dieresis'
+  WARNING: dieresis.cap: U+1E84 'Wdieresis' missing base or mark
+  WARNING: dieresis.cap: U+0178 'Ydieresis' unexpected component 'dieresis'
+  WARNING: dieresis.cap: U+0178 'Ydieresis' missing base or mark
+  bases: E, I, O, U
+  avg: (-75.0, 857.0)
+  x-range: -93.0 .. -51.0
+  y-range: 857.0 .. 857.0
+
+hookabovecomb.cap:
+  WARNING: hookabovecomb.cap: base 'Alpha' has no 'above' anchor
+  bases: E, I, O, U, Y
+  avg: (-20.4, 811.2)
+  x-range: -50.0 .. 5.0
+  y-range: 792.0 .. 816.0
+
+hungarumlaut.cap:
+  bases: O, U
+  avg: (-109.0, 762.0)
+  x-range: -129.0 .. -89.0
+  y-range: 762.0 .. 762.0
+
+caron.cap:
+  WARNING: caron.cap: U+01E6 'Gcaron' unexpected structure (0 components)
+  WARNING: caron.cap: U+01CF 'uni01CF' unexpected structure (0 components)
+  WARNING: caron.cap: U+01E8 'uni01E8' unexpected structure (0 components)
+  WARNING: caron.cap: U+013D 'Lcaron' missing base or mark
+  WARNING: caron.cap: base 'uni01B7' has no 'above' anchor
+  bases: C, D, E, H, N, R, S, T, Z
+  avg: (-47.2, 677.0)
+  x-range: -100.0 .. -18.0
+  y-range: 677.0 .. 677.0
+
+uni030F.cap:
+  WARNING: uni030F.cap: U+020E 'uni020E' expected mark 'uni030F.cap', found 'breveinvertedcmb.cap'
+  WARNING: uni030F.cap: U+0212 'uni0212' expected mark 'uni030F.cap', found 'breveinvertedcmb.cap'
+  (no usable data)
+
+breveinvertedcmb.cap:
+  WARNING: breveinvertedcmb.cap: base 'Alpha' has no 'above' anchor
+  bases: E, I, O, R
+  avg: (-11.5, 703.2)
+  x-range: -32.0 .. 15.0
+  y-range: 703.0 .. 704.0

@@ -1,82 +1,82 @@
 acute.cap:
-  WARNING: acute.cap: U+00C1 'Aacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+00C9 'Eacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+00CD 'Iacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+00D3 'Oacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+00DA 'Uacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+00DD 'Yacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+01F4 'uni01F4' unexpected structure (1 components)
-  WARNING: acute.cap: U+1E30 'uni1E30' unexpected structure (1 components)
-  WARNING: acute.cap: U+0139 'Lacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+0143 'Nacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+0154 'Racute' unexpected structure (1 components)
-  WARNING: acute.cap: U+015A 'Sacute' unexpected structure (1 components)
-  WARNING: acute.cap: U+0179 'Zacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Aacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Eacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Iacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Oacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Uacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Yacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'uni01F4' unexpected structure (1 components)
+  WARNING: acute.cap: 'Lacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Nacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Racute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Sacute' unexpected structure (1 components)
+  WARNING: acute.cap: 'Zacute' unexpected structure (1 components)
   (no usable data)
 
 grave.cap:
-  WARNING: grave.cap: U+00C0 'Agrave' unexpected structure (1 components)
-  WARNING: grave.cap: U+00C8 'Egrave' unexpected structure (1 components)
-  WARNING: grave.cap: U+00CC 'Igrave' unexpected structure (1 components)
-  WARNING: grave.cap: U+00D2 'Ograve' unexpected structure (1 components)
-  WARNING: grave.cap: U+00D9 'Ugrave' unexpected structure (1 components)
-  WARNING: grave.cap: U+1E80 'Wgrave' unexpected structure (1 components)
-  WARNING: grave.cap: U+1EF2 'Ygrave' unexpected structure (1 components)
+  WARNING: grave.cap: 'Agrave' unexpected structure (1 components)
+  WARNING: grave.cap: 'Egrave' unexpected structure (1 components)
+  WARNING: grave.cap: 'Igrave' unexpected structure (1 components)
+  WARNING: grave.cap: 'Ograve' unexpected structure (1 components)
+  WARNING: grave.cap: 'Ugrave' unexpected structure (1 components)
+  WARNING: grave.cap: 'Wgrave' unexpected structure (1 components)
+  WARNING: grave.cap: 'Ygrave' unexpected structure (1 components)
   (no usable data)
 
 circumflex.cap:
-  WARNING: circumflex.cap: U+00C2 'Acircumflex' unexpected structure (1 components)
-  WARNING: circumflex.cap: U+00CA 'Ecircumflex' unexpected structure (1 components)
-  WARNING: circumflex.cap: U+00CE 'Icircumflex' unexpected structure (1 components)
-  WARNING: circumflex.cap: U+00D4 'Ocircumflex' unexpected structure (1 components)
-  WARNING: circumflex.cap: U+00DB 'Ucircumflex' unexpected structure (1 components)
-  WARNING: circumflex.cap: U+1E90 'uni1E90' unexpected structure (1 components)
-  WARNING: circumflex.cap: U+0124 'Hcircumflex' unexpected structure (1 components)
-  WARNING: circumflex.cap: U+0134 'Jcircumflex' unexpected structure (0 components)
+  WARNING: circumflex.cap: 'Acircumflex' unexpected structure (1 components)
+  WARNING: circumflex.cap: 'Ecircumflex' unexpected structure (1 components)
+  WARNING: circumflex.cap: 'Icircumflex' unexpected structure (1 components)
+  WARNING: circumflex.cap: 'Ocircumflex' unexpected structure (1 components)
+  WARNING: circumflex.cap: 'Ucircumflex' unexpected structure (1 components)
+  WARNING: circumflex.cap: 'Hcircumflex' unexpected structure (1 components)
+  WARNING: circumflex.cap: 'Jcircumflex' unexpected structure (0 components)
+  WARNING: circumflex.cap: 'uni1E90' unexpected structure (1 components)
   (no usable data)
 
 breve.cap:
-  WARNING: breve.cap: U+0102 'Abreve' unexpected structure (1 components)
-  WARNING: breve.cap: U+0114 'Ebreve' unexpected structure (1 components)
-  WARNING: breve.cap: U+012C 'Ibreve' unexpected structure (1 components)
-  WARNING: breve.cap: U+014E 'Obreve' unexpected structure (1 components)
-  WARNING: breve.cap: U+016C 'Ubreve' unexpected structure (1 components)
+  WARNING: breve.cap: 'Abreve' unexpected structure (1 components)
+  WARNING: breve.cap: 'Ebreve' unexpected structure (1 components)
+  WARNING: breve.cap: 'Ibreve' unexpected structure (1 components)
+  WARNING: breve.cap: 'Obreve' unexpected structure (1 components)
+  WARNING: breve.cap: 'Ubreve' unexpected structure (1 components)
   (no usable data)
 
 dotaccent.cap:
-  WARNING: dotaccent.cap: U+0226 'uni0226' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+0226 'uni0226' missing base or mark
-  WARNING: dotaccent.cap: U+1E02 'uni1E02' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+1E02 'uni1E02' missing base or mark
-  WARNING: dotaccent.cap: U+010A 'Cdotaccent' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+010A 'Cdotaccent' missing base or mark
-  WARNING: dotaccent.cap: U+1E0A 'uni1E0A' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+1E0A 'uni1E0A' missing base or mark
-  WARNING: dotaccent.cap: U+0116 'Edotaccent' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+0116 'Edotaccent' missing base or mark
-  WARNING: dotaccent.cap: U+0120 'Gdotaccent' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+0120 'Gdotaccent' missing base or mark
-  WARNING: dotaccent.cap: U+1E22 'uni1E22' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+1E22 'uni1E22' missing base or mark
-  WARNING: dotaccent.cap: U+0130 'Idotaccent' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+0130 'Idotaccent' missing base or mark
-  WARNING: dotaccent.cap: U+1E40 'uni1E40' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+1E40 'uni1E40' missing base or mark
-  WARNING: dotaccent.cap: U+1E44 'uni1E44' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+1E44 'uni1E44' missing base or mark
-  WARNING: dotaccent.cap: U+1E56 'uni1E56' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+1E56 'uni1E56' missing base or mark
-  WARNING: dotaccent.cap: U+015A 'Sacute' unexpected structure (1 components)
-  WARNING: dotaccent.cap: U+1E6A 'uni1E6A' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+1E6A 'uni1E6A' missing base or mark
-  WARNING: dotaccent.cap: U+017B 'Zdotaccent' unexpected component 'dotaccent'
-  WARNING: dotaccent.cap: U+017B 'Zdotaccent' missing base or mark
+  WARNING: dotaccent.cap: 'Cdotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'Cdotaccent' missing base or mark
+  WARNING: dotaccent.cap: 'Edotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'Edotaccent' missing base or mark
+  WARNING: dotaccent.cap: 'Gdotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'Gdotaccent' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E22' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E22' missing base or mark
+  WARNING: dotaccent.cap: 'Idotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'Idotaccent' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E40' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E40' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E44' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E44' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E56' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E56' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E58' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E58' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E60' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E60' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E6A' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E6A' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E86' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E86' missing base or mark
+  WARNING: dotaccent.cap: 'uni1E8E' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'uni1E8E' missing base or mark
+  WARNING: dotaccent.cap: 'Zdotaccent' unexpected component 'dotaccent'
+  WARNING: dotaccent.cap: 'Zdotaccent' missing base or mark
   (no usable data)
 
 dieresis.cap:
   WARNING: dieresis.cap: base 'Alpha' has no 'above' anchor
-  WARNING: dieresis.cap: U+1E84 'Wdieresis' expected mark 'dieresis.cap', found 'uni0308'
-  WARNING: dieresis.cap: U+0178 'Ydieresis' expected mark 'dieresis.cap', found 'uni0308'
+  WARNING: dieresis.cap: 'Wdieresis' expected mark in {'dieresis.cap'}, found 'uni0308'
+  WARNING: dieresis.cap: 'Ydieresis' expected mark in {'dieresis.cap'}, found 'uni0308'
   bases: E, I, O, U
   avg: (-260.8, 849.2)
   x-range: -273.0 .. -230.0
@@ -96,30 +96,30 @@ hungarumlaut.cap:
   y-range: 762.0 .. 762.0
 
 caron.cap:
-  WARNING: caron.cap: U+010C 'Ccaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+010E 'Dcaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+011A 'Ecaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+01E6 'Gcaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+021E 'uni021E' unexpected structure (1 components)
-  WARNING: caron.cap: U+01CF 'uni01CF' unexpected structure (1 components)
-  WARNING: caron.cap: U+01E8 'uni01E8' unexpected structure (1 components)
-  WARNING: caron.cap: U+013D 'Lcaron' expected mark 'caron.cap', found 'uni0315'
-  WARNING: caron.cap: U+0147 'Ncaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+0158 'Rcaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+0160 'Scaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+0164 'Tcaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+017D 'Zcaron' unexpected structure (1 components)
-  WARNING: caron.cap: U+01EE 'uni01EE' unexpected structure (1 components)
+  WARNING: caron.cap: 'Ccaron' unexpected structure (1 components)
+  WARNING: caron.cap: 'Dcaron' unexpected structure (1 components)
+  WARNING: caron.cap: 'Ecaron' unexpected structure (1 components)
+  WARNING: caron.cap: 'Gcaron' unexpected structure (1 components)
+  WARNING: caron.cap: 'uni021E' unexpected structure (1 components)
+  WARNING: caron.cap: 'uni01CF' unexpected structure (1 components)
+  WARNING: caron.cap: 'uni01E8' unexpected structure (1 components)
+  WARNING: caron.cap: 'Ncaron' unexpected structure (1 components)
+  WARNING: caron.cap: 'Rcaron' unexpected structure (1 components)
+  WARNING: caron.cap: 'Scaron' unexpected structure (1 components)
+  WARNING: caron.cap: 'Tcaron' unexpected structure (1 components)
+  WARNING: caron.cap: 'Zcaron' unexpected structure (1 components)
   (no usable data)
 
 uni030F.cap:
-  WARNING: uni030F.cap: U+020E 'uni020E' expected mark 'uni030F.cap', found 'breveinvertedcmb.cap'
-  WARNING: uni030F.cap: U+0212 'uni0212' expected mark 'uni030F.cap', found 'breveinvertedcmb.cap'
-  (no usable data)
+  WARNING: uni030F.cap: base 'Alpha' has no 'above' anchor
+  bases: E, I, O, R, U
+  avg: (-206.6, 766.6)
+  x-range: -229.0 .. -185.0
+  y-range: 760.0 .. 777.0
 
 breveinvertedcmb.cap:
   WARNING: breveinvertedcmb.cap: base 'Alpha' has no 'above' anchor
-  bases: E, I, O, R
-  avg: (-218.2, 703.2)
+  bases: E, I, O, R, U
+  avg: (-218.6, 703.2)
   x-range: -239.0 .. -185.0
   y-range: 703.0 .. 704.0

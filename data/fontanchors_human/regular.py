@@ -468,8 +468,36 @@ anchors = {
     },
 
     "marks_by_name": {
+        "grave.cap": {
+            0: (-175, 723), # y implied
+        },
+        "acute.cap": {
+            0: (-210, 723), # y implied
+        },
+        "breve.cap": {
+            0: (-161, 702), # x mid, y implied
+        },
+        "caron.cap": {
+            0: (-184, 677), # x mid, y implied
+        },
+        "dotaccent.cap": {
+            0: (146, 737), # x mid, y implied
+        },
+        "dieresis.cap": {
+            0: (-237, 850), # xmid, y implied
+        },
         "hookabovecomb.cap": {
-            0: (-165,781),
-        }
+            0: (-165, 812) # x mid, y implied
+        },
+        "hungarumlaut.cap": {
+            0: (-269, 762), # implied (-226, 747) designer
+        },
+        "uni030F.cap": { # double grave
+            0: (-200, 767), # implied. (-220, 745) designer
+        },
+        "breveinvertedcmb.cap": {
+            0: (-162,703), # implied
+        },
+        # "circumflex.cap" implied matches designer
     },
 }

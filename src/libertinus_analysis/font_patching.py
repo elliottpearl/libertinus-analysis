@@ -11,6 +11,7 @@ from .font_context import FontContext, FONTS
 from .font_patching_addglyphs import add_custom_glyphs
 from .font_patching_anchors import patch_anchors_human
 from .font_patching_gsub import patch_gsub_ccmp
+from .font_patching_precomposed_anchors import patch_precomposed_anchors
 
 
 def patch_font(font_key: str) -> None:
@@ -57,6 +58,13 @@ def patch_font(font_key: str) -> None:
     # 4. Patch GSUB using human-curated .fea file
     patch_gsub_ccmp(ttfont, font_key)
 
-    # 5. Save patched font
+    # 5. Patch precomposed anchors (new step)
+    report_above = patch_precomposed_anchors(ttfont, font_key, 0, "BASE_ABOVE", lookup_index)
+    report_below = patch_precomposed_anchors(ttfont, font_key, 2, "BASE_BELOW", lookup_index)
+
+    for line in report_above + report_below:
+        print(f"[{font_key}] {line}")
+
+    # 6. Save patched font
     ttfont.save(output_path)
     print(f"Patched font saved to {output_path}")

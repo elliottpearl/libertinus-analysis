@@ -165,3 +165,38 @@ if __name__ == "__main__":
         outfile=outfile,
     )
 
+    # print precomposed grids (above)
+    classifier = classify_combo_plain
+    chosen_base_groups = [
+        "BASE_ABOVE",
+    ]
+    chosen_mark_groups = [
+        "MARK_ABOVE",
+    ]
+    outfile = "precomposed_inherit_above.tex" 
+    print_combo_matrix(
+        chosen_fonts=chosen_fonts,
+        chosen_base_groups=chosen_base_groups,
+        chosen_mark_groups=chosen_mark_groups,
+        classifier=classifier,
+        builder=builder,
+        outfile=outfile,
+    )
+
+    # print precomposed grids (below)
+    classifier = classify_combo_plain
+    chosen_base_groups = [
+        "BASE_BELOW",
+    ]
+    chosen_mark_groups = [
+        "MARK_BELOW",
+    ]
+    outfile = "precomposed_inherit_below.tex"
+    print_combo_matrix(
+        chosen_fonts=chosen_fonts,
+        chosen_base_groups=chosen_base_groups,
+        chosen_mark_groups=chosen_mark_groups,
+        classifier=classifier,
+        builder=builder,
+        outfile=outfile,
+    )

@@ -860,6 +860,14 @@ unicode_groups = {
         "label": "Capitals",
         "items": BASE_CAP,
     },
+    "BASE_ABOVE": {
+        "label": "Precomposed bases that can inherit an above anchor",
+        "items": BASE_ABOVE,
+    },
+    "BASE_BELOW": {
+        "label": "Precomposed bases that can inherit a below anchor",
+        "items": BASE_BELOW,
+    },
 
     # === Precomposed blocks ===
     "PRECOMPOSED_CAPITAL_VOWELS": {

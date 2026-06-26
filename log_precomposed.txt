@@ -1,0 +1,1507 @@
+Applied GSUB features from data/fea/regular/ccmp.fea
+[regular] uni1E00: added inherited anchor class 0 = (354, 850) from 'A'
+[regular] uni1E00: added inherited anchor class 0 = (354, 850) from 'A'
+[regular] uni1E01: added inherited anchor class 0 = (209, 645) from 'a'
+[regular] uni1E01: added inherited anchor class 0 = (209, 645) from 'a'
+[regular] uni1E04: added inherited anchor class 0 = (267, 850) from 'B'
+[regular] uni1E04: added inherited anchor class 0 = (267, 850) from 'B'
+[regular] uni1E05: added inherited anchor class 0 = (279, 885) from 'b'
+[regular] uni1E05: added inherited anchor class 0 = (279, 885) from 'b'
+[regular] uni1E06: added inherited anchor class 0 = (267, 850) from 'B'
+[regular] uni1E06: added inherited anchor class 0 = (267, 850) from 'B'
+[regular] uni1E07: added inherited anchor class 0 = (279, 885) from 'b'
+[regular] uni1E07: added inherited anchor class 0 = (279, 885) from 'b'
+[regular] uni1E0C: added inherited anchor class 0 = (306, 850) from 'D'
+[regular] uni1E0C: added inherited anchor class 0 = (306, 850) from 'D'
+[regular] uni1E0D: added inherited anchor class 0 = (234, 885) from 'd'
+[regular] uni1E0D: added inherited anchor class 0 = (234, 885) from 'd'
+[regular] uni1E0E: added inherited anchor class 0 = (306, 850) from 'D'
+[regular] uni1E0E: added inherited anchor class 0 = (306, 850) from 'D'
+[regular] uni1E0F: added inherited anchor class 0 = (234, 885) from 'd'
+[regular] uni1E0F: added inherited anchor class 0 = (234, 885) from 'd'
+[regular] uni1E10: added inherited anchor class 0 = (306, 850) from 'D'
+[regular] uni1E10: added inherited anchor class 0 = (306, 850) from 'D'
+[regular] uni1E11: added inherited anchor class 0 = (234, 885) from 'd'
+[regular] uni1E11: added inherited anchor class 0 = (234, 885) from 'd'
+[regular] uni1E12: added inherited anchor class 0 = (306, 850) from 'D'
+[regular] uni1E12: added inherited anchor class 0 = (306, 850) from 'D'
+[regular] uni1E13: added inherited anchor class 0 = (234, 885) from 'd'
+[regular] uni1E13: added inherited anchor class 0 = (234, 885) from 'd'
+[regular] uni1E18: added inherited anchor class 0 = (281, 850) from 'E'
+[regular] uni1E18: added inherited anchor class 0 = (281, 850) from 'E'
+[regular] uni1E19: original base anchors exist {0: (231, 645)}
+[regular] uni1E1A: curated base anchors exist {0: (281, 850)}; should be inherited; consider removing from curated anchors
+[regular] uni1E1B: original base anchors exist {0: (231, 645)}
+[regular] uni1E24: added inherited anchor class 0 = (361, 850) from 'H'
+[regular] uni1E24: added inherited anchor class 0 = (361, 850) from 'H'
+[regular] uni1E25: added inherited anchor class 0 = (282, 885) from 'h'
+[regular] uni1E25: added inherited anchor class 0 = (282, 885) from 'h'
+[regular] uni1E28: added inherited anchor class 0 = (361, 850) from 'H'
+[regular] uni1E28: added inherited anchor class 0 = (361, 850) from 'H'
+[regular] uni1E29: added inherited anchor class 0 = (282, 885) from 'h'
+[regular] uni1E29: added inherited anchor class 0 = (282, 885) from 'h'
+[regular] uni1E2A: added inherited anchor class 0 = (361, 850) from 'H'
+[regular] uni1E2A: added inherited anchor class 0 = (361, 850) from 'H'
+[regular] uni1E2B: added inherited anchor class 0 = (282, 885) from 'h'
+[regular] uni1E2B: added inherited anchor class 0 = (282, 885) from 'h'
+[regular] uni1E2C: original base anchors exist {0: (146, 850)}
+[regular] uni1E32: added inherited anchor class 0 = (336, 850) from 'K'
+[regular] uni1E32: added inherited anchor class 0 = (336, 850) from 'K'
+[regular] uni1E33: added inherited anchor class 0 = (272, 885) from 'k'
+[regular] uni1E33: added inherited anchor class 0 = (272, 885) from 'k'
+[regular] uni1E34: added inherited anchor class 0 = (336, 850) from 'K'
+[regular] uni1E34: added inherited anchor class 0 = (336, 850) from 'K'
+[regular] uni1E35: added inherited anchor class 0 = (272, 885) from 'k'
+[regular] uni1E35: added inherited anchor class 0 = (272, 885) from 'k'
+[regular] uni1E36: added inherited anchor class 0 = (151, 850) from 'L'
+[regular] uni1E36: added inherited anchor class 0 = (151, 850) from 'L'
+[regular] uni1E37: added inherited anchor class 0 = (135, 885) from 'l'
+[regular] uni1E37: added inherited anchor class 0 = (135, 885) from 'l'
+[regular] uni1E3A: added inherited anchor class 0 = (151, 850) from 'L'
+[regular] uni1E3A: added inherited anchor class 0 = (151, 850) from 'L'
+[regular] uni1E3B: added inherited anchor class 0 = (135, 885) from 'l'
+[regular] uni1E3B: added inherited anchor class 0 = (135, 885) from 'l'
+[regular] uni1E3C: added inherited anchor class 0 = (151, 850) from 'L'
+[regular] uni1E3C: added inherited anchor class 0 = (151, 850) from 'L'
+[regular] uni1E3D: added inherited anchor class 0 = (135, 885) from 'l'
+[regular] uni1E3D: added inherited anchor class 0 = (135, 885) from 'l'
+[regular] uni1E42: added inherited anchor class 0 = (431, 850) from 'M'
+[regular] uni1E42: added inherited anchor class 0 = (431, 850) from 'M'
+[regular] uni1E43: added inherited anchor class 0 = (392, 645) from 'm'
+[regular] uni1E43: added inherited anchor class 0 = (392, 645) from 'm'
+[regular] uni1E46: added inherited anchor class 0 = (346, 850) from 'N'
+[regular] uni1E46: added inherited anchor class 0 = (346, 850) from 'N'
+[regular] uni1E47: added inherited anchor class 0 = (264, 646) from 'n'
+[regular] uni1E47: added inherited anchor class 0 = (264, 646) from 'n'
+[regular] uni1E48: added inherited anchor class 0 = (346, 850) from 'N'
+[regular] uni1E48: added inherited anchor class 0 = (346, 850) from 'N'
+[regular] uni1E49: added inherited anchor class 0 = (264, 646) from 'n'
+[regular] uni1E49: added inherited anchor class 0 = (264, 646) from 'n'
+[regular] uni1E4A: added inherited anchor class 0 = (346, 850) from 'N'
+[regular] uni1E4A: added inherited anchor class 0 = (346, 850) from 'N'
+[regular] uni1E4B: added inherited anchor class 0 = (264, 646) from 'n'
+[regular] uni1E4B: added inherited anchor class 0 = (264, 646) from 'n'
+[regular] uni1E5A: added inherited anchor class 0 = (269, 850) from 'R'
+[regular] uni1E5A: added inherited anchor class 0 = (269, 850) from 'R'
+[regular] uni1E5B: added inherited anchor class 0 = (191, 646) from 'r'
+[regular] uni1E5B: added inherited anchor class 0 = (191, 646) from 'r'
+[regular] uni1E5E: added inherited anchor class 0 = (269, 850) from 'R'
+[regular] uni1E5E: added inherited anchor class 0 = (269, 850) from 'R'
+[regular] uni1E5F: added inherited anchor class 0 = (191, 646) from 'r'
+[regular] uni1E5F: added inherited anchor class 0 = (191, 646) from 'r'
+[regular] uni1E62: added inherited anchor class 0 = (232, 850) from 'S'
+[regular] uni1E62: added inherited anchor class 0 = (232, 850) from 'S'
+[regular] uni1E63: added inherited anchor class 0 = (206, 645) from 's'
+[regular] uni1E63: added inherited anchor class 0 = (206, 645) from 's'
+[regular] uni1E6C: added inherited anchor class 0 = (307, 850) from 'T'
+[regular] uni1E6C: added inherited anchor class 0 = (307, 850) from 'T'
+[regular] uni1E6D: added inherited anchor class 0 = (139, 769) from 't'
+[regular] uni1E6D: added inherited anchor class 0 = (139, 769) from 't'
+[regular] uni1E6E: added inherited anchor class 0 = (307, 850) from 'T'
+[regular] uni1E6E: added inherited anchor class 0 = (307, 850) from 'T'
+[regular] uni1E6F: added inherited anchor class 0 = (139, 769) from 't'
+[regular] uni1E6F: added inherited anchor class 0 = (139, 769) from 't'
+[regular] uni1E70: added inherited anchor class 0 = (307, 850) from 'T'
+[regular] uni1E70: added inherited anchor class 0 = (307, 850) from 'T'
+[regular] uni1E71: added inherited anchor class 0 = (139, 769) from 't'
+[regular] uni1E71: added inherited anchor class 0 = (139, 769) from 't'
+[regular] uni1E72: original base anchors exist {0: (346, 850)}
+[regular] uni1E73: original base anchors exist {0: (255, 645)}
+[regular] uni1E74: curated base anchors exist {0: (346, 850)}; should be inherited; consider removing from curated anchors
+[regular] uni1E75: curated base anchors exist {0: (255, 645)}; should be inherited; consider removing from curated anchors
+[regular] uni1E76: added inherited anchor class 0 = (346, 850) from 'U'
+[regular] uni1E76: added inherited anchor class 0 = (346, 850) from 'U'
+[regular] uni1E77: added inherited anchor class 0 = (255, 645) from 'u'
+[regular] uni1E77: added inherited anchor class 0 = (255, 645) from 'u'
+[regular] uni1E7E: added inherited anchor class 0 = (336, 850) from 'V'
+[regular] uni1E7E: added inherited anchor class 0 = (336, 850) from 'V'
+[regular] uni1E7F: added inherited anchor class 0 = (256, 646) from 'v'
+[regular] uni1E7F: added inherited anchor class 0 = (256, 646) from 'v'
+[regular] uni1E88: added inherited anchor class 0 = (450, 850) from 'W'
+[regular] uni1E88: added inherited anchor class 0 = (450, 850) from 'W'
+[regular] uni1E89: added inherited anchor class 0 = (345, 646) from 'w'
+[regular] uni1E89: added inherited anchor class 0 = (345, 646) from 'w'
+[regular] uni1E92: added inherited anchor class 0 = (320, 850) from 'Z'
+[regular] uni1E92: added inherited anchor class 0 = (320, 850) from 'Z'
+[regular] uni1E93: added inherited anchor class 0 = (220, 645) from 'z'
+[regular] uni1E93: added inherited anchor class 0 = (220, 645) from 'z'
+[regular] uni1E94: added inherited anchor class 0 = (320, 850) from 'Z'
+[regular] uni1E94: added inherited anchor class 0 = (320, 850) from 'Z'
+[regular] uni1E95: added inherited anchor class 0 = (220, 645) from 'z'
+[regular] uni1E95: added inherited anchor class 0 = (220, 645) from 'z'
+[regular] uni1E96: added inherited anchor class 0 = (282, 885) from 'h'
+[regular] uni1E96: added inherited anchor class 0 = (282, 885) from 'h'
+[regular] uni1E9A: no Unicode base decomposition; SKIPPED
+[regular] uni1EA0: added inherited anchor class 0 = (354, 850) from 'A'
+[regular] uni1EA0: added inherited anchor class 0 = (354, 850) from 'A'
+[regular] uni1EA1: added inherited anchor class 0 = (209, 645) from 'a'
+[regular] uni1EA1: added inherited anchor class 0 = (209, 645) from 'a'
+[regular] uni1EB8: added inherited anchor class 0 = (281, 850) from 'E'
+[regular] uni1EB8: added inherited anchor class 0 = (281, 850) from 'E'
+[regular] uni1EB9: original base anchors exist {0: (231, 645)}
+[regular] uni1ECA: original base anchors exist {0: (146, 850)}
+[regular] uni1ECC: added inherited anchor class 0 = (335, 850) from 'O'
+[regular] uni1ECC: added inherited anchor class 0 = (335, 850) from 'O'
+[regular] uni1ECD: original base anchors exist {0: (231, 645)}
+[regular] uni1EE4: added inherited anchor class 0 = (346, 850) from 'U'
+[regular] uni1EE4: added inherited anchor class 0 = (346, 850) from 'U'
+[regular] uni1EE5: added inherited anchor class 0 = (255, 645) from 'u'
+[regular] uni1EE5: added inherited anchor class 0 = (255, 645) from 'u'
+[regular] uni1EF4: added inherited anchor class 0 = (295, 850) from 'Y'
+[regular] uni1EF4: added inherited anchor class 0 = (295, 850) from 'Y'
+[regular] uni1EF5: added inherited anchor class 0 = (262, 645) from 'y'
+[regular] uni1EF5: added inherited anchor class 0 = (262, 645) from 'y'
+[regular] uni1E02: added inherited anchor class 2 = (268, -110) from 'B'
+[regular] uni1E02: added inherited anchor class 2 = (268, -110) from 'B'
+[regular] uni1E03: added inherited anchor class 2 = (234, -110) from 'b'
+[regular] uni1E03: added inherited anchor class 2 = (234, -110) from 'b'
+[regular] uni1E0A: added inherited anchor class 2 = (309, -110) from 'D'
+[regular] uni1E0A: added inherited anchor class 2 = (309, -110) from 'D'
+[regular] uni1E0B: added inherited anchor class 2 = (234, -110) from 'd'
+[regular] uni1E0B: added inherited anchor class 2 = (234, -110) from 'd'
+[regular] uni1E14: base 'Emacron' has no base anchors; SKIPPED
+[regular] uni1E15: added inherited anchor class 2 = (236, -110) from 'emacron'
+[regular] uni1E15: added inherited anchor class 2 = (236, -110) from 'emacron'
+[regular] uni1E16: base 'Emacron' has no base anchors; SKIPPED
+[regular] uni1E17: added inherited anchor class 2 = (236, -110) from 'emacron'
+[regular] uni1E17: added inherited anchor class 2 = (236, -110) from 'emacron'
+[regular] uni1E1E: added inherited anchor class 2 = (209, -110) from 'F'
+[regular] uni1E1E: added inherited anchor class 2 = (209, -110) from 'F'
+[regular] uni1E1F: added inherited anchor class 2 = (136, -110) from 'f'
+[regular] uni1E1F: added inherited anchor class 2 = (136, -110) from 'f'
+[regular] uni1E20: added inherited anchor class 2 = (367, -110) from 'G'
+[regular] uni1E20: added inherited anchor class 2 = (367, -110) from 'G'
+[regular] uni1E21: added inherited anchor class 2 = (229, -319) from 'g'
+[regular] uni1E21: added inherited anchor class 2 = (229, -319) from 'g'
+[regular] uni1E22: added inherited anchor class 2 = (362, -110) from 'H'
+[regular] uni1E22: added inherited anchor class 2 = (362, -110) from 'H'
+[regular] uni1E23: added inherited anchor class 2 = (272, -110) from 'h'
+[regular] uni1E23: added inherited anchor class 2 = (272, -110) from 'h'
+[regular] uni1E26: added inherited anchor class 2 = (362, -110) from 'H'
+[regular] uni1E26: added inherited anchor class 2 = (362, -110) from 'H'
+[regular] uni1E27: added inherited anchor class 2 = (272, -110) from 'h'
+[regular] uni1E27: added inherited anchor class 2 = (272, -110) from 'h'
+[regular] uni1E2E: base 'Idieresis' has no anchor class 2; SKIPPED
+[regular] uni1E2E: base 'Idieresis' has no anchor class 2; SKIPPED
+[regular] uni1E2F: base 'idieresis' has no anchor class 2; SKIPPED
+[regular] uni1E2F: base 'idieresis' has no anchor class 2; SKIPPED
+[regular] uni1E30: added inherited anchor class 2 = (342, -110) from 'K'
+[regular] uni1E30: added inherited anchor class 2 = (342, -110) from 'K'
+[regular] uni1E31: added inherited anchor class 2 = (290, -110) from 'k'
+[regular] uni1E31: added inherited anchor class 2 = (290, -110) from 'k'
+[regular] uni1E3E: added inherited anchor class 2 = (393, -110) from 'M'
+[regular] uni1E3E: added inherited anchor class 2 = (393, -110) from 'M'
+[regular] uni1E3F: added inherited anchor class 2 = (404, -110) from 'm'
+[regular] uni1E3F: added inherited anchor class 2 = (404, -110) from 'm'
+[regular] uni1E40: added inherited anchor class 2 = (393, -110) from 'M'
+[regular] uni1E40: added inherited anchor class 2 = (393, -110) from 'M'
+[regular] uni1E41: added inherited anchor class 2 = (404, -110) from 'm'
+[regular] uni1E41: added inherited anchor class 2 = (404, -110) from 'm'
+[regular] uni1E44: added inherited anchor class 2 = (348, -110) from 'N'
+[regular] uni1E44: added inherited anchor class 2 = (348, -110) from 'N'
+[regular] uni1E45: added inherited anchor class 2 = (265, -110) from 'n'
+[regular] uni1E45: added inherited anchor class 2 = (265, -110) from 'n'
+[regular] uni1E4C: added inherited anchor class 2 = (350, -110) from 'Otilde'
+[regular] uni1E4C: added inherited anchor class 2 = (350, -110) from 'Otilde'
+[regular] uni1E4D: added inherited anchor class 2 = (243, -110) from 'otilde'
+[regular] uni1E4D: added inherited anchor class 2 = (243, -110) from 'otilde'
+[regular] uni1E4E: added inherited anchor class 2 = (350, -110) from 'Otilde'
+[regular] uni1E4E: added inherited anchor class 2 = (350, -110) from 'Otilde'
+[regular] uni1E4F: added inherited anchor class 2 = (243, -110) from 'otilde'
+[regular] uni1E4F: added inherited anchor class 2 = (243, -110) from 'otilde'
+[regular] uni1E50: added inherited anchor class 2 = (350, -110) from 'Omacron'
+[regular] uni1E50: added inherited anchor class 2 = (350, -110) from 'Omacron'
+[regular] uni1E51: added inherited anchor class 2 = (243, -110) from 'omacron'
+[regular] uni1E51: added inherited anchor class 2 = (243, -110) from 'omacron'
+[regular] uni1E52: added inherited anchor class 2 = (350, -110) from 'Omacron'
+[regular] uni1E52: added inherited anchor class 2 = (350, -110) from 'Omacron'
+[regular] uni1E53: added inherited anchor class 2 = (243, -110) from 'omacron'
+[regular] uni1E53: added inherited anchor class 2 = (243, -110) from 'omacron'
+[regular] uni1E54: added inherited anchor class 2 = (240, -110) from 'P'
+[regular] uni1E54: added inherited anchor class 2 = (240, -110) from 'P'
+[regular] uni1E55: added inherited anchor class 2 = (120, -319) from 'p'
+[regular] uni1E55: added inherited anchor class 2 = (120, -319) from 'p'
+[regular] uni1E56: added inherited anchor class 2 = (240, -110) from 'P'
+[regular] uni1E56: added inherited anchor class 2 = (240, -110) from 'P'
+[regular] uni1E57: added inherited anchor class 2 = (120, -319) from 'p'
+[regular] uni1E57: added inherited anchor class 2 = (120, -319) from 'p'
+[regular] uni1E58: added inherited anchor class 2 = (258, -110) from 'R'
+[regular] uni1E58: added inherited anchor class 2 = (258, -110) from 'R'
+[regular] uni1E59: added inherited anchor class 2 = (140, -110) from 'r'
+[regular] uni1E59: added inherited anchor class 2 = (140, -110) from 'r'
+[regular] uni1E60: added inherited anchor class 2 = (234, -110) from 'S'
+[regular] uni1E60: added inherited anchor class 2 = (234, -110) from 'S'
+[regular] uni1E61: added inherited anchor class 2 = (196, -110) from 's'
+[regular] uni1E61: added inherited anchor class 2 = (196, -110) from 's'
+[regular] uni1E64: base 'Sacute' has no base anchors; SKIPPED
+[regular] uni1E65: base 'sacute' has no base anchors; SKIPPED
+[regular] uni1E66: base 'Scaron' has no base anchors; SKIPPED
+[regular] uni1E67: added inherited anchor class 2 = (183, -110) from 'scaron'
+[regular] uni1E67: added inherited anchor class 2 = (183, -110) from 'scaron'
+[regular] uni1E6A: added inherited anchor class 2 = (300, -110) from 'T'
+[regular] uni1E6A: added inherited anchor class 2 = (300, -110) from 'T'
+[regular] uni1E6B: added inherited anchor class 2 = (163, -110) from 't'
+[regular] uni1E6B: added inherited anchor class 2 = (163, -110) from 't'
+[regular] uni1E78: base 'Utilde' has no base anchors; SKIPPED
+[regular] uni1E79: base 'utilde' has no anchor class 2; SKIPPED
+[regular] uni1E79: base 'utilde' has no anchor class 2; SKIPPED
+[regular] uni1E7A: added inherited anchor class 2 = (328, -110) from 'Umacron'
+[regular] uni1E7A: added inherited anchor class 2 = (328, -110) from 'Umacron'
+[regular] uni1E7B: added inherited anchor class 2 = (239, -110) from 'umacron'
+[regular] uni1E7B: added inherited anchor class 2 = (239, -110) from 'umacron'
+[regular] uni1E7C: original base anchors exist {0: (319, 955)}
+[regular] uni1E7D: original base anchors exist {0: (258, 808)}
+[regular] Wgrave: added inherited anchor class 2 = (479, -110) from 'W'
+[regular] Wgrave: added inherited anchor class 2 = (479, -110) from 'W'
+[regular] wgrave: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] wgrave: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] Wacute: added inherited anchor class 2 = (479, -110) from 'W'
+[regular] Wacute: added inherited anchor class 2 = (479, -110) from 'W'
+[regular] wacute: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] wacute: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] Wdieresis: added inherited anchor class 2 = (479, -110) from 'W'
+[regular] Wdieresis: added inherited anchor class 2 = (479, -110) from 'W'
+[regular] wdieresis: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] wdieresis: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] uni1E86: added inherited anchor class 2 = (479, -110) from 'W'
+[regular] uni1E86: added inherited anchor class 2 = (479, -110) from 'W'
+[regular] uni1E87: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] uni1E87: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] uni1E8A: added inherited anchor class 2 = (307, -110) from 'X'
+[regular] uni1E8A: added inherited anchor class 2 = (307, -110) from 'X'
+[regular] uni1E8B: added inherited anchor class 2 = (224, -110) from 'x'
+[regular] uni1E8B: added inherited anchor class 2 = (224, -110) from 'x'
+[regular] uni1E8C: added inherited anchor class 2 = (307, -110) from 'X'
+[regular] uni1E8C: added inherited anchor class 2 = (307, -110) from 'X'
+[regular] uni1E8D: added inherited anchor class 2 = (224, -110) from 'x'
+[regular] uni1E8D: added inherited anchor class 2 = (224, -110) from 'x'
+[regular] uni1E8E: added inherited anchor class 2 = (295, -110) from 'Y'
+[regular] uni1E8E: added inherited anchor class 2 = (295, -110) from 'Y'
+[regular] uni1E8F: added inherited anchor class 2 = (242, -319) from 'y'
+[regular] uni1E8F: added inherited anchor class 2 = (242, -319) from 'y'
+[regular] uni1E90: added inherited anchor class 2 = (287, -110) from 'Z'
+[regular] uni1E90: added inherited anchor class 2 = (287, -110) from 'Z'
+[regular] uni1E91: added inherited anchor class 2 = (207, -110) from 'z'
+[regular] uni1E91: added inherited anchor class 2 = (207, -110) from 'z'
+[regular] uni1E97: added inherited anchor class 2 = (163, -110) from 't'
+[regular] uni1E97: added inherited anchor class 2 = (163, -110) from 't'
+[regular] uni1E98: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] uni1E98: added inherited anchor class 2 = (352, -110) from 'w'
+[regular] uni1E99: added inherited anchor class 2 = (242, -319) from 'y'
+[regular] uni1E99: added inherited anchor class 2 = (242, -319) from 'y'
+[regular] uni1EA2: added inherited anchor class 2 = (308, -110) from 'A'
+[regular] uni1EA2: added inherited anchor class 2 = (308, -110) from 'A'
+[regular] uni1EA3: added inherited anchor class 2 = (196, -110) from 'a'
+[regular] uni1EA3: added inherited anchor class 2 = (196, -110) from 'a'
+[regular] uni1EA4: base 'Acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA4: base 'Acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA5: base 'acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA5: base 'acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA6: base 'Acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA6: base 'Acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA7: base 'acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA7: base 'acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA8: base 'Acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA8: base 'Acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA9: base 'acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EA9: base 'acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EAA: base 'Acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EAA: base 'Acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EAB: base 'acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EAB: base 'acircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EAE: base 'Abreve' has no base anchors; SKIPPED
+[regular] uni1EAF: base 'abreve' has no base anchors; SKIPPED
+[regular] uni1EB0: base 'Abreve' has no base anchors; SKIPPED
+[regular] uni1EB1: base 'abreve' has no base anchors; SKIPPED
+[regular] uni1EB2: base 'Abreve' has no base anchors; SKIPPED
+[regular] uni1EB3: base 'abreve' has no base anchors; SKIPPED
+[regular] uni1EB4: base 'Abreve' has no base anchors; SKIPPED
+[regular] uni1EB5: base 'abreve' has no base anchors; SKIPPED
+[regular] uni1EBA: added inherited anchor class 2 = (287, -110) from 'E'
+[regular] uni1EBA: added inherited anchor class 2 = (287, -110) from 'E'
+[regular] uni1EBB: added inherited anchor class 2 = (234, -110) from 'e'
+[regular] uni1EBB: added inherited anchor class 2 = (234, -110) from 'e'
+[regular] uni1EBC: added inherited anchor class 2 = (287, -110) from 'E'
+[regular] uni1EBC: added inherited anchor class 2 = (287, -110) from 'E'
+[regular] uni1EBD: original base anchors exist {0: (229, 809)}
+[regular] uni1EBE: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[regular] uni1EBE: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[regular] uni1EBF: base 'ecircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EBF: base 'ecircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EC0: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[regular] uni1EC0: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[regular] uni1EC1: base 'ecircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EC1: base 'ecircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EC2: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[regular] uni1EC2: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[regular] uni1EC3: base 'ecircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EC3: base 'ecircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EC4: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[regular] uni1EC4: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[regular] uni1EC5: base 'ecircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EC5: base 'ecircumflex' has no anchor class 2; SKIPPED
+[regular] uni1EC8: added inherited anchor class 2 = (147, -110) from 'I'
+[regular] uni1EC8: added inherited anchor class 2 = (147, -110) from 'I'
+[regular] uni1EC9: added inherited anchor class 2 = (136, -110) from 'i'
+[regular] uni1EC9: added inherited anchor class 2 = (136, -110) from 'i'
+[regular] uni1ECE: added inherited anchor class 2 = (350, -110) from 'O'
+[regular] uni1ECE: added inherited anchor class 2 = (350, -110) from 'O'
+[regular] uni1ECF: added inherited anchor class 2 = (243, -110) from 'o'
+[regular] uni1ECF: added inherited anchor class 2 = (243, -110) from 'o'
+[regular] uni1ED0: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[regular] uni1ED0: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[regular] uni1ED1: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[regular] uni1ED1: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[regular] uni1ED2: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[regular] uni1ED2: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[regular] uni1ED3: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[regular] uni1ED3: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[regular] uni1ED4: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[regular] uni1ED4: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[regular] uni1ED5: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[regular] uni1ED5: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[regular] uni1ED6: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[regular] uni1ED6: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[regular] uni1ED7: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[regular] uni1ED7: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[regular] uni1EDA: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[regular] uni1EDA: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[regular] uni1EDB: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[regular] uni1EDB: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[regular] uni1EDC: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[regular] uni1EDC: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[regular] uni1EDD: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[regular] uni1EDD: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[regular] uni1EDE: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[regular] uni1EDE: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[regular] uni1EDF: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[regular] uni1EDF: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[regular] uni1EE0: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[regular] uni1EE0: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[regular] uni1EE1: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[regular] uni1EE1: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[regular] uni1EE6: added inherited anchor class 2 = (328, -110) from 'U'
+[regular] uni1EE6: added inherited anchor class 2 = (328, -110) from 'U'
+[regular] uni1EE7: added inherited anchor class 2 = (239, -110) from 'u'
+[regular] uni1EE7: added inherited anchor class 2 = (239, -110) from 'u'
+[regular] uni1EE8: base 'Uhorn' has no anchor class 2; SKIPPED
+[regular] uni1EE8: base 'Uhorn' has no anchor class 2; SKIPPED
+[regular] uni1EE9: base 'uhorn' has no base anchors; SKIPPED
+[regular] uni1EEA: base 'Uhorn' has no anchor class 2; SKIPPED
+[regular] uni1EEA: base 'Uhorn' has no anchor class 2; SKIPPED
+[regular] uni1EEB: base 'uhorn' has no base anchors; SKIPPED
+[regular] uni1EEC: base 'Uhorn' has no anchor class 2; SKIPPED
+[regular] uni1EEC: base 'Uhorn' has no anchor class 2; SKIPPED
+[regular] uni1EED: base 'uhorn' has no base anchors; SKIPPED
+[regular] uni1EEE: base 'Uhorn' has no anchor class 2; SKIPPED
+[regular] uni1EEE: base 'Uhorn' has no anchor class 2; SKIPPED
+[regular] uni1EEF: base 'uhorn' has no base anchors; SKIPPED
+[regular] Ygrave: added inherited anchor class 2 = (295, -110) from 'Y'
+[regular] Ygrave: added inherited anchor class 2 = (295, -110) from 'Y'
+[regular] ygrave: added inherited anchor class 2 = (242, -319) from 'y'
+[regular] ygrave: added inherited anchor class 2 = (242, -319) from 'y'
+[regular] uni1EF6: added inherited anchor class 2 = (295, -110) from 'Y'
+[regular] uni1EF6: added inherited anchor class 2 = (295, -110) from 'Y'
+[regular] uni1EF8: added inherited anchor class 2 = (295, -110) from 'Y'
+[regular] uni1EF8: added inherited anchor class 2 = (295, -110) from 'Y'
+[regular] uni1EF8: original base anchors exist {2: (295, -110)}
+[regular] uni1EF9: added inherited anchor class 2 = (242, -319) from 'y'
+[regular] uni1EF9: added inherited anchor class 2 = (242, -319) from 'y'
+Patched font saved to /home/elliott/dev/libertinus-analysis/fonts/LibertinusSerif-Regular-patch.otf
+Applied GSUB features from data/fea/italic/ccmp.fea
+[italic] uni1E00: added inherited anchor class 0 = (505, 850) from 'A'
+[italic] uni1E00: added inherited anchor class 0 = (505, 850) from 'A'
+[italic] uni1E01: added inherited anchor class 0 = (341, 647) from 'a'
+[italic] uni1E01: added inherited anchor class 0 = (341, 647) from 'a'
+[italic] uni1E04: added inherited anchor class 0 = (447, 850) from 'B'
+[italic] uni1E04: added inherited anchor class 0 = (447, 850) from 'B'
+[italic] uni1E05: base 'b' has no anchor class 0; SKIPPED
+[italic] uni1E05: base 'b' has no anchor class 0; SKIPPED
+[italic] uni1E06: added inherited anchor class 0 = (447, 850) from 'B'
+[italic] uni1E06: added inherited anchor class 0 = (447, 850) from 'B'
+[italic] uni1E07: base 'b' has no anchor class 0; SKIPPED
+[italic] uni1E07: base 'b' has no anchor class 0; SKIPPED
+[italic] uni1E0C: added inherited anchor class 0 = (396, 850) from 'D'
+[italic] uni1E0C: added inherited anchor class 0 = (396, 850) from 'D'
+[italic] uni1E0D: added inherited anchor class 0 = (218, 645) from 'd'
+[italic] uni1E0D: added inherited anchor class 0 = (218, 645) from 'd'
+[italic] uni1E0E: added inherited anchor class 0 = (396, 850) from 'D'
+[italic] uni1E0E: added inherited anchor class 0 = (396, 850) from 'D'
+[italic] uni1E0F: added inherited anchor class 0 = (218, 645) from 'd'
+[italic] uni1E0F: added inherited anchor class 0 = (218, 645) from 'd'
+[italic] uni1E10: added inherited anchor class 0 = (396, 850) from 'D'
+[italic] uni1E10: added inherited anchor class 0 = (396, 850) from 'D'
+[italic] uni1E11: added inherited anchor class 0 = (218, 645) from 'd'
+[italic] uni1E11: added inherited anchor class 0 = (218, 645) from 'd'
+[italic] uni1E12: added inherited anchor class 0 = (396, 850) from 'D'
+[italic] uni1E12: added inherited anchor class 0 = (396, 850) from 'D'
+[italic] uni1E13: added inherited anchor class 0 = (218, 645) from 'd'
+[italic] uni1E13: added inherited anchor class 0 = (218, 645) from 'd'
+[italic] uni1E18: added inherited anchor class 0 = (413, 850) from 'E'
+[italic] uni1E18: added inherited anchor class 0 = (413, 850) from 'E'
+[italic] uni1E19: added inherited anchor class 0 = (332, 645) from 'e'
+[italic] uni1E19: added inherited anchor class 0 = (332, 645) from 'e'
+[italic] uni1E1A: added inherited anchor class 0 = (413, 850) from 'E'
+[italic] uni1E1A: added inherited anchor class 0 = (413, 850) from 'E'
+[italic] uni1E1B: added inherited anchor class 0 = (332, 645) from 'e'
+[italic] uni1E1B: added inherited anchor class 0 = (332, 645) from 'e'
+[italic] uni1E24: added inherited anchor class 0 = (481, 850) from 'H'
+[italic] uni1E24: added inherited anchor class 0 = (481, 850) from 'H'
+[italic] uni1E25: added inherited anchor class 0 = (409, 645) from 'h'
+[italic] uni1E25: added inherited anchor class 0 = (409, 645) from 'h'
+[italic] uni1E28: added inherited anchor class 0 = (481, 850) from 'H'
+[italic] uni1E28: added inherited anchor class 0 = (481, 850) from 'H'
+[italic] uni1E29: added inherited anchor class 0 = (409, 645) from 'h'
+[italic] uni1E29: added inherited anchor class 0 = (409, 645) from 'h'
+[italic] uni1E2A: added inherited anchor class 0 = (481, 850) from 'H'
+[italic] uni1E2A: added inherited anchor class 0 = (481, 850) from 'H'
+[italic] uni1E2B: added inherited anchor class 0 = (409, 645) from 'h'
+[italic] uni1E2B: added inherited anchor class 0 = (409, 645) from 'h'
+[italic] uni1E2C: added inherited anchor class 0 = (316, 850) from 'I'
+[italic] uni1E2C: added inherited anchor class 0 = (316, 850) from 'I'
+[italic] uni1E32: added inherited anchor class 0 = (466, 850) from 'K'
+[italic] uni1E32: added inherited anchor class 0 = (466, 850) from 'K'
+[italic] uni1E33: added inherited anchor class 0 = (405, 646) from 'k'
+[italic] uni1E33: added inherited anchor class 0 = (405, 646) from 'k'
+[italic] uni1E34: added inherited anchor class 0 = (466, 850) from 'K'
+[italic] uni1E34: added inherited anchor class 0 = (466, 850) from 'K'
+[italic] uni1E35: added inherited anchor class 0 = (405, 646) from 'k'
+[italic] uni1E35: added inherited anchor class 0 = (405, 646) from 'k'
+[italic] uni1E36: added inherited anchor class 0 = (389, 850) from 'L'
+[italic] uni1E36: added inherited anchor class 0 = (389, 850) from 'L'
+[italic] uni1E37: added inherited anchor class 0 = (292, 890) from 'l'
+[italic] uni1E37: added inherited anchor class 0 = (292, 890) from 'l'
+[italic] uni1E3A: added inherited anchor class 0 = (389, 850) from 'L'
+[italic] uni1E3A: added inherited anchor class 0 = (389, 850) from 'L'
+[italic] uni1E3B: added inherited anchor class 0 = (292, 890) from 'l'
+[italic] uni1E3B: added inherited anchor class 0 = (292, 890) from 'l'
+[italic] uni1E3C: added inherited anchor class 0 = (389, 850) from 'L'
+[italic] uni1E3C: added inherited anchor class 0 = (389, 850) from 'L'
+[italic] uni1E3D: added inherited anchor class 0 = (292, 890) from 'l'
+[italic] uni1E3D: added inherited anchor class 0 = (292, 890) from 'l'
+[italic] uni1E42: added inherited anchor class 0 = (557, 850) from 'M'
+[italic] uni1E42: added inherited anchor class 0 = (557, 850) from 'M'
+[italic] uni1E43: added inherited anchor class 0 = (522, 645) from 'm'
+[italic] uni1E43: added inherited anchor class 0 = (522, 645) from 'm'
+[italic] uni1E46: added inherited anchor class 0 = (476, 850) from 'N'
+[italic] uni1E46: added inherited anchor class 0 = (476, 850) from 'N'
+[italic] uni1E47: added inherited anchor class 0 = (394, 646) from 'n'
+[italic] uni1E47: added inherited anchor class 0 = (394, 646) from 'n'
+[italic] uni1E48: added inherited anchor class 0 = (476, 850) from 'N'
+[italic] uni1E48: added inherited anchor class 0 = (476, 850) from 'N'
+[italic] uni1E49: added inherited anchor class 0 = (394, 646) from 'n'
+[italic] uni1E49: added inherited anchor class 0 = (394, 646) from 'n'
+[italic] uni1E4A: added inherited anchor class 0 = (476, 850) from 'N'
+[italic] uni1E4A: added inherited anchor class 0 = (476, 850) from 'N'
+[italic] uni1E4B: added inherited anchor class 0 = (394, 646) from 'n'
+[italic] uni1E4B: added inherited anchor class 0 = (394, 646) from 'n'
+[italic] uni1E5A: added inherited anchor class 0 = (419, 850) from 'R'
+[italic] uni1E5A: added inherited anchor class 0 = (419, 850) from 'R'
+[italic] uni1E5B: added inherited anchor class 0 = (312, 646) from 'r'
+[italic] uni1E5B: added inherited anchor class 0 = (312, 646) from 'r'
+[italic] uni1E5E: added inherited anchor class 0 = (419, 850) from 'R'
+[italic] uni1E5E: added inherited anchor class 0 = (419, 850) from 'R'
+[italic] uni1E5F: added inherited anchor class 0 = (312, 646) from 'r'
+[italic] uni1E5F: added inherited anchor class 0 = (312, 646) from 'r'
+[italic] uni1E62: added inherited anchor class 0 = (402, 850) from 'S'
+[italic] uni1E62: added inherited anchor class 0 = (402, 850) from 'S'
+[italic] uni1E63: added inherited anchor class 0 = (327, 645) from 's'
+[italic] uni1E63: added inherited anchor class 0 = (327, 645) from 's'
+[italic] uni1E6C: added inherited anchor class 0 = (457, 850) from 'T'
+[italic] uni1E6C: added inherited anchor class 0 = (457, 850) from 'T'
+[italic] uni1E6D: base 't' has no anchor class 0; SKIPPED
+[italic] uni1E6D: base 't' has no anchor class 0; SKIPPED
+[italic] uni1E6E: added inherited anchor class 0 = (457, 850) from 'T'
+[italic] uni1E6E: added inherited anchor class 0 = (457, 850) from 'T'
+[italic] uni1E6F: base 't' has no anchor class 0; SKIPPED
+[italic] uni1E6F: base 't' has no anchor class 0; SKIPPED
+[italic] uni1E70: added inherited anchor class 0 = (457, 850) from 'T'
+[italic] uni1E70: added inherited anchor class 0 = (457, 850) from 'T'
+[italic] uni1E71: base 't' has no anchor class 0; SKIPPED
+[italic] uni1E71: base 't' has no anchor class 0; SKIPPED
+[italic] uni1E72: original base anchors exist {0: (346, 850)}
+[italic] uni1E73: original base anchors exist {0: (255, 646)}
+[italic] uni1E74: added inherited anchor class 0 = (486, 850) from 'U'
+[italic] uni1E74: added inherited anchor class 0 = (486, 850) from 'U'
+[italic] uni1E75: added inherited anchor class 0 = (386, 646) from 'u'
+[italic] uni1E75: added inherited anchor class 0 = (386, 646) from 'u'
+[italic] uni1E76: added inherited anchor class 0 = (486, 850) from 'U'
+[italic] uni1E76: added inherited anchor class 0 = (486, 850) from 'U'
+[italic] uni1E77: added inherited anchor class 0 = (386, 646) from 'u'
+[italic] uni1E77: added inherited anchor class 0 = (386, 646) from 'u'
+[italic] uni1E7E: added inherited anchor class 0 = (481, 850) from 'V'
+[italic] uni1E7E: added inherited anchor class 0 = (481, 850) from 'V'
+[italic] uni1E7F: base 'v' has no base anchors; SKIPPED
+[italic] uni1E88: added inherited anchor class 0 = (610, 850) from 'W'
+[italic] uni1E88: added inherited anchor class 0 = (610, 850) from 'W'
+[italic] uni1E89: added inherited anchor class 0 = (348, 646) from 'w'
+[italic] uni1E89: added inherited anchor class 0 = (348, 646) from 'w'
+[italic] uni1E92: added inherited anchor class 0 = (450, 850) from 'Z'
+[italic] uni1E92: added inherited anchor class 0 = (450, 850) from 'Z'
+[italic] uni1E93: added inherited anchor class 0 = (360, 646) from 'z'
+[italic] uni1E93: added inherited anchor class 0 = (360, 646) from 'z'
+[italic] uni1E94: added inherited anchor class 0 = (450, 850) from 'Z'
+[italic] uni1E94: added inherited anchor class 0 = (450, 850) from 'Z'
+[italic] uni1E95: added inherited anchor class 0 = (360, 646) from 'z'
+[italic] uni1E95: added inherited anchor class 0 = (360, 646) from 'z'
+[italic] uni1E96: added inherited anchor class 0 = (409, 645) from 'h'
+[italic] uni1E96: added inherited anchor class 0 = (409, 645) from 'h'
+[italic] uni1E9A: no Unicode base decomposition; SKIPPED
+[italic] uni1EA0: added inherited anchor class 0 = (505, 850) from 'A'
+[italic] uni1EA0: added inherited anchor class 0 = (505, 850) from 'A'
+[italic] uni1EA1: added inherited anchor class 0 = (341, 647) from 'a'
+[italic] uni1EA1: added inherited anchor class 0 = (341, 647) from 'a'
+[italic] uni1EB8: added inherited anchor class 0 = (413, 850) from 'E'
+[italic] uni1EB8: added inherited anchor class 0 = (413, 850) from 'E'
+[italic] uni1EB9: added inherited anchor class 0 = (332, 645) from 'e'
+[italic] uni1EB9: added inherited anchor class 0 = (332, 645) from 'e'
+[italic] uni1ECA: added inherited anchor class 0 = (316, 850) from 'I'
+[italic] uni1ECA: added inherited anchor class 0 = (316, 850) from 'I'
+[italic] uni1ECC: added inherited anchor class 0 = (515, 850) from 'O'
+[italic] uni1ECC: added inherited anchor class 0 = (515, 850) from 'O'
+[italic] uni1ECD: added inherited anchor class 0 = (359, 645) from 'o'
+[italic] uni1ECD: added inherited anchor class 0 = (359, 645) from 'o'
+[italic] uni1EE4: added inherited anchor class 0 = (486, 850) from 'U'
+[italic] uni1EE4: added inherited anchor class 0 = (486, 850) from 'U'
+[italic] uni1EE5: added inherited anchor class 0 = (386, 646) from 'u'
+[italic] uni1EE5: added inherited anchor class 0 = (386, 646) from 'u'
+[italic] uni1EF4: added inherited anchor class 0 = (435, 850) from 'Y'
+[italic] uni1EF4: added inherited anchor class 0 = (435, 850) from 'Y'
+[italic] uni1EF5: added inherited anchor class 0 = (367, 644) from 'y'
+[italic] uni1EF5: added inherited anchor class 0 = (367, 644) from 'y'
+[italic] uni1E02: added inherited anchor class 2 = (238, -108) from 'B'
+[italic] uni1E02: added inherited anchor class 2 = (238, -108) from 'B'
+[italic] uni1E03: added inherited anchor class 2 = (214, -108) from 'b'
+[italic] uni1E03: added inherited anchor class 2 = (214, -108) from 'b'
+[italic] uni1E0A: added inherited anchor class 2 = (279, -107) from 'D'
+[italic] uni1E0A: added inherited anchor class 2 = (279, -107) from 'D'
+[italic] uni1E0B: added inherited anchor class 2 = (221, -107) from 'd'
+[italic] uni1E0B: added inherited anchor class 2 = (221, -107) from 'd'
+[italic] uni1E14: base 'Emacron' has no base anchors; SKIPPED
+[italic] uni1E15: base 'emacron' has no base anchors; SKIPPED
+[italic] uni1E16: base 'Emacron' has no base anchors; SKIPPED
+[italic] uni1E17: base 'emacron' has no base anchors; SKIPPED
+[italic] uni1E1E: added inherited anchor class 2 = (131, -111) from 'F'
+[italic] uni1E1E: added inherited anchor class 2 = (131, -111) from 'F'
+[italic] uni1E1F: added inherited anchor class 2 = (30, -319) from 'f'
+[italic] uni1E1F: added inherited anchor class 2 = (30, -319) from 'f'
+[italic] uni1E20: added inherited anchor class 2 = (345, -110) from 'G'
+[italic] uni1E20: added inherited anchor class 2 = (345, -110) from 'G'
+[italic] uni1E21: added inherited anchor class 2 = (197, -319) from 'g'
+[italic] uni1E21: added inherited anchor class 2 = (197, -319) from 'g'
+[italic] uni1E22: added inherited anchor class 2 = (320, -107) from 'H'
+[italic] uni1E22: added inherited anchor class 2 = (320, -107) from 'H'
+[italic] uni1E23: added inherited anchor class 2 = (229, -111) from 'h'
+[italic] uni1E23: added inherited anchor class 2 = (229, -111) from 'h'
+[italic] uni1E26: added inherited anchor class 2 = (320, -107) from 'H'
+[italic] uni1E26: added inherited anchor class 2 = (320, -107) from 'H'
+[italic] uni1E27: added inherited anchor class 2 = (229, -111) from 'h'
+[italic] uni1E27: added inherited anchor class 2 = (229, -111) from 'h'
+[italic] uni1E2E: base 'Idieresis' has no base anchors; SKIPPED
+[italic] uni1E2F: base 'idieresis' has no base anchors; SKIPPED
+[italic] uni1E30: added inherited anchor class 2 = (292, -110) from 'K'
+[italic] uni1E30: added inherited anchor class 2 = (292, -110) from 'K'
+[italic] uni1E31: added inherited anchor class 2 = (223, -107) from 'k'
+[italic] uni1E31: added inherited anchor class 2 = (223, -107) from 'k'
+[italic] uni1E3E: added inherited anchor class 2 = (363, -110) from 'M'
+[italic] uni1E3E: added inherited anchor class 2 = (363, -110) from 'M'
+[italic] uni1E3F: added inherited anchor class 2 = (382, -105) from 'm'
+[italic] uni1E3F: added inherited anchor class 2 = (382, -105) from 'm'
+[italic] uni1E40: added inherited anchor class 2 = (363, -110) from 'M'
+[italic] uni1E40: added inherited anchor class 2 = (363, -110) from 'M'
+[italic] uni1E41: added inherited anchor class 2 = (382, -105) from 'm'
+[italic] uni1E41: added inherited anchor class 2 = (382, -105) from 'm'
+[italic] uni1E44: added inherited anchor class 2 = (328, -109) from 'N'
+[italic] uni1E44: added inherited anchor class 2 = (328, -109) from 'N'
+[italic] uni1E45: added inherited anchor class 2 = (235, -111) from 'n'
+[italic] uni1E45: added inherited anchor class 2 = (235, -111) from 'n'
+[italic] uni1E4C: added inherited anchor class 2 = (310, -113) from 'Otilde'
+[italic] uni1E4C: added inherited anchor class 2 = (310, -113) from 'Otilde'
+[italic] uni1E4D: added inherited anchor class 2 = (186, -107) from 'otilde'
+[italic] uni1E4D: added inherited anchor class 2 = (186, -107) from 'otilde'
+[italic] uni1E4E: added inherited anchor class 2 = (310, -113) from 'Otilde'
+[italic] uni1E4E: added inherited anchor class 2 = (310, -113) from 'Otilde'
+[italic] uni1E4F: added inherited anchor class 2 = (186, -107) from 'otilde'
+[italic] uni1E4F: added inherited anchor class 2 = (186, -107) from 'otilde'
+[italic] uni1E50: added inherited anchor class 2 = (310, -113) from 'Omacron'
+[italic] uni1E50: added inherited anchor class 2 = (310, -113) from 'Omacron'
+[italic] uni1E51: added inherited anchor class 2 = (186, -107) from 'omacron'
+[italic] uni1E51: added inherited anchor class 2 = (186, -107) from 'omacron'
+[italic] uni1E52: added inherited anchor class 2 = (310, -113) from 'Omacron'
+[italic] uni1E52: added inherited anchor class 2 = (310, -113) from 'Omacron'
+[italic] uni1E53: added inherited anchor class 2 = (186, -107) from 'omacron'
+[italic] uni1E53: added inherited anchor class 2 = (186, -107) from 'omacron'
+[italic] uni1E54: added inherited anchor class 2 = (140, -110) from 'P'
+[italic] uni1E54: added inherited anchor class 2 = (140, -110) from 'P'
+[italic] uni1E55: added inherited anchor class 2 = (248, -110) from 'p'
+[italic] uni1E55: added inherited anchor class 2 = (248, -110) from 'p'
+[italic] uni1E56: added inherited anchor class 2 = (140, -110) from 'P'
+[italic] uni1E56: added inherited anchor class 2 = (140, -110) from 'P'
+[italic] uni1E57: added inherited anchor class 2 = (248, -110) from 'p'
+[italic] uni1E57: added inherited anchor class 2 = (248, -110) from 'p'
+[italic] uni1E58: added inherited anchor class 2 = (248, -111) from 'R'
+[italic] uni1E58: added inherited anchor class 2 = (248, -111) from 'R'
+[italic] uni1E59: added inherited anchor class 2 = (113, -110) from 'r'
+[italic] uni1E59: added inherited anchor class 2 = (113, -110) from 'r'
+[italic] uni1E60: added inherited anchor class 2 = (204, -111) from 'S'
+[italic] uni1E60: added inherited anchor class 2 = (204, -111) from 'S'
+[italic] uni1E61: added inherited anchor class 2 = (169, -111) from 's'
+[italic] uni1E61: added inherited anchor class 2 = (169, -111) from 's'
+[italic] uni1E64: base 'Sacute' has no base anchors; SKIPPED
+[italic] uni1E65: base 'sacute' has no base anchors; SKIPPED
+[italic] uni1E66: base 'Scaron' has no base anchors; SKIPPED
+[italic] uni1E67: base 'scaron' has no base anchors; SKIPPED
+[italic] uni1E6A: added inherited anchor class 2 = (277, -109) from 'T'
+[italic] uni1E6A: added inherited anchor class 2 = (277, -109) from 'T'
+[italic] uni1E6B: added inherited anchor class 2 = (133, -107) from 't'
+[italic] uni1E6B: added inherited anchor class 2 = (133, -107) from 't'
+[italic] uni1E78: base 'Utilde' has no base anchors; SKIPPED
+[italic] uni1E79: base 'utilde' has no anchor class 2; SKIPPED
+[italic] uni1E79: base 'utilde' has no anchor class 2; SKIPPED
+[italic] uni1E7A: base 'Umacron' has no base anchors; SKIPPED
+[italic] uni1E7B: base 'umacron' has no base anchors; SKIPPED
+[italic] uni1E7C: original base anchors exist {0: (505, 955)}
+[italic] uni1E7D: original base anchors exist {0: (386, 785)}
+[italic] Wgrave: added inherited anchor class 2 = (439, -107) from 'W'
+[italic] Wgrave: added inherited anchor class 2 = (439, -107) from 'W'
+[italic] wgrave: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] wgrave: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] Wacute: added inherited anchor class 2 = (439, -107) from 'W'
+[italic] Wacute: added inherited anchor class 2 = (439, -107) from 'W'
+[italic] wacute: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] wacute: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] Wdieresis: added inherited anchor class 2 = (439, -107) from 'W'
+[italic] Wdieresis: added inherited anchor class 2 = (439, -107) from 'W'
+[italic] wdieresis: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] wdieresis: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] uni1E86: added inherited anchor class 2 = (439, -107) from 'W'
+[italic] uni1E86: added inherited anchor class 2 = (439, -107) from 'W'
+[italic] uni1E87: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] uni1E87: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] uni1E8A: added inherited anchor class 2 = (287, -107) from 'X'
+[italic] uni1E8A: added inherited anchor class 2 = (287, -107) from 'X'
+[italic] uni1E8B: added inherited anchor class 2 = (224, -110) from 'x'
+[italic] uni1E8B: added inherited anchor class 2 = (224, -110) from 'x'
+[italic] uni1E8C: added inherited anchor class 2 = (287, -107) from 'X'
+[italic] uni1E8C: added inherited anchor class 2 = (287, -107) from 'X'
+[italic] uni1E8D: added inherited anchor class 2 = (224, -110) from 'x'
+[italic] uni1E8D: added inherited anchor class 2 = (224, -110) from 'x'
+[italic] uni1E8E: added inherited anchor class 2 = (270, -110) from 'Y'
+[italic] uni1E8E: added inherited anchor class 2 = (270, -110) from 'Y'
+[italic] uni1E8F: added inherited anchor class 2 = (368, -107) from 'y'
+[italic] uni1E8F: added inherited anchor class 2 = (368, -107) from 'y'
+[italic] uni1E90: added inherited anchor class 2 = (267, -107) from 'Z'
+[italic] uni1E90: added inherited anchor class 2 = (267, -107) from 'Z'
+[italic] uni1E91: added inherited anchor class 2 = (187, -111) from 'z'
+[italic] uni1E91: added inherited anchor class 2 = (187, -111) from 'z'
+[italic] uni1E97: added inherited anchor class 2 = (133, -107) from 't'
+[italic] uni1E97: added inherited anchor class 2 = (133, -107) from 't'
+[italic] uni1E98: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] uni1E98: added inherited anchor class 2 = (355, -110) from 'w'
+[italic] uni1E99: added inherited anchor class 2 = (368, -107) from 'y'
+[italic] uni1E99: added inherited anchor class 2 = (368, -107) from 'y'
+[italic] uni1EA2: added inherited anchor class 2 = (308, -108) from 'A'
+[italic] uni1EA2: added inherited anchor class 2 = (308, -108) from 'A'
+[italic] uni1EA3: added inherited anchor class 2 = (251, -110) from 'a'
+[italic] uni1EA3: added inherited anchor class 2 = (251, -110) from 'a'
+[italic] uni1EA4: base 'Acircumflex' has no base anchors; SKIPPED
+[italic] uni1EA5: base 'acircumflex' has no base anchors; SKIPPED
+[italic] uni1EA6: base 'Acircumflex' has no base anchors; SKIPPED
+[italic] uni1EA7: base 'acircumflex' has no base anchors; SKIPPED
+[italic] uni1EA8: base 'Acircumflex' has no base anchors; SKIPPED
+[italic] uni1EA9: base 'acircumflex' has no base anchors; SKIPPED
+[italic] uni1EAA: base 'Acircumflex' has no base anchors; SKIPPED
+[italic] uni1EAB: base 'acircumflex' has no base anchors; SKIPPED
+[italic] uni1EAE: base 'Abreve' has no base anchors; SKIPPED
+[italic] uni1EAF: base 'abreve' has no base anchors; SKIPPED
+[italic] uni1EB0: base 'Abreve' has no base anchors; SKIPPED
+[italic] uni1EB1: base 'abreve' has no base anchors; SKIPPED
+[italic] uni1EB2: base 'Abreve' has no base anchors; SKIPPED
+[italic] uni1EB3: base 'abreve' has no base anchors; SKIPPED
+[italic] uni1EB4: base 'Abreve' has no base anchors; SKIPPED
+[italic] uni1EB5: base 'abreve' has no base anchors; SKIPPED
+[italic] uni1EBA: added inherited anchor class 2 = (269, -107) from 'E'
+[italic] uni1EBA: added inherited anchor class 2 = (269, -107) from 'E'
+[italic] uni1EBB: added inherited anchor class 2 = (158, -108) from 'e'
+[italic] uni1EBB: added inherited anchor class 2 = (158, -108) from 'e'
+[italic] uni1EBC: added inherited anchor class 2 = (269, -107) from 'E'
+[italic] uni1EBC: added inherited anchor class 2 = (269, -107) from 'E'
+[italic] uni1EBD: original base anchors exist {0: (372, 785)}
+[italic] uni1EBE: base 'Ecircumflex' has no base anchors; SKIPPED
+[italic] uni1EBF: base 'ecircumflex' has no base anchors; SKIPPED
+[italic] uni1EC0: base 'Ecircumflex' has no base anchors; SKIPPED
+[italic] uni1EC1: base 'ecircumflex' has no base anchors; SKIPPED
+[italic] uni1EC2: base 'Ecircumflex' has no base anchors; SKIPPED
+[italic] uni1EC3: base 'ecircumflex' has no base anchors; SKIPPED
+[italic] uni1EC4: base 'Ecircumflex' has no base anchors; SKIPPED
+[italic] uni1EC5: base 'ecircumflex' has no base anchors; SKIPPED
+[italic] uni1EC8: added inherited anchor class 2 = (127, -109) from 'I'
+[italic] uni1EC8: added inherited anchor class 2 = (127, -109) from 'I'
+[italic] uni1EC9: added inherited anchor class 2 = (136, -107) from 'i'
+[italic] uni1EC9: added inherited anchor class 2 = (136, -107) from 'i'
+[italic] uni1ECE: added inherited anchor class 2 = (310, -110) from 'O'
+[italic] uni1ECE: added inherited anchor class 2 = (310, -110) from 'O'
+[italic] uni1ECF: added inherited anchor class 2 = (186, -107) from 'o'
+[italic] uni1ECF: added inherited anchor class 2 = (186, -107) from 'o'
+[italic] uni1ED0: added inherited anchor class 2 = (310, -113) from 'Ocircumflex'
+[italic] uni1ED0: added inherited anchor class 2 = (310, -113) from 'Ocircumflex'
+[italic] uni1ED1: added inherited anchor class 2 = (186, -107) from 'ocircumflex'
+[italic] uni1ED1: added inherited anchor class 2 = (186, -107) from 'ocircumflex'
+[italic] uni1ED2: added inherited anchor class 2 = (310, -113) from 'Ocircumflex'
+[italic] uni1ED2: added inherited anchor class 2 = (310, -113) from 'Ocircumflex'
+[italic] uni1ED3: added inherited anchor class 2 = (186, -107) from 'ocircumflex'
+[italic] uni1ED3: added inherited anchor class 2 = (186, -107) from 'ocircumflex'
+[italic] uni1ED4: added inherited anchor class 2 = (310, -113) from 'Ocircumflex'
+[italic] uni1ED4: added inherited anchor class 2 = (310, -113) from 'Ocircumflex'
+[italic] uni1ED5: added inherited anchor class 2 = (186, -107) from 'ocircumflex'
+[italic] uni1ED5: added inherited anchor class 2 = (186, -107) from 'ocircumflex'
+[italic] uni1ED6: added inherited anchor class 2 = (310, -113) from 'Ocircumflex'
+[italic] uni1ED6: added inherited anchor class 2 = (310, -113) from 'Ocircumflex'
+[italic] uni1ED7: added inherited anchor class 2 = (186, -107) from 'ocircumflex'
+[italic] uni1ED7: added inherited anchor class 2 = (186, -107) from 'ocircumflex'
+[italic] uni1EDA: added inherited anchor class 2 = (310, -113) from 'Ohorn'
+[italic] uni1EDA: added inherited anchor class 2 = (310, -113) from 'Ohorn'
+[italic] uni1EDB: added inherited anchor class 2 = (186, -107) from 'ohorn'
+[italic] uni1EDB: added inherited anchor class 2 = (186, -107) from 'ohorn'
+[italic] uni1EDC: added inherited anchor class 2 = (310, -113) from 'Ohorn'
+[italic] uni1EDC: added inherited anchor class 2 = (310, -113) from 'Ohorn'
+[italic] uni1EDD: added inherited anchor class 2 = (186, -107) from 'ohorn'
+[italic] uni1EDD: added inherited anchor class 2 = (186, -107) from 'ohorn'
+[italic] uni1EDE: added inherited anchor class 2 = (310, -113) from 'Ohorn'
+[italic] uni1EDE: added inherited anchor class 2 = (310, -113) from 'Ohorn'
+[italic] uni1EDF: added inherited anchor class 2 = (186, -107) from 'ohorn'
+[italic] uni1EDF: added inherited anchor class 2 = (186, -107) from 'ohorn'
+[italic] uni1EE0: added inherited anchor class 2 = (310, -113) from 'Ohorn'
+[italic] uni1EE0: added inherited anchor class 2 = (310, -113) from 'Ohorn'
+[italic] uni1EE1: added inherited anchor class 2 = (186, -107) from 'ohorn'
+[italic] uni1EE1: added inherited anchor class 2 = (186, -107) from 'ohorn'
+[italic] uni1EE6: added inherited anchor class 2 = (308, -109) from 'U'
+[italic] uni1EE6: added inherited anchor class 2 = (308, -109) from 'U'
+[italic] uni1EE7: added inherited anchor class 2 = (226, -111) from 'u'
+[italic] uni1EE7: added inherited anchor class 2 = (226, -111) from 'u'
+[italic] uni1EE8: base 'Uhorn' has no anchor class 2; SKIPPED
+[italic] uni1EE8: base 'Uhorn' has no anchor class 2; SKIPPED
+[italic] uni1EE9: base 'uhorn' has no base anchors; SKIPPED
+[italic] uni1EEA: base 'Uhorn' has no anchor class 2; SKIPPED
+[italic] uni1EEA: base 'Uhorn' has no anchor class 2; SKIPPED
+[italic] uni1EEB: base 'uhorn' has no base anchors; SKIPPED
+[italic] uni1EEC: base 'Uhorn' has no anchor class 2; SKIPPED
+[italic] uni1EEC: base 'Uhorn' has no anchor class 2; SKIPPED
+[italic] uni1EED: base 'uhorn' has no base anchors; SKIPPED
+[italic] uni1EEE: base 'Uhorn' has no anchor class 2; SKIPPED
+[italic] uni1EEE: base 'Uhorn' has no anchor class 2; SKIPPED
+[italic] uni1EEF: base 'uhorn' has no base anchors; SKIPPED
+[italic] Ygrave: added inherited anchor class 2 = (270, -110) from 'Y'
+[italic] Ygrave: added inherited anchor class 2 = (270, -110) from 'Y'
+[italic] ygrave: added inherited anchor class 2 = (368, -107) from 'y'
+[italic] ygrave: added inherited anchor class 2 = (368, -107) from 'y'
+[italic] uni1EF6: added inherited anchor class 2 = (270, -110) from 'Y'
+[italic] uni1EF6: added inherited anchor class 2 = (270, -110) from 'Y'
+[italic] uni1EF8: added inherited anchor class 2 = (270, -110) from 'Y'
+[italic] uni1EF8: added inherited anchor class 2 = (270, -110) from 'Y'
+[italic] uni1EF8: original base anchors exist {2: (270, -110)}
+[italic] uni1EF9: added inherited anchor class 2 = (368, -107) from 'y'
+[italic] uni1EF9: added inherited anchor class 2 = (368, -107) from 'y'
+Patched font saved to /home/elliott/dev/libertinus-analysis/fonts/LibertinusSerif-Italic-patch.otf
+Applied GSUB features from data/fea/semibold/ccmp.fea
+[semibold] uni1E00: base 'A' has no base anchors; SKIPPED
+[semibold] uni1E01: added inherited anchor class 0 = (219, 645) from 'a'
+[semibold] uni1E01: added inherited anchor class 0 = (219, 645) from 'a'
+[semibold] uni1E04: base 'B' has no base anchors; SKIPPED
+[semibold] uni1E05: base 'b' has no base anchors; SKIPPED
+[semibold] uni1E06: base 'B' has no base anchors; SKIPPED
+[semibold] uni1E07: base 'b' has no base anchors; SKIPPED
+[semibold] uni1E0C: base 'D' has no base anchors; SKIPPED
+[semibold] uni1E0D: base 'd' has no base anchors; SKIPPED
+[semibold] uni1E0E: base 'D' has no base anchors; SKIPPED
+[semibold] uni1E0F: base 'd' has no base anchors; SKIPPED
+[semibold] uni1E10: base 'D' has no base anchors; SKIPPED
+[semibold] uni1E11: base 'd' has no base anchors; SKIPPED
+[semibold] uni1E12: base 'D' has no base anchors; SKIPPED
+[semibold] uni1E13: base 'd' has no base anchors; SKIPPED
+[semibold] uni1E18: base 'E' has no base anchors; SKIPPED
+[semibold] uni1E19: added inherited anchor class 0 = (249, 645) from 'e'
+[semibold] uni1E19: added inherited anchor class 0 = (249, 645) from 'e'
+[semibold] uni1E1A: base 'E' has no base anchors; SKIPPED
+[semibold] uni1E1B: added inherited anchor class 0 = (249, 645) from 'e'
+[semibold] uni1E1B: added inherited anchor class 0 = (249, 645) from 'e'
+[semibold] uni1E24: base 'H' has no anchor class 0; SKIPPED
+[semibold] uni1E24: base 'H' has no anchor class 0; SKIPPED
+[semibold] uni1E25: base 'h' has no anchor class 0; SKIPPED
+[semibold] uni1E25: base 'h' has no anchor class 0; SKIPPED
+[semibold] uni1E28: base 'H' has no anchor class 0; SKIPPED
+[semibold] uni1E28: base 'H' has no anchor class 0; SKIPPED
+[semibold] uni1E29: base 'h' has no anchor class 0; SKIPPED
+[semibold] uni1E29: base 'h' has no anchor class 0; SKIPPED
+[semibold] uni1E2A: base 'H' has no anchor class 0; SKIPPED
+[semibold] uni1E2A: base 'H' has no anchor class 0; SKIPPED
+[semibold] uni1E2B: base 'h' has no anchor class 0; SKIPPED
+[semibold] uni1E2B: base 'h' has no anchor class 0; SKIPPED
+[semibold] uni1E2C: base 'I' has no base anchors; SKIPPED
+[semibold] uni1E32: base 'K' has no base anchors; SKIPPED
+[semibold] uni1E33: base 'k' has no base anchors; SKIPPED
+[semibold] uni1E34: base 'K' has no base anchors; SKIPPED
+[semibold] uni1E35: base 'k' has no base anchors; SKIPPED
+[semibold] uni1E36: base 'L' has no base anchors; SKIPPED
+[semibold] uni1E37: added inherited anchor class 0 = (142, 885) from 'l'
+[semibold] uni1E37: added inherited anchor class 0 = (142, 885) from 'l'
+[semibold] uni1E3A: base 'L' has no base anchors; SKIPPED
+[semibold] uni1E3B: added inherited anchor class 0 = (142, 885) from 'l'
+[semibold] uni1E3B: added inherited anchor class 0 = (142, 885) from 'l'
+[semibold] uni1E3C: base 'L' has no base anchors; SKIPPED
+[semibold] uni1E3D: added inherited anchor class 0 = (142, 885) from 'l'
+[semibold] uni1E3D: added inherited anchor class 0 = (142, 885) from 'l'
+[semibold] uni1E42: base 'M' has no base anchors; SKIPPED
+[semibold] uni1E43: added inherited anchor class 0 = (396, 645) from 'm'
+[semibold] uni1E43: added inherited anchor class 0 = (396, 645) from 'm'
+[semibold] uni1E46: base 'N' has no base anchors; SKIPPED
+[semibold] uni1E47: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold] uni1E47: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold] uni1E48: base 'N' has no base anchors; SKIPPED
+[semibold] uni1E49: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold] uni1E49: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold] uni1E4A: base 'N' has no base anchors; SKIPPED
+[semibold] uni1E4B: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold] uni1E4B: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold] uni1E5A: added inherited anchor class 0 = (304, 808) from 'R'
+[semibold] uni1E5A: added inherited anchor class 0 = (304, 808) from 'R'
+[semibold] uni1E5B: base 'r' has no base anchors; SKIPPED
+[semibold] uni1E5E: added inherited anchor class 0 = (304, 808) from 'R'
+[semibold] uni1E5E: added inherited anchor class 0 = (304, 808) from 'R'
+[semibold] uni1E5F: base 'r' has no base anchors; SKIPPED
+[semibold] uni1E62: added inherited anchor class 0 = (252, 805) from 'S'
+[semibold] uni1E62: added inherited anchor class 0 = (252, 805) from 'S'
+[semibold] uni1E63: base 's' has no base anchors; SKIPPED
+[semibold] uni1E6C: added inherited anchor class 0 = (298, 802) from 'T'
+[semibold] uni1E6C: added inherited anchor class 0 = (298, 802) from 'T'
+[semibold] uni1E6D: base 't' has no anchor class 0; SKIPPED
+[semibold] uni1E6D: base 't' has no anchor class 0; SKIPPED
+[semibold] uni1E6E: added inherited anchor class 0 = (298, 802) from 'T'
+[semibold] uni1E6E: added inherited anchor class 0 = (298, 802) from 'T'
+[semibold] uni1E6F: base 't' has no anchor class 0; SKIPPED
+[semibold] uni1E6F: base 't' has no anchor class 0; SKIPPED
+[semibold] uni1E70: added inherited anchor class 0 = (298, 802) from 'T'
+[semibold] uni1E70: added inherited anchor class 0 = (298, 802) from 'T'
+[semibold] uni1E71: base 't' has no anchor class 0; SKIPPED
+[semibold] uni1E71: base 't' has no anchor class 0; SKIPPED
+[semibold] uni1E72: base 'U' has no base anchors; SKIPPED
+[semibold] uni1E73: added inherited anchor class 0 = (264, 646) from 'u'
+[semibold] uni1E73: added inherited anchor class 0 = (264, 646) from 'u'
+[semibold] uni1E74: base 'U' has no base anchors; SKIPPED
+[semibold] uni1E75: added inherited anchor class 0 = (264, 646) from 'u'
+[semibold] uni1E75: added inherited anchor class 0 = (264, 646) from 'u'
+[semibold] uni1E76: base 'U' has no base anchors; SKIPPED
+[semibold] uni1E77: added inherited anchor class 0 = (264, 646) from 'u'
+[semibold] uni1E77: added inherited anchor class 0 = (264, 646) from 'u'
+[semibold] uni1E7E: added inherited anchor class 0 = (331, 805) from 'V'
+[semibold] uni1E7E: added inherited anchor class 0 = (331, 805) from 'V'
+[semibold] uni1E7F: base 'v' has no base anchors; SKIPPED
+[semibold] uni1E88: added inherited anchor class 0 = (493, 805) from 'W'
+[semibold] uni1E88: added inherited anchor class 0 = (493, 805) from 'W'
+[semibold] uni1E89: base 'w' has no base anchors; SKIPPED
+[semibold] uni1E92: added inherited anchor class 0 = (321, 805) from 'Z'
+[semibold] uni1E92: added inherited anchor class 0 = (321, 805) from 'Z'
+[semibold] uni1E93: base 'z' has no base anchors; SKIPPED
+[semibold] uni1E94: added inherited anchor class 0 = (321, 805) from 'Z'
+[semibold] uni1E94: added inherited anchor class 0 = (321, 805) from 'Z'
+[semibold] uni1E95: base 'z' has no base anchors; SKIPPED
+[semibold] uni1E96: base 'h' has no anchor class 0; SKIPPED
+[semibold] uni1E96: base 'h' has no anchor class 0; SKIPPED
+[semibold] uni1E9A: no Unicode base decomposition; SKIPPED
+[semibold] uni1EA0: base 'A' has no base anchors; SKIPPED
+[semibold] uni1EA1: added inherited anchor class 0 = (219, 645) from 'a'
+[semibold] uni1EA1: added inherited anchor class 0 = (219, 645) from 'a'
+[semibold] uni1EB8: base 'E' has no base anchors; SKIPPED
+[semibold] uni1EB9: added inherited anchor class 0 = (249, 645) from 'e'
+[semibold] uni1EB9: added inherited anchor class 0 = (249, 645) from 'e'
+[semibold] uni1ECA: base 'I' has no base anchors; SKIPPED
+[semibold] uni1ECC: original base anchors exist {0: (363, 833)}
+[semibold] uni1ECD: original base anchors exist {0: (260, 646)}
+[semibold] uni1EE4: original base anchors exist {0: (362, 833)}
+[semibold] uni1EE5: original base anchors exist {0: (272, 646)}
+[semibold] uni1EF4: added inherited anchor class 0 = (316, 805) from 'Y'
+[semibold] uni1EF4: added inherited anchor class 0 = (316, 805) from 'Y'
+[semibold] uni1EF5: base 'y' has no base anchors; SKIPPED
+[semibold] uni1E02: base 'B' has no base anchors; SKIPPED
+[semibold] uni1E03: base 'b' has no base anchors; SKIPPED
+[semibold] uni1E0A: base 'D' has no base anchors; SKIPPED
+[semibold] uni1E0B: base 'd' has no base anchors; SKIPPED
+[semibold] uni1E14: base 'Emacron' has no base anchors; SKIPPED
+[semibold] uni1E15: base 'emacron' has no base anchors; SKIPPED
+[semibold] uni1E16: base 'Emacron' has no base anchors; SKIPPED
+[semibold] uni1E17: base 'emacron' has no base anchors; SKIPPED
+[semibold] uni1E1E: base 'F' has no base anchors; SKIPPED
+[semibold] uni1E1F: base 'f' has no base anchors; SKIPPED
+[semibold] uni1E20: base 'G' has no anchor class 2; SKIPPED
+[semibold] uni1E20: base 'G' has no anchor class 2; SKIPPED
+[semibold] uni1E21: added inherited anchor class 2 = (229, -319) from 'g'
+[semibold] uni1E21: added inherited anchor class 2 = (229, -319) from 'g'
+[semibold] uni1E22: added inherited anchor class 2 = (362, -110) from 'H'
+[semibold] uni1E22: added inherited anchor class 2 = (362, -110) from 'H'
+[semibold] uni1E23: added inherited anchor class 2 = (277, -110) from 'h'
+[semibold] uni1E23: added inherited anchor class 2 = (277, -110) from 'h'
+[semibold] uni1E26: added inherited anchor class 2 = (362, -110) from 'H'
+[semibold] uni1E26: added inherited anchor class 2 = (362, -110) from 'H'
+[semibold] uni1E27: added inherited anchor class 2 = (277, -110) from 'h'
+[semibold] uni1E27: added inherited anchor class 2 = (277, -110) from 'h'
+[semibold] uni1E2E: base 'Idieresis' has no base anchors; SKIPPED
+[semibold] uni1E2F: base 'idieresis' has no base anchors; SKIPPED
+[semibold] uni1E30: base 'K' has no base anchors; SKIPPED
+[semibold] uni1E31: base 'k' has no base anchors; SKIPPED
+[semibold] uni1E3E: base 'M' has no base anchors; SKIPPED
+[semibold] uni1E3F: added inherited anchor class 2 = (396, -105) from 'm'
+[semibold] uni1E3F: added inherited anchor class 2 = (396, -105) from 'm'
+[semibold] uni1E40: base 'M' has no base anchors; SKIPPED
+[semibold] uni1E41: added inherited anchor class 2 = (396, -105) from 'm'
+[semibold] uni1E41: added inherited anchor class 2 = (396, -105) from 'm'
+[semibold] uni1E44: base 'N' has no base anchors; SKIPPED
+[semibold] uni1E45: added inherited anchor class 2 = (265, -111) from 'n'
+[semibold] uni1E45: added inherited anchor class 2 = (265, -111) from 'n'
+[semibold] uni1E4C: base 'Otilde' has no base anchors; SKIPPED
+[semibold] uni1E4D: base 'otilde' has no anchor class 2; SKIPPED
+[semibold] uni1E4D: base 'otilde' has no anchor class 2; SKIPPED
+[semibold] uni1E4E: base 'Otilde' has no base anchors; SKIPPED
+[semibold] uni1E4F: base 'otilde' has no anchor class 2; SKIPPED
+[semibold] uni1E4F: base 'otilde' has no anchor class 2; SKIPPED
+[semibold] uni1E50: base 'Omacron' has no base anchors; SKIPPED
+[semibold] uni1E51: base 'omacron' has no base anchors; SKIPPED
+[semibold] uni1E52: base 'Omacron' has no base anchors; SKIPPED
+[semibold] uni1E53: base 'omacron' has no base anchors; SKIPPED
+[semibold] uni1E54: base 'P' has no base anchors; SKIPPED
+[semibold] uni1E55: base 'p' has no base anchors; SKIPPED
+[semibold] uni1E56: base 'P' has no base anchors; SKIPPED
+[semibold] uni1E57: base 'p' has no base anchors; SKIPPED
+[semibold] uni1E58: added inherited anchor class 2 = (292, -111) from 'R'
+[semibold] uni1E58: added inherited anchor class 2 = (292, -111) from 'R'
+[semibold] uni1E59: base 'r' has no base anchors; SKIPPED
+[semibold] uni1E60: added inherited anchor class 2 = (234, -111) from 'S'
+[semibold] uni1E60: added inherited anchor class 2 = (234, -111) from 'S'
+[semibold] uni1E61: base 's' has no base anchors; SKIPPED
+[semibold] uni1E64: base 'Sacute' has no base anchors; SKIPPED
+[semibold] uni1E65: base 'sacute' has no base anchors; SKIPPED
+[semibold] uni1E66: base 'Scaron' has no base anchors; SKIPPED
+[semibold] uni1E67: base 'scaron' has no base anchors; SKIPPED
+[semibold] uni1E6A: added inherited anchor class 2 = (301, -107) from 'T'
+[semibold] uni1E6A: added inherited anchor class 2 = (301, -107) from 'T'
+[semibold] uni1E6B: added inherited anchor class 2 = (163, -107) from 't'
+[semibold] uni1E6B: added inherited anchor class 2 = (163, -107) from 't'
+[semibold] uni1E78: base 'Utilde' has no base anchors; SKIPPED
+[semibold] uni1E79: base 'utilde' has no anchor class 2; SKIPPED
+[semibold] uni1E79: base 'utilde' has no anchor class 2; SKIPPED
+[semibold] uni1E7A: base 'Umacron' has no base anchors; SKIPPED
+[semibold] uni1E7B: base 'umacron' has no base anchors; SKIPPED
+[semibold] uni1E7C: original base anchors exist {0: (351, 1000)}
+[semibold] uni1E7D: original base anchors exist {0: (285, 805)}
+[semibold] Wgrave: added inherited anchor class 2 = (470, -107) from 'W'
+[semibold] Wgrave: added inherited anchor class 2 = (470, -107) from 'W'
+[semibold] wgrave: base 'w' has no base anchors; SKIPPED
+[semibold] Wacute: added inherited anchor class 2 = (470, -107) from 'W'
+[semibold] Wacute: added inherited anchor class 2 = (470, -107) from 'W'
+[semibold] wacute: base 'w' has no base anchors; SKIPPED
+[semibold] Wdieresis: added inherited anchor class 2 = (470, -107) from 'W'
+[semibold] Wdieresis: added inherited anchor class 2 = (470, -107) from 'W'
+[semibold] wdieresis: base 'w' has no base anchors; SKIPPED
+[semibold] uni1E86: added inherited anchor class 2 = (470, -107) from 'W'
+[semibold] uni1E86: added inherited anchor class 2 = (470, -107) from 'W'
+[semibold] uni1E87: base 'w' has no base anchors; SKIPPED
+[semibold] uni1E8A: added inherited anchor class 2 = (318, -107) from 'X'
+[semibold] uni1E8A: added inherited anchor class 2 = (318, -107) from 'X'
+[semibold] uni1E8B: base 'x' has no base anchors; SKIPPED
+[semibold] uni1E8C: added inherited anchor class 2 = (318, -107) from 'X'
+[semibold] uni1E8C: added inherited anchor class 2 = (318, -107) from 'X'
+[semibold] uni1E8D: base 'x' has no base anchors; SKIPPED
+[semibold] uni1E8E: added inherited anchor class 2 = (316, -110) from 'Y'
+[semibold] uni1E8E: added inherited anchor class 2 = (316, -110) from 'Y'
+[semibold] uni1E8F: base 'y' has no base anchors; SKIPPED
+[semibold] uni1E90: added inherited anchor class 2 = (308, -110) from 'Z'
+[semibold] uni1E90: added inherited anchor class 2 = (308, -110) from 'Z'
+[semibold] uni1E91: base 'z' has no base anchors; SKIPPED
+[semibold] uni1E97: added inherited anchor class 2 = (163, -107) from 't'
+[semibold] uni1E97: added inherited anchor class 2 = (163, -107) from 't'
+[semibold] uni1E98: base 'w' has no base anchors; SKIPPED
+[semibold] uni1E99: base 'y' has no base anchors; SKIPPED
+[semibold] uni1EA2: base 'A' has no base anchors; SKIPPED
+[semibold] uni1EA3: added inherited anchor class 2 = (205, -110) from 'a'
+[semibold] uni1EA3: added inherited anchor class 2 = (205, -110) from 'a'
+[semibold] uni1EA4: base 'Acircumflex' has no base anchors; SKIPPED
+[semibold] uni1EA5: base 'acircumflex' has no base anchors; SKIPPED
+[semibold] uni1EA6: base 'Acircumflex' has no base anchors; SKIPPED
+[semibold] uni1EA7: base 'acircumflex' has no base anchors; SKIPPED
+[semibold] uni1EA8: base 'Acircumflex' has no base anchors; SKIPPED
+[semibold] uni1EA9: base 'acircumflex' has no base anchors; SKIPPED
+[semibold] uni1EAA: base 'Acircumflex' has no base anchors; SKIPPED
+[semibold] uni1EAB: base 'acircumflex' has no base anchors; SKIPPED
+[semibold] uni1EAE: base 'Abreve' has no base anchors; SKIPPED
+[semibold] uni1EAF: base 'abreve' has no base anchors; SKIPPED
+[semibold] uni1EB0: base 'Abreve' has no base anchors; SKIPPED
+[semibold] uni1EB1: base 'abreve' has no base anchors; SKIPPED
+[semibold] uni1EB2: base 'Abreve' has no base anchors; SKIPPED
+[semibold] uni1EB3: base 'abreve' has no base anchors; SKIPPED
+[semibold] uni1EB4: base 'Abreve' has no base anchors; SKIPPED
+[semibold] uni1EB5: base 'abreve' has no base anchors; SKIPPED
+[semibold] uni1EBA: base 'E' has no base anchors; SKIPPED
+[semibold] uni1EBB: base 'e' has no anchor class 2; SKIPPED
+[semibold] uni1EBB: base 'e' has no anchor class 2; SKIPPED
+[semibold] uni1EBC: base 'E' has no base anchors; SKIPPED
+[semibold] uni1EBD: original base anchors exist {0: (248, 805)}
+[semibold] uni1EBE: base 'Ecircumflex' has no base anchors; SKIPPED
+[semibold] uni1EBF: base 'ecircumflex' has no base anchors; SKIPPED
+[semibold] uni1EC0: base 'Ecircumflex' has no base anchors; SKIPPED
+[semibold] uni1EC1: base 'ecircumflex' has no base anchors; SKIPPED
+[semibold] uni1EC2: base 'Ecircumflex' has no base anchors; SKIPPED
+[semibold] uni1EC3: base 'ecircumflex' has no base anchors; SKIPPED
+[semibold] uni1EC4: base 'Ecircumflex' has no base anchors; SKIPPED
+[semibold] uni1EC5: base 'ecircumflex' has no base anchors; SKIPPED
+[semibold] uni1EC8: base 'I' has no base anchors; SKIPPED
+[semibold] uni1EC9: added inherited anchor class 2 = (136, -107) from 'i'
+[semibold] uni1EC9: added inherited anchor class 2 = (136, -107) from 'i'
+[semibold] uni1ECE: base 'O' has no anchor class 2; SKIPPED
+[semibold] uni1ECE: base 'O' has no anchor class 2; SKIPPED
+[semibold] uni1ECF: base 'o' has no base anchors; SKIPPED
+[semibold] uni1ED0: base 'Ocircumflex' has no base anchors; SKIPPED
+[semibold] uni1ED1: base 'ocircumflex' has no base anchors; SKIPPED
+[semibold] uni1ED2: base 'Ocircumflex' has no base anchors; SKIPPED
+[semibold] uni1ED3: base 'ocircumflex' has no base anchors; SKIPPED
+[semibold] uni1ED4: base 'Ocircumflex' has no base anchors; SKIPPED
+[semibold] uni1ED5: base 'ocircumflex' has no base anchors; SKIPPED
+[semibold] uni1ED6: base 'Ocircumflex' has no base anchors; SKIPPED
+[semibold] uni1ED7: base 'ocircumflex' has no base anchors; SKIPPED
+[semibold] uni1EDA: base 'Ohorn' has no base anchors; SKIPPED
+[semibold] uni1EDB: base 'ohorn' has no base anchors; SKIPPED
+[semibold] uni1EDC: base 'Ohorn' has no base anchors; SKIPPED
+[semibold] uni1EDD: base 'ohorn' has no base anchors; SKIPPED
+[semibold] uni1EDE: base 'Ohorn' has no base anchors; SKIPPED
+[semibold] uni1EDF: base 'ohorn' has no base anchors; SKIPPED
+[semibold] uni1EE0: base 'Ohorn' has no base anchors; SKIPPED
+[semibold] uni1EE1: base 'ohorn' has no base anchors; SKIPPED
+[semibold] uni1EE6: base 'U' has no base anchors; SKIPPED
+[semibold] uni1EE7: added inherited anchor class 2 = (248, -111) from 'u'
+[semibold] uni1EE7: added inherited anchor class 2 = (248, -111) from 'u'
+[semibold] uni1EE8: base 'Uhorn' has no base anchors; SKIPPED
+[semibold] uni1EE9: base 'uhorn' has no base anchors; SKIPPED
+[semibold] uni1EEA: base 'Uhorn' has no base anchors; SKIPPED
+[semibold] uni1EEB: base 'uhorn' has no base anchors; SKIPPED
+[semibold] uni1EEC: base 'Uhorn' has no base anchors; SKIPPED
+[semibold] uni1EED: base 'uhorn' has no base anchors; SKIPPED
+[semibold] uni1EEE: base 'Uhorn' has no base anchors; SKIPPED
+[semibold] uni1EEF: base 'uhorn' has no base anchors; SKIPPED
+[semibold] Ygrave: added inherited anchor class 2 = (316, -110) from 'Y'
+[semibold] Ygrave: added inherited anchor class 2 = (316, -110) from 'Y'
+[semibold] ygrave: base 'y' has no base anchors; SKIPPED
+[semibold] uni1EF6: added inherited anchor class 2 = (316, -110) from 'Y'
+[semibold] uni1EF6: added inherited anchor class 2 = (316, -110) from 'Y'
+[semibold] uni1EF8: added inherited anchor class 2 = (316, -110) from 'Y'
+[semibold] uni1EF8: added inherited anchor class 2 = (316, -110) from 'Y'
+[semibold] uni1EF8: original base anchors exist {2: (316, -110)}
+[semibold] uni1EF9: base 'y' has no base anchors; SKIPPED
+Patched font saved to /home/elliott/dev/libertinus-analysis/fonts/LibertinusSerif-Semibold-patch.otf
+Applied GSUB features from data/fea/semibold_italic/ccmp.fea
+[semibold_italic] uni1E00: added inherited anchor class 0 = (354, 850) from 'A'
+[semibold_italic] uni1E00: added inherited anchor class 0 = (354, 850) from 'A'
+[semibold_italic] uni1E01: added inherited anchor class 0 = (379, 645) from 'a'
+[semibold_italic] uni1E01: added inherited anchor class 0 = (379, 645) from 'a'
+[semibold_italic] uni1E04: added inherited anchor class 0 = (267, 850) from 'B'
+[semibold_italic] uni1E04: added inherited anchor class 0 = (267, 850) from 'B'
+[semibold_italic] uni1E05: base 'b' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E05: base 'b' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E06: added inherited anchor class 0 = (267, 850) from 'B'
+[semibold_italic] uni1E06: added inherited anchor class 0 = (267, 850) from 'B'
+[semibold_italic] uni1E07: base 'b' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E07: base 'b' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E0C: added inherited anchor class 0 = (306, 850) from 'D'
+[semibold_italic] uni1E0C: added inherited anchor class 0 = (306, 850) from 'D'
+[semibold_italic] uni1E0D: added inherited anchor class 0 = (218, 645) from 'd'
+[semibold_italic] uni1E0D: added inherited anchor class 0 = (218, 645) from 'd'
+[semibold_italic] uni1E0E: added inherited anchor class 0 = (306, 850) from 'D'
+[semibold_italic] uni1E0E: added inherited anchor class 0 = (306, 850) from 'D'
+[semibold_italic] uni1E0F: added inherited anchor class 0 = (218, 645) from 'd'
+[semibold_italic] uni1E0F: added inherited anchor class 0 = (218, 645) from 'd'
+[semibold_italic] uni1E10: added inherited anchor class 0 = (306, 850) from 'D'
+[semibold_italic] uni1E10: added inherited anchor class 0 = (306, 850) from 'D'
+[semibold_italic] uni1E11: added inherited anchor class 0 = (218, 645) from 'd'
+[semibold_italic] uni1E11: added inherited anchor class 0 = (218, 645) from 'd'
+[semibold_italic] uni1E12: added inherited anchor class 0 = (306, 850) from 'D'
+[semibold_italic] uni1E12: added inherited anchor class 0 = (306, 850) from 'D'
+[semibold_italic] uni1E13: added inherited anchor class 0 = (218, 645) from 'd'
+[semibold_italic] uni1E13: added inherited anchor class 0 = (218, 645) from 'd'
+[semibold_italic] uni1E18: added inherited anchor class 0 = (273, 850) from 'E'
+[semibold_italic] uni1E18: added inherited anchor class 0 = (273, 850) from 'E'
+[semibold_italic] uni1E19: original base anchors exist {0: (231, 645)}
+[semibold_italic] uni1E1A: added inherited anchor class 0 = (273, 850) from 'E'
+[semibold_italic] uni1E1A: added inherited anchor class 0 = (273, 850) from 'E'
+[semibold_italic] uni1E1B: original base anchors exist {0: (231, 645)}
+[semibold_italic] uni1E24: added inherited anchor class 0 = (361, 850) from 'H'
+[semibold_italic] uni1E24: added inherited anchor class 0 = (361, 850) from 'H'
+[semibold_italic] uni1E25: added inherited anchor class 0 = (469, 645) from 'h'
+[semibold_italic] uni1E25: added inherited anchor class 0 = (469, 645) from 'h'
+[semibold_italic] uni1E28: added inherited anchor class 0 = (361, 850) from 'H'
+[semibold_italic] uni1E28: added inherited anchor class 0 = (361, 850) from 'H'
+[semibold_italic] uni1E29: added inherited anchor class 0 = (469, 645) from 'h'
+[semibold_italic] uni1E29: added inherited anchor class 0 = (469, 645) from 'h'
+[semibold_italic] uni1E2A: added inherited anchor class 0 = (361, 850) from 'H'
+[semibold_italic] uni1E2A: added inherited anchor class 0 = (361, 850) from 'H'
+[semibold_italic] uni1E2B: added inherited anchor class 0 = (469, 645) from 'h'
+[semibold_italic] uni1E2B: added inherited anchor class 0 = (469, 645) from 'h'
+[semibold_italic] uni1E2C: original base anchors exist {0: (146, 850)}
+[semibold_italic] uni1E32: added inherited anchor class 0 = (336, 850) from 'K'
+[semibold_italic] uni1E32: added inherited anchor class 0 = (336, 850) from 'K'
+[semibold_italic] uni1E33: added inherited anchor class 0 = (306, 784) from 'k'
+[semibold_italic] uni1E33: added inherited anchor class 0 = (306, 784) from 'k'
+[semibold_italic] uni1E34: added inherited anchor class 0 = (336, 850) from 'K'
+[semibold_italic] uni1E34: added inherited anchor class 0 = (336, 850) from 'K'
+[semibold_italic] uni1E35: added inherited anchor class 0 = (306, 784) from 'k'
+[semibold_italic] uni1E35: added inherited anchor class 0 = (306, 784) from 'k'
+[semibold_italic] uni1E36: added inherited anchor class 0 = (149, 850) from 'L'
+[semibold_italic] uni1E36: added inherited anchor class 0 = (149, 850) from 'L'
+[semibold_italic] uni1E37: added inherited anchor class 0 = (174, 890) from 'l'
+[semibold_italic] uni1E37: added inherited anchor class 0 = (174, 890) from 'l'
+[semibold_italic] uni1E3A: added inherited anchor class 0 = (149, 850) from 'L'
+[semibold_italic] uni1E3A: added inherited anchor class 0 = (149, 850) from 'L'
+[semibold_italic] uni1E3B: added inherited anchor class 0 = (174, 890) from 'l'
+[semibold_italic] uni1E3B: added inherited anchor class 0 = (174, 890) from 'l'
+[semibold_italic] uni1E3C: added inherited anchor class 0 = (149, 850) from 'L'
+[semibold_italic] uni1E3C: added inherited anchor class 0 = (149, 850) from 'L'
+[semibold_italic] uni1E3D: added inherited anchor class 0 = (174, 890) from 'l'
+[semibold_italic] uni1E3D: added inherited anchor class 0 = (174, 890) from 'l'
+[semibold_italic] uni1E42: added inherited anchor class 0 = (431, 850) from 'M'
+[semibold_italic] uni1E42: added inherited anchor class 0 = (431, 850) from 'M'
+[semibold_italic] uni1E43: added inherited anchor class 0 = (392, 645) from 'm'
+[semibold_italic] uni1E43: added inherited anchor class 0 = (392, 645) from 'm'
+[semibold_italic] uni1E46: added inherited anchor class 0 = (346, 850) from 'N'
+[semibold_italic] uni1E46: added inherited anchor class 0 = (346, 850) from 'N'
+[semibold_italic] uni1E47: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold_italic] uni1E47: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold_italic] uni1E48: added inherited anchor class 0 = (346, 850) from 'N'
+[semibold_italic] uni1E48: added inherited anchor class 0 = (346, 850) from 'N'
+[semibold_italic] uni1E49: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold_italic] uni1E49: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold_italic] uni1E4A: added inherited anchor class 0 = (346, 850) from 'N'
+[semibold_italic] uni1E4A: added inherited anchor class 0 = (346, 850) from 'N'
+[semibold_italic] uni1E4B: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold_italic] uni1E4B: added inherited anchor class 0 = (264, 646) from 'n'
+[semibold_italic] uni1E5A: added inherited anchor class 0 = (269, 850) from 'R'
+[semibold_italic] uni1E5A: added inherited anchor class 0 = (269, 850) from 'R'
+[semibold_italic] uni1E5B: added inherited anchor class 0 = (191, 646) from 'r'
+[semibold_italic] uni1E5B: added inherited anchor class 0 = (191, 646) from 'r'
+[semibold_italic] uni1E5E: added inherited anchor class 0 = (269, 850) from 'R'
+[semibold_italic] uni1E5E: added inherited anchor class 0 = (269, 850) from 'R'
+[semibold_italic] uni1E5F: added inherited anchor class 0 = (191, 646) from 'r'
+[semibold_italic] uni1E5F: added inherited anchor class 0 = (191, 646) from 'r'
+[semibold_italic] uni1E62: added inherited anchor class 0 = (232, 850) from 'S'
+[semibold_italic] uni1E62: added inherited anchor class 0 = (232, 850) from 'S'
+[semibold_italic] uni1E63: added inherited anchor class 0 = (326, 645) from 's'
+[semibold_italic] uni1E63: added inherited anchor class 0 = (326, 645) from 's'
+[semibold_italic] uni1E6C: added inherited anchor class 0 = (307, 850) from 'T'
+[semibold_italic] uni1E6C: added inherited anchor class 0 = (307, 850) from 'T'
+[semibold_italic] uni1E6D: base 't' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E6D: base 't' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E6E: added inherited anchor class 0 = (307, 850) from 'T'
+[semibold_italic] uni1E6E: added inherited anchor class 0 = (307, 850) from 'T'
+[semibold_italic] uni1E6F: base 't' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E6F: base 't' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E70: added inherited anchor class 0 = (307, 850) from 'T'
+[semibold_italic] uni1E70: added inherited anchor class 0 = (307, 850) from 'T'
+[semibold_italic] uni1E71: base 't' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E71: base 't' has no anchor class 0; SKIPPED
+[semibold_italic] uni1E72: original base anchors exist {0: (346, 850)}
+[semibold_italic] uni1E73: original base anchors exist {0: (255, 645)}
+[semibold_italic] uni1E74: added inherited anchor class 0 = (346, 850) from 'U'
+[semibold_italic] uni1E74: added inherited anchor class 0 = (346, 850) from 'U'
+[semibold_italic] uni1E75: added inherited anchor class 0 = (255, 645) from 'u'
+[semibold_italic] uni1E75: added inherited anchor class 0 = (255, 645) from 'u'
+[semibold_italic] uni1E76: added inherited anchor class 0 = (346, 850) from 'U'
+[semibold_italic] uni1E76: added inherited anchor class 0 = (346, 850) from 'U'
+[semibold_italic] uni1E77: added inherited anchor class 0 = (255, 645) from 'u'
+[semibold_italic] uni1E77: added inherited anchor class 0 = (255, 645) from 'u'
+[semibold_italic] uni1E7E: added inherited anchor class 0 = (336, 850) from 'V'
+[semibold_italic] uni1E7E: added inherited anchor class 0 = (336, 850) from 'V'
+[semibold_italic] uni1E7F: added inherited anchor class 0 = (256, 646) from 'v'
+[semibold_italic] uni1E7F: added inherited anchor class 0 = (256, 646) from 'v'
+[semibold_italic] uni1E88: added inherited anchor class 0 = (450, 850) from 'W'
+[semibold_italic] uni1E88: added inherited anchor class 0 = (450, 850) from 'W'
+[semibold_italic] uni1E89: added inherited anchor class 0 = (345, 646) from 'w'
+[semibold_italic] uni1E89: added inherited anchor class 0 = (345, 646) from 'w'
+[semibold_italic] uni1E92: added inherited anchor class 0 = (320, 850) from 'Z'
+[semibold_italic] uni1E92: added inherited anchor class 0 = (320, 850) from 'Z'
+[semibold_italic] uni1E93: added inherited anchor class 0 = (220, 646) from 'z'
+[semibold_italic] uni1E93: added inherited anchor class 0 = (220, 646) from 'z'
+[semibold_italic] uni1E94: added inherited anchor class 0 = (320, 850) from 'Z'
+[semibold_italic] uni1E94: added inherited anchor class 0 = (320, 850) from 'Z'
+[semibold_italic] uni1E95: added inherited anchor class 0 = (220, 646) from 'z'
+[semibold_italic] uni1E95: added inherited anchor class 0 = (220, 646) from 'z'
+[semibold_italic] uni1E96: added inherited anchor class 0 = (469, 645) from 'h'
+[semibold_italic] uni1E96: added inherited anchor class 0 = (469, 645) from 'h'
+[semibold_italic] uni1E9A: no Unicode base decomposition; SKIPPED
+[semibold_italic] uni1EA0: added inherited anchor class 0 = (354, 850) from 'A'
+[semibold_italic] uni1EA0: added inherited anchor class 0 = (354, 850) from 'A'
+[semibold_italic] uni1EA1: added inherited anchor class 0 = (379, 645) from 'a'
+[semibold_italic] uni1EA1: added inherited anchor class 0 = (379, 645) from 'a'
+[semibold_italic] uni1EB8: added inherited anchor class 0 = (273, 850) from 'E'
+[semibold_italic] uni1EB8: added inherited anchor class 0 = (273, 850) from 'E'
+[semibold_italic] uni1EB9: original base anchors exist {0: (231, 645)}
+[semibold_italic] uni1ECA: original base anchors exist {0: (146, 850)}
+[semibold_italic] uni1ECC: added inherited anchor class 0 = (335, 850) from 'O'
+[semibold_italic] uni1ECC: added inherited anchor class 0 = (335, 850) from 'O'
+[semibold_italic] uni1ECD: original base anchors exist {0: (231, 645)}
+[semibold_italic] uni1EE4: added inherited anchor class 0 = (346, 850) from 'U'
+[semibold_italic] uni1EE4: added inherited anchor class 0 = (346, 850) from 'U'
+[semibold_italic] uni1EE5: added inherited anchor class 0 = (255, 645) from 'u'
+[semibold_italic] uni1EE5: added inherited anchor class 0 = (255, 645) from 'u'
+[semibold_italic] uni1EF4: added inherited anchor class 0 = (469, 850) from 'Y'
+[semibold_italic] uni1EF4: added inherited anchor class 0 = (469, 850) from 'Y'
+[semibold_italic] uni1EF5: added inherited anchor class 0 = (262, 645) from 'y'
+[semibold_italic] uni1EF5: added inherited anchor class 0 = (262, 645) from 'y'
+[semibold_italic] uni1E02: added inherited anchor class 2 = (268, -110) from 'B'
+[semibold_italic] uni1E02: added inherited anchor class 2 = (268, -110) from 'B'
+[semibold_italic] uni1E03: added inherited anchor class 2 = (234, -110) from 'b'
+[semibold_italic] uni1E03: added inherited anchor class 2 = (234, -110) from 'b'
+[semibold_italic] uni1E0A: added inherited anchor class 2 = (279, -110) from 'D'
+[semibold_italic] uni1E0A: added inherited anchor class 2 = (279, -110) from 'D'
+[semibold_italic] uni1E0B: added inherited anchor class 2 = (221, -110) from 'd'
+[semibold_italic] uni1E0B: added inherited anchor class 2 = (221, -110) from 'd'
+[semibold_italic] uni1E14: base 'Emacron' has no base anchors; SKIPPED
+[semibold_italic] uni1E15: added inherited anchor class 2 = (236, -110) from 'emacron'
+[semibold_italic] uni1E15: added inherited anchor class 2 = (236, -110) from 'emacron'
+[semibold_italic] uni1E16: base 'Emacron' has no base anchors; SKIPPED
+[semibold_italic] uni1E17: added inherited anchor class 2 = (236, -110) from 'emacron'
+[semibold_italic] uni1E17: added inherited anchor class 2 = (236, -110) from 'emacron'
+[semibold_italic] uni1E1E: added inherited anchor class 2 = (201, -110) from 'F'
+[semibold_italic] uni1E1E: added inherited anchor class 2 = (201, -110) from 'F'
+[semibold_italic] uni1E1F: added inherited anchor class 2 = (62, -319) from 'f'
+[semibold_italic] uni1E1F: added inherited anchor class 2 = (62, -319) from 'f'
+[semibold_italic] uni1E20: added inherited anchor class 2 = (367, -110) from 'G'
+[semibold_italic] uni1E20: added inherited anchor class 2 = (367, -110) from 'G'
+[semibold_italic] uni1E21: added inherited anchor class 2 = (199, -319) from 'g'
+[semibold_italic] uni1E21: added inherited anchor class 2 = (199, -319) from 'g'
+[semibold_italic] uni1E22: added inherited anchor class 2 = (365, -110) from 'H'
+[semibold_italic] uni1E22: added inherited anchor class 2 = (365, -110) from 'H'
+[semibold_italic] uni1E23: added inherited anchor class 2 = (272, -110) from 'h'
+[semibold_italic] uni1E23: added inherited anchor class 2 = (272, -110) from 'h'
+[semibold_italic] uni1E26: added inherited anchor class 2 = (365, -110) from 'H'
+[semibold_italic] uni1E26: added inherited anchor class 2 = (365, -110) from 'H'
+[semibold_italic] uni1E27: added inherited anchor class 2 = (272, -110) from 'h'
+[semibold_italic] uni1E27: added inherited anchor class 2 = (272, -110) from 'h'
+[semibold_italic] uni1E2E: base 'Idieresis' has no anchor class 2; SKIPPED
+[semibold_italic] uni1E2E: base 'Idieresis' has no anchor class 2; SKIPPED
+[semibold_italic] uni1E2F: base 'idieresis' has no anchor class 2; SKIPPED
+[semibold_italic] uni1E2F: base 'idieresis' has no anchor class 2; SKIPPED
+[semibold_italic] uni1E30: added inherited anchor class 2 = (342, -110) from 'K'
+[semibold_italic] uni1E30: added inherited anchor class 2 = (342, -110) from 'K'
+[semibold_italic] uni1E31: added inherited anchor class 2 = (290, -214) from 'k'
+[semibold_italic] uni1E31: added inherited anchor class 2 = (290, -214) from 'k'
+[semibold_italic] uni1E3E: added inherited anchor class 2 = (393, -110) from 'M'
+[semibold_italic] uni1E3E: added inherited anchor class 2 = (393, -110) from 'M'
+[semibold_italic] uni1E3F: added inherited anchor class 2 = (400, -110) from 'm'
+[semibold_italic] uni1E3F: added inherited anchor class 2 = (400, -110) from 'm'
+[semibold_italic] uni1E40: added inherited anchor class 2 = (393, -110) from 'M'
+[semibold_italic] uni1E40: added inherited anchor class 2 = (393, -110) from 'M'
+[semibold_italic] uni1E41: added inherited anchor class 2 = (400, -110) from 'm'
+[semibold_italic] uni1E41: added inherited anchor class 2 = (400, -110) from 'm'
+[semibold_italic] uni1E44: added inherited anchor class 2 = (348, -110) from 'N'
+[semibold_italic] uni1E44: added inherited anchor class 2 = (348, -110) from 'N'
+[semibold_italic] uni1E45: added inherited anchor class 2 = (265, -110) from 'n'
+[semibold_italic] uni1E45: added inherited anchor class 2 = (265, -110) from 'n'
+[semibold_italic] uni1E4C: added inherited anchor class 2 = (350, -110) from 'Otilde'
+[semibold_italic] uni1E4C: added inherited anchor class 2 = (350, -110) from 'Otilde'
+[semibold_italic] uni1E4D: added inherited anchor class 2 = (243, -110) from 'otilde'
+[semibold_italic] uni1E4D: added inherited anchor class 2 = (243, -110) from 'otilde'
+[semibold_italic] uni1E4E: added inherited anchor class 2 = (350, -110) from 'Otilde'
+[semibold_italic] uni1E4E: added inherited anchor class 2 = (350, -110) from 'Otilde'
+[semibold_italic] uni1E4F: added inherited anchor class 2 = (243, -110) from 'otilde'
+[semibold_italic] uni1E4F: added inherited anchor class 2 = (243, -110) from 'otilde'
+[semibold_italic] uni1E50: added inherited anchor class 2 = (350, -110) from 'Omacron'
+[semibold_italic] uni1E50: added inherited anchor class 2 = (350, -110) from 'Omacron'
+[semibold_italic] uni1E51: added inherited anchor class 2 = (243, -110) from 'omacron'
+[semibold_italic] uni1E51: added inherited anchor class 2 = (243, -110) from 'omacron'
+[semibold_italic] uni1E52: added inherited anchor class 2 = (350, -110) from 'Omacron'
+[semibold_italic] uni1E52: added inherited anchor class 2 = (350, -110) from 'Omacron'
+[semibold_italic] uni1E53: added inherited anchor class 2 = (243, -110) from 'omacron'
+[semibold_italic] uni1E53: added inherited anchor class 2 = (243, -110) from 'omacron'
+[semibold_italic] uni1E54: added inherited anchor class 2 = (240, -110) from 'P'
+[semibold_italic] uni1E54: added inherited anchor class 2 = (240, -110) from 'P'
+[semibold_italic] uni1E55: added inherited anchor class 2 = (179, -319) from 'p'
+[semibold_italic] uni1E55: added inherited anchor class 2 = (179, -319) from 'p'
+[semibold_italic] uni1E56: added inherited anchor class 2 = (240, -110) from 'P'
+[semibold_italic] uni1E56: added inherited anchor class 2 = (240, -110) from 'P'
+[semibold_italic] uni1E57: added inherited anchor class 2 = (179, -319) from 'p'
+[semibold_italic] uni1E57: added inherited anchor class 2 = (179, -319) from 'p'
+[semibold_italic] uni1E58: added inherited anchor class 2 = (258, -110) from 'R'
+[semibold_italic] uni1E58: added inherited anchor class 2 = (258, -110) from 'R'
+[semibold_italic] uni1E59: added inherited anchor class 2 = (135, -110) from 'r'
+[semibold_italic] uni1E59: added inherited anchor class 2 = (135, -110) from 'r'
+[semibold_italic] uni1E60: added inherited anchor class 2 = (234, -110) from 'S'
+[semibold_italic] uni1E60: added inherited anchor class 2 = (234, -110) from 'S'
+[semibold_italic] uni1E61: added inherited anchor class 2 = (196, -110) from 's'
+[semibold_italic] uni1E61: added inherited anchor class 2 = (196, -110) from 's'
+[semibold_italic] uni1E64: base 'Sacute' has no base anchors; SKIPPED
+[semibold_italic] uni1E65: base 'sacute' has no base anchors; SKIPPED
+[semibold_italic] uni1E66: base 'Scaron' has no base anchors; SKIPPED
+[semibold_italic] uni1E67: added inherited anchor class 2 = (183, -110) from 'scaron'
+[semibold_italic] uni1E67: added inherited anchor class 2 = (183, -110) from 'scaron'
+[semibold_italic] uni1E6A: added inherited anchor class 2 = (300, -110) from 'T'
+[semibold_italic] uni1E6A: added inherited anchor class 2 = (300, -110) from 'T'
+[semibold_italic] uni1E6B: added inherited anchor class 2 = (133, -107) from 't'
+[semibold_italic] uni1E6B: added inherited anchor class 2 = (133, -107) from 't'
+[semibold_italic] uni1E78: base 'Utilde' has no base anchors; SKIPPED
+[semibold_italic] uni1E79: base 'utilde' has no anchor class 2; SKIPPED
+[semibold_italic] uni1E79: base 'utilde' has no anchor class 2; SKIPPED
+[semibold_italic] uni1E7A: base 'Umacron' has no base anchors; SKIPPED
+[semibold_italic] uni1E7B: added inherited anchor class 2 = (239, -110) from 'umacron'
+[semibold_italic] uni1E7B: added inherited anchor class 2 = (239, -110) from 'umacron'
+[semibold_italic] uni1E7C: original base anchors exist {0: (407, 990)}
+[semibold_italic] uni1E7D: original base anchors exist {0: (256, 834)}
+[semibold_italic] Wgrave: added inherited anchor class 2 = (479, -110) from 'W'
+[semibold_italic] Wgrave: added inherited anchor class 2 = (479, -110) from 'W'
+[semibold_italic] wgrave: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] wgrave: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] Wacute: added inherited anchor class 2 = (479, -110) from 'W'
+[semibold_italic] Wacute: added inherited anchor class 2 = (479, -110) from 'W'
+[semibold_italic] wacute: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] wacute: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] Wdieresis: added inherited anchor class 2 = (479, -110) from 'W'
+[semibold_italic] Wdieresis: added inherited anchor class 2 = (479, -110) from 'W'
+[semibold_italic] wdieresis: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] wdieresis: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] uni1E86: added inherited anchor class 2 = (479, -110) from 'W'
+[semibold_italic] uni1E86: added inherited anchor class 2 = (479, -110) from 'W'
+[semibold_italic] uni1E87: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] uni1E87: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] uni1E8A: added inherited anchor class 2 = (307, -110) from 'X'
+[semibold_italic] uni1E8A: added inherited anchor class 2 = (307, -110) from 'X'
+[semibold_italic] uni1E8B: base 'x' has no base anchors; SKIPPED
+[semibold_italic] uni1E8C: added inherited anchor class 2 = (307, -110) from 'X'
+[semibold_italic] uni1E8C: added inherited anchor class 2 = (307, -110) from 'X'
+[semibold_italic] uni1E8D: base 'x' has no base anchors; SKIPPED
+[semibold_italic] uni1E8E: added inherited anchor class 2 = (277, -110) from 'Y'
+[semibold_italic] uni1E8E: added inherited anchor class 2 = (277, -110) from 'Y'
+[semibold_italic] uni1E8F: added inherited anchor class 2 = (242, -319) from 'y'
+[semibold_italic] uni1E8F: added inherited anchor class 2 = (242, -319) from 'y'
+[semibold_italic] uni1E90: added inherited anchor class 2 = (287, -110) from 'Z'
+[semibold_italic] uni1E90: added inherited anchor class 2 = (287, -110) from 'Z'
+[semibold_italic] uni1E91: added inherited anchor class 2 = (207, -110) from 'z'
+[semibold_italic] uni1E91: added inherited anchor class 2 = (207, -110) from 'z'
+[semibold_italic] uni1E97: added inherited anchor class 2 = (133, -107) from 't'
+[semibold_italic] uni1E97: added inherited anchor class 2 = (133, -107) from 't'
+[semibold_italic] uni1E98: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] uni1E98: added inherited anchor class 2 = (352, -110) from 'w'
+[semibold_italic] uni1E99: added inherited anchor class 2 = (242, -319) from 'y'
+[semibold_italic] uni1E99: added inherited anchor class 2 = (242, -319) from 'y'
+[semibold_italic] uni1EA2: added inherited anchor class 2 = (308, -110) from 'A'
+[semibold_italic] uni1EA2: added inherited anchor class 2 = (308, -110) from 'A'
+[semibold_italic] uni1EA3: added inherited anchor class 2 = (277, -110) from 'a'
+[semibold_italic] uni1EA3: added inherited anchor class 2 = (277, -110) from 'a'
+[semibold_italic] uni1EA4: base 'Acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA4: base 'Acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA5: base 'acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA5: base 'acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA6: base 'Acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA6: base 'Acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA7: base 'acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA7: base 'acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA8: base 'Acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA8: base 'Acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA9: base 'acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EA9: base 'acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EAA: base 'Acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EAA: base 'Acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EAB: base 'acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EAB: base 'acircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EAE: base 'Abreve' has no base anchors; SKIPPED
+[semibold_italic] uni1EAF: base 'abreve' has no base anchors; SKIPPED
+[semibold_italic] uni1EB0: base 'Abreve' has no base anchors; SKIPPED
+[semibold_italic] uni1EB1: base 'abreve' has no base anchors; SKIPPED
+[semibold_italic] uni1EB2: base 'Abreve' has no base anchors; SKIPPED
+[semibold_italic] uni1EB3: base 'abreve' has no base anchors; SKIPPED
+[semibold_italic] uni1EB4: base 'Abreve' has no base anchors; SKIPPED
+[semibold_italic] uni1EB5: base 'abreve' has no base anchors; SKIPPED
+[semibold_italic] uni1EBA: added inherited anchor class 2 = (279, -110) from 'E'
+[semibold_italic] uni1EBA: added inherited anchor class 2 = (279, -110) from 'E'
+[semibold_italic] uni1EBB: added inherited anchor class 2 = (234, -110) from 'e'
+[semibold_italic] uni1EBB: added inherited anchor class 2 = (234, -110) from 'e'
+[semibold_italic] uni1EBC: added inherited anchor class 2 = (279, -110) from 'E'
+[semibold_italic] uni1EBC: added inherited anchor class 2 = (279, -110) from 'E'
+[semibold_italic] uni1EBD: original base anchors exist {0: (275, 834)}
+[semibold_italic] uni1EBE: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[semibold_italic] uni1EBE: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[semibold_italic] uni1EBF: base 'ecircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EBF: base 'ecircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EC0: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[semibold_italic] uni1EC0: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[semibold_italic] uni1EC1: base 'ecircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EC1: base 'ecircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EC2: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[semibold_italic] uni1EC2: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[semibold_italic] uni1EC3: base 'ecircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EC3: base 'ecircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EC4: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[semibold_italic] uni1EC4: added inherited anchor class 2 = (279, -107) from 'Ecircumflex'
+[semibold_italic] uni1EC5: base 'ecircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EC5: base 'ecircumflex' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EC8: added inherited anchor class 2 = (147, -110) from 'I'
+[semibold_italic] uni1EC8: added inherited anchor class 2 = (147, -110) from 'I'
+[semibold_italic] uni1EC9: added inherited anchor class 2 = (136, -110) from 'i'
+[semibold_italic] uni1EC9: added inherited anchor class 2 = (136, -110) from 'i'
+[semibold_italic] uni1ECE: added inherited anchor class 2 = (350, -110) from 'O'
+[semibold_italic] uni1ECE: added inherited anchor class 2 = (350, -110) from 'O'
+[semibold_italic] uni1ECF: added inherited anchor class 2 = (243, -110) from 'o'
+[semibold_italic] uni1ECF: added inherited anchor class 2 = (243, -110) from 'o'
+[semibold_italic] uni1ED0: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[semibold_italic] uni1ED0: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[semibold_italic] uni1ED1: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[semibold_italic] uni1ED1: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[semibold_italic] uni1ED2: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[semibold_italic] uni1ED2: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[semibold_italic] uni1ED3: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[semibold_italic] uni1ED3: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[semibold_italic] uni1ED4: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[semibold_italic] uni1ED4: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[semibold_italic] uni1ED5: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[semibold_italic] uni1ED5: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[semibold_italic] uni1ED6: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[semibold_italic] uni1ED6: added inherited anchor class 2 = (350, -110) from 'Ocircumflex'
+[semibold_italic] uni1ED7: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[semibold_italic] uni1ED7: added inherited anchor class 2 = (243, -110) from 'ocircumflex'
+[semibold_italic] uni1EDA: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[semibold_italic] uni1EDA: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[semibold_italic] uni1EDB: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[semibold_italic] uni1EDB: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[semibold_italic] uni1EDC: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[semibold_italic] uni1EDC: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[semibold_italic] uni1EDD: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[semibold_italic] uni1EDD: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[semibold_italic] uni1EDE: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[semibold_italic] uni1EDE: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[semibold_italic] uni1EDF: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[semibold_italic] uni1EDF: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[semibold_italic] uni1EE0: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[semibold_italic] uni1EE0: added inherited anchor class 2 = (350, -110) from 'Ohorn'
+[semibold_italic] uni1EE1: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[semibold_italic] uni1EE1: added inherited anchor class 2 = (243, -110) from 'ohorn'
+[semibold_italic] uni1EE6: added inherited anchor class 2 = (328, -110) from 'U'
+[semibold_italic] uni1EE6: added inherited anchor class 2 = (328, -110) from 'U'
+[semibold_italic] uni1EE7: added inherited anchor class 2 = (239, -110) from 'u'
+[semibold_italic] uni1EE7: added inherited anchor class 2 = (239, -110) from 'u'
+[semibold_italic] uni1EE8: base 'Uhorn' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EE8: base 'Uhorn' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EE9: base 'uhorn' has no base anchors; SKIPPED
+[semibold_italic] uni1EEA: base 'Uhorn' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EEA: base 'Uhorn' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EEB: base 'uhorn' has no base anchors; SKIPPED
+[semibold_italic] uni1EEC: base 'Uhorn' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EEC: base 'Uhorn' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EED: base 'uhorn' has no base anchors; SKIPPED
+[semibold_italic] uni1EEE: base 'Uhorn' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EEE: base 'Uhorn' has no anchor class 2; SKIPPED
+[semibold_italic] uni1EEF: base 'uhorn' has no base anchors; SKIPPED
+[semibold_italic] Ygrave: added inherited anchor class 2 = (277, -110) from 'Y'
+[semibold_italic] Ygrave: added inherited anchor class 2 = (277, -110) from 'Y'
+[semibold_italic] ygrave: added inherited anchor class 2 = (242, -319) from 'y'
+[semibold_italic] ygrave: added inherited anchor class 2 = (242, -319) from 'y'
+[semibold_italic] uni1EF6: added inherited anchor class 2 = (277, -110) from 'Y'
+[semibold_italic] uni1EF6: added inherited anchor class 2 = (277, -110) from 'Y'
+[semibold_italic] uni1EF8: added inherited anchor class 2 = (277, -110) from 'Y'
+[semibold_italic] uni1EF8: added inherited anchor class 2 = (277, -110) from 'Y'
+[semibold_italic] uni1EF8: original base anchors exist {2: (277, -110)}
+[semibold_italic] uni1EF9: added inherited anchor class 2 = (242, -319) from 'y'
+[semibold_italic] uni1EF9: added inherited anchor class 2 = (242, -319) from 'y'
+Patched font saved to /home/elliott/dev/libertinus-analysis/fonts/LibertinusSerif-SemiboldItalic-patch.otf

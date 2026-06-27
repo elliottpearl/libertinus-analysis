@@ -3,7 +3,7 @@
 
 anchors = {
     "bases": {
-        0x04F: { # 
+        0x04F: { # O
             2: (310, -110) # normalize by
         },
         0x0059: { # Y

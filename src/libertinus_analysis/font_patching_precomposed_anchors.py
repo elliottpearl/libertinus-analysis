@@ -38,33 +38,34 @@ ANCHOR_CLASS_NAMES = {
 
 def get_base_from_unicode(cmap, cp):
     """
-    Given a precomposed codepoint cp, return base glyph name using Unicode decomposition.
+    Return the *deepest* Unicode decomposition base glyph name.
 
-    For example, U+1EA0 Ạ → decomposition "0041 0323" → base_cp = 0x0041 → "A".
-
-    Returns:
-        base_glyph_name (str) or None if no usable decomposition/base.
+    Example:
+        U+1E14 → "0112 0300" → "0045 0304" → base_cp = 0x0045 → "E"
     """
-    ch = chr(cp)
-    decomp = unicodedata.decomposition(ch)
-    if not decomp:
-        return None
+    base_cp = cp
 
-    parts = decomp.split()
-    if not parts:
-        return None
+    while True:
+        raw = unicodedata.decomposition(chr(base_cp))
+        if not raw:
+            break
 
-    # First part is the base codepoint
-    try:
-        base_cp = int(parts[0], 16)
-    except ValueError:
-        return None
+        parts = raw.split()
+        if not parts:
+            break
 
-    if base_cp not in cmap:
-        return None
+        try:
+            new_base_cp = int(parts[0], 16)
+        except ValueError:
+            break
 
-    return cmap[base_cp]
+        # Stop if decomposition does not change the base
+        if new_base_cp == base_cp:
+            break
 
+        base_cp = new_base_cp
+
+    return cmap.get(base_cp)
 
 # ------------------------------------------------------------
 # Helpers for MarkToBase
@@ -163,7 +164,7 @@ def patch_precomposed_anchors(ttfont, font_key, anchor_class, group_name, lookup
     group_name: key in unicode_groups (e.g. "BASE_ABOVE", "BASE_BELOW")
     lookup_index: same GPOS lookup_index used by patch_anchors_human
 
-    Returns: list of report lines (also printed to stdout).
+    Returns: list of report lines.
     """
 
     # Load curated anchors
@@ -185,7 +186,6 @@ def patch_precomposed_anchors(ttfont, font_key, anchor_class, group_name, lookup
     subtables = find_mark_to_base_subtables(ttfont, lookup_index)
     if not subtables:
         line = f"[{font_key}] No MarkToBase (LookupType 4) subtables found in lookup {lookup_index}; SKIPPED"
-#        print(line)
         report.append(line)
         return report
 
@@ -196,27 +196,24 @@ def patch_precomposed_anchors(ttfont, font_key, anchor_class, group_name, lookup
     for cp in codepoints:
         if cp not in cmap:
             line = f"U+{cp:04X}: missing from font"
-#            print(line)
             report.append(line)
             continue
 
         glyph_name = cmap[cp]
 
         # --------------------------------------------------------
-        # 1. Check if base anchors already exist for this glyph
+        # 1. Class-specific sanity check: does this glyph already
+        #    have the anchor_class of interest?
         # --------------------------------------------------------
         baserec, _ = get_base_record_for_glyph(sub, glyph_name)
-        existing_any = False
         existing_coords = {}
 
         if baserec is not None:
-            for class_index in range(class_count):
-                coords = get_anchor_from_baserec(baserec, class_index)
-                if coords is not None:
-                    existing_any = True
-                    existing_coords[class_index] = coords
+            coords = get_anchor_from_baserec(baserec, anchor_class)
+            if coords is not None:
+                existing_coords[anchor_class] = coords
 
-        if existing_any:
+        if existing_coords:
             # Determine if curated
             curated_anchor = False
 
@@ -230,34 +227,31 @@ def patch_precomposed_anchors(ttfont, font_key, anchor_class, group_name, lookup
 
             if curated_anchor:
                 line = (
-                    f"{glyph_name}: curated base anchors exist {existing_coords}; "
+                    f"{glyph_name}: curated base anchor class {anchor_class} exists {existing_coords}; "
                     f"should be inherited; consider removing from curated anchors"
                 )
             else:
-                line = f"{glyph_name}: original base anchors exist {existing_coords}"
+                line = f"{glyph_name}: original base anchor class {anchor_class} exists {existing_coords}"
 
-#            print(line)
             report.append(line)
             continue
 
         # --------------------------------------------------------
-        # 2. No anchors: try to inherit from semantic base
+        # 2. No anchor of interest: try to inherit from semantic base
         # --------------------------------------------------------
         base_name = get_base_from_unicode(cmap, cp)
         if base_name is None:
             line = f"{glyph_name}: no Unicode base decomposition; SKIPPED"
-#            print(line)
             report.append(line)
             continue
 
         base_baserec, _ = get_base_record_for_glyph(sub, base_name)
         if base_baserec is None:
             line = f"{glyph_name}: base '{base_name}' has no base anchors; SKIPPED"
-#            print(line)
             report.append(line)
             continue
 
-        # Inherit ONLY the requested anchor_class
+        # Inherit ONLY the requested anchor_class from the deepest semantic base
         baserec_new, _ = ensure_base_record_for_glyph(sub, glyph_name)
 
         coords = get_anchor_from_baserec(base_baserec, anchor_class)
@@ -269,8 +263,5 @@ def patch_precomposed_anchors(ttfont, font_key, anchor_class, group_name, lookup
             set_anchor_in_baserec(baserec_new, anchor_class, ax, ay)
             line = f"{glyph_name}: added inherited anchor class {anchor_class} = ({ax}, {ay}) from '{base_name}'"
             report.append(line)
-
-#        print(line)
-        report.append(line)
 
     return report

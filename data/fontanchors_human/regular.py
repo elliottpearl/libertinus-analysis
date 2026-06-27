@@ -321,14 +321,20 @@ anchors = {
         0x0273: {  # ɳ n-retroflex-hook
             2: (262, -308),  # -319 + 11
         },
-        0x1E1A: {  # Ḛ E tilde below
-            0: (281, 850), # E above anchor
-        },
-        0x1E74: {  # Ṵ U tilde below
-            0: (346, 850), # U above anchor
-        },
-        0x1E75: {  # ṵ u tilde below
-            0: (255, 645), # u above anchor
+#        0x1E1A: {  # Ḛ E tilde below
+#            0: (281, 850), # E above anchor
+#        },
+#        0x1E74: {  # Ṵ U tilde below
+#            0: (346, 850), # U above anchor
+#        },
+#        0x1E75: {  # ṵ u tilde below
+#            0: (255, 645), # u above anchor
+#        },
+        0x1E91: {   # a right half ring
+            0: (209, 645),  # a
+            2: (196, -100), # a
+            4: (410, 16),   # a
+            5: (163, -3),   # a
         },
         0xE100: { # en space with anchor, width = 280
             0: (140,645),

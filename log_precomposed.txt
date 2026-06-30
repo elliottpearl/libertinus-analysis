@@ -149,7 +149,6 @@ Applied GSUB features from data/fea/regular/ccmp.fea
 [regular] uni1E8E: added inherited anchor class 2 = (295, -110) from 'Y'
 [regular] uni1E8F: added inherited anchor class 2 = (242, -319) from 'y'
 [regular] uni1E90: added inherited anchor class 2 = (287, -110) from 'Z'
-[regular] uni1E91: curated base anchor class 2 exists {2: (196, -100)}; should be inherited; consider removing from curated anchors
 [regular] uni1E97: added inherited anchor class 2 = (163, -110) from 't'
 [regular] uni1E98: added inherited anchor class 2 = (352, -110) from 'w'
 [regular] uni1E99: added inherited anchor class 2 = (242, -319) from 'y'
@@ -219,6 +218,7 @@ Applied GSUB features from data/fea/regular/ccmp.fea
 [regular] uni1EF8: added inherited anchor class 2 = (295, -110) from 'Y'
 [regular] uni1EF8: original base anchor class 2 exists {2: (295, -110)}
 [regular] uni1EF9: added inherited anchor class 2 = (242, -319) from 'y'
+[regular] uni1E91: added inherited anchor class 2 = (207, -110) from 'z'
 Patched font saved to /home/elliott/dev/libertinus-analysis/fonts/LibertinusSerif-Regular-patch.otf
 Applied GSUB features from data/fea/italic/ccmp.fea
 [italic] uni1E00: added inherited anchor class 0 = (505, 850) from 'A'
@@ -371,7 +371,6 @@ Applied GSUB features from data/fea/italic/ccmp.fea
 [italic] uni1E8E: added inherited anchor class 2 = (270, -110) from 'Y'
 [italic] uni1E8F: added inherited anchor class 2 = (368, -107) from 'y'
 [italic] uni1E90: added inherited anchor class 2 = (267, -107) from 'Z'
-[italic] uni1E91: added inherited anchor class 2 = (187, -111) from 'z'
 [italic] uni1E97: added inherited anchor class 2 = (133, -107) from 't'
 [italic] uni1E98: added inherited anchor class 2 = (355, -110) from 'w'
 [italic] uni1E99: added inherited anchor class 2 = (368, -107) from 'y'
@@ -441,6 +440,7 @@ Applied GSUB features from data/fea/italic/ccmp.fea
 [italic] uni1EF8: added inherited anchor class 2 = (270, -110) from 'Y'
 [italic] uni1EF8: original base anchor class 2 exists {2: (270, -110)}
 [italic] uni1EF9: added inherited anchor class 2 = (368, -107) from 'y'
+[italic] uni1E91: added inherited anchor class 2 = (187, -111) from 'z'
 Patched font saved to /home/elliott/dev/libertinus-analysis/fonts/LibertinusSerif-Italic-patch.otf
 Applied GSUB features from data/fea/semibold/ccmp.fea
 [semibold] uni1E00: base 'A' has no base anchors; SKIPPED
@@ -593,7 +593,6 @@ Applied GSUB features from data/fea/semibold/ccmp.fea
 [semibold] uni1E8E: added inherited anchor class 2 = (316, -110) from 'Y'
 [semibold] uni1E8F: base 'y' has no base anchors; SKIPPED
 [semibold] uni1E90: added inherited anchor class 2 = (308, -110) from 'Z'
-[semibold] uni1E91: base 'z' has no base anchors; SKIPPED
 [semibold] uni1E97: added inherited anchor class 2 = (163, -107) from 't'
 [semibold] uni1E98: base 'w' has no base anchors; SKIPPED
 [semibold] uni1E99: base 'y' has no base anchors; SKIPPED
@@ -663,6 +662,7 @@ Applied GSUB features from data/fea/semibold/ccmp.fea
 [semibold] uni1EF8: added inherited anchor class 2 = (316, -110) from 'Y'
 [semibold] uni1EF8: original base anchor class 2 exists {2: (316, -110)}
 [semibold] uni1EF9: base 'y' has no base anchors; SKIPPED
+[semibold] uni1E91: base 'z' has no base anchors; SKIPPED
 Patched font saved to /home/elliott/dev/libertinus-analysis/fonts/LibertinusSerif-Semibold-patch.otf
 Applied GSUB features from data/fea/semibold_italic/ccmp.fea
 [semibold_italic] uni1E00: added inherited anchor class 0 = (354, 850) from 'A'
@@ -815,7 +815,6 @@ Applied GSUB features from data/fea/semibold_italic/ccmp.fea
 [semibold_italic] uni1E8E: added inherited anchor class 2 = (277, -110) from 'Y'
 [semibold_italic] uni1E8F: added inherited anchor class 2 = (242, -319) from 'y'
 [semibold_italic] uni1E90: added inherited anchor class 2 = (287, -110) from 'Z'
-[semibold_italic] uni1E91: added inherited anchor class 2 = (207, -110) from 'z'
 [semibold_italic] uni1E97: added inherited anchor class 2 = (133, -107) from 't'
 [semibold_italic] uni1E98: added inherited anchor class 2 = (352, -110) from 'w'
 [semibold_italic] uni1E99: added inherited anchor class 2 = (242, -319) from 'y'
@@ -885,4 +884,5 @@ Applied GSUB features from data/fea/semibold_italic/ccmp.fea
 [semibold_italic] uni1EF8: added inherited anchor class 2 = (277, -110) from 'Y'
 [semibold_italic] uni1EF8: original base anchor class 2 exists {2: (277, -110)}
 [semibold_italic] uni1EF9: added inherited anchor class 2 = (242, -319) from 'y'
+[semibold_italic] uni1E91: added inherited anchor class 2 = (207, -110) from 'z'
 Patched font saved to /home/elliott/dev/libertinus-analysis/fonts/LibertinusSerif-SemiboldItalic-patch.otf

@@ -13,7 +13,6 @@ from .font_patching_anchors import patch_anchors_human
 from .font_patching_gsub import patch_gsub_ccmp
 from .font_patching_precomposed_anchors import patch_precomposed_anchors
 
-
 def patch_font(font_key: str) -> None:
     """
     Patch a Libertinus font in three stages:

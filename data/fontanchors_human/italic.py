@@ -54,4 +54,37 @@ anchors = {
             2: (-220, -70), # x-mid of bbox
         },
     },
+    "marks_by_name": {
+        "grave.cap": {
+            0: (-45, 724), # x scaled from regular, y implied (-45, 724). test up?
+        },
+        "acute.cap": {
+            0: (-65, 724), # x scaled from regular. y implied. test x = -73 pull?
+        },
+        "breve.cap": {
+            0: (-10, 703), # x mid, y implied
+        },
+        "caron.cap": {
+            0: (-50, 677), # x vertex, y implied. text x = -36?
+        },
+#        "dotaccent.cap" no such italic glyph
+        "dieresis.cap": {
+            0: (-75, 857), # xmid, y implied. test x
+        },
+        "hookabovecomb.cap": {
+            0: (-27, 811) # x apex, y implied
+        },
+        "hungarumlaut.cap": {
+            0: (-109, 762), # implied. test other x?
+        },
+        "uni030F.cap": { # double grave
+            0: (-47, 766), # implied. test other x?
+        },
+        "breveinvertedcmb.cap": {
+            0: (-23, 703), # implied
+        },
+        "circumflex.cap": {
+            0: (16, 680), # implied
+        },
+    },    
 }

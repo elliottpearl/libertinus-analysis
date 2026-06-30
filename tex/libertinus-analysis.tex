@@ -40,6 +40,14 @@
 	BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf
 ]{Libertinus Serif Patch}
 
+\newfontfamily\LibertinusSerifPatchGrave[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular-patch.otf,
+	ItalicFont     = LibertinusSerif-Italic-patch-grave.otf,
+	BoldFont       = LibertinusSerif-Semibold-patch.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf
+]{Libertinus Serif Patch Grave}
+
 \newfontfamily\Gentium[
 	Path = ../fonts/,
 ]{GentiumPlus-Regular.ttf}
@@ -995,6 +1003,24 @@ u\cgj\char"0330\char"030F\
 \char"025B\cgj\char"0330\char"030F\ 
 \char"0254\cgj\char"0330\char"030F\ }
 } % end \LibertinusSerifPatch
+
+
+Patched not grave
+
+{\LibertinusSerifPatch
+% GRAVE (U+0300)
+\ribbiline{\PREC{\char"00C0} B\char"0300 \PREC{\char"00C8} \PREC{\char"00CC} \PREC{\char"00D2} \PREC{\char"00D9} \char"0190\char"0300\ \char"0186\char"0300\
+\PREC{\char"00E0} \PREC{\char"00E8} \PREC{\char"00EC} \PREC{\char"00F2} \PREC{\char"00F9} \char"025B\char"0300\ \char"0254\char"0300\ }
+}
+
+Patched grave
+
+{\LibertinusSerifPatchGrave
+% GRAVE (U+0300)
+\ribbiline{\PREC{\char"00C0} B\char"0300 \PREC{\char"00C8} \PREC{\char"00CC} \PREC{\char"00D2} \PREC{\char"00D9} \char"0190\char"0300\ \char"0186\char"0300\
+\PREC{\char"00E0} \PREC{\char"00E8} \PREC{\char"00EC} \PREC{\char"00F2} \PREC{\char"00F9} \char"025B\char"0300\ \char"0254\char"0300\ }
+}
+
 
 \subsection*{Mark over space}
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Wrapper script to generate a LaTeX fontmetrics report.
+Wrapper script to generate all LaTeX fontmetrics reports.
 """
 
 import math

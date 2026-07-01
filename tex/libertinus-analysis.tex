@@ -173,15 +173,13 @@ Recall that Language Science Press uses semibold Libertinus fonts, e.g.
 
 \input{input/fontmetrics_below.tex}
 
-
 \subsubsection*{Table row headings}
 
 hex: Unicode character codepoint in 4-hex.
 
 reg, it, sb, si: regular, italic, semibold, semibold italic. 
 In that row, the character is printed alone, with combining dot above, and with combining macron below, 
-to show any anchor positioning. If no above- or below-anchor exists for that character, 
-the character and combining mark are positioned by HarfBuzz fallback shaping.
+to show any anchor positioning. 
 
 $ax$, $ay$: $X$ and $Y$ coordinates of the above-anchor.
 
@@ -192,25 +190,18 @@ because the midpoint of the width of the bounding box is a
 naive candidate for $ax$ and $bx$, 
 and the bounding box coordinates are easy to determine.
 
-$□xm$: midpoint of the bounding box $X$ coordinates, 
+$xm$ is a horizontal midpoint relative to the bounding box of the glyph. 
+For roman font styles (regular and semibold), xm is the x-midpoint of the bounding box,
 $(X_\mathrm{min} + X_\mathrm{max})/2$, 
 where the bounding box is characterized by 
 $(X_\mathrm{min}, Y_\mathrm{min})$ and $(X_\mathrm{max}, Y_\mathrm{max})$.
+For italic font styles (italic and semibold italic), there are two midpoints, axm and bxm, 
+at the top and bottom of the italic lane where the glyph lives.
 
-$ax\delta$: $X$ coordinate offset of above-anchor from midpoint of bounding box, 
-$ax - bbm$.
+The $\delta$ row  -- ax$\delta$ and bx$\delta$ -- is the offset of the anchor x-value 
+from the relevant x-midpoint value.
 
-$ax\%$: normalized offset, $abb\delta$ divided by bounding box width, 
-$abb\delta / (X_\mathrm{max} - X_\mathrm{min})$.
-
-$bx\delta$: $X$ coordinate offset of below-anchor from midpoint of bounding box, 
-$bx - bbm$.
-
-$bx\%$: normalized offset, $bbb\delta$ divided by bounding box width, 
-$bbb\delta / (X_\mathrm{max} - X_\mathrm{min})$.
-
-There are better ways to define the geometric horizontal center of a glyph than the bounding box midpoint, 
-depending on the outline at the top or bottom of the glyph.
+These x-midpoints are geometric centers, not optical centers, but they are reasonable candidate for the anchor x-coordinate.
 
 \subsection*{Vertical aspects, anchor $Y$ coordinates and reference, and clearance}
 

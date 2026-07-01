@@ -1,5 +1,4 @@
 # fontmetrics_report.py
-
 from __future__ import annotations
 
 from .fontmetrics_loader import (
@@ -7,8 +6,9 @@ from .fontmetrics_loader import (
     get_anchor,
 )
 from .fontmetrics_helpers import (
-    get_bbox_mid_x,
+    get_mid_x_for_style,
     compute_dx,
+    get_upright_mid_x,
 )
 from .tex_helpers import (
     latex_font_style,
@@ -19,29 +19,40 @@ from .tex_helpers import (
 # Table construction
 # ----------------------------------------------------------------------
 
+def _sample_cells_for_style(style_key: str, cps: list[int]) -> list[str]:
+    """
+    Build the sample glyph cells for a given style, inserting CGJ
+    to force use of anchors rather than precomposed glyphs.
+    """
+    cells = []
+    for cp in cps:
+        raw = (
+            f'\\char"{cp:04X} '
+            f'\\char"{cp:04X}\\cgj\\char"0307 '
+            f'\\char"{cp:04X}\\cgj\\char"0331'
+        )
+        if style_key == "regular":
+            cells.append(raw)
+        else:
+            cells.append(latex_font_style(style_key, raw))
+    return cells
+
+
 def make_fontmetrics_table(bases: list[str]) -> str:
     """
     Build the LaTeX table body (no wrapper).
     bases: list of characters, e.g. ['a','b','c',...]
     """
 
-    # Convert characters → integer codepoints
     cps = [ord(ch) for ch in bases]
-
-    # Load all styles
     all_metrics = load_all_fontmetrics()
-
     rows = []
 
-    # ------------------------------------------------------------
     # Header row: hex codepoints
-    # ------------------------------------------------------------
     header_hex = "hex & " + " & ".join(f"{cp:04X}" for cp in cps)
     rows.append(header_hex)
 
-    # ------------------------------------------------------------
     # Full blocks for all four styles
-    # ------------------------------------------------------------
     for style_key, style_header in [
         ("regular", "reg"),
         ("italic", "it"),
@@ -50,27 +61,11 @@ def make_fontmetrics_table(bases: list[str]) -> str:
     ]:
         style_metrics = all_metrics[style_key]
 
-        # --------------------------------------------------------
-        # Style glyph row
-        # --------------------------------------------------------
-        styled_cells = []
-        for cp in cps:
-            raw = (
-                f'\\char"{cp:04X} '
-                f'\\char"{cp:04X}\\char"0307 '
-                f'\\char"{cp:04X}\\char"0331'
-            )
-            if style_key == "regular":
-                # regular block uses unwrapped glyphs
-                styled_cells.append(raw)
-            else:
-                styled_cells.append(latex_font_style(style_key, raw))
-
+        # Style glyph row (with CGJ)
+        styled_cells = _sample_cells_for_style(style_key, cps)
         rows.append(style_header + " & " + " & ".join(styled_cells))
 
-        # --------------------------------------------------------
         # Anchor rows: ax, ay (anchor 0), bx, by (anchor 2)
-        # --------------------------------------------------------
         for anchor_id, prefix in [("0", "a"), ("2", "b")]:
             xs = []
             ys = []
@@ -85,42 +80,50 @@ def make_fontmetrics_table(bases: list[str]) -> str:
             rows.append(f"{prefix}x & " + " & ".join(xs))
             rows.append(f"{prefix}y & " + " & ".join(ys))
 
-        # --------------------------------------------------------
-        # BBox midpoint row (□xm → \char"25A1 xm)
-        # --------------------------------------------------------
-        bbxm = []
-        for cp in cps:
-            mid = get_bbox_mid_x(style_metrics, cp)
-            bbxm.append(str(int(mid)) if mid is not None else "")
-        rows.append(r'\char"25A1 xm & ' + " & ".join(bbxm))
+        # Midpoint and deltas
+        if style_key in ("regular", "semibold"):
+            # Upright: single xm, axδ, bxδ
+            xm_cells = []
+            axd_cells = []
+            bxd_cells = []
+            for cp in cps:
+                xm = get_mid_x_for_style(style_key, style_metrics, cp, "0")
+                xm_cells.append(str(int(xm)) if xm is not None else "")
 
-        # --------------------------------------------------------
-        # dx_center and dx_norm for anchor 0 (axδ, ax%)
-        # --------------------------------------------------------
-        axd = []   # axδ
-        axp = []   # ax%
-        for cp in cps:
-            dx, dx_norm = compute_dx(style_metrics, cp, "0")
-            axd.append(str(int(dx)) if dx is not None else "")
-            axp.append(f"{dx_norm:.2f}" if dx_norm is not None else "")
-        rows.append("axδ & " + " & ".join(axd))
-        rows.append("ax\\% & " + " & ".join(axp))
+                dx_a = compute_dx(style_metrics, cp, "0", style_key)
+                axd_cells.append(str(int(dx_a)) if dx_a is not None else "")
 
-        # --------------------------------------------------------
-        # dx_center and dx_norm for anchor 2 (bxδ, bx%)
-        # --------------------------------------------------------
-        bxd = []   # bxδ
-        bxp = []   # bx%
-        for cp in cps:
-            dx, dx_norm = compute_dx(style_metrics, cp, "2")
-            bxd.append(str(int(dx)) if dx is not None else "")
-            bxp.append(f"{dx_norm:.2f}" if dx_norm is not None else "")
-        rows.append("bxδ & " + " & ".join(bxd))
-        rows.append("bx\\% & " + " & ".join(bxp))
+                dx_b = compute_dx(style_metrics, cp, "2", style_key)
+                bxd_cells.append(str(int(dx_b)) if dx_b is not None else "")
 
-    # ------------------------------------------------------------
-    # Join rows into LaTeX table body
-    # ------------------------------------------------------------
+            rows.append("xm & " + " & ".join(xm_cells))
+            rows.append("axδ & " + " & ".join(axd_cells))
+            rows.append("bxδ & " + " & ".join(bxd_cells))
+
+        else:
+            # Italic / semibold_italic: axm, axδ, bxm, bxδ
+            axm_cells = []
+            axd_cells = []
+            bxm_cells = []
+            bxd_cells = []
+            for cp in cps:
+                axm = get_mid_x_for_style(style_key, style_metrics, cp, "0")
+                bxm = get_mid_x_for_style(style_key, style_metrics, cp, "2")
+
+                axm_cells.append(str(int(axm)) if axm is not None else "")
+                bxm_cells.append(str(int(bxm)) if bxm is not None else "")
+
+                dx_a = compute_dx(style_metrics, cp, "0", style_key)
+                dx_b = compute_dx(style_metrics, cp, "2", style_key)
+
+                axd_cells.append(str(int(dx_a)) if dx_a is not None else "")
+                bxd_cells.append(str(int(dx_b)) if dx_b is not None else "")
+
+            rows.append("axm & " + " & ".join(axm_cells))
+            rows.append("axδ & " + " & ".join(axd_cells))
+            rows.append("bxm & " + " & ".join(bxm_cells))
+            rows.append("bxδ & " + " & ".join(bxd_cells))
+
     body = " \\\\\n".join(rows) + " \\\\\n"
     return body
 
@@ -136,7 +139,6 @@ def wrap_in_table_environment(table_body: str, caption: str, label: str) -> str:
     Wrap the table body in a full LaTeX table environment.
     """
 
-    # Determine number of columns from the first row
     try:
         first_row = table_body.strip().split("\\\\")[0]
         cols = first_row.count("&") + 1
@@ -175,14 +177,16 @@ def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
     Build a LaTeX table for combining marks.
     All marks in `marks` are assumed to use the same anchor class:
         anchor_id = "0" (above) or "2" (below)
+
+    For marks:
+        - use bbox midpoint (upright) as xm
+        - delete percentage rows
+        - do not apply italic slant midpoint
     """
 
     cps = [ord(ch) for ch in marks]
     all_metrics = load_all_fontmetrics()
     rows = []
-
-    cp = 0x0323
-    print("DEBUG: metrics for U+0323 =", all_metrics["regular"].get(cp))
 
     # Header
     header_hex = "hex & " + " & ".join(f"{cp:04X}" for cp in cps)
@@ -197,7 +201,7 @@ def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
     ]:
         style_metrics = all_metrics[style_key]
 
-        # Rendered glyph row
+        # Rendered glyph row (with CGJ)
         styled_cells = []
         for cp in cps:
             raw = f'\\char"{cp:04X}'
@@ -223,21 +227,20 @@ def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
         rows.append(f"{prefix}x & " + " & ".join(xs))
         rows.append(f"{prefix}y & " + " & ".join(ys))
 
-        # BBox midpoint
-        bbxm = []
+        # BBox midpoint (upright only for marks)
+        xm_cells = []
+        delta_cells = []
         for cp in cps:
-            mid = get_bbox_mid_x(style_metrics, cp)
-            bbxm.append(str(int(mid)) if mid is not None else "")
-        rows.append(r'\char"25A1 xm & ' + " & ".join(bbxm))
+            xm = get_upright_mid_x(style_metrics, cp)
+            xm_cells.append(str(int(xm)) if xm is not None else "")
 
-        # dx and dx_norm
-        deltas = []
-        norms = []
-        for cp in cps:
-            dx, dx_norm = compute_dx(style_metrics, cp, anchor_id)
-            deltas.append(str(int(dx)) if dx is not None else "")
-            norms.append(f"{dx_norm:.2f}" if dx_norm is not None else "")
-        rows.append(f"{prefix}xδ & " + " & ".join(deltas))
-        rows.append(f"{prefix}x\\% & " + " & ".join(norms))
+            dx = None
+            anchor = get_anchor(style_metrics, cp, anchor_id)
+            if anchor and xm is not None:
+                dx = anchor[0] - xm
+            delta_cells.append(str(int(dx)) if dx is not None else "")
+
+        rows.append("xm & " + " & ".join(xm_cells))
+        rows.append(f"{prefix}xδ & " + " & ".join(delta_cells))
 
     return " \\\\\n".join(rows) + " \\\\\n"

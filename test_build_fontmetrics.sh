@@ -1,4 +1,5 @@
 #!/bin/bash
+# diagnostic test JSON files if semantic tags are doing anything interesting
 for style in regular italic semibold semibold_italic
 do
   echo "=== $style ==="

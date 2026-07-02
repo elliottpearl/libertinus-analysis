@@ -22,7 +22,7 @@ from data.ipa.ipa_unicode import (
     MARK_ABOVE,
     MARK_BELOW,
     base_small_capital_glyph,
-    mark_small_capital_glyph,
+    mark_capital_glyph,
     mark_superscript_glyph,
 )
 from .fontmetrics_extract_tags import compute_semantic_tags

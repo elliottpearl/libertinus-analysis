@@ -252,20 +252,25 @@ base_small_capital = [
 # small capitals by glyph name
 base_small_capital_glyph = [
     # Basic Latin small caps
-    "a.sc","b.sc","c.sc","d.sc","e.sc","f.sc","g.sc",
-    "h.sc","i.sc","j.sc","k.sc","l.sc","m.sc","n.sc",
-    "o.sc","p.sc","q.sc","r.sc","s.sc","t.sc","u.sc",
-    "v.sc","w.sc","x.sc","y.sc","z.sc",
+    "a.sc","b.sc","c.sc","d.sc","e.sc","f.sc","g.sc","h.sc","i.sc","j.sc",
+    "k.sc","l.sc","m.sc","n.sc","o.sc","p.sc","q.sc","r.sc","s.sc","t.sc",
+    "u.sc","v.sc","w.sc","x.sc","y.sc","z.sc",
 
-    # Accented small caps
+    # precomposed small caps
     "agrave.sc","aacute.sc","acircumflex.sc","atilde.sc","adieresis.sc","aring.sc",
     "abreve.sc","aogonek.sc",
     "ccedilla.sc","cacute.sc","ccaron.sc",
+    "dcaron.sc",
     "egrave.sc","eacute.sc","ecircumflex.sc","edieresis.sc","eogonek.sc","ecaron.sc",
-    "igrave.sc","iacute.sc","icircumflex.sc","idieresis.sc",
+    "gbreve.sc",
+    "igrave.sc","iacute.sc","icircumflex.sc","idieresis.sc","idotaccent.sc",
+    "lacute.sc","lslash.sc","lcaron.sc",
     "ntilde.sc","nacute.sc","ncaron.sc",
     "ograve.sc","oacute.sc","ocircumflex.sc","odieresis.sc","ohungarumlaut.sc",
     "otilde.sc","oslash.sc",
+    "racute.sc","racaron.sc", 
+    "sacute.sc","scedilla.sc","scaron.sc","uni0219.sc"
+    "uni0163.sc","tbar.sc","tcaron.sc","uni021b.sc",
     "ugrave.sc","uacute.sc","ucircumflex.sc","udieresis.sc","uhungarumlaut.sc",
     "yacute.sc","ydieresis.sc",
     "zacute.sc","zdotaccent.sc","zcaron.sc",
@@ -663,7 +668,7 @@ MARK_RARE = [
     0x034E, # upwards arrow below (UPA)
 ]
 
-mark_small_capital_glyph = [
+mark_capital_glyph = [
     "grave.cap",
     "acute.cap",
     "circumflex.cap",
@@ -687,11 +692,29 @@ mark_superscript_glyph = [
     "uni0304.sups", # macron
 ]
 
+# marks in precomposed small cap glyphs
+MARK_SC = [
+    0x0300, # grave
+    0x0301, # acute
+    0x0302, # circumflex
+    0x0303, # tilde
+    0x0304, # macron (not precomposed, but should be) 
+    0x0306, # breve
+    0x0307, # dot above
+    0x0308, # diaeresis
+    0x0309, # hook above
+    0x030A, # ring
+    0x030B, # double acute
+    0x030C, # caron
+    0x030F, # double grave
+    0x0311, # inverted breve
+]
+
 # marks with alt glyph for capital by GSUB
 MARK_CAP = [
     0x0300, # acute
     0x0301, # grave
-    0x0302, # circomflex
+    0x0302, # circumflex
     0x0306, # breve
 # added in patch
     0x0307, # dot
@@ -1013,6 +1036,10 @@ unicode_groups = {
     "MARK_CAP" : {
         "label": "Marks with capital alternates",
         "items": MARK_CAP,
+    },
+    "MARK_SC" : {
+        "label": "Marks on small capitals",
+        "items": MARK_SC,
     },
     "MARK_GREEK": {
         "label": "Greek marks",

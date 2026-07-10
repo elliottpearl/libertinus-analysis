@@ -91,7 +91,8 @@
 	{\bfseries #1}
 	{\itshape\bfseries #1}}
 
-% combining grapheme joiner
+
+	% combining grapheme joiner
 \newcommand{\cgj}{\char"034F }
 
 
@@ -840,6 +841,106 @@ Dutch small capital ligature IJ with acute
 
 In an English LaTeX document, \verb|ij| and \verb|IJ| are kerned by the GPOS table to produce ij and IJ, 
 so they look close together, but they are not substituted by the single glyph for the ligature.
+
+\subsection*{Lowercase i with tilde below and grave above, in italic and semibold italic}
+
+First, start with i with tilde below (precomposed).
+
+\ribbiline{\char"1E2D}\
+\verb|\char"1E2D|\
+i with tilde below (precomposed)
+
+You cannot simply put a grave on it because it collides with the dot.
+
+\ribbiline{\char"1E2D\char"0300}\
+\verb|\char"1E2D\char"0300|\
+i with tilde below (precomposed) with grave
+
+Start over with i with grave (precomposed).
+
+\ribbiline{\char"00EC}\
+\verb|\char"00EC|\
+i with grave (precomposed) 
+
+Try putting a grave below.
+
+\ribbiline{\char"00EC\char"0330}\
+\verb|\char"00EC\char"0330|\
+i with grave (precomposed) with tilde below  
+
+This fails, because normalization breaks down the input 
+``i with grave (precomposed) with tilde below'' into 
+``i with grave with tilde below'', then into canonical order 
+``i with tilde below with grave'', the recomposes it into
+``i with tilde below (precomposed) with grave'', which reintroduces i's dot.
+
+Next, try to block normalization with the combining grapheme joiner (CGJ).
+
+\ribbiline{\char"00EC\cgj\char"0330}\ 
+\verb|\char"00EC\cgj\char"0330|\ 
+i with grave (precomposed) with combining grapheme joiner with tilde below 
+
+This looks bad because i with grave (precomposed) does not have a below-anchor and fallback shaping looks bad.
+
+Finally, try starting with dotless i, which has OK above- and below-anchors. 
+
+\ribbiline{\char"0131\char"0330\char"0300}\ 
+\verb|\char"0131\char"0330\char"0300|\
+dotless i with tilde below with grave 
+
+Normalization does not affect the dotless i, so it looks the same with the CGJ.
+
+\ribbiline{\char"0131\cgj\char"0330\char"0300}\ 
+\verb|\char"0131\cgj\char"0330\char"0300|\
+dotless i with CGJ with tilde below with grave 
+
+All together now, for comparison.
+
+\ribbiline{\char"1E2D\gs \char"00EC\gs \char"0131\char"0330\char"0300}\ 
+\verb|\char"1E2D \char"00EC \char"0131\char"0330\char"0300|\
+i with tilde below (precomposed); i with grave (precomposed); dotless i with tilde below with grave 
+
+The same strategy works with other above marks.
+
+\ribbiline{\char"0131\char"0330\char"030F}\ 
+\verb|\char"0131\char"0330\char"030F|\
+dotless i with tilde below with double grave 
+
+\ribbiline{\char"0131\char"0330\char"0301}\ 
+\verb|\char"0131\char"0330\char"0301|\
+dotless i with tilde below with acute
+
+\ribbiline{\char"0131\char"0330\char"030B}\ 
+\verb|\char"0131\char"0330\char"030B|\
+dotless i with tilde below with double acute
+
+
+\subsection*{Lowercase a with double grave, followed by floating double grave, in italic}
+
+In italic, we want to produce a (precomposed) vowel with a double grave, followed by floating double grave.
+Ideally, the two double graves should be aligned.
+We cannot use the combining double grave as the floater, because it has nothing to combine to, 
+and we cannot control its height.
+So we use a spacing character, specifically the double prime character (\char"2036\ \verb|\char"2036|), 
+which looks like a double grave, in italic.
+
+\textit{ȁ\char"2036}\ \verb|\textit{ȁ\char"2036}}|
+
+Then we lower it by a few points.
+
+\textit{ȁ\raisebox{-0.05em}{\char"2036}}\ \verb|\textit{ȁ\raisebox{-0.05em}{\char"2036}}|
+
+The distance to move the glyph can be calculated from its SFD splineset, or by trial and error.
+
+Note that only a, e, and i have precomposed glyphs with double acute.
+
+\textit{ȁ\raisebox{-0.05em}{\char"2036}}\ \verb|\textit{ȁ\raisebox{-0.05em}{\char"2036}}|
+
+\textit{ȅ\raisebox{-0.05em}{\char"2036}}\ \verb|\textit{ȅ\raisebox{-0.05em}{\char"2036}}|
+
+\textit{ȅ\raisebox{-0.045em}{\char"2036}}\ \verb|\textit{ȅ\raisebox{-0.045em}{\char"2036}}|
+
+\textit{\char"025B\raisebox{-0.05em}{\char"2036}}\ \verb|\textit{\char"025B\raisebox{-0.05em}{\char"2036}}|
 
 \subsection*{Tilde below, double acute above, double grave above, on vowels, in italic and semibold italic}
 

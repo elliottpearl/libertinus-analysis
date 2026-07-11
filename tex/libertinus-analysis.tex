@@ -96,6 +96,37 @@
 \newcommand{\cgj}{\char"034F }
 
 
+% fedotov
+\newcommand{\E}{Ɛ\kern-1.5pt\raisebox{1pt}{̏}\kern1.5pt}
+\newcommand{\ù}{{ṵ}\kern-2pt{̀}\kern2pt}
+\newcommand{\ȕ}{{ṵ}\kern-2pt{̏}\kern2pt}
+\newcommand{\OO}{ɔ\kern-1pt\raisebox{-1pt}{̰}\kern1pt}
+\newcommand{\Ǒ}{{{ɔ̌\kern-1pt\raisebox{-.5pt}{̰}\kern1pt}}}
+\newcommand{\à}{{a̰}\kern-2pt{̀}\kern2pt}
+
+\newcommand{\Itildegrave}{I\char"034F\char"0330\char"0300}
+\newcommand{\atildecaron}{a\char"034F\char"0330\char"030C}
+\newcommand{\utildegrave}{u\char"034F\char"0330\char"0300}
+
+\usepackage{xstring}
+
+% --- Dispatcher: maps word → Unicode combining mark ---
+\newcommand{\markdispatch}[1]{%
+  \IfStrEq{#1}{acute}{\char"0301}{}%
+  \IfStrEq{#1}{grave}{\char"0300}{}%
+  \IfStrEq{#1}{caron}{\char"030C}{}%
+  \IfStrEq{#1}{doubleacute}{\char"030B}{}%
+  \IfStrEq{#1}{doublegrave}{\char"030F}{}%
+}
+
+% --- Builder: vowel + CGJ + tilde-below + mark ---
+\newcommand{\voweltildemark}[2]{%
+  #1\char"034F\char"0330%
+  \markdispatch{#2}%
+}
+
+\newcommand{\myex}{\makebox[0pt][r]{+ }}
+
 \begin{document}
 
 \section*{Libertinus and diacritics}
@@ -995,31 +1026,31 @@ or \verb|\cgj| if loaded by some package, to force the shaper to use combining m
 \ribbiline{A E I O U \char"0190\ \char"0186\ a e i o u \char"025B\ \char"0254\ }
 
 % ACUTE (U+0301)
-\ribbiline{\PREC{\char"00C1} \PREC{\char"00C9} \PREC{\char"00CD} \PREC{\char"00D3} \PREC{\char"00DA} \char"0190\char"0301\ \char"0186\char"0301\
+1 \ribbiline{\PREC{\char"00C1} \PREC{\char"00C9} \PREC{\char"00CD} \PREC{\char"00D3} \PREC{\char"00DA} \char"0190\char"0301\ \char"0186\char"0301\
 \PREC{\char"00E1} \PREC{\char"00E9} \PREC{\char"00ED} \PREC{\char"00F3} \PREC{\char"00FA} \char"025B\char"0301\ \char"0254\char"0301\ }
 
 % GRAVE (U+0300)
-\ribbiline{\PREC{\char"00C0} \PREC{\char"00C8} \PREC{\char"00CC} \PREC{\char"00D2} \PREC{\char"00D9} \char"0190\char"0300\ \char"0186\char"0300\
+2 \ribbiline{\PREC{\char"00C0} \PREC{\char"00C8} \PREC{\char"00CC} \PREC{\char"00D2} \PREC{\char"00D9} \char"0190\char"0300\ \char"0186\char"0300\
 \PREC{\char"00E0} \PREC{\char"00E8} \PREC{\char"00EC} \PREC{\char"00F2} \PREC{\char"00F9} \char"025B\char"0300\ \char"0254\char"0300\ }
 
 % CARON (U+030C)
-\ribbiline{\PREC{\char"01CD} \PREC{\char"011A} \PREC{\char"01CF} \PREC{\char"01D1} \PREC{\char"01D3} \char"0190\char"030C\ \char"0186\char"030C\
+3 \ribbiline{\PREC{\char"01CD} \PREC{\char"011A} \PREC{\char"01CF} \PREC{\char"01D1} \PREC{\char"01D3} \char"0190\char"030C\ \char"0186\char"030C\
 \PREC{\char"01CE} \PREC{\char"011B} \PREC{\char"01D0} \PREC{\char"01D2} \PREC{\char"01D4} \char"025B\char"030C\ \char"0254\char"030C\ }
 
 % DOUBLE ACUTE (U+030B)
-\ribbiline{A\char"030B\ E\char"030B\ I\char"030B\ \PREC{\char"0150} \PREC{\char"0170} \char"0190\char"030B\ \char"0186\char"030B\
+4 \ribbiline{A\char"030B\ E\char"030B\ I\char"030B\ \PREC{\char"0150} \PREC{\char"0170} \char"0190\char"030B\ \char"0186\char"030B\
 a\char"030B\ e\char"030B\ \char"0131\char"030B\ \PREC{\char"0151} \PREC{\char"0171} \char"025B\char"030B\ \char"0254\char"030B\ }
 
 % DOUBLE GRAVE (U+030F)
-\ribbiline{\PREC{\char"0200} \PREC{\char"0204} \PREC{\char"0208} \PREC{\char"020C} \PREC{\char"0214} \char"0190\char"030F\ \char"0186\char"030F\
+5 \ribbiline{\PREC{\char"0200} \PREC{\char"0204} \PREC{\char"0208} \PREC{\char"020C} \PREC{\char"0214} \char"0190\char"030F\ \char"0186\char"030F\
 \PREC{\char"0201} \PREC{\char"0205} \PREC{\char"0209} \PREC{\char"020D} \PREC{\char"0215} \char"025B\char"030F\ \char"0254\char"030F\ }
 
 % TILDE BELOW ONLY (U+0330)
-\ribbiline{A\char"0330\ \PREC{\char"1E1A} \PREC{\char"1E2C} O\char"0330\ \PREC{\char"1E74} \char"0190\char"0330\ \char"0186\char"0330\
+6 \ribbiline{A\char"0330\ \PREC{\char"1E1A} \PREC{\char"1E2C} O\char"0330\ \PREC{\char"1E74} \char"0190\char"0330\ \char"0186\char"0330\
 a\char"0330\ \PREC{\char"1E1B} \PREC{\char"1E2D} o\char"0330\ \PREC{\char"1E75} \char"025B\char"0330\ \char"0254\char"0330\ }
 
 % TILDE BELOW + ACUTE
-\ribbiline{A\char"0330\char"0301\ 
+7 \ribbiline{A\char"0330\char"0301\ 
 E\char"0330\char"0301\ 
 I\char"0330\char"0301\ 
 O\char"0330\char"0301\ 
@@ -1034,8 +1065,25 @@ u\char"0330\char"0301\
 \char"025B\char"0330\char"0301\ 
 \char"0254\char"0330\char"0301\ }
 
+% TILDE BELOW + ACUTE
+7c \ribbiline{A\cgj\char"0330\char"0301\ 
+E\cgj\char"0330\char"0301\ 
+I\cgj\char"0330\char"0301\ 
+O\cgj\char"0330\char"0301\ 
+U\cgj\char"0330\char"0301\ 
+\char"0190\cgj\char"0330\char"0301\ 
+\char"0186\cgj\char"0330\char"0301\
+a\cgj\char"0330\char"0301\ 
+e\cgj\char"0330\char"0301\ 
+\char"0131\cgj\char"0330\char"0301\ 
+o\cgj\char"0330\char"0301\ 
+u\cgj\char"0330\char"0301\ 
+\char"025B\cgj\char"0330\char"0301\ 
+\char"0254\cgj\char"0330\char"0301\ }
+
+
 % TILDE BELOW + GRAVE
-\ribbiline{A\char"0330\char"0300\ 
+8 \ribbiline{A\char"0330\char"0300\ 
 E\char"0330\char"0300\ 
 I\char"0330\char"0300\ 
 O\char"0330\char"0300\ 
@@ -1051,7 +1099,7 @@ u\char"0330\char"0300\
 \char"0254\char"0330\char"0300\ }
 
 % TILDE BELOW + CARON
-\ribbiline{A\char"0330\char"030C\ 
+9 \ribbiline{A\char"0330\char"030C\ 
 E\char"0330\char"030C\ 
 I\char"0330\char"030C\ 
 O\char"0330\char"030C\ 
@@ -1067,7 +1115,7 @@ u\char"0330\char"030C\
 \char"0254\char"0330\char"030C\ }
 
 % TILDE BELOW + DOUBLE ACUTE
-\ribbiline{A\char"0330\char"030B\ 
+10 \ribbiline{A\char"0330\char"030B\ 
 E\char"0330\char"030B\ 
 I\char"0330\char"030B\ 
 O\char"0330\char"030B\ 
@@ -1083,7 +1131,7 @@ u\char"0330\char"030B\
 \char"0254\char"0330\char"030B\ }
 
 % TILDE BELOW + DOUBLE GRAVE
-\ribbiline{A\char"0330\char"030F\ 
+11 \ribbiline{A\char"0330\char"030F\ 
 E\char"0330\char"030F\ 
 I\char"0330\char"030F\ 
 O\char"0330\char"030F\ 
@@ -1127,7 +1175,7 @@ a\char"030B\ e\char"030B\ \char"0131\char"030B\ \PREC{\char"0151} \PREC{\char"01
 \ribbiline{A\char"0330\ \PREC{\char"1E1A} \PREC{\char"1E2C} O\char"0330\ \PREC{\char"1E74} \char"0190\char"0330\ \char"0186\char"0330\
 a\char"0330\ \PREC{\char"1E1B} \PREC{\char"1E2D} o\char"0330\ \PREC{\char"1E75} \char"025B\char"0330\ \char"0254\char"0330\ }
 
-% CGJ + TILDE BELOW
+cgj % CGJ + TILDE BELOW
 \ribbiline{A\cgj\char"0330\ E\cgj\char"0330\ I\cgj\char"0330\ O\cgj\char"0330\ U\cgj\char"0330\ \char"0190\cgj\char"0330\ \char"0186\cgj\char"0330\
 a\cgj\char"0330\ e\cgj\char"0330\ \char"0131\cgj\char"0330\ o\cgj\char"0330\ u\cgj\char"0330\ \char"025B\cgj\char"0330\ \char"0254\cgj\char"0330\ }
 
@@ -1136,7 +1184,7 @@ a\cgj\char"0330\ e\cgj\char"0330\ \char"0131\cgj\char"0330\ o\cgj\char"0330\ u\c
 a\char"0330\char"0301\ e\char"0330\char"0301\ \char"0131\char"0330\char"0301\ o\char"0330\char"0301\ u\char"0330\char"0301\ \char"025B\char"0330\char"0301\ \char"0254\char"0330\char"0301\ }
 
 % CGJ + TILDE BELOW + ACUTE
-\ribbiline{A\cgj\char"0330\char"0301\ E\cgj\char"0330\char"0301\ I\cgj\char"0330\char"0301\ O\cgj\char"0330\char"0301\ U\cgj\char"0330\char"0301\ \char"0190\cgj\char"0330\char"0301\ \char"0186\cgj\char"0330\char"0301\
+cgj \ribbiline{A\cgj\char"0330\char"0301\ E\cgj\char"0330\char"0301\ I\cgj\char"0330\char"0301\ O\cgj\char"0330\char"0301\ U\cgj\char"0330\char"0301\ \char"0190\cgj\char"0330\char"0301\ \char"0186\cgj\char"0330\char"0301\
 a\cgj\char"0330\char"0301\ e\cgj\char"0330\char"0301\ \char"0131\cgj\char"0330\char"0301\ o\cgj\char"0330\char"0301\ u\cgj\char"0330\char"0301\ \char"025B\cgj\char"0330\char"0301\ \char"0254\cgj\char"0330\char"0301\ }
 
 % CGJ + ACUTE + TILDE BELOW
@@ -1160,7 +1208,7 @@ u\char"0330\char"0300\
 \char"0254\char"0330\char"0300\ }
 
 % CGJ + TILDE BELOW + GRAVE
-\ribbiline{A\cgj\char"0330\char"0300\ 
+cgj \ribbiline{A\cgj\char"0330\char"0300\ 
 E\cgj\char"0330\char"0300\ 
 I\cgj\char"0330\char"0300\ 
 O\cgj\char"0330\char"0300\ 
@@ -1192,7 +1240,7 @@ u\char"0330\char"030C\
 \char"0254\char"0330\char"030C\ }
 
 % CGJ + TILDE BELOW + CARON
-\ribbiline{A\cgj\char"0330\char"030C\ 
+cgj \ribbiline{A\cgj\char"0330\char"030C\ 
 E\cgj\char"0330\char"030C\ 
 I\cgj\char"0330\char"030C\ 
 O\cgj\char"0330\char"030C\ 
@@ -1224,7 +1272,7 @@ u\char"0330\char"030B\
 \char"0254\char"0330\char"030B\ }
 
 % CGJ TILDE BELOW + DOUBLE ACUTE
-\ribbiline{A\cgj\char"0330\char"030B\ 
+cgj \ribbiline{A\cgj\char"0330\char"030B\ 
 E\cgj\char"0330\char"030B\ 
 I\cgj\char"0330\char"030B\ 
 O\cgj\char"0330\char"030B\ 
@@ -1256,7 +1304,7 @@ u\char"0330\char"030F\
 \char"0254\char"0330\char"030F\ }
 
 % CGJ + TILDE BELOW + DOUBLE GRAVE
-\ribbiline{A\cgj\char"0330\char"030F\ 
+cgj \ribbiline{A\cgj\char"0330\char"030F\ 
 E\cgj\char"0330\char"030F\ 
 I\cgj\char"0330\char"030F\ 
 O\cgj\char"0330\char"030F\ 
@@ -1902,5 +1950,230 @@ These grids display precomposed characters with referenced glyphs, where a preco
 \input{input/precomposed_inherit_above.tex}
 
 \input{input/precomposed_inherit_below.tex}
+
+
+\newpage
+
+
+\begin{enumerate}
+  \item  "i" not losing its dot when there is a tone diacritic AND a tilde below
+
+   ḭ́
+   ı̰́
+
+   ı̰́
+
+   ı̰̀
+
+  \item troubles with capital I
+
+Ḭ̀\
+\textit{Ḭ̀} \
+\textbf{\textit{Ḭ̀}}
+
+Solution: Use combnining grapheme joiner (CGJ)
+
+\Itildegrave\
+\textit{\Itildegrave}\
+\textbf{\textit{\Itildegrave}}
+
+\item double acute critic shifted right in bold face
+
+\textbf{\textit{á}}
+\textbf{\textit{a̋}}
+\textbf{\textit{a̰}}
+\textbf{\textit{\H{a̰}}}
+\textbf{\textit{a̰̋}}
+\textbf{\textit{a̰̋}}
+
+Solution: Patch anchor of double acute
+
+{\LibertinusSerifPatch 
+	\ribbiline{
+		á\ 
+		a̋\ 
+		a̰\
+		\H{a̰}\
+		a̰̋\
+		a̰̋\
+	}
+}
+
+\item wrong tilde placement together with caron (and grave? and acute? and double grave? OK, it seems it's rather about vowels...) with some vowels
+
+ǎ̰
+\textit{ǎ̰}
+\textbf{ǎ̰}
+\textit{\textbf{ǎ̰}}
+
+ṵ̀
+\textbf{\textit{ṵ̀}}
+\textbf{\textit{ṵ}}
+\textbf{\textit{ṵ̀}}
+
+Solution: Use combnining grapheme joiner (CGJ)
+
+\ribbiline{\atildecaron}
+
+\ribbiline{\utildegrave}
+
+
+\item wrong acute placement in bold face
+
+ɛ́
+\textit{ɛ́}
+\textbf{ɛ́}
+\textit{\textbf{ɛ́}}
+
+á
+\textit{á}
+\textbf{á}
+\textit{\textbf{á}}
+
+ɔ́
+\textit{ɔ́}
+\textbf{ɔ́}
+\textit{\textbf{ɔ́}}
+
+ú
+\textit{ú}
+\textbf{ú}
+\textit{\textbf{ú}}
+
+ɛ̀
+\textit{ɛ̀}
+\textbf{ɛ̀}
+\textit{\textbf{ɛ̀}}
+
+à
+\textit{à}
+\textbf{à}
+\textit{\textbf{à}}
+
+ɔ̀
+\textit{ɔ̀}
+\textbf{ɔ̀}
+\textit{\textbf{ɔ̀}}
+
+ù
+\textit{ù}
+\textbf{ù}
+\textit{\textbf{ù}}
+
+
+Solution: Patch above-anchor of acute and grave in (semi)bold.
+
+{\LibertinusSerifPatch 
+	\ribbiline{ɛ́} \ribbiline{á}
+
+	\ribbiline{ɔ́} \ribbiline{ú}
+
+
+	\ribbiline{ɛ̀} \ribbiline{à}
+
+	\ribbiline{ɔ̀} \ribbiline{ù}
+}
+
+\item italic examples with tilde below 
+
+{\itshape
+
+Flȁ̰
+
+\myex Fl\voweltildemark{a}{doublegrave}
+
+gṵ̀ à̰
+
+g{\ù}{\à}
+
+\myex g\voweltildemark{u}{grave}\voweltildemark{a}{grave}
+
+lȅ ɔ ̰
+
+\myex l\char"0205\ \char"0254\char"0330
+
+mṵ
+
+kṵ̏,
+
+k{\ȕ}
+
+\myex k\voweltildemark{u}{doublegrave}
+
+nṵ̏
+
+\myex n\voweltildemark{u}{doublegrave}
+
+nɔ̰̌
+
+nṵ̀
+
+n{\ù}
+
+N-ǎ̰
+
+vɔ̰̏ṵ̏ṵ̏
+
+fɔ̰̏ṵ̏fɔ̰̏ṵ̏
+
+lȅ ɔ̰
+
+}
+
+
+{\itshape\bfseries
+
+
+Flȁ̰
+
+
+gṵ̀ à̰
+
+g{\ù}{\à}
+
+
+
+ lȅ ɔ̰
+
+  lȅ {\OO}
+
+mṵ
+
+kṵ̏,
+
+k{\ȕ}
+
+nṵ̏
+
+nɔ̰̌
+
+n{\Ǒ}
+
+ nṵ̀
+
+ n{\ù}
+
+ N-ǎ̰
+
+%  vɔ̰̏ṵ̏ṵ̏
+
+%  fɔ̰̏ṵ̏fɔ̰̏ṵ̏
+
+ }
+
+
+\item Ɛ̏ bold italics
+
+  Ɛ̏
+
+  {\E}
+  \textit{\E}
+  \textbf{\E}
+  \textbf{\textit{\E}}
+
+
+ \end{enumerate}
+
+
 
 \end{document}

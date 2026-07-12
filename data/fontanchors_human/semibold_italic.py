@@ -20,6 +20,9 @@ anchors = {
         0x015E: { # S with cedilla
             0: (232, 805),  # S
         },
+        0x0190: { # open-E
+            0: (256, 805), # italic lane
+        },
         0x19F: { # O middle tilde
             0: (335, 805), # O
             2: (350, -110), # O 

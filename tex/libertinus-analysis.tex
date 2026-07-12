@@ -2060,14 +2060,12 @@ Solution: Use combnining grapheme joiner (CGJ)
 \textbf{ù}
 \textit{\textbf{ù}}
 
-
 Solution: Patch above-anchor of acute and grave in (semi)bold.
 
 {\LibertinusSerifPatch 
 	\ribbiline{ɛ́} \ribbiline{á}
 
 	\ribbiline{ɔ́} \ribbiline{ú}
-
 
 	\ribbiline{ɛ̀} \ribbiline{à}
 
@@ -2164,16 +2162,15 @@ n{\Ǒ}
 
 \item Ɛ̏ bold italics
 
-  Ɛ̏
+ Ɛ̏
 
-  {\E}
-  \textit{\E}
-  \textbf{\E}
-  \textbf{\textit{\E}}
+{\E}
+\textit{\E}
+\textbf{\E}
+\textbf{\textit{\E}}
 
+Solution: Set above-anchor for open-E, patch GSUB to use capital alternate mark glyph "uni"
 
- \end{enumerate}
-
-
+\end{enumerate}
 
 \end{document}

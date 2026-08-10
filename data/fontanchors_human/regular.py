@@ -19,7 +19,7 @@ anchors = {
 
     "bases": {
         0x004A: {  # J
-            2: (109, -254), # -272
+            2: (109, -254), # was (109, -319), not full descender, heristic clearance gives y = -272
         },
         0x0051: {  # Q
             2: (350, -291), # -309
@@ -31,11 +31,9 @@ anchors = {
             2: (227, -110),
         },
         0x0064: {  # d
-            # 0: (385, 885),  # center of stem; ascender aspect. 234 is center left bowl edge + 5 overshooot and right stem right edge
-            # 0: (233, 885),  # xmid of left bowl and right stem; ascender aspect.
-            0: (234, 885),
-            # 2: (222, -110), # xmid of lower bowl extrema; baseline aspect.
-            2: (234, -110),
+            0: (235, 885), # xmid of bowl counter; ascender aspect.
+            # 2: (222, -110), # xmid of bowl extrema; baseline aspect.
+            2: (235, -110), # xmid of bowl counter; ascender aspect.
         },
         0x0066: {  # f
             0: (273, 885),  # apex of f
@@ -242,6 +240,10 @@ anchors = {
         },
         0x0215: { # ȕ u double grave  
            2: (239, -110),
+        },
+        0x0237: { # dotless j
+            # 0: (???, 645),
+            2: (109, -319), # j
         },
         0x0253: {  # ɓ b-hook
             0: (255, 885),  # x at ymax

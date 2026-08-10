@@ -331,6 +331,9 @@ $by\delta d$	& descender	& $87$	& $87$	& $81$	& $100$	\\
 
 \subsection*{Copied anchors}
 
+\input{input/copied_anchors.tex}
+
+
 % above
 %0x00FE,0x0181,0x018A,0x019C,0x0237,0x0258,0x0262,0x0269,0x026F,0x0271
 %0x0273,0x027C
@@ -1448,6 +1451,39 @@ Patched italics (f only)
 	\char"1EA1\ \char"1E05\ \char"1E0D\ \char"1EB9\ \char"1E25\ \char"1ECB\ \char"1E33\ \char"1E37\ \char"1E43\ \char"1E47\ \char"1ECD\ \char"1E5B\ \char"1E63\ \char"1E6D\ \char"1EE5\ \char"1E7F\ \char"1E89\ \char"1EF5\ \char"1E93\
 	\ c\char"0323\ f\char"0323\ g\char"0323\ j\char"0323\ p\char"0323\ q\char"0323\ 
 	x\char"0323}
+
+\section*{Ashkun}
+
+\verb|a\char"0304\char"0303| \ribbiline{a\char"0304\char"0303}
+
+% \verb|a\cgj\char"0304\char"0303| \ribbiline{a\cgj\char"0304\char"0303}
+
+\verb|\char"0101\char"0303| \ribbiline{\char"0101\char"0303}
+
+% \verb|\char"0101\cgj\char"0303| \ribbiline{\char"0101\cgj\char"0303}
+
+\verb|u\char"0304\char"0303| \ribbiline{u\char"0304\char"0303}
+
+% \verb|u\cgj\char"0304\char"0303| \ribbiline{u\cgj\char"0304\char"0303}
+
+\verb|\char"016B\char"0303| \ribbiline{\char"016B\char"0303}
+
+% \verb|\char"016B\cgj\char"0303| \ribbiline{\char"016B\cgj\char"0303}
+
+Patched
+
+{\LibertinusSerifPatch
+\verb|u\char"0304\char"0303| \ribbiline{u\char"0304\char"0303}
+
+\verb|u\cgj\char"0304\char"0303| \ribbiline{u\cgj\char"0304\char"0303}
+
+\verb|\char"016B\cgj\char"0303| \ribbiline{\char"016B\cgj\char"0303}
+
+\verb|\char"016B\char"0303| \ribbiline{\char"016B\char"0303}
+
+}
+
+
 
 \newpage
 \subsection*{Patch superscript consonant anchors}

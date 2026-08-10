@@ -21,6 +21,9 @@ anchors = {
         0x015E: { # S with cedilla
             0: (402, 850),  # S
         },
+        0x016B: { # u with macron
+            0: (395, 786),  # translated from a with macron
+        },
         0x19F: { # O middle tilde
             0: (515, 850), # O
             2: (310, -110) # O

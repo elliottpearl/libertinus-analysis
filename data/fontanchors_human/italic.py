@@ -22,7 +22,7 @@ anchors = {
             0: (402, 850),  # S
         },
         0x016B: { # u with macron
-            0: (395, 786),  # translated from a with macron
+            0: (396, 785),  # translated from o with macron
         },
         0x19F: { # O middle tilde
             0: (515, 850), # O

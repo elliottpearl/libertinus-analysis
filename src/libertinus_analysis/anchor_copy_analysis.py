@@ -7,7 +7,6 @@ from collections import defaultdict
 from libertinus_analysis.fontmetrics_loader import load_all_fontmetrics, get_anchor
 from data.ipa.ipa_unicode import unicode_groups
 
-
 # ----------------------------------------------------------------------
 # EXACT same base groups as your fontmetrics report, minus marks
 # ----------------------------------------------------------------------
@@ -20,7 +19,6 @@ BASE_GROUPS = {
         list(unicode_groups["BASE_IPA"]["items"])
     ),
 }
-
 
 # ----------------------------------------------------------------------
 # Collect anchors for a list of codepoints
@@ -41,7 +39,6 @@ def collect_anchor_pairs(style_metrics: dict, cps: list[int]):
 
     return above, below
 
-
 # ----------------------------------------------------------------------
 # Cluster detection
 # ----------------------------------------------------------------------
@@ -53,7 +50,6 @@ def find_clusters(anchor_dict: dict, min_size: int):
         if len(cps) >= min_size
     ]
 
-
 # ----------------------------------------------------------------------
 # Union all base groups per style
 # ----------------------------------------------------------------------
@@ -63,7 +59,6 @@ def union_all_groups_per_style():
     for group_cps in BASE_GROUPS.values():
         cps.extend(group_cps)
     return sorted(set(cps))
-
 
 # ----------------------------------------------------------------------
 # Per-style union analysis

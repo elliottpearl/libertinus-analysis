@@ -7,7 +7,6 @@ Used by run_anchor_copy_report.py to write tex/input/copied_anchors.tex.
 
 from __future__ import annotations
 
-
 def tex_escape(s: str) -> str:
     """Escape TeX special characters."""
     return (
@@ -16,11 +15,9 @@ def tex_escape(s: str) -> str:
          .replace("#", "\\#")
     )
 
-
 # Marks used to visualize above/below anchor positions
 ABOVE_MARKS = ["0307", "030C", "0302"]   # dot, caron, circumflex
 BELOW_MARKS = ["0323", "032C", "0331"]   # dot below, caron below, macron below
-
 
 def format_cluster_row(pair, cps, marks):
     """
@@ -37,7 +34,6 @@ def format_cluster_row(pair, cps, marks):
 
     joined = " ".join(parts)
     return f"({ax}, {ay}) {joined}"
-
 
 def format_style_section(style_key: str, clusters: list, above=True):
     """
@@ -61,7 +57,6 @@ def format_style_section(style_key: str, clusters: list, above=True):
         lines.append("")  # blank line between rows
 
     return "\n".join(lines)
-
 
 def format_all_styles_tex(results: dict):
     """

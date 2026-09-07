@@ -29,7 +29,6 @@ HUMAN_ANCHORS = {
     "semibold_italic": semibold_italic.anchors,
 }
 
-
 def patch_fontanchors_human(font_key):
     """
     Patch a Libertinus font using ONLY the human-curated anchors.

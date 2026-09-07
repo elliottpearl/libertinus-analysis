@@ -31,7 +31,6 @@ ANCHOR_CLASS_NAMES = {
     2: ("below", "base"),
 }
 
-
 # ------------------------------------------------------------
 # Unicode-based base resolution
 # ------------------------------------------------------------
@@ -94,7 +93,6 @@ def get_base_record_for_glyph(sub, glyph_name):
 
     return None, None
 
-
 def ensure_base_record_for_glyph(sub, glyph_name):
     """
     Ensure glyph_name has a BaseRecord in this MarkToBase subtable.
@@ -120,7 +118,6 @@ def ensure_base_record_for_glyph(sub, glyph_name):
 
     return baserec, idx
 
-
 def get_anchor_from_baserec(baserec, class_index):
     """
     Return (x, y) for BaseAnchor[class_index] in this BaseRecord, or None.
@@ -133,7 +130,6 @@ def get_anchor_from_baserec(baserec, class_index):
         return None
 
     return (anchor.XCoordinate, anchor.YCoordinate)
-
 
 def set_anchor_in_baserec(baserec, class_index, x, y):
     """
@@ -150,7 +146,6 @@ def set_anchor_in_baserec(baserec, class_index, x, y):
 
     anchor.XCoordinate = x
     anchor.YCoordinate = y
-
 
 # ------------------------------------------------------------
 # Main entry point

@@ -20,7 +20,6 @@ from libertinus_analysis.anchor_copy_texformatter import (
     format_all_styles_tex,
 )
 
-
 def main():
     # Load all font metrics (your existing function)
     all_metrics = load_all_fontmetrics()

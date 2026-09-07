@@ -12,7 +12,6 @@ unicode_groups = ipa_unicode.unicode_groups
 MARK_BASE = ipa_unicode.MARK_BASE
 mark_class_index = ipa_unicode.mark_class_index
 
-
 def select_bases(*keys):
     """
     Return a list of base group lists.
@@ -20,7 +19,6 @@ def select_bases(*keys):
         select_bases("BASE_LATIN", "BASE_IPA")
     """
     return [getattr(ipa_unicode, k) for k in keys]
-
 
 def select_marks(*keys):
     """

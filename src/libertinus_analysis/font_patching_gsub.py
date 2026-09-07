@@ -7,7 +7,6 @@ Rebuilds GSUB from a human-curated .fea file, while preserving GPOS.
 
 from fontTools.feaLib.builder import Builder
 
-
 def patch_gsub_ccmp(ttfont, font_key: str) -> None:
     """
     Patch GSUB using the human-curated ccmp.fea file for the given font_key.

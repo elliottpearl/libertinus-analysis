@@ -18,7 +18,6 @@ from .font_patching_precomposed_anchors import patch_precomposed_anchors
 # from .font_patching_normalizeanchors import normalize_anchor_y
 # from .font_patching_heuristicanchors import patch_anchors_heuristic
 
-
 def patch_font(font_key: str) -> None:
     """
     Patch a Libertinus font in multiple stages.

@@ -68,7 +68,6 @@ def extract_mark_attachment_data(font, lookup_index):
 
     return anchorsByGlyph, cmap
 
-
 # ------------------------------------------------------------
 # FontContext class
 # ------------------------------------------------------------
@@ -176,7 +175,6 @@ class FontContext:
             return False
 
         return classIndex in class_map
-
 
 # ------------------------------------------------------------
 # Font registry

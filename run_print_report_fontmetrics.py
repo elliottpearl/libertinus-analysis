@@ -87,7 +87,5 @@ def main():
     print(f"Wrote LaTeX fontmetrics report to: {out_path}")
 
 
-
-
 if __name__ == "__main__":
     main()

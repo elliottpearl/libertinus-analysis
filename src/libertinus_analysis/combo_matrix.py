@@ -11,7 +11,6 @@ from .classifiers import (
 from .tex_helpers import render_cell, latex_font_cmd
 from .ipa_loader import unicode_groups, mark_class_index
 
-
 class ComboMatrix:
     """
     A reusable engine for classifying mark-base combinations across fonts

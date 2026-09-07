@@ -33,3 +33,4 @@ def build_all_fontmetrics():
 
 if __name__ == "__main__":
     build_all_fontmetrics()
+    

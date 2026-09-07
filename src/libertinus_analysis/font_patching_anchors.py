@@ -17,7 +17,6 @@ Behavior:
 
 from fontTools.ttLib.tables.otTables import Anchor, BaseRecord, MarkRecord
 
-
 # ------------------------------------------------------------
 # Lazy loader for human-curated anchor modules
 # ------------------------------------------------------------
@@ -30,7 +29,6 @@ def load_human_anchors(font_key: str):
     module_name = f"data.fontanchors_human.{font_key}"
     mod = __import__(module_name, fromlist=["anchors"])
     return mod.anchors
-
 
 # ------------------------------------------------------------
 # Helpers
@@ -59,7 +57,6 @@ def ensure_base_record(sub, glyph_name):
 
     return baserec
 
-
 def ensure_mark_record(sub, glyph_name):
     """
     Ensure glyph_name exists in MarkCoverage/MarkArray and return its MarkRecord.
@@ -79,7 +76,6 @@ def ensure_mark_record(sub, glyph_name):
     newrec.MarkAnchor.Format = 1
     mark_array.MarkRecord.append(newrec)
     return newrec
-
 
 # ------------------------------------------------------------
 # Main entry point

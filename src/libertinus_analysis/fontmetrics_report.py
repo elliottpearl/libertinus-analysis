@@ -14,7 +14,6 @@ from .tex_helpers import (
     latex_font_style,
 )
 
-
 # ----------------------------------------------------------------------
 # Table construction
 # ----------------------------------------------------------------------
@@ -170,7 +169,6 @@ $table_body
         colspec=colspec,
         table_body=table_body,
     )
-
 
 def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
     """

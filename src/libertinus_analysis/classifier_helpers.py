@@ -7,7 +7,6 @@
 import unicodedata
 import uharfbuzz as hb
 
-
 # ----------------------------------------------------------------------
 # Basic glyph existence checks
 # ----------------------------------------------------------------------
@@ -15,7 +14,6 @@ import uharfbuzz as hb
 def missing_glyph(cp, cmap):
     """Return True if the codepoint has no glyph in the cmap."""
     return cmap.get(cp) is None
-
 
 def missing_precomposed(base_cp, mark_cp, cmap):
     """
@@ -28,7 +26,6 @@ def missing_precomposed(base_cp, mark_cp, cmap):
         composed_cp = ord(nfc)
         return cmap.get(composed_cp) is None
     return False
-
 
 # ----------------------------------------------------------------------
 # HarfBuzz shaping

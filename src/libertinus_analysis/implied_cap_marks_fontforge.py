@@ -28,7 +28,6 @@ except ImportError:
     sys.stderr.write("Error: FontForge Python module is required.\n")
     sys.exit(1)
 
-
 # ---------------------------------------------------------------------------
 # CAP_MARK_PRECOMPOSED — full dictionary (to be moved to data.ipa.ipa_unicode)
 # ---------------------------------------------------------------------------
@@ -86,9 +85,7 @@ CAP_MARK_PRECOMPOSED = {
     ],
 }
 
-
 EPS = 1e-3
-
 
 # ---------------------------------------------------------------------------
 # Utility functions
@@ -100,7 +97,6 @@ def load_font(path):
     except Exception as e:
         sys.stderr.write(f"Error opening font '{path}': {e}\n")
         sys.exit(1)
-
 
 def classify_structure(g):
     if g is None:
@@ -116,14 +112,11 @@ def classify_structure(g):
     else:
         return "missing"
 
-
 def extract_inline_outline(g):
     return list(g.foreground)
 
-
 def contour_points(contour):
     return [(p.x, p.y, bool(p.on_curve), p.type) for p in contour]
-
 
 def normalize_points(points):
     xs = [x for x,y in points]
@@ -133,7 +126,6 @@ def normalize_points(points):
     translated = [(x-cx, y-cy) for x,y in points]
     maxd = max(math.hypot(x,y) for x,y in translated) or 1.0
     return [(x/maxd, y/maxd) for x,y in translated]
-
 
 def is_structurally_same(inline, canonical):
     if len(inline) != len(canonical):
@@ -154,7 +146,6 @@ def is_structurally_same(inline, canonical):
                 return False
     return True
 
-
 def pick_three_points(contours):
     pts = [(p.x,p.y) for c in contours for p in c]
     if len(pts) < 3:
@@ -165,7 +156,6 @@ def pick_three_points(contours):
     cy = sum(y for x,y in pts)/len(pts)
     p_far = max(pts, key=lambda xy: math.hypot(xy[0]-cx, xy[1]-cy))
     return [p_high, p_low, p_far]
-
 
 def solve_affine_transform(src, dst):
     def solve_3x3(m, v):
@@ -200,11 +190,9 @@ def solve_affine_transform(src, dst):
     b,d,ty = sol_y
     return (a,b,c,d,tx,ty)
 
-
 def apply_transform(points, T):
     a,b,c,d,tx,ty = T
     return [(a*x + c*y + tx, b*x + d*y + ty) for x,y in points]
-
 
 def verify_transform(canon, inline, T):
     for c1,c2 in zip(canon, inline):
@@ -218,7 +206,6 @@ def verify_transform(canon, inline, T):
                 return False
     return True
 
-
 def compute_implied_anchor(mark, T):
     anchors = mark.anchorPoints
     above = [a for a in anchors if a[0]=="above"]
@@ -227,7 +214,6 @@ def compute_implied_anchor(mark, T):
     _, ax, ay, *_ = above[0]
     a,b,c,d,tx,ty = T
     return (a*ax + c*ay + tx, b*ax + d*ay + ty)
-
 
 # ---------------------------------------------------------------------------
 # Main analysis
@@ -299,7 +285,6 @@ def analyze_font(font):
 
     return results
 
-
 def print_report(results):
     for r in results:
         print(f"Glyph: {r['pre']}")
@@ -318,7 +303,6 @@ def print_report(results):
         print(f"  Notes:     {', '.join(r['notes']) if r['notes'] else 'none'}")
         print()
 
-
 def main(argv):
     if len(argv) < 2:
         sys.stderr.write("Usage: implied_cap_marks_fontforge.py font.sfd\n")
@@ -327,7 +311,6 @@ def main(argv):
     font = load_font(argv[1])
     results = analyze_font(font)
     print_report(results)
-
 
 if __name__ == "__main__":
     main(sys.argv)

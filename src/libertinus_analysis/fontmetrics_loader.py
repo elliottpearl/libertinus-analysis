@@ -6,7 +6,6 @@ import json
 
 from .config import FONTMETRICS_DIR
 
-
 def load_fontmetrics(font_key: str) -> dict:
     """
     Load metrics JSON for a single font_key, converting:
@@ -32,11 +31,9 @@ def load_fontmetrics(font_key: str) -> dict:
         "glyph": glyph_dict,
     }
 
-
 def load_all_fontmetrics() -> dict[str, dict]:
     font_keys = ["regular", "italic", "semibold", "semibold_italic"]
     return {fk: load_fontmetrics(fk) for fk in font_keys}
-
 
 # ----------------------------------------------------------------------
 # Accessors (raw only — no derived metrics here)

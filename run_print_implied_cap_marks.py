@@ -13,7 +13,6 @@ from libertinus_analysis.implied_cap_marks import (
 
 OUT_DIR = Path("data/fontanchors_implied")
 
-
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -54,7 +53,6 @@ def main():
 
         out_path.write_text(report, encoding="utf-8")
         print(f"[{key}] wrote {out_path} ({len(report)} chars)")
-
 
 if __name__ == "__main__":
     main()

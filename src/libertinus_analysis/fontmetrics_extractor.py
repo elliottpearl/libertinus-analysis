@@ -27,7 +27,6 @@ from data.ipa.ipa_unicode import (
 )
 from .fontmetrics_extract_tags import compute_semantic_tags
 
-
 # ------------------------------------------------------------
 # JSON helpers
 # ------------------------------------------------------------
@@ -60,7 +59,6 @@ def write_fontmetrics_json(font_key, data):
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
-
 # ------------------------------------------------------------
 # Geometry helpers
 # ------------------------------------------------------------
@@ -73,7 +71,6 @@ def get_glyph_bbox(glyph_set, glyph_name):
         return (0, 0, 0, 0)
     xMin, yMin, xMax, yMax = pen.bounds
     return (round(xMin), round(yMin), round(xMax), round(yMax))
-
 
 # ------------------------------------------------------------
 # Build JSON entry for a single glyph
@@ -109,7 +106,6 @@ def build_glyph_entry(ttfont, glyph_set, anchorsByGlyph, gname):
         "rsb": rsb,
         "tags": tags,
     }
-
 
 # ------------------------------------------------------------
 # Main extraction entry point

@@ -14,7 +14,6 @@ from .classifier_helpers import (
 )
 from .ipa_loader import MARK_BASE
 
-
 # ----------------------------------------------------------------------
 # Sanity classifier
 # ----------------------------------------------------------------------
@@ -81,7 +80,6 @@ def classify_combo_sanity(base_cp, mark_cp, classIndex, fontctx):
         return "anchored", flags, infos, positions
 
     return "fallback", flags, infos, positions
-
 
 # ----------------------------------------------------------------------
 # Plain classifier

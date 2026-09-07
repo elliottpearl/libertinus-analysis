@@ -23,7 +23,6 @@ def _compute_basic_metrics(
         "rsb": float(rsb),
     }
 
-
 def _classify_horizontal_weight(metrics: Dict[str, float]):
     lsb = metrics["lsb"]
     rsb = metrics["rsb"]
@@ -43,10 +42,8 @@ def _classify_horizontal_weight(metrics: Dict[str, float]):
     else:
         return False, True, False
 
-
 def _detect_overhang_right(metrics: Dict[str, float]) -> bool:
     return metrics["rsb"] < 0.0
-
 
 def compute_semantic_tags(
     glyph,

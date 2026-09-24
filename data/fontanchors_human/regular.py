@@ -323,6 +323,11 @@ anchors = {
         0x0273: {  # ɳ n-retroflex-hook
             2: (262, -308),  # -319 + 11
         },
+        0x028A: { # upsilon
+            0: (253, 645), # xm
+            2: (253, -110), # xm
+        },
+
 #        0x1E1A: {  # Ḛ E tilde below
 #            0: (281, 850), # E above anchor
 #        },
@@ -472,7 +477,12 @@ anchors = {
     },
 
     "marks": {
-        # (none yet)
+        0x0318: { # left tack
+            2: (-249, -146), # mid
+        },
+        0x0319: { # right tack
+            2: (-249, -146), # mid
+        },
     },
 
     "marks_by_name": {

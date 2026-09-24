@@ -44,8 +44,12 @@ anchors = {
             0: (489, 850), # italic lane
             2: (286, -110) # italic lane
         },
+        0x028A: { # upsilon
+            0: (358, 645), # italic lane
+            2: (267, -110), # italic lane
+        },
         0xE100: { # en space with anchor, width = 320
-            0: (160,645),
+            0: (160, 645),
             2: (160,-110),
         },
     },

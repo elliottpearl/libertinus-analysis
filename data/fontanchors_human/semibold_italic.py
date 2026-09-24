@@ -43,12 +43,19 @@ anchors = {
             0: (462, 850), # italic lane
             2: (267, -110) # italic lane
         },
+        0x028A: { # upsilon
+            0: (369, 645), # italic lane
+            2: (281, -110), # italic lane
+        },
         0xE100: { # en space with anchor, width = 280
             0: (140,645),
             2: (140,-110),
         },
     },
     "marks": {
+        0x0300: { # grave
+            0: (0, 683), # was (-142, 683)
+        },
         0x030B: { # double acute above
             0: (-28, 719),  # -23 = x-mid of bbox, with -5 left offset for acute weight
         },

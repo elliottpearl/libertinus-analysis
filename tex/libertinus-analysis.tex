@@ -247,6 +247,19 @@ with red or blue shaded bands for ranges.
 I denote these as $yra$, $yrc$, $yrx$, $yr0$, $yrd$ because they are $Y$ values, 
 and r indicates a reference value. 
 a, c, x, 0, d indicate the five vertical aspects.
+These values (and the ranges that set the bands) are in the SFD, 
+in a line that starts with \verb|BlueValues|, e.g. in Libertinus serif regular, 
+
+\verb|BlueValues 47 [-12 0 429 442 460 472 600 610 645 658 688 698]|
+
+\verb|OtherBlues 11 [-238 -227]|
+
+means
+$yra = 698, [688, 698]$; 
+$yrc = 645, [645, 658]$; 
+$yrx = 429, [429, 442]$; 
+$yr0 = 0, [-12, 0]$; and 
+$yrd = -238, [-238, -227]$.
 
 In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor ($ay$) or a below-anchor ($by$) 
 is at a stable value depending on where the glyph outline lives relative to a vertical aspect.
@@ -299,6 +312,20 @@ Then $by = Y_\mathrm{min} + by\delta[0d] + \epsilon$,
 where $Y_\mathrm{min}$ in the minimum $Y$ coordinate of the bounding box of the glyph, 
 and $\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
 
+
+% (.venv) elliott@DESKTOP-7S81J0M:~/dev/libertinus-analysis$ grep 'BlueValues' fonts/LibertinusSerif-Regular.sfd fonts/LibertinusSerif-Italic.sfd fonts/LibertinusSerif-Semibold.sfd fonts/LibertinusSerif-SemiboldItalic.sfd
+% fonts/LibertinusSerif-Regular.sfd:BlueValues 47 [-12 0 429 442 460 472 600 610 645 658 688 698]
+% fonts/LibertinusSerif-Italic.sfd:BlueValues 47 [-12 1 429 442 460 474 567 578 645 658 688 698]
+% fonts/LibertinusSerif-Semibold.sfd:BlueValues 47 [-12 1 433 447 460 474 563 580 645 662 690 698]
+% fonts/LibertinusSerif-SemiboldItalic.sfd:BlueValues 47 [-20 0 434 447 460 474 580 581 645 662 696 705]
+% (.venv) elliott@DESKTOP-7S81J0M:~/dev/libertinus-analysis$ grep 'OtherBlues' fonts/LibertinusSerif-Regular.sfd fonts/LibertinusSerif-Italic.sfd fonts/LibertinusSerif-Semibold.sfd fonts/LibertinusSerif-SemiboldItalic.sfd
+% fonts/LibertinusSerif-Regular.sfd:OtherBlues 11 [-238 -227]
+% fonts/LibertinusSerif-Regular.sfd:FamilyOtherBlues 11 [-238 -227]
+% fonts/LibertinusSerif-Italic.sfd:OtherBlues 11 [-238 -227]
+% fonts/LibertinusSerif-Italic.sfd:FamilyOtherBlues 11 [-235 -227]
+% fonts/LibertinusSerif-Semibold.sfd:OtherBlues 11 [-238 -212]
+% fonts/LibertinusSerif-SemiboldItalic.sfd:OtherBlues 11 [-239 -219]
+
 \begin{table}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
 	\caption{Vertical aspects, anchor $Y$ references, and clearances of Libertinus}
@@ -306,12 +333,12 @@ and $\epsilon$ is the correction for the vertical aspect range, usually for an o
 	\setlength{\tabcolsep}{2pt}
 
 \begin{tabular}{l  l  r  r  r  r}
-		& v. aspect	& regular			& italic			& semibold	& semibold italic\\
-$yra$	& ascender	& $688,	[688,698]$	& $688, [688,698]$	& $690$		& $698$ \\
-$yrc$	& capital	& $645,	[645,658]$	& $645, [645,658]$	& $645$		& $645$ \\
-$yrx$	& x-height	& $429,	[429,432]$	& $429, [429,432]$	& $433$		& $434, [433,447]$ \\
-$yr0$	& baseline	& $0, [-12,0]$		& $0, [-12,0]$		& $0$		& $0$ \\
-$yrd$	& descender	& $-232, [-238,-227]$& $-233, [-238,-227]$& $-238$	& $-232, [-238,-232]$ \\
+		& v. aspect	& regular			& italic				& semibold			& semibold italic\\
+$yra$	& ascender	& $688,	[688,698]$	& $688, [688,698]$		& $690, [690,698]$	& $696, [696,705]$ \\
+$yrc$	& capital	& $645,	[645,658]$	& $645, [645,658]$		& $645, [645,662]$	& $645, [645,662]$ \\
+$yrx$	& x-height	& $429,	[429,442]$	& $429, [429,442]$		& $433, [433,447]$	& $434, [434,447]$ \\
+$yr0$	& baseline	& $0, [-12,0]$		& $0, [-12,1]$			& $0, [-12,1]$, 	& $0, [-20,0]$ \\
+$yrd$	& descender	& $-238, [-238,-227]$& $-238, [-238,-227]$	& $-238, [-238,-212]$& $-239, [-239,-219]$ \\
 \hline
 $ayra$	& ascender	& $885$	& $890$	& $885$	& $890$	\\
 $ayrc$	& capital	& $850$	& $850$	& $805$	& $850$	\\
@@ -327,6 +354,7 @@ $by\delta d$	& descender	& $87$	& $87$	& $81$	& $100$	\\
 \end{tabular}
 
 \end{table}
+
 
 
 \subsection*{Copied anchors}
@@ -1487,6 +1515,42 @@ Move box without patching font
 
 \verb|\char"016B\kern-4.132pt\raisebox{0.88pt}{\char"02DC}| 
 \ribbiline{\char"016B\kern-4.132pt\raisebox{0.88pt}{\char"02DC}
+}
+
+\section*{Tacks}
+
+a\char"0318
+e\char"0318
+i\char"0318
+o\char"0318
+u\char"0318
+a\char"0319
+e\char"0319
+i\char"0319
+o\char"0319
+u\char"0319
+
+{\LibertinusSerifPatch
+a\char"0318
+e\char"0318
+i\char"0318
+o\char"0318
+u\char"0318
+a\char"0319
+e\char"0319
+i\char"0319
+o\char"0319
+u\char"0319
+}
+
+\section*{Upsilon}
+
+upsilon + grave
+
+\ribbiline{\char"028A\char"0300}
+
+{\LibertinusSerifPatch
+\ribbiline{\char"028A\char"0300}
 }
 
 

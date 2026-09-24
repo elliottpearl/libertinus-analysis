@@ -7,37 +7,37 @@ from .fontmetrics_loader import (
 )
 
 # ----------------------------------------------------------------------
-# Style-specific vertical thresholds (derived from Table 9)
+# Style-specific vertical thresholds (from BlueValues + tolerances)
 # ----------------------------------------------------------------------
 
 VERTICAL_THRESHOLDS = {
     "regular": {
-        "ascender_min": 680,
-        "capital_min": 640,
-        "xheight_min": 420,
-        "baseline_max": 10,
-        "descender_max": -220,
+        "ascender_min": 688 - 6,   # 682
+        "capital_min": 645 - 5,    # 640
+        "xheight_min": 429 - 3,    # 426
+        "baseline_max": 0 + 2,     # 2
+        "descender_max": -238 + 3, # -235
     },
     "italic": {
-        "ascender_min": 680,
-        "capital_min": 640,
-        "xheight_min": 420,
-        "baseline_max": 10,
-        "descender_max": -220,
+        "ascender_min": 688 - 6,   # 682
+        "capital_min": 645 - 5,    # 640
+        "xheight_min": 429 - 3,    # 426
+        "baseline_max": 0 + 2,     # 2
+        "descender_max": -238 + 3, # -235
     },
     "semibold": {
-        "ascender_min": 685,
-        "capital_min": 635,
-        "xheight_min": 425,
-        "baseline_max": 10,
-        "descender_max": -225,
+        "ascender_min": 690 - 6,   # 684
+        "capital_min": 645 - 5,    # 640
+        "xheight_min": 433 - 3,    # 430
+        "baseline_max": 0 + 2,     # 2
+        "descender_max": -238 + 3, # -235
     },
     "semibold_italic": {
-        "ascender_min": 690,
-        "capital_min": 635,
-        "xheight_min": 425,
-        "baseline_max": 10,
-        "descender_max": -225,
+        "ascender_min": 696 - 6,   # 690
+        "capital_min": 645 - 5,    # 640
+        "xheight_min": 434 - 3,    # 431
+        "baseline_max": 0 + 2,     # 2
+        "descender_max": -239 + 3, # -236
     },
 }
 
@@ -116,7 +116,7 @@ def classify_vertical(style_key: str, bbox):
     """
     Classify glyph into one of:
         ascender, capital, xheight, descender, baseline
-    using style-specific thresholds derived from Table 9.
+    using BlueValues-derived thresholds.
     """
     xmin, ymin, xmax, ymax = bbox
     T = VERTICAL_THRESHOLDS.get(style_key, VERTICAL_THRESHOLDS["regular"])

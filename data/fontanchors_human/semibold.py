@@ -59,6 +59,10 @@ anchors = {
         0x01B7: { # Ezh
             0: (321, 805), # xm above
         },
+        0x028A: { # upsilon
+            0: (267, 645), # xm
+            2: (267, -110), # xm
+        },
         0xE100: { # en space with anchor, width = 300
             0: (150,645),
             2: (150,-110),

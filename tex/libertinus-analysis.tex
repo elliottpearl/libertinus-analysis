@@ -1543,15 +1543,35 @@ o\char"0319
 u\char"0319
 }
 
-\section*{Upsilon}
+\newpage
+\section*{Upsilon and grave}
 
-upsilon + grave
+Original, then patched, versions of upsilon and combining grave,
+after setting upsilon's above-anchor.
 
 \ribbiline{\char"028A\char"0300}
 
 {\LibertinusSerifPatch
 \ribbiline{\char"028A\char"0300}
 }
+
+New upsilon above-anchor: 
+regular $(253, 645)$;
+italic $(358, 645)$;
+semibold $(267, 645)$;
+semibold italic $(369, 645)$
+
+Revised combining grave above-anchor: semibold italic $(0, 683)$.
+Moved from $(-142, 683)$, which is far left of the optical center of the mark, 
+which has the effect of attaching the mark too far left.
+
+Spoof to move modifier grave (which has the exact same outline as combining grave) to an anchored position, 
+if upsilon had an above-anchor at $(358, 645)$ (keeping combining grave's above-anchor as is).
+Note upsilon is U+028A and modifier grave is U+02CB.
+
+\verb|\textit{\char"028A\kern-4.66pt\raisebox{-0.38pt}{\char"02CB}}| 
+
+\textit{\char"028A\kern-4.66pt\raisebox{-0.38pt}{\char"02CB}}
 
 
 \newpage

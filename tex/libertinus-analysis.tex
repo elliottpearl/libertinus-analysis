@@ -334,23 +334,23 @@ and $\epsilon$ is the correction for the vertical aspect range, usually for an o
 
 \begin{tabular}{l  l  r  r  r  r}
 		& v. aspect	& regular				& italic				& semibold			& semibold italic\\
-$yra$	& ascender	& $698,	[688,698]$			& $688, [688,698]$		& $690, [690,698]$	& $696, [696,705]$ \\
-$yrc$	& capital	& $645,	[645,658]$				& $645, [645,658]$		& $645, [645,662]$	& $645, [645,662]$ \\
-$yrx$	& x-height	& $429,	[429,442]$		& $429, [429,442]$		& $433, [433,447]$	& $434, [434,447]$ \\
+$yra$	& ascender	& $698,	[688,698]$		& $698, [688,698]$		& $698, [690,698]$	& $698, [696,705]$ \\
+$yrc$	& capital	& $645,	[645,658]$		& $645, [645,658]$		& $645, [645,662]$	& $645, [645,662]$ \\
+$yrx$	& x-height	& $429,	[429,442]$		& $429, [429,442]$		& $434, [433,447]$	& $434, [434,447]$ \\
 $yr0$	& baseline	& $0,  [-12,0]$			& $0, [-12,1]$			& $0, [-12,1]$, 	& $0, [-20,0]$ \\
-$yrd$	& descender	& $-232, [-238,-227]$	& $-238, [-238,-227]$	& $-238, [-238,-212]$& $-239, [-239,-219]$ \\
+$yrd$	& descender	& $-232, [-238,-227]$	& $-232, [-238,-227]$	& $-232, [-238,-212]$& $-232, [-239,-219]$ \\
 \hline
 $ayra$	& ascender	& $885$	& $890$	& $885$	& $890$	\\
 $ayrc$	& capital	& $850$	& $850$	& $805$	& $850$	\\
 $ayrx$	& x-height	& $645$	& $645$	& $645$	& $645$	\\
-$byr0$	& baseline	& $-110$	& $-110$	& $-110$	& $-110$	\\
-$byrd$	& descender	& $-319$	& $-319$	& $-319$	& $-319$	\\
+$byr0$	& baseline	& $-110$& $-110$& $-110$& $-110$ \\
+$byrd$	& descender	& $-319$& $-319$& $-319$& $-319$ \\
 \hline
-$ay\delta a$	& ascender	& $187$	& $202$	& $195$	& $192$	\\
+$ay\delta a$	& ascender	& $187$	& $192$	& $187$	& $192$	\\
 $ay\delta c$	& capital	& $205$	& $205$	& $205$	& $205$	\\
-$ay\delta x$	& x-height	& $216$	& $216$	& $212$	& $198$	\\
+$ay\delta x$	& x-height	& $216$	& $216$	& $211$	& $211$	\\
 $by\delta 0$	& baseline	& $110$	& $110$	& $110$	& $110$	\\
-$by\delta d$	& descender	& $87$	& $87$	& $81$	& $100$	\\
+$by\delta d$	& descender	& $87$	& $87$	& $87$	& $87$	\\
 \end{tabular}
 
 \end{table}
@@ -364,7 +364,7 @@ I need to keep track of serif and bowl corrections relative to the (single) vert
 In Libertinus serif regular, a glyph that meets an aspect with a stem needs a 2 unit correction.
 For example, the letter x meets the baseline and x-height aspects, with stems, but 
 $y_\mathrm{min} = 0 - 2 = -2$ and $y_\mathrm{max} = 429 + 2 = 431$.
-For bowls, the corrections tend to different for each aspect.
+For bowls, the corrections tend to be different for each aspect.
 For  Libertinus serif regular, a glyph that is a bowl full-descender (usually) has a 6 unit overshoot, 
 i.e. $y_\mathrm{min} = -232 -6 = -238$.
 A bowl on the baseline (usually) has a 10 unit overshoot, i.e. $y_\mathrm{min} = 0 -10 = -10$.
@@ -373,13 +373,15 @@ A bowl at the capital aspect (usually) has a 13 unit overshoot, i.e. $y_\mathrm{
 For full ascenders, there is no correction in practice, regardless of the shape of the glyph's ascender, 
 because $y_\mathrm{max} = 698$ for all such glyphs.
 
-So, for each font style, I need an absolute value of the correction for a stem and four (but probably fewer distinct) bowls.
-For regular, these corrections are 2 and 6, 10, 10, 13.
-Of course, these corrections are subtracted or added to the aspect reference value depending on the context.
+That is, these stem and bowl corrections are 2 and 6, 10, 10, 13.
 
-For italic, these corrections are ???.
-
-For semibold, these corrections are ???.
+For the other font styles (italic, semibold, semibold italic), these corrections are remarkably consistent for all aspects,
+even though e.g. italic small letters do not really have flat terminal stems.
+But I think that the correction principle is valid for glyphs that are not within the threshold of an expected vertical aspect.
+For a non-full descender, if $y_\mathrm{min}$ is closest to the descender aspect, and the glyph looks like a bowl at this lowest point, 
+then the correction is 6; otherwise I assume that the glyph must look like a flat stem and the correction is 2.
+But for a non-full descender that is closer to the baseline, the bowl correction is 10.
+Full descender bowls tend to be flatter because the lower threhold of the descender really is a hard lower bound.
 
 For semibold italic , these corrections are ???.
 

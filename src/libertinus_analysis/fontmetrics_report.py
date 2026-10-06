@@ -4,11 +4,15 @@ from __future__ import annotations
 from .fontmetrics_loader import (
     load_all_fontmetrics,
     get_anchor,
+    get_bbox,
 )
 from .fontmetrics_helpers import (
     get_mid_x_for_style,
     compute_dx,
     get_upright_mid_x,
+    get_unicode_category,
+    get_ideal_above_aspect,
+    get_ideal_below_aspect,
 )
 from .tex_helpers import (
     latex_font_style,
@@ -36,7 +40,6 @@ def _sample_cells_for_style(style_key: str, cps: list[int]) -> list[str]:
             cells.append(latex_font_style(style_key, raw))
     return cells
 
-
 def make_fontmetrics_table(bases: list[str]) -> str:
     """
     Build the LaTeX table body (no wrapper).
@@ -51,6 +54,10 @@ def make_fontmetrics_table(bases: list[str]) -> str:
     header_hex = "hex & " + " & ".join(f"{cp:04X}" for cp in cps)
     rows.append(header_hex)
 
+    # Unicode category row
+    row_cat = "cat & " + " & ".join(get_unicode_category(cp) for cp in cps)
+    rows.append(row_cat)
+
     # Full blocks for all four styles
     for style_key, style_header in [
         ("regular", "reg"),
@@ -63,6 +70,22 @@ def make_fontmetrics_table(bases: list[str]) -> str:
         # Style glyph row (with CGJ)
         styled_cells = _sample_cells_for_style(style_key, cps)
         rows.append(style_header + " & " + " & ".join(styled_cells))
+
+        # --- NEW ROWS: aa (ideal above aspect), ba (ideal below aspect) ---
+        aa_cells = []
+        ba_cells = []
+        for cp in cps:
+            bbox = get_bbox(style_metrics, cp)
+            if bbox:
+                ymin, ymax = bbox[1], bbox[3]
+                aa_cells.append(get_ideal_above_aspect(style_header, ymax, cp))
+                ba_cells.append(get_ideal_below_aspect(style_header, ymin))
+            else:
+                aa_cells.append("")
+                ba_cells.append("")
+        rows.append("aa & " + " & ".join(aa_cells))
+        rows.append("ba & " + " & ".join(ba_cells))
+        # ---------------------------------------------------------------
 
         # Anchor rows: ax, ay (anchor 0), bx, by (anchor 2)
         for anchor_id, prefix in [("0", "a"), ("2", "b")]:
@@ -126,7 +149,6 @@ def make_fontmetrics_table(bases: list[str]) -> str:
     body = " \\\\\n".join(rows) + " \\\\\n"
     return body
 
-
 # ----------------------------------------------------------------------
 # LaTeX wrapper
 # ----------------------------------------------------------------------
@@ -170,6 +192,7 @@ $table_body
         table_body=table_body,
     )
 
+
 def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
     """
     Build a LaTeX table for combining marks.
@@ -189,6 +212,10 @@ def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
     # Header
     header_hex = "hex & " + " & ".join(f"{cp:04X}" for cp in cps)
     rows.append(header_hex)
+
+    # Category row for marks too
+    row_cat = "cat & " + " & ".join(get_unicode_category(cp) for cp in cps)
+    rows.append(row_cat)
 
     # Iterate over styles
     for style_key, style_header in [

@@ -6,6 +6,8 @@ from .fontmetrics_loader import (
     get_anchor,
 )
 
+import unicodedata
+
 # ----------------------------------------------------------------------
 # Style-specific vertical thresholds (from BlueValues + tolerances)
 # ----------------------------------------------------------------------
@@ -76,6 +78,121 @@ ANCHOR_Y_REF = {
     },
 }
 
+# --- New optical thresholds per style (do NOT replace legacy dicts) ---
+
+VERTICAL_THRESHOLDS_OPT = {
+    "reg": {
+        "asc": {"val": 698, "lo": 688, "hi": 698},
+        "cap": {"val": 645, "lo": 645, "hi": 658},
+        "xh":  {"val": 429, "lo": 429, "hi": 442},
+        "base":{"val":   0, "lo": -12, "hi":   0},
+        "desc":{"val": -232, "lo": -238, "hi": -227},
+    },
+    "it": {
+        "asc": {"val": 698, "lo": 688, "hi": 698},
+        "cap": {"val": 645, "lo": 645, "hi": 658},
+        "xh":  {"val": 429, "lo": 429, "hi": 442},
+        "base":{"val":   0, "lo": -12, "hi":   1},
+        "desc":{"val": -232, "lo": -238, "hi": -227},
+    },
+    "sb": {
+        "asc": {"val": 698, "lo": 690, "hi": 698},
+        "cap": {"val": 645, "lo": 645, "hi": 662},
+        "xh":  {"val": 434, "lo": 433, "hi": 447},
+        "base":{"val":   0, "lo": -12, "hi":   1},
+        "desc":{"val": -232, "lo": -238, "hi": -212},
+    },
+    "si": {
+        "asc": {"val": 698, "lo": 696, "hi": 705},
+        "cap": {"val": 645, "lo": 645, "hi": 662},
+        "xh":  {"val": 434, "lo": 434, "hi": 447},
+        "base":{"val":   0, "lo": -20, "hi":   0},
+        "desc":{"val": -232, "lo": -239, "hi": -219},
+    },
+}
+
+ANCHOR_Y_REF_OPT = {
+    "reg": {"asc": 885, "cap": 850, "xh": 645, "base": -110, "desc": -319},
+    "it":  {"asc": 890, "cap": 850, "xh": 645, "base": -110, "desc": -319},
+    "sb":  {"asc": 885, "cap": 805, "xh": 645, "base": -110, "desc": -319},
+    "si":  {"asc": 890, "cap": 850, "xh": 645, "base": -110, "desc": -319},
+}
+
+CLEARANCES_OPT = {
+    "reg": {"asc": 187, "cap": 205, "xh": 216, "base": 110, "desc": 87},
+    "it":  {"asc": 192, "cap": 205, "xh": 216, "base": 110, "desc": 87},
+    "sb":  {"asc": 187, "cap": 205, "xh": 211, "base": 110, "desc": 87},
+    "si":  {"asc": 192, "cap": 205, "xh": 211, "base": 110, "desc": 87},
+}
+
+def get_unicode_category(cp: int) -> str:
+    if cp in (0x0294, 0x0295, 0x0296):
+        return "Lu"
+    return unicodedata.category(chr(cp))
+
+def _within_range(val: int, lo: int, hi: int) -> bool:
+    return lo <= val <= hi
+
+def get_ideal_above_aspect(style_key: str, ymax: int, cp: int) -> str:
+    cat = get_unicode_category(cp)
+    thresholds = VERTICAL_THRESHOLDS_OPT[style_key]
+
+    if cat == "Lu":
+        candidates = ["c", "a"]
+    else:
+        candidates = ["x", "a"]
+
+    aspect_map = {
+        "a": thresholds["asc"],
+        "c": thresholds["cap"],
+        "x": thresholds["xh"],
+    }
+
+    best_aspect = None
+    best_delta = None
+    for code in candidates:
+        t = aspect_map[code]
+        delta = ymax - t["val"]
+        if best_delta is None or abs(delta) < abs(best_delta):
+            best_aspect = code
+            best_delta = delta
+
+    t = aspect_map[best_aspect]
+    if _within_range(ymax, t["lo"], t["hi"]):
+        return best_aspect
+
+    if best_delta == 0:
+        return best_aspect
+    sign = "+" if best_delta > 0 else "-"
+    return f"{best_aspect}{sign}{abs(best_delta)}"
+
+def get_ideal_below_aspect(style_key: str, ymin: int) -> str:
+    thresholds = VERTICAL_THRESHOLDS_OPT[style_key]
+
+    base = thresholds["base"]
+    desc = thresholds["desc"]
+
+    delta_b = ymin - base["val"]
+    delta_d = ymin - desc["val"]
+
+    if abs(delta_b) <= abs(delta_d):
+        code = "b"
+        t = base
+        delta = delta_b
+    else:
+        code = "d"
+        t = desc
+        delta = delta_d
+
+    if _within_range(ymin, t["lo"], t["hi"]):
+        return code
+
+    if delta == 0:
+        return code
+    sign = "+" if delta > 0 else "-"
+    return f"{code}{sign}{abs(delta)}"
+
+
 # ----------------------------------------------------------------------
 # BBox-derived metrics
 # ----------------------------------------------------------------------
@@ -106,7 +223,6 @@ def get_bbox_mid_x(style_metrics: dict, cp: int):
 
     xmin, ymin, xmax, ymax = bbox
     return (xmin + xmax) // 2
-
 
 # ----------------------------------------------------------------------
 # Vertical classification (Table 9 ranges)
@@ -147,14 +263,11 @@ def get_anchor_y_ref(style_key: str, category: str, above: bool) -> int:
             return refs["capital"]
         if category == "xheight":
             return refs["xheight"]
-        # fallback
         return refs["capital"]
     else:
         if category == "descender":
             return refs["descender"]
-        # baseline or fallback
         return refs["baseline"]
-
 
 # ----------------------------------------------------------------------
 # Style-aware midpoints
@@ -211,7 +324,6 @@ def get_mid_x_for_style(style_key: str, style_metrics: dict, cp: int, anchor_id:
     else:
         return get_upright_mid_x(style_metrics, cp)
 
-
 # ----------------------------------------------------------------------
 # Anchor-derived metrics
 # ----------------------------------------------------------------------
@@ -234,3 +346,4 @@ def compute_dx(style_metrics: dict, cp: int, anchor_id: str, style_key: str):
     anchor_x = anchor[0]
     dx = anchor_x - mid_x
     return dx
+

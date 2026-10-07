@@ -9,32 +9,100 @@ from .fontmetrics_loader import (
 import unicodedata
 
 # ----------------------------------------------------------------------
-# Optical thresholds per style (BlueValues + tolerances, legacy style keys)
+# Style-specific vertical thresholds (from BlueValues + tolerances)
 # ----------------------------------------------------------------------
 
-VERTICAL_THRESHOLDS_OPT = {
+VERTICAL_THRESHOLDS = {
     "regular": {
+        "ascender_min": 688 - 6,   # 682
+        "capital_min": 645 - 5,    # 640
+        "xheight_min": 429 - 3,    # 426
+        "baseline_max": 0 + 2,     # 2
+        "descender_max": -238 + 3, # -235
+    },
+    "italic": {
+        "ascender_min": 688 - 6,   # 682
+        "capital_min": 645 - 5,    # 640
+        "xheight_min": 429 - 3,    # 426
+        "baseline_max": 0 + 2,     # 2
+        "descender_max": -238 + 3, # -235
+    },
+    "semibold": {
+        "ascender_min": 690 - 6,   # 684
+        "capital_min": 645 - 5,    # 640
+        "xheight_min": 433 - 3,    # 430
+        "baseline_max": 0 + 2,     # 2
+        "descender_max": -238 + 3, # -235
+    },
+    "semibold_italic": {
+        "ascender_min": 696 - 6,   # 690
+        "capital_min": 645 - 5,    # 640
+        "xheight_min": 434 - 3,    # 431
+        "baseline_max": 0 + 2,     # 2
+        "descender_max": -239 + 3, # -236
+    },
+}
+
+# ----------------------------------------------------------------------
+# Anchor Y references (Table 9)
+# ----------------------------------------------------------------------
+
+ANCHOR_Y_REF = {
+    "regular": {
+        "ascender": 885,
+        "capital": 850,
+        "xheight": 645,
+        "baseline": -110,
+        "descender": -319,
+    },
+    "italic": {
+        "ascender": 890,
+        "capital": 850,
+        "xheight": 645,
+        "baseline": -110,
+        "descender": -319,
+    },
+    "semibold": {
+        "ascender": 885,
+        "capital": 805,
+        "xheight": 645,
+        "baseline": -110,
+        "descender": -319,
+    },
+    "semibold_italic": {
+        "ascender": 890,
+        "capital": 850,
+        "xheight": 645,
+        "baseline": -110,
+        "descender": -319,
+    },
+}
+
+# --- New optical thresholds per style (do NOT replace legacy dicts) ---
+
+VERTICAL_THRESHOLDS_OPT = {
+    "reg": {
         "asc": {"val": 698, "lo": 688, "hi": 698},
         "cap": {"val": 645, "lo": 645, "hi": 658},
         "xh":  {"val": 429, "lo": 429, "hi": 442},
         "base":{"val":   0, "lo": -12, "hi":   0},
         "desc":{"val": -232, "lo": -238, "hi": -227},
     },
-    "italic": {
+    "it": {
         "asc": {"val": 698, "lo": 688, "hi": 698},
         "cap": {"val": 645, "lo": 645, "hi": 658},
         "xh":  {"val": 429, "lo": 429, "hi": 442},
         "base":{"val":   0, "lo": -12, "hi":   1},
         "desc":{"val": -232, "lo": -238, "hi": -227},
     },
-    "semibold": {
+    "sb": {
         "asc": {"val": 698, "lo": 690, "hi": 698},
         "cap": {"val": 645, "lo": 645, "hi": 662},
         "xh":  {"val": 434, "lo": 433, "hi": 447},
         "base":{"val":   0, "lo": -12, "hi":   1},
         "desc":{"val": -232, "lo": -238, "hi": -212},
     },
-    "semibold_italic": {
+    "si": {
         "asc": {"val": 698, "lo": 696, "hi": 705},
         "cap": {"val": 645, "lo": 645, "hi": 662},
         "xh":  {"val": 434, "lo": 434, "hi": 447},
@@ -44,22 +112,18 @@ VERTICAL_THRESHOLDS_OPT = {
 }
 
 ANCHOR_Y_REF_OPT = {
-    "regular":        {"asc": 885, "cap": 850, "xh": 645, "base": -110, "desc": -319},
-    "italic":         {"asc": 890, "cap": 850, "xh": 645, "base": -110, "desc": -319},
-    "semibold":       {"asc": 885, "cap": 805, "xh": 645, "base": -110, "desc": -319},
-    "semibold_italic":{"asc": 890, "cap": 850, "xh": 645, "base": -110, "desc": -319},
+    "reg": {"asc": 885, "cap": 850, "xh": 645, "base": -110, "desc": -319},
+    "it":  {"asc": 890, "cap": 850, "xh": 645, "base": -110, "desc": -319},
+    "sb":  {"asc": 885, "cap": 805, "xh": 645, "base": -110, "desc": -319},
+    "si":  {"asc": 890, "cap": 850, "xh": 645, "base": -110, "desc": -319},
 }
 
 CLEARANCES_OPT = {
-    "regular":        {"asc": 187, "cap": 205, "xh": 216, "base": 110, "desc": 87},
-    "italic":         {"asc": 192, "cap": 205, "xh": 216, "base": 110, "desc": 87},
-    "semibold":       {"asc": 187, "cap": 205, "xh": 211, "base": 110, "desc": 87},
-    "semibold_italic":{"asc": 192, "cap": 205, "xh": 211, "base": 110, "desc": 87},
+    "reg": {"asc": 187, "cap": 205, "xh": 216, "base": 110, "desc": 87},
+    "it":  {"asc": 192, "cap": 205, "xh": 216, "base": 110, "desc": 87},
+    "sb":  {"asc": 187, "cap": 205, "xh": 211, "base": 110, "desc": 87},
+    "si":  {"asc": 192, "cap": 205, "xh": 211, "base": 110, "desc": 87},
 }
-
-# ----------------------------------------------------------------------
-# Helpers
-# ----------------------------------------------------------------------
 
 def get_unicode_category(cp: int) -> str:
     if cp in (0x0294, 0x0295, 0x0296):
@@ -68,10 +132,6 @@ def get_unicode_category(cp: int) -> str:
 
 def _within_range(val: int, lo: int, hi: int) -> bool:
     return lo <= val <= hi
-
-# ----------------------------------------------------------------------
-# Above/below aspect classification (aa / ba)
-# ----------------------------------------------------------------------
 
 def get_ideal_above_aspect(style_key: str, ymax: int, cp: int) -> str:
     cat = get_unicode_category(cp)
@@ -132,6 +192,7 @@ def get_ideal_below_aspect(style_key: str, ymin: int) -> str:
     sign = "+" if delta > 0 else "-"
     return f"{code}{sign}{abs(delta)}"
 
+
 # ----------------------------------------------------------------------
 # BBox-derived metrics
 # ----------------------------------------------------------------------
@@ -151,6 +212,7 @@ def get_outline_center_and_width(style_metrics: dict, cp: int):
     width = xmax - xmin
     return center, width
 
+
 def get_bbox_mid_x(style_metrics: dict, cp: int):
     """
     Legacy helper: midpoint of the bbox in x-direction (upright only).
@@ -163,52 +225,52 @@ def get_bbox_mid_x(style_metrics: dict, cp: int):
     return (xmin + xmax) // 2
 
 # ----------------------------------------------------------------------
-# Vertical classification (OPT-only)
+# Vertical classification (Table 9 ranges)
 # ----------------------------------------------------------------------
 
 def classify_vertical(style_key: str, bbox):
     """
     Classify glyph into one of:
         ascender, capital, xheight, descender, baseline
-    using OPT BlueValues thresholds.
+    using BlueValues-derived thresholds.
     """
     xmin, ymin, xmax, ymax = bbox
-    T = VERTICAL_THRESHOLDS_OPT[style_key]
+    T = VERTICAL_THRESHOLDS.get(style_key, VERTICAL_THRESHOLDS["regular"])
 
-    if ymax >= T["asc"]["lo"]:
+    if ymax >= T["ascender_min"]:
         return "ascender"
-    if ymax >= T["cap"]["lo"]:
+    if ymax >= T["capital_min"]:
         return "capital"
-    if ymax >= T["xh"]["lo"]:
+    if ymax >= T["xheight_min"]:
         return "xheight"
-    if ymin <= T["desc"]["hi"]:
+    if ymin <= T["descender_max"]:
         return "descender"
     return "baseline"
 
+
 def get_anchor_y_ref(style_key: str, category: str, above: bool) -> int:
     """
-    Look up the anchor Y reference for the given style and vertical category,
-    using OPT anchor references.
+    Look up the anchor Y reference for the given style and vertical category.
     above=True  → use ascender/capital/xheight
     above=False → use baseline/descender
     """
-    refs = ANCHOR_Y_REF_OPT[style_key]
+    refs = ANCHOR_Y_REF.get(style_key, ANCHOR_Y_REF["regular"])
 
     if above:
         if category == "ascender":
-            return refs["asc"]
+            return refs["ascender"]
         if category == "capital":
-            return refs["cap"]
+            return refs["capital"]
         if category == "xheight":
-            return refs["xh"]
-        return refs["cap"]
+            return refs["xheight"]
+        return refs["capital"]
     else:
         if category == "descender":
-            return refs["desc"]
-        return refs["base"]
+            return refs["descender"]
+        return refs["baseline"]
 
 # ----------------------------------------------------------------------
-# Style-aware midpoints (for dx)
+# Style-aware midpoints
 # ----------------------------------------------------------------------
 
 def get_upright_mid_x(style_metrics: dict, cp: int):
@@ -222,10 +284,11 @@ def get_upright_mid_x(style_metrics: dict, cp: int):
     xmin, ymin, xmax, ymax = bbox
     return (xmin + xmax) / 2.0
 
+
 def get_slanted_mid_x(style_key: str, style_metrics: dict, cp: int, above: bool):
     """
     Slant-corrected geometric midpoint for italic/semibold_italic,
-    at the appropriate anchor Y reference (above or below), using OPT refs.
+    at the appropriate anchor Y reference (above or below).
     """
     bbox = get_bbox(style_metrics, cp)
     if not bbox:
@@ -247,6 +310,7 @@ def get_slanted_mid_x(style_key: str, style_metrics: dict, cp: int, above: bool)
 
     return xm_upright + slant * (y_ref - ym_mid)
 
+
 def get_mid_x_for_style(style_key: str, style_metrics: dict, cp: int, anchor_id: str):
     """
     Unified midpoint helper:
@@ -261,7 +325,7 @@ def get_mid_x_for_style(style_key: str, style_metrics: dict, cp: int, anchor_id:
         return get_upright_mid_x(style_metrics, cp)
 
 # ----------------------------------------------------------------------
-# Anchor-derived metrics (dx)
+# Anchor-derived metrics
 # ----------------------------------------------------------------------
 
 def compute_dx(style_metrics: dict, cp: int, anchor_id: str, style_key: str):
@@ -283,111 +347,3 @@ def compute_dx(style_metrics: dict, cp: int, anchor_id: str, style_key: str):
     dx = anchor_x - mid_x
     return dx
 
-# ----------------------------------------------------------------------
-# New helpers: aya, bya, axm, bxm (Step 1, no padding)
-# ----------------------------------------------------------------------
-
-def _parse_aspect(aspect: str) -> tuple[str, int]:
-    """
-    Parse aspect strings like 'c', 'c+23', 'a-21', 'd+36' into (base, delta).
-    """
-    if "+" in aspect:
-        base, delta_str = aspect.split("+", 1)
-        delta = int(delta_str)
-    elif "-" in aspect:
-        base, delta_str = aspect.split("-", 1)
-        delta = -int(delta_str)
-    else:
-        base = aspect
-        delta = 0
-    return base, delta
-
-def get_aya(style_key: str, aa: str) -> int | None:
-    """
-    Compute aya (above anchor Y) from aa string and optical anchor references.
-    All deltas are treated as meaningful; apply ±2 optical correction.
-    """
-    if aa is None:
-        return None
-
-    base, delta = _parse_aspect(aa)
-    aspect_map = {"a": "asc", "c": "cap", "x": "xh"}
-    if base not in aspect_map:
-        return None
-
-    ref_dict = ANCHOR_Y_REF_OPT.get(style_key)
-    if ref_dict is None:
-        return None
-
-    y0 = ref_dict[aspect_map[base]]
-    return y0 + delta - 2
-
-def get_bya(style_key: str, ba: str) -> int | None:
-    """
-    Compute bya (below anchor Y) from ba string and optical anchor references.
-    All deltas are treated as meaningful; apply ±2 optical correction.
-    """
-    if ba is None:
-        return None
-
-    base, delta = _parse_aspect(ba)
-    aspect_map = {"b": "base", "d": "desc"}
-    if base not in aspect_map:
-        return None
-
-    ref_dict = ANCHOR_Y_REF_OPT.get(style_key)
-    if ref_dict is None:
-        return None
-
-    y0 = ref_dict[aspect_map[base]]
-    return y0 + delta - 2
-
-def get_axm(style_key: str, style_metrics: dict, cp: int, aya: int | None) -> float | None:
-    """
-    Compute axm: slant-corrected midpoint X for the above anchor,
-    relative to the optical aspect (aya).
-    """
-    if aya is None:
-        return None
-
-    bbox = get_bbox(style_metrics, cp)
-    if not bbox:
-        return None
-
-    xmin, ymin, xmax, ymax = bbox
-    xm_upright = (xmin + xmax) / 2.0
-    ym_mid = (ymin + ymax) / 2.0
-
-    if style_key == "italic":
-        slant = 0.2126  # tan(12°)
-    elif style_key == "semibold_italic":
-        slant = 0.2037  # tan(11.5°)
-    else:
-        slant = 0.0
-
-    return xm_upright + slant * (aya - ym_mid)
-
-def get_bxm(style_key: str, style_metrics: dict, cp: int, bya: int | None) -> float | None:
-    """
-    Compute bxm: slant-corrected midpoint X for the below anchor,
-    relative to the optical aspect (bya).
-    """
-    if bya is None:
-        return None
-
-    bbox = get_bbox(style_metrics, cp)
-    if not bbox:
-        return None
-
-    xmin, ymin, xmax, ymax = bbox
-    xm_upright = (xmin + xmax) / 2.0
-    ym_mid = (ymin + ymax) / 2.0
-
-    if style_key == "italic":
-        slant = 0.2126  # tan(12°)
-    elif style_key == "semibold_italic":
-        slant = 0.2037  # tan(11.5°)
-    else:
-        slant = 0.0
-
-    return xm_upright + slant * (bya - ym_mid)

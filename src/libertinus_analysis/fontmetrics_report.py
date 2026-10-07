@@ -19,147 +19,212 @@ from .tex_helpers import (
 )
 
 # ----------------------------------------------------------------------
-# Table construction
+# Shared helpers (lightweight, no classes)
 # ----------------------------------------------------------------------
 
-def _sample_cells_for_style(style_key: str, cps: list[int]) -> list[str]:
-    """
-    Build the sample glyph cells for a given style, inserting CGJ
-    to force use of anchors rather than precomposed glyphs.
-    """
-    cells = []
+STYLE_KEYS = ["regular", "italic", "semibold", "semibold_italic"]
+
+STYLE_LABELS = {
+    "regular": "reg",
+    "italic": "it",
+    "semibold": "sb",
+    "semibold_italic": "si",
+}
+
+
+def texify(rows):
+    """Convert list-of-list rows into TeX table body."""
+    return " \\\\\n".join(" & ".join(c) for c in rows) + " \\\\\n"
+
+
+def build_header_rows(cps):
+    """hex + category rows (shared by letters and marks)."""
+    return [
+        ["hex"] + [f"{cp:04X}" for cp in cps],
+        ["cat"] + [get_unicode_category(cp) for cp in cps],
+    ]
+
+
+def extract_anchor_xy(style_metrics, cps, anchor_id):
+    """Shared anchor extraction logic."""
+    xs, ys = [], []
     for cp in cps:
-        raw = (
-            f'\\char"{cp:04X} '
-            f'\\char"{cp:04X}\\cgj\\char"0307 '
-            f'\\char"{cp:04X}\\cgj\\char"0331'
-        )
-        if style_key == "regular":
-            cells.append(raw)
+        anchor = get_anchor(style_metrics, cp, anchor_id)
+        if anchor:
+            xs.append(str(int(anchor[0])))
+            ys.append(str(int(anchor[1])))
         else:
-            cells.append(latex_font_style(style_key, raw))
-    return cells
+            xs.append("")
+            ys.append("")
+    return xs, ys
+
+
+def apply_style(style_key, raw):
+    """Shared style wrapper (regular vs styled)."""
+    if style_key == "regular":
+        return raw
+    return latex_font_style(style_key, raw)
+
+
+# ----------------------------------------------------------------------
+# Glyph sample for letters (CGJ version)
+# ----------------------------------------------------------------------
+
+def sample_letter_glyph(cp: int, style_key: str) -> str:
+    raw = (
+        f'\\char"{cp:04X} '
+        f'\\char"{cp:04X}\\cgj\\char"0307 '
+        f'\\char"{cp:04X}\\cgj\\char"0331'
+    )
+    return apply_style(style_key, raw)
+
+
+# ----------------------------------------------------------------------
+# Main table for letters
+# ----------------------------------------------------------------------
 
 def make_fontmetrics_table(bases: list[str]) -> str:
-    """
-    Build the LaTeX table body (no wrapper).
-    bases: list of characters, e.g. ['a','b','c',...]
-    """
-
-    cps = [ord(ch) for ch in bases]
+    cps = [ord(cp) for cp in bases]
     all_metrics = load_all_fontmetrics()
+
     rows = []
 
-    # Header row: hex codepoints
-    header_hex = "hex & " + " & ".join(f"{cp:04X}" for cp in cps)
-    rows.append(header_hex)
+    # Header rows
+    rows.extend(build_header_rows(cps))
 
-    # Unicode category row
-    row_cat = "cat & " + " & ".join(get_unicode_category(cp) for cp in cps)
-    rows.append(row_cat)
-
-    # Full blocks for all four styles
-    for style_key, style_header in [
-        ("regular", "reg"),
-        ("italic", "it"),
-        ("semibold", "sb"),
-        ("semibold_italic", "si"),
-    ]:
+    # Style blocks
+    for style_key in STYLE_KEYS:
+        style_label = STYLE_LABELS[style_key]
         style_metrics = all_metrics[style_key]
 
-        # Style glyph row (with CGJ)
-        styled_cells = _sample_cells_for_style(style_key, cps)
-        rows.append(style_header + " & " + " & ".join(styled_cells))
+        # Glyph row
+        glyphs = [sample_letter_glyph(cp, style_key) for cp in cps]
+        rows.append([style_label] + glyphs)
 
-        # --- NEW ROWS: aa (ideal above aspect), ba (ideal below aspect) ---
-        aa_cells = []
-        ba_cells = []
+        # Ideal aspect rows
+        aa = []
+        ba = []
         for cp in cps:
             bbox = get_bbox(style_metrics, cp)
             if bbox:
                 ymin, ymax = bbox[1], bbox[3]
-                aa_cells.append(get_ideal_above_aspect(style_header, ymax, cp))
-                ba_cells.append(get_ideal_below_aspect(style_header, ymin))
+                aa.append(get_ideal_above_aspect(style_key, ymax, cp))
+                ba.append(get_ideal_below_aspect(style_key, ymin))
             else:
-                aa_cells.append("")
-                ba_cells.append("")
-        rows.append("aa & " + " & ".join(aa_cells))
-        rows.append("ba & " + " & ".join(ba_cells))
-        # ---------------------------------------------------------------
+                aa.append("")
+                ba.append("")
+        rows.append(["aa"] + aa)
+        rows.append(["ba"] + ba)
 
-        # Anchor rows: ax, ay (anchor 0), bx, by (anchor 2)
+        # Anchor rows (two anchor classes)
         for anchor_id, prefix in [("0", "a"), ("2", "b")]:
-            xs = []
-            ys = []
-            for cp in cps:
-                anchor = get_anchor(style_metrics, cp, anchor_id)
-                if anchor:
-                    xs.append(str(int(anchor[0])))
-                    ys.append(str(int(anchor[1])))
-                else:
-                    xs.append("")
-                    ys.append("")
-            rows.append(f"{prefix}x & " + " & ".join(xs))
-            rows.append(f"{prefix}y & " + " & ".join(ys))
+            xs, ys = extract_anchor_xy(style_metrics, cps, anchor_id)
+            rows.append([f"{prefix}x"] + xs)
+            rows.append([f"{prefix}y"] + ys)
 
-        # Midpoint and deltas
+        # Midpoint rows
         if style_key in ("regular", "semibold"):
-            # Upright: single xm, axδ, bxδ
-            xm_cells = []
-            axd_cells = []
-            bxd_cells = []
+            xm = []
+            axd = []
+            bxd = []
             for cp in cps:
-                xm = get_mid_x_for_style(style_key, style_metrics, cp, "0")
-                xm_cells.append(str(int(xm)) if xm is not None else "")
+                xm_val = get_mid_x_for_style(style_key, style_metrics, cp, "0")
+                xm.append(str(int(xm_val)) if xm_val is not None else "")
 
                 dx_a = compute_dx(style_metrics, cp, "0", style_key)
-                axd_cells.append(str(int(dx_a)) if dx_a is not None else "")
-
                 dx_b = compute_dx(style_metrics, cp, "2", style_key)
-                bxd_cells.append(str(int(dx_b)) if dx_b is not None else "")
 
-            rows.append("xm & " + " & ".join(xm_cells))
-            rows.append("axδ & " + " & ".join(axd_cells))
-            rows.append("bxδ & " + " & ".join(bxd_cells))
+                axd.append(str(int(dx_a)) if dx_a is not None else "")
+                bxd.append(str(int(dx_b)) if dx_b is not None else "")
+
+            rows.append(["xm"] + xm)
+            rows.append(["axδ"] + axd)
+            rows.append(["bxδ"] + bxd)
 
         else:
-            # Italic / semibold_italic: axm, axδ, bxm, bxδ
-            axm_cells = []
-            axd_cells = []
-            bxm_cells = []
-            bxd_cells = []
+            axm = []
+            axd = []
+            bxm = []
+            bxd = []
             for cp in cps:
-                axm = get_mid_x_for_style(style_key, style_metrics, cp, "0")
-                bxm = get_mid_x_for_style(style_key, style_metrics, cp, "2")
+                axm_val = get_mid_x_for_style(style_key, style_metrics, cp, "0")
+                bxm_val = get_mid_x_for_style(style_key, style_metrics, cp, "2")
 
-                axm_cells.append(str(int(axm)) if axm is not None else "")
-                bxm_cells.append(str(int(bxm)) if bxm is not None else "")
+                axm.append(str(int(axm_val)) if axm_val is not None else "")
+                bxm.append(str(int(bxm_val)) if bxm_val is not None else "")
 
                 dx_a = compute_dx(style_metrics, cp, "0", style_key)
                 dx_b = compute_dx(style_metrics, cp, "2", style_key)
 
-                axd_cells.append(str(int(dx_a)) if dx_a is not None else "")
-                bxd_cells.append(str(int(dx_b)) if dx_b is not None else "")
+                axd.append(str(int(dx_a)) if dx_a is not None else "")
+                bxd.append(str(int(dx_b)) if dx_b is not None else "")
 
-            rows.append("axm & " + " & ".join(axm_cells))
-            rows.append("axδ & " + " & ".join(axd_cells))
-            rows.append("bxm & " + " & ".join(bxm_cells))
-            rows.append("bxδ & " + " & ".join(bxd_cells))
+            rows.append(["axm"] + axm)
+            rows.append(["axδ"] + axd)
+            rows.append(["bxm"] + bxm)
+            rows.append(["bxδ"] + bxd)
 
-    body = " \\\\\n".join(rows) + " \\\\\n"
-    return body
+    return texify(rows)
+
 
 # ----------------------------------------------------------------------
-# LaTeX wrapper
+# Marks table (kept separate, minimal shared helpers)
+# ----------------------------------------------------------------------
+
+def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
+    cps = [ord(cp) for cp in marks]
+    all_metrics = load_all_fontmetrics()
+
+    rows = []
+
+    # Header rows
+    rows.extend(build_header_rows(cps))
+
+    prefix = "a" if anchor_id == "0" else "b"
+
+    for style_key in STYLE_KEYS:
+        style_label = STYLE_LABELS[style_key]
+        style_metrics = all_metrics[style_key]
+
+        # Glyph row (no CGJ)
+        glyphs = []
+        for cp in cps:
+            raw = f'\\char"{cp:04X}'
+            glyphs.append(apply_style(style_key, raw))
+        rows.append([style_label] + glyphs)
+
+        # Anchor rows (one anchor class)
+        xs, ys = extract_anchor_xy(style_metrics, cps, anchor_id)
+        rows.append([f"{prefix}x"] + xs)
+        rows.append([f"{prefix}y"] + ys)
+
+        # Upright midpoint + delta
+        xm = []
+        dx = []
+        for cp in cps:
+            xm_val = get_upright_mid_x(style_metrics, cp)
+            xm.append(str(int(xm_val)) if xm_val is not None else "")
+
+            anchor = get_anchor(style_metrics, cp, anchor_id)
+            if anchor and xm_val is not None:
+                delta = anchor[0] - xm_val
+                dx.append(str(int(delta)))
+            else:
+                dx.append("")
+
+        rows.append(["xm"] + xm)
+        rows.append([f"{prefix}xδ"] + dx)
+
+    return texify(rows)
+
+
+# ----------------------------------------------------------------------
+# LaTeX wrapper (unchanged)
 # ----------------------------------------------------------------------
 
 from string import Template
 
 def wrap_in_table_environment(table_body: str, caption: str, label: str) -> str:
-    """
-    Wrap the table body in a full LaTeX table environment.
-    """
-
     try:
         first_row = table_body.strip().split("\\\\")[0]
         cols = first_row.count("&") + 1
@@ -191,81 +256,3 @@ $table_body
         colspec=colspec,
         table_body=table_body,
     )
-
-
-def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
-    """
-    Build a LaTeX table for combining marks.
-    All marks in `marks` are assumed to use the same anchor class:
-        anchor_id = "0" (above) or "2" (below)
-
-    For marks:
-        - use bbox midpoint (upright) as xm
-        - delete percentage rows
-        - do not apply italic slant midpoint
-    """
-
-    cps = [ord(ch) for ch in marks]
-    all_metrics = load_all_fontmetrics()
-    rows = []
-
-    # Header
-    header_hex = "hex & " + " & ".join(f"{cp:04X}" for cp in cps)
-    rows.append(header_hex)
-
-    # Category row for marks too
-    row_cat = "cat & " + " & ".join(get_unicode_category(cp) for cp in cps)
-    rows.append(row_cat)
-
-    # Iterate over styles
-    for style_key, style_header in [
-        ("regular", "reg"),
-        ("italic", "it"),
-        ("semibold", "sb"),
-        ("semibold_italic", "si"),
-    ]:
-        style_metrics = all_metrics[style_key]
-
-        # Rendered glyph row (with CGJ)
-        styled_cells = []
-        for cp in cps:
-            raw = f'\\char"{cp:04X}'
-            if style_key == "regular":
-                styled_cells.append(raw)
-            else:
-                styled_cells.append(latex_font_style(style_key, raw))
-        rows.append(style_header + " & " + " & ".join(styled_cells))
-
-        # Anchor rows (only one anchor class)
-        prefix = "a" if anchor_id == "0" else "b"
-
-        xs = []
-        ys = []
-        for cp in cps:
-            anchor = get_anchor(style_metrics, cp, anchor_id)
-            if anchor:
-                xs.append(str(int(anchor[0])))
-                ys.append(str(int(anchor[1])))
-            else:
-                xs.append("")
-                ys.append("")
-        rows.append(f"{prefix}x & " + " & ".join(xs))
-        rows.append(f"{prefix}y & " + " & ".join(ys))
-
-        # BBox midpoint (upright only for marks)
-        xm_cells = []
-        delta_cells = []
-        for cp in cps:
-            xm = get_upright_mid_x(style_metrics, cp)
-            xm_cells.append(str(int(xm)) if xm is not None else "")
-
-            dx = None
-            anchor = get_anchor(style_metrics, cp, anchor_id)
-            if anchor and xm is not None:
-                dx = anchor[0] - xm
-            delta_cells.append(str(int(dx)) if dx is not None else "")
-
-        rows.append("xm & " + " & ".join(xm_cells))
-        rows.append(f"{prefix}xδ & " + " & ".join(delta_cells))
-
-    return " \\\\\n".join(rows) + " \\\\\n"

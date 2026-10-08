@@ -302,16 +302,22 @@ def _parse_aspect(aspect: str) -> tuple[str, int]:
         delta = 0
     return base, delta
 
-def get_aya(style_key: str, aa: str) -> int | None:
+# Crude optical correction per aspect, applied only outside the threshold.
+# The script does not know the glyph's shape at ymin/ymax, so a small
+# overshoot is assumed. Ascenders are flat-topped: no correction.
+OPTICAL_CORRECTION = {"asc": 0, "cap": 2, "xh": 2, "base": 2, "desc": 2}
+
+def _candidate_anchor_y(style_key: str, aspect: str, aspect_map: dict, above: bool) -> int | None:
     """
-    Compute aya (above anchor Y) from aa string and optical anchor references.
-    All deltas are treated as meaningful; apply ±2 optical correction.
+    Shared logic for aya/bya.
+    Within threshold (no delta in the aspect string) → snap to the reference.
+    Otherwise → reference + delta, pulled toward the glyph by the optical
+    correction (down for above anchors, up for below anchors).
     """
-    if aa is None:
+    if aspect is None:
         return None
 
-    base, delta = _parse_aspect(aa)
-    aspect_map = {"a": "asc", "c": "cap", "x": "xh"}
+    base, delta = _parse_aspect(aspect)
     if base not in aspect_map:
         return None
 
@@ -319,28 +325,25 @@ def get_aya(style_key: str, aa: str) -> int | None:
     if ref_dict is None:
         return None
 
-    y0 = ref_dict[aspect_map[base]]
-    return y0 + delta - 2
+    key = aspect_map[base]
+    y0 = ref_dict[key]
+    if delta == 0:
+        return y0
+
+    corr = OPTICAL_CORRECTION[key]
+    return y0 + delta - corr if above else y0 + delta + corr
+
+def get_aya(style_key: str, aa: str) -> int | None:
+    """
+    Compute aya (above anchor Y) from aa string and optical anchor references.
+    """
+    return _candidate_anchor_y(style_key, aa, {"a": "asc", "c": "cap", "x": "xh"}, above=True)
 
 def get_bya(style_key: str, ba: str) -> int | None:
     """
     Compute bya (below anchor Y) from ba string and optical anchor references.
-    All deltas are treated as meaningful; apply ±2 optical correction.
     """
-    if ba is None:
-        return None
-
-    base, delta = _parse_aspect(ba)
-    aspect_map = {"b": "base", "d": "desc"}
-    if base not in aspect_map:
-        return None
-
-    ref_dict = ANCHOR_Y_REF_OPT.get(style_key)
-    if ref_dict is None:
-        return None
-
-    y0 = ref_dict[aspect_map[base]]
-    return y0 + delta - 2
+    return _candidate_anchor_y(style_key, ba, {"b": "base", "d": "desc"}, above=False)
 
 def get_axm(style_key: str, style_metrics: dict, cp: int, aya: int | None) -> float | None:
     """

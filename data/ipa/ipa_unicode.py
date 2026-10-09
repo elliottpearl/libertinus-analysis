@@ -50,6 +50,7 @@ BASE_LATIN = [
     0x00D0,0x00F0,      # Ð ð
     0x00DE,0x00FE,      # Þ þ
     0x00DF,             # ß
+    0x014B,             # ŋ eng
     0x017F,             # ſ
     # Alphabetic bases without diacritics
     0x0110,0x0111,      # D with stroke

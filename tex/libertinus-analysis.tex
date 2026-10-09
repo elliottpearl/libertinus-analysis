@@ -259,7 +259,7 @@ $yra = 698, [688, 698]$;
 $yrc = 645, [645, 658]$; 
 $yrx = 429, [429, 442]$; 
 $yr0 = 0, [-12, 0]$; and 
-$yrd = -238, [-238, -227]$.
+$yrd = -232, [-238, -227]$.
 
 In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor ($ay$) or a below-anchor ($by$) 
 is at a stable value depending on where the glyph outline lives relative to a vertical aspect.
@@ -347,7 +347,7 @@ $byr0$	& baseline	& $-110$& $-110$& $-110$& $-110$ \\
 $byrd$	& descender	& $-319$& $-319$& $-319$& $-319$ \\
 \hline
 $ay\delta a$	& ascender	& $187$	& $192$	& $187$	& $192$	\\
-$ay\delta c$	& capital	& $205$	& $205$	& $205$	& $205$	\\
+$ay\delta c$	& capital	& $205$	& $205$	& $160$	& $205$	\\
 $ay\delta x$	& x-height	& $216$	& $216$	& $211$	& $211$	\\
 $by\delta 0$	& baseline	& $110$	& $110$	& $110$	& $110$	\\
 $by\delta d$	& descender	& $87$	& $87$	& $87$	& $87$	\\
@@ -606,7 +606,7 @@ I will set this anchor by the heuristic algorithm.
 \subsubsection*{Patch J regular, below-anchor}
 
 J's below-anchor is too low.
-For J, $by = 319$, but J is not a full descender; 
+For J, $by = -319$, but J is not a full descender; 
 its bbox $Y_\mathrm{min} = -172$, which is well above $yrd = -232$.
 Yes, the designer set $by = byrd = -319$ for J in all fout font styles, but this is arguably too low.
 According to the heuristic algorithm, the below-anchor anchor should be at 
@@ -648,7 +648,7 @@ Patched: {\LibertinusSerifPatch k\char"0320\ k\char"0320 o ok\char"0320}
 
 \subsubsection*{Patch b, d, f, h regular, above-anchor}
 
-For b, d, f, and h, set $ay = ayr0 = 885$.
+For b, d, f, and h, set $ay = ayra = 885$.
 
 For $ax$ for b, d, f, and h, there are at least two strategies.
 First, set $ax$ at the bowl apex.
@@ -665,7 +665,7 @@ i does have an above-anchor at $(137, 795)$, and the outlines of the top of
 
 \subsubsection*{Patch n, p, r, v, w, x, z regular, above-anchor}
 
-In my patched version of the font, I regularize $ay$ to $ayr0 = 645$ 
+In my patched version of the font, I regularize $ay$ to $ayrx = 645$ 
 for all letters that sit at the x-height, including n, p, r, v, w, x, z.
 
 

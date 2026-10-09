@@ -45,11 +45,13 @@ Character sets (which bases, which marks) come from `data/ipa/ipa_unicode.py` as
 
 ### Anchor candidate rules
 
-The purpose of the fontmetrics tables is to help a human set above/below anchors. `ANCHOR-HEURISTICS.md` is the first-pass design note; the current rules in `fontmetrics_helpers.py` are:
+The purpose of the fontmetrics tables is to help a human set above/below anchors, using candidates that can be **calculated from font metrics alone**. A type designer's "optical center" just means where a mark looks best; this project deliberately substitutes a geometric center it can compute. The first pass is described in the "Font metrics per glyph" section of `tex/libertinus-analysis.tex` and implemented in `fontmetrics_helpers.py`:
 
 - **Aspect strings** (`aa` above, `ba` below): the nearest vertical aspect to the glyph's bbox ymax/ymin, as a letter (`a` ascender, `c` capital, `x` x-height, `b` baseline, `d` descender), with a signed delta appended when the extremum is outside that aspect's tolerance band (`x+33`, `d+60`). Capitals (category `Lu`) choose between `c`/`a`; everything else between `x`/`a`.
-- **Candidate y** (`get_aya`/`get_bya`): no delta → snap to the per-style reference value. With a delta → reference + delta, then a small optical correction pulling the anchor toward the glyph (subtracted above, added below; 0 for ascenders). The correction is crude (2 units) because the script does not know whether the extremum is a bowl or a flat.
-- **Candidate x**: the bbox midpoint for upright styles; for italics the midpoint is slant-corrected to the anchor's y (`get_axm`/`get_bxm`), so an error in y shifts x by about 0.21 units per unit.
+- **Candidate y** (`get_aya`/`get_bya`): no delta → snap to the per-style reference value. With a delta → reference + delta, then a small optical correction pulling the anchor toward the glyph (subtracted above, added below; 0 for ascenders). The correction is the flat-stem value (2 units) for every glyph, because the script does not know the shape at the extremum; the report records that bowls really overshoot by 6 (descender), 10 (baseline), 10 (x-height) and 13 (capital).
+- **Candidate x**: a geometric midpoint. For upright styles, the tight bbox midpoint (`xm`). For italics, the midpoint of the slanted "italic lane" the glyph lives in, evaluated at the anchor's y, giving separate above and below values (`axm`, `bxm`); the code takes the bbox center and moves along the italic slope (`get_axm`/`get_bxm`), so an error in y shifts x by about 0.21 units per unit.
+
+`ANCHOR-HEURISTICS.md` is **not** a description of this. It is an earlier, more ambitious design (semantic tags for horizontal visual weight driving `anchor_x`) that was never implemented. Classifying glyphs by semantic tags to find geometric features that approximate an optical center is a possible second pass; the `tags` in the fontmetrics JSON are groundwork for it and nothing consumes them yet.
 
 Existing designer anchors in the fonts are inconsistent: some are wrong, many are copied between glyphs or styles (`run_anchor_copy_report.py`), and they are not snapped to reference values. Treat them as reliable only in aggregate. The patch is intended to normalize them.
 

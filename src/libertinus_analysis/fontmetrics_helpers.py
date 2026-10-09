@@ -53,7 +53,7 @@ ANCHOR_Y_REF_OPT = {
 CLEARANCES_OPT = {
     "regular":        {"asc": 187, "cap": 205, "xh": 216, "base": 110, "desc": 87},
     "italic":         {"asc": 192, "cap": 205, "xh": 216, "base": 110, "desc": 87},
-    "semibold":       {"asc": 187, "cap": 205, "xh": 211, "base": 110, "desc": 87},
+    "semibold":       {"asc": 187, "cap": 160, "xh": 211, "base": 110, "desc": 87},
     "semibold_italic":{"asc": 192, "cap": 205, "xh": 211, "base": 110, "desc": 87},
 }
 

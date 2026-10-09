@@ -18,13 +18,13 @@ anchors = {
             0: (383, 850), # G
         },
         0x015E: { # S with cedilla
-            0: (232, 805),  # S
+            0: (232, 850),  # S
         },
         0x0190: { # open-E
-            0: (256, 805), # italic lane
+            0: (256, 850), # italic lane
         },
         0x19F: { # O middle tilde
-            0: (335, 805), # O
+            0: (335, 850), # O
             2: (350, -110), # O 
         },
         0x01B1: { # Upsilon
@@ -48,8 +48,8 @@ anchors = {
             2: (281, -110), # italic lane
         },
         0xE100: { # en space with anchor, width = 280
-            0: (140,645),
-            2: (140,-110),
+            0: (140, 645),
+            2: (140, -110),
         },
     },
     "marks": {

@@ -572,6 +572,20 @@ Observe that many IPA letters reuse $ax = 209$ and $bx = 196$.
 These are good anchors for the letter a, but these were just copied to some IPA letters 
 without regard to the letterform and are therefore bad anchors for those IPA letters.
 
+\newpage
+\section*{Anchor audit}
+
+These are the designer-set above- and below-anchors that \verb|run_anchor_audit.py| classifies as bad or suspect,
+in the original fonts.
+Each cell shows the codepoint, then the base with a few marks
+(dot, macron and circumflex above; dot and macron below),
+then tags for the tests that flagged the anchor.
+The combining grapheme joiner separates base and mark, so every mark is positioned by its anchor.
+The reasons in full are in \verb|data/fontanchors_audit/|.
+
+\input{input/anchor_audit.tex}
+
+\newpage
 \section*{Anchor survey, with patches}
 
 I will systematically survey above- and below anchors in the four font font styles, 

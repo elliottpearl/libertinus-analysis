@@ -9,14 +9,18 @@ This module is designed to be called from a wrapper script such as:
 
 from .font_context import FontContext, FONTS
 from .font_patching_addglyphs import add_custom_glyphs
+from .font_patching_deleteanchors import delete_bad_anchors
 from .font_patching_anchors import patch_anchors_human
 from .font_patching_gsub import patch_gsub_ccmp
 from .font_patching_precomposed_anchors import patch_precomposed_anchors
 
 # --- Future modules (commented out) ---
-# from .font_patching_deleteanchors import delete_bad_anchors
 # from .font_patching_normalizeanchors import normalize_anchor_y
 # from .font_patching_heuristicanchors import patch_anchors_heuristic
+
+# Stage 1 is implemented but off: until stages 4-5 can refill them, deleted
+# anchors with no human-curated replacement fall back to HarfBuzz positioning.
+DELETE_BAD_ANCHORS = False
 
 def patch_font(font_key: str) -> None:
     """
@@ -44,9 +48,11 @@ def patch_font(font_key: str) -> None:
     ttfont = ctx.ttfont
 
     # ------------------------------------------------------------
-    # 1. Delete bad anchors (NEW — currently disabled)
+    # 1. Delete bad anchors (see DELETE_BAD_ANCHORS)
+    #    Listed by run_anchor_audit.py in data/fontanchors_audit/.
     # ------------------------------------------------------------
-    # delete_bad_anchors(ttfont, font_key)
+    if DELETE_BAD_ANCHORS:
+        delete_bad_anchors(ttfont, font_key, lookup_index)
 
     # ------------------------------------------------------------
     # 2. Add glyphs (spacing base glyph, etc.)

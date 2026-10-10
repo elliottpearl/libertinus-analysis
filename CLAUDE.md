@@ -15,6 +15,7 @@ There is no test suite and no linter. Work is driven by top-level `run_*` wrappe
 .venv/bin/python run_build_fontmetrics.py             # fonts -> data/fontmetrics/{style}.json
 .venv/bin/python run_print_report_fontmetrics_full.py # JSON -> tex/input/fontmetrics_*.tex
 .venv/bin/python run_anchor_copy_report.py            # clusters of identical anchors -> tex/input/copied_anchors.tex
+.venv/bin/python run_anchor_audit.py                  # bad/suspect designer anchors -> data/fontanchors_audit/{style}.py, tex/input/anchor_audit.tex
 .venv/bin/python run_print_combo_matrix.py            # base x mark grids, original vs patched fonts
 .venv/bin/python run_patch_font.py                    # fonts/*.otf -> fonts/*-patch.otf
 ./run_xelatex_report.sh                               # tex/libertinus-analysis.tex -> PDF
@@ -57,9 +58,9 @@ Existing designer anchors in the fonts are inconsistent: some are wrong, many ar
 
 ### Patch pipeline (`font_patching.patch_font`)
 
-Stages in order; 1, 4 and 5 are planned and commented out:
+Stages in order; 4 and 5 are planned and commented out:
 
-1. Delete bad anchors *(planned)*
+1. Delete bad anchors — implemented in `font_patching_deleteanchors.py` but switched off by `DELETE_BAD_ANCHORS` in `font_patching.py`, because nothing refills the deleted anchors until stages 4–5 exist. `anchor_audit.py` (run via `run_anchor_audit.py`) reads the font files directly, tests every above/below base anchor in the style's mark-to-base lookup whose glyph has a Unicode codepoint (unencoded small caps and alternates are ignored), and writes the bad and suspect ones with reasons to `data/fontanchors_audit/{style}.py`, plus a test sheet to `tex/input/anchor_audit.tex` (the "Anchor audit" section of the report). Those files are regenerated on each run; human decisions go in `data/fontanchors_audit/overrides.py` (`"keep"` / `"delete"`). Only "bad" anchors are deleted. Thresholds are constants at the top of `anchor_audit.py`.
 2. Add glyphs — U+E100 `space_en_base`, an invisible spacing base (CFF charstring built by hand)
 3. Human-curated anchors from `data/fontanchors_human/{style}.py` (`bases`, `marks`, `bases_by_name`, `marks_by_name`; overwrite or create, never delete). `regular` is far more complete than the other styles.
 4. Normalize designer anchor y *(planned)*

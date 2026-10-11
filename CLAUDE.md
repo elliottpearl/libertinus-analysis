@@ -68,6 +68,16 @@ Stages in order; 4 and 5 are planned and commented out:
 6. Precomposed inheritance — a precomposed glyph lacking an anchor inherits it from its deepest Unicode-decomposition base; glyphs that already have one are reported and left alone
 7. GSUB `ccmp` rebuilt from `data/fea/{style}/ccmp.fea` (dot removal, `.cap` accent forms). feaLib's builder destroys GPOS, so it is saved and restored around the build.
 
+### Planned: mark anchors
+
+The audit and stage 1 cover base anchors only. Elliott intends to audit and patch **mark** anchors too (noted 2026-10-11; not started):
+
+- Model (see "Anchor model" in the report): a mark's anchor lies on the mark's own axis, `X = C + Y tan θ`, where `C` is the centre of the mark's outline with the slant removed (θ = 0 in roman); an asymmetric mark keeps regular's offset from that axis. `Y` is about 140 above the bottom of an above mark.
+- Findings so far, from a one-off check that is not in the repo: regular and italic marks fit (italic tilde is 11 off); semibold has anchor heights that differ from regular for about a quarter of its marks; in semibold italic 42 of 44 above/below mark anchors are regular's coordinates verbatim, so above marks need to move right by about 150 units.
+- Semibold italic **base** anchors lack the same slant term, so marks and bases there must be patched together; patching one side alone shifts every mark by about 150 units.
+- The combining dot above (U+0307) sits lower through its anchor than in precomposed glyphs (45 units lower in regular, 11 in italic); its mark anchor is a candidate for patching.
+- Curated mark anchors go in the `marks` / `marks_by_name` dicts of `data/fontanchors_human/{style}.py`.
+
 ### Legacy code
 
 Files with `legacy` in the name (`font_patching_legacy.py`, `font_patching_helpers_legacy.py`, `legacy-geometry.py`, `data/legacy-fontdata/`) are superseded and not on the active paths. `data/vertical_data.py` predates the `*_OPT` tables in `fontmetrics_helpers.py` and disagrees with them in places; the `*_OPT` tables are the ones the code uses.

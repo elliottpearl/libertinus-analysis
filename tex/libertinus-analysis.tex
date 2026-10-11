@@ -131,6 +131,14 @@
 
 \section*{Libertinus and diacritics}
 
+\subsection*{To do}
+
+Audit mark anchors to fit roman and italic anchor models; patch as necessary.
+
+Add alt cap dot above for italic and semibold italic.
+
+Revise fontmetrics table per anchor model with good candidates.
+
 \subsection*{Anchor model}
 
 Libertinus has an anchor model where the base anchors are set to locations 
@@ -144,6 +152,21 @@ See the red square in the middle panel of Figure \ref{fig:libertinus-geometry};
 the mark's below-anchor is at the optical center of the mark.
 The base and mark are combined in the right panel of Figure \ref{fig:libertinus-geometry} 
 by superimposing their below-anchors.
+
+The clearance between a base and a mark is therefore encoded in the base anchor, not in the mark.
+The $Y$ coordinate of an above- or below-anchor is the vertical aspect of the base glyph plus a clearance; 
+see the section on vertical aspects below.
+The $X$ coordinate is at the horizontal center of the base glyph.
+For a mostly symmetric letterform in the roman styles, a candidate for this $X$ coordinate 
+is the midpoint of the bounding box of the glyph.
+
+The anchor of a mark is at the horizontal center of the mark, if the mark is symmetric.
+An asymmetric mark, such as the acute or grave, has its anchor a few units to one side of the center of its outline.
+Vertically, the anchor of an above-mark is about 140 units above the bottom of the mark outline. 
+That is near the top of a tall mark, such as the circumflex, 
+and above the top of a short mark, such as the macron or dot.
+Because the above-anchor of a base at the x-height is 216 units above the x-height, 
+the bottom of a tall mark is about 75 units above the base, and a short mark sits a little higher.
 
 \begin{figure}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
@@ -165,12 +188,60 @@ In the middle panel of Figure \ref{fig:noto-geometry},
 the mark's below-anchor is the red square at the origin.
 The base and mark are combined in the right panel of Figure \ref{fig:noto-geometry} 
 by superimposing their below-anchors.
+So in Noto the clearance is encoded in the mark glyph, and in Libertinus it is encoded in the base anchor.
 
 \begin{figure}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
 	\input{input/noto-geometry.tex}
 	\caption{Noto n and macron with anchors.}
 	\label{fig:noto-geometry}
+\end{figure}
+
+\subsubsection*{Italic anchor model}
+
+In the italic styles, the Libertinus anchor model is the same as in the roman styles, but it is applied along the italic axis.
+The italic lane of a base glyph is its advance-width box, slanted by the italic angle $\theta$
+($12^\circ$ in italic and $11.5^\circ$ in semibold italic).
+The midline of the lane is the line $X = W/2 + Y\tan\theta$, where $W$ is the advance width of the glyph.
+See the gray band and the dashed blue line in the left panel of Figure \ref{fig:libertinus-italic-geometry}.
+
+The $Y$ coordinate of an above- or below-anchor is set exactly as in the roman styles:
+the vertical aspect of the glyph plus the clearance, measured vertically.
+So marks sit at the same heights in roman and italic.
+The $X$ coordinate is the point of the midline at that height:
+$ax = W/2 + ay\tan\theta$ and $bx = W/2 + by\tan\theta$.
+For italic n, $W = 518$, so $ax = 259 + 645 \times 0.2126 = 396$ and $bx = 259 - 110 \times 0.2126 = 236$;
+the font has $ax = 394$ and $bx = 235$.
+The above-anchor is therefore right of the below-anchor by $(ay - by)\tan\theta$,
+which is about 160 units for a letter at the x-height.
+
+The height in this formula is the height of the anchor itself, that is, the vertical aspect plus the clearance, 
+not the height of the vertical aspect.
+So the correct vertical aspect of the glyph must be determined before the $X$ coordinate can be calculated.
+In italic, the above-anchor is at $W/2 + 137$ for a letter at the x-height ($ay = 645$), 
+at $W/2 + 181$ for a capital ($ay = 850$), and at $W/2 + 189$ for an ascender ($ay = 890$).
+The below-anchor is at $W/2 - 23$ for a letter on the baseline ($by = -110$) 
+and at $W/2 - 68$ for a descender ($by = -319$).
+An error of 10 units in the $Y$ coordinate moves the $X$ coordinate by about 2 units.
+
+The anchor of a mark lies on the mark's own slanted axis, through the center of its outline if the mark is symmetric.
+See the dashed red lines in the middle panel of Figure \ref{fig:libertinus-italic-geometry}.
+That is, the mark anchor is at $X = C + Y\tan\theta$, where $Y$ is the height of the anchor, as in the roman styles,
+and $C$ is where the axis of the mark meets the baseline:
+the horizontal center of the mark outline after the slant is removed.
+An asymmetric mark keeps the same offset from its axis as in the roman styles.
+Superimposing the anchors lays the axis of the mark on the midline of the base, as in the right panel.
+The mark is displaced from the base along the italic axis, not vertically above or below it.
+
+The midline is a geometric center, not an optical center, but it is a good candidate for the anchor $X$ coordinate
+of a mostly symmetric letterform.
+Asymmetric letterforms, and letters that overhang their advance width such as f and j, need curated anchors.
+
+\begin{figure}[htbp]
+	\captionsetup{justification=raggedright, singlelinecheck=false}
+	\input{input/libertinus-italic-geometry.tex}
+	\caption{Libertinus italic n, macron and macron below, with anchors. The gray band is the italic lane and the dashed blue line is its midline.}
+	\label{fig:libertinus-italic-geometry}
 \end{figure}
 
 %Libertinus serif has few mark positioning GPOS tables.

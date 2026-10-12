@@ -1,0 +1,140 @@
+
+\begingroup
+% ------------------------------------------------------------
+% Libertinus Serif Semibold Italic: n (U+006E), macron (U+0304), macron below (U+0331).
+% Italic angle 11.5 degrees, tan = 0.2035. Advance width of n: W = 606.
+% Filled symbols are the font's own anchors:
+%   n above (264, 646), below (265, -110); macron (-209, 645), macron below (-244, -110).
+% Hollow symbols are where the italic anchor model puts them:
+%   n above (434, 646) = (W/2 + 646 tan, 646); below (281, -110)
+%   macron (-68, 645), macron below (-250, -110), on the axis of each mark.
+% ------------------------------------------------------------
+% Base anchor = blue circle (larger); hollow = italic-model position
+\newcommand{\baseanchor}[2]{%
+	\filldraw[blue] (#1,#2) circle (8pt);
+}
+\newcommand{\baseanchormodel}[2]{%
+	\draw[blue,thick,fill=white] (#1,#2) circle (8pt);
+}
+% Mark anchor = red square (smaller); hollow = italic-model position
+\newcommand{\markanchor}[2]{%
+	\filldraw[red] (#1-2,#2-2) rectangle (#1+2,#2+2);
+}
+\newcommand{\markanchormodel}[2]{%
+	\draw[red,thick,fill=white] (#1-6,#2-6) rectangle (#1+6,#2+6);
+}
+\begin{tikzpicture}[x=1pt,y=1pt,scale=0.075]
+
+	% ============================================================
+	% TILE 1 — semibold italic "n" in its lane
+	% ============================================================
+	\begin{scope}[shift={(0,0)}]
+
+		\fill[gray!10] (-61.0,-300) -- (545.0,-300) -- (768.8,800) -- (162.8,800) -- cycle;
+		\draw[gray!60] (0.0,0) -- (606.0,0); % baseline
+		\draw[gray!60] (88.3,434) -- (694.3,434); % xheight
+		\draw[gray!60] (133.9,658) -- (739.9,658); % capline
+		\draw[gray!60] (142.0,698) -- (748.0,698); % ascender
+		\draw[gray!60] (-50.0,-246) -- (556.0,-246); % descender
+		% midline of the lane: x = W/2 + y tan(11.5 degrees)
+		\draw[blue!70,dashed] (242.0,-300) -- (465.8,800);
+		% the advance width, marked on the baseline
+		\draw[gray!70,very thick] (0,-25) -- (0,25); \draw[gray!70,very thick] (606,-25) -- (606,25);
+
+		% Semibold italic "n" outline
+		\path[fill=black]
+		svg "M389 125C383 97 377 69 377 46C377 13 388 -10 422 -10C485 -10 534 19 600 74C598 88 588 100 574 100C550 81 521 66 511 66C503 66 501 73 501 83C501 97 506 119 510 134L546 283C563 354 571 439 510 439C411 439 357 408 265 300L264 301L269 320C280 359 292 398 292 415C292 429 284 436 271 436C239 436 155 429 108 423C101 415 103 399 109 390L149 387C161 386 164 377 164 367C164 358 163 345 158 321L102 72C97 52 89 27 89 17C89 1 94 -10 146 -10C215 -10 212 38 220 72C237 146 257 214 289 262C338 335 390 374 412 374C448 374 438 332 427 287C426 283 425 279 424 275Z";
+
+		% The displacement of each anchor from the midline
+		\draw[blue,thick] (264,646) -- (434,646);
+		\draw[blue,thick] (265,-110) -- (281,-110);
+
+		% Italic-model positions (hollow), then the font's anchors (filled)
+		\baseanchormodel{434}{646}
+		\baseanchormodel{281}{-110}
+		\baseanchor{264}{646}
+		\baseanchor{265}{-110}
+
+	\end{scope}
+
+	% ============================================================
+	% TILE 2 — semibold italic macron and macron below, each with its axis
+	% ============================================================
+	\begin{scope}[shift={(1269,0)}]
+
+		% Tile background
+		\fill[gray!10] (-420,-300) rectangle (80,800);
+
+		% Horizontal metric lines
+		\draw[gray!60] (-420,0) -- (80,0);
+		\draw[gray!60] (-420,434) -- (80,434);
+		\draw[gray!60] (-420,658) -- (80,658);
+		\draw[gray!60] (-420,698) -- (80,698);
+		\draw[gray!60] (-420,-246) -- (80,-246);
+
+		% Dark gray vertical line at x=0
+		\draw[gray!70,very thick] (0,-300) -- (0,800);
+
+		% Mark outlines
+		\path[fill=black]
+		svg "M29 504C43 504 59 523 61 536C62 538 62 539 62 540C62 546 59 552 50 552H-214C-227 552 -242 533 -245 521V516C-245 510 -242 504 -235 504Z";
+		\path[fill=black]
+		svg "M-127 -79C-114 -79 -100 -61 -98 -49C-97 -48 -97 -47 -97 -46C-97 -40 -100 -35 -108 -35H-353C-364 -35 -378 -52 -381 -64V-68C-381 -74 -378 -79 -372 -79Z";
+
+		% The slanted axis of each mark
+		\draw[red!70,dashed] (-90.4,535) -- (-45.6,755);
+		\draw[red!70,dashed] (-272.4,-220) -- (-227.6,0);
+
+		% The displacement of each anchor from the axis
+		\draw[red,thick] (-209,645) -- (-68,645);
+		\draw[red,thick] (-244,-110) -- (-250,-110);
+
+		% Italic-model positions (hollow), then the font's anchors (filled)
+		\markanchormodel{-68}{645}
+		\markanchormodel{-250}{-110}
+		\filldraw[red] (-209-6,645-6) rectangle (-209+6,645+6);
+		\filldraw[red] (-244-6,-110-6) rectangle (-244+6,-110+6);
+
+	\end{scope}
+
+	% ============================================================
+	% TILE 3 — composition by the font's anchors (n + macron + macron below)
+	% ============================================================
+	\begin{scope}[shift={(1490,0)}]
+
+		\fill[gray!10] (-61.0,-300) -- (545.0,-300) -- (768.8,800) -- (162.8,800) -- cycle;
+		\draw[gray!60] (0.0,0) -- (606.0,0); % baseline
+		\draw[gray!60] (88.3,434) -- (694.3,434); % xheight
+		\draw[gray!60] (133.9,658) -- (739.9,658); % capline
+		\draw[gray!60] (142.0,698) -- (748.0,698); % ascender
+		\draw[gray!60] (-50.0,-246) -- (556.0,-246); % descender
+		% midline of the lane: x = W/2 + y tan(11.5 degrees)
+		\draw[blue!70,dashed] (242.0,-300) -- (465.8,800);
+		% the advance width, marked on the baseline
+		\draw[gray!70,very thick] (0,-25) -- (0,25); \draw[gray!70,very thick] (606,-25) -- (606,25);
+
+		% Base glyph
+		\path[fill=black]
+		svg "M389 125C383 97 377 69 377 46C377 13 388 -10 422 -10C485 -10 534 19 600 74C598 88 588 100 574 100C550 81 521 66 511 66C503 66 501 73 501 83C501 97 506 119 510 134L546 283C563 354 571 439 510 439C411 439 357 408 265 300L264 301L269 320C280 359 292 398 292 415C292 429 284 436 271 436C239 436 155 429 108 423C101 415 103 399 109 390L149 387C161 386 164 377 164 367C164 358 163 345 158 321L102 72C97 52 89 27 89 17C89 1 94 -10 146 -10C215 -10 212 38 220 72C237 146 257 214 289 262C338 335 390 374 412 374C448 374 438 332 427 287C426 283 425 279 424 275Z";
+
+		% Marks positioned by anchor alignment
+		\begin{scope}[shift={(473,1)}]
+			\path[fill=black]
+			svg "M29 504C43 504 59 523 61 536C62 538 62 539 62 540C62 546 59 552 50 552H-214C-227 552 -242 533 -245 521V516C-245 510 -242 504 -235 504Z";
+		\end{scope}
+		\begin{scope}[shift={(509,0)}]
+			\path[fill=black]
+			svg "M-127 -79C-114 -79 -100 -61 -98 -49C-97 -48 -97 -47 -97 -46C-97 -40 -100 -35 -108 -35H-353C-364 -35 -378 -52 -381 -64V-68C-381 -74 -378 -79 -372 -79Z";
+		\end{scope}
+
+		% Composition anchors:
+		% Draw blue circle FIRST, then red square
+		\baseanchor{264}{646}
+		\markanchor{264}{646}
+		\baseanchor{265}{-110}
+		\markanchor{265}{-110}
+
+	\end{scope}
+
+\end{tikzpicture}
+\endgroup

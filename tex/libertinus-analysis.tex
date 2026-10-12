@@ -9,6 +9,7 @@
 \usepackage{caption}
 \usepackage{expl3}
 \usepackage{multirow}
+\usepackage{array}
 
 % Page options
 
@@ -199,9 +200,9 @@ So in Noto the clearance is encoded in the mark glyph, and in Libertinus it is e
 
 \subsubsection*{Italic anchor model}
 
-In the italic styles, the Libertinus anchor model is the same as in the roman styles, but it is applied along the italic axis.
+In italic, the Libertinus anchor model is the same as in the roman styles, but it is applied along the italic axis.
 The italic lane of a base glyph is its advance-width box, slanted by the italic angle $\theta$
-($12^\circ$ in italic and $11.5^\circ$ in semibold italic).
+($12^\circ$).
 The midline of the lane is the line $X = W/2 + Y\tan\theta$, where $W$ is the advance width of the glyph.
 See the gray band and the dashed blue line in the left panel of Figure \ref{fig:libertinus-italic-geometry}.
 
@@ -242,6 +243,80 @@ Asymmetric letterforms, and letters that overhang their advance width such as f 
 	\input{input/libertinus-italic-geometry.tex}
 	\caption{Libertinus italic n, macron and macron below, with anchors. The gray band is the italic lane and the dashed blue line is its midline.}
 	\label{fig:libertinus-italic-geometry}
+\end{figure}
+
+\subsubsection*{Semibold italic anchor model}
+
+Semibold italic has its own anchor model, which is not the italic anchor model, and the patch keeps it.
+The designer's anchors are the anchors of regular, set on slanted outlines (the italic angle $\theta$ is $11.5^\circ$):
+42 of the 44 above- and below-mark anchors, and 319 of the 384 above- and below-anchors of bases,
+have the coordinates of regular exactly.
+So neither anchor carries the term $Y\tan\theta$.
+A mark anchor is left of the mark's axis by a shift $K$,
+and a base anchor is left of the midline of its lane by about the same shift,
+so the two errors cancel when the anchors are superimposed.
+See Figure \ref{fig:libertinus-semibolditalic-geometry}, where the hollow symbols are the positions given by the italic anchor model.
+
+In this model, the mark anchor is at $X = C + Y\tan\theta - K$ and the base anchor is at $X = W/2 + Y\tan\theta - K$,
+with $\tan\theta = 0.2035$ and the same $Y$ coordinates as in the other styles.
+The shift is $K_a = 150$ for above-marks (the median; most are between 132 and 168)
+and $K_b = -12$ for below-marks (most are between $-23$ and $-4$).
+The italic anchor model is the case $K = 0$.
+The candidates for a base are
+$ax = W/2 + ay\tan\theta - 150$ and $bx = W/2 + by\tan\theta + 12$.
+So the above-anchor is at $W/2 - 19$ for a letter at the x-height ($ay = 645$),
+at $W/2 + 23$ for a capital ($ay = 850$), and at $W/2 + 31$ for an ascender ($ay = 890$).
+The below-anchor is at $W/2 - 10$ for a letter on the baseline ($by = -110$)
+and at $W/2 - 53$ for a descender ($by = -319$).
+For semibold italic n, $W = 606$, so $ax = 284$ and $bx = 293$; the font has $ax = 264$ and $bx = 265$, the values of regular n,
+and the macron lands 29 units left of the midline.
+
+The cancellation is only approximate, because $K$ is not one number.
+For a mark, $K = Y\tan\theta$ plus a constant, where $Y$ is the height of the mark anchor;
+the designer's base anchors are near $W/2 - 9$ at every height, so the error of a mark on a base grows with
+the difference in height of the two anchors, by 2 units for every 10.
+The median distance of a designer's base anchor from the candidate is about 20 units for a lowercase letter and 30 units for a capital.
+The patch does not move this style to the italic anchor model.
+It keeps the designer's anchors where they conform to the semibold italic anchor model,
+and only corrects the anchors that do not, so that they conform to it:
+a base anchor is moved to the candidate above,
+and a mark anchor is moved to $X = C + Y\tan\theta - 150$ for an above-mark or $X = C + Y\tan\theta + 12$ for a below-mark.
+An anchor set by the italic anchor model would be wrong here: it would be about 150 units too far right for an above-mark.
+
+The following do not conform to the semibold italic anchor model and probably need to be patched, some of them manually.
+\begin{itemize}
+	\item Capitals. The designer's above-anchors are about 25 units left of the candidate, since they are 205 units higher than
+	the anchors of lowercase letters but no further right. The worst are B, D, I, N, O, R, W (40 to 60 units left) and L (159 units left; its anchor is over the stem, as in regular).
+	\item The capital forms of the grave, acute, circumflex and breve (\verb|grave.cap|, \verb|acute.cap|, \verb|circumflex.cap|, \verb|breve.cap|),
+	which the font substitutes over capitals. Their mark anchors were set with the slant ($K$ between $-13$ and $29$), 
+	but the above-anchors of capitals were not, so these four marks land 160 to 190 units left of the middle of a capital.
+	The other above-marks have no capital form in use and land 20 to 50 units left.
+	The capital forms need mark anchors at $X = C + Y\tan\theta - 150$; \verb|caron.cap| and \verb|dieresis.cap| are not substituted.
+	\item Above-anchors that were set with the slant, as in italic, so that an above-mark lands 130 to 190 units too far right:
+	a, s, h and J.
+	\item Other base anchors more than 40 units from the candidate.
+	Above: c, g, Æ, Ɗ, ƕ, Ƣ, Ƥ, ȵ, ɗ, ɦ, ɧ, Ћ, ѳ, ⱨ.
+	Below: A, C, D, J, a, d, f, j, q, r, t, Æ, ĸ, ƕ, Ƣ, Ƥ, ȵ, ɍ, ɑ, ɖ, ɗ, ɚ, ɥ, ɰ, ʞ, Ћ, ѳ.
+	Several of these are copies of the anchors of another glyph.
+	The anchors of ʮ and ʯ are transposed, as in the other styles.
+	\item Marks whose shift is far from the median, so that no base anchor can be right for them and for the other marks:
+	dieresis U+0308 ($K = 111$, so it lands about 40 units left of the other above-marks),
+	comma above U+0313 (125), inverted breve U+0311 (132), hook above U+0309 and double grave U+030F (168, about 18 units right),
+	koronis U+0343 (371), right tack below U+0319 ($-30$) and tilde below U+0330 ($+10$).
+	The double acute U+030B (156) conforms.
+	\item Tilde U+0303, one of the two mark anchors that is not a copy of regular; its shift is 139.
+	\item The Hebrew ligatures U+05F0, U+05F1, U+05F2, which have above- and below-anchors in this lookup table in semibold italic only.
+	\item Letters that overhang their advance width, such as f and j, which need curated anchors in every italic style.
+\end{itemize}
+The anchors of precomposed glyphs were not compared with these candidates.
+
+\begin{figure}[htbp]
+	\captionsetup{justification=raggedright, singlelinecheck=false}
+	\input{input/libertinus-semibolditalic-geometry.tex}
+	\caption{Libertinus semibold italic n, macron and macron below, with the designer's anchors (filled)
+	and the positions given by the italic anchor model (hollow).
+	The above-anchor of n is 170 units left of the midline and the anchor of the macron is 141 units left of its axis.}
+	\label{fig:libertinus-semibolditalic-geometry}
 \end{figure}
 
 %Libertinus serif has few mark positioning GPOS tables.
@@ -1834,11 +1909,69 @@ Here is a catalog of combining marks in Unicode, grouped by the seven GPOS ancho
 }
 
 \newpage
+\subsection*{Adding missing marks}
+
+Semibold and semibold italic lack many of the combining marks of regular and italic.
+The patch adds them, with mark anchors, in the range U+0332--U+036F.
+No mark is drawn from scratch: each is an outline that the designer drew in another style.
+A semibold mark is the regular outline (an above-mark is moved right by 12 units, with its anchor, as the designer's semibold above-marks are).
+A semibold italic mark is the italic outline moved right by 12 units, with the anchor of regular, as in the semibold italic anchor model.
+In semibold, U+0358--U+0363 were copies of the capital accents, and they are replaced.
+The patch also adds \verb|dotaccent.cap| to italic and semibold italic: 
+the dot of the precomposed İ, at the height it has in the precomposed dotted capitals.
+
+The designer does not thicken below-marks between weights, but thickens above-marks by about 12 percent 
+(mean stroke thickness, measured as twice the area of the outline divided by its perimeter: tilde 40 to 45, caron 36 to 42).
+So the added above-marks are made bolder.
+Where a mark is, or contains, another mark, the bold style's own mark is used.
+The rest of the outline is pushed outward by 7.5 percent of its stroke thickness on each side, about 2 to 3 units.
+These algorithmically emboldened marks are shown in the table on the next page, on a few bases that have above-anchors in all four patched fonts,
+with the designer's tilde and caron for comparison of weight. 
+The regular and italic columns show the outlines that were copied.
+
+Also added, but not shown in the table: the low line and double low line (U+0332, U+0333), 
+the tilde, stroke and solidus overlays (U+0334--U+0337), the below-marks U+0339--U+033C, U+0347--U+0349, U+034D, U+034E, U+0353--U+0356, U+0359, U+035A, 
+the double overline (U+033F), the dot above right (U+0358), the double marks (U+035C--U+0362) and the combining letters (U+0363--U+036F).
+These are copied without emboldening, since the designer's lines, below-marks and modifier letters are not thicker in the bold styles;
+the dot above right is the bold style's own dot.
+The double marks have no anchors, as in regular.
+In semibold, the overlays and the dot above right have no anchors, because the semibold lookup table has no anchor class for them.
+The half rings above (U+0351, U+0357) already exist in semibold, drawn to the right of the origin, so they sit beside the base; they are left as they are.
+Not added: the custom-width low lines and overlines of the next section, U+0344, U+0345 and U+0483.
+
+\begingroup
+\LibertinusSerifPatch
+\renewcommand{\arraystretch}{1.9}
+\begin{tabular}{@{}l>{\footnotesize}p{38mm}>{\Large}l>{\Large\bfseries}l>{\Large\itshape}l>{\Large\bfseries\itshape}l>{\footnotesize}p{38mm}@{}}
+	& & \normalsize\normalfont regular & \normalsize\normalfont semibold & \normalsize\normalfont italic & \normalsize\normalfont semibold italic & \\
+	\hline
+	{\footnotesize U+0303} & tilde (designer's, for comparison) & a\char"0303 n\char"0303 u\char"0303 O\char"0303 & a\char"0303 n\char"0303 u\char"0303 O\char"0303 & a\char"0303 n\char"0303 u\char"0303 O\char"0303 & a\char"0303 n\char"0303 u\char"0303 O\char"0303 &  \\
+	{\footnotesize U+030C} & caron (designer's, for comparison) & a\char"030C n\char"030C u\char"030C O\char"030C & a\char"030C n\char"030C u\char"030C O\char"030C & a\char"030C n\char"030C u\char"030C O\char"030C & a\char"030C n\char"030C u\char"030C O\char"030C &  \\
+	\hline
+	{\footnotesize U+033D} & x above & a\char"033D n\char"033D u\char"033D O\char"033D & a\char"033D n\char"033D u\char"033D O\char"033D & a\char"033D n\char"033D u\char"033D O\char"033D & a\char"033D n\char"033D u\char"033D O\char"033D & emboldened \\
+	{\footnotesize U+033E} & vertical tilde & a\char"033E n\char"033E u\char"033E O\char"033E & a\char"033E n\char"033E u\char"033E O\char"033E & a\char"033E n\char"033E u\char"033E O\char"033E & a\char"033E n\char"033E u\char"033E O\char"033E & emboldened \\
+	{\footnotesize U+034A} & not tilde above & a\char"034A n\char"034A u\char"034A O\char"034A & a\char"034A n\char"034A u\char"034A O\char"034A & a\char"034A n\char"034A u\char"034A O\char"034A & a\char"034A n\char"034A u\char"034A O\char"034A & emboldened \\
+	{\footnotesize U+034B} & homothetic above & a\char"034B n\char"034B u\char"034B O\char"034B & a\char"034B n\char"034B u\char"034B O\char"034B & a\char"034B n\char"034B u\char"034B O\char"034B & a\char"034B n\char"034B u\char"034B O\char"034B & own tilde; dots emboldened \\
+	{\footnotesize U+034C} & almost equal to above & a\char"034C n\char"034C u\char"034C O\char"034C & a\char"034C n\char"034C u\char"034C O\char"034C & a\char"034C n\char"034C u\char"034C O\char"034C & a\char"034C n\char"034C u\char"034C O\char"034C & emboldened \\
+	{\footnotesize U+0350} & right arrowhead above & a\char"0350 n\char"0350 u\char"0350 O\char"0350 & a\char"0350 n\char"0350 u\char"0350 O\char"0350 & a\char"0350 n\char"0350 u\char"0350 O\char"0350 & a\char"0350 n\char"0350 u\char"0350 O\char"0350 & emboldened \\
+	{\footnotesize U+0351} & left half ring above & a\char"0351 n\char"0351 u\char"0351 O\char"0351 & a\char"0351 n\char"0351 u\char"0351 O\char"0351 & a\char"0351 n\char"0351 u\char"0351 O\char"0351 & a\char"0351 n\char"0351 u\char"0351 O\char"0351 & emboldened (semibold italic only) \\
+	{\footnotesize U+0352} & fermata & a\char"0352 n\char"0352 u\char"0352 O\char"0352 & a\char"0352 n\char"0352 u\char"0352 O\char"0352 & a\char"0352 n\char"0352 u\char"0352 O\char"0352 & a\char"0352 n\char"0352 u\char"0352 O\char"0352 & own inverted breve; dot emboldened \\
+	{\footnotesize U+0357} & right half ring above & a\char"0357 n\char"0357 u\char"0357 O\char"0357 & a\char"0357 n\char"0357 u\char"0357 O\char"0357 & a\char"0357 n\char"0357 u\char"0357 O\char"0357 & a\char"0357 n\char"0357 u\char"0357 O\char"0357 & emboldened (semibold italic only) \\
+	{\footnotesize U+035B} & zigzag above & a\char"035B n\char"035B u\char"035B O\char"035B & a\char"035B n\char"035B u\char"035B O\char"035B & a\char"035B n\char"035B u\char"035B O\char"035B & a\char"035B n\char"035B u\char"035B O\char"035B & emboldened \\
+	\hline
+	{\footnotesize U+0340} & grave tone mark & a\char"0340 n\char"0340 u\char"0340 O\char"0340 & a\char"0340 n\char"0340 u\char"0340 O\char"0340 & a\char"0340 n\char"0340 u\char"0340 O\char"0340 & a\char"0340 n\char"0340 u\char"0340 O\char"0340 & own grave \\
+	{\footnotesize U+0341} & acute tone mark & a\char"0341 n\char"0341 u\char"0341 O\char"0341 & a\char"0341 n\char"0341 u\char"0341 O\char"0341 & a\char"0341 n\char"0341 u\char"0341 O\char"0341 & a\char"0341 n\char"0341 u\char"0341 O\char"0341 & own acute \\
+	{\footnotesize U+0346} & bridge above & a\char"0346 n\char"0346 u\char"0346 O\char"0346 & a\char"0346 n\char"0346 u\char"0346 O\char"0346 & a\char"0346 n\char"0346 u\char"0346 O\char"0346 & a\char"0346 n\char"0346 u\char"0346 O\char"0346 & own bridge below, raised \\
+\end{tabular}
+\endgroup
+
+
+\newpage
 \subsection*{Overline and low line}
 
 U+0305 combining overline and U+0332 combining low line are applied by GSUB lookups that substitute a custom-width line mark according to width classes. 
 GSUB lookup 51 effectively classifies the glyphs by width, and GSUB lookups 52--82 provide the appropriate custom-width mark for the base width class. 
-Semibold and semibold italic do not have any combining low lines. 
+Semibold and semibold italic do not have any combining low lines; the patch adds U+0332 and U+0333 with below-anchors, but not the custom-width variants. 
 Custom-width line marks do not have anchors. 
 They are positioned by HarfBuzz fallback shaping. 
 The overlines are above the ascender line, so they are above all bases. 
@@ -2176,6 +2309,34 @@ In this case only the base glyph is shown.
 \section*{Capital alternates}
 
 These grids display capitals with alternate marks.
+
+In the patched fonts, the mark anchor of each capital alternate is set by script (\verb|font_patching_capmarks.py|) from the precomposed capitals A--Z.
+The $Y$ coordinate is the capital anchor reference (850; 805 in semibold) less the height by which the mark is raised in the precomposed glyphs.
+The $X$ coordinate of a symmetric mark is the center of its outline on its own axis;
+for the grave, acute, double acute and double grave it is the median position of the mark in the precomposed glyphs, relative to the midline of the base.
+In semibold italic both are shifted left by 150 units, as in the semibold italic anchor model.
+A human-curated anchor overrules the scripted one.
+Measured over the capitals that have an above-anchor, the median distance of an alternate mark from the midline 
+falls from 142 to 17 units in italic and from 171 to 42 units in semibold italic; regular (16) and semibold (11) are unchanged.
+
+Check these by eye:
+\begin{itemize}
+	\item Italic. All ten curated anchors are kept and overrule the script. Their $X$ coordinates differ from the scripted ones by 6 to 62 units:
+	grave $-45$ (script 17), acute $-65$ ($-37$), caron $-50$ ($-29$), inverted breve $-23$ ($-2$), double grave $-47$ ($-34$), 
+	breve $-10$ ($-1$), circumflex 16 (24), hook $-27$ ($-19$), dieresis $-75$ ($-69$), double acute $-109$ ($-103$). 
+	The curated values fit the designer's capital anchors, which are left of the midline; the scripted values assume an anchor on the midline.
+	If the capital anchors are moved to the midline, the curated values should be dropped.
+	\item Regular. The curated grave $(-175, 723)$ and acute $(-210, 723)$ are kept; the script gives $-162$ and $-218$. 
+	The other eight curated anchors are within 4 units of the script and are commented out in \verb|fontanchors_human|.
+	\item Semibold italic. All anchors are scripted. The marks are still about 35 units left of the midline, because the designer's capital anchors 
+	are left of the candidates of the semibold italic anchor model; J and L are far off (their base anchors do not conform).
+	\item Semibold. Only J, O, Q, R, S, T, V, W, X, Y, Z have an above-anchor; on the other capitals the alternates are placed by fallback.
+	The hook above is raised by 89 units, and the double acute and double grave are lowered by 30 and 23 units, relative to the designer's anchors.
+	\item The acute, grave and their doubles. The precomposed glyphs place these by eye, letter by letter, 
+	so the implied $X$ varies by up to 190 units over the bases (most for the acute, because of L), and one anchor is a compromise.
+	\item \verb|dotaccent.cap| is new in italic and semibold italic, and in regular its anchor is raised by 50 units to match the precomposed dotted capitals.
+	\item Not used as evidence, because the mark outline differs in the precomposed glyph: Ÿ and Ẅ (dieresis), Ľ (comma-style caron), and Ĵ in semibold italic.
+\end{itemize}
 
 \input{input/cap_alt.tex}
 

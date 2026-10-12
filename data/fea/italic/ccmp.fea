@@ -3,13 +3,13 @@ lookup ccmp_cap_accents {
   sub gravecomb       by grave.cap;
   sub uni0302         by circumflex.cap;
   sub uni0306         by breve.cap;
-# Add 6 .cap marks from existing custom glyphs
+# Add 6 .cap marks from existing custom glyphs, and dotaccent.cap (added by font_patching_addmarks.py)
   sub uni030C         by caron.cap;
   sub uni030B         by hungarumlaut.cap;
   sub uni030F         by uni030F.cap;
   sub uni0311         by breveinvertedcmb.cap;
   sub uni0308         by dieresis.cap;
-#  sub uni0307         by dotaccent.cap;
+  sub uni0307         by dotaccent.cap;
   sub hookabovecomb   by hookabovecomb.cap;
 } ccmp_cap_accents;
 

@@ -492,30 +492,32 @@ anchors = {
         "acute.cap": {
             0: (-210, 723), # y implied
         },
-        "breve.cap": {
-            0: (-161, 702), # x mid, y implied
-        },
-        "caron.cap": {
-            0: (-184, 677), # x mid, y implied
-        },
-        "dotaccent.cap": {
-            0: (146, 737), # x mid, y implied
-        },
-        "dieresis.cap": {
-            0: (-237, 850), # xmid, y implied
-        },
-        "hookabovecomb.cap": {
-            0: (-165, 812) # x mid, y implied
-        },
-        "hungarumlaut.cap": {
-            0: (-269, 762), # implied (-226, 747) designer
-        },
-        "uni030F.cap": { # double grave
-            0: (-200, 767), # implied. (-220, 745) designer
-        },
-        "breveinvertedcmb.cap": {
-            0: (-162,703), # implied
-        },
+        # Commented out 2026-10-12: font_patching_capmarks.py now sets these from the
+        # precomposed capitals, within 4 units of the curated value (script value at right).
+#        "breve.cap": {  # script: (-161, 702)
+#            0: (-161, 702), # x mid, y implied
+#        },
+#        "caron.cap": {  # script: (-184, 677)
+#            0: (-184, 677), # x mid, y implied
+#        },
+#        "dotaccent.cap": {  # script: (146, 736)
+#            0: (146, 737), # x mid, y implied
+#        },
+#        "dieresis.cap": {  # script: (-238, 850)
+#            0: (-237, 850), # xmid, y implied
+#        },
+#        "hookabovecomb.cap": {  # script: (-166, 816)
+#            0: (-165, 812) # x mid, y implied
+#        },
+#        "hungarumlaut.cap": {  # script: (-269, 762)
+#            0: (-269, 762), # implied (-226, 747) designer
+#        },
+#        "uni030F.cap": { # double grave  # script: (-203, 767)
+#            0: (-200, 767), # implied. (-220, 745) designer
+#        },
+#        "breveinvertedcmb.cap": {  # script: (-162, 703)
+#            0: (-162,703), # implied
+#        },
         # "circumflex.cap" implied matches designer
     },
 }

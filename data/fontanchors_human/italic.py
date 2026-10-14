@@ -34,15 +34,21 @@ anchors = {
         },
         0x01B2: { # V hook
             0: (506, 850), # italic lane
-            2: (302, -110) # italic lane
+            2: (302, -110), # italic lane
         },
         0x01B3: { # Y hook
             0: (511, 850), # italic lane of stem
-            2: (342, -110) # italic lane of stem
+            2: (342, -110), # italic lane of stem
         },
         0x01B5: { # Z stroke
             0: (489, 850), # italic lane
-            2: (286, -110) # italic lane
+            2: (286, -110), # italic lane
+        },
+        0x0258: { # reversed e
+            0: (356, 645), # italic anchor model
+        },
+        0x0259: { # schwa
+            0: (356, 645), # italic anchor model
         },
         0x028A: { # upsilon
             0: (358, 645), # italic lane

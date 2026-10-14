@@ -347,6 +347,10 @@ anchors = {
             0: (140,645),
             2: (140,-110),
         },
+        0x00A0: { # no-break space, base for a floating mark, width = 250
+            0: (125, 645), # x-height aspect; x = W/2
+            2: (125, -110),
+        },
 
         # Superscript consonants
         0x02B0: {

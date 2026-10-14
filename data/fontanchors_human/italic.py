@@ -58,6 +58,10 @@ anchors = {
             0: (160, 645),
             2: (160,-110),
         },
+        0x00A0: { # no-break space, base for a floating mark, width = 250
+            0: (262, 645), # x-height aspect; x = W/2 + Y tan 12
+            2: (102, -110),
+        },
     },
     "marks": {
         0x030B: { # double acute above

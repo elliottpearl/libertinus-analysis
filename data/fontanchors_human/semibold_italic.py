@@ -51,6 +51,10 @@ anchors = {
             0: (140, 645),
             2: (140, -110),
         },
+        0x00A0: { # no-break space, base for a floating mark, width = 274
+            0: (118, 645), # x-height aspect; x = W/2 + Y tan 11.5 - K
+            2: (127, -110),
+        },
     },
     "marks": {
         0x0300: { # grave

@@ -31,6 +31,8 @@ Two virtual environments exist because the system FontForge module is built for 
 
 ## Architecture
 
+Python modules live in `src/libertinus_analysis/` (package `libertinus_analysis`); module names below are relative to it.
+
 ### Style keys and the font registry
 
 Everything is keyed by style: `regular`, `italic`, `semibold`, `semibold_italic` (plus `*_patch` variants). `FONTS` in `font_context.py` maps each key to a font path and the **GPOS lookup index of its mark-to-base lookup, which differs per font** (4, 4, 1, 2). Anchor classes within that lookup are referred to by index: `0` = above, `2` = below (`1` above-right, `3` above-right/left-angle). In the fontmetrics JSON these indices are string keys (`"0"`, `"2"`).
@@ -38,30 +40,30 @@ Everything is keyed by style: `regular`, `italic`, `semibold`, `semibold_italic`
 ### Data flow
 
 1. **Extract** — `fontmetrics_extractor.py` reads the original fonts and writes `data/fontmetrics/{style}.json`: per-glyph bbox, anchors, width, sidebearings, tags (schema in `data/fontmetrics/SCHEMA.md`). The report layer reads only this JSON (via `fontmetrics_loader.py`), never the font files, so anything that needs outlines must be computed in the extractor and stored.
-2. **Derive** — `fontmetrics_helpers.py` holds the per-style reference tables (`VERTICAL_THRESHOLDS_OPT`, `ANCHOR_Y_REF_OPT`, `CLEARANCES_OPT`, `OPTICAL_CORRECTION`) and the anchor-candidate logic described below.
+2. **Derive** — `fontmetrics_helpers.py` holds the per-style reference tables (`VERTICAL_THRESHOLDS_OPT`, `ANCHOR_Y_REF_OPT`, `CLEARANCES_OPT`, `OPTICAL_CORRECTION`) and the candidate functions (`get_aya`, `get_bya`, the `xm`/`axm`/`bxm` midpoints); see "Anchor model and candidates" below.
 3. **Report** — `fontmetrics_report.py` builds LaTeX table bodies (one column per glyph, a block of rows per style) written to `tex/input/`, which `tex/libertinus-analysis.tex` `\input`s. `combo_matrix.py` + `classifiers.py` produce the base x mark grids. Generated `.tex` fragments and the PDF are committed.
 4. **Patch** — `font_patching.py` orchestrates stages on the GPOS lookup and GSUB (see below).
 
 Character sets (which bases, which marks) come from `data/ipa/ipa_unicode.py` as `unicode_groups[NAME]["items"]`, e.g. `BASE_LATIN`, `BASE_IPA`, `MARK_ABOVE`, `MARK_BELOW`.
 
-### Anchor candidate rules
+### Anchor model and candidates
 
-The purpose of the fontmetrics tables is to help a human set above/below anchors, using candidates that can be **calculated from font metrics alone**. A type designer's "optical center" just means where a mark looks best; this project deliberately substitutes a geometric center it can compute. The first pass is described in the "Font metrics per glyph" section of `tex/libertinus-analysis.tex` and implemented in `fontmetrics_helpers.py`:
+**Read `ANCHOR-HEURISTICS.md` before calculating, auditing or patching any anchor.** It summarizes the model with every number and formula needed to compute a candidate: aspect bands, anchor Y references, clearances, overshoots, the per-style X formulas and K shifts, mark anchors, and which parts the code implements. The authority behind it is the report, `tex/libertinus-analysis.tex` ("Anchor model" through "Semibold italic anchor model", plus "Vertical aspects…"). When the understanding changes, update the report first, then `ANCHOR-HEURISTICS.md`. Keep the model in that file, not here.
 
-- **Aspect strings** (`aa` above, `ba` below): the nearest vertical aspect to the glyph's bbox ymax/ymin, as a letter (`a` ascender, `c` capital, `x` x-height, `b` baseline, `d` descender), with a signed delta appended when the extremum is outside that aspect's tolerance band (`x+33`, `d+60`). Capitals (category `Lu`) choose between `c`/`a`; everything else between `x`/`a`.
-- **Candidate y** (`get_aya`/`get_bya`): no delta → snap to the per-style reference value. With a delta → reference + delta, then a small optical correction pulling the anchor toward the glyph (subtracted above, added below; 0 for ascenders). The correction is the flat-stem value (2 units) for every glyph, because the script does not know the shape at the extremum; the report records that bowls really overshoot by 6 (descender), 10 (baseline), 10 (x-height) and 13 (capital).
-- **Candidate x**: a geometric midpoint. For upright styles, the tight bbox midpoint (`xm`). For italics, the midpoint of the slanted "italic lane" the glyph lives in, evaluated at the anchor's y, giving separate above and below values (`axm`, `bxm`); the code takes the bbox center and moves along the italic slope (`get_axm`/`get_bxm`), so an error in y shifts x by about 0.21 units per unit.
+In short: the base anchor is where the mark goes, so the clearance lives in the base anchor. Y is the glyph's vertical aspect plus that aspect's clearance, the same in every style. X is the bbox midpoint in roman. In italic it is the midline of the slanted advance-width lane at the anchor's own height. Semibold italic keeps the designer's model: the italic position minus a shift K (150 above, −12 below).
 
-`ANCHOR-HEURISTICS.md` is **not** a description of this. It is an earlier, more ambitious design (semantic tags for horizontal visual weight driving `anchor_x`) that was never implemented. Classifying glyphs by semantic tags to find geometric features that approximate an optical center is a possible second pass; the `tags` in the fontmetrics JSON are groundwork for it and nothing consumes them yet.
-
-Existing designer anchors in the fonts are inconsistent: some are wrong, many are copied between glyphs or styles (`run_anchor_copy_report.py`), and they are not snapped to reference values. Treat them as reliable only in aggregate. The patch is intended to normalize them.
+Standing rules:
+- Candidates are geometric centres computable from metrics. They are not optical centres; a human curates where they fail.
+- Designer anchors are inconsistent (wrong, copied between glyphs or styles, not snapped to references). Trust them only in aggregate, never as evidence of intent for a single glyph. The patch is meant to normalize them.
+- **Never move semibold italic to the italic model** (decided 2026-10-12). Patch only anchors that do not conform to its own model.
+- The fontmetrics tables' italic `axm`/`bxm` do not follow the lane model yet (see `ANCHOR-HEURISTICS.md` §5). Don't cite them as model candidates until that report to-do is done.
 
 ### Patch pipeline (`font_patching.patch_font`)
 
 Stages in order; 5 and 6 are planned and commented out. Glyphs come first; scripted anchor stages (4–6) come before the human-curated anchors, which overrule them; precomposed inheritance is the last anchor stage; GSUB is rebuilt at the end.
 
 1. Delete bad anchors — implemented in `font_patching_deleteanchors.py` but switched off by `DELETE_BAD_ANCHORS` in `font_patching.py`, because nothing refills the deleted anchors until stages 5–6 exist. `anchor_audit.py` (run via `run_anchor_audit.py`) reads the font files directly, tests every above/below base anchor in the style's mark-to-base lookup whose glyph has a Unicode codepoint (unencoded small caps and alternates are ignored), and writes the bad and suspect ones with reasons to `data/fontanchors_audit/{style}.py`, plus a test sheet to `tex/input/anchor_audit.tex` (the "Anchor audit" section of the report). Those files are regenerated on each run; human decisions go in `data/fontanchors_audit/overrides.py` (`"keep"` / `"delete"`). Only "bad" anchors are deleted. Thresholds are constants at the top of `anchor_audit.py`.
-2. Add glyphs — U+E100 `space_en_base`, an invisible spacing base (CFF charstring built by hand).
+2. Add glyphs — U+E100 `space_en_base`, an invisible spacing base (CFF charstring built by hand). For a floating mark (e.g. a floating tone), the Unicode way is NBSP + mark, so U+00A0 also gets x-height above/below anchors in stage 7.
 3. Add missing marks — `font_patching_addmarks.py` adds the combining marks a style lacks, with mark anchors, by copying outlines the designer drew elsewhere: semibold takes regular's outline (above marks moved right 12), semibold italic takes italic's outline moved right 12 with regular's anchor verbatim (the semibold italic anchor model), and `dotaccent.cap` in the two italic styles is the dot of the precomposed Idotaccent. It opens the other original fonts to read those outlines. Copied above marks are made bolder to match the designer's own (about 12%): a part that is another mark is swapped for the style's own mark, and the rest is pushed outward by `embolden()`; below marks, lines and combining letters are copied unchanged. The "Adding missing marks" section of the report shows the emboldened ones. In semibold it also replaces U+0358–U+0363, which the original font fills with copies of the capital accents.
 4. Capital-mark anchors — `font_patching_capmarks.py` sets the mark anchor of each `.cap` accent from the precomposed capitals A–Z: y is the capital anchor reference (850; semibold 805) minus how far the mark is raised there (median); x is the outline's centre on its own axis for symmetric marks, and the median precomposed position relative to the base's midline for grave, acute, double acute, double grave; semibold italic subtracts K = 150. Curated `.cap` anchors in `fontanchors_human` that the script reproduces (regular, 8 of 10) are commented out; italic's are all kept and differ from the script by 6–62 units in x because they fit the designer's off-midline capital anchors.
 5. Normalize designer anchor y *(planned)*
@@ -72,11 +74,9 @@ Stages in order; 5 and 6 are planned and commented out. Glyphs come first; scrip
 
 ### Planned: mark anchors
 
-The audit and stage 1 cover base anchors only. Elliott intends to audit and patch **mark** anchors too (noted 2026-10-11; not started):
+The audit and stage 1 cover base anchors only. Elliott intends to audit and patch **mark** anchors too (noted 2026-10-11; not started; listed in the report's to-do). The mark-anchor model (`X = C + Y tan θ − K`) is in `ANCHOR-HEURISTICS.md` §3.
 
-- Model (see "Anchor model" in the report): a mark's anchor lies on the mark's own axis, `X = C + Y tan θ`, where `C` is the centre of the mark's outline with the slant removed (θ = 0 in roman); an asymmetric mark keeps regular's offset from that axis. `Y` is about 140 above the bottom of an above mark.
-- Findings so far, from a one-off check that is not in the repo: regular and italic marks fit (italic tilde is 11 off); semibold has anchor heights that differ from regular for about a quarter of its marks; in semibold italic 42 of 44 above/below mark anchors are regular's coordinates verbatim.
-- Semibold italic keeps the designer's own model (decided 2026-10-12; "Semibold italic anchor model" in the report): regular's anchors on slanted outlines, so both mark and base anchors are left of the italic-model position by a shift `K` (about 150 above, −12 below) and the errors cancel. Do **not** move this style to the italic model. Patch only anchors that do not conform, to `X = W/2 + Y tan θ − K` (bases) or `X = C + Y tan θ − K` (marks); an italic-model anchor here would be about 150 units off.
+- Findings so far, from a one-off check that is not in the repo: regular and italic marks fit (italic tilde is 11 off); semibold has anchor heights that differ from regular for about a quarter of its marks.
 - Capital-form marks (`grave.cap`, `acute.cap`, `circumflex.cap`, `breve.cap`, substituted over capitals by `ccmp`) are unencoded, so a mark audit keyed on codepoints misses them. In semibold italic their anchors carry the slant while capital base anchors do not, so they land 160–190 units left; in italic most `.cap` marks have no mark anchor at all (fallback positioning, 120–190 units right); in semibold 15 of A–Z (ABCDEFGHIKLMNPU) have no above anchor.
 - The combining dot above (U+0307) sits lower through its anchor than in precomposed glyphs (45 units lower in regular, 11 in italic); its mark anchor is a candidate for patching.
 - Curated mark anchors go in the `marks` / `marks_by_name` dicts of `data/fontanchors_human/{style}.py`.

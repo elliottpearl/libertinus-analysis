@@ -117,7 +117,7 @@ These need curated anchors (`data/fontanchors_human/{style}.py`):
 - **Y:** `get_aya` / `get_bya` in `fontmetrics_helpers.py` implement section 2 with ε = 2. `anchor_audit.py` uses them.
 - **Mark anchors:** `font_patching_capmarks.py` and `font_patching_addmarks.py` implement `C + Y tan θ − K` with K = 150 in semibold italic.
 - **Audit X:** `anchor_audit.py` compares X in sheared coordinates against the centre of the sheared outline, not `W/2`.
-- **Not yet the model: italic X in the fontmetrics tables.** The `axm` / `bxm` rows come from `get_slanted_mid_x` (via `get_mid_x_for_style`). That function takes the bbox centre at the bbox's mid-height and slides it along the slope to the reference Y of the glyph's class. So it uses the bbox rather than `W/2`, the reference rather than the candidate Y, and no K. `get_axm` / `get_bxm` take the candidate Y but are otherwise the same, and nothing calls them. The code's semibold italic slope is 0.2037; tan 11.5° is 0.2035. Bringing these rows into line with section 3 is the report's to-do "Revise fontmetrics table per anchor model with good candidates".
+- **Fontmetrics tables:** `get_anchor_candidate` in `fontmetrics_helpers.py` gives the candidate (X, Y) for the a? and b? rows: Y from `get_aya` / `get_bya`, X from section 3 at that Y (bbox midpoint in roman, `W/2 + Y tan θ − K` in italic styles). The marks tables use `get_mark_anchor_candidate`: Y is the outline bottom plus (above) or top minus (below) the style's median mark-anchor offset (`MARK_ANCHOR_OFFSET_OPT`), X is `axis_x + Y tan θ − K`, with `axis_x` the de-slanted outline centre stored by the extractor.
 
 ## 6. Possible second pass (not implemented)
 

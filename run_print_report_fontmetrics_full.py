@@ -16,9 +16,13 @@ from data.ipa.ipa_unicode import unicode_groups
 
 def main():
 
-    MAX_COLS = 32
+    # Columns per table; cells hold "X, Y" pairs.
+    MAX_COLS = {"base": 18, "mark": 18}
 
-    def chunks(seq, size):
+    def chunks(seq, max_size):
+        """Split seq into the fewest chunks of at most max_size, of even size."""
+        parts = math.ceil(len(seq) / max_size)
+        size = math.ceil(len(seq) / parts)
         for i in range(0, len(seq), size):
             yield seq[i:i+size]
 
@@ -67,14 +71,15 @@ def main():
         kind = entry[3]
         anchor_id = entry[4] if kind == "mark" else None
 
-        for idx, subset in enumerate(chunks(glyphs, MAX_COLS), start=1):
-            # Filename/label suffix (underscores OK)
-            file_suffix = f"_{idx}" if len(glyphs) > MAX_COLS else ""
-            # Caption suffix (LaTeX-safe)
-            if len(glyphs) > MAX_COLS:
-                total_parts = math.ceil(len(glyphs) / MAX_COLS)
-                caption_suffix = f" {idx}/{total_parts}"
+        subsets = list(chunks(glyphs, MAX_COLS[kind]))
+        tables = []
+        for idx, subset in enumerate(subsets, start=1):
+            # Label suffix (underscores OK) and caption suffix (LaTeX-safe)
+            if len(subsets) > 1:
+                label_suffix = f"_{idx}"
+                caption_suffix = f" {idx}/{len(subsets)}"
             else:
+                label_suffix = ""
                 caption_suffix = ""
 
             if kind == "base":
@@ -82,15 +87,16 @@ def main():
             else:
                 table_body = make_fontmetrics_table_for_marks(subset, anchor_id)
 
-            latex_table = wrap_in_table_environment(
+            tables.append(wrap_in_table_environment(
                 table_body,
                 caption=f"Font metrics for {caption}{caption_suffix}",
-                label=f"table:fontmetrics_{tag}{file_suffix}",
-            )
+                label=f"table:fontmetrics_{tag}{label_suffix}",
+            ))
 
-            out_path = TEX_INPUT_DIR / f"fontmetrics_{tag}{file_suffix}.tex"
-            out_path.write_text(latex_table, encoding="utf-8")
-            print(f"Wrote {out_path}")
+        # One file per group, holding all its tables
+        out_path = TEX_INPUT_DIR / f"fontmetrics_{tag}.tex"
+        out_path.write_text("\n".join(tables), encoding="utf-8")
+        print(f"Wrote {out_path} ({len(tables)} tables)")
 
 if __name__ == "__main__":
     main()

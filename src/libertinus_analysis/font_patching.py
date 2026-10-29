@@ -8,7 +8,9 @@ This module is designed to be called from a wrapper script such as:
 
 Stages, in order (each is its own module):
 
-     1. delete bad anchors            font_patching_deleteanchors   (off)
+     1. clean up the lookup:
+        merge semibold top_punkt      font_patching_mergeclasses
+        delete bad anchors            font_patching_deleteanchors   (off)
      2. add the spacing base glyph    font_patching_addglyphs
      3. add missing marks             font_patching_addmarks
      4. capital-mark anchors          font_patching_capmarks
@@ -33,6 +35,7 @@ from .font_patching_anchors import patch_anchors_human
 from .font_patching_capmarks import patch_cap_mark_anchors
 from .font_patching_deleteanchors import delete_bad_anchors
 from .font_patching_gsub import patch_gsub_ccmp
+from .font_patching_mergeclasses import merge_anchor_classes
 from .font_patching_precomposed_anchors import patch_precomposed_anchors
 
 # --- Future modules (commented out) ---
@@ -65,9 +68,15 @@ def patch_font(font_key: str) -> None:
     ttfont = ctx.ttfont
 
     # ------------------------------------------------------------
-    # 1. Delete bad anchors (see DELETE_BAD_ANCHORS)
-    #    Listed by run_anchor_audit.py in data/fontanchors_audit/.
+    # 1. Clean up the lookup
+    #    Merge semibold's second above class (top_punkt) into above,
+    #    before any stage copies or sets a mark anchor.
+    #    Delete bad anchors (see DELETE_BAD_ANCHORS), listed by
+    #    run_anchor_audit.py in data/fontanchors_audit/.
     # ------------------------------------------------------------
+    for line in merge_anchor_classes(ttfont, font_key, lookup_index):
+        print(f"[{font_key}] {line}")
+
     if DELETE_BAD_ANCHORS:
         delete_bad_anchors(ttfont, font_key, lookup_index)
 

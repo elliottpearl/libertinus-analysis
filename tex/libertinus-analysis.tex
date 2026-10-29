@@ -138,7 +138,12 @@ Audit mark anchors to fit roman and italic anchor models; patch as necessary.
 
 Add alt cap dot above for italic and semibold italic.
 
-Revise fontmetrics table per anchor model with good candidates.
+Revise inherited anchors for letters with bar, hook, or stroke, when reasonable, 
+checking for similar base letterform.
+
+A side finding about the patched fonts. After Ç, the patched fonts render the plain acute (acutecomb), not acute.cap as the originals do. So the rebuilt ccmp seems to have dropped Ç, and possibly other glyphs, from the capital list. I haven't checked how many.
+
+A side finding: semibold U+0351 and U+0357 have mark-anchor X = +100, while regular has −171. That looks wrong, and may come from the copies the original font has in U+0358–U+0363.
 
 \subsection*{Anchor model}
 
@@ -154,10 +159,32 @@ the mark's below-anchor is at the optical center of the mark.
 The base and mark are combined in the right panel of Figure \ref{fig:libertinus-geometry} 
 by superimposing their below-anchors.
 
-The clearance between a base and a mark is therefore encoded in the base anchor, not in the mark.
-The $Y$ coordinate of an above- or below-anchor is the vertical aspect of the base glyph plus a clearance; 
-see the section on vertical aspects below.
-The $X$ coordinate is at the horizontal center of the base glyph.
+Every font has five vertical reference lines (with respective $Y$ coordinate values) 
+-- ascender line, capline, x-height or meanline, baseline, descender line -- 
+within which each glyph lives.
+These vertical reference lines are the gray vertical lines in 
+Figures \ref{fig:libertinus-geometry}, \ref{fig:noto-geometry},  \ref{fig:libertinus-italic-geometry} and \ref{fig:libertinus-semibolditalic-geometry}.
+Each glyph has a (tight) bounding box for real minimum and maximum $X$ and $Y$ coordinate values, as well as 
+a so-called ideal bounding box where the glyph seems to live, but accounting for overshoots of bowls and serifs.
+The entire design goal is that the top and bottom of the ideal bounding box are two vertical reference lines, 
+except for glyphs that are non-full ascenders or non-full descenders.
+
+By clearance, I mean the (vertical) distance between a base and a mark, 
+measured between the ideal bounding boxes of the base and the mark.
+For some designed fonts, the clearance is consistent for each vertical reference line, so that all glyphs 
+that live at that reference line are separated from all marks with the same clearance; e.g. 
+dots should not dance below the baseline for different letters that sit on the baseline, 
+and acutes and graves sit at about the same height for different letters with similar top vertical reference line. 
+
+In roman styles of Libertinus, the clearance is encoded in the base anchor.
+The $Y$ coordinate of an above-anchor is the top of the base's ideal bounding box
+plus the clearance of the nearest vertical reference line,
+and the $Y$ coordinate of a below-anchor is the bottom of the ideal bounding box minus that clearance.
+For most glyphs that edge of the ideal bounding box is the reference line itself.
+For a non-full ascender or non-full descender it is not, but the clearance is the same;
+see the section on vertical reference lines below.
+The $X$ coordinate of the anchor is at some horizontal optical center of the base glyph, 
+but the meaning of the optical center depends on the glyph letterform, or whatever the designer thinks looks best.
 For a mostly symmetric letterform in the roman styles, a candidate for this $X$ coordinate 
 is the midpoint of the bounding box of the glyph.
 
@@ -189,7 +216,7 @@ In the middle panel of Figure \ref{fig:noto-geometry},
 the mark's below-anchor is the red square at the origin.
 The base and mark are combined in the right panel of Figure \ref{fig:noto-geometry} 
 by superimposing their below-anchors.
-So in Noto the clearance is encoded in the mark glyph, and in Libertinus it is encoded in the base anchor.
+So in Noto the clearance is encoded in the mark anchor, and in Libertinus it is encoded in the base anchor.
 
 \begin{figure}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
@@ -200,25 +227,23 @@ So in Noto the clearance is encoded in the mark glyph, and in Libertinus it is e
 
 \subsubsection*{Italic anchor model}
 
-In italic, the Libertinus anchor model is the same as in the roman styles, but it is applied along the italic axis.
+In italic, the Libertinus anchor model is similar to the roman styles, but it is applied along the italic axis.
 The italic lane of a base glyph is its advance-width box, slanted by the italic angle $\theta$
 ($12^\circ$).
-The midline of the lane is the line $X = W/2 + Y\tan\theta$, where $W$ is the advance width of the glyph.
+The midline of the italic lane is the line $X = W/2 + Y\tan\theta$, where $W$ is the advance width of the glyph.
 See the gray band and the dashed blue line in the left panel of Figure \ref{fig:libertinus-italic-geometry}.
 
 The $Y$ coordinate of an above- or below-anchor is set exactly as in the roman styles:
-the vertical aspect of the glyph plus the clearance, measured vertically.
-So marks sit at the same heights in roman and italic.
+the top or bottom of the glyph's ideal bounding box plus or minus the clearance of the nearest vertical reference line,
+measured vertically.
+So marks sit at the same height in roman and italic.
 The $X$ coordinate is the point of the midline at that height:
 $ax = W/2 + ay\tan\theta$ and $bx = W/2 + by\tan\theta$.
-For italic n, $W = 518$, so $ax = 259 + 645 \times 0.2126 = 396$ and $bx = 259 - 110 \times 0.2126 = 236$;
-the font has $ax = 394$ and $bx = 235$.
-The above-anchor is therefore right of the below-anchor by $(ay - by)\tan\theta$,
-which is about 160 units for a letter at the x-height.
 
-The height in this formula is the height of the anchor itself, that is, the vertical aspect plus the clearance, 
-not the height of the vertical aspect.
-So the correct vertical aspect of the glyph must be determined before the $X$ coordinate can be calculated.
+The height in this formula is the height of the anchor itself,
+that is, the edge of the ideal bounding box plus or minus the clearance,
+not the height of the reference line or of the ideal bounding box.
+So the $Y$ coordinate of the anchor must be determined before the $X$ coordinate can be calculated.
 In italic, the above-anchor is at $W/2 + 137$ for a letter at the x-height ($ay = 645$), 
 at $W/2 + 181$ for a capital ($ay = 850$), and at $W/2 + 189$ for an ascender ($ay = 890$).
 The below-anchor is at $W/2 - 23$ for a letter on the baseline ($by = -110$) 
@@ -248,40 +273,65 @@ Asymmetric letterforms, and letters that overhang their advance width such as f 
 \subsubsection*{Semibold italic anchor model}
 
 Semibold italic has its own anchor model, which is not the italic anchor model, and the patch keeps it.
-The designer's anchors are the anchors of regular, set on slanted outlines (the italic angle $\theta$ is $11.5^\circ$):
+The outlines are slanted (the italic angle $\theta$ is $11.5^\circ$), but the anchors are, almost all, 
+the anchors of regular, copied unchanged:
 42 of the 44 above- and below-mark anchors, and 319 of the 384 above- and below-anchors of bases,
-have the coordinates of regular exactly.
-So neither anchor carries the term $Y\tan\theta$.
-A mark anchor is left of the mark's axis by a shift $K$,
-and a base anchor is left of the midline of its lane by about the same shift,
-so the two errors cancel when the anchors are superimposed.
-See Figure \ref{fig:libertinus-semibolditalic-geometry}, where the hollow symbols are the positions given by the italic anchor model.
+have exactly the coordinates of regular.
 
-In this model, the mark anchor is at $X = C + Y\tan\theta - K$ and the base anchor is at $X = W/2 + Y\tan\theta - K$,
+So the anchors do not follow the slant.
+A slanted outline moves further right the higher it goes, but an anchor copied from regular stays where it was. 
+An above-anchor therefore sits left of where the italic anchor model would put it, 
+by roughly the amount the slant has moved the outline at that height.
+This is true of the base and of the mark alike: 
+the base's above-anchor is left of the midline of its italic lane, 
+and the mark's anchor is left of the mark's own slanted axis, by about the same amount.
+When the two anchors are superimposed, the two errors cancel, 
+and the axis of the mark lands near the midline of the base, as it would in italic.
+See Figure \ref{fig:libertinus-semibolditalic-geometry}, 
+where the filled symbols are the designer's anchors and the hollow symbols are the positions given by the italic anchor model:
+the above-anchor of n and the anchor of the macron are both far left of the hollow symbols, 
+but by nearly the same distance.
+
+The semibold italic anchor model is therefore the italic anchor model 
+with both anchors shifted left by the same constant $K$:
+the base anchor is at $X = W/2 + Y\tan\theta - K$ and the mark anchor is at $X = C + Y\tan\theta - K$,
 with $\tan\theta = 0.2035$ and the same $Y$ coordinates as in the other styles.
-The shift is $K_a = 150$ for above-marks (the median; most are between 132 and 168)
-and $K_b = -12$ for below-marks (most are between $-23$ and $-4$).
+Above-anchors are high, where the slant has moved the outline far to the right, so their shift is large: 
+$K_a = 150$ (the median of the above-marks; most are between 132 and 168).
+Below-anchors are just under the baseline, where the slant has moved the outline a little to the left, 
+so their shift is small and negative: 
+$K_b = -12$ (most below-marks are between $-23$ and $-4$).
 The italic anchor model is the case $K = 0$.
+
 The candidates for a base are
 $ax = W/2 + ay\tan\theta - 150$ and $bx = W/2 + by\tan\theta + 12$.
 So the above-anchor is at $W/2 - 19$ for a letter at the x-height ($ay = 645$),
 at $W/2 + 23$ for a capital ($ay = 850$), and at $W/2 + 31$ for an ascender ($ay = 890$).
 The below-anchor is at $W/2 - 10$ for a letter on the baseline ($by = -110$)
 and at $W/2 - 53$ for a descender ($by = -319$).
-For semibold italic n, $W = 606$, so $ax = 284$ and $bx = 293$; the font has $ax = 264$ and $bx = 265$, the values of regular n,
+For semibold italic n, $W = 606$, so $ax = 284$ and $bx = 293$; 
+the font has $ax = 264$ and $bx = 265$, the values of regular n,
 and the macron lands 29 units left of the midline.
 
-The cancellation is only approximate, because $K$ is not one number.
-For a mark, $K = Y\tan\theta$ plus a constant, where $Y$ is the height of the mark anchor;
-the designer's base anchors are near $W/2 - 9$ at every height, so the error of a mark on a base grows with
-the difference in height of the two anchors, by 2 units for every 10.
-The median distance of a designer's base anchor from the candidate is about 20 units for a lowercase letter and 30 units for a capital.
+The cancellation is only approximate, because the designer's anchors do not follow the slant at all, 
+whereas the model's anchors do, apart from the constant $K$.
+A mark's shift is fixed by the height of its own anchor:
+for a mark, $K = Y\tan\theta$ plus a constant, where $Y$ is the height of the mark anchor.
+But the designer's base anchors are near $W/2 - 9$ at every height, 
+so they do not move right for a taller base, such as a capital or an ascender.
+The error of a mark on a base therefore grows with the difference in height of the two anchors, 
+by 2 units for every 10.
+The median distance of a designer's base anchor from the candidate is about 20 units for a lowercase letter 
+and 30 units for a capital.
+
 The patch does not move this style to the italic anchor model.
 It keeps the designer's anchors where they conform to the semibold italic anchor model,
-and only corrects the anchors that do not, so that they conform to it:
+and corrects only the anchors that do not, so that they conform to it:
 a base anchor is moved to the candidate above,
 and a mark anchor is moved to $X = C + Y\tan\theta - 150$ for an above-mark or $X = C + Y\tan\theta + 12$ for a below-mark.
-An anchor set by the italic anchor model would be wrong here: it would be about 150 units too far right for an above-mark.
+An anchor set by the italic anchor model would be wrong here: 
+a base anchor without the shift would put every above-mark about 150 units too far right, 
+because the marks carry the shift.
 
 The following do not conform to the semibold italic anchor model and probably need to be patched, some of them manually.
 \begin{itemize}
@@ -328,10 +378,68 @@ The anchors of precomposed glyphs were not compared with these candidates.
 \subsection*{Font metrics per glyph}
 
 See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 
-(regular, italic, semibold, semibold italic) in four tables 
-(Tables \ref{table:fontmetrics_AZ}, \ref{table:fontmetrics_az}, \ref{table:fontmetrics_latinIPA_1}, \ref{table:fontmetrics_latinIPA_2}, \ref{table:fontmetrics_latinIPA_3}, \ref{table:fontmetrics_latinIPA_4}).
+(regular, italic, semibold, semibold italic) in the following tables 
+(Tables \ref{table:fontmetrics_AZ_1}--\ref{table:fontmetrics_latinIPA_7}), 
+and the mark anchors of above- and below-marks 
+(Tables \ref{table:fontmetrics_above_1}--\ref{table:fontmetrics_below_2}).
 Recall that Language Science Press uses semibold Libertinus fonts, e.g. 
-\verb|LibertinusSerif-Semibold.otf|, for all boldface style.
+\verb|LibertinusSerif-Semibold.otf|, for boldface styles.
+
+\subsubsection*{Table row headings}
+
+hex: Unicode character codepoint in 4-hex.
+
+cat: Unicode character category. 
+L = letter. Lu = uppercase (capital) letter, Ll = lowercase (small) letter,
+Lo = other letter.
+Used to determine expected ideal bounding box.
+M = mark. Mn = nonspacing mark.
+
+reg, it, sb, si: regular, italic, semibold, semibold italic. 
+In that row, the character is printed alone, with combining dot above, and with combining macron below, 
+to show anchor positioning (via combining grapheme joiner) when the base has an anchor; 
+otherwise HarfBuzz default positioning applies.
+
+patch: Use the patched Libertinus font to print the character alone, with combining dot above, and with combining macron below 
+to show anchor positioning of the patched font (via combining grapheme joiner).
+
+ideal: top and bottom ideal bounding box reference lines, 
+with offset from $Y_\mathrm{max}$ or $Y_\mathrm{min}$ for non-full descender or non-full ascender.
+c = capline, x = x-height, a = ascender, b = baseline, d = descender.
+
+a: $X, Y$ coordinates of the above-anchor.
+
+a?: $X, Y$ coordinates of the above-anchor candidate.
+
+a$\delta$: $X, Y$ coordinate differences between above-anchor and above-anchor candidate
+
+b: $X, Y$ coordinates of the below-anchor.
+
+b?: $X, Y$ coordinates of the below-anchor candidate.
+
+b$\delta$: $X, Y$ coordinate differences between below-anchor and below-anchor candidate
+
+In the tables of marks, each column is a mark and the rows are as follows.
+
+reg, it, sb, si, patch: the mark on n and on H (via combining grapheme joiner), 
+in the original and patched fonts.
+
+m: $X, Y$ coordinates of the mark anchor. 
+A class in parentheses is an anchor class other than above (0) or below (2): 
+semibold puts the dot above, diaeresis, ring, hook above and comma above in class 1, 
+whose base anchors are lower (n has 550 in class 1 and 646 in class 0).
+This is the designer's anchor class \verb|top_punkt|; it places the marks at the same height as class 0, 
+but only 24 bases have it. The patched semibold merges it into class 0.
+
+m?: $X, Y$ coordinates of the mark-anchor candidate.
+$Y$ is the bottom of the mark outline plus the style's median distance of an above-mark anchor above it
+(regular 143, italic 142, semibold 157 in class 0 and 60 in class 1, semibold italic 147),
+or the top of the outline minus the median distance of a below-mark anchor below it
+(regular 46, italic 48, semibold 54, semibold italic 54).
+$X$ is on the mark's own axis at that height, $C + Y\tan\theta - K$.
+
+m$\delta$: $X, Y$ coordinate differences between mark anchor and mark-anchor candidate.
+An asymmetric mark, such as the acute or grave, has an $X$ difference by design.
 
 \input{input/fontmetrics_AZ.tex}
 
@@ -339,51 +447,15 @@ Recall that Language Science Press uses semibold Libertinus fonts, e.g.
 
 %\input{input/fontmetrics_ipa1.tex}
 %\input{input/fontmetrics_ipa2.tex}
-\input{input/fontmetrics_latinIPA_1.tex}
-
-\input{input/fontmetrics_latinIPA_2.tex}
-
-\input{input/fontmetrics_latinIPA_3.tex}
-
-\input{input/fontmetrics_latinIPA_4.tex}
+\input{input/fontmetrics_latinIPA.tex}
 
 \input{input/fontmetrics_above.tex}
 
 \input{input/fontmetrics_below.tex}
 
-\subsubsection*{Table row headings}
+\subsection*{Vertical references, anchor $Y$ coordinates and reference, and clearance}
 
-hex: Unicode character codepoint in 4-hex.
-
-reg, it, sb, si: regular, italic, semibold, semibold italic. 
-In that row, the character is printed alone, with combining dot above, and with combining macron below, 
-to show any anchor positioning. 
-
-$ax$, $ay$: $X$ and $Y$ coordinates of the above-anchor.
-
-$bx$, $by$: $X$ and $Y$ coordinates of the below-anchor.
-
-The next few rows use the bounding box of the glyph, 
-because the midpoint of the width of the bounding box is a 
-naive candidate for $ax$ and $bx$, 
-and the bounding box coordinates are easy to determine.
-
-$xm$ is a horizontal midpoint relative to the bounding box of the glyph. 
-For roman font styles (regular and semibold), xm is the x-midpoint of the bounding box,
-$(X_\mathrm{min} + X_\mathrm{max})/2$, 
-where the bounding box is characterized by 
-$(X_\mathrm{min}, Y_\mathrm{min})$ and $(X_\mathrm{max}, Y_\mathrm{max})$.
-For italic font styles (italic and semibold italic), there are two midpoints, axm and bxm, 
-at the top and bottom of the italic lane where the glyph lives.
-
-The $\delta$ row  -- ax$\delta$ and bx$\delta$ -- is the offset of the anchor x-value 
-from the relevant x-midpoint value.
-
-These x-midpoints are geometric centers, not optical centers, but they are reasonable candidate for the anchor x-coordinate.
-
-\subsection*{Vertical aspects, anchor $Y$ coordinates and reference, and clearance}
-
-A font has at least five vertical aspects where glyph outlines live inside: 
+A font has at least five vertical reference lines where glyph outlines live inside: 
 descender height, baseline, x-height, ascender height, capital height.
 The values or ranges of these $Y$ coordinates are in the first five rows 
 of Table \ref{fig:vertical-aspects-of-Libertinus}.
@@ -409,7 +481,7 @@ $yrd = -232, [-238, -227]$.
 
 In the anchor model for Libertinus, the $Y$ coordinate of an above-anchor ($ay$) or a below-anchor ($by$) 
 is at a stable value depending on where the glyph outline lives relative to a vertical aspect.
-See the rows for $ay$ and $by$ in Tables \ref{table:fontmetrics_AZ} and \ref{table:fontmetrics_az} 
+See the rows a and b in Tables \ref{table:fontmetrics_AZ_1}--\ref{table:fontmetrics_az_2} 
 and find the common values according to the glyph's vertical aspects.
 There is no set name in font design for these above- or below-anchor $Y$ coordinate 
 reference values by ascender aspect, so I will denote them
@@ -736,7 +808,7 @@ The reasons in full are in \verb|data/fontanchors_audit/|.
 
 I will systematically survey above- and below anchors in the four font font styles, 
 commenting on any features and patching any problems. 
-Refer to Tables \ref{table:fontmetrics_AZ} and \ref{table:fontmetrics_az} for anchor values.
+Refer to Tables \ref{table:fontmetrics_AZ_1}--\ref{table:fontmetrics_az_2} for anchor values.
 Missing anchors are readily apparaent as blank entries.
 Large anchor-midpoint offset values ($ax\delta$, $bx\delta$) indicate possible problems, 
 but these can often be explained by glyph symmetry.

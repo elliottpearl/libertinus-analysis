@@ -76,6 +76,9 @@ For unencoded glyphs, this is the font’s glyph name (e.g., "a.sc").
 ### bbox
 The outline bounding box: [xmin, ymin, xmax, ymax].
 
+### axis_x
+Where the glyph's slanted axis meets the baseline: the horizontal centre of the outline after the slant is removed (x' = x − y tan θ, θ the font's italic angle). In roman styles it is the bbox midpoint. Used for the mark-anchor candidate X = axis_x + Y tan θ − K.
+
 ### anchors
 GPOS mark anchors, keyed by anchor class ID.  
 For Latin, class "0" is typically above, class "2" is below.

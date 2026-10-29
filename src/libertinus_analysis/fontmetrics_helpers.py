@@ -6,6 +6,7 @@ from .fontmetrics_loader import (
     get_anchor,
 )
 
+import math
 import unicodedata
 
 # ----------------------------------------------------------------------
@@ -163,128 +164,7 @@ def get_bbox_mid_x(style_metrics: dict, cp: int):
     return (xmin + xmax) // 2
 
 # ----------------------------------------------------------------------
-# Vertical classification (OPT-only)
-# ----------------------------------------------------------------------
-
-def classify_vertical(style_key: str, bbox):
-    """
-    Classify glyph into one of:
-        ascender, capital, xheight, descender, baseline
-    using OPT BlueValues thresholds.
-    """
-    xmin, ymin, xmax, ymax = bbox
-    T = VERTICAL_THRESHOLDS_OPT[style_key]
-
-    if ymax >= T["asc"]["lo"]:
-        return "ascender"
-    if ymax >= T["cap"]["lo"]:
-        return "capital"
-    if ymax >= T["xh"]["lo"]:
-        return "xheight"
-    if ymin <= T["desc"]["hi"]:
-        return "descender"
-    return "baseline"
-
-def get_anchor_y_ref(style_key: str, category: str, above: bool) -> int:
-    """
-    Look up the anchor Y reference for the given style and vertical category,
-    using OPT anchor references.
-    above=True  → use ascender/capital/xheight
-    above=False → use baseline/descender
-    """
-    refs = ANCHOR_Y_REF_OPT[style_key]
-
-    if above:
-        if category == "ascender":
-            return refs["asc"]
-        if category == "capital":
-            return refs["cap"]
-        if category == "xheight":
-            return refs["xh"]
-        return refs["cap"]
-    else:
-        if category == "descender":
-            return refs["desc"]
-        return refs["base"]
-
-# ----------------------------------------------------------------------
-# Style-aware midpoints (for dx)
-# ----------------------------------------------------------------------
-
-def get_upright_mid_x(style_metrics: dict, cp: int):
-    """
-    Upright geometric midpoint of bbox in x-direction.
-    """
-    bbox = get_bbox(style_metrics, cp)
-    if not bbox:
-        return None
-
-    xmin, ymin, xmax, ymax = bbox
-    return (xmin + xmax) / 2.0
-
-def get_slanted_mid_x(style_key: str, style_metrics: dict, cp: int, above: bool):
-    """
-    Slant-corrected geometric midpoint for italic/semibold_italic,
-    at the appropriate anchor Y reference (above or below), using OPT refs.
-    """
-    bbox = get_bbox(style_metrics, cp)
-    if not bbox:
-        return None
-
-    xmin, ymin, xmax, ymax = bbox
-    xm_upright = (xmin + xmax) / 2.0
-    ym_mid = (ymin + ymax) / 2.0
-
-    category = classify_vertical(style_key, bbox)
-    y_ref = get_anchor_y_ref(style_key, category, above=above)
-
-    if style_key == "italic":
-        slant = 0.2126  # tan(12°)
-    elif style_key == "semibold_italic":
-        slant = 0.2037  # tan(11.5°)
-    else:
-        slant = 0.0
-
-    return xm_upright + slant * (y_ref - ym_mid)
-
-def get_mid_x_for_style(style_key: str, style_metrics: dict, cp: int, anchor_id: str):
-    """
-    Unified midpoint helper:
-        regular/semibold → upright midpoint (xm)
-        italic/semibold_italic → slanted midpoint (axm/bxm)
-    anchor_id "0" → above; "2" → below.
-    """
-    if style_key in ("italic", "semibold_italic"):
-        above = (anchor_id == "0")
-        return get_slanted_mid_x(style_key, style_metrics, cp, above=above)
-    else:
-        return get_upright_mid_x(style_metrics, cp)
-
-# ----------------------------------------------------------------------
-# Anchor-derived metrics (dx)
-# ----------------------------------------------------------------------
-
-def compute_dx(style_metrics: dict, cp: int, anchor_id: str, style_key: str):
-    """
-    Compute:
-        dx = anchor_x - geometric_mid_x(style, anchor_id)
-
-    Returns dx, or None if missing data.
-    """
-    anchor = get_anchor(style_metrics, cp, anchor_id)
-    if not anchor:
-        return None
-
-    mid_x = get_mid_x_for_style(style_key, style_metrics, cp, anchor_id)
-    if mid_x is None:
-        return None
-
-    anchor_x = anchor[0]
-    dx = anchor_x - mid_x
-    return dx
-
-# ----------------------------------------------------------------------
-# New helpers: aya, bya, axm, bxm (Step 1, no padding)
+# Anchor candidates: aya, bya, and X by the anchor model
 # ----------------------------------------------------------------------
 
 def _parse_aspect(aspect: str) -> tuple[str, int]:
@@ -345,52 +225,81 @@ def get_bya(style_key: str, ba: str) -> int | None:
     """
     return _candidate_anchor_y(style_key, ba, {"b": "base", "d": "desc"}, above=False)
 
-def get_axm(style_key: str, style_metrics: dict, cp: int, aya: int | None) -> float | None:
+# Italic angle per style (tan theta); roman styles have no slant.
+SLOPE = {
+    "regular": 0.0,
+    "italic": math.tan(math.radians(12)),
+    "semibold": 0.0,
+    "semibold_italic": math.tan(math.radians(11.5)),
+}
+
+# Semibold italic anchor model: anchors are left of the lane midline by K,
+# per anchor class ("0" above, "2" below). Other styles have K = 0.
+SHIFT_K = {"semibold_italic": {"0": 150, "2": -12}}
+
+def get_anchor_candidate(style_key: str, style_metrics: dict, cp: int, anchor_id: str):
     """
-    Compute axm: slant-corrected midpoint X for the above anchor,
-    relative to the optical aspect (aya).
+    Candidate (x, y) for the above ("0") or below ("2") anchor, per the
+    anchor model in ANCHOR-HEURISTICS.md.
+
+    y: edge of the ideal bounding box plus/minus the clearance (get_aya/get_bya).
+    x: roman → bbox midpoint; italic → W/2 + y tan(theta) - K, at the
+    candidate's own height.
+
+    Returns (x, y, ideal) with ideal the aspect string, or None if the glyph
+    has no bbox.
     """
-    if aya is None:
+    entry = style_metrics["codepoint"].get(cp)
+    if not entry or not entry.get("bbox"):
         return None
 
-    bbox = get_bbox(style_metrics, cp)
-    if not bbox:
-        return None
-
-    xmin, ymin, xmax, ymax = bbox
-    xm_upright = (xmin + xmax) / 2.0
-    ym_mid = (ymin + ymax) / 2.0
-
-    if style_key == "italic":
-        slant = 0.2126  # tan(12°)
-    elif style_key == "semibold_italic":
-        slant = 0.2037  # tan(11.5°)
+    xmin, ymin, xmax, ymax = entry["bbox"]
+    if anchor_id == "0":
+        ideal = get_ideal_above_aspect(style_key, ymax, cp)
+        y = get_aya(style_key, ideal)
     else:
-        slant = 0.0
-
-    return xm_upright + slant * (aya - ym_mid)
-
-def get_bxm(style_key: str, style_metrics: dict, cp: int, bya: int | None) -> float | None:
-    """
-    Compute bxm: slant-corrected midpoint X for the below anchor,
-    relative to the optical aspect (bya).
-    """
-    if bya is None:
+        ideal = get_ideal_below_aspect(style_key, ymin)
+        y = get_bya(style_key, ideal)
+    if y is None:
         return None
 
-    bbox = get_bbox(style_metrics, cp)
-    if not bbox:
-        return None
-
-    xmin, ymin, xmax, ymax = bbox
-    xm_upright = (xmin + xmax) / 2.0
-    ym_mid = (ymin + ymax) / 2.0
-
-    if style_key == "italic":
-        slant = 0.2126  # tan(12°)
-    elif style_key == "semibold_italic":
-        slant = 0.2037  # tan(11.5°)
+    slope = SLOPE[style_key]
+    if slope == 0.0:
+        x = (xmin + xmax) / 2.0
     else:
-        slant = 0.0
+        k = SHIFT_K.get(style_key, {}).get(anchor_id, 0)
+        x = entry["width"] / 2.0 + y * slope - k
+    return x, y, ideal
 
-    return xm_upright + slant * (bya - ym_mid)
+# Mark anchor height relative to the mark's own outline, per anchor class:
+# above ("0", semibold also "1") is this far above the outline's bottom, below
+# ("2") this far below its top. Medians of each style's MARK_ABOVE / MARK_BELOW.
+# Semibold's class 1 (dot, diaeresis, ring, hook, comma above) pairs with lower
+# base anchors (n: 550 vs 646), so its marks sit equally far above the base.
+MARK_ANCHOR_OFFSET_OPT = {
+    "regular":        {"0": 143, "2": 46},
+    "italic":         {"0": 142, "2": 48},
+    "semibold":       {"0": 157, "1": 60, "2": 54},
+    "semibold_italic":{"0": 147, "2": 54},
+}
+
+def get_mark_anchor_candidate(style_key: str, style_metrics: dict, cp: int, anchor_id: str):
+    """
+    Candidate (x, y) for a mark's anchor in class anchor_id.
+
+    y: above-marks → bbox ymin + offset; below-marks → bbox ymax - offset
+    (MARK_ANCHOR_OFFSET_OPT), so every mark keeps the same gap to the base.
+    x: on the mark's own axis at that height, axis_x + y tan(theta) - K.
+
+    Returns None if the glyph is missing or the class has no offset.
+    """
+    entry = style_metrics["codepoint"].get(cp)
+    offset = MARK_ANCHOR_OFFSET_OPT[style_key].get(anchor_id)
+    if not entry or not entry.get("bbox") or offset is None:
+        return None
+
+    xmin, ymin, xmax, ymax = entry["bbox"]
+    y = ymax - offset if anchor_id == "2" else ymin + offset
+    k = SHIFT_K.get(style_key, {}).get(anchor_id, 0)
+    x = entry["axis_x"] + y * SLOPE[style_key] - k
+    return x, y

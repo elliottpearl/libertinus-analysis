@@ -4,7 +4,7 @@
 anchors = {
     "bases": {
         0x0059: { # Y
-            0: (469, 850), # italic lane
+            0: (319, 850), # italic lane - K (150): semibold italic model
             2: (277, -110) # italic lane
         },
         0x0061: { # a
@@ -28,23 +28,23 @@ anchors = {
             2: (350, -110), # O 
         },
         0x01B1: { # Upsilon
-            0: (506, 850), # italic lane
+            0: (356, 850), # italic lane - K (150): semibold italic model
             2: (311, -110), # italic lane
         },
         0x01B2: { # V hook
-            0: (498, 850), # italic lane
+            0: (348, 850), # italic lane - K (150): semibold italic model
             2: (303, -110) # italic lane
         },
         0x01B3: { # Y hook
-            0: (541, 850), # italic lane of stem
+            0: (391, 850), # italic lane of stem - K (150): semibold italic model
             2: (379, -110) # italic lane of stem
         },
         0x01B5: { # Z stroke
-            0: (462, 850), # italic lane
+            0: (312, 850), # italic lane - K (150): semibold italic model
             2: (267, -110) # italic lane
         },
         0x028A: { # upsilon
-            0: (369, 645), # italic lane
+            0: (219, 645), # italic lane - K (150): semibold italic model
             2: (281, -110), # italic lane
         },
         0xE100: { # en space with anchor, width = 280

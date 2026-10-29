@@ -5,14 +5,16 @@
 #   - all BASE_COVERAGE codepoints (encoded glyphs)
 #   - MARK_ABOVE and MARK_BELOW
 #   - all base_small_capital_glyph names (unencoded small-cap bases)
-#   - mark_small_capital_glyph and mark_superscript_glyph custom glyuphs
+#   - mark_capital_glyph and mark_superscript_glyph custom glyuphs
 #
 # Writes JSON to data/fontmetrics/<font_key>.json.
 
 import json
+import math
 from pathlib import Path
 from fontTools.ttLib import TTFont
 from fontTools.pens.boundsPen import BoundsPen
+from fontTools.pens.transformPen import TransformPen
 
 from .font_context import extract_mark_attachment_data
 from .font_context import FONTS
@@ -72,6 +74,19 @@ def get_glyph_bbox(glyph_set, glyph_name):
     xMin, yMin, xMax, yMax = pen.bounds
     return (round(xMin), round(yMin), round(xMax), round(yMax))
 
+def get_axis_x(glyph_set, glyph_name, slope):
+    """
+    Where the glyph's slanted axis meets the baseline: the horizontal centre
+    of the outline after the slant is removed (x' = x - y tan theta).
+    Equal to the bbox midpoint in roman styles.
+    """
+    pen = BoundsPen(glyph_set)
+    glyph_set[glyph_name].draw(TransformPen(pen, (1, 0, -slope, 1, 0, 0)))
+    if pen.bounds is None:
+        return 0
+    xMin, _, xMax, _ = pen.bounds
+    return round((xMin + xMax) / 2)
+
 # ------------------------------------------------------------
 # Build JSON entry for a single glyph
 # ------------------------------------------------------------
@@ -100,6 +115,7 @@ def build_glyph_entry(ttfont, glyph_set, anchorsByGlyph, gname):
     return {
         "glyph": gname,
         "bbox": list(bbox),
+        "axis_x": get_axis_x(glyph_set, gname, math.tan(math.radians(-ttfont["post"].italicAngle))),
         "anchors": anchors_json,
         "width": width,
         "lsb": lsb,
@@ -152,7 +168,7 @@ def extract_fontmetrics(font_key, lookup_index):
 
     glyph_names = (
         base_small_capital_glyph
-        + mark_small_capital_glyph
+        + mark_capital_glyph
         + mark_superscript_glyph
     )
 

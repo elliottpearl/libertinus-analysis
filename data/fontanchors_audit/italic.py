@@ -919,7 +919,7 @@ audit = {
             "reasons": [
                 'suspect [centre] anchor x is -232 from the centre line (32% of the width)',
                 'suspect [collision] circumflex overlaps the glyph (1 of 3 marks tested)',
-                "suspect [reference] y = 802 is 48 from both the reference values and the clearance rule (aspect 'a-25')",
+                "suspect [reference] y = 802 is 48 from both the reference values and the clearance rule (aspect 'c+28')",
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +158 from that style's; -232 off centre here (-74 there)",
             ],
         },

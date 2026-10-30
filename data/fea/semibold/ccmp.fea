@@ -49,10 +49,16 @@ feature ccmp {
     uni0421 uni0422 uni0423 uni0424 uni0425 uni0426 uni0427 uni0428 
     uni0429 uni042A uni042B uni042C uni042D uni042E uni042F
     # add more capitals
+    # Latin capitals with stroke, bar or ligature
+    Eth Oslash Dcroat Hbar Lslash OE
     # IPA/UPA capitals
     uni0186 uni018F uni0190 uni019F uni01A9 uni01B1 uni01B2 uni01B3 
-    uni01B5 
-    # uni01B7 
+    uni01B5 uni01B7 
+    uni0181 uni0182 uni0187 uni0189 uni018A uni018B uni018E uni0191 
+    uni0193 uni0194 uni0196 uni0197 uni0198 uni019C uni019D 
+    # uni0196 (capital iota) is a true capital (of U+0269 in African
+    # orthographies), so it takes the capital marks, at its ascender anchor
+    # not uni0294 uni0295 uni0296 (glottal stop, pharyngeal): undecided
     # dot/tilde below
     uni1E1A uni1E24 uni1E2C uni1E5A uni1E62 uni1E6C uni1E7E uni1E92 
     uni1EA0 uni1EB8 uni1ECA uni1ECC uni1EE4  

@@ -10,22 +10,32 @@ Stages, in order (each is its own module):
 
      1. clean up the lookup:
         merge semibold top_punkt      font_patching_mergeclasses
-        delete bad anchors            font_patching_deleteanchors   (off)
+        delete bad anchors            font_patching_deleteanchors
      2. add the spacing base glyph    font_patching_addglyphs
      3. add missing marks             font_patching_addmarks
      4. capital-mark anchors          font_patching_capmarks
      5. normalize designer anchor y   (planned)
-     6. heuristic anchors             (planned)
+     6. heuristic anchors             font_patching_heuristicanchors
      7. human-curated anchors         font_patching_anchors
-     8. precomposed inheritance       font_patching_precomposed_anchors
-     9. GSUB ccmp                     font_patching_gsub
-    10. save
+     8. derived-letter inheritance    font_patching_derivedanchors
+     9. precomposed inheritance       font_patching_precomposed_anchors
+    10. GSUB ccmp                     font_patching_gsub
+    11. sort mark-to-base coverage   font_patching_sortcoverage
+    12. save
 
 Glyphs come first, because every later stage may give them anchors. The
 scripted anchor stages (4-6) come before the human-curated anchors, so that
-a curated anchor always overrules a scripted one. Precomposed glyphs inherit
-last of the anchor stages, so that they inherit the final anchors of their
-bases. GSUB is rebuilt at the end, when every glyph it names exists.
+a curated anchor always overrules a scripted one. Derived letters (a base
+letter plus a bar, hook, tail...) inherit after the curated anchors, so that
+they inherit their base letter's final anchor, but never over a curated
+anchor of their own. Precomposed glyphs inherit last of the anchor stages, so
+that they inherit the final anchors of their bases. GSUB is rebuilt at the end, when every glyph it names exists. The
+mark-to-base coverage is sorted last, because every anchor stage appends to it.
+
+Stage 6 gives each Latin and IPA base that still lacks an above or below
+anchor the anchor model's candidate (get_anchor_candidate, see
+ANCHOR-HEURISTICS.md). It only fills gaps: designer anchors are not moved
+until stage 5 exists, and curated anchors (stage 7) overrule its candidates.
 """
 
 from .font_context import FontContext, FONTS
@@ -34,16 +44,23 @@ from .font_patching_addmarks import add_cap_dot, add_missing_marks
 from .font_patching_anchors import patch_anchors_human
 from .font_patching_capmarks import patch_cap_mark_anchors
 from .font_patching_deleteanchors import delete_bad_anchors
+from .font_patching_derivedanchors import patch_derived_anchors
 from .font_patching_gsub import patch_gsub_ccmp
+from .font_patching_heuristicanchors import patch_anchors_heuristic
 from .font_patching_mergeclasses import merge_anchor_classes
 from .font_patching_precomposed_anchors import patch_precomposed_anchors
+from .font_patching_sortcoverage import sort_mark_to_base_coverage
 
 # --- Future modules (commented out) ---
 # from .font_patching_normalizeanchors import normalize_anchor_y
-# from .font_patching_heuristicanchors import patch_anchors_heuristic
 
-# Stage 1 is implemented but off: until stages 5-6 can refill them, deleted
-# anchors with no human-curated replacement fall back to HarfBuzz positioning.
+# Stage 1 always deletes the anchors marked "delete" in
+# data/fontanchors_audit/overrides.py. The audit's own "bad" verdicts are
+# also deleted only if DELETE_BAD_ANCHORS is true. It is off because the
+# audit's list has not been reviewed: with it on, about 490 anchors are
+# deleted and about 150 of them, outside the Latin/IPA scope of stage 6, get
+# no replacement; and in semibold italic it deletes the copies of regular's
+# anchors that the semibold italic anchor model keeps.
 DELETE_BAD_ANCHORS = False
 
 def patch_font(font_key: str) -> None:
@@ -71,14 +88,17 @@ def patch_font(font_key: str) -> None:
     # 1. Clean up the lookup
     #    Merge semibold's second above class (top_punkt) into above,
     #    before any stage copies or sets a mark anchor.
-    #    Delete bad anchors (see DELETE_BAD_ANCHORS), listed by
-    #    run_anchor_audit.py in data/fontanchors_audit/.
+    #    Delete bad anchors: the "delete" overrides, and the audit's
+    #    bad verdicts if DELETE_BAD_ANCHORS (see above). Stages 6-8
+    #    refill them.
     # ------------------------------------------------------------
     for line in merge_anchor_classes(ttfont, font_key, lookup_index):
         print(f"[{font_key}] {line}")
 
-    if DELETE_BAD_ANCHORS:
-        delete_bad_anchors(ttfont, font_key, lookup_index)
+    for glyph_name, classIndex, xy in delete_bad_anchors(
+        ttfont, font_key, lookup_index, use_audit=DELETE_BAD_ANCHORS
+    ):
+        print(f"[{font_key}] {glyph_name}: deleted anchor class {classIndex} {xy}")
 
     # ------------------------------------------------------------
     # 2. Add glyphs (spacing base glyph)
@@ -110,15 +130,11 @@ def patch_font(font_key: str) -> None:
     # normalize_anchor_y(ttfont, font_key, lookup_index)
 
     # ------------------------------------------------------------
-    # 6. Patch heuristic anchors (planned)
+    # 6. Heuristic anchors: the anchor-model candidate for each
+    #    Latin/IPA base still lacking an above or below anchor
     # ------------------------------------------------------------
-    # patch_anchors_heuristic(
-    #     ttfont=ttfont,
-    #     font_key=font_key,
-    #     cmap=cmap,
-    #     cmap_reverse=cmap_reverse,
-    #     lookup_index=lookup_index,
-    # )
+    for line in patch_anchors_heuristic(ttfont, font_key, lookup_index):
+        print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------
     # 7. Patch anchors using human-curated data
@@ -133,7 +149,14 @@ def patch_font(font_key: str) -> None:
     )
 
     # ------------------------------------------------------------
-    # 8. Patch precomposed anchors
+    # 8. Derived letters inherit their base letter's anchor, plus the
+    #    outline shift (data/derived_letters.py)
+    # ------------------------------------------------------------
+    for line in patch_derived_anchors(ttfont, font_key, lookup_index):
+        print(f"[{font_key}] {line}")
+
+    # ------------------------------------------------------------
+    # 9. Patch precomposed anchors
     # ------------------------------------------------------------
     report_above = patch_precomposed_anchors(ttfont, font_key, 0, "BASE_ABOVE", lookup_index)
     report_below = patch_precomposed_anchors(ttfont, font_key, 2, "BASE_BELOW", lookup_index)
@@ -142,13 +165,20 @@ def patch_font(font_key: str) -> None:
         print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------
-    # 9. Patch GSUB using human-curated .fea file
+    # 10. Patch GSUB using human-curated .fea file
     #    (GPOS and GDEF are kept across the rebuild)
     # ------------------------------------------------------------
     patch_gsub_ccmp(ttfont, font_key)
 
     # ------------------------------------------------------------
-    # 10. Save patched font
+    # 11. Sort mark-to-base coverage by glyph ID
+    #     (the anchor stages append glyphs out of order)
+    # ------------------------------------------------------------
+    for line in sort_mark_to_base_coverage(ttfont, lookup_index):
+        print(f"[{font_key}] {line}")
+
+    # ------------------------------------------------------------
+    # 12. Save patched font
     # ------------------------------------------------------------
     ttfont.save(output_path)
     print(f"Patched font saved to {output_path}")

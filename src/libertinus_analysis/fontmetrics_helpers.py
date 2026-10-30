@@ -62,6 +62,10 @@ CLEARANCES_OPT = {
 # Helpers
 # ----------------------------------------------------------------------
 
+# Capitals whose top reference line is the ascender, not the capline:
+# capital iota has a genuine ascender stroke.
+ASCENDER_CAPITALS = {0x0196}
+
 def get_unicode_category(cp: int) -> str:
     if cp in (0x0294, 0x0295, 0x0296):
         return "Lu"
@@ -78,8 +82,11 @@ def get_ideal_above_aspect(style_key: str, ymax: int, cp: int) -> str:
     cat = get_unicode_category(cp)
     thresholds = VERTICAL_THRESHOLDS_OPT[style_key]
 
-    if cat == "Lu":
-        candidates = ["c", "a"]
+    if cp in ASCENDER_CAPITALS:
+        candidates = ["a"]
+    elif cat == "Lu":
+        # Capitals have no ascenders: the capline is their top reference line
+        candidates = ["c"]
     else:
         candidates = ["x", "a"]
 
@@ -182,6 +189,11 @@ def _parse_aspect(aspect: str) -> tuple[str, int]:
         delta = 0
     return base, delta
 
+# Aspects whose anchor always snaps to the reference, even outside the band.
+# Only capitals have the capital aspect; what rises above the capline (J's
+# top stroke, T's serifs, a slash, a hook) is away from where the mark sits.
+SNAP_ALWAYS = {"cap"}
+
 # Crude optical correction per aspect, applied only outside the threshold.
 # The script does not know the glyph's shape at ymin/ymax, so a small
 # overshoot is assumed. Ascenders are flat-topped: no correction.
@@ -190,7 +202,8 @@ OPTICAL_CORRECTION = {"asc": 0, "cap": 2, "xh": 2, "base": 2, "desc": 2}
 def _candidate_anchor_y(style_key: str, aspect: str, aspect_map: dict, above: bool) -> int | None:
     """
     Shared logic for aya/bya.
-    Within threshold (no delta in the aspect string) → snap to the reference.
+    Within threshold (no delta in the aspect string), or an aspect in
+    SNAP_ALWAYS → snap to the reference.
     Otherwise → reference + delta, pulled toward the glyph by the optical
     correction (down for above anchors, up for below anchors).
     """
@@ -207,7 +220,7 @@ def _candidate_anchor_y(style_key: str, aspect: str, aspect_map: dict, above: bo
 
     key = aspect_map[base]
     y0 = ref_dict[key]
-    if delta == 0:
+    if delta == 0 or key in SNAP_ALWAYS:
         return y0
 
     corr = OPTICAL_CORRECTION[key]

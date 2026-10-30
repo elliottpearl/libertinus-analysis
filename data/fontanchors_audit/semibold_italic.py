@@ -1721,7 +1721,7 @@ audit = {
             "verdict": "bad",
             "reasons": [
                 'suspect [centre] anchor x is -240 from the centre line (32% of the width)',
-                "suspect [reference] y = 802 is 48 from both the reference values and the clearance rule (aspect 'a-20')",
+                "suspect [reference] y = 802 is 48 from both the reference values and the clearance rule (aspect 'c+33')",
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +166 from that style's; -240 off centre here (-74 there)",
             ],
         },

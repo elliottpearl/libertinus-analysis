@@ -18,12 +18,16 @@ TODO: delete any human anchor for AE, Ezh and any letter whose only expected com
 anchors = {
 
     "bases": {
+        0x0259: { # schwa; designer's (195, 645), (186, -114) are 24 and 26 left
+            0: (219, 645),  # centre of the top of the arc
+            2: (212, -110), # centre of the bottom of the bowl
+        },
         0x004A: {  # J
             2: (109, -254), # was (109, -319), not full descender, heristic clearance gives y = -272
         },
-        0x0051: {  # Q
-            2: (350, -291), # -309
-        },
+        # 0x0051: {  # Q
+            # 2: (350, -291), # -309  # removed 2026-10-29: candidate (stage 6) gives (359, -294)
+        # },
         0x0062: {  # b
             0: (279, 885),  # apex of bowl
         },
@@ -38,6 +42,10 @@ anchors = {
         0x0066: {  # f
             0: (273, 885),  # apex of f
             2: (136, -110),
+        },
+        0x0192: {  # f with hook (florin), drawn like italic f with a ~7 deg stem
+            0: (323, 885),  # apex, as f: 10 left of the apex centre (333)
+            2: (84, -319),  # as italic f: between foot (53) and stem (138), 37% from the foot
         },
         0x0068: {  # h
             0: (282, 885),  # center of stems + offset
@@ -64,9 +72,9 @@ anchors = {
         0x0074: {  # t
             0: (139, 769),  # apex center; ascender clearance
         },
-        0x007A: {  # z
-            0: (220, 645),
-        },
+        # 0x007A: {  # z
+            # 0: (220, 645),  # removed 2026-10-29: designer's anchor is (220, 646)
+        # },
         0x00C0: { # A grave
             2: (308,-110), # A anchor below
         },
@@ -97,10 +105,10 @@ anchors = {
         0x00E1: { # á a acute
             2: (196, -110),
         },
-        0x00E6: {  # æ ae ligature
-            0: (350, 645),
-            2: (327, -110),
-        },
+        # 0x00E6: {  # æ ae ligature
+            # 0: (350, 645),  # removed 2026-10-29: designer's anchor is (350, 645)
+            # 2: (327, -110),  # removed 2026-10-29: designer's anchor is (327, -109)
+        # },
         0x00E8: { # e grave
             2: (234, -110),
         },
@@ -154,16 +162,16 @@ anchors = {
             2: (294, -110), # xmid bowl, baseline aspect
         },
         0x018F: { # Schwa
-            0: (327,850), # xm
+            0: (306,850), # centre of the top of the arc (was 327, bbox x mid, 21 right)
             2: (316,-110) # ymin
         },
-        0x0190: {  # Ɛ open E
-            0: (248, 850),  # xmid bbox, capital aspect
-            2: (248, -110),
-        },
-        0x19F: { # O middle tilde
-            0 : (335, 850), # O
-        },
+        # 0x0190: {  # Ɛ open E
+            # 0: (248, 850),  # xmid bbox, capital aspect  # removed 2026-10-29: candidate (stage 6) gives (256, 850)
+            # 2: (248, -110),  # removed 2026-10-29: candidate (stage 6) gives (256, -110)
+        # },
+        # 0x19F: { # O middle tilde
+            # 0 : (335, 850), # O  # removed 2026-10-29: inherited from O (stage 8): (335, 850)
+        # },
         0x01A9: { # Esh
             0: (268, 850), # xm above
             2: (277, -110), # xm below
@@ -184,9 +192,9 @@ anchors = {
             0: (320, 850), # Z
             2: (287, -110) # Z
         },
-        0x01B7: { # Ezh
-            0: (307, 850), # xm above
-        },
+        # 0x01B7: { # Ezh
+            # 0: (307, 850), # xm above  # removed 2026-10-29: candidate (stage 6) gives (303, 850)
+        # },
         0x01CD: { # Ǎ A caron
             2: (308,-110),
         },
@@ -247,7 +255,7 @@ anchors = {
         },
         0x0253: {  # ɓ b-hook
             0: (255, 885),  # x at ymax
-            2: (235, -110),  # x at ymin
+            # 2: (235, -110),  # x at ymin  # removed 2026-10-29: inherited from b (stage 8): (240, -110)
         },
         0x0257: { # ɗ d-hook
             0: (218, 885), 
@@ -264,18 +272,18 @@ anchors = {
             0: (225, 885),  # center of l
             2: (225, -110),
         },
-        0x026C: {  # ɬ l-belt
-            0: (225, 885),  # center of l
-            2: (225, -110),
-        },
+        # 0x026C: {  # ɬ l-belt
+            # 0: (225, 885),  # center of l  # removed 2026-10-29: inherited from l (stage 8): (223, 885)
+            # 2: (225, -110),  # removed 2026-10-29: inherited from l (stage 8): (223, -110)
+        # },
         0x026E: {  # ɮ lezh
             0: (135, 885),  # center of l
             2: (275, -319),  # below ezh anchor
         },
-        0x0275: {  # ɵ barred-o
-            0: (238, 645),  # x from o
-            2: (243, -110),
-        },
+        # 0x0275: {  # ɵ barred-o
+            # 0: (238, 645),  # x from o  # removed 2026-10-29: inherited from o (stage 8): (238, 645)
+            # 2: (243, -110),  # removed 2026-10-29: inherited from o (stage 8): (243, -110)
+        # },
         0x0276: {  # ɶ OE ligature
             0: (361, 645),  # center of lig band
             2: (361, -110),
@@ -409,12 +417,12 @@ anchors = {
             3: (151, 834),
         },
         0x02E2: {
-            0: (126, 805),
+            # 0: (126, 805),  # removed 2026-10-29: designer's anchor is (128, 805)
             1: (270, 648),
             3: (228, 725),
         },
         0x02E3: {
-            0: (158, 805),
+            # 0: (158, 805),  # removed 2026-10-29: designer's anchor is (158, 805)
             1: (344, 648),
             3: (302, 725),
         },
@@ -454,7 +462,7 @@ anchors = {
             3: (483, 725),
         },
         0x1D5B: {
-            0: (157, 805),
+            # 0: (157, 805),  # removed 2026-10-29: designer's anchor is (158, 805)
             1: (354, 648),
             3: (312, 725),
         },
@@ -493,9 +501,9 @@ anchors = {
         "grave.cap": {
             0: (-175, 723), # y implied
         },
-        "acute.cap": {
-            0: (-210, 723), # y implied
-        },
+        # "acute.cap": {
+            # 0: (-210, 723), # y implied  # removed 2026-10-29: stage 4 gives (-218, 723)
+        # },
         # Commented out 2026-10-12: font_patching_capmarks.py now sets these from the
         # precomposed capitals, within 4 units of the curated value (script value at right).
 #        "breve.cap": {  # script: (-161, 702)

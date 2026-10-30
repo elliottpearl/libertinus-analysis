@@ -2,10 +2,16 @@
 """
 Anchor-deletion stage of the Libertinus patching pipeline.
 
-Deletes the designer-set above/below base anchors that the anchor audit
-recorded as bad (data/fontanchors_audit/<font_key>.py, written by
-run_anchor_audit.py), subject to the human overrides in
-data/fontanchors_audit/overrides.py.
+Deletes designer-set above/below base anchors, so that later stages can
+replace them (stage 6 with the anchor-model candidate, stage 7 with a curated
+anchor, stage 8 by inheritance). Two sources:
+
+    - the human overrides in data/fontanchors_audit/overrides.py: "delete"
+      always deletes, for any reason (a copied anchor, a collision, an anchor
+      that does not fit the style's anchor model);
+    - the anchor audit's "bad" verdicts (data/fontanchors_audit/<font_key>.py,
+      written by run_anchor_audit.py), only if use_audit is true; "keep" in
+      the overrides then saves an anchor from them.
 
 Behavior:
     - Only base anchors of class 0 (above) and 2 (below) are touched.
@@ -35,19 +41,21 @@ def load_audit_overrides(font_key: str):
 # Which anchors to delete
 # ------------------------------------------------------------
 
-def anchors_to_delete(font_key: str):
+def anchors_to_delete(font_key: str, use_audit: bool = True):
     """
     Return {(glyph_name, classIndex)} for the anchors to delete:
-    audited as bad and not overruled with "keep", or overruled with "delete".
+    overruled with "delete", or (if use_audit) audited as bad and not
+    overruled with "keep".
     """
-    audit = load_anchor_audit(font_key)
     overrides = load_audit_overrides(font_key)
 
     doomed = set()
-    for glyph_name, class_map in audit.items():
-        for classIndex, record in class_map.items():
-            if record["verdict"] == "bad":
-                doomed.add((glyph_name, classIndex))
+    if use_audit:
+        audit = load_anchor_audit(font_key)
+        for glyph_name, class_map in audit.items():
+            for classIndex, record in class_map.items():
+                if record["verdict"] == "bad":
+                    doomed.add((glyph_name, classIndex))
 
     for glyph_name, class_map in overrides.items():
         for classIndex, decision in class_map.items():
@@ -66,13 +74,13 @@ def anchors_to_delete(font_key: str):
 # Main entry point
 # ------------------------------------------------------------
 
-def delete_bad_anchors(ttfont, font_key, lookup_index):
+def delete_bad_anchors(ttfont, font_key, lookup_index, use_audit=True):
     """
     Delete the bad above/below base anchors from the MarkToBase lookup.
 
     Returns the list of (glyph_name, classIndex, (x, y)) actually deleted.
     """
-    doomed = anchors_to_delete(font_key)
+    doomed = anchors_to_delete(font_key, use_audit)
 
     gpos = ttfont["GPOS"].table
     lookup = gpos.LookupList.Lookup[lookup_index]
@@ -89,5 +97,6 @@ def delete_bad_anchors(ttfont, font_key, lookup_index):
                 deleted.append((glyph_name, classIndex, (anchor.XCoordinate, anchor.YCoordinate)))
                 baserec.BaseAnchor[classIndex] = None
 
-    print(f"[{font_key}] deleted {len(deleted)} bad anchors ({len(doomed)} listed)")
+    source = "overrides and audit" if use_audit else "overrides only"
+    print(f"[{font_key}] deleted {len(deleted)} bad anchors ({len(doomed)} listed; {source})")
     return deleted

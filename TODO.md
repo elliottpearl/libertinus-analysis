@@ -40,3 +40,27 @@ Do you want me to fix the clearly wrong ones?
 - For ʊ, either drop the curated anchors or use the model values.
 
 The "second look" items need your judgement.
+---
+
+## Curated anchors kept for a decision (audit of 2026-10-29)
+
+The audit built the patched fonts without stage 7 and compared every curated anchor with what the glyph gets without it. "Without" is that value: the designer's anchor, the stage 6 candidate, a stage 8 inheritance, or a stage 4 `.cap` mark anchor. Differences are curated minus without. 37 redundant curated anchors were commented out; 164 are the only source of their anchor and stay. These were kept for you to decide:
+
+### Within 10 units, but deliberate
+
+- **Ə below**, regular (316, −110) and semibold (343, −110): the candidate is 10 to the right (326, 353), off the centre of the bowl's bottom, which the curated values were measured to.
+- **Y normalisations** of designer anchors. Removing them brings back the designer's value until stage 5 (normalise designer anchor Y) exists:
+  - regular below: ɐ (229, −110) was −114; ɑ (222, −110) was (212, −114); ɒ (259, −110) was −114; ʊ (253, −110) was (258, −114)
+  - italic below: O (310, −110) was −113; ʊ (267, −110) was (258, −114)
+  - semibold above: O (363, 805), S (252, 805), Z (321, 805), each was 802 or 803; Z below (308, −110) was −107
+- **X adjustments of 4–10 units** on designer anchors. They look deliberate; remove any that were only rounding:
+  - regular below: c (227) designer 236; f (136) designer 132; m (404) designer 408; r (140) designer 135; É (287, −110) designer (279, −107)
+  - regular superscripts above: ʳ (128) designer 119; ʷ (229) designer 219; ʸ (171) designer 168; ᵐ (248) designer 238; ᵖ (144) designer 148
+  - italic: tilde below mark (−220, −70) designer −227
+
+### 11–20 units from what the stages give
+
+- regular: `grave.cap` (−175, 723) against stage 4 (−162, 724); d below (235, −110) against designer 221; œ below (408, −110) against candidate 388; Ə above (306, 850) against candidate 326 (the apex of the arc, measured); ɓ above (255, 885) against inherited 238; ɻ above (238, 645) against inherited 226
+- italic: ʔ above (376, 867) against candidate (373, 850) (bowl overshoot of 10, decided); double acute mark (−57, 714) against designer −74 (the report's "Mark anchor model" section finds the designer's value has regular's offset, and lists removing the curated one under "Changes needed"); `uni030F.cap` (−47, 766) against stage 4 −34
+- semibold: e above (249, 645) against candidate 232
+- semibold italic: Y below (277, −110) against designer 295; tilde below mark (−196, −70) against designer −213

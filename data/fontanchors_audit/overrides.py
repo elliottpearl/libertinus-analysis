@@ -21,6 +21,11 @@ overrides = {
         "uni018A": {0: "delete"},  # (306, 805)
         # Ɣ: y 805, 45 below the capital reference
         "uni0194": {0: "delete"},  # (331, 805)
+        # β: below-anchor y -114, inside the descender (ymin -238)
+        "beta": {2: "delete"},  # (275, -114)
+        # J: below-anchor y -319 is the full-descender reference, but J is not a
+        # full descender (ymin about -182)
+        "J": {2: "delete"},  # (109, -319)
     },
     "italic": {
         # ɦ: above-anchor y 565, inside the hook; stage 6 gives the ascender candidate
@@ -32,8 +37,14 @@ overrides = {
         "uni018A": {0: "delete", 2: "delete"},  # (306, 805), (369, -107)
         # Ɣ: regular's anchor, y 805, not slanted
         "uni0194": {0: "delete"},  # (331, 805)
+        # β: regular's anchor, y -114, inside the descender (ymin -235), not slanted
+        "beta": {2: "delete"},  # (275, -114)
+        # J: below-anchor y -319, not a full descender
+        "J": {2: "delete"},  # (109, -319)
     },
     "semibold": {
+        # J: below-anchor y -319, not a full descender
+        "J": {2: "delete"},  # (109, -319)
     },
     "semibold_italic": {
         # Above-anchors set with the slant (italic anchor model, no K), so an
@@ -42,7 +53,7 @@ overrides = {
         "a": {0: "delete"},  # (379, 645)
         "s": {0: "delete"},  # (326, 645)
         "h": {0: "delete"},  # (469, 645), also at x-height, not ascender
-        "J": {0: "delete"},  # (432, 850)
+        "J": {0: "delete", 2: "delete"},  # (432, 850), (109, -319), not a full descender
         # Ɯ: above-anchor y 801, 49 below the capital reference (850), and
         # regular's x, not slanted
         "uni019C": {0: "delete"},  # (431, 801)
@@ -50,5 +61,7 @@ overrides = {
         "uni018A": {0: "delete", 2: "delete"},  # (306, 805), (369, -107)
         # Ɣ: regular's anchor, y 805, not slanted
         "uni0194": {0: "delete"},  # (331, 805)
+        # β: regular's anchor, y -114, inside the descender (ymin -233)
+        "beta": {2: "delete"},  # (275, -114)
     },
 }

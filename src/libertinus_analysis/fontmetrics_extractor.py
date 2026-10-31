@@ -7,15 +7,16 @@
 #   - all base_small_capital_glyph names (unencoded small-cap bases)
 #   - mark_capital_glyph and mark_superscript_glyph custom glyuphs
 #
-# Writes JSON to data/fontmetrics/<font_key>.json.
+# fontmetrics_loader.py calls this on demand. write_fontmetrics_json is an
+# optional dump to data/fontmetrics/<font_key>.json, which no code reads.
 
 import json
 import math
-from pathlib import Path
 from fontTools.ttLib import TTFont
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.transformPen import TransformPen
 
+from .config import FONTMETRICS_DIR
 from .font_context import extract_mark_attachment_data
 from .font_context import FONTS
 
@@ -30,32 +31,11 @@ from data.ipa.ipa_unicode import (
 from .fontmetrics_extract_tags import compute_semantic_tags
 
 # ------------------------------------------------------------
-# JSON helpers
+# JSON dump
 # ------------------------------------------------------------
 
-def load_fontmetrics_json(font_key):
-    path = Path("data/fontmetrics") / f"{font_key}.json"
-    if not path.exists():
-        return {"codepoint": {}, "glyph": {}}
-
-    with path.open("r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    # Legacy compatibility
-    if "codepoint" not in data and "glyphs" in data:
-        data = {
-            "codepoint": data.get("glyphs", {}),
-            "glyph": data.get("_orphans", {}),
-        }
-
-    data.setdefault("codepoint", {})
-    data.setdefault("glyph", {})
-
-    return data
-
-
 def write_fontmetrics_json(font_key, data):
-    path = Path("data/fontmetrics") / f"{font_key}.json"
+    path = FONTMETRICS_DIR / f"{font_key}.json"
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with path.open("w", encoding="utf-8") as f:

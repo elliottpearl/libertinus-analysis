@@ -5,11 +5,13 @@ Glyph-creation stage of the Libertinus patching pipeline.
 Currently adds:
     - U+E100 "space_en_base"
       (invisible spacing base glyph used for anchor attachment)
-
-This module is intentionally self-contained.
+    - U+034F "uni034F", combining grapheme joiner
+      (empty, zero-width mark glyph, so that the font covers the character)
 """
 
 from fontTools.ttLib.tables.otTables import GlyphClassDef
+
+from .font_patching_addmarks import _encode, _set_outline
 
 
 def add_custom_glyphs(ttfont, font_key: str) -> None:
@@ -18,8 +20,30 @@ def add_custom_glyphs(ttfont, font_key: str) -> None:
 
     Currently:
     - U+E100 "space_en_base" spacing base glyph
+    - U+034F combining grapheme joiner
     """
     add_spacing_base_glyph(ttfont, font_key)
+    add_cgj_glyph(ttfont)
+
+
+def add_cgj_glyph(ttfont):
+    """
+    Create the combining grapheme joiner U+034F ("uni034F"), as Gentium Plus
+    and Charis SIL define it: no outline, zero advance width, GDEF class mark.
+
+    It changes no positioning: HarfBuzz hides the character with or without a
+    glyph. The glyph is there for coverage, so that XeTeX does not report a
+    missing character for each \\cgj, and for engines other than HarfBuzz.
+    """
+    codepoint = 0x034F
+    glyph_name = "uni034F"
+
+    # Skip if already present
+    if codepoint in ttfont.getBestCmap():
+        return
+
+    _set_outline(ttfont, glyph_name, [])
+    _encode(ttfont, codepoint, glyph_name)
 
 
 def add_spacing_base_glyph(ttfont, font_key):

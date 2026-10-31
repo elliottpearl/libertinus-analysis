@@ -11,10 +11,10 @@ Stages, in order (each is its own module):
      1. clean up the lookup:
         merge semibold top_punkt      font_patching_mergeclasses
         delete bad anchors            font_patching_deleteanchors
-     2. add the spacing base glyph    font_patching_addglyphs
+     2. add glyphs (spacing base, CGJ) font_patching_addglyphs
      3. add missing marks             font_patching_addmarks
      4. capital-mark anchors          font_patching_capmarks
-     5. normalize designer anchor y   (planned)
+     5. normalize designer anchor y   font_patching_normalizeanchors
      6. heuristic anchors             font_patching_heuristicanchors
      7. human-curated anchors         font_patching_anchors
      8. derived-letter inheritance    font_patching_derivedanchors
@@ -34,8 +34,8 @@ mark-to-base coverage is sorted last, because every anchor stage appends to it.
 
 Stage 6 gives each Latin and IPA base that still lacks an above or below
 anchor the anchor model's candidate (get_anchor_candidate, see
-ANCHOR-HEURISTICS.md). It only fills gaps: designer anchors are not moved
-until stage 5 exists, and curated anchors (stage 7) overrule its candidates.
+ANCHOR-HEURISTICS.md). It only fills gaps: designer anchors are moved only by
+stage 5, and curated anchors (stage 7) overrule its candidates.
 """
 
 from .font_context import FontContext, FONTS
@@ -48,11 +48,11 @@ from .font_patching_derivedanchors import patch_derived_anchors
 from .font_patching_gsub import patch_gsub_ccmp
 from .font_patching_heuristicanchors import patch_anchors_heuristic
 from .font_patching_mergeclasses import merge_anchor_classes
+from .font_patching_normalizeanchors import normalize_anchor_y
 from .font_patching_precomposed_anchors import patch_precomposed_anchors
 from .font_patching_sortcoverage import sort_mark_to_base_coverage
 
 # --- Future modules (commented out) ---
-# from .font_patching_normalizeanchors import normalize_anchor_y
 
 # Stage 1 always deletes the anchors marked "delete" in
 # data/fontanchors_audit/overrides.py. The audit's own "bad" verdicts are
@@ -101,7 +101,7 @@ def patch_font(font_key: str) -> None:
         print(f"[{font_key}] {glyph_name}: deleted anchor class {classIndex} {xy}")
 
     # ------------------------------------------------------------
-    # 2. Add glyphs (spacing base glyph)
+    # 2. Add glyphs (spacing base glyph, combining grapheme joiner)
     # ------------------------------------------------------------
     add_custom_glyphs(ttfont, font_key)
 
@@ -125,9 +125,13 @@ def patch_font(font_key: str) -> None:
         print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------
-    # 5. Normalize designer-set anchor Y values (planned)
+    # 5. Normalize designer-set anchor Y values
+    #    Semibold's capitals move to the capital reference (stage 4
+    #    has already moved the .cap mark anchors to match). Anchors
+    #    within 5 of a Y reference snap to it; others are reported.
     # ------------------------------------------------------------
-    # normalize_anchor_y(ttfont, font_key, lookup_index)
+    for line in normalize_anchor_y(ttfont, font_key, lookup_index):
+        print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------
     # 6. Heuristic anchors: the anchor-model candidate for each

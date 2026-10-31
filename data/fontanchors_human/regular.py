@@ -18,13 +18,17 @@ TODO: delete any human anchor for AE, Ezh and any letter whose only expected com
 anchors = {
 
     "bases": {
+        0x0041: {  # A; designer's (354, 850), (308, -110) are left of the midline
+            0: (361, 850),  # centre of the cut apex, x 334..389
+            2: (339, -110), # centre between the serif feet, 115.5 and 562.5; Ạ has 338
+        },
         0x0259: { # schwa; designer's (195, 645), (186, -114) are 24 and 26 left
             0: (219, 645),  # centre of the top of the arc
             2: (212, -110), # centre of the bottom of the bowl
         },
-        0x004A: {  # J
-            2: (109, -254), # was (109, -319), not full descender, heristic clearance gives y = -272
-        },
+        # 0x004A: {  # J
+            # 2: (109, -254), # was (109, -319), not full descender, heristic clearance gives y = -272  # removed 2026-10-30: trying the candidate (stage 6)
+        # },
         # 0x0051: {  # Q
             # 2: (350, -291), # -309  # removed 2026-10-29: candidate (stage 6) gives (359, -294)
         # },

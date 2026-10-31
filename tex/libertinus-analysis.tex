@@ -138,8 +138,16 @@ Audit mark anchors to fit roman and italic anchor models; patch as necessary.
 
 Add alt cap dot above for italic and semibold italic.
 
-Revise inherited anchors for letters with bar, hook, or stroke, when reasonable, 
-checking for similar base letterform.
+Check the semibold mark anchors of ring above U+030A and vertical line above U+030D. Both clear the letter but sit low:
+the median gap over A--Z is 31 and 23 (regular 63 and 63), and over lowercase 29 and 21 (regular 70 and 70).
+
+Check the below anchor of J by eye in all styles. The designer's $Y = -319$ is deleted because J is not a full descender, and J now has the candidate (regular 120, $-257$; italic 146, $-285$; semibold 131, $-267$; semibold italic 187, $-249$).
+The best $X$ is open. $Y$ may need a curated anchor with the bowl correction of 10 instead of 2 (semibold 109, $-259$ looked right; regular had 109, $-254$).
+
+Review the designer anchors more than 5 from a $Y$ reference, which stage 5 lists but does not move (they are in the output of \verb|run_patch_font.py|).
+Many are legitimate, such as stacked marks on precomposed glyphs. Likely errors include: above and below swapped on \char"02AE, \char"02AF\ and \char"2132;
+k $-214$ below; \char"0263\ $-277$ below, not flagged by the audit;
+and capitals near 805 in the other styles, the semibold problem again: \char"014A, \char"01A2, \char"0181, \char"0184, \char"2C69, \char"2C6B\ and others.
 
 A side finding about the patched fonts. After Ç, the patched fonts render the plain acute (acutecomb), not acute.cap as the originals do. So the rebuilt ccmp seems to have dropped Ç, and possibly other glyphs, from the capital list. I haven't checked how many.
 
@@ -482,6 +490,39 @@ Compared with regular, after the patch:
 %one mark-to-mark LookupList table, index 5.
 
 \newpage
+\subsection*{Mark outline zones}
+
+Figures \ref{fig:mark-zones-regular}, \ref{fig:mark-zones-italic}, \ref{fig:mark-zones-semibold} and \ref{fig:mark-zones-semibold-italic}
+overlay the outlines of all the above and below marks of the patched fonts on a solid o, at three times the scale of the anchor model figures.
+Each mark is placed so that its anchor is on the anchor of the o for its class (the blue dots), which is where the shaper puts it.
+The common marks are black outlines. The other marks are gray with a light fill, so the shading builds up where many marks overlap.
+The grid is in font units of the o, with lines every 100 units.
+In semibold italic the above marks lie well to the right of the blue dot, because both the base and the mark anchor carry the shift $K$.
+
+\begin{figure}[htbp]
+	\captionsetup{justification=raggedright, singlelinecheck=false}
+	\begin{minipage}[t]{0.245\textwidth}
+		\input{input/mark_zones_regular.tex}
+		\caption{Mark zones, regular.}
+		\label{fig:mark-zones-regular}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{0.245\textwidth}
+		\input{input/mark_zones_italic.tex}
+		\caption{Mark zones, italic.}
+		\label{fig:mark-zones-italic}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{0.245\textwidth}
+		\input{input/mark_zones_semibold.tex}
+		\caption{Mark zones, semibold.}
+		\label{fig:mark-zones-semibold}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{0.245\textwidth}
+		\input{input/mark_zones_semibold_italic.tex}
+		\caption{Mark zones, semibold italic.}
+		\label{fig:mark-zones-semibold-italic}
+	\end{minipage}
+\end{figure}
+
 \subsection*{Font metrics per glyph}
 
 See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 
@@ -634,7 +675,7 @@ where $Y_\mathrm{max}$ is the maximum $Y$ coordinate of bounding box of the glyp
 and $\epsilon$ is the correction for the vertical aspect range, usually for an overshoot.
 
 Capitals are the exception: their top reference line is always the capline, and their above-anchor always has the capital reference $Y$
-($ay = 850$; semibold 805), even where the outline rises above the capline.
+($ay = 850$), even where the outline rises above the capline.
 In humanist letterforms capitals do not have ascenders: an ascender is a stroke of the pen, not merely a high $Y_\mathrm{max}$.
 What rises above the capline in Libertinus is away from the horizontal center of the glyph, where the mark sits:
 the top-left stroke of J (italic and semibold italic, 34 units above the capline), the serifs of T (semibold and semibold italic, 28),
@@ -681,13 +722,13 @@ $yr0$	& baseline	& $0,  [-12,0]$			& $0, [-12,1]$			& $0, [-12,1]$, 	& $0, [-20,
 $yrd$	& descender	& $-232, [-238,-227]$	& $-232, [-238,-227]$	& $-232, [-238,-212]$& $-232, [-239,-219]$ \\
 \hline
 $ayra$	& ascender	& $885$	& $890$	& $885$	& $890$	\\
-$ayrc$	& capital	& $850$	& $850$	& $805$	& $850$	\\
+$ayrc$	& capital	& $850$	& $850$	& $850$	& $850$	\\
 $ayrx$	& x-height	& $645$	& $645$	& $645$	& $645$	\\
 $byr0$	& baseline	& $-110$& $-110$& $-110$& $-110$ \\
 $byrd$	& descender	& $-319$& $-319$& $-319$& $-319$ \\
 \hline
 $ay\delta a$	& ascender	& $187$	& $192$	& $187$	& $192$	\\
-$ay\delta c$	& capital	& $205$	& $205$	& $160$	& $205$	\\
+$ay\delta c$	& capital	& $205$	& $205$	& $205$	& $205$	\\
 $ay\delta x$	& x-height	& $216$	& $216$	& $211$	& $211$	\\
 $by\delta 0$	& baseline	& $110$	& $110$	& $110$	& $110$	\\
 $by\delta d$	& descender	& $87$	& $87$	& $87$	& $87$	\\
@@ -695,7 +736,13 @@ $by\delta d$	& descender	& $87$	& $87$	& $87$	& $87$	\\
 
 \end{table}
 
-For the vertical aspect, the first single value is the optical value of the vertical aspect. 
+The capital anchor $Y$ reference and clearance of semibold are the patched values.
+The designer set semibold's capitals near 805 (clearance 160) and compensated only in the capital alternates of the marks,
+so a mark without a capital alternate crashed into the capital: in 225 of the 780 combinations of A--Z with 30 above marks, the bottom of the mark was below the top of the letter.
+The patch moves the capitals to 850 and adds 45 to the mark anchors of the capital alternates, which stay where they were.
+That leaves 4 such combinations, all on T, whose serif tips rise to 673 away from the marks; under the marks the gap is 21--26.
+
+For the vertical aspect, the first single value is the optical value of the vertical aspect.
 In practice, this is the y-coordinate of the central control point of a (vertical) stem that meets that aspect.
 In the table, the range for the vertical aspects are the BlueValues set by the designer in the SFD 
 and seen as guidelines in a FontForge glyph outline window view.
@@ -2559,7 +2606,7 @@ In this case only the base glyph is shown.
 These grids display capitals with alternate marks.
 
 In the patched fonts, the mark anchor of each capital alternate is set by script (\verb|font_patching_capmarks.py|) from the precomposed capitals A--Z.
-The $Y$ coordinate is the capital anchor reference (850; 805 in semibold) less the height by which the mark is raised in the precomposed glyphs.
+The $Y$ coordinate is the capital anchor reference (850) less the height by which the mark is raised in the precomposed glyphs.
 The $X$ coordinate of a symmetric mark is the center of its outline on its own axis;
 for the grave, acute, double acute and double grave it is the median position of the mark in the precomposed glyphs, relative to the midline of the base.
 In semibold italic both are shifted left by 150 units, as in the semibold italic anchor model.

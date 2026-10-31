@@ -47,14 +47,14 @@ VERTICAL_THRESHOLDS_OPT = {
 ANCHOR_Y_REF_OPT = {
     "regular":        {"asc": 885, "cap": 850, "xh": 645, "base": -110, "desc": -319},
     "italic":         {"asc": 890, "cap": 850, "xh": 645, "base": -110, "desc": -319},
-    "semibold":       {"asc": 885, "cap": 805, "xh": 645, "base": -110, "desc": -319},
+    "semibold":       {"asc": 885, "cap": 850, "xh": 645, "base": -110, "desc": -319},
     "semibold_italic":{"asc": 890, "cap": 850, "xh": 645, "base": -110, "desc": -319},
 }
 
 CLEARANCES_OPT = {
     "regular":        {"asc": 187, "cap": 205, "xh": 216, "base": 110, "desc": 87},
     "italic":         {"asc": 192, "cap": 205, "xh": 216, "base": 110, "desc": 87},
-    "semibold":       {"asc": 187, "cap": 160, "xh": 211, "base": 110, "desc": 87},
+    "semibold":       {"asc": 187, "cap": 205, "xh": 211, "base": 110, "desc": 87},
     "semibold_italic":{"asc": 192, "cap": 205, "xh": 211, "base": 110, "desc": 87},
 }
 

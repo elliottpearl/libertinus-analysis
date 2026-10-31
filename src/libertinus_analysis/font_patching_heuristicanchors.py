@@ -9,13 +9,13 @@ below (class 2) anchor the anchor candidate of the anchor model
     X: roman → bbox midpoint; italic → W/2 + Y tan(theta) - K.
 
 Only missing anchors are added; an existing anchor is never moved. The
-candidates are computed from the original font's fontmetrics JSON, which
-holds the same base outlines as the patched font.
+candidates are computed from the original font's fontmetrics, which hold
+the same base outlines as the patched font.
 
 Skipped:
     - glyphs with a canonical Unicode decomposition: stage 8 lets them
       inherit the anchors of their base;
-    - glyphs missing from the font or from the fontmetrics JSON.
+    - glyphs missing from the font or from the fontmetrics.
 
 Human-curated anchors (stage 7) overrule the anchors added here.
 """
@@ -45,7 +45,7 @@ def patch_anchors_heuristic(ttfont, font_key, lookup_index):
     Add the candidate above/below anchor to each base lacking one.
 
     font_key: "regular", "italic", "semibold" or "semibold_italic"; the
-    fontmetrics JSON and the style tables are keyed by it.
+    fontmetrics and the style tables are keyed by it.
 
     Returns: list of report lines.
     """

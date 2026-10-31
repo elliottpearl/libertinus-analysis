@@ -28,6 +28,10 @@ STYLE_LABELS = {
     "semibold_italic": "si",
 }
 
+# Invisible strut for the glyph-sample rows: an ordinary row is too short for
+# a capital with an above mark or a descender with a below mark.
+SAMPLE_STRUT = "\\rule[-0.5em]{0pt}{1.9em}"
+
 
 def texify(rows):
     """Convert list-of-list rows into TeX table body."""
@@ -105,8 +109,8 @@ def make_fontmetrics_table(bases: list[str]) -> str:
         style_label = STYLE_LABELS[style_key]
         style_metrics = all_metrics[style_key]
 
-        rows.append(["\\hline " + style_label] + [sample_letter_glyph(cp, style_key) for cp in cps])
-        rows.append(["patch"] + [sample_letter_glyph(cp, f"{style_key}_patch") for cp in cps])
+        rows.append(["\\hline " + style_label + SAMPLE_STRUT] + [sample_letter_glyph(cp, style_key) for cp in cps])
+        rows.append(["patch" + SAMPLE_STRUT] + [sample_letter_glyph(cp, f"{style_key}_patch") for cp in cps])
 
         anchor_rows = {}
         ideals = {}
@@ -168,8 +172,8 @@ def make_fontmetrics_table_for_marks(marks: list[str], anchor_id: str) -> str:
         style_label = STYLE_LABELS[style_key]
         style_metrics = all_metrics[style_key]
 
-        rows.append(["\\hline " + style_label] + [sample_mark_glyph(cp, style_key) for cp in cps])
-        rows.append(["patch"] + [sample_mark_glyph(cp, f"{style_key}_patch") for cp in cps])
+        rows.append(["\\hline " + style_label + SAMPLE_STRUT] + [sample_mark_glyph(cp, style_key) for cp in cps])
+        rows.append(["patch" + SAMPLE_STRUT] + [sample_mark_glyph(cp, f"{style_key}_patch") for cp in cps])
 
         have, want, delta = [], [], []
         for cp in cps:

@@ -2,9 +2,10 @@
 
 # build_fontmetrics.py
 #
-# Extracts bounding boxes and legacy GPOS anchors from the
-# original Libertinus fonts and writes them to JSON files
-# in data/fontmetrics/.
+# Optional dump, for reading the metrics by eye: extracts bounding
+# boxes and legacy GPOS anchors from the original Libertinus fonts
+# and writes them to JSON files in data/fontmetrics/. No code reads
+# these files; fontmetrics_loader.py extracts from the fonts on demand.
 
 from libertinus_analysis.fontmetrics_extractor import (
     extract_fontmetrics,

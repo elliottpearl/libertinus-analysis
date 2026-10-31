@@ -8,6 +8,8 @@ For fontmetrics_extractor.py and fontmetrics_loader.py
 
 This document describes the structure of the JSON files produced by the font‑metrics extractor, with a focus on the semantic glyph‑shape tags used to support heuristic anchor placement.
 
+The code no longer reads these files: fontmetrics_loader.py extracts the same structure from the fonts on demand (with codepoint keys as integers). The JSON files are an optional dump for reading by eye, written by run_build_fontmetrics.py. The semantic tags are an early model of glyph properties; no code uses them yet.
+
 All fields are optional unless otherwise noted.
 
 ---------------------------------------------------------------------

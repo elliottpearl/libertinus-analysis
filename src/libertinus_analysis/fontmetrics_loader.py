@@ -1,21 +1,20 @@
 # fontmetrics_loader.py
 
 from __future__ import annotations
-from pathlib import Path
-import json
+from functools import lru_cache
 
-from .config import FONTMETRICS_DIR
+from .font_context import FONTS
+from .fontmetrics_extractor import extract_fontmetrics
 
+@lru_cache(maxsize=None)
 def load_fontmetrics(font_key: str) -> dict:
     """
-    Load metrics JSON for a single font_key, converting:
+    Extract metrics for a single font_key from its font file, once per run,
+    converting:
         "0x0250" → 0x0250 (int)
+    The result is shared between callers; treat it as read-only.
     """
-    path = FONTMETRICS_DIR / f"{font_key}.json"
-    if not path.exists():
-        raise FileNotFoundError(f"Fontmetrics file not found: {path}")
-
-    raw = json.loads(path.read_text())
+    raw = extract_fontmetrics(font_key, FONTS[font_key]["lookup_index"])
 
     # Convert codepoint keys "0xXXXX" → int
     cp_dict = {}

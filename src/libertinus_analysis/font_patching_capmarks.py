@@ -57,8 +57,9 @@ CAP_MARKS = {
 # Marks whose optical centre is not the centre of the outline.
 ASYMMETRIC = {"grave.cap", "acute.cap", "hungarumlaut.cap", "uni030F.cap"}
 
-# Above-anchor reference height of capitals (semibold is 805 by design).
-CAP_ANCHOR_Y = {"regular": 850, "italic": 850, "semibold": 805, "semibold_italic": 850}
+# Above-anchor reference height of capitals. The designer's semibold capitals
+# are near 805; stage 5 moves them to 850.
+CAP_ANCHOR_Y = {"regular": 850, "italic": 850, "semibold": 850, "semibold_italic": 850}
 
 SLOPE = {
     "regular": 0.0,

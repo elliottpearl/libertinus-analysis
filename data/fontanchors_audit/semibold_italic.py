@@ -180,7 +180,7 @@ audit = {
                 'suspect [centre] anchor x is -208 from the centre line (32% of the width)',
                 'suspect [precomposed] precomposed glyphs centre marks +179 from this anchor (7 glyph(s) compared)',
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +192 from that style's; -208 off centre here (-16 there)",
-                'suspect [style-position] anchor sits 18% across the glyph; 50% in the other styles',
+                'suspect [style-position] anchor sits 18% across the glyph; 49% in the other styles',
             ],
         },
     },
@@ -200,7 +200,7 @@ audit = {
             "verdict": "bad",
             "reasons": [
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +184 from that style's; -195 off centre here (-11 there)",
-                'suspect [style-position] anchor sits 20% across the glyph; 48% in the other styles',
+                'suspect [style-position] anchor sits 20% across the glyph; 47% in the other styles',
             ],
         },
     },
@@ -212,7 +212,7 @@ audit = {
                 'suspect [centre] anchor x is -203 from the centre line (35% of the width)',
                 'suspect [precomposed] precomposed glyphs centre marks +174 from this anchor (2 glyph(s) compared)',
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +171 from that style's; -203 off centre here (-32 there)",
-                'suspect [style-position] anchor sits 15% across the glyph; 44% in the other styles',
+                'suspect [style-position] anchor sits 15% across the glyph; 43% in the other styles',
             ],
         },
         2: {  # below
@@ -231,7 +231,7 @@ audit = {
                 'suspect [centre] anchor x is -163 from the centre line (42% of the width)',
                 'suspect [precomposed] precomposed glyphs centre marks +160 from this anchor (3 glyph(s) compared)',
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +159 from that style's; -163 off centre here (-4 there)",
-                'suspect [style-position] anchor sits 8% across the glyph; 50% in the other styles',
+                'suspect [style-position] anchor sits 8% across the glyph; 49% in the other styles',
             ],
         },
     },
@@ -277,7 +277,7 @@ audit = {
             "reasons": [
                 'suspect [precomposed] precomposed glyphs centre marks +171 from this anchor (3 glyph(s) compared)',
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +152 from that style's; -175 off centre here (-24 there)",
-                'suspect [style-position] anchor sits 31% across the glyph; 48% in the other styles',
+                'suspect [style-position] anchor sits 31% across the glyph; 47% in the other styles',
             ],
         },
     },
@@ -288,7 +288,7 @@ audit = {
             "reasons": [
                 'suspect [precomposed] precomposed glyphs centre marks +162 from this anchor (2 glyph(s) compared)',
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +189 from that style's; -181 off centre here (+9 there)",
-                'suspect [style-position] anchor sits 23% across the glyph; 51% in the other styles',
+                'suspect [style-position] anchor sits 23% across the glyph; 50% in the other styles',
             ],
         },
     },
@@ -299,7 +299,7 @@ audit = {
             "reasons": [
                 'suspect [precomposed] precomposed glyphs centre marks +155 from this anchor (5 glyph(s) compared)',
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +165 from that style's; -157 off centre here (+8 there)",
-                'suspect [style-position] anchor sits 23% across the glyph; 51% in the other styles',
+                'suspect [style-position] anchor sits 23% across the glyph; 50% in the other styles',
             ],
         },
         2: {  # below
@@ -317,7 +317,7 @@ audit = {
             "reasons": [
                 'suspect [precomposed] precomposed glyphs centre marks +132 from this anchor (3 glyph(s) compared)',
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is +157 from that style's; -147 off centre here (+10 there)",
-                'suspect [style-position] anchor sits 23% across the glyph; 52% in the other styles',
+                'suspect [style-position] anchor sits 23% across the glyph; 49% in the other styles',
             ],
         },
     },
@@ -608,7 +608,7 @@ audit = {
             "verdict": "suspect",
             "reasons": [
                 'suspect [precomposed] precomposed glyphs centre marks +214 from this anchor (1 glyph(s) compared)',
-                'suspect [style-position] anchor sits 38% across the glyph; 55% in the other styles',
+                'suspect [style-position] anchor sits 38% across the glyph; 56% in the other styles',
             ],
         },
         2: {  # below
@@ -894,7 +894,7 @@ audit = {
             "xy": (480, 850),
             "verdict": "suspect",
             "reasons": [
-                'suspect [style-position] anchor sits 33% across the glyph; 51% in the other styles',
+                'suspect [style-position] anchor sits 33% across the glyph; 52% in the other styles',
             ],
         },
     },

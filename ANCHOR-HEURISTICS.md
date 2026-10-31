@@ -25,19 +25,21 @@ The Y of a base anchor is the glyph's vertical aspect plus that aspect's clearan
 | | baseline `b` | 0 [−12, 0] | 0 [−12, 1] | 0 [−12, 1] | 0 [−20, 0] |
 | | descender `d` | −232 [−238, −227] | −232 [−238, −227] | −232 [−238, −212] | −232 [−239, −219] |
 | anchor Y reference | above, ascender | 885 | 890 | 885 | 890 |
-| | above, capital | 850 | 850 | **805** | 850 |
+| | above, capital | 850 | 850 | 850 | 850 |
 | | above, x-height | 645 | 645 | 645 | 645 |
 | | below, baseline | −110 | −110 | −110 | −110 |
 | | below, descender | −319 | −319 | −319 | −319 |
 | clearance | ascender | 187 | 192 | 187 | 192 |
-| | capital | 205 | 205 | 160 | 205 |
+| | capital | 205 | 205 | 205 | 205 |
 | | x-height | 216 | 216 | 211 | 211 |
 | | baseline | 110 | 110 | 110 | 110 |
 | | descender | 87 | 87 | 87 | 87 |
 
+Semibold's capital row is the patched value. The designer set semibold's capitals near 805 (clearance 160) and compensated only in the `.cap` marks, so marks without a `.cap` form crashed into capitals; the patch moves the capitals to 850 and adds 45 to the `.cap` mark anchors.
+
 The bands are the designer's BlueValues/OtherBlues from the SFDs. In code these numbers are `VERTICAL_THRESHOLDS_OPT`, `ANCHOR_Y_REF_OPT` and `CLEARANCES_OPT` in `fontmetrics_helpers.py`. The older `data/vertical_data.py` disagrees with them in places and is not used.
 
-**Choosing the aspect.** For the above-anchor of a capital (Unicode category `Lu`, plus U+0294–U+0296), the aspect is always the capital, and the candidate Y always snaps to the capital reference (850; semibold 805), even if `ymax` is above the band: capitals have no ascenders, and what rises above the capline (J's top stroke in the italic styles, T's serifs in the semibold styles, Ø's slash, Ʒ, the hooks of Ƈ Ɠ) is away from the centre where the mark sits. The aspect string still records the excess (`c+34` for semibold italic J). The exception is capital iota Ɩ U+0196, a genuine ascender, which takes the ascender aspect (885; italic styles 890). Italic ʔ ʕ, whose tops are 27 and 38 above the capline, have curated anchors with the bowl overshoot ε = 10 (`ay = 850 + delta − 10`: 867, 878). For everything else, compare `ymax` with the nearer of x-height or ascender. For the below-anchor, compare `ymin` with baseline or descender. The result is written as an aspect string: `x` means `ymax` is inside the x-height band; `x+33` means it is 33 above the aspect value and outside the band.
+**Choosing the aspect.** For the above-anchor of a capital (Unicode category `Lu`, plus U+0294–U+0296), the aspect is always the capital, and the candidate Y always snaps to the capital reference (850), even if `ymax` is above the band: capitals have no ascenders, and what rises above the capline (J's top stroke in the italic styles, T's serifs in the semibold styles, Ø's slash, Ʒ, the hooks of Ƈ Ɠ) is away from the centre where the mark sits. The aspect string still records the excess (`c+34` for semibold italic J). The exception is capital iota Ɩ U+0196, a genuine ascender, which takes the ascender aspect (885; italic styles 890). Italic ʔ ʕ, whose tops are 27 and 38 above the capline, have curated anchors with the bowl overshoot ε = 10 (`ay = 850 + delta − 10`: 867, 878). For everything else, compare `ymax` with the nearer of x-height or ascender. For the below-anchor, compare `ymin` with baseline or descender. The result is written as an aspect string: `x` means `ymax` is inside the x-height band; `x+33` means it is 33 above the aspect value and outside the band.
 
 **Candidate Y.**
 - Inside the band: snap to the reference (`ay = 645` for `x`).
@@ -55,7 +57,7 @@ Calculate Y first: in italic styles X depends on the anchor's own height (aspect
 | italic | 12° | 0.2126 | `W/2 + Y tan θ` | 0 | 0 |
 | semibold italic | 11.5° | 0.2035 | `W/2 + Y tan θ − K` | 150 | −12 |
 
-`W` is the advance width (`width` in the fontmetrics JSON).
+`W` is the advance width (`width` in the fontmetrics).
 
 ### Roman (regular, semibold)
 
@@ -117,6 +119,7 @@ These need curated anchors (`data/fontanchors_human/{style}.py`):
 - **Y:** `get_aya` / `get_bya` in `fontmetrics_helpers.py` implement section 2 with ε = 2. `anchor_audit.py` uses them.
 - **Mark anchors:** `font_patching_capmarks.py` and `font_patching_addmarks.py` implement `C + Y tan θ − K` with K = 150 in semibold italic.
 - **Audit X:** `anchor_audit.py` compares X in sheared coordinates against the centre of the sheared outline, not `W/2`.
+- **Patch, stage 5:** `font_patching_normalizeanchors.py` moves semibold's capitals to the capital reference, snaps designer anchors within 5 of a Y reference to it, and reports the rest without moving them.
 - **Patch, stage 6:** `font_patching_heuristicanchors.py` writes `get_anchor_candidate` (rounded) into the patched font for each Latin/IPA base that lacks an above- or below-anchor. Curated anchors overrule it; existing anchors are not moved.
 - **Fontmetrics tables:** `get_anchor_candidate` in `fontmetrics_helpers.py` gives the candidate (X, Y) for the a? and b? rows: Y from `get_aya` / `get_bya`, X from section 3 at that Y (bbox midpoint in roman, `W/2 + Y tan θ − K` in italic styles). The marks tables use `get_mark_anchor_candidate`: Y is the outline bottom plus (above) or top minus (below) the style's median mark-anchor offset (`MARK_ANCHOR_OFFSET_OPT`), X is `axis_x + Y tan θ − K`, with `axis_x` the de-slanted outline centre stored by the extractor.
 
@@ -126,7 +129,7 @@ An earlier design, never implemented and never validated, would shift X from the
 
 `anchor_x = centre + dx_norm × outline_width`
 
-`dx_norm` would be set by boolean tags. The extractor already writes the tags to the fontmetrics JSON (`has_left_weight`, `has_right_weight`, `is_symmetric`, `has_overhang_right`; see `data/fontmetrics/SCHEMA.md`). Nothing reads them yet. The proposed values were: symmetric 0, left weight −0.08, right weight +0.06, overhang right −0.20 added. They predate the lane model and would need re-measuring against it.
+`dx_norm` would be set by boolean tags. The extractor already computes the tags (`has_left_weight`, `has_right_weight`, `is_symmetric`, `has_overhang_right`; see `data/fontmetrics/SCHEMA.md`). Nothing reads them yet. The proposed values were: symmetric 0, left weight −0.08, right weight +0.06, overhang right −0.20 added. They predate the lane model and would need re-measuring against it.
 
 Other ideas from that design:
 - attach counter-dominant glyphs (b d p q k y) by the counter and stem-dominant glyphs (f g j l t) by the stem;

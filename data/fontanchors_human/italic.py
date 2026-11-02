@@ -3,6 +3,24 @@
 
 anchors = {
     "bases": {
+        0x0079: { # y: below under the baseline vertex, along the slant, as regular; the designer's
+                  # (368, -107) is regular's tucked position, which only suits the dot of ỵ
+            2: (240, -319),
+        },
+        0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
+            2: (361, -110),
+        },
+        0x027C: { # ɼ r with long leg: below on the stem's axis, at the descender reference
+            2: (53, -319),
+        },
+        0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (615, 850) misses by 88 and 30
+            0: (674, 850),
+        },
+        0x01B7: { # Ezh: above over the caron of Ǯ, which the candidate (485, 850) misses by 55;
+                  # below at -319 as in the other styles: at the candidate's -296 five marks overlap
+            0: (430, 850),
+            2: (236, -319),
+        },
         0x0192: { # f with hook (florin); no designer anchors, stem ~19 deg
             0: (525, 890),  # mark axis 10 left of the apex centre (494) at the apex
             2: (35, -257),  # Y: candidate (tail ends at -172); mark axis 37% from foot (22) to stem (106), as italic f

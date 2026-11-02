@@ -7,22 +7,22 @@ and record every bad or suspect anchor in
 
     data/fontanchors_audit/{style}.py
 
-and print a test sheet of them to tex/input/anchor_audit.tex, which is
-\\input{} from the main LaTeX document.
+Stage 1 of the patch pipeline (font_patching_deleteanchors.py) deletes the
+anchors recorded as bad, if DELETE_BAD_ANCHORS is on.
+
+Then review the Latin and IPA anchors of the patched fonts for the "Anchor
+audit" section of the report (anchor_review.py). This builds the candidate
+fonts and writes tex/input/anchor_audit.tex; run_patch_font.py does this too.
 
 These files are regenerated on every run; do not edit them. To overrule a
 verdict, add an entry to data/fontanchors_audit/overrides.py.
-
-Stage 1 of the patch pipeline (font_patching_deleteanchors.py) deletes the
-anchors recorded as bad.
 """
 
 from collections import Counter
 from pathlib import Path
 
 from libertinus_analysis.anchor_audit import audit_all_styles, STYLE_KEYS, SIDE_NAMES
-from libertinus_analysis.anchor_audit_texformatter import format_all_styles_tex
-from libertinus_analysis.config import TEX_INPUT_DIR
+from libertinus_analysis.anchor_review import write_anchor_review
 
 OUT_DIR = Path("data/fontanchors_audit")
 
@@ -82,9 +82,7 @@ def main():
         for (level, key), n in sorted(tests.items()):
             print(f"    {level:8} {key:15} {n}")
 
-    tex_path = TEX_INPUT_DIR / "anchor_audit.tex"
-    tex_path.write_text(format_all_styles_tex(all_entries), encoding="utf-8")
-    print(f"Wrote test sheet to {tex_path}")
+    write_anchor_review()
 
 
 if __name__ == "__main__":

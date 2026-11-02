@@ -74,13 +74,14 @@ def anchors_to_delete(font_key: str, use_audit: bool = True):
 # Main entry point
 # ------------------------------------------------------------
 
-def delete_bad_anchors(ttfont, font_key, lookup_index, use_audit=True):
+def delete_bad_anchors(ttfont, font_key, lookup_index, use_audit=True, extra=frozenset()):
     """
-    Delete the bad above/below base anchors from the MarkToBase lookup.
+    Delete the bad above/below base anchors from the MarkToBase lookup, and
+    the (glyph_name, classIndex) anchors in extra.
 
     Returns the list of (glyph_name, classIndex, (x, y)) actually deleted.
     """
-    doomed = anchors_to_delete(font_key, use_audit)
+    doomed = anchors_to_delete(font_key, use_audit) | set(extra)
 
     gpos = ttfont["GPOS"].table
     lookup = gpos.LookupList.Lookup[lookup_index]

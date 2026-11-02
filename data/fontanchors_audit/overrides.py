@@ -26,6 +26,44 @@ overrides = {
         # J: below-anchor y -319 is the full-descender reference, but J is not a
         # full descender (ymin about -182)
         "J": {2: "delete"},  # (109, -319)
+        # þ: above-anchor at the x-height reference, but þ is an ascender letter
+        "thorn": {0: "delete"},  # (278, 646)
+        # Above-anchors reviewed in the report's "Anchor audit"; the candidates
+        # are better. ʆ inherits from ʃ, so it needs no entry of its own.
+        "uni025D": {0: "delete"},  # ɝ (209, 645)
+        "uni0267": {0: "delete", 2: "delete"},  # ɧ (299, 565)
+        "uni0278": {0: "delete", 2: "delete"},  # ɸ (209, 645)
+        "uni027C": {0: "delete"},  # ɼ (222, 703)
+        "uni027F": {0: "delete", 2: "keep"},  # ɿ (209, 645); the designer's below-anchor is better
+        "uni0283": {0: "delete"},  # ʃ (209, 645)
+        "uni0284": {0: "delete"},  # ʄ (209, 645)
+        "uni0285": {0: "delete", 2: "delete"},  # ʅ (209, 645)
+        "uni0294": {0: "delete"},  # ʔ
+        "uni0295": {0: "delete"},  # ʕ
+        "uni0296": {0: "delete"},  # ʖ
+        "uni0250": {0: "delete"},  # ɐ
+        "uni0252": {0: "delete"},  # ɒ
+        "R": {2: "delete"},  # (258, -110); Ṛ and Ṟ imply 293 and 312
+        "y": {2: "keep"},  # (242, -319), under the vertex; the dot of ỵ is no guide for wider marks
+        "uni028D": {0: "delete"},  # ʍ
+        "uni028E": {2: "delete"},  # ʎ (196, -110), copied; the candidate is midway between the feet
+        # Below-anchors reviewed the same way, most at the designer's copied
+        # (196, -110) or thereabouts; ɧ ɸ ʅ are above, with their above-anchors.
+        "uni025F": {2: "delete"},  # ɟ
+        "uni027B": {2: "delete"},  # ɻ
+        "uni027D": {2: "delete"},  # ɽ
+        "uni0286": {2: "delete"},  # ʆ
+        "uni0287": {0: "delete", 2: "delete"},  # ʇ
+        "uni0288": {2: "delete"},  # ʈ
+        "uni0290": {2: "delete"},  # ʐ
+        "uni0291": {2: "delete"},  # ʑ
+        "uni0293": {2: "delete"},  # ʓ
+        "uni0297": {2: "delete"},  # ʗ
+        "uni029D": {2: "delete"},  # ʝ
+        # ʛ: inherits from ɢ; double overline U+033F overlaps the hook, but it is rare
+        "uni029B": {0: "keep"},
+        # ɪ: symmetric enough for the candidate, above and below
+        "uni026A": {0: "delete", 2: "delete"},
     },
     "italic": {
         # ɦ: above-anchor y 565, inside the hook; stage 6 gives the ascender candidate
@@ -41,10 +79,25 @@ overrides = {
         "beta": {2: "delete"},  # (275, -114)
         # J: below-anchor y -319, not a full descender
         "J": {2: "delete"},  # (109, -319)
+        # þ: regular's anchor, at the x-height reference, not slanted
+        "thorn": {0: "delete"},  # (278, 646)
+        # ɢ: regular's anchor, not slanted
+        "uni0262": {0: "delete"},  # (265, 645)
+        # ʛ: inherits from ɢ; double overline U+033F overlaps the hook, but it is rare
+        "uni029B": {0: "keep"},
+        # h, k: x-height anchors beside the ascender, where marks hit it
+        "h": {0: "delete"},  # (409, 645)
+        "k": {0: "delete"},  # (405, 645)
+        # ɪ: symmetric enough for the candidate, above and below
+        "uni026A": {0: "delete", 2: "delete"},
     },
     "semibold": {
         # J: below-anchor y -319, not a full descender
         "J": {2: "delete"},  # (109, -319)
+        # ʛ: inherits from ɢ; double overline U+033F overlaps the hook, but it is rare
+        "uni029B": {0: "keep"},
+        # ɪ: symmetric enough for the candidate, above and below
+        "uni026A": {0: "delete", 2: "delete"},
     },
     "semibold_italic": {
         # Above-anchors set with the slant (italic anchor model, no K), so an
@@ -63,5 +116,11 @@ overrides = {
         "uni0194": {0: "delete"},  # (331, 805)
         # β: regular's anchor, y -114, inside the descender (ymin -233)
         "beta": {2: "delete"},  # (275, -114)
+        # þ: regular's anchor, at the x-height reference
+        "thorn": {0: "delete"},  # (278, 646)
+        # ʛ: inherits from ɢ; double overline U+033F overlaps the hook, but it is rare
+        "uni029B": {0: "keep"},
+        # ɪ: symmetric enough for the candidate, above and below
+        "uni026A": {0: "delete", 2: "delete"},
     },
 }

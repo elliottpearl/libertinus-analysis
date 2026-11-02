@@ -221,4 +221,24 @@ FONTS = {
         "lookup_index": 2,
         "label": "Semibold italic patched",
     },
+    "regular_candidate": {
+        "path": FONTS_DIR / "LibertinusSerif-Regular-candidate.otf",
+        "lookup_index": 4,
+        "label": "Regular candidate",
+    },
+    "italic_candidate": {
+        "path": FONTS_DIR / "LibertinusSerif-Italic-candidate.otf",
+        "lookup_index": 4,
+        "label": "Italic candidate",
+    },
+    "semibold_candidate": {
+        "path": FONTS_DIR / "LibertinusSerif-Semibold-candidate.otf",
+        "lookup_index": 1,
+        "label": "Semibold candidate",
+    },
+    "semibold_italic_candidate": {
+        "path": FONTS_DIR / "LibertinusSerif-SemiboldItalic-candidate.otf",
+        "lookup_index": 2,
+        "label": "Semibold italic candidate",
+    },
 }

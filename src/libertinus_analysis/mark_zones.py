@@ -15,6 +15,7 @@ from fontTools.pens.recordingPen import RecordingPen
 from fontTools.ttLib import TTFont
 
 from data.ipa.ipa_unicode import MARK_ABOVE, MARK_BELOW, MARK_COMMON
+from .config import TEX_INPUT_DIR
 from .font_context import FONTS, extract_mark_attachment_data
 
 STYLE_KEYS = ["regular", "italic", "semibold", "semibold_italic"]
@@ -125,3 +126,12 @@ def mark_zone_figure(style_key):
 
     lines.append("\\end{tikzpicture}")
     return "\n".join(lines) + "\n", len(marks)
+
+
+def write_mark_zone_figures():
+    """Write tex/input/mark_zones_{style}.tex for every style."""
+    for style_key in STYLE_KEYS:
+        figure, count = mark_zone_figure(style_key)
+        path = TEX_INPUT_DIR / f"mark_zones_{style_key}.tex"
+        path.write_text(figure, encoding="utf-8")
+        print(f"{path.name}: {count} marks")

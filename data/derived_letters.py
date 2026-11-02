@@ -14,10 +14,11 @@
 #     hook, tail or curl at the bottom           above only (0)
 #     hook at the top in the mark's way          below only (2)
 #
-# In italic and semibold italic, d and h have their above-anchor at the
-# x-height, over the bowl or arch beside the ascender; there a bar or hook
-# near the top of the ascender is in the mark's way, so đ ħ ɗ ɦ inherit only
-# below in those styles.
+# In italic and semibold italic, d has its above-anchor at the x-height, over
+# the bowl beside the ascender; there a bar or hook near the top of the
+# ascender is in the mark's way, so đ ɗ inherit only below in those styles.
+# h was the same, but its above-anchor is now at the ascender reference; ħ ɦ
+# still inherit only below there.
 #
 # derived codepoint -> (base codepoint, anchor classes), where the classes
 # are a tuple for every style, or a dict {style: tuple} where they differ.
@@ -48,6 +49,8 @@ derived = {
     0x026B: (0x006C, (0, 2)),  # ɫ l with middle tilde < l
     0x026C: (0x006C, (0, 2)),  # ɬ l with belt < l
     0x025F: (0x0237, (0, 2)),  # ɟ dotless j with stroke < ȷ
+    # --- other ---
+    0x0269: (0x0131, (0, 2)),  # ɩ iota < ı
     # --- hook at the top, away from the centre ---
     0x0181: (0x0042, (0, 2)),  # Ɓ B with hook < B
     0x018A: (0x0044, (0, 2)),  # Ɗ D with hook < D
@@ -79,6 +82,24 @@ derived = {
     0x0290: (0x007A, (0,)),    # ʐ z with retroflex hook < z
     0x0291: (0x007A, (0,)),    # ʑ z with curl < z
     0x0293: (0x0292, (0,)),    # ʓ ezh with curl < ʒ
+}
+
+# Anchors with a Y of their own, where the base letter's Y does not apply: X
+# still comes from the base letter's final anchor, plus the outline shift, and
+# follows the slant to this Y. Unlike the classes above, this applies whatever
+# the outline match, since only the X is borrowed.
+#
+# derived codepoint -> (base codepoint, {class: {style: Y}})
+
+derived_y = {
+    # ɕ c with curl < c: below, Y is the anchor model's, under the curl
+    0x0255: (0x0063, {2: {
+        "regular": -214, "italic": -208, "semibold": -209, "semibold_italic": -209,
+    }}),
+    # ɼ r with long leg < r: above only; below is curated, under the stem
+    0x027C: (0x0072, {0: {
+        "regular": 645, "italic": 645, "semibold": 645, "semibold_italic": 645,
+    }}),
 }
 
 # Not derived, though the Unicode name says so: the outline is a different

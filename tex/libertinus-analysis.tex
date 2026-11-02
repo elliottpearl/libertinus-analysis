@@ -41,6 +41,14 @@
 	BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf
 ]{Libertinus Serif Patch}
 
+\newfontfamily\LibertinusSerifCandidate[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular-candidate.otf,
+	ItalicFont     = LibertinusSerif-Italic-candidate.otf,
+	BoldFont       = LibertinusSerif-Semibold-candidate.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic-candidate.otf
+]{Libertinus Serif Candidate}
+
 \newfontfamily\LibertinusSerifPatchGrave[
 	Path = ../fonts/,
 	UprightFont    = LibertinusSerif-Regular-patch.otf,
@@ -138,8 +146,8 @@ Audit mark anchors to fit roman and italic anchor models; patch as necessary.
 
 Add alt cap dot above for italic and semibold italic.
 
-Check the semibold mark anchors of ring above U+030A and vertical line above U+030D. Both clear the letter but sit low:
-the median gap over A--Z is 31 and 23 (regular 63 and 63), and over lowercase 29 and 21 (regular 70 and 70).
+Look at the full-descender line for tall below marks. At $Y = -319$, 2--7 of the 32 below marks overlap almost every descending letter tested (p, q, g, \char"0292; y is clear): mostly U+0318, U+0319, U+031C, U+031F and U+0339.
+The fault is not in any one letter, so the fix would be in the anchors of those marks or in the reference line itself.
 
 Check the below anchor of J by eye in all styles. The designer's $Y = -319$ is deleted because J is not a full descender, and J now has the candidate (regular 120, $-257$; italic 146, $-285$; semibold 131, $-267$; semibold italic 187, $-249$).
 The best $X$ is open. $Y$ may need a curated anchor with the bowl correction of 10 instead of 2 (semibold 109, $-259$ looked right; regular had 109, $-254$).
@@ -459,8 +467,8 @@ Compared with regular, after the patch:
 	\item Italic. The marks conform. The tilde is 11 units off its axis.
 	The dot above sits 10 units higher than in regular, which is still 11 units lower than in the precomposed ȯ.
 	\item Semibold. Horizontally, the marks are within about 12 units of regular's offsets.
-	Vertically, about a third of the above-marks sit lower than in regular:
-	vertical line above U+030D 40 units lower, ring above 32 (ů confirms, 26), U+0357 32, U+0351 20, double acute 19,
+	Vertically, about a quarter of the above-marks sit lower than in regular:
+	U+0357 32, U+0351 20, double acute 19,
 	diaeresis 14, dot above 13 (ȯ confirms, 21), hook above 13, macron 13 (ō confirms, 12), circumflex 10.
 	The tilde sits 12 units higher (õ confirms, 14), and so does the breve below.
 	Semibold's x-height is 5 units higher than regular's, so differences under 10 do not matter.
@@ -490,6 +498,14 @@ Compared with regular, after the patch:
 %one mark-to-mark LookupList table, index 5.
 
 \newpage
+\subsection*{\AE: a letter the midpoint cannot centre}
+
+Over \AE, accents do not go at the midpoint of the glyph. The left leg of the A stops short of the top, so the top edge runs from the apex of the A to the end of the arm of the E, and its centre lies well to the right.
+Other fonts agree: Charis SIL, Gentium Plus, EB Garamond, Junicode, DejaVu Serif and Andika put the above-anchor at the macron of Ǣ, within 5 units, and below they use the common stroke or the same $X$.
+In Libertinus the designer's above-anchors missed the accents of Ǣ and Ǽ by 55--88 and 16--68 units, so the curated above-anchors lie between the two (555, 674, 555, 545 for regular, italic, semibold, semibold italic).
+In the italic styles the macron and the acute cannot both be met, and each lands about 30 units from its precomposed position.
+Below, semibold's anchor is curated under the common stroke, at 510. The designer's 549 of the other three styles stands: nothing collides there.
+
 \subsection*{Mark outline zones}
 
 Figures \ref{fig:mark-zones-regular}, \ref{fig:mark-zones-italic}, \ref{fig:mark-zones-semibold} and \ref{fig:mark-zones-semibold-italic}
@@ -962,13 +978,29 @@ without regard to the letterform and are therefore bad anchors for those IPA let
 \newpage
 \section*{Anchor audit}
 
-These are the designer-set above- and below-anchors that \verb|run_anchor_audit.py| classifies as bad or suspect,
-in the original fonts.
-Each cell shows the codepoint, then the base with a few marks
-(dot, macron and circumflex above; dot and macron below),
-then tags for the tests that flagged the anchor.
-The combining grapheme joiner separates base and mark, so every mark is positioned by its anchor.
-The reasons in full are in \verb|data/fontanchors_audit/|.
+This section lists the above- and below-anchors of the Latin and IPA letters that still need a decision, in the patched fonts.
+The letters are those of stage 6, \verb|BASE_LATIN| and \verb|BASE_IPA|. Other scripts, precomposed letters and superscripts are not audited.
+What the patch has already fixed does not appear.
+
+The tests ask whether marks fit, not where an anchor came from. They are in \verb|anchor_audit.py|; the tests for copied anchors are left out here, since a copy that fits is not a problem.
+Semibold italic is judged by its own model: its shift $K$ is added back before $x$ is compared with the glyph.
+
+Each anchor is compared with the candidate font (\verb|fonts/*-candidate.otf|): the patch run again with every Latin and IPA above- and below-anchor deleted, so that stages 6--8 refill them.
+That is what a \verb|"delete"| override gives. Curated anchors come back unchanged, and a derived letter inherits from its base letter.
+Each anchor falls in one group, by the action it needs:
+
+\begin{description}
+	\item[Replace.] The anchor fails: a mark overlaps the glyph, or the anchor is in the wrong place. The candidate moves it and passes.
+	If the right-hand samples look better, add \verb|{cls: "delete"}| to \verb|data/fontanchors_audit/overrides.py|, with class 0 for above and 2 for below.
+	\item[Curate.] The anchor fails, and the candidate is the same or fails too. Add a curated anchor to \verb|data/fontanchors_human/{style}.py|.
+	\item[Judge.] The anchor passes, but a test is suspicious (a mark crowds the glyph, for instance), and the candidate differs. Delete it only if the candidate is clearly better.
+	\item[Kept.] Add \verb|{cls: "keep"}| to the overrides for an anchor that is right as it stands, such as a deliberate design choice. It leaves the groups above and is listed here, so the list shrinks as decisions are made.
+\end{description}
+
+Each cell shows the codepoint and glyph name, as \verb|overrides.py| wants it. Below that are dot, macron and circumflex above (dot and macron below), positioned by anchor through the combining grapheme joiner.
+A pair of samples shows the patched font on the left and the candidate font on the right, each with its anchor.
+The patched anchor says where it came from: \emph{designer}, \emph{curated} or \emph{scripted}. A scripted anchor that fails usually follows from its base letter, in which case the override belongs on the base letter.
+The tags name the tests the patched anchor fails or is flagged by.
 
 \input{input/anchor_audit.tex}
 
@@ -987,8 +1019,9 @@ Stage 8 of the patch inherits these anchors.
 \verb|data/derived_letters.py| lists each derived letter with its base letter and the anchor classes it may inherit:
 both above and below for a bar or stroke through the letter, or a hook at the top away from the centre;
 above only for a hook, tail or curl at the bottom; below only for a hook at the top in the way of an above mark (ɝ, ɚ, ʄ).
-The classes can differ by style: in italic and semibold italic, d and h have their above-anchor at the x-height, over the bowl or arch beside the ascender,
-where the bar of đ ħ or the hook of ɗ ɦ is in the mark's way, so these inherit only the below-anchor in the italic styles.
+The classes can differ by style: in italic and semibold italic, d has its above-anchor at the x-height, over the bowl beside the ascender,
+where the bar of đ or the hook of ɗ is in the mark's way, so these inherit only the below-anchor in the italic styles.
+The same was true of h, whose above-anchor is now at the ascender reference in the italic styles; ħ ɦ still inherit only the below-anchor there.
 The shift is found by matching outlines: at every height on a 10-unit grid, the positions where the base letter's outline crosses that height
 are compared with the derived letter's, and the shift that pairs the most crossings within 6 units wins.
 The share of the base letter's crossings so paired measures how much of the base letter the derived letter really contains.
@@ -1005,6 +1038,12 @@ a?, the heuristic candidate;
 a<, the base letter's final anchor plus the shift, in bold where the patched font has it;
 a!, a curated anchor, which stage 8 keeps.
 The same for the below anchor (b).
+
+Two letters have an anchor set apart from these rules.
+The curl of ɕ reaches about $-100$, so at c's $Y = -110$ most below marks overlap it.
+Its below-anchor keeps the $Y$ of the anchor model, under the curl ($-214$ regular, $-208$ italic, $-209$ semibold and semibold italic), and takes $X$ from c's final below-anchor plus the shift, following the slant down to that height.
+\char"027C\ matches r too little to inherit, but its above-anchor takes $X$ from r in the same way, at the x-height reference, 645. Its below-anchor is curated on the axis of its stem, at the descender reference, $-319$.
+This is \verb|derived_y| in \verb|data/derived_letters.py|. It does not depend on the outline match, since only $X$ is borrowed.
 
 What the comparison shows:
 \begin{itemize}

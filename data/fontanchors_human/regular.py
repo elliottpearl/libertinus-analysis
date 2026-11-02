@@ -18,6 +18,15 @@ TODO: delete any human anchor for AE, Ezh and any letter whose only expected com
 anchors = {
 
     "bases": {
+        0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
+            2: (378, -110),
+        },
+        0x027C: { # ɼ r with long leg: below on the stem's axis, at the descender reference
+            2: (134, -319),
+        },
+        0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (480, 850) misses by 81 and 68
+            0: (555, 850),
+        },
         0x0041: {  # A; designer's (354, 850), (308, -110) are left of the midline
             0: (361, 850),  # centre of the cut apex, x 334..389
             2: (339, -110), # centre between the serif feet, 115.5 and 562.5; Ạ has 338

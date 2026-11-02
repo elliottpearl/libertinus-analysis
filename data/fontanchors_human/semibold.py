@@ -3,6 +3,17 @@
 anchors = {
 
     "bases": {
+        0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
+            2: (366, -110),
+        },
+        0x027C: { # ɼ r with long leg: below on the stem's axis, at the descender reference
+            2: (141, -319),
+        },
+        0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (510, 850) misses by 55 and 34;
+                  # below under the common stroke, not the candidate's midpoint (446)
+            0: (555, 850),
+            2: (510, -110),
+        },
         0x0041: { # A
             2: (330, -110), # centre between the serif feet, 109 and 551.5; bbox midpoint 350 is too far right
         },
@@ -86,6 +97,12 @@ anchors = {
         },
         0x0301: { # acute
             0: (-180, 683), # was (-180, 713)
+        },
+        0x030A: { # ring above
+            0: (-170, 715), # was (-170, 742) after stage 1; height of the ring in ů
+        },
+        0x030D: { # vertical line above
+            0: (-137, 688), # was (-137, 719), as U+030E; same as the other styles
         },
     },
 }

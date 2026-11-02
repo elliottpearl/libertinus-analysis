@@ -57,22 +57,26 @@ from .font_patching_sortcoverage import sort_mark_to_base_coverage
 # Stage 1 always deletes the anchors marked "delete" in
 # data/fontanchors_audit/overrides.py. The audit's own "bad" verdicts are
 # also deleted only if DELETE_BAD_ANCHORS is true. It is off because the
-# audit's list has not been reviewed: with it on, about 490 anchors are
-# deleted and about 150 of them, outside the Latin/IPA scope of stage 6, get
-# no replacement; and in semibold italic it deletes the copies of regular's
-# anchors that the semibold italic anchor model keeps.
+# audit's list is not limited to Latin and IPA, and stage 6 replaces nothing
+# outside them. The "Anchor audit" section of the report (anchor_review.py) is
+# the list to work from, with "delete" and "keep" overrides.
 DELETE_BAD_ANCHORS = False
 
-def patch_font(font_key: str) -> None:
+def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> None:
     """
     Patch a Libertinus font in multiple stages.
+
+    output_path replaces the default *-patch.otf. extra_deletions is a set of
+    (glyph name, class) anchors for stage 1 to delete as well; the anchor
+    review uses both to build the candidate fonts.
     """
 
     meta = FONTS[font_key]
     input_path = meta["path"]
     lookup_index = meta["lookup_index"]
 
-    output_path = input_path.with_name(f"{input_path.stem}-patch{input_path.suffix}")
+    if output_path is None:
+        output_path = input_path.with_name(f"{input_path.stem}-patch{input_path.suffix}")
 
     # Load font context WITHOUT curated anchors
     ctx = FontContext.from_path(
@@ -96,7 +100,7 @@ def patch_font(font_key: str) -> None:
         print(f"[{font_key}] {line}")
 
     for glyph_name, classIndex, xy in delete_bad_anchors(
-        ttfont, font_key, lookup_index, use_audit=DELETE_BAD_ANCHORS
+        ttfont, font_key, lookup_index, use_audit=DELETE_BAD_ANCHORS, extra=extra_deletions
     ):
         print(f"[{font_key}] {glyph_name}: deleted anchor class {classIndex} {xy}")
 

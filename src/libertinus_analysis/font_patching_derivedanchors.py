@@ -62,6 +62,10 @@ def load_derived_letters():
     mod = __import__("data.derived_letters", fromlist=["derived", "derived_by_name"])
     return mod.derived, mod.derived_by_name
 
+def load_derived_y():
+    """Return derived_y from data/derived_letters.py."""
+    return __import__("data.derived_letters", fromlist=["derived_y"]).derived_y
+
 def style_classes(classes, font_key):
     """The anchor classes of a dict entry for this style (tuple or per-style dict)."""
     if isinstance(classes, dict):
@@ -298,6 +302,29 @@ def patch_derived_anchors(ttfont, font_key, lookup_index):
             report.append(
                 f"{label} {derived_glyph}: {name} anchor ({x}, {y}) from {base_glyph} "
                 f"{base_xy} shift {dx:+d} (match {match:.0%}){moved}; was {old}"
+            )
+
+    for cp, (base_cp, by_class) in load_derived_y().items():
+        derived_glyph, base_glyph = cmap[cp], cmap[base_cp]
+        curated = curated_classes(font_key, derived_glyph, cmap_reverse)
+        base_rec, _ = get_base_record_for_glyph(sub, base_glyph)
+        dx, _ = outline_shift(ttfont, derived_glyph, base_glyph)
+        for cls, ys in by_class.items():
+            name = CLASS_NAMES[cls]
+            if cls in curated:
+                report.append(f"U+{cp:04X} {derived_glyph}: {name} anchor is curated; kept")
+                continue
+            base_x, base_y = get_anchor_from_baserec(base_rec, cls)
+            y = ys[font_key]
+            x = round(base_x + dx + (y - base_y) * SLOPE[font_key])
+
+            rec, _ = ensure_base_record_for_glyph(sub, derived_glyph)
+            old = get_anchor_from_baserec(rec, cls)
+            set_anchor_in_baserec(rec, cls, x, y)
+            inherited += 1
+            report.append(
+                f"U+{cp:04X} {derived_glyph}: {name} anchor ({x}, {y}), x from {base_glyph} "
+                f"({base_x}, {base_y}) shift {dx:+d}; was {old}"
             )
 
     report.append(f"derived-letter anchors inherited: {inherited}")

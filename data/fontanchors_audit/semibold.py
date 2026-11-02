@@ -155,7 +155,6 @@ audit = {
             "verdict": "suspect",
             "reasons": [
                 'suspect [centre] anchor x is +85 from the centre line (30% of the width)',
-                'suspect [style-position] anchor sits 80% across the glyph; 49% in the other styles',
             ],
         },
     },

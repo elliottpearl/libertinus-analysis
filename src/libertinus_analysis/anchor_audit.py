@@ -27,8 +27,9 @@ classifies each anchor as "bad", "suspect" or "ok":
 Minor y deviations (646 for 645) are left to normalization, and so are
 precomposed glyphs that already carry a mark on the audited side.
 
-All x comparisons are made in sheared coordinates (x' = x - slope*y), so the
-same tests serve upright and italic styles.
+All x comparisons are made in sheared coordinates (x' = x - slope*y + K), so
+the same tests serve upright and italic styles, and semibold italic's anchors
+are judged by its own model: K is the shift that its marks carry too.
 
 Results are written by run_anchor_audit.py to data/fontanchors_audit/ and
 consumed by font_patching_deleteanchors.py.
@@ -49,6 +50,7 @@ from .font_context import FONTS
 from .fontmetrics_helpers import (
     ANCHOR_Y_REF_OPT,
     CLEARANCES_OPT,
+    SHIFT_K,
     get_ideal_above_aspect,
     get_ideal_below_aspect,
     get_aya,
@@ -252,9 +254,13 @@ def _decomposition(cp):
     return ord(nfd[0]), {unicodedata.combining(c) for c in nfd[1:]}
 
 
-def load_style(style_key):
-    """Load one font: anchors of the mark-to-base lookup, plus geometry caches."""
-    meta = FONTS[style_key]
+def load_style(style_key, font_key=None):
+    """
+    Load one font: anchors of the mark-to-base lookup, plus geometry caches.
+    style_key selects the reference values; font_key, the font (default: the
+    original font of the style).
+    """
+    meta = FONTS[font_key or style_key]
     ttfont = TTFont(meta["path"])
     cmap = ttfont.getBestCmap()
 
@@ -399,17 +405,19 @@ def _collect(ctx):
             if (cls == ABOVE and 230 in marks_ccc) or (cls == BELOW and 220 in marks_ccc):
                 continue
 
-            xs = x - slope * y
+            k = SHIFT_K.get(ctx["style"], {}).get(str(cls), 0)
+            xs = x - slope * y + k
             entries[(name, cls)] = {
                 "glyph": name,
                 "cp": cp,
                 "cls": cls,
                 "xy": (x, y),
+                "xs": xs,
                 "bbox": (xmin, ymin, xmax, ymax),
                 "lane": (sx0, sx1),
                 "dx": xs - (sx0 + sx1) / 2,          # offset from the centre line
                 "frac": (xs - sx0) / width if width else 0.5,
-                "centre_x": (sx0 + sx1) / 2 + slope * y,
+                "centre_x": (sx0 + sx1) / 2 + slope * y - k,
                 "evidence": [e - xs for e in evidence[name][cls]],   # precomposed minus anchor
                 "findings": [],
             }
@@ -445,7 +453,7 @@ def _test_inside(ctx, entry):
 
 def _test_extent_and_centre(ctx, entry):
     sx0, sx1 = entry["lane"]
-    xs = entry["xy"][0] - ctx["slope"] * entry["xy"][1]
+    xs = entry["xs"]
     if xs < sx0 - EXTENT_MARGIN or xs > sx1 + EXTENT_MARGIN:
         side = "left" if xs < sx0 else "right"
         dist = sx0 - xs if xs < sx0 else xs - sx1
@@ -665,7 +673,6 @@ def _test_turned(ctx, entries):
     source's anchor on the same side; an inverted one takes the x of the
     opposite side. Compared in sheared coordinates.
     """
-    slope = ctx["slope"]
     for e in entries.values():
         kind, source_cp = _turned_source(e["cp"])
         source_name = ctx["cmap"].get(source_cp) if source_cp else None
@@ -679,8 +686,8 @@ def _test_turned(ctx, entries):
         if abs((e["lane"][1] - e["lane"][0]) - (s_from["lane"][1] - s_from["lane"][0])) > LANE_TOL:
             continue
 
-        xs = e["xy"][0] - slope * e["xy"][1]
-        src_xs = s_from["xy"][0] - slope * s_from["xy"][1]
+        xs = e["xs"]
+        src_xs = s_from["xs"]
         if kind == "INVERTED":
             expected = src_xs + e["lane"][0] - s_from["lane"][0]
         else:
@@ -782,3 +789,29 @@ def audit_all_styles():
             e["verdict"] = "bad" if "bad" in levels else "suspect" if "suspect" in levels else "ok"
 
     return all_entries
+
+
+def audit_placement(style_key, font_key, codepoints):
+    """
+    Run the tests of how marks sit on the anchors of one font, restricted to
+    the given codepoints. The tests of copies, within or across styles, are
+    left out: they ask where an anchor came from, not whether it works.
+
+    Returns ({(glyph name, class): entry}, context).
+    """
+    ctx = load_style(style_key, font_key)
+    entries = {key: e for key, e in _collect(ctx).items() if e["cp"] in codepoints}
+
+    for e in entries.values():
+        _measure_mark_gaps(ctx, e)
+    normal = _normal_gaps(entries)
+    for e in entries.values():
+        _test_side(ctx, e)
+        _test_inside(ctx, e)
+        _test_extent_and_centre(ctx, e)
+        _test_collisions(ctx, e, normal)
+        _test_reference_and_clearance(ctx, e)
+        _test_precomposed(e)
+    _test_turned(ctx, entries)
+
+    return entries, ctx

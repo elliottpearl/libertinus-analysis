@@ -3,6 +3,15 @@
 
 anchors = {
     "bases": {
+        0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
+            2: (369, -110),
+        },
+        0x027C: { # ɼ r with long leg: below on the stem's axis, at the descender reference
+            2: (78, -319),
+        },
+        0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (500, 850) misses by 75 and 16
+            0: (545, 850),
+        },
         0x018F: { # Schwa
             0: (335, 850), # mark axis through the centre of the top of the arc, - K (candidate 369 was 34 right)
         },

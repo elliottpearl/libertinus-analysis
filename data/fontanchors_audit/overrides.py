@@ -64,6 +64,12 @@ overrides = {
         "uni029B": {0: "keep"},
         # ɪ: symmetric enough for the candidate, above and below
         "uni026A": {0: "delete", 2: "delete"},
+        # ɯ: 17-20 right of the central stem; the candidate is on it (2026-11-06)
+        "uni026F": {0: "delete", 2: "delete"},  # (407, 645), (410, -110)
+        # ɰ: above-anchor copied from a, 170 left of the centre; the candidate (379) is over the middle stem (377) (2026-11-06)
+        "uni0270": {0: "delete"},  # (209, 645)
+        # ɥ: below-anchor beside the stem descender, which below marks overlap; the candidate is at the descender (2026-11-06)
+        "uni0265": {2: "delete"},  # (219, -129)
     },
     "italic": {
         # ɦ: above-anchor y 565, inside the hook; stage 6 gives the ascender candidate
@@ -90,6 +96,19 @@ overrides = {
         "k": {0: "delete"},  # (405, 645)
         # ɪ: symmetric enough for the candidate, above and below
         "uni026A": {0: "delete", 2: "delete"},
+        # ɯ: regular's anchors, not slanted (above 110 left); the candidate is on the central stem (2026-11-06)
+        "uni026F": {0: "delete", 2: "delete"},  # (407, 645), (410, -110)
+        # d: x-height anchor over the bowl beside the ascender (as h was); stage 6 gives the ascender candidate (2026-11-06)
+        "d": {0: "delete"},  # (218, 645)
+        # ɥ: below-anchor beside the stem descender, which below marks overlap; the candidate is at the descender (2026-11-06)
+        "uni0265": {0: "delete", 2: "delete"},  # above approved 2026-11-06; (219, -129)
+        # ŋ: regular's below-anchor at the baseline, under the descending hook: 31 of 32 below marks overlap (2026-11-06)
+        "eng": {2: "delete"},  # (265, -110)
+        # p: below-anchor at the baseline beside the descender; candidate approved (2026-11-06)
+        "p": {2: "delete"},  # (248, -110)
+        # w, ɛ: above candidates approved from the anchor review (2026-11-06)
+        "w": {0: "delete"},
+        "uni025B": {0: "delete"},
     },
     "semibold": {
         # J: below-anchor y -319, not a full descender
@@ -98,6 +117,11 @@ overrides = {
         "uni029B": {0: "keep"},
         # ɪ: symmetric enough for the candidate, above and below
         "uni026A": {0: "delete", 2: "delete"},
+        # ɯ: 23-26 right of the central stem; the candidate is on it (2026-11-06)
+        "uni026F": {0: "delete", 2: "delete"},  # (377, 645), (380, -110)
+        # ȷ: the designer's above-anchor is centred on the stroke (163; stroke centre 161-162);
+        # the candidate (78) is pulled left by the hook; rejected (2026-11-06)
+        "uni0237": {0: "keep"},
     },
     "semibold_italic": {
         # Above-anchors set with the slant (italic anchor model, no K), so an
@@ -122,5 +146,24 @@ overrides = {
         "uni029B": {0: "keep"},
         # ɪ: symmetric enough for the candidate, above and below
         "uni026A": {0: "delete", 2: "delete"},
+        # ɯ: regular's anchors, 28-35 right of the central stem; the candidate is on it (2026-11-06)
+        "uni026F": {0: "delete", 2: "delete"},  # (407, 645), (410, -110)
+        # d: x-height anchor beside the ascender, where 27 of the above marks hit it; stage 6 gives the ascender candidate (2026-11-06)
+        "d": {0: "delete"},  # (218, 645)
+        # ɥ: below-anchor beside the stem descender, which below marks overlap; the candidate is at the descender (2026-11-06)
+        "uni0265": {2: "delete"},  # (219, -129)
+        # k: above y 784, on no reference line; below y -214 (2026-11-06)
+        "k": {0: "delete", 2: "delete"},  # (306, 784), (290, -214)
+        # ŋ: below-anchor at the baseline, under the descending hook (2026-11-06)
+        "eng": {2: "delete"},  # (265, -110)
+        # ɦ ɧ: above-anchor inside the hook, at y 565, as in italic; ɧ below at the baseline, over the descender (2026-11-06)
+        "uni0266": {0: "delete"},  # (299, 565)
+        "uni0267": {0: "delete", 2: "delete"},  # (299, 565), (240, -110)
+        # I, K, N: above candidates approved from the anchor review (2026-11-06)
+        "I": {0: "delete"},
+        "K": {0: "delete"},
+        "N": {0: "delete"},
+        # Ɓ: above-anchor at y 805, the semibold capital height, not 850; candidate approved (2026-11-06)
+        "uni0181": {0: "delete"},  # (327, 805)
     },
 }

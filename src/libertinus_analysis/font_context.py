@@ -241,4 +241,19 @@ FONTS = {
         "lookup_index": 2,
         "label": "Semibold italic candidate",
     },
+    "italic_marksnap": {
+        "path": FONTS_DIR / "LibertinusSerif-Italic-marksnap.otf",
+        "lookup_index": 4,
+        "label": "Italic mark snap",
+    },
+    "semibold_marksnap": {
+        "path": FONTS_DIR / "LibertinusSerif-Semibold-marksnap.otf",
+        "lookup_index": 1,
+        "label": "Semibold mark snap",
+    },
+    "semibold_italic_marksnap": {
+        "path": FONTS_DIR / "LibertinusSerif-SemiboldItalic-marksnap.otf",
+        "lookup_index": 2,
+        "label": "Semibold italic mark snap",
+    },
 }

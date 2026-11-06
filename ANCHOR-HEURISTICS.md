@@ -81,6 +81,13 @@ Example: italic n has W = 518, giving `ax = 396` and `bx = 236`. The font has 39
 
 This style has its own model, and the patch keeps it. The designer used regular's anchors on slanted outlines: 42 of 44 above/below mark anchors and 319 of 384 above/below base anchors are regular's coordinates exactly. Neither base anchor nor mark anchor carries `Y tan θ`. Both are left of the italic-model position by about the same shift K, so the errors cancel when the anchors meet.
 
+**Measured shift `k` vs model constant `K`.** Each anchor has its own measured shift: how far it lies left of its italic-model position.
+- base: `k = W/2 + Y tan θ − X`
+- mark: `k = C + Y tan θ − (X − d)`, where `d` is the mark's offset from its axis in regular (0 for a symmetric mark)
+- a mark lands `k_mark − k_base` right of the base's midline (n `k = 170`, macron `k = 141`: macron lands 29 left)
+
+Measured shifts vary (about `Y tan θ` at the anchor's height plus a small amount; U+0313 at Y 605: 125, U+0309 at Y 765: 168), and only their differences matter. The model fixes one `K` per class for every base and mark anchor: **K = 150 above, K = −12 below**. These are the medians of the designer's mark shifts (most above-marks 132–168, below-marks −23 to −4), chosen so that most designer mark anchors conform. The designer's base anchors have median shifts of 139 / −1 (lowercase Latin+IPA, above / below) and 173 / −5 (capitals). An anchor conforms if its `k` is close to `K`.
+
 Candidates: `ax = W/2 + ay tan θ − 150` and `bx = W/2 + by tan θ + 12`.
 
 | anchor | ay or by | ax or bx |
@@ -93,17 +100,17 @@ Candidates: `ax = W/2 + ay tan θ − 150` and `bx = W/2 + by tan θ + 12`.
 
 Example: semibold italic n has W = 606, giving `ax = 284` and `bx = 293`. The font has 264 and 265 (regular's values), so the macron lands 29 left of the midline.
 
-The cancellation is approximate. K for a mark is `Y tan θ` plus a constant, while the designer's base anchors sit near `W/2 − 9` at every height, so the error grows by 2 for every 10 units of height difference between the anchors. The median distance of a designer base anchor from the candidate is about 20 for lowercase and 30 for capitals.
+The cancellation is approximate. `k` for a mark is `Y tan θ` plus a constant, while the designer's base anchors sit near `W/2 − 9` at every height, so the error grows by 2 for every 10 units of height difference between the anchors. The median distance of a designer base anchor from the candidate is about 20 for lowercase and 30 for capitals.
 
 The italic model is the case K = 0. Using it here would put above-marks about 150 too far right. Patch only anchors that do not conform, moving them to these candidates. The report lists the known non-conforming glyphs and marks.
 
 ### Mark anchors
 
-A mark anchor lies on the mark's own axis: `X = C + Y tan θ − K`.
+A mark anchor lies on the mark's own axis: `X = C + Y tan θ + d − K`.
 - `C` is where the axis meets the baseline: the horizontal centre of the outline with the slant removed. Measure the centre of the sheared outline `x' = x − y tan θ`.
 - `Y` is the mark anchor's height (section 1).
 - K is the style's value from the table (0 except in semibold italic).
-- An asymmetric mark keeps regular's offset from its axis.
+- `d` is regular's offset of the mark from its axis (`X − C` in regular): 0 for a symmetric mark, e.g. −32 for the acute. An asymmetric mark keeps it in every style.
 
 When the anchors meet, the mark's axis lies on the base's midline: an italic mark is displaced along the italic axis, not straight up or down.
 

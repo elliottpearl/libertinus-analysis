@@ -18,6 +18,10 @@ TODO: delete any human anchor for AE, Ezh and any letter whose only expected com
 anchors = {
 
     "bases": {
+        0x0270: { # ɰ turned m with long leg: under the middle stem (2026-11-06); width differs from ɯ, so not derived.
+                   # X = middle-stem centre; Y = ɯ's candidate (same arches); no below mark collides
+            2: (378, -121),
+        },
         0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
             2: (378, -110),
         },
@@ -270,9 +274,9 @@ anchors = {
             0: (255, 885),  # x at ymax
             # 2: (235, -110),  # x at ymin  # removed 2026-10-29: inherited from b (stage 8): (240, -110)
         },
-        0x0257: { # ɗ d-hook
-            0: (218, 885), 
-        },
+        # 0x0257: { # ɗ d-hook
+        #     0: (218, 885),
+        # },  # removed 2026-11-06: no reason recorded, 17 left of d's (235, 885); stage 8 inherits from d
         0x0260: {  # ɠ g-hook
             0: (239, 885),  # matches 0x0261
             2: (226, -319),
@@ -307,9 +311,9 @@ anchors = {
         0x027B: {  # ɻ turned-r-hook
             0: (238, 645),  # center of stem
         },
-        0x0282: {  # ʂ s-hook
-            2: (196, -263),  # ymin -87
-        },
+        # 0x0282: {  # ʂ s-hook
+        # 2: (196, -263),  # ymin -87
+        # },  # removed 2026-11-06: stage 8 gives (190, -261): X from s, Y the candidate
         0x0283: {  # ʃ esh
             2: (209, -319),  # descender aspect
         },
@@ -338,12 +342,12 @@ anchors = {
         0x0263: {  # ɣ gamma
             2: (248, -289),  # ymin -87
         },
-        0x026D: {  # ɭ l-hook
-            2: (196, -275),  # ymin = -188 → -275
-        },
-        0x0273: {  # ɳ n-retroflex-hook
-            2: (262, -308),  # -319 + 11
-        },
+        # 0x026D: {  # ɭ l-hook
+        # 2: (196, -275),  # ymin = -188 → -275
+        # },  # removed 2026-11-06: stage 8 gives X from l's stem (133) and Y the candidate; 1 below mark collides there, 4 here
+        # 0x0273: {  # ɳ n-retroflex-hook
+        # 2: (262, -308),  # -319 + 11
+        # },  # removed 2026-11-06: stage 8 gives (255, -306): X from n, Y the candidate
         0x028A: { # upsilon
             0: (253, 645), # xm
             2: (253, -110), # xm

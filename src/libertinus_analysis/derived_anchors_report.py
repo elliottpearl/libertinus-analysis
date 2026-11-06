@@ -26,10 +26,13 @@ from .font_patching_derivedanchors import (
     MIN_MATCH,
     load_derived_letters,
     inherited_anchor,
+    load_stem_match,
     outline_shift,
+    stem_shift,
+    tail_anchor,
     style_classes,
 )
-from .fontmetrics_helpers import get_anchor_candidate
+from .fontmetrics_helpers import SLOPE, get_anchor_candidate
 from .fontmetrics_loader import load_fontmetrics
 from .fontmetrics_report import STYLE_KEYS, STYLE_LABELS, apply_style, texify
 
@@ -93,8 +96,14 @@ def _style_block(style_key, cols, derived_by_name):
             continue
 
         dg, bg = cmap[cp], cmap[base_cp]
-        dx, match = outline_shift(orig, dg, bg)
-        shift_cell = f"{dx:+d}, {match:.0%}".replace("%", "\\%")
+        tail = cp in load_stem_match()
+        if tail:
+            # stems above the tail, at the base letter's above (else below) axis
+            axis_xy = patch_anchors.get(bg, {}).get(0) or patch_anchors.get(bg, {}).get(2) or (0, 0)
+            dx, match = stem_shift(orig, style_key, dg, bg, axis_xy[0] - axis_xy[1] * SLOPE[style_key])
+        else:
+            dx, match = outline_shift(orig, dg, bg)
+        shift_cell = f"{dx:+d}, {match:.0%}{' s' if tail else ''}".replace("%", "\\%")
         if match < MIN_MATCH:
             shift_cell = f"\\textit{{{shift_cell}}}"
         rows["shift"].append(shift_cell)
@@ -122,10 +131,17 @@ def _style_block(style_key, cols, derived_by_name):
             if not listed or base_xy is None:
                 rows[f"{prefix}<"].append("")
                 continue
-            ix, iy, _ = inherited_anchor(orig, style_key, g, b, base_xy, cls, s)
-            inh = (ix, iy)
-            applied = (m >= MIN_MATCH and not curated
-                       and patch_anchors.get(g, {}).get(cls) == inh)
+            if tail:
+                inh, _ = tail_anchor(orig, style_key, cp, g, b, base_xy, cls)
+                if inh is None:
+                    rows[f"{prefix}<"].append("")
+                    continue
+                applied = not curated and patch_anchors.get(g, {}).get(cls) == tuple(inh)
+            else:
+                ix, iy, _ = inherited_anchor(orig, style_key, g, b, base_xy, cls, s)
+                inh = (ix, iy)
+                applied = (m >= MIN_MATCH and not curated
+                           and patch_anchors.get(g, {}).get(cls) == inh)
             rows[f"{prefix}<"].append(_xy(inh, bold=applied))
 
     label = STYLE_LABELS[style_key]

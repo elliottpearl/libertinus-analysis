@@ -3,6 +3,11 @@
 
 anchors = {
     "bases": {
+        0x0270: { # ɰ turned m with long leg: under the middle stem (2026-11-06); width differs from ɯ, so not derived.
+                   # X = middle-stem centre + Y tan 11.5 + 12 (K below) = 388, less 2: at 388 U+034D also collides; Y = ɯ's candidate (same arches);
+                   # no below mark collides except U+0347
+            2: (386, -110),
+        },
         0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
             2: (369, -110),
         },
@@ -88,6 +93,41 @@ anchors = {
         # },
         0x0330: { # tilde below
             2: (-196, -70), # x-mid of bbox
+        },
+        0x0331: { # macron below: the outline is semibold's (y -79..-35) but the anchor was regular's (-244, -110),
+                  # 75 below the outline's top instead of 23 as in every other style, so the mark sat 52 higher
+                  # (gap to n 25, against 86-96 in the other styles). Y = top - 23, as semibold;
+                  # X + 52 tan 11.5 to stay on the axis (2026-11-06). The precomposed glyphs put it only 27 lower.
+            2: (-233, -58),
+        },
+        # Mark-axis snap (2026-11-06): X = C + Y tan 11.5 + d - 150, d = regular's
+        # offset from the axis; checked against the precomposed glyphs
+        # (median distance of the mark from them, before -> after).
+        0x0309: { # hook above
+            0: (-142, 765), # was (-160, 765); precomposed 26 -> 8 (5 glyphs)
+        },
+        0x0311: { # inverted breve
+            0: (-223, 645), # was (-205, 645); precomposed 19 -> 3 (5 glyphs)
+        },
+        0x0314: { # reversed comma above
+            0: (-91, 605), # was (-76, 605); precomposed 19 -> 4 (1 glyph)
+        },
+    },
+    "marks_by_name": {
+        # Mark-axis snap (2026-11-06), as above, overruling stage 4, whose x for
+        # these asymmetric marks assumes capital above-anchors on the midline
+        # (the designer's are left of it). See the report's to-do.
+        "acute.cap": {
+            0: (-236, 723), # stage 4 (-195, 723); precomposed 54 -> 17 (18 glyphs)
+        },
+        "grave.cap": {
+            0: (-194, 724), # stage 4 (-168, 724); precomposed 31 -> 18 (8 glyphs)
+        },
+        "hungarumlaut.cap": {
+            0: (-282, 762), # stage 4 (-243, 762); precomposed 37 -> 7 (2 glyphs)
+        },
+        "uni030F.cap": { # double grave
+            0: (-214, 767), # stage 4 (-167, 767); precomposed 37 -> 16 (6 glyphs)
         },
     },
 }

@@ -3,6 +3,10 @@
 anchors = {
 
     "bases": {
+        0x0270: { # ɰ turned m with long leg: under the middle stem (2026-11-06); width differs from ɯ, so not derived.
+                   # X = middle-stem centre; Y = ɯ's candidate (same arches); no below mark collides except U+0347
+            2: (390, -125),
+        },
         0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
             2: (366, -110),
         },
@@ -93,7 +97,8 @@ anchors = {
 
     "marks": {
         0x0300: { # grave
-            0: (-156, 683), # was (-156, 713)
+            0: (-127, 683), # designer (-127, 713); y as acute. x was -156 with no reason (2026-11-06):
+                            # -127 is on the mark-axis model, precomposed 37 -> 10 (7 glyphs)
         },
         0x0301: { # acute
             0: (-180, 683), # was (-180, 713)
@@ -103,6 +108,14 @@ anchors = {
         },
         0x030D: { # vertical line above
             0: (-137, 688), # was (-137, 719), as U+030E; same as the other styles
+        },
+        # Mark-axis snap (2026-11-06): X = C + d, d = regular's offset from the axis;
+        # checked against the precomposed glyphs (median distance, before -> after).
+        0x0311: { # inverted breve
+            0: (-217, 645), # was (-205, 645); precomposed 11 -> 4 (5 glyphs)
+        },
+        0x0330: { # tilde below
+            2: (-200, -70), # was (-213, -70); precomposed 13 -> 4 (6 glyphs)
         },
     },
 }

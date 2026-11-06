@@ -144,6 +144,11 @@
 
 Audit mark anchors to fit roman and italic anchor models; patch as necessary.
 
+Decide whether the semibold italic \verb|acute.cap|, \verb|grave.cap|, \verb|hungarumlaut.cap| and \verb|uni030F.cap| should be set by stage 4 or curated.
+They are now curated at the mark-axis position ($X = C + Y\tan\theta + d - K$), which the precomposed capitals support better than stage 4's value (median distance 54 to 17, 31 to 18, 37 to 7, 37 to 16).
+Stage 4 places these asymmetric marks by their median offset from the midline in the precomposed capitals, which assumes that the capital above-anchors are on the midline; the designer's are left of it.
+If the capital base anchors are moved to the candidates, check whether stage 4 is then right and the curated anchors can go.
+
 Add alt cap dot above for italic and semibold italic.
 
 Look at the full-descender line for tall below marks. At $Y = -319$, 2--7 of the 32 below marks overlap almost every descending letter tested (p, q, g, \char"0292; y is clear): mostly U+0318, U+0319, U+031C, U+031F and U+0339.
@@ -308,15 +313,36 @@ where the filled symbols are the designer's anchors and the hollow symbols are t
 the above-anchor of n and the anchor of the macron are both far left of the hollow symbols, 
 but by nearly the same distance.
 
-The semibold italic anchor model is therefore the italic anchor model 
-with both anchors shifted left by the same constant $K$:
-the base anchor is at $X = W/2 + Y\tan\theta - K$ and the mark anchor is at $X = C + Y\tan\theta - K$,
+Each anchor in the font has its own shift $k$: how far it lies left of the position the italic anchor model gives it.
+For a base anchor, $k = W/2 + Y\tan\theta - X$.
+For a mark anchor, $k = C + Y\tan\theta - (X - d)$, where $C$ is where the mark's axis meets the baseline
+and $d$ is the mark's offset from its axis in regular ($d = 0$ for a symmetric mark; for the acute it is $-32$).
+In Figure \ref{fig:libertinus-semibolditalic-geometry}, the above-anchor of n has $k = 170$ and the macron has $k = 141$.
+A mark lands $k_\mathrm{mark} - k_\mathrm{base}$ units right of the base's midline (left, if negative),
+so the macron lands $141 - 170 = -29$, that is, 29 units left of the midline of n.
+
+The shifts differ from anchor to anchor, because the designer copied regular's $X$ coordinates, which carry no slant.
+So an anchor's shift is about $Y\tan\theta$ at its own height, plus a small amount that depends on how the slanted outline was drawn.
+A higher anchor has a larger shift: comma above U+0313, with its anchor at $Y = 605$, has $k = 125$; hook above U+0309, at $Y = 765$, has $k = 168$.
+Only the difference between a mark's shift and a base's shift moves the mark off the midline,
+so any single value works, provided every base anchor and every mark anchor uses it.
+
+The semibold italic anchor model therefore fixes one value of $K$ for each anchor class
+and gives every anchor of that class the same shift:
+the base anchor is at $X = W/2 + Y\tan\theta - K$ and the mark anchor is at $X = C + Y\tan\theta + d - K$,
 with $\tan\theta = 0.2035$ and the same $Y$ coordinates as in the other styles.
-Above-anchors are high, where the slant has moved the outline far to the right, so their shift is large: 
-$K_a = 150$ (the median of the above-marks; most are between 132 and 168).
-Below-anchors are just under the baseline, where the slant has moved the outline a little to the left, 
-so their shift is small and negative: 
-$K_b = -12$ (most below-marks are between $-23$ and $-4$).
+\begin{itemize}
+	\item Above-anchors: $K = 150$, for every above-mark and every base's above-anchor.
+	Above-anchors are high, where the slant has moved the outline far to the right, so their shift is large.
+	150 is the median shift of the designer's above-marks; most are between 132 and 168.
+	\item Below-anchors: $K = -12$, for every below-mark and every base's below-anchor.
+	Below-anchors are just under the baseline, where the slant has moved the outline a little to the left, so their shift is small and negative.
+	$-12$ is the median shift of the designer's below-marks; most are between $-23$ and $-4$.
+\end{itemize}
+The values are taken from the marks rather than the bases so that most of the designer's mark anchors already conform.
+The designer's base anchors have median shifts of 139 above and $-1$ below on lowercase Latin and IPA letters,
+and 173 above and $-5$ below on capitals.
+An anchor conforms if its own shift $k$ is close to $K$.
 The italic anchor model is the case $K = 0$.
 
 The candidates for a base are
@@ -332,7 +358,7 @@ and the macron lands 29 units left of the midline.
 The cancellation is only approximate, because the designer's anchors do not follow the slant at all, 
 whereas the model's anchors do, apart from the constant $K$.
 A mark's shift is fixed by the height of its own anchor:
-for a mark, $K = Y\tan\theta$ plus a constant, where $Y$ is the height of the mark anchor.
+for a mark, $k = Y\tan\theta$ plus a small amount, where $Y$ is the height of the mark anchor.
 But the designer's base anchors are near $W/2 - 9$ at every height, 
 so they do not move right for a taller base, such as a capital or an ascender.
 The error of a mark on a base therefore grows with the difference in height of the two anchors, 
@@ -354,7 +380,7 @@ The following do not conform to the semibold italic anchor model and probably ne
 	\item Capitals. The designer's above-anchors are about 25 units left of the candidate, since they are 205 units higher than
 	the anchors of lowercase letters but no further right. The worst are B, D, I, N, O, R, W (40 to 60 units left) and L (159 units left; its anchor is over the stem, as in regular).
 	\item The capital forms of the grave, acute, circumflex and breve (\verb|grave.cap|, \verb|acute.cap|, \verb|circumflex.cap|, \verb|breve.cap|),
-	which the font substitutes over capitals. Their mark anchors were set with the slant ($K$ between $-13$ and $29$), 
+	which the font substitutes over capitals. Their mark anchors were set with the slant ($k$ between $-13$ and $29$), 
 	but the above-anchors of capitals were not, so these four marks land 160 to 190 units left of the middle of a capital.
 	The other above-marks have no capital form in use and land 20 to 50 units left.
 	The capital forms need mark anchors at $X = C + Y\tan\theta - 150$; \verb|caron.cap| and \verb|dieresis.cap| are not substituted.
@@ -365,8 +391,9 @@ The following do not conform to the semibold italic anchor model and probably ne
 	Below: A, C, D, J, a, d, f, j, q, r, t, Æ, ĸ, ƕ, Ƣ, Ƥ, ȵ, ɍ, ɑ, ɖ, ɗ, ɚ, ɥ, ɰ, ʞ, Ћ, ѳ.
 	Several of these are copies of the anchors of another glyph.
 	The anchors of ʮ and ʯ are transposed, as in the other styles.
-	\item Marks whose shift is far from the median, so that no base anchor can be right for them and for the other marks:
-	dieresis U+0308 ($K = 111$, so it lands about 40 units left of the other above-marks),
+	\item Marks whose own shift $k$ is far from $K$ (150 above, $-12$ below), so that no base anchor can be right for them and for the other marks;
+	each lands $k - K$ units right of where a conforming mark lands:
+	dieresis U+0308 ($k = 111$, so it lands about 40 units left of the other above-marks),
 	comma above U+0313 (125), inverted breve U+0311 (132), hook above U+0309 and double grave U+030F (168, about 18 units right),
 	koronis U+0343 (371), right tack below U+0319 ($-30$) and tilde below U+0330 ($+10$).
 	The double acute U+030B (156) conforms.
@@ -381,7 +408,9 @@ The anchors of precomposed glyphs were not compared with these candidates.
 	\input{input/libertinus-semibolditalic-geometry.tex}
 	\caption{Libertinus semibold italic n, macron and macron below, with the designer's anchors (filled)
 	and the positions given by the italic anchor model (hollow).
-	The above-anchor of n is 170 units left of the midline and the anchor of the macron is 141 units left of its axis.}
+	The above-anchor of n is 170 units left of the midline ($k = 170$) and the anchor of the macron is 141 units left of its axis ($k = 141$),
+	so the macron lands 29 units left of the midline of n.
+	The model's own positions, with $K = 150$, would be 20 units right of the filled circle and 9 units left of the filled square.}
 	\label{fig:libertinus-semibolditalic-geometry}
 \end{figure}
 
@@ -423,7 +452,7 @@ The patch changes mark anchors in four places, and one change of base anchors (i
 	and semibold's U+0358--U+0363, which were copies of the capital accents, are replaced.
 	Their anchors are regular's. In semibold italic, regular's anchor is used with italic's outline moved right by 12 units.
 	There, the added above-marks land 7 to 15 units left of the model ($K = 150$),
-	which is well inside the spread of the designer's own above-marks ($K$ from 111 to 168).
+	which is well inside the spread of the designer's own above-marks ($k$ from 111 to 168).
 	\item Stage 4, all styles: the capital forms (\verb|grave.cap|, \verb|acute.cap|, \ldots) get anchors computed from the designer's precomposed capitals,
 	on the axis for a symmetric mark, at the precomposed offset for an asymmetric one, and with $K = 150$ in semibold italic.
 	This fixes semibold italic, whose capital forms had anchors without the shift $K$ and landed 120 to 160 units left,
@@ -436,7 +465,16 @@ The patch changes mark anchors in four places, and one change of base anchors (i
 		\item Regular, left and right tack below (U+0318, U+0319): the designer's anchors were 25 units right and 36 units left of the centre of the outline;
 		the curated anchors are at the centre. The other styles keep the designer's anchors, so the tacks now differ between regular and the other styles.
 		\item Semibold, grave and acute: 30 units lower (713 to 683), which makes them sit as in regular.
+		The grave keeps the designer's $X = -127$; an earlier curated $-156$ had no recorded reason and put the grave 37 units (median) from the precomposed glyphs, against 10.
 		The grave and acute tone marks U+0340 and U+0341, which stage 3 adds, still have 713, so they sit 30 units lower than the grave and acute.
+		\item Mark-axis positions, $X = C + Y\tan\theta + d - K$, where the precomposed glyphs confirm the move
+		(median distance of the mark from the precomposed glyphs, before and after; added 2026-11-06):
+		semibold inverted breve U+0311 $-217$ (11 to 4) and tilde below U+0330 $-200$ (13 to 4);
+		semibold italic hook above U+0309 $-142$ (26 to 8), inverted breve U+0311 $-223$ (19 to 3), U+0314 $-91$ (19 to 4, on one glyph),
+		and the capital forms \verb|acute.cap| $-236$, \verb|grave.cap| $-194$, \verb|hungarumlaut.cap| $-282$ and \verb|uni030F.cap| $-214$, which overrule stage 4 (see the to-do).
+		A patch stage that moved every mark anchor to this position was tested and rejected:
+		most moves were under 20 units, and as many marks got further from the precomposed glyphs as got closer.
+		\item Italic, \verb|acute.cap|: the curated $(-65, 724)$ had no recorded reason and has been removed, so stage 4's $(-37, 724)$ applies.
 		\item Italic and semibold italic, tilde below: moved to the centre of the outline.
 		In semibold italic this corrects an offset 22 units different from regular's; in italic it moves the anchor by 8 units, harmlessly.
 		\item Italic, double acute: the designer's anchor $(-74, 714)$ had regular's offset; the curated $(-57, 714)$ lands the mark 17 units left.
@@ -481,8 +519,8 @@ Compared with regular, after the patch:
 
 \paragraph{Changes needed.}
 \begin{itemize}
-	\item Semibold italic: move the anchors of the marks whose $K$ is far from 150 to the model;
-	move the macron's anchor 32 units down and the macron below's anchor 52 units up.
+	\item Semibold italic: move the anchors of the marks whose $k$ is far from 150 to the model (done for the hook above, inverted breve and U+0314; the precomposed glyphs do not support moving U+0313, U+030F or, on lowercase, the diaeresis);
+	move the macron's anchor 32 units down. The macron below's anchor was moved 52 units up, to $(-233, -58)$, 23 units below its outline as in the other styles (curated, 2026-11-06): it sat 25 units under n, against 86 to 96 in the other styles.
 	\item Semibold: lower the anchors of the above-marks that sit low by the amounts listed, so that they sit as in regular;
 	give U+0340 and U+0341 the curated height of the grave and acute (683).
 	\item Regular: lower the anchor of the dot above by about 45 units (and by about 11 in italic and 21 in semibold) to match the precomposed glyphs;
@@ -1018,10 +1056,10 @@ The heuristic candidate cannot know this: a hook or tail moves the midpoint of t
 Stage 8 of the patch inherits these anchors.
 \verb|data/derived_letters.py| lists each derived letter with its base letter and the anchor classes it may inherit:
 both above and below for a bar or stroke through the letter, or a hook at the top away from the centre;
-above only for a hook, tail or curl at the bottom; below only for a hook at the top in the way of an above mark (ɝ, ɚ, ʄ).
-The classes can differ by style: in italic and semibold italic, d has its above-anchor at the x-height, over the bowl beside the ascender,
-where the bar of đ or the hook of ɗ is in the mark's way, so these inherit only the below-anchor in the italic styles.
-The same was true of h, whose above-anchor is now at the ascender reference in the italic styles; ħ ɦ still inherit only the below-anchor there.
+above and below for a hook, tail or curl at the bottom (see below); below only for a hook at the top in the way of an above mark (ɝ, ɚ, ʄ).
+The classes can differ by style. In italic and semibold italic the designer put the above-anchor of d and h at the x-height, over the bowl beside the ascender,
+where the bar or hook of đ ɗ ħ ɦ is in the mark's way (in semibold italic, 27 above marks overlapped the ascender of d itself).
+Both are now at the ascender reference (deleted in stage 1, candidate in stage 6), and đ ɗ inherit above in every style; ħ ɦ still inherit only the below-anchor there.
 The shift is found by matching outlines: at every height on a 10-unit grid, the positions where the base letter's outline crosses that height
 are compared with the derived letter's, and the shift that pairs the most crossings within 6 units wins.
 The share of the base letter's crossings so paired measures how much of the base letter the derived letter really contains.
@@ -1038,6 +1076,32 @@ a?, the heuristic candidate;
 a<, the base letter's final anchor plus the shift, in bold where the patched font has it;
 a!, a curated anchor, which stage 8 keeps.
 The same for the below anchor (b).
+
+\paragraph{Letters with a tail at the bottom.}
+Ƒ Ɲ ɕ ɖ ɭ ɱ ɲ ɳ ɻ ɽ ʂ ʆ ʈ ʐ ʑ ʓ (\verb|bottom_tail| in \verb|data/derived_letters.py|) follow one rule, decided 2026-11-06,
+whether the tail curls toward the centre (ɱ, ɭ, ɽ, ʂ) or away from it (ɖ, ɳ, ɲ, Ɲ).
+A dot below clears an outward tail at the baseline, but most below marks are much wider:
+at the designer's baseline anchors, 4 to 29 of the 32 below marks overlapped the tail of ɖ, ɱ, ɲ or ɳ in some style.
+\begin{itemize}
+	\item The shift is matched on the stems and bowl sides above the tail (heights from 60 to the x-height less 60),
+	not on the whole outline, since the tail replaces the base letter's foot.
+	Each ink interval of the base is paired with the derived letter's interval of about the same width at the same height,
+	and a line through the paired centres allows for a letter drawn a little narrower or wider (ɱ ɲ ɳ are about 3\% narrower than m and n in regular).
+	The whole-outline match was 46--59\% for regular ɱ ɲ ɳ ɽ; the stem match is 72--97\%.
+	It fails where there are no stems (ʐ ʑ ʓ in the italic styles) and where the italic letter was redrawn (italic ɖ ɲ).
+	\item Below, where the tail has ink within 195 units of the mark's axis (the half-width of the widest below mark, U+0347), $Y$ is the anchor model's candidate,
+	the descender reference with its clearance from the letter's own outline, and $X$ is the base letter's plus the shift, following the slant down.
+	Where the tail is clear of the mark, $Y$ is the base letter's: Ɲ in regular and italic, whose hook is more than 195 units left of the axis.
+	In semibold and semibold italic Ɲ keeps a descender anchor: at the baseline U+0347 and U+034D would overlap its hook.
+	\item Where the stems match less than 70\%, the above anchor is not inherited, and a below anchor over a tail gets the candidate, $X$ and $Y$.
+	\item The curated below anchors of regular ɭ, ɳ and ʂ were removed: the rule gives ɳ and ʂ within 7 units of them, and ɭ $X$ from the stem of l (133 against 196), where one below mark overlaps instead of four.
+\end{itemize}
+After the change, no below mark overlaps ɖ ɱ ɲ ɳ in any style.
+New overlaps, all with the tall half rings and tacks of the to-do item on the full-descender line: regular ʑ with U+031C, italic ʈ with U+0339.
+
+ɯ has the candidate in every style (its designer anchors are deleted in stage 1): the candidate lies on the central stem, within 2 to 7 units.
+ɰ is not derived from ɯ: it is narrower and its stems are spaced differently (the outline match is 21\% in regular).
+Its below anchor is curated under the middle stem, at ɯ's candidate $Y$; only U+0347 overlaps its long leg, in semibold and semibold italic.
 
 Two letters have an anchor set apart from these rules.
 The curl of ɕ reaches about $-100$, so at c's $Y = -110$ most below marks overlap it.
@@ -1058,7 +1122,11 @@ What the comparison shows:
 	(D in regular is 76 units left of the centre of its body), Ð, Đ, Ɖ and Ɗ follow it.
 	\item Checked for collisions with a circumflex and a macron: none in what is inherited.
 	ɝ and ɚ inherit only below, because their hook rises into the above mark at the inherited height;
-	italic and semibold italic đ ħ ɗ ɦ inherit only below (see above).
+	italic and semibold italic ħ ɦ inherit only below (see above).
+	ɗ is matched on its stems, like the letters with a tail below: its hook replaces the top of the ascender, and the whole-outline match was 50--53\% in semibold and semibold italic.
+	The candidate for ɗ and ɖ is pulled right by the hook or tail (by the bounding box in roman, the advance width in italic): regular ɗ 322 against 233 inherited from d.
+	The curated regular ɗ (218, 885), 17 units left of d's anchor, was removed.
+	Italic ɖ was redrawn wider than d (bowl 16 units left, stem 21 right), so it does not match; its above anchor is curated at d's plus the 4-unit shift of the centre of bowl and stem, (440, 899).
 	ʛ is much better inherited: the designer's anchors put the marks on the hook.
 	Italic ɦ's designer above-anchor (299, 565) put marks inside the hook; it is deleted in stage 1, and stage 6 gives it the ascender candidate.
 \end{itemize}
@@ -2655,14 +2723,14 @@ falls from 142 to 17 units in italic and from 171 to 42 units in semibold italic
 
 Check these by eye:
 \begin{itemize}
-	\item Italic. All ten curated anchors are kept and overrule the script. Their $X$ coordinates differ from the scripted ones by 6 to 62 units:
-	grave $-45$ (script 17), acute $-65$ ($-37$), caron $-50$ ($-29$), inverted breve $-23$ ($-2$), double grave $-47$ ($-34$), 
-	breve $-10$ ($-1$), circumflex 16 (24), hook $-27$ ($-19$), dieresis $-75$ ($-69$), double acute $-109$ ($-103$). 
+	\item Italic. Four curated anchors overrule the script: grave $-45$ (script 17), caron $-50$ ($-29$), inverted breve $-23$ ($-2$), double grave $-47$ ($-34$).
+	The curated acute $-65$ was removed (2026-11-06; it had no recorded reason), so the script's $-37$ applies;
+	breve, circumflex, hook, dieresis and double acute were within 8 units of the script and were removed earlier.
 	The curated values fit the designer's capital anchors, which are left of the midline; the scripted values assume an anchor on the midline.
 	If the capital anchors are moved to the midline, the curated values should be dropped.
 	\item Regular. The curated grave $(-175, 723)$ and acute $(-210, 723)$ are kept; the script gives $-162$ and $-218$. 
 	The other eight curated anchors are within 4 units of the script and are commented out in \verb|fontanchors_human|.
-	\item Semibold italic. All anchors are scripted. The marks are still about 35 units left of the midline, because the designer's capital anchors 
+	\item Semibold italic. The acute, grave, double acute and double grave are curated at the mark-axis position (see the to-do); the others are scripted. With scripted anchors the marks were still about 35 units left of the midline, because the designer's capital anchors 
 	are left of the candidates of the semibold italic anchor model; J and L are far off (their base anchors do not conform).
 	\item Semibold. Only J, O, Q, R, S, T, V, W, X, Y, Z have an above-anchor; on the other capitals the alternates are placed by fallback.
 	The hook above is raised by 89 units, and the double acute and double grave are lowered by 30 and 23 units, relative to the designer's anchors.

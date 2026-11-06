@@ -3,6 +3,15 @@
 
 anchors = {
     "bases": {
+        0x0256: { # ɖ d with tail: redrawn wider than d (bowl 16 left, stem 21 right; stem match 4%), so not inherited (2026-11-06).
+                  # X = d's ascender candidate 434 + 4 (centre of bowl and stem) + 2 (slant to Y); Y = 890 + 9 (ascender 707, d 698).
+                  # The candidate (465, 899) is pulled right by the wider advance width.
+            0: (440, 899),
+        },
+        0x0270: { # ɰ turned m with long leg: under the middle stem (2026-11-06); width differs from ɯ, so not derived.
+                   # X = middle-stem centre + Y tan 12; Y = ɯ's candidate (same arches); no below mark collides
+            2: (362, -123),
+        },
         0x0079: { # y: below under the baseline vertex, along the slant, as regular; the designer's
                   # (368, -107) is regular's tucked position, which only suits the dot of ỵ
             2: (240, -319),
@@ -104,9 +113,11 @@ anchors = {
         "grave.cap": {
             0: (-45, 724), # x scaled from regular, y implied (-45, 724). test up?
         },
-        "acute.cap": {
-            0: (-65, 724), # x scaled from regular. y implied. test x = -73 pull?
-        },
+        # "acute.cap": {
+            # 0: (-65, 724), # x scaled from regular. y implied. test x = -73 pull?
+            # removed 2026-11-06: no reason recorded; this lands the acute a median 22 from
+            # the precomposed capitals (mostly right of them); stage 4's (-37, 724) about 13
+        # },
         # "breve.cap": {
             # 0: (-10, 703), # x mid, y implied  # removed 2026-10-29: stage 4 gives (-1, 702)
         # },

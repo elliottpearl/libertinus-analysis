@@ -30,6 +30,8 @@ _ROMAN_ONLY_ABOVE = {
 }
 
 derived = {
+    # ɮ lezh < l: above over the l (regular's curated "centre of l", 2026-11-07); below is the ezh's, curated
+    0x026E: (0x006C, (0,)),
     # --- bar or stroke ---
     0x00D0: (0x0044, (0, 2)),  # Ð eth < D
     0x0110: (0x0044, (0, 2)),  # Đ D with stroke < D
@@ -57,14 +59,15 @@ derived = {
     0x0187: (0x0043, (0, 2)),  # Ƈ C with hook < C
     0x0193: (0x0047, (0, 2)),  # Ɠ G with hook < G
     0x0198: (0x004B, (0, 2)),  # Ƙ K with hook < K
-    0x0253: (0x0062, (0, 2)),  # ɓ b with hook < b
+    # ɓ U+0253: see derived_y
     0x0257: (0x0064, (0, 2)),  # ɗ d with hook < d; matched on stems (stem_match)
     0x0266: (0x0068, _ROMAN_ONLY_ABOVE),  # ɦ h with hook < h
     0x029B: (0x0262, (0, 2)),  # ʛ small capital G with hook < ɢ
     # --- hook at the top in the mark's way ---
     0x025D: (0x025C, (2,)),    # ɝ reversed open e with hook < ɜ
     0x025A: (0x0259, (2,)),    # ɚ schwa with hook < ə
-    0x0284: (0x0237, (2,)),    # ʄ dotless j with stroke and hook < ȷ
+    0x0284: (0x0283, (0, 2)),  # ʄ dotless j with stroke and hook < ʃ: Libertinus draws it as ʃ with a bar (match 95%;
+                               # ȷ 56-76%) (2026-11-07)
     # --- hook, tail or curl at the bottom ---
     0x0191: (0x0046, (0, 2)),    # Ƒ F with hook < F
     0x019D: (0x004E, (0, 2)),    # Ɲ N with left hook < N
@@ -117,6 +120,20 @@ stem_match = bottom_tail | {0x0257}
 # derived codepoint -> (base codepoint, {class: {style: Y}})
 
 derived_y = {
+    # ɓ b with hook < b: above and below at b's Y, X b's plus the outline shift, whatever the match (2026-11-07):
+    # the whole-outline match is 42-90% because of the hook, but the counters of b and ɓ agree within 6 in every style
+    0x0253: (0x0062, {0: {"regular": 885, "italic": 890, "semibold": 885, "semibold_italic": 890},
+                      2: {"regular": -110, "italic": -110, "semibold": -121, "semibold_italic": -110}}),
+    # ʝ j with crossed tail < j: above, X as j (on the stem), Y j's own (dot top + clearance): ʝ has no dotless
+    # form, so every above mark clears its dot, as the few that skip j's dotless swap (2026-11-07); outline match 52-64%
+    0x029D: (0x006A, {0: {
+        "regular": 834, "italic": 810, "semibold": 837, "semibold_italic": 823,
+    }}),
+    # ɠ g with hook < ɡ (script g, U+0261, not g): above, X as ɡ, Y at the ascender reference over the hook
+    # (regular's curated (239, 885), 2026-11-07); outline match 82-97%
+    0x0260: (0x0261, {0: {
+        "regular": 885, "italic": 890, "semibold": 885, "semibold_italic": 890,
+    }}),
     # ɕ c with curl < c: below, Y is the anchor model's, under the curl
     0x0255: (0x0063, {2: {
         "regular": -214, "italic": -208, "semibold": -209, "semibold_italic": -209,
@@ -130,7 +147,7 @@ derived_y = {
 # Not derived, though the Unicode name says so: the outline is a different
 # letterform, or matches the base too little in every style.
 #     Ƃ U+0182 B with topbar, Ƌ U+018B D with topbar, ʋ U+028B v with hook,
-#     ƒ U+0192 f with hook (curated), ɠ U+0260 g with hook
+#     ƒ U+0192 f with hook (curated); ɠ U+0260 g with hook matches g too little (derived_y from ɡ instead)
 
 # Unencoded forms, by glyph name: the dotless forms that ccmp substitutes
 # before an above mark.

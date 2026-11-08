@@ -24,14 +24,11 @@ def latex_font_cmd(font_key):
     """
     base = r""
     patch = r"\LibertinusSerifPatch"
-    candidate = r"\LibertinusSerifCandidate"
     marksnap = r"\LibertinusSerifMarkSnap"
 
     # Determine family
     if font_key.endswith("_patch"):
         family = patch
-    elif font_key.endswith("_candidate"):
-        family = candidate
     elif font_key.endswith("_marksnap"):
         family = marksnap
     else:

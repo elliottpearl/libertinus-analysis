@@ -58,8 +58,7 @@ from .font_patching_sortcoverage import sort_mark_to_base_coverage
 # data/fontanchors_audit/overrides.py. The audit's own "bad" verdicts are
 # also deleted only if DELETE_BAD_ANCHORS is true. It is off because the
 # audit's list is not limited to Latin and IPA, and stage 6 replaces nothing
-# outside them. The "Anchor audit" section of the report (anchor_review.py) is
-# the list to work from, with "delete" and "keep" overrides.
+# outside them. Decisions go in overrides.py as "delete" and "keep".
 DELETE_BAD_ANCHORS = False
 
 def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> None:
@@ -166,8 +165,8 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # ------------------------------------------------------------
     # 9. Patch precomposed anchors
     # ------------------------------------------------------------
-    report_above = patch_precomposed_anchors(ttfont, font_key, 0, "BASE_ABOVE", lookup_index)
-    report_below = patch_precomposed_anchors(ttfont, font_key, 2, "BASE_BELOW", lookup_index)
+    report_above = patch_precomposed_anchors(ttfont, font_key, 0, lookup_index)
+    report_below = patch_precomposed_anchors(ttfont, font_key, 2, lookup_index)
 
     for line in report_above + report_below:
         print(f"[{font_key}] {line}")

@@ -844,6 +844,8 @@ BASE_COVERAGE = sorted(BASE_COVERAGE)
 
 # "label" is a printable semantic label for the group
 # "items" is the python symbol name of the group list
+from data import precomposed_letters as _precomposed
+
 unicode_groups = {
     # === Base Unicode blocks ===
     "BASE_LATIN": {
@@ -889,6 +891,15 @@ unicode_groups = {
     "BASE_BELOW": {
         "label": "Precomposed bases that can inherit a below anchor",
         "items": BASE_BELOW,
+    },
+    # Stage 9's lists (data/precomposed_letters.py), for the test sheets
+    "PRECOMPOSED_ABOVE": {
+        "label": "Precomposed letters that inherit an above anchor in stage 9",
+        "items": _precomposed.PRECOMPOSED_ABOVE,
+    },
+    "PRECOMPOSED_BELOW": {
+        "label": "Precomposed letters that inherit a below anchor in stage 9",
+        "items": _precomposed.PRECOMPOSED_BELOW,
     },
 
     # === Precomposed blocks ===

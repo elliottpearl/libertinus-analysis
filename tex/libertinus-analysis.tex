@@ -41,14 +41,6 @@
 	BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf
 ]{Libertinus Serif Patch}
 
-\newfontfamily\LibertinusSerifCandidate[
-	Path = ../fonts/,
-	UprightFont    = LibertinusSerif-Regular-candidate.otf,
-	ItalicFont     = LibertinusSerif-Italic-candidate.otf,
-	BoldFont       = LibertinusSerif-Semibold-candidate.otf,
-	BoldItalicFont = LibertinusSerif-SemiboldItalic-candidate.otf
-]{Libertinus Serif Candidate}
-
 \newfontfamily\LibertinusSerifPatchGrave[
 	Path = ../fonts/,
 	UprightFont    = LibertinusSerif-Regular-patch.otf,
@@ -161,6 +153,19 @@ Review the designer anchors more than 5 from a $Y$ reference, which stage 5 list
 Many are legitimate, such as stacked marks on precomposed glyphs. Likely errors include: above and below swapped on \char"02AE, \char"02AF\ and \char"2132;
 k $-214$ below; \char"0263\ $-277$ below, not flagged by the audit;
 and capitals near 805 in the other styles, the semibold problem again: \char"014A, \char"01A2, \char"0181, \char"0184, \char"2C69, \char"2C6B\ and others.
+
+Audit the above anchors of the vowels against their precomposed glyphs, which are many and good evidence (survey of 2026-11-07).
+Where the patched anchor differs from the median mark centre of the precomposed glyphs by more than 15:
+italic o $+20$, O $+22$, E $-20$, Y $-17$; semibold y $-19$, Æ $-16$; semibold italic y $+29$ (regular's anchor, copied), Y $-58$, a $+18$, A $-15$, Æ $-19$.
+Regular O is within 12, but its marks land 16--19 left of the centre line of O.
+Two cautions: italic and semibold italic Y and U were just curated so that shaped marks land on their axes, and their precomposed glyphs disagree by 14--58;
+and the semibold italic precomposed glyphs run 30--40 right of the anchor model for g and E too.
+
+Check two outlines and two anchors found on 2026-11-07: semibold \char"026D\ has a stem 75 wide (l's is 110), apparently the regular-weight outline;
+semibold \char"0285\ has exactly the bounding box of \char"0283; semibold and semibold italic l below are regular's $(135, -110)$, and semibold \char"026D\ below is the candidate, 44 right of its stem;
+italic \char"0272\ above is at $Y = 654$, raised by stage 8 because its arch is 9 taller than n's (at 645 no mark overlaps it).
+
+Semibold italic dieresis U+0308 lands about 38 units left of the circumflex, breve and caron on every lowercase base tested (ȷ ı o n), and the macron U+0304 about 12 left (found 2026-11-07): mark anchors for the mark audit.
 
 A side finding about the patched fonts. After Ç, the patched fonts render the plain acute (acutecomb), not acute.cap as the originals do. So the rebuilt ccmp seems to have dropped Ç, and possibly other glyphs, from the capital list. I haven't checked how many.
 
@@ -457,9 +462,11 @@ The patch changes mark anchors in four places, and one change of base anchors (i
 	on the axis for a symmetric mark, at the precomposed offset for an asymmetric one, and with $K = 150$ in semibold italic.
 	This fixes semibold italic, whose capital forms had anchors without the shift $K$ and landed 120 to 160 units left,
 	and italic, where only \verb|grave.cap| had an anchor (in the wrong class).
-	In italic the curated \verb|.cap| anchors overrule stage 4;
-	they fit the designer's capital anchors, which are off the midline,
-	so even the symmetric \verb|caron.cap| and \verb|breveinvertedcmb.cap| are 21 units off their axis.
+	In italic the \verb|.cap| anchors are curated (2026-11-07), fitted to the precomposed capitals:
+	each $X$ is moved so that the accent lands, as a median over the capitals, where the designer drew it in the precomposed glyph,
+	as in regular, where every capital form is within a few units of them.
+	Stage 4 had left the symmetric marks about 14 units left of the precomposed accents, and the earlier curated caron (placed at its vertex, ignoring the slant) about 15 right.
+	The fit was made after italic O, U and Y took the median accent centre of their own precomposed glyphs as their above-anchor $X$ (493, 508, 441; the designer's O was 515, 22 right, which Ø inherited).
 	\item Stage 7, curated mark anchors in \verb|data/fontanchors_human/|:
 	\begin{itemize}
 		\item Regular, left and right tack below (U+0318, U+0319): the designer's anchors were 25 units right and 36 units left of the centre of the outline;
@@ -771,7 +778,7 @@ and $\epsilon$ is the correction for the vertical aspect range, usually for an o
 		& v. aspect	& regular				& italic				& semibold			& semibold italic\\
 $yra$	& ascender	& $698,	[688,698]$		& $698, [688,698]$		& $698, [690,698]$	& $698, [696,705]$ \\
 $yrc$	& capital	& $645,	[645,658]$		& $645, [645,658]$		& $645, [645,662]$	& $645, [645,662]$ \\
-$yrx$	& x-height	& $429,	[429,442]$		& $429, [429,442]$		& $434, [433,447]$	& $434, [434,447]$ \\
+$yrx$	& x-height	& $429,	[429,442]$		& $429, [429,450]^*$		& $434, [433,457]^*$	& $434, [434,458]^*$ \\
 $yr0$	& baseline	& $0,  [-12,0]$			& $0, [-12,1]$			& $0, [-12,1]$, 	& $0, [-20,0]$ \\
 $yrd$	& descender	& $-232, [-238,-227]$	& $-232, [-238,-227]$	& $-232, [-238,-212]$& $-232, [-239,-219]$ \\
 \hline
@@ -791,6 +798,11 @@ $by\delta d$	& descender	& $87$	& $87$	& $87$	& $87$	\\
 \end{table}
 
 The capital anchor $Y$ reference and clearance of semibold are the patched values.
+The x-height bands marked $^*$ are widened above the designer's BlueValues (442, 447, 447) on 2026-11-07:
+several x-height letters of those styles rise 1--11 units above the band (ɐ ɞ ɡ ɵ ɽ ʂ ʐ ʑ in italic, ɢ ʑ in semibold, ʐ ʑ in semibold italic),
+which gave their candidates a $Y$ of 657--666, above the base letters s, r, z, o at 645.
+Snapped to 645, no above-mark of the IPA set overlaps them (the nearest is 19 away); semibold italic ʜ (462) and p (470) stay outside.
+
 The designer set semibold's capitals near 805 (clearance 160) and compensated only in the capital alternates of the marks,
 so a mark without a capital alternate crashed into the capital: in 225 of the 780 combinations of A--Z with 30 above marks, the bottom of the mark was below the top of the letter.
 The patch moves the capitals to 850 and adds 45 to the mark anchors of the capital alternates, which stay where they were.
@@ -824,225 +836,6 @@ then the correction is 6; otherwise I assume that the glyph must look like a fla
 But for a non-full descender that is closer to the baseline, the bowl correction is 10.
 Full descender bowls tend to be flatter because the lower threhold of the descender really is a hard lower bound.
 
-
-\subsection*{Copied anchors}
-
-\input{input/copied_anchors.tex}
-
-
-% above
-%0x00FE,0x0181,0x018A,0x019C,0x0237,0x0258,0x0262,0x0269,0x026F,0x0271
-%0x0273,0x027C
-
-\ribbiline{\char"00FE\cgj\char"0307}\ribbiline{\char"00FE\cgj\char"0304}\
-\ribbiline{\char"0181\cgj\char"0307}\ribbiline{\char"0181\cgj\char"0304}\
-\ribbiline{\char"018A\cgj\char"0307}\ribbiline{\char"018A\cgj\char"0304}\
-\ribbiline{\char"019C\cgj\char"0307}\ribbiline{\char"019C\cgj\char"0304}\
-\ribbiline{\char"0237\cgj\char"0307}\ribbiline{\char"0237\cgj\char"0304}\
-\ribbiline{\char"0258\cgj\char"0307}\ribbiline{\char"0258\cgj\char"0304}\
-\ribbiline{\char"0262\cgj\char"0307}\ribbiline{\char"0262\cgj\char"0304}\
-\ribbiline{\char"0269\cgj\char"0307}\ribbiline{\char"0269\cgj\char"0304}\
-\ribbiline{\char"026F\cgj\char"0307}\ribbiline{\char"026F\cgj\char"0304}\
-\ribbiline{\char"0271\cgj\char"0307}\ribbiline{\char"0271\cgj\char"0304}\
-
-\ribbiline{\char"0273\cgj\char"0307}\ribbiline{\char"0273\cgj\char"0304}\
-\ribbiline{\char"027C\cgj\char"0307}\ribbiline{\char"027C\cgj\char"0304}\
-
-
-% below
-%0x004A,0x006A,0x00C6,0x00E6,0x0131,0x0181,0x018A,0x019C,0x0250,0x0251
-%0x0253,0x0255,0x0256,0x0257,0x0258,0x025A,0x025B,0x025D,0x0254,0x025C
-%0x025E,0x0265,0x0266,0x0267,0x0268,0x0269,0x026A,0x026B,0x026C,0x026F
-%0x0270,0x0271,0x0272,0x0273,0x0274,0x0277,0x0279,0x027A,0x027C,0x028A
-%0x028B,0x028F,0x0294,0x0295
-
-\ribbiline{\char"004A\cgj\char"0323}\ribbiline{\char"004A\cgj\char"0331}\
-\ribbiline{\char"006A\cgj\char"0323}\ribbiline{\char"006A\cgj\char"0331}\
-\ribbiline{\char"00C6\cgj\char"0323}\ribbiline{\char"00C6\cgj\char"0331}\
-\ribbiline{\char"00E6\cgj\char"0323}\ribbiline{\char"00E6\cgj\char"0331}\
-\ribbiline{\char"0131\cgj\char"0323}\ribbiline{\char"0131\cgj\char"0331}\
-\ribbiline{\char"0181\cgj\char"0323}\ribbiline{\char"0181\cgj\char"0331}\
-\ribbiline{\char"018A\cgj\char"0323}\ribbiline{\char"018A\cgj\char"0331}\
-\ribbiline{\char"019C\cgj\char"0323}\ribbiline{\char"019C\cgj\char"0331}\
-\ribbiline{\char"0250\cgj\char"0323}\ribbiline{\char"0250\cgj\char"0331}\
-\ribbiline{\char"0251\cgj\char"0323}\ribbiline{\char"0251\cgj\char"0331}\
-
-\ribbiline{\char"0253\cgj\char"0323}\ribbiline{\char"0253\cgj\char"0331}\
-\ribbiline{\char"0255\cgj\char"0323}\ribbiline{\char"0255\cgj\char"0331}\
-\ribbiline{\char"0256\cgj\char"0323}\ribbiline{\char"0256\cgj\char"0331}\
-\ribbiline{\char"0257\cgj\char"0323}\ribbiline{\char"0257\cgj\char"0331}\
-\ribbiline{\char"0258\cgj\char"0323}\ribbiline{\char"0258\cgj\char"0331}\
-\ribbiline{\char"025A\cgj\char"0323}\ribbiline{\char"025A\cgj\char"0331}\
-\ribbiline{\char"025B\cgj\char"0323}\ribbiline{\char"025B\cgj\char"0331}\
-\ribbiline{\char"025D\cgj\char"0323}\ribbiline{\char"025D\cgj\char"0331}\
-\ribbiline{\char"0254\cgj\char"0323}\ribbiline{\char"0254\cgj\char"0331}\
-\ribbiline{\char"025C\cgj\char"0323}\ribbiline{\char"025C\cgj\char"0331}\
-
-\ribbiline{\char"025E\cgj\char"0323}\ribbiline{\char"025E\cgj\char"0331}\
-\ribbiline{\char"0265\cgj\char"0323}\ribbiline{\char"0265\cgj\char"0331}\
-\ribbiline{\char"0266\cgj\char"0323}\ribbiline{\char"0266\cgj\char"0331}\
-\ribbiline{\char"0267\cgj\char"0323}\ribbiline{\char"0267\cgj\char"0331}\
-\ribbiline{\char"0268\cgj\char"0323}\ribbiline{\char"0268\cgj\char"0331}\
-\ribbiline{\char"0269\cgj\char"0323}\ribbiline{\char"0269\cgj\char"0331}\
-\ribbiline{\char"026A\cgj\char"0323}\ribbiline{\char"026A\cgj\char"0331}\
-\ribbiline{\char"026B\cgj\char"0323}\ribbiline{\char"026B\cgj\char"0331}\
-\ribbiline{\char"026C\cgj\char"0323}\ribbiline{\char"026C\cgj\char"0331}\
-\ribbiline{\char"026F\cgj\char"0323}\ribbiline{\char"026F\cgj\char"0331}\
-
-\ribbiline{\char"0270\cgj\char"0323}\ribbiline{\char"0270\cgj\char"0331}\
-\ribbiline{\char"0271\cgj\char"0323}\ribbiline{\char"0271\cgj\char"0331}\
-\ribbiline{\char"0272\cgj\char"0323}\ribbiline{\char"0272\cgj\char"0331}\
-\ribbiline{\char"0273\cgj\char"0323}\ribbiline{\char"0273\cgj\char"0331}\
-\ribbiline{\char"0274\cgj\char"0323}\ribbiline{\char"0274\cgj\char"0331}\
-\ribbiline{\char"0277\cgj\char"0323}\ribbiline{\char"0277\cgj\char"0331}\
-\ribbiline{\char"0279\cgj\char"0323}\ribbiline{\char"0279\cgj\char"0331}\
-\ribbiline{\char"027A\cgj\char"0323}\ribbiline{\char"027A\cgj\char"0331}\
-\ribbiline{\char"027C\cgj\char"0323}\ribbiline{\char"027C\cgj\char"0331}\
-\ribbiline{\char"028A\cgj\char"0323}\ribbiline{\char"028A\cgj\char"0331}\
-
-\ribbiline{\char"028B\cgj\char"0323}\ribbiline{\char"028B\cgj\char"0331}\
-\ribbiline{\char"028F\cgj\char"0323}\ribbiline{\char"028F\cgj\char"0331}\
-\ribbiline{\char"0294\cgj\char"0323}\ribbiline{\char"0294\cgj\char"0331}\
-\ribbiline{\char"0295\cgj\char"0323}\ribbiline{\char"0295\cgj\char"0331}\
-
-Copied above-anchors
-
-\char"0061\cgj\char"0307\ \char"0061\cgj\char"0304\
-\char"0255\cgj\char"0307\ \char"0255\cgj\char"0304\
-\char"025B\cgj\char"0307\ \char"025B\cgj\char"0304\
-\char"025D\cgj\char"0307\ \char"025D\cgj\char"0304\
-\char"0260\cgj\char"0307\ \char"0260\cgj\char"0304\
-\char"026B\cgj\char"0307\ \char"026B\cgj\char"0304\
-\char"026C\cgj\char"0307\ \char"026C\cgj\char"0304\
-\char"026D\cgj\char"0307\ \char"026D\cgj\char"0304\
-\char"026E\cgj\char"0307\ \char"026E\cgj\char"0304\
-\char"0270\cgj\char"0307\ \char"0270\cgj\char"0304\
-\char"0274\cgj\char"0307\ \char"0274\cgj\char"0304\
-\char"0275\cgj\char"0307\ \char"0275\cgj\char"0304\
-\char"0277\cgj\char"0307\ \char"0277\cgj\char"0304\
-\char"0278\cgj\char"0307\ \char"0278\cgj\char"0304\
-\char"0279\cgj\char"0307\ \char"0279\cgj\char"0304\
-\char"027A\cgj\char"0307\ \char"027A\cgj\char"0304\
-\char"027D\cgj\char"0307\ \char"027D\cgj\char"0304\
-\char"027E\cgj\char"0307\ \char"027E\cgj\char"0304\
-\char"027F\cgj\char"0307\ \char"027F\cgj\char"0304\
-\char"0280\cgj\char"0307\ \char"0280\cgj\char"0304\
-\char"0281\cgj\char"0307\ \char"0281\cgj\char"0304\
-\char"0282\cgj\char"0307\ \char"0282\cgj\char"0304\
-\char"0283\cgj\char"0307\ \char"0283\cgj\char"0304\
-\char"0284\cgj\char"0307\ \char"0284\cgj\char"0304\
-\char"0285\cgj\char"0307\ \char"0285\cgj\char"0304\
-\char"0286\cgj\char"0307\ \char"0286\cgj\char"0304\
-\char"0287\cgj\char"0307\ \char"0287\cgj\char"0304\
-\char"0288\cgj\char"0307\ \char"0288\cgj\char"0304\
-\char"0289\cgj\char"0307\ \char"0289\cgj\char"0304\
-\char"028A\cgj\char"0307\ \char"028A\cgj\char"0304\
-\char"028C\cgj\char"0307\ \char"028C\cgj\char"0304\
-\char"028D\cgj\char"0307\ \char"028D\cgj\char"0304\
-\char"028E\cgj\char"0307\ \char"028E\cgj\char"0304\
-\char"028F\cgj\char"0307\ \char"028F\cgj\char"0304\
-\char"0290\cgj\char"0307\ \char"0290\cgj\char"0304\
-\char"0291\cgj\char"0307\ \char"0291\cgj\char"0304\
-\char"0293\cgj\char"0307\ \char"0293\cgj\char"0304\
-\char"0294\cgj\char"0307\ \char"0294\cgj\char"0304\
-\char"0295\cgj\char"0307\ \char"0295\cgj\char"0304\
-\char"0296\cgj\char"0307\ \char"0296\cgj\char"0304\
-\char"0297\cgj\char"0307\ \char"0297\cgj\char"0304\
-\char"0299\cgj\char"0307\ \char"0299\cgj\char"0304\
-\char"029B\cgj\char"0307\ \char"029B\cgj\char"0304\
-\char"029C\cgj\char"0307\ \char"029C\cgj\char"0304\
-\char"029D\cgj\char"0307\ \char"029D\cgj\char"0304\
-\char"029F\cgj\char"0307\ \char"029F\cgj\char"0304\
-
-Copied below-anchors
-
-\char"0061\cgj\char"0323\ \char"0061\cgj\char"0331\
-\char"0073\cgj\char"0323\ \char"0073\cgj\char"0331\
-\char"025F\cgj\char"0323\ \char"025F\cgj\char"0331\
-\char"026D\cgj\char"0323\ \char"026D\cgj\char"0331\
-\char"026E\cgj\char"0323\ \char"026E\cgj\char"0331\
-\char"0275\cgj\char"0323\ \char"0275\cgj\char"0331\
-\char"0278\cgj\char"0323\ \char"0278\cgj\char"0331\
-\char"027B\cgj\char"0323\ \char"027B\cgj\char"0331\
-\char"027D\cgj\char"0323\ \char"027D\cgj\char"0331\
-\char"027E\cgj\char"0323\ \char"027E\cgj\char"0331\
-\char"027F\cgj\char"0323\ \char"027F\cgj\char"0331\
-\char"0280\cgj\char"0323\ \char"0280\cgj\char"0331\
-\char"0281\cgj\char"0323\ \char"0281\cgj\char"0331\
-\char"0282\cgj\char"0323\ \char"0282\cgj\char"0331\
-\char"0283\cgj\char"0323\ \char"0283\cgj\char"0331\
-\char"0284\cgj\char"0323\ \char"0284\cgj\char"0331\
-\char"0285\cgj\char"0323\ \char"0285\cgj\char"0331\
-\char"0286\cgj\char"0323\ \char"0286\cgj\char"0331\
-\char"0287\cgj\char"0323\ \char"0287\cgj\char"0331\
-\char"0288\cgj\char"0323\ \char"0288\cgj\char"0331\
-\char"0289\cgj\char"0323\ \char"0289\cgj\char"0331\
-\char"028C\cgj\char"0323\ \char"028C\cgj\char"0331\
-\char"028D\cgj\char"0323\ \char"028D\cgj\char"0331\
-\char"028E\cgj\char"0323\ \char"028E\cgj\char"0331\
-\char"0290\cgj\char"0323\ \char"0290\cgj\char"0331\
-\char"0291\cgj\char"0323\ \char"0291\cgj\char"0331\
-\char"0293\cgj\char"0323\ \char"0293\cgj\char"0331\
-\char"0296\cgj\char"0323\ \char"0296\cgj\char"0331\
-\char"0297\cgj\char"0323\ \char"0297\cgj\char"0331\
-\char"0299\cgj\char"0323\ \char"0299\cgj\char"0331\
-\char"029B\cgj\char"0323\ \char"029B\cgj\char"0331\
-\char"029D\cgj\char"0323\ \char"029D\cgj\char"0331\
-\char"029F\cgj\char"0323\ \char"029F\cgj\char"0331\
-
-
-\char"0251\cgj\char"0323\ \char"0251\cgj\char"0331\
-\char"0253\cgj\char"0323\ \char"0253\cgj\char"0331\
-\char"0255\cgj\char"0323\ \char"0255\cgj\char"0331\
-\char"0256\cgj\char"0323\ \char"0256\cgj\char"0331\
-\char"0257\cgj\char"0323\ \char"0257\cgj\char"0331\
-\char"0258\cgj\char"0323\ \char"0258\cgj\char"0331\
-\char"025A\cgj\char"0323\ \char"025A\cgj\char"0331\
-\char"025B\cgj\char"0323\ \char"025B\cgj\char"0331\
-\char"025D\cgj\char"0323\ \char"025D\cgj\char"0331\
-
-
-
-\subsection*{Base coverage}
-
-Libertinus serif regular has good above- and below-anchor base coverage for A--Z, a--z, and IPA letters,
-in the sense that most anchors are defined. 
-But I will show later that some anchors are not set to good values.
-The base coverage gets worse for italic and semibold.
-Observe that many IPA letters reuse $ax = 209$ and $bx = 196$. 
-These are good anchors for the letter a, but these were just copied to some IPA letters 
-without regard to the letterform and are therefore bad anchors for those IPA letters.
-
-\newpage
-\section*{Anchor audit}
-
-This section lists the above- and below-anchors of the Latin and IPA letters that still need a decision, in the patched fonts.
-The letters are those of stage 6, \verb|BASE_LATIN| and \verb|BASE_IPA|. Other scripts, precomposed letters and superscripts are not audited.
-What the patch has already fixed does not appear.
-
-The tests ask whether marks fit, not where an anchor came from. They are in \verb|anchor_audit.py|; the tests for copied anchors are left out here, since a copy that fits is not a problem.
-Semibold italic is judged by its own model: its shift $K$ is added back before $x$ is compared with the glyph.
-
-Each anchor is compared with the candidate font (\verb|fonts/*-candidate.otf|): the patch run again with every Latin and IPA above- and below-anchor deleted, so that stages 6--8 refill them.
-That is what a \verb|"delete"| override gives. Curated anchors come back unchanged, and a derived letter inherits from its base letter.
-Each anchor falls in one group, by the action it needs:
-
-\begin{description}
-	\item[Replace.] The anchor fails: a mark overlaps the glyph, or the anchor is in the wrong place. The candidate moves it and passes.
-	If the right-hand samples look better, add \verb|{cls: "delete"}| to \verb|data/fontanchors_audit/overrides.py|, with class 0 for above and 2 for below.
-	\item[Curate.] The anchor fails, and the candidate is the same or fails too. Add a curated anchor to \verb|data/fontanchors_human/{style}.py|.
-	\item[Judge.] The anchor passes, but a test is suspicious (a mark crowds the glyph, for instance), and the candidate differs. Delete it only if the candidate is clearly better.
-	\item[Kept.] Add \verb|{cls: "keep"}| to the overrides for an anchor that is right as it stands, such as a deliberate design choice. It leaves the groups above and is listed here, so the list shrinks as decisions are made.
-\end{description}
-
-Each cell shows the codepoint and glyph name, as \verb|overrides.py| wants it. Below that are dot, macron and circumflex above (dot and macron below), positioned by anchor through the combining grapheme joiner.
-A pair of samples shows the patched font on the left and the candidate font on the right, each with its anchor.
-The patched anchor says where it came from: \emph{designer}, \emph{curated} or \emph{scripted}. A scripted anchor that fails usually follows from its base letter, in which case the override belongs on the base letter.
-The tags name the tests the patched anchor fails or is flagged by.
-
-\input{input/anchor_audit.tex}
-
-\newpage
 
 \section*{Derived letters}
 
@@ -1136,12 +929,26 @@ What the comparison shows:
 \newpage
 \section*{Anchor survey, with patches}
 
-I will systematically survey above- and below anchors in the four font font styles, 
+Libertinus serif regular has good above- and below-anchor base coverage for A--Z, a--z, and IPA letters,
+in the sense that most anchors are defined. 
+But I will show that some anchors are not set to good values.
+The base coverage gets worse for italic and semibold.
+
+I will systematically survey above- and below anchors in the four styles, 
 commenting on any features and patching any problems. 
 Refer to Tables \ref{table:fontmetrics_AZ_1}--\ref{table:fontmetrics_az_2} for anchor values.
 Missing anchors are readily apparaent as blank entries.
-Large anchor-midpoint offset values ($ax\delta$, $bx\delta$) indicate possible problems, 
+Large anchor-midpoint offset values --- $a\delta$ and $b\delta$ --- indicate possible problems, 
 but these can often be explained by glyph symmetry.
+
+\subsection*{Copied anchors}
+Many designer anchors are copies: within a style, clusters of letters share one above- or below-anchor exactly
+(a's $(209, 645)$ and $(196, -110)$ on some 40 IPA letters each.
+Some copies are harmless coincidences of similar letterforms; most are not.
+
+\verb|run_anchor_copy_report.py| lists the clusters (\verb|tex/input/copied_anchors.tex|, no longer printed here).
+On 2026-11-07 every member of the regular clusters, and its counterparts in the other styles, was reviewed per character:
+each anchor is now the candidate, inherited from its base letter, or curated by a stated rule, the same way in all four styles.
 
 \subsection*{A--Z, regular, above- and below-anchor}
 
@@ -1222,7 +1029,18 @@ of the bowl should be used for the centering.
 \subsubsection*{Patch j regular, above-anchor}
 
 j needs an above anchor for the rare case of an above-mark that is placed over the dot.
-i does have an above-anchor at $(137, 795)$, and the outlines of the top of  
+The ccmp feature swaps i and j for their dotless forms before every above-mark in its list,
+so only a mark outside the list attaches to i or j itself; among the IPA marks that is only
+the double overline U+033F.
+Such a mark must clear the dot.
+The designer's $(137, 795)$ on i (and the earlier curated j at $(126, 795)$) put the double overline
+only 13--16 above the dot in regular and semibold, against 69--74 above o.
+The patch (2026-11-07) curates i and j in every style on the stem's axis,
+at the candidate's $Y$, the dot top plus the ascender clearance
+(regular 834, italic 810, semibold 837, semibold italic 823),
+so the double overline sits 55--60 above the dot.
+The candidate's $X$ is right for i but not for j, whose hook pulls the bounding-box midpoint left
+of the stem (by 84 in semibold).
 
 
 \subsubsection*{Patch n, p, r, v, w, x, z regular, above-anchor}
@@ -2723,7 +2541,9 @@ falls from 142 to 17 units in italic and from 171 to 42 units in semibold italic
 
 Check these by eye:
 \begin{itemize}
-	\item Italic. Four curated anchors overrule the script: grave $-45$ (script 17), caron $-50$ ($-29$), inverted breve $-23$ ($-2$), double grave $-47$ ($-34$).
+	\item Italic (2026-11-07). Eight curated anchors, fitted to the precomposed capitals, overrule the script: grave $-6$ (script 17), acute $-50$ ($-37$), circumflex 15 (24), breve $-14$ ($-1$), caron $-32$ ($-29$), double acute $-109$ ($-103$), double grave $-40$ ($-34$), inverted breve $-12$ ($-2$);
+	dieresis, dot above and hook above were within 4 units and keep the script's. The grave and acute are drawn letter by letter in the precomposed glyphs (the grave from $+8$ to $+89$ about the median), so any single anchor is a compromise.
+	Before: grave $-45$, caron $-50$, inverted breve $-23$, double grave $-47$.
 	The curated acute $-65$ was removed (2026-11-06; it had no recorded reason), so the script's $-37$ applies;
 	breve, circumflex, hook, dieresis and double acute were within 8 units of the script and were removed earlier.
 	The curated values fit the designer's capital anchors, which are left of the midline; the scripted values assume an anchor on the midline.
@@ -2745,7 +2565,10 @@ Check these by eye:
 \newpage
 \section*{Precomposed characters}
 
-These grids display precomposed characters with referenced glyphs, where a precomposed character can inherit an anchor from the references glyph.
+These grids show the IPA above-marks and below-marks on the precomposed Latin letters of stage 9 (\verb|data/precomposed_letters.py|), in the patched fonts only:
+above-marks on the letters that have no mark above, below-marks on those that have no mark below.
+Each such letter inherits its base letter's anchor, moved to where the base sits in the precomposed glyph.
+The excluded letters (ģ and the horn letters above, and a few letters in one style whose base was redrawn) keep only the anchors they already had.
 
 \input{input/precomposed_inherit_above.tex}
 

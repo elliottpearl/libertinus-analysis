@@ -18,26 +18,9 @@ TODO: delete any human anchor for AE, Ezh and any letter whose only expected com
 anchors = {
 
     "bases": {
-        0x0270: { # ɰ turned m with long leg: under the middle stem (2026-11-06); width differs from ɯ, so not derived.
-                   # X = middle-stem centre; Y = ɯ's candidate (same arches); no below mark collides
-            2: (378, -121),
-        },
-        0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
-            2: (378, -110),
-        },
-        0x027C: { # ɼ r with long leg: below on the stem's axis, at the descender reference
-            2: (134, -319),
-        },
-        0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (480, 850) misses by 81 and 68
-            0: (555, 850),
-        },
         0x0041: {  # A; designer's (354, 850), (308, -110) are left of the midline
             0: (361, 850),  # centre of the cut apex, x 334..389
             2: (339, -110), # centre between the serif feet, 115.5 and 562.5; Ạ has 338
-        },
-        0x0259: { # schwa; designer's (195, 645), (186, -114) are 24 and 26 left
-            0: (219, 645),  # centre of the top of the arc
-            2: (212, -110), # centre of the bottom of the bowl
         },
         # 0x004A: {  # J
             # 2: (109, -254), # was (109, -319), not full descender, heristic clearance gives y = -272  # removed 2026-10-30: trying the candidate (stage 6)
@@ -49,7 +32,7 @@ anchors = {
             0: (279, 885),  # apex of bowl
         },
         0x0063: {  # c
-            2: (227, -110),
+            # 2: (227, -110),  # removed 2026-11-07: within 10 of the candidate
         },
         0x0064: {  # d
             0: (235, 885), # xmid of bowl counter; ascender aspect.
@@ -60,22 +43,26 @@ anchors = {
             0: (273, 885),  # apex of f
             2: (136, -110),
         },
-        0x0192: {  # f with hook (florin), drawn like italic f with a ~7 deg stem
-            0: (323, 885),  # apex, as f: 10 left of the apex centre (333)
-            2: (84, -319),  # as italic f: between foot (53) and stem (138), 37% from the foot
-        },
         0x0068: {  # h
             0: (282, 885),  # center of stems + offset
         },
-        0x006A: {  # j
-            0: (126, 795),  # shifted by 11 from i
+        0x0069: { # i: above on the stem's axis. Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
+                  # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
+            0: (142, 834),
         },
+        0x006A: { # j: above on the stem's axis (the candidate's X is pulled left by the hook). Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
+                  # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
+            0: (152, 834),
+        },
+        # 0x006A: {  # j
+            # 0: (126, 795),  # shifted by 11 from i  # removed 2026-11-07: 26 left of the stem; U+033F 16 above the dot
+        # },
         0x006B: {  # k
             0: (272, 885),  # center of < part + offset
-            2: (290, -110),
+            # 2: (290, -110),  # removed 2026-11-07: the candidate (261) is nearer the precomposed glyphs (258)
         },
         0x006D: {  # m
-            2: (404, -110),
+            # 2: (404, -110),  # removed 2026-11-07: within 2 of the candidate
         },
         0x0070: {  # p
             2: (120, -319),
@@ -92,11 +79,18 @@ anchors = {
         # 0x007A: {  # z
             # 0: (220, 645),  # removed 2026-10-29: designer's anchor is (220, 646)
         # },
+        0x00A0: { # no-break space, base for a floating mark, width = 250
+            0: (125, 645), # x-height aspect; x = W/2
+            2: (125, -110),
+        },
         0x00C0: { # A grave
             2: (308,-110), # A anchor below
         },
         0x00C1: { # Á A acute
             2: (308,-110), # A anchor below
+        },
+        0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (480, 850) misses by 81 and 68
+            0: (555, 850),
         },
         # 0x00C8: { # E grave
         #    2: (287, -110), # E below anchor
@@ -160,7 +154,7 @@ anchors = {
             0: (365, 850), # G
         },
         0x014B: {  # ŋ eng
-            2: (265, -319),  # ymin close to ascender height
+            2: (265, -319),  # descender reference; X n's below anchor (265): ŋ's legs are n's from the stem foot up, shift 0 (confirmed 2026-11-07)
         },
         0x0153: {  # œ oe ligature
             2: (408, -110),  # center of vertical band
@@ -180,12 +174,16 @@ anchors = {
         },
         0x018F: { # Schwa
             0: (306,850), # centre of the top of the arc (was 327, bbox x mid, 21 right)
-            2: (316,-110) # ymin
+            # 2: (316,-110) # ymin  # removed 2026-11-07: within 10 of the candidate
         },
         # 0x0190: {  # Ɛ open E
             # 0: (248, 850),  # xmid bbox, capital aspect  # removed 2026-10-29: candidate (stage 6) gives (256, 850)
             # 2: (248, -110),  # removed 2026-10-29: candidate (stage 6) gives (256, -110)
         # },
+        0x0192: {  # f with hook (florin), drawn like italic f with a ~7 deg stem
+            0: (323, 885),  # apex, as f: 10 left of the apex centre (333)
+            2: (84, -319),  # as italic f: between foot (53) and stem (138), 37% from the foot
+        },
         # 0x19F: { # O middle tilde
             # 0 : (335, 850), # O  # removed 2026-10-29: inherited from O (stage 8): (335, 850)
         # },
@@ -267,36 +265,72 @@ anchors = {
            2: (239, -110),
         },
         0x0237: { # dotless j
-            # 0: (???, 645),
+            0: (152, 645),  # above on the stem's midline, as j (2026-11-07): j takes this dotless form before nearly every above mark; the designer's (140, 645) was 12 left
             2: (109, -319), # j
         },
+        0x023F: {  # ȿ s-swash-tail
+            2: (196, -283),  # ymin + meanline anchor
+        },
+        0x0250: {  # ɐ turned-a
+            # 2: (229, -110),  # removed 2026-11-07: no reason recorded; the candidate (216) is 13 away
+        },
+        0x0251: {  # ɑ alpha
+            # 2: (222, -110),  # replaced 2026-11-07
+            2: (248, -110),  # below under the lowest point of the bowl, as ə (2026-11-07)
+        },
+        0x0252: {  # ɒ turned-alpha
+            # 2: (259, -110),  # removed 2026-11-07: no reason recorded; the candidate (247) is 12 away
+        },
         0x0253: {  # ɓ b-hook
-            0: (255, 885),  # x at ymax
+            # 0: (255, 885),  # x at ymax  # removed 2026-11-07: ɓ inherits from b (derived_y), as in the other styles
             # 2: (235, -110),  # x at ymin  # removed 2026-10-29: inherited from b (stage 8): (240, -110)
         },
         # 0x0257: { # ɗ d-hook
         #     0: (218, 885),
         # },  # removed 2026-11-06: no reason recorded, 17 left of d's (235, 885); stage 8 inherits from d
+        0x0258: { # ɘ reversed e
+            2: (183, -110),  # below under the lowest point of the bowl, as ə (2026-11-07)
+        },
+        0x0259: { # schwa; designer's (195, 645), (186, -114) are 24 and 26 left
+            0: (219, 645),  # centre of the top of the arc
+            2: (212, -110), # centre of the bottom of the bowl
+        },
+        0x025A: { # ɚ schwa with hook
+            2: (184, -110),  # below under the lowest point of the bowl, as ə (2026-11-07)
+        },
         0x0260: {  # ɠ g-hook
-            0: (239, 885),  # matches 0x0261
+            # 0: (239, 885),  # matches 0x0261  # removed 2026-11-07: stage 8 (derived_y) gives ɡ's X at 885
             2: (226, -319),
         },
+        0x0263: {  # ɣ gamma
+            # 2: (248, -289),  # ymin -87  # removed 2026-11-07: within 10 of the candidate
+        },
         0x0266: {  # ɦ h-hook
-            0: (263, 885),  # apex of arm
-            2: (262, -110),  # center of counter
+            # 0: (263, 885),  # apex of arm  # removed 2026-11-07: the candidate is the same
+            # 2: (262, -110),  # center of counter  # removed 2026-11-07: the candidate is the same
         },
         0x026B: {  # ɫ l-tilde
-            0: (225, 885),  # center of l
-            2: (225, -110),
+            # 0: (225, 885),  # center of l  # removed 2026-11-07: ɬ's value (its l is 88 right); ɫ inherits from l (+12), 147
+            # 2: (225, -110),  # removed 2026-11-07: as above
         },
         # 0x026C: {  # ɬ l-belt
             # 0: (225, 885),  # center of l  # removed 2026-10-29: inherited from l (stage 8): (223, 885)
             # 2: (225, -110),  # removed 2026-10-29: inherited from l (stage 8): (223, -110)
         # },
+        # 0x026D: {  # ɭ l-hook
+        # 2: (196, -275),  # ymin = -188 → -275
+        # },  # removed 2026-11-06: stage 8 gives X from l's stem (133) and Y the candidate; 1 below mark collides there, 4 here
         0x026E: {  # ɮ lezh
-            0: (135, 885),  # center of l
+            # 0: (135, 885),  # center of l  # removed 2026-11-07: stage 8 inherits from l (137, 885)
             2: (275, -319),  # below ezh anchor
         },
+        0x0270: { # ɰ turned m with long leg: under the middle stem (2026-11-06); width differs from ɯ, so not derived.
+                   # X = middle-stem centre; Y = ɯ's candidate (same arches); no below mark collides
+            2: (378, -121),
+        },
+        # 0x0273: {  # ɳ n-retroflex-hook
+        # 2: (262, -308),  # -319 + 11
+        # },  # removed 2026-11-06: stage 8 gives (255, -306): X from n, Y the candidate
         # 0x0275: {  # ɵ barred-o
             # 0: (238, 645),  # x from o  # removed 2026-10-29: inherited from o (stage 8): (238, 645)
             # 2: (243, -110),  # removed 2026-10-29: inherited from o (stage 8): (243, -110)
@@ -305,76 +339,62 @@ anchors = {
             0: (361, 645),  # center of lig band
             2: (361, -110),
         },
+        0x0279: { # ɹ: above over the stem top (188-267), mirroring r's below anchor on r's stem; the candidate (178) is pulled left
+                  # by the arm at the bottom (2026-11-07; the designer's was a's (209, 645))
+            0: (227, 645),
+        },
         0x027A: {  # ɺ turned-r-long-leg
-            0: (208, 885),  # ascender aspect
+            0: (232, 885),  # ascender aspect; X over the stem (2026-11-07; was 208, 23 left of it)
         },
         0x027B: {  # ɻ turned-r-hook
-            0: (238, 645),  # center of stem
+            0: (248, 645),  # center of stem (2026-11-07: measured 209-286; was 238, 10 left)
+        },
+        0x027C: { # ɼ r with long leg: below on the stem's axis, at the descender reference
+            2: (134, -319),
+        },
+        0x027E: { # ɾ: below under the stem, as r's below anchor; the designer's was a's (196, -110) (2026-11-07)
+            2: (126, -110),
+        },
+        0x0280: { # ʀ: above as R's: R's (269, 850) is 3 left of the centre of its upper ink (y > 330); ʀ's centre (y > 215) is 228,
+                  # and 3 scaled by the widths (473/587) is 2 (2026-11-07; the designer's was a's (209, 645))
+            0: (226, 645),
         },
         # 0x0282: {  # ʂ s-hook
         # 2: (196, -263),  # ymin -87
         # },  # removed 2026-11-06: stage 8 gives (190, -261): X from s, Y the candidate
         0x0283: {  # ʃ esh
-            2: (209, -319),  # descender aspect
+            2: (129, -319),  # descender aspect; X under the stem (2026-11-07; was 209, a's above X copied)
+        },
+        0x028A: { # upsilon
+            # 0: (253, 645), # xm  # removed 2026-11-07: within 1 of the candidate
+            # 2: (253, -110), # xm  # removed 2026-11-07: within 1 of the candidate
         },
         0x028C: {  # ʌ turned-v
-            0: (249, 645),  # vertex
+            # 0: (249, 645),  # vertex  # removed 2026-11-07: within 5 of the candidate
             2: (229, -110),  # center of serifs
         },
+        0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
+            2: (378, -110),
+        },
         0x028E: {  # ʎ turned-y
-            0: (209, 885),  # ascender aspect
+            0: (242, 885),  # ascender aspect; X over the apex of the turned V, mirroring y's below anchor (242) (2026-11-07; was a's 209)
+        },
+        0x0293: { # ʓ: above as ʒ's (218, 645) plus the outline shift (+4); not inherited, the stem match finds no stems in an ezh (38%) (2026-11-07; the designer's was a's (209, 645))
+            0: (222, 645),
+        },
+        0x0297: { # ʗ: above as c's (242, 645), whose top it shares, plus the shift of the top (+10, crossings at y 300-400)
+                  # (2026-11-07; the designer's was a's (209, 645)). Only in regular: the other styles drew ʗ's top wider than c's
+            0: (252, 645),
+        },
+        0x0299: { # ʙ: above as B's: B's (267, 850) is 4 right of the centre of its upper ink (y > 330); ʙ's centre (y > 215) is 238,
+                  # and 4 scaled by the widths (479/588) is 3 (2026-11-07; the designer's was a's (209, 645))
+            0: (241, 645),
         },
         0x029D: {  # ʝ j-crossed-tail
-            0: (163, 853),  # ymax+clearance−overshoot
+            # 0: (163, 853),  # ymax+clearance−overshoot  # removed 2026-11-07: stage 8 (derived_y) gives j's X plus the shift, at j's Y 834
         },
-        0x023F: {  # ȿ s-swash-tail
-            2: (196, -283),  # ymin + meanline anchor
-        },
-        0x0250: {  # ɐ turned-a
-            2: (229, -110),
-        },
-        0x0251: {  # ɑ alpha
-            2: (222, -110),
-        },
-        0x0252: {  # ɒ turned-alpha
-            2: (259, -110),
-        },
-        0x0263: {  # ɣ gamma
-            2: (248, -289),  # ymin -87
-        },
-        # 0x026D: {  # ɭ l-hook
-        # 2: (196, -275),  # ymin = -188 → -275
-        # },  # removed 2026-11-06: stage 8 gives X from l's stem (133) and Y the candidate; 1 below mark collides there, 4 here
-        # 0x0273: {  # ɳ n-retroflex-hook
-        # 2: (262, -308),  # -319 + 11
-        # },  # removed 2026-11-06: stage 8 gives (255, -306): X from n, Y the candidate
-        0x028A: { # upsilon
-            0: (253, 645), # xm
-            2: (253, -110), # xm
-        },
-
-#        0x1E1A: {  # Ḛ E tilde below
-#            0: (281, 850), # E above anchor
-#        },
-#        0x1E74: {  # Ṵ U tilde below
-#            0: (346, 850), # U above anchor
-#        },
-#        0x1E75: {  # ṵ u tilde below
-#            0: (255, 645), # u above anchor
-#        },
-        0x1E91: {   # a right half ring
-            0: (209, 645),  # a
-#            2: (196, -110), # a
-            4: (410, 16),   # a
-            5: (163, -3),   # a
-        },
-        0xE100: { # en space with anchor, width = 280
-            0: (140,645),
-            2: (140,-110),
-        },
-        0x00A0: { # no-break space, base for a floating mark, width = 250
-            0: (125, 645), # x-height aspect; x = W/2
-            2: (125, -110),
+        0x029F: { # ʟ: above over the stem (98-173), as L's over its stem (2026-11-07; the designer's was a's (209, 645))
+            0: (136, 645),
         },
 
         # Superscript consonants
@@ -502,6 +522,26 @@ anchors = {
             0: (176, 914),
             1: (353, 648),
             3: (311, 834),
+        },
+
+#        0x1E1A: {  # Ḛ E tilde below
+#            0: (281, 850), # E above anchor
+#        },
+#        0x1E74: {  # Ṵ U tilde below
+#            0: (346, 850), # U above anchor
+#        },
+#        0x1E75: {  # ṵ u tilde below
+#            0: (255, 645), # u above anchor
+#        },
+        0x1E91: {   # a right half ring
+            0: (209, 645),  # a
+#            2: (196, -110), # a
+            4: (410, 16),   # a
+            5: (163, -3),   # a
+        },
+        0xE100: { # en space with anchor, width = 280
+            0: (140,645),
+            2: (140,-110),
         },
     },
 

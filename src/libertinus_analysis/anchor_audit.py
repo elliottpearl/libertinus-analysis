@@ -332,6 +332,11 @@ def _precomposed_evidence(ctx):
 
         x0, _, x1, _ = _bounds(rest, slope)
         cls = ABOVE if ccc == 230 else BELOW
+        # A below-mark tucked above the base's lowest point (the dot of ỵ, at
+        # the baseline under the vertex, beside the descender) says nothing
+        # about a below-anchor under the descender.
+        if cls == BELOW and _bounds(rest)[3] - ty > _bounds(_outline(ctx, base_name))[1]:
+            continue
         evidence[base_name][cls].append((x0 + x1) / 2 - (tx - slope * ty))
 
     return evidence

@@ -23,6 +23,7 @@ from fontTools.ttLib import TTFont
 from .font_context import FONTS
 from .font_patching_anchors import load_human_anchors
 from .font_patching_derivedanchors import (
+    WIDE_SCALE_DEV,
     MIN_MATCH,
     load_derived_letters,
     inherited_anchor,
@@ -100,7 +101,12 @@ def _style_block(style_key, cols, derived_by_name):
         if tail:
             # stems above the tail, at the base letter's above (else below) axis
             axis_xy = patch_anchors.get(bg, {}).get(0) or patch_anchors.get(bg, {}).get(2) or (0, 0)
-            dx, match = stem_shift(orig, style_key, dg, bg, axis_xy[0] - axis_xy[1] * SLOPE[style_key])
+            axis = axis_xy[0] - axis_xy[1] * SLOPE[style_key]
+            dx, match = stem_shift(orig, style_key, dg, bg, axis)
+            if match < MIN_MATCH:  # the patch's second try, a wider scale
+                wide = stem_shift(orig, style_key, dg, bg, axis, WIDE_SCALE_DEV)
+                if wide[1] >= MIN_MATCH:
+                    dx, match = wide
         else:
             dx, match = outline_shift(orig, dg, bg)
         shift_cell = f"{dx:+d}, {match:.0%}{' s' if tail else ''}".replace("%", "\\%")

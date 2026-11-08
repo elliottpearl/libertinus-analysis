@@ -14,6 +14,43 @@
 
 overrides = {
     "regular": {
+        # Old curated anchors replaced by the candidate (2026-11-07); the designer's anchors
+        # they had overruled are copies or otherwise bad, so delete them too
+        "m": {2: "delete"},
+        "uni0266": {0: "delete", 2: "delete"},
+        "uni028A": {0: "delete", 2: "delete"},
+        "uni028C": {0: "delete"},
+        "c": {2: "delete"},
+        "uni0263": {2: "delete"},
+        "k": {2: "delete"},
+        # From the (196, -110) cluster (a's below anchor copied): the candidate, as the capitals R, B, L (2026-11-07;
+        # ʁ and ʖ below are with their above entries)
+        "uni0280": {2: "delete"},  # ʀ
+        "uni0299": {2: "delete"},  # ʙ
+        "uni029F": {2: "delete"},  # ʟ
+        # From the (209, 645) cluster (a's anchor copied): symmetric letters and ones whose candidate is right (2026-11-07)
+        "uni0277": {0: "delete"},  # ɷ, 148 left of centre
+        "uni029C": {0: "delete"},  # ʜ, 84 left
+        "uni0274": {0: "delete"},  # ɴ, 70 left
+        "uni028F": {0: "delete"},  # ʏ, 27 left; the candidate is 6 left of the stem
+        "uni027E": {0: "delete"},  # ɾ, 34 right; the candidate (174) is where r's offset from its stem puts it (177)
+        "uni0281": {0: "delete", 2: "delete"},  # ʁ, above 30 left; below a's (196, -110)
+        "uni025B": {0: "delete", 2: "delete"},  # below too: the candidate (2026-11-07)
+         # ɛ, 8 right of the candidate; the candidate in every style (2026-11-07)
+        # Z: below-anchor (287, -110), the same as E's, reviewed and kept (2026-11-07)
+        "Z": {2: "keep"},  # (287, -110)
+        # w: designer anchors 21-25 left of the marks of its own ŵ ẅ ẇ ẘ (366-370) and ẉ (368), 39 left of the
+        # arms' bisector; the candidate (373) agrees with them (2026-11-07)
+        "w": {0: "delete", 2: "delete"},  # (345, 645), (352, -110)
+        # ı: above-anchor (132, 645) 10 left of the stem's axis, below (139, -110) 2 left; the candidates are on it (2026-11-07)
+        "dotlessi": {0: "delete", 2: "delete"},
+        # i: below-anchor off the stem's axis; the candidate is on it (2026-11-07)
+        "i": {2: "delete"},  # (136, -110), 6 left
+        # ɹ: the designer's below-anchor (190, -110), copied into every style, is r's under-the-stem
+        # anchor carried over by the turn; the candidate is approved in every style (2026-11-07)
+        "uni0279": {2: "delete"},  # (190, -110)
+        # ɩ: below inherited from ı (stage 8), on the stem's axis; dismiss the flag on its y (2026-11-07)
+        "uni0269": {2: "keep"},
         # "q": {0: "keep"},
         # Ɯ: above-anchor y 801, 49 below the capital reference (850)
         "uni019C": {0: "delete"},  # (431, 801)
@@ -34,15 +71,16 @@ overrides = {
         "uni0267": {0: "delete", 2: "delete"},  # ɧ (299, 565)
         "uni0278": {0: "delete", 2: "delete"},  # ɸ (209, 645)
         "uni027C": {0: "delete"},  # ɼ (222, 703)
-        "uni027F": {0: "delete", 2: "keep"},  # ɿ (209, 645); the designer's below-anchor is better
+        "uni027F": {0: "delete", 2: "keep"},  # ɿ (209, 645); the designer's below-anchor is better. Libertinus's ɿ sits on the
+        # baseline, a reversed fish-hook r, which tolerates a below anchor not under the stem (confirmed 2026-11-07)
         "uni0283": {0: "delete"},  # ʃ (209, 645)
         "uni0284": {0: "delete"},  # ʄ (209, 645)
         "uni0285": {0: "delete", 2: "delete"},  # ʅ (209, 645)
         "uni0294": {0: "delete"},  # ʔ
         "uni0295": {0: "delete"},  # ʕ
-        "uni0296": {0: "delete"},  # ʖ
-        "uni0250": {0: "delete"},  # ɐ
-        "uni0252": {0: "delete"},  # ɒ
+        "uni0296": {0: "delete", 2: "delete"},  # ʖ; below a's (196, -110), 2026-11-07
+        "uni0250": {0: "delete", 2: "delete"},  # ɐ
+        "uni0252": {0: "delete", 2: "delete"},  # ɒ
         "R": {2: "delete"},  # (258, -110); Ṛ and Ṟ imply 293 and 312
         "y": {2: "keep"},  # (242, -319), under the vertex; the dot of ỵ is no guide for wider marks
         "uni028D": {0: "delete"},  # ʍ
@@ -72,6 +110,29 @@ overrides = {
         "uni0265": {2: "delete"},  # (219, -129)
     },
     "italic": {
+        # Old curated anchors replaced by the candidate (2026-11-07); the designer's anchors
+        # they had overruled are copies or otherwise bad, so delete them too
+        "a": {2: "delete"},
+        "uni028A": {2: "delete"},
+        # ɔ: above-anchor (322, 654), the same as ɛ's, 9 above the x-height reference and 10 left of the candidate (2026-11-07)
+        "uni0254": {0: "delete"},  # (322, 654)
+        # i: below-anchor off the stem's axis; the candidate is on it (2026-11-07)
+        "i": {2: "delete"},  # (136, -110), regular's, not slanted: 21 right
+        # g: the designer's below-anchor at the descender is right, as in every style (5-15 right of
+        # the lower loop's centre); the candidate is rejected (2026-11-07)
+        "g": {2: "keep"},
+        # ɹ: the designer's below-anchor (190, -110), copied into every style, is r's under-the-stem
+        # anchor carried over by the turn; the candidate is approved in every style (2026-11-07)
+        "uni0279": {2: "delete"},  # (190, -110)
+        # ı: above-anchor at the x-height, 5-12 left of the stem's axis; candidate on it (2026-11-07).
+        # Below-anchor (139, -110), regular's, not slanted: 24 right is off the stem's axis; the candidate is on it, and ɩ inherits it (2026-11-07)
+        "dotlessi": {0: "delete", 2: "delete"},  # (139, -110), regular's, not slanted: 24 right
+        # ɩ: below inherited from ı (stage 8), on the stem's axis; dismiss the flag on its y (2026-11-07)
+        "uni0269": {2: "keep"},
+        # B: the audit's "suspect" rests only on Ḃ, whose dot is the spacing
+        # dotaccent placed by hand (34 left of the midline; semibold italic's is
+        # 35 right), so it is no evidence. Reviewed 2026-11-06: marks look right.
+        "B": {0: "keep"},  # (447, 850)
         # ɦ: above-anchor y 565, inside the hook; stage 6 gives the ascender candidate
         "uni0266": {0: "delete"},  # (299, 565)
         # Ɯ: above-anchor y 801, 49 below the capital reference (850), and
@@ -104,13 +165,42 @@ overrides = {
         "uni0265": {0: "delete", 2: "delete"},  # above approved 2026-11-06; (219, -129)
         # ŋ: regular's below-anchor at the baseline, under the descending hook: 31 of 32 below marks overlap (2026-11-06)
         "eng": {2: "delete"},  # (265, -110)
-        # p: below-anchor at the baseline beside the descender; candidate approved (2026-11-06)
-        "p": {2: "delete"},  # (248, -110)
+        # p: below-anchor at the baseline beside the descender; candidate approved (2026-11-06).
+        # Above: the designer's x-height anchor is right; the candidate (394, 705) is raised by
+        # the stem's serif (top 491) (2026-11-07)
+        "p": {0: "keep", 2: "delete"},  # (411, 645), (248, -110)
         # w, ɛ: above candidates approved from the anchor review (2026-11-06)
-        "w": {0: "delete"},
-        "uni025B": {0: "delete"},
+        # w below: the designer's puts dot and macron below 5-8 left of the midpoint of the baseline vertices,
+        # 18-21 left of the middle vertex; the candidate 39-42 and 52-55 left (2026-11-07)
+        "w": {0: "delete", 2: "keep"},  # below (355, -110)
+        "uni025B": {0: "delete", 2: "delete"},  # below too: the candidate (2026-11-07)
+       
     },
     "semibold": {
+        # Old curated anchors replaced by the candidate (2026-11-07); the designer's anchors
+        # they had overruled are copies or otherwise bad, so delete them too
+        "S": {0: "delete"},
+        # ɛ: the designer's above-anchor (229, 645), 17 right of the candidate; the candidate in every style (2026-11-07)
+        "uni025B": {0: "delete", 2: "delete"},  # below too: the candidate (2026-11-07)
+       
+        # n: above-anchor (264, 645), regular's copy, 18-34 left of the marks of its own ń ň ṅ (282-298);
+        # the candidate (290) agrees with them; ɲ inherits from n (2026-11-07)
+        "n": {0: "delete"},  # (264, 645)
+        # R: the designer's below-anchor reviewed and kept, 28 left of the candidate; Ṛ's dot is between (2026-11-07)
+        "R": {2: "keep"},  # (292, -110)
+        # i: below-anchor off the stem's axis; the candidate is on it (2026-11-07)
+        "i": {2: "delete"},  # (136, -110), 20 left
+        # g: the designer's below-anchor at the descender is right, as in every style (5-15 right of
+        # the lower loop's centre); the candidate is rejected (2026-11-07)
+        "g": {2: "keep"},
+        # ɹ: the designer's below-anchor (190, -110), copied into every style, is r's under-the-stem
+        # anchor carried over by the turn; the candidate is approved in every style (2026-11-07)
+        "uni0279": {2: "delete"},  # (190, -110)
+        # ı: above-anchor at the x-height, 5-12 left of the stem's axis; candidate on it (2026-11-07).
+        # Below-anchor (135, -110), 21 left is off the stem's axis; the candidate is on it, and ɩ inherits it (2026-11-07)
+        "dotlessi": {0: "delete", 2: "delete"},  # (135, -110), 21 left
+        # ɩ: below inherited from ı (stage 8), on the stem's axis; dismiss the flag on its y (2026-11-07)
+        "uni0269": {2: "keep"},
         # J: below-anchor y -319, not a full descender
         "J": {2: "delete"},  # (109, -319)
         # ʛ: inherits from ɢ; double overline U+033F overlaps the hook, but it is rare
@@ -124,10 +214,51 @@ overrides = {
         "uni0237": {0: "keep"},
     },
     "semibold_italic": {
+        # ɜ: above-anchor (194, 645) is regular's; the candidate (2026-11-07)
+        "uni025C": {0: "delete"},
+        # O: above-anchor (335, 850) is regular's, unslanted; the candidate (390, 850) on the capline reference (2026-11-07)
+        "O": {0: "delete"},  # (335, 850)
+        # ʒ, ɛ: above-anchors (218, 645) and (209, 645) are regular's, unslanted; the candidates (211, 194) follow
+        # the italic model (2026-11-07)
+        "uni0292": {0: "delete"},
+        "uni025B": {0: "delete", 2: "delete"},  # below too: the candidate (2026-11-07)
+       
+        # H: above-anchor (361, 850), regular's copy, puts marks 34 left of the midline between the stems;
+        # the candidate (396) is on it (2026-11-07)
+        "H": {0: "delete"},  # (361, 850)
+        # w below: the designer's (regular's copy) puts dot and macron below 8-10 left of the midpoint of the
+        # baseline vertices, 17-19 left of the middle vertex; the candidate 19-21 and 28-30 left (2026-11-07)
+        "w": {2: "keep"},  # (352, -110)
+        # y: the designer's below-anchor at the descender reviewed and kept (2026-11-07)
+        "y": {2: "keep"},  # (242, -319)
+        # ɒ: above candidate approved (2026-11-07)
+        "uni0252": {0: "delete"},  # (264, 645), regular's
+        # v: the designer's above-anchor (regular's copy) reviewed and kept (2026-11-07)
+        "v": {0: "keep"},  # (256, 645)
+        # R, b: below candidates approved (2026-11-07); both designer anchors are regular's copies, 24 and 14 left
+        "R": {2: "delete"},  # (258, -110)
+        "b": {2: "delete"},  # (234, -110)
+        # i: below-anchor off the stem's axis; the candidate is on it (2026-11-07)
+        "i": {2: "delete"},  # (136, -110), 14 left of its model
+        # g: the designer's below-anchor at the descender is right, as in every style (5-15 right of
+        # the lower loop's centre); the candidate is rejected (2026-11-07)
+        "g": {0: "delete", 2: "keep"},  # above (291, 645): 99 right of the upper bowl's centre (italic's designer: 12);
+        # the candidate (220, 645) approved (2026-11-07)
+        # B: the designer's above-anchor (267, 850), regular's copy, is 10 left of the centre of the ink above y 330
+        # in this style's model; regular's is 4 right, italic's 23 right, semibold's curated on it (2026-11-07)
+        "B": {0: "keep"},  # (267, 850)
+        # ɹ: the designer's below-anchor (190, -110), copied into every style, is r's under-the-stem
+        # anchor carried over by the turn; the candidate is approved in every style (2026-11-07)
+        "uni0279": {2: "delete"},  # (190, -110)
+        # ı: above-anchor at the x-height, 5-12 left of the stem's axis; candidate on it (2026-11-07).
+        # Below-anchor (139, -110), regular's, 13 left of its model is off the stem's axis; the candidate is on it, and ɩ inherits it (2026-11-07)
+        "dotlessi": {0: "delete", 2: "delete"},  # (139, -110), regular's, 13 left of its model
+        # ɩ: below inherited from ı (stage 8), on the stem's axis; dismiss the flag on its y (2026-11-07)
+        "uni0269": {2: "keep"},
         # Above-anchors set with the slant (italic anchor model, no K), so an
         # above-mark lands 130-190 units too far right. Stage 6 replaces them
         # with the semibold italic candidate.
-        "a": {0: "delete"},  # (379, 645)
+        "a": {0: "delete", 2: "delete"},  # (379, 645)
         "s": {0: "delete"},  # (326, 645)
         "h": {0: "delete"},  # (469, 645), also at x-height, not ascender
         "J": {0: "delete", 2: "delete"},  # (432, 850), (109, -319), not a full descender
@@ -163,6 +294,9 @@ overrides = {
         "I": {0: "delete"},
         "K": {0: "delete"},
         "N": {0: "delete"},
+        # p: the designer's above-anchor at the x-height is right; the candidate (257, 679) is
+        # raised by the stem's serif (top 470) (2026-11-07)
+        "p": {0: "keep"},  # (271, 645)
         # Ɓ: above-anchor at y 805, the semibold capital height, not 850; candidate approved (2026-11-06)
         "uni0181": {0: "delete"},  # (327, 805)
     },

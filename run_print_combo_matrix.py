@@ -167,14 +167,14 @@ if __name__ == "__main__":
     # print precomposed grids (above)
     classifier = classify_combo_plain
     chosen_base_groups = [
-        "BASE_ABOVE",
+        "PRECOMPOSED_ABOVE",
     ]
     chosen_mark_groups = [
         "MARK_ABOVE",
     ]
-    outfile = "precomposed_inherit_above.tex" 
+    outfile = "precomposed_inherit_above.tex"
     print_combo_matrix(
-        chosen_fonts=chosen_fonts,
+        chosen_fonts=[fk for fk in chosen_fonts if fk.endswith("_patch")],  # what stage 9 set
         chosen_base_groups=chosen_base_groups,
         chosen_mark_groups=chosen_mark_groups,
         classifier=classifier,
@@ -185,14 +185,14 @@ if __name__ == "__main__":
     # print precomposed grids (below)
     classifier = classify_combo_plain
     chosen_base_groups = [
-        "BASE_BELOW",
+        "PRECOMPOSED_BELOW",
     ]
     chosen_mark_groups = [
         "MARK_BELOW",
     ]
     outfile = "precomposed_inherit_below.tex"
     print_combo_matrix(
-        chosen_fonts=chosen_fonts,
+        chosen_fonts=[fk for fk in chosen_fonts if fk.endswith("_patch")],  # what stage 9 set
         chosen_base_groups=chosen_base_groups,
         chosen_mark_groups=chosen_mark_groups,
         classifier=classifier,

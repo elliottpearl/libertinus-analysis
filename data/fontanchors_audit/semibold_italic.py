@@ -421,7 +421,6 @@ audit = {
             "xy": (242, -319),
             "verdict": "bad",
             "reasons": [
-                'suspect [precomposed] precomposed glyphs centre marks +113 from this anchor (1 glyph(s) compared)',
                 "bad [style-copy] identical to the regular anchor, but this glyph's centre line is -66 from that style's; +49 off centre here (-18 there)",
             ],
         },

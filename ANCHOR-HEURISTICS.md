@@ -21,7 +21,7 @@ The Y of a base anchor is the glyph's vertical aspect plus that aspect's clearan
 |---|---|---|---|---|---|
 | aspect Y, band | ascender `a` | 698 [688, 698] | 698 [688, 698] | 698 [690, 698] | 698 [696, 705] |
 | | capital `c` | 645 [645, 658] | 645 [645, 658] | 645 [645, 662] | 645 [645, 662] |
-| | x-height `x` | 429 [429, 442] | 429 [429, 442] | 434 [433, 447] | 434 [434, 447] |
+| | x-height `x` | 429 [429, 442] | 429 [429, 450]* | 434 [433, 457]* | 434 [434, 458]* |
 | | baseline `b` | 0 [−12, 0] | 0 [−12, 1] | 0 [−12, 1] | 0 [−20, 0] |
 | | descender `d` | −232 [−238, −227] | −232 [−238, −227] | −232 [−238, −212] | −232 [−239, −219] |
 | anchor Y reference | above, ascender | 885 | 890 | 885 | 890 |
@@ -37,7 +37,7 @@ The Y of a base anchor is the glyph's vertical aspect plus that aspect's clearan
 
 Semibold's capital row is the patched value. The designer set semibold's capitals near 805 (clearance 160) and compensated only in the `.cap` marks, so marks without a `.cap` form crashed into capitals; the patch moves the capitals to 850 and adds 45 to the `.cap` mark anchors.
 
-The bands are the designer's BlueValues/OtherBlues from the SFDs. In code these numbers are `VERTICAL_THRESHOLDS_OPT`, `ANCHOR_Y_REF_OPT` and `CLEARANCES_OPT` in `fontmetrics_helpers.py`. The older `data/vertical_data.py` disagrees with them in places and is not used.
+The bands are the designer's BlueValues/OtherBlues from the SFDs, except the x-height bands marked *, widened on 2026-11-07 (from 442, 447, 447) so that x-height letters rising 1–11 above the designer's band (italic ɐ ɞ ɡ ɵ ɽ ʂ ʐ ʑ, semibold ɢ ʑ, semibold italic ʐ ʑ) snap to 645 like their base letters; no IPA above-mark overlaps them there. In code these numbers are `VERTICAL_THRESHOLDS_OPT`, `ANCHOR_Y_REF_OPT` and `CLEARANCES_OPT` in `fontmetrics_helpers.py`. The older `data/vertical_data.py` disagrees with them in places and is not used.
 
 **Choosing the aspect.** For the above-anchor of a capital (Unicode category `Lu`, plus U+0294–U+0296), the aspect is always the capital, and the candidate Y always snaps to the capital reference (850), even if `ymax` is above the band: capitals have no ascenders, and what rises above the capline (J's top stroke in the italic styles, T's serifs in the semibold styles, Ø's slash, Ʒ, the hooks of Ƈ Ɠ) is away from the centre where the mark sits. The aspect string still records the excess (`c+34` for semibold italic J). The exception is capital iota Ɩ U+0196, a genuine ascender, which takes the ascender aspect (885; italic styles 890). Italic ʔ ʕ, whose tops are 27 and 38 above the capline, have curated anchors with the bowl overshoot ε = 10 (`ay = 850 + delta − 10`: 867, 878). For everything else, compare `ymax` with the nearer of x-height or ascender. For the below-anchor, compare `ymin` with baseline or descender. The result is written as an aspect string: `x` means `ymax` is inside the x-height band; `x+33` means it is 33 above the aspect value and outside the band.
 
@@ -119,6 +119,7 @@ When the anchors meet, the mark's axis lies on the base's midline: an italic mar
 These need curated anchors (`data/fontanchors_human/{style}.py`):
 - asymmetric letterforms, where the geometric centre is not the optical one;
 - letters that overhang their advance width, such as f and j, in every italic style (the lane midline comes from W);
+- the above-anchor of j in every style: the hook pulls the bbox midpoint left of the stem, so X is put on the stem's axis. Its Y (and i's) is the candidate's, from the dot: only marks that skip the ccmp dotless swap (U+033F) attach to i or j, so the anchor must clear the dot;
 - Æ, whose top edge lies right of the glyph's midpoint: the above-anchor belongs where Ǣ and Ǽ put their accents, the below-anchor under the common stroke;
 - in semibold italic, the non-conforming glyphs and marks listed in the report (capitals, `.cap` marks, a s h J, marks with unusual K).
 

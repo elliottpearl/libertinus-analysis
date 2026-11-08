@@ -59,6 +59,8 @@ STEM_LO = 60      # stem fit: heights from here to the letter's top (at most XHE
 XHEIGHT = 645
 STEM_TOL = 8      # units: a stem centre within this of the fit matches
 MAX_SCALE_DEV = 0.10  # a fitted scale further than this from 1 is not trusted: shift only
+WIDE_SCALE_DEV = 0.15  # second try where the stems match too little: a letter drawn wider on one side
+                       # (italic ɲ: n's left stem, the right leg 32 further right; scale 1.12)
 TAIL_Y = -30      # ink below this is the tail
 BELOW_ZONE = 195  # either side of the mark's axis: the widest below mark (U+0347)
 
@@ -196,7 +198,7 @@ def _intervals(segs, slope, y):
     )
     return list(zip(xs[0::2], xs[1::2]))
 
-def stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis):
+def stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis, max_dev=MAX_SCALE_DEV):
     """
     Return (dx, match) for a bottom-tail letter: the horizontal shift of the
     base letter inside the derived letter at the mark's axis, matched on the
@@ -207,7 +209,7 @@ def stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis):
     letter's interval of about the same width nearest to it. A line
     x_derived = a * x_base + b through the paired centres allows for a letter
     drawn slightly narrower or wider (a is used only within MAX_SCALE_DEV of
-    1), and dx is its shift at the axis. match is the share of the base's
+    1; max_dev), and dx is its shift at the axis. match is the share of the base's
     intervals within STEM_TOL of the line.
     """
     glyphset = ttfont.getGlyphSet()
@@ -233,7 +235,7 @@ def stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis):
     md = sum(d for _, d in kept) / len(kept)
     var = sum((b - mb) ** 2 for b, _ in kept)
     scale = sum((b - mb) * (d - md) for b, d in kept) / var if var > 1e-6 else 1.0
-    if abs(scale - 1) > MAX_SCALE_DEV:
+    if abs(scale - 1) > max_dev:
         scale = 1.0
     offset = md - scale * mb
     good = sum(1 for b, d in kept if abs(scale * b + offset - d) <= STEM_TOL)
@@ -265,6 +267,11 @@ def tail_anchor(ttfont, font_key, cp, derived_glyph, base_glyph, base_xy, cls):
     k = SHIFT_K.get(font_key, {}).get(str(cls), 0)
     axis = base_xy[0] - base_xy[1] * slope + k
     dx, match = stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis)
+    if match < MIN_MATCH:
+        # Only where the first fit fails, so that letters already matched keep their shift
+        wide = stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis, WIDE_SCALE_DEV)
+        if wide[1] >= MIN_MATCH:
+            dx, match = wide
     ok = match >= MIN_MATCH
     if cls == 0:
         if not ok:

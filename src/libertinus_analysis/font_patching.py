@@ -40,7 +40,8 @@ stage 5, and curated anchors (stage 7) overrule its candidates.
 
 from .font_context import FontContext, FONTS
 from .font_patching_addglyphs import add_custom_glyphs
-from .font_patching_addmarks import add_cap_dot, add_missing_marks
+from .font_patching_addmarks import add_cap_dot, add_cap_tilde, add_missing_marks
+from .font_patching_redraw import redraw_glyphs
 from .font_patching_anchors import patch_anchors_human
 from .font_patching_capmarks import patch_cap_mark_anchors
 from .font_patching_deleteanchors import delete_bad_anchors
@@ -104,16 +105,20 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
         print(f"[{font_key}] {glyph_name}: deleted anchor class {classIndex} {xy}")
 
     # ------------------------------------------------------------
-    # 2. Add glyphs (spacing base glyph, combining grapheme joiner)
+    # 2. Add glyphs (spacing base glyph, combining grapheme joiner);
+    #    outline fixes (semibold ɭ)
     # ------------------------------------------------------------
     add_custom_glyphs(ttfont, font_key)
+    for line in redraw_glyphs(ttfont, font_key):
+        print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------
     # 3. Add missing marks, with mark anchors
-    #    dotaccent.cap in the italic styles; the combining marks
+    #    dotaccent.cap in the italic styles; tildecomb.cap; the combining marks
     #    that semibold and semibold italic lack.
     # ------------------------------------------------------------
-    for line in add_cap_dot(ttfont, font_key) + add_missing_marks(ttfont, font_key):
+    for line in (add_cap_dot(ttfont, font_key) + add_cap_tilde(ttfont, font_key)
+                 + add_missing_marks(ttfont, font_key)):
         print(f"[{font_key}] {line}")
 
     # Refresh cmap after glyph additions

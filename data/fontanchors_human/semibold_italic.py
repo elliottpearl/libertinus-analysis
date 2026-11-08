@@ -3,6 +3,16 @@
 
 anchors = {
     "bases": {
+        # Dotted i letters: above as i (2026-11-08); marks that keep the dot (all marks on į ị, U+033F on ɨ) crowded it
+        0x012F: { # į
+            0: (180, 823), # was (132, 775)
+        },
+        0x1ECB: { # ị
+            0: (180, 823), # was (132, 775)
+        },
+        0x0268: { # ɨ
+            0: (180, 823), # was (137, 795)
+        },
         0x0049: { # I: below on the stem's axis (179 at y 0), plus 12 (K below) (2026-11-07). The designer's (147, -110),
                   # regular's copy, is 22 left of it; the candidate (161, -110) 8 left
             2: (169, -110),
@@ -53,6 +63,11 @@ anchors = {
         },
         0x015E: { # S with cedilla
             0: (232, 850),  # S
+        },
+        0x0186: { # Ɔ open O: above over the bowl, 24 left of the outline's axis (2026-11-08), so marks land as in
+                  # regular (curated, 32 left) and semibold (designer, 39 left). The stage 6 candidate (357, 850)
+                  # was 20 right of the axis (the ink sits left in its advance) and put marks visibly right.
+            0: (313, 850),
         },
         0x018F: { # Schwa
             0: (335, 850), # mark axis through the centre of the top of the arc, - K (candidate 369 was 34 right)
@@ -165,6 +180,30 @@ anchors = {
         },
     },
     "marks": {
+        # Tall below marks (2026-11-08): anchor moved up so that the mark rises at most 62 above it,
+        # as U+0329 and U+0348; they overlapped descenders at -319 and crowded baseline letters
+        # (report, "Mark anchor model", stage 7). x unchanged.
+        0x0318: { # left tack below
+            2: (-224, -118), # was (-224, -148)
+        },
+        0x0319: { # right tack below
+            2: (-285, -118), # was (-285, -147)
+        },
+        0x031C: { # left half ring below
+            2: (-216, -114), # was (-216, -146)
+        },
+        0x031F: { # plus sign below
+            2: (-249, -116), # was (-249, -145)
+        },
+        0x0339: { # right half ring below
+            2: (-216, -114), # was (-216, -146)
+        },
+        0x0325: { # ring below
+            2: (-218, -96), # was (-218, -116); the precomposed Ḁ ḁ put the ring here (within 2)
+        },
+        0x034E: { # upwards arrow below
+            2: (-227, -90), # was (-227, -110)
+        },
         # Removed: the designer's grave (-142, 683) and double acute (-219, 714)
         # fit the semibold italic model. These lacked K and landed the marks
         # 142 and 190 units left; they had been fitted to a, whose above-anchor
@@ -198,20 +237,14 @@ anchors = {
         },
     },
     "marks_by_name": {
-        # Mark-axis snap (2026-11-06), as above, overruling stage 4, whose x for
-        # these asymmetric marks assumes capital above-anchors on the midline
-        # (the designer's are left of it). See the report's to-do.
-        "acute.cap": {
-            0: (-236, 723), # stage 4 (-195, 723); precomposed 54 -> 17 (18 glyphs)
-        },
-        "grave.cap": {
-            0: (-194, 724), # stage 4 (-168, 724); precomposed 31 -> 18 (8 glyphs)
-        },
-        "hungarumlaut.cap": {
-            0: (-282, 762), # stage 4 (-243, 762); precomposed 37 -> 7 (2 glyphs)
-        },
-        "uni030F.cap": { # double grave
-            0: (-214, 767), # stage 4 (-167, 767); precomposed 37 -> 16 (6 glyphs)
-        },
+        # Removed 2026-11-08: acute.cap (-236, 723), grave.cap (-194, 724),
+        # hungarumlaut.cap (-282, 762), uni030F.cap (-214, 767), curated on
+        # 2026-11-06 at the mark-axis position (C + Y tan θ + d − K, d from regular).
+        # Stage 4 applies instead (-195, -168, -243, -167): it fits the accents to the
+        # designer's precomposed capitals, so composed capitals without a precomposed
+        # form match the precomposed ones in the same text. The curated values fitted
+        # only the designer's original capital anchors; with H I J K L N O U V Y Æ moved
+        # on 2026-11-07, stage 4 is closer to the precomposed glyphs (median 10/30/6/15
+        # against 32/30/45/37 for grave/acute/double acute/double grave).
     },
 }

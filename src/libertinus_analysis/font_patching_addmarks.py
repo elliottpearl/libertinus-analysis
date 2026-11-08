@@ -25,6 +25,14 @@ the designer's own marks follow between those styles.
                      dotted capitals, with its anchor at the capital
                      reference height.
 
+    tildecomb.cap    (all styles) the tilde the designer used in the
+                     precomposed tilded capitals: the style's own tildecomb
+                     in regular, italic and semibold; in semibold italic the
+                     taller tilde of Atilde (and of Ñ Õ Ĩ Ẽ Ỹ Ṽ, ã ñ õ), which
+                     differs from tildecomb there. It is placed where
+                     tildecomb is; stage 4 sets its anchor. It is for capitals
+                     with no precomposed form, chiefly Guarani G̃ (2026-11-08).
+
 The designer does not thicken below marks between weights, but thickens
 above marks by about 12 percent. So a copied above mark is made bolder:
 
@@ -103,6 +111,13 @@ SLOPE = {
 }
 # Semibold italic anchor model: anchors are left of the axis by this shift.
 SEMIBOLD_ITALIC_K = 150
+
+# tildecomb.cap: the tilde of the precomposed capitals.
+CAP_TILDE_NAME = "tildecomb.cap"
+TILDE_GLYPH = "tildecomb"
+# Styles whose precomposed capitals use a tilde other than tildecomb, and the
+# precomposed glyph whose topmost contour is that tilde.
+CAP_TILDE_SOURCE = {"semibold_italic": 0x00C3}   # Atilde
 
 
 # ------------------------------------------------------------
@@ -561,3 +576,31 @@ def add_cap_dot(ttfont, font_key):
 
     where = _mark_anchor(ttfont, lookup_index, CAP_DOT_NAME)
     return [f"{CAP_DOT_NAME} added; anchor {where}"]
+
+
+def add_cap_tilde(ttfont, font_key):
+    """Add tildecomb.cap, a copy of the precomposed capitals' tilde. Returns a report."""
+    if CAP_TILDE_NAME in ttfont.getGlyphOrder():
+        return []
+    glyphset = ttfont.getGlyphSet()
+    combining = _recording(glyphset, TILDE_GLYPH)
+    if font_key in CAP_TILDE_SOURCE:
+        source = ttfont.getBestCmap()[CAP_TILDE_SOURCE[font_key]]
+        contours = _contours(_recording(glyphset, source))
+        tilde = max(contours, key=lambda contour: _bounds(contour)[1])
+        origin = f"topmost contour of {source}"
+    else:
+        tilde = combining
+        origin = TILDE_GLYPH
+
+    # Put it where the combining tilde is (same centre), so that its anchor,
+    # set by stage 4, is comparable with the combining tilde's.
+    (cx, cy), (tx, ty) = _centre(combining), _centre(tilde)
+    _set_outline(ttfont, CAP_TILDE_NAME, tilde, cx - tx, cy - ty)
+
+    # Provisional anchor, the combining tilde's; stage 4 replaces it.
+    lookup_index = FONTS[font_key]["lookup_index"]
+    found = _mark_anchor(ttfont, lookup_index, TILDE_GLYPH)
+    if found:
+        _set_mark_anchor(ttfont, lookup_index, CAP_TILDE_NAME, ABOVE, found[1])
+    return [f"{CAP_TILDE_NAME} added from {origin}; provisional anchor {found[1] if found else None}"]

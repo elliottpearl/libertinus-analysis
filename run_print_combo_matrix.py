@@ -32,6 +32,7 @@ def print_combo_matrix(
     classifier,
     builder,
     outfile,
+    cgj=False,
 ):
     # Build font contexts
     font_contexts = {
@@ -49,6 +50,7 @@ def print_combo_matrix(
         mark_groups={k: unicode_groups[k] for k in chosen_mark_groups},
         fonts={fk: FONTS[fk] for fk in chosen_fonts},
         classifier=classifier,
+        cgj=cgj,
     )
 
     cm.load_fonts()
@@ -180,6 +182,7 @@ if __name__ == "__main__":
         classifier=classifier,
         builder=builder,
         outfile=outfile,
+        cgj=True,  # keep the shaper from recomposing the precomposed base with the mark
     )
 
     # print precomposed grids (below)
@@ -198,4 +201,5 @@ if __name__ == "__main__":
         classifier=classifier,
         builder=builder,
         outfile=outfile,
+        cgj=True,  # keep the shaper from recomposing the precomposed base with the mark
     )

@@ -21,7 +21,7 @@ class ComboMatrix:
         - latex_paragraph()
     """
 
-    def __init__(self, base_groups, mark_groups, fonts, classifier):
+    def __init__(self, base_groups, mark_groups, fonts, classifier, cgj=False):
         self.base_groups = base_groups
         self.mark_groups = mark_groups
         self.fonts = fonts
@@ -30,6 +30,12 @@ class ComboMatrix:
         #   classify_combo_sanity
         #   classify_combo_plain
         self.classifier = classifier
+
+        # cgj: put CGJ (U+034F) between base and mark in every cell. The shaper
+        # then cannot decompose a precomposed base and recompose it with the mark
+        # (Ǻ + dot below would become Ạ + ring + acute), so each cell shows the
+        # base glyph's own anchor; nothing is classified "precomposed".
+        self.cgj = cgj
 
         self.font_contexts = {}
         self.grid = {}
@@ -68,6 +74,11 @@ class ComboMatrix:
                                 classIndex,
                                 fontctx,
                             )
+                            if self.cgj and result[0] == "precomposed":
+                                kind = ("anchored" if classIndex is not None
+                                        and fontctx.has_anchor(base_cp, classIndex, fontctx.cmap)
+                                        else "fallback")
+                                result = (kind,) + tuple(result[1:])
                             self.grid[(mark_cp, base_cp, font_key)] = result
 
         return self
@@ -89,7 +100,8 @@ class ComboMatrix:
 
             if self.classifier in (classify_combo_sanity, classify_combo_plain):
                 kind, flags, infos, positions = result
-                cell = render_cell(base_cp, mark_cp, kind, flags)
+                cell = render_cell(base_cp, mark_cp, kind, flags,
+                                   separator="\\cgj " if self.cgj else "")
 
             else:
                 raise ValueError(f"Unknown classifier: {self.classifier}")

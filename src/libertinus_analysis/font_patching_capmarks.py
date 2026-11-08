@@ -44,6 +44,7 @@ CAP_MARKS = {
     0x0300: "grave.cap",
     0x0301: "acute.cap",
     0x0302: "circumflex.cap",
+    0x0303: "tildecomb.cap",
     0x0306: "breve.cap",
     0x0307: "dotaccent.cap",
     0x0308: "dieresis.cap",

@@ -69,7 +69,7 @@ def latex_font_style(font_key, text):
 # Unified renderer for sanity/plain classifiers
 # ----------------------------------------------------------------------
 
-def render_cell(base_cp, mark_cp, kind, flags):
+def render_cell(base_cp, mark_cp, kind, flags, separator=""):
     """
     Render a TeX cell for the sanity/plain classifiers.
 
@@ -87,6 +87,9 @@ def render_cell(base_cp, mark_cp, kind, flags):
             "supported": bool,
         }
 
+    separator is TeX put between base and mark, e.g. "\\cgj " to keep the
+    shaper from decomposing and recomposing a precomposed base with the mark.
+
     This renderer chooses exactly one semantic macro per cell.
     Missing glyphs override everything. Otherwise, supported/
     unsupported and kind determine the macro.
@@ -96,7 +99,7 @@ def render_cell(base_cp, mark_cp, kind, flags):
     if flags.get("missing_mark"):
         raw = tex(base_cp)
     else:
-        raw = tex(base_cp) + tex(mark_cp)
+        raw = tex(base_cp) + separator + tex(mark_cp)
 
     # Missing glyphs override everything
     if flags.get("missing_base") or flags.get("missing_mark"):

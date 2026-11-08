@@ -223,6 +223,30 @@ anchors = {
         },
     },
     "marks": {
+        # Tall below marks (2026-11-08): anchor moved up so that the mark rises at most 62 above it,
+        # as U+0329 and U+0348; they overlapped descenders at -319 and crowded baseline letters
+        # (report, "Mark anchor model", stage 7). x unchanged.
+        0x0318: { # left tack below
+            2: (-254, -118), # was (-254, -148)
+        },
+        0x0319: { # right tack below
+            2: (-315, -117), # was (-315, -147)
+        },
+        0x031C: { # left half ring below
+            2: (-246, -114), # was (-246, -146)
+        },
+        0x031F: { # plus sign below
+            2: (-278, -115), # was (-278, -145)
+        },
+        0x0339: { # right half ring below
+            2: (-246, -114), # was (-246, -146)
+        },
+        0x0325: { # ring below
+            2: (-242, -96), # was (-242, -116); the precomposed Ḁ ḁ put the ring here (within 2)
+        },
+        0x034E: { # upwards arrow below
+            2: (-249, -90), # was (-249, -110)
+        },
         0x030B: { # double acute above
             0: (-57, 714), # -52 = x-mid of bbox, with -5 offset for acute weght
         },

@@ -18,6 +18,16 @@ TODO: delete any human anchor for AE, Ezh and any letter whose only expected com
 anchors = {
 
     "bases": {
+        # Dotted i letters: above as i (2026-11-08); marks that keep the dot (all marks on į ị, U+033F on ɨ) crowded it
+        0x012F: { # į
+            0: (142, 834), # was (132, 825)
+        },
+        0x1ECB: { # ị
+            0: (142, 834), # was (132, 775)
+        },
+        0x0268: { # ɨ
+            0: (142, 834), # was (155, 795)
+        },
         0x0041: {  # A; designer's (354, 850), (308, -110) are left of the midline
             0: (361, 850),  # centre of the cut apex, x 334..389
             2: (339, -110), # centre between the serif feet, 115.5 and 562.5; Ạ has 338
@@ -546,18 +556,37 @@ anchors = {
     },
 
     "marks": {
-        0x0318: { # left tack
-            2: (-249, -146), # mid
+        # Tall below marks (2026-11-08): anchor moved up so that the mark rises at most 62 above it,
+        # as U+0329 and U+0348; they overlapped descenders at -319 and crowded baseline letters
+        # (report, "Mark anchor model", stage 7). x unchanged.
+        0x0318: { # left tack below
+            2: (-249, -118), # was (-249, -146)
         },
-        0x0319: { # right tack
-            2: (-249, -146), # mid
+        0x0319: { # right tack below
+            2: (-249, -117), # was (-249, -146)
+        },
+        0x031C: { # left half ring below
+            2: (-216, -114), # was (-216, -146)
+        },
+        0x031F: { # plus sign below
+            2: (-249, -115), # was (-249, -145)
+        },
+        0x0339: { # right half ring below
+            2: (-216, -114), # was (-216, -146)
+        },
+        0x0325: { # ring below
+            2: (-218, -94), # was (-218, -116); the precomposed Ḁ ḁ put the ring here (within 2)
+        },
+        0x034E: { # upwards arrow below
+            2: (-227, -90), # was (-227, -110)
         },
     },
 
     "marks_by_name": {
-        "grave.cap": {
-            0: (-175, 723), # y implied
-        },
+        # "grave.cap": {
+            # 0: (-175, 723), # y implied  # removed 2026-11-08: stage 4 gives (-162, 724), fitted to the
+            #                 # precomposed graves (median distance 18 -> 17, median offset +18 -> +6)
+        # },
         # "acute.cap": {
             # 0: (-210, 723), # y implied  # removed 2026-10-29: stage 4 gives (-218, 723)
         # },

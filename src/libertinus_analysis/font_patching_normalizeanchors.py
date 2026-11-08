@@ -7,7 +7,9 @@ base anchor it sees is the designer's. Bad anchors are already deleted (stage 1)
 
     Semibold capitals: the designer set their above-anchors near 805, 45 below
     the other styles, and compensated only in the .cap marks, so that a mark
-    without a capital form crashed into the capital. Capitals (Unicode category
+    without a capital form crashed into the capital. A few capitals have the
+    same problem in the other styles (Ŋ Ƅ Ƣ Ɋ Ћ Ỻ Ⱪ Ⱬ), so the rule applies to
+    every style (2026-11-08). Capitals (Unicode category
     Lu, and alternates such as R.alt) with an above-anchor in CAP_BAND move to
     the capital reference, 850. Stage 4 adds the same 45 to the .cap mark
     anchors, so those marks stay where they were.
@@ -34,10 +36,12 @@ REFERENCES = {ABOVE: ("asc", "cap", "xh"), BELOW: ("base", "desc")}
 
 SNAP_TOLERANCE = 5
 
-CAP_STYLES = {"semibold"}
+# Every style since 2026-11-08: regular, italic and semibold italic have the same
+# problem on a few capitals (Ŋ Ƅ Ƣ Ɋ Ћ Ỻ Ⱪ Ⱬ, Eng.UCStyle; designer y 798-805).
+CAP_STYLES = {"regular", "italic", "semibold", "semibold_italic"}
 
-# Designer heights of semibold capitals: 802-808, and 833 for Ɔ Ọ Ụ.
-CAP_BAND = (800, 835)
+# Designer heights of semibold capitals: 802-808, and 833 for Ɔ Ọ Ụ; Ⱪ is 798.
+CAP_BAND = (795, 835)
 
 
 def _is_capital(glyph_name, codepoints):

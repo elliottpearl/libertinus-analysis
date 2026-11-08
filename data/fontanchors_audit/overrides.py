@@ -14,6 +14,16 @@
 
 overrides = {
     "regular": {
+        # ʮ ʯ: above and below swapped (above at -214, below at 542); stage 6 gives the candidates (2026-11-08)
+        "uni02AE": {0: "delete", 2: "delete"},
+        "uni02AF": {0: "delete", 2: "delete"},
+        "uni2132": {0: "delete", 2: "delete"},  # Ⅎ: swapped too (above -203, below 757)
+        # Precomposed letters whose designer above anchor stage 9 would otherwise keep; it inherits
+        # the base letter's instead (2026-11-08)
+        "Ccedilla": {0: "delete"},  # Ç (371, 850), 31 right of C
+        # ç above: the designer's (255, 834), at capital height, probably copied from Ç; stage 9
+        # inherits c's instead, as in italic and semibold, which have no designer anchor (2026-11-08)
+        "ccedilla": {0: "delete"},
         # Old curated anchors replaced by the candidate (2026-11-07); the designer's anchors
         # they had overruled are copies or otherwise bad, so delete them too
         "m": {2: "delete"},
@@ -110,6 +120,17 @@ overrides = {
         "uni0265": {2: "delete"},  # (219, -129)
     },
     "italic": {
+        # ʮ ʯ: above and below swapped (above at -214, below at 542); stage 6 gives the candidates (2026-11-08)
+        "uni02AE": {0: "delete", 2: "delete"},
+        "uni02AF": {0: "delete", 2: "delete"},
+        # Capitals near 805 with regular's X, without the slant; stage 5 would fix Y only, so stage 6 gives
+        # the candidate (2026-11-08)
+        "Eng": {0: "delete"}, "uni0184": {0: "delete"}, "uni01A2": {0: "delete"},
+        "uni2C69": {0: "delete"}, "uni2C6B": {0: "delete"},
+        # Precomposed letters whose designer above anchor is regular's, copied without the slant;
+        # stage 9 inherits the base letter's instead (2026-11-08)
+        "uni1E72": {0: "delete"},  # Ṳ (346, 850)
+        "uni1E73": {0: "delete"},  # ṳ (255, 646)
         # Old curated anchors replaced by the candidate (2026-11-07); the designer's anchors
         # they had overruled are copies or otherwise bad, so delete them too
         "a": {2: "delete"},
@@ -177,6 +198,9 @@ overrides = {
        
     },
     "semibold": {
+        # Precomposed letter whose designer above anchor stage 9 would otherwise keep; it inherits
+        # U's instead (2026-11-08)
+        "uni1EE4": {0: "delete"},  # Ụ (362, 833)
         # Old curated anchors replaced by the candidate (2026-11-07); the designer's anchors
         # they had overruled are copies or otherwise bad, so delete them too
         "S": {0: "delete"},
@@ -214,6 +238,24 @@ overrides = {
         "uni0237": {0: "keep"},
     },
     "semibold_italic": {
+        # ʮ ʯ: above and below swapped (above at -214, below at 542); stage 6 gives the candidates (2026-11-08)
+        "uni02AE": {0: "delete", 2: "delete"},
+        "uni02AF": {0: "delete", 2: "delete"},
+        # Capitals near 805 with regular's X, without the slant; stage 5 would fix Y only, so stage 6 gives
+        # the candidate (2026-11-08)
+        "Eng": {0: "delete"}, "uni0184": {0: "delete"}, "uni01A2": {0: "delete"},
+        "uni2C69": {0: "delete"}, "uni2C6B": {0: "delete"},
+        # Precomposed letters whose designer above anchors are regular's copies, out of step with
+        # their corrected base letters; stage 9 inherits the base letter's instead (2026-11-08)
+        "Ccedilla": {0: "delete"},  # Ç (371, 850)
+        "aogonek": {0: "delete"},   # ą (209, 645)
+        "Iogonek": {0: "delete"},   # Į (146, 850)
+        "uni1E2C": {0: "delete"},   # Ḭ (146, 850)
+        "uni1ECA": {0: "delete"},   # Ị (146, 850)
+        "uni1E72": {0: "delete"},   # Ṳ (346, 850)
+        # ç above: the designer's (255, 834), at capital height, probably copied from Ç; stage 9
+        # inherits c's instead, as in italic and semibold, which have no designer anchor (2026-11-08)
+        "ccedilla": {0: "delete"},
         # ɜ: above-anchor (194, 645) is regular's; the candidate (2026-11-07)
         "uni025C": {0: "delete"},
         # O: above-anchor (335, 850) is regular's, unslanted; the candidate (390, 850) on the capline reference (2026-11-07)

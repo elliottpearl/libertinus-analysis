@@ -2,6 +2,7 @@ lookup ccmp_cap_accents {
   sub acutecomb       by acute.cap;
   sub gravecomb       by grave.cap;
   sub uni0302         by circumflex.cap;
+  sub tildecomb       by tildecomb.cap;   # G̃ (Guarani) and other capitals without a precomposed tilde form
   sub uni0306         by breve.cap;
 # Add 7 .cap marks from existing custom glyphs
   sub uni030C         by caron.cap;
@@ -33,8 +34,11 @@ feature ccmp {
     # add T V W Y to A-Z 
     # even though these four capitals do not really expect above marks
     A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-    # remove AE Acircumflex Ocircumflex because all combinations are already precomposed
-    # remove Ccedilla because it takes no above marks, semantically
+    AE
+    # AE: only Ǽ (acute) and Ǣ (macron) are precomposed, so AE takes the capital forms (2026-11-08)
+    # remove Acircumflex Ocircumflex because all combinations are already precomposed
+    # Ccedilla: listed below with the stage 9 capitals (it rarely takes an above mark,
+    # but when it does, the capital form is the right one)
     # remove Thorn because it takes no above marks, semantically
     # keep Greek capitals, even though this makes no sense in general
     # because all expected Greek capitals with marks are already precomposed
@@ -59,9 +63,19 @@ feature ccmp {
     # uni0196 (capital iota) is a true capital (of U+0269 in African
     # orthographies), so it takes the capital marks, at its ascender anchor
     # not uni0294 uni0295 uni0296 (glottal stop, pharyngeal): undecided
-    # dot/tilde below
-    uni1E1A uni1E24 uni1E2C uni1E5A uni1E62 uni1E6C uni1E7E uni1E92 
-    uni1EA0 uni1EB8 uni1ECA uni1ECC uni1EE4  
+    # Latin capitals added 2026-11-08 (Ŋ Ƅ Ƣ Ɋ Ỻ Ⱪ Ⱬ Ⅎ, those in this font)
+    Eng uni0184 uni01A2 uni2C69 uni2C6B
+    # precomposed capitals with a cedilla, ogonek, horn or below mark, which stage 9
+    # gives an above anchor (PRECOMPOSED_ABOVE in data/precomposed_letters.py; 2026-11-08):
+    # ÇĄĘĢĮĶĻŅŖŞŢŲƯǪȘȚȨḀḄḆḌḎḐḒḘḚḤḨḪḬḲḴḶḺḼṂṆṈṊṚṞṢṬṮṰṲṴṶṾẈẒẔẠẸỊỌỤỰỴ
+    Ccedilla Aogonek Eogonek uni0122 Iogonek uni0136 uni013B uni0145
+    uni0156 Scedilla uni0162 Uogonek Uhorn uni01EA uni0218 uni021A
+    uni0228 uni1E00 uni1E04 uni1E06 uni1E0C uni1E0E uni1E10 uni1E12
+    uni1E18 uni1E1A uni1E24 uni1E28 uni1E2A uni1E2C uni1E32 uni1E34
+    uni1E36 uni1E3A uni1E3C uni1E42 uni1E46 uni1E48 uni1E4A uni1E5A
+    uni1E5E uni1E62 uni1E6C uni1E6E uni1E70 uni1E72 uni1E74 uni1E76
+    uni1E7E uni1E88 uni1E92 uni1E94 uni1EA0 uni1EB8 uni1ECA uni1ECC
+    uni1EE4 uni1EF0 uni1EF4
   ];
 
   sub @dotted' @accents by @dotless;

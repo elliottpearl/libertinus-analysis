@@ -60,13 +60,17 @@ BASE_LATIN = [
     # 0x0132,0x0133,      # IJ ij
     0x0141,0x0142,      # L with stroke
     0x0181,0x0182,      # Africanist Latin consonants
+    # Latin capitals added 2026-11-08 (their designer anchors were wrong; stage 6 fills them)
+    0x014A,0x0184,0x01A2,0x024A,0x1EFA,0x2C69,0x2C6B,  # Ŋ Ƅ Ƣ Ɋ Ỻ Ⱪ Ⱬ
+    0x2132,             # Ⅎ turned F
 ]
 
 # IPA (count: ?)
 BASE_IPA = [
     # Latin Extended IPA-like (vowels, consonants, modifiers)
     0x0186,0x0187,0x0189,0x018A,0x018B,0x018E,0x018F,0x0190,0x0191,0x0192,
-    0x0193,0x0194,0x0196,0x0197,0x0198,0x019C,0x019D,0x019F,0x01B7,
+    0x0193,0x0194,0x0196,0x0197,0x0198,0x019C,0x019D,0x019F,0x01A9,0x01B7,  # 0x01A9 Esh added 2026-11-08
+    0x02AE,0x02AF,  # turned h with fishhook (and tail), added 2026-11-08
     # Ligatures
     # 0x01AA,0x01BB,0x0184,0x018D,0x0195,0x029A,
     # Clicks
@@ -321,46 +325,116 @@ BASE_BELOW = [
 
 # bases to test for capital alternates
 BASE_CAP = [
+    # The Latin and IPA capitals of @capitals in data/fea/{style}/ccmp.fea,
+    # after which the above marks take their capital forms (2026-11-08).
+    # Not shown: the Greek and Cyrillic capitals of @capitals, whose
+    # combinations with marks are all precomposed.
     # Latin A--Z
     0x0041,0x0042,0x0043,0x0044,0x0045,0x0046,0x0047,0x0048,0x0049,0x004A,
     0x004B,0x004C,0x004D,0x004E,0x004F,0x0050,0x0051,0x0052,0x0053,0x0054,
     0x0055,0x0056,0x0057,0x0058,0x0059,0x005A,
-
-    # Greek capitals (not meaningful to print)
-    # 0x0391,0x0392,0x0393,0x0394,0x0395,0x0396,0x0397,0x0398,0x0399,0x039A,
-    # 0x039B,0x039C,0x039D,0x039E,0x039F,0x03A0,0x03A1,0x03A3,0x03A4,0x03A5,
-    # 0x03A6,0x03A7,0x03A8,0x03A9,
-
-    # Cyrillic capitals (not meaningful to print)
-    # 0x0404,0x0405,0x0406,0x0408,0x0409,0x040A,0x040B,0x040F,0x0410,0x0411,
-    # 0x0412,0x0413,0x0414,0x0415,0x0416,0x0417,0x0418,0x041A,0x041B,0x041C,
-    # 0x041D,0x041E,0x041F,0x0420,0x0421,0x0422,0x0423,0x0424,0x0425,0x0426,
-    # 0x0427,0x0428,0x0429,0x042A,0x042B,0x042C,0x042D,0x042E,0x042F,
-
-#    0x00C6, # AE
+    # ligature, stroke, bar
+    0x00C6, # AE
+    0x0152, # OE
+    0x00D0, # Eth
+    0x00D8, # O slash
+    0x0110, # D stroke
+    0x0126, # H bar
+    0x0141, # L slash
+    # IPA/UPA and African capitals
+    0x0181, # B hook
+    0x0182, # B topbar
     0x0186, # open O
+    0x0187, # C hook
+    0x0189, # African D
+    0x018A, # D hook
+    0x018B, # D topbar
+    0x018E, # reversed E
     0x018F, # Schwa
     0x0190, # open E
+    0x0191, # F hook
+    0x0193, # G hook
+    0x0194, # Gamma
+    0x0196, # Iota
+    0x0197, # I bar
+    0x0198, # K hook
+    0x019C, # turned M
+    0x019D, # N left hook
     0x019F, # O middle tilde
     0x01A9, # Esh
     0x01B1, # Upsilon
     0x01B2, # V hook
     0x01B3, # Y hook
     0x01B5, # Z stroke
-#    0x01B7, # Ezh
-    0x1E1A, # E tilde below
-    0x1E24, # H dot below
-    0x1E2C, # I tilde below
-    0x1E5A, # R dot below
-    0x1E62, # S dot below
-    0x1E6C, # T dot below
-    0x1E7E, # V dot below
-    0x1E92, # Z dot below
-    0x1EA0, # A dot below
-    0x1EB8, # E dot below
-    0x1ECA, # I dot below
-    0x1ECC, # O dot below
-    0x1EE4, # U dot below
+    0x01B7, # Ezh
+    0x014A, # Eng
+    0x0184, # tone six
+    0x01A2, # OI
+    0x024A, # Q hook tail
+    0x1EFA, # Middle Welsh LL
+    0x2C69, # K descender
+    0x2C6B, # Z descender
+    0x2132, # turned F
+    # precomposed capitals that stage 9 gives an above anchor (PRECOMPOSED_ABOVE)
+    0x00C7, # Latin Capital Letter C With Cedilla
+    0x0104, # Latin Capital Letter A With Ogonek
+    0x0118, # Latin Capital Letter E With Ogonek
+    0x0122, # Latin Capital Letter G With Cedilla
+    0x012E, # Latin Capital Letter I With Ogonek
+    0x0136, # Latin Capital Letter K With Cedilla
+    0x013B, # Latin Capital Letter L With Cedilla
+    0x0145, # Latin Capital Letter N With Cedilla
+    0x0156, # Latin Capital Letter R With Cedilla
+    0x015E, # Latin Capital Letter S With Cedilla
+    0x0162, # Latin Capital Letter T With Cedilla
+    0x0172, # Latin Capital Letter U With Ogonek
+    0x01AF, # Latin Capital Letter U With Horn
+    0x01EA, # Latin Capital Letter O With Ogonek
+    0x0218, # Latin Capital Letter S With Comma Below
+    0x021A, # Latin Capital Letter T With Comma Below
+    0x0228, # Latin Capital Letter E With Cedilla
+    0x1E00, # Latin Capital Letter A With Ring Below
+    0x1E04, # Latin Capital Letter B With Dot Below
+    0x1E06, # Latin Capital Letter B With Line Below
+    0x1E0C, # Latin Capital Letter D With Dot Below
+    0x1E0E, # Latin Capital Letter D With Line Below
+    0x1E10, # Latin Capital Letter D With Cedilla
+    0x1E12, # Latin Capital Letter D With Circumflex Below
+    0x1E18, # Latin Capital Letter E With Circumflex Below
+    0x1E1A, # Latin Capital Letter E With Tilde Below
+    0x1E24, # Latin Capital Letter H With Dot Below
+    0x1E28, # Latin Capital Letter H With Cedilla
+    0x1E2A, # Latin Capital Letter H With Breve Below
+    0x1E2C, # Latin Capital Letter I With Tilde Below
+    0x1E32, # Latin Capital Letter K With Dot Below
+    0x1E34, # Latin Capital Letter K With Line Below
+    0x1E36, # Latin Capital Letter L With Dot Below
+    0x1E3A, # Latin Capital Letter L With Line Below
+    0x1E3C, # Latin Capital Letter L With Circumflex Below
+    0x1E42, # Latin Capital Letter M With Dot Below
+    0x1E46, # Latin Capital Letter N With Dot Below
+    0x1E48, # Latin Capital Letter N With Line Below
+    0x1E4A, # Latin Capital Letter N With Circumflex Below
+    0x1E5A, # Latin Capital Letter R With Dot Below
+    0x1E5E, # Latin Capital Letter R With Line Below
+    0x1E62, # Latin Capital Letter S With Dot Below
+    0x1E6C, # Latin Capital Letter T With Dot Below
+    0x1E6E, # Latin Capital Letter T With Line Below
+    0x1E70, # Latin Capital Letter T With Circumflex Below
+    0x1E72, # Latin Capital Letter U With Diaeresis Below
+    0x1E74, # Latin Capital Letter U With Tilde Below
+    0x1E76, # Latin Capital Letter U With Circumflex Below
+    0x1E7E, # Latin Capital Letter V With Dot Below
+    0x1E88, # Latin Capital Letter W With Dot Below
+    0x1E92, # Latin Capital Letter Z With Dot Below
+    0x1E94, # Latin Capital Letter Z With Line Below
+    0x1EA0, # Latin Capital Letter A With Dot Below
+    0x1EB8, # Latin Capital Letter E With Dot Below
+    0x1ECA, # Latin Capital Letter I With Dot Below
+    0x1ECC, # Latin Capital Letter O With Dot Below
+    0x1EE4, # Latin Capital Letter U With Dot Below
+    0x1EF0, # Latin Capital Letter U With Horn And Dot Below
+    0x1EF4, # Latin Capital Letter Y With Dot Below
 ]
 
 # Unicode characters that never take combining marks
@@ -711,19 +785,21 @@ MARK_SC = [
     0x0311, # inverted breve
 ]
 
-# marks with alt glyph for capital by GSUB
+# Marks with a capital form (.cap), substituted after a capital by ccmp.
+# The first four are the designer's; the patch adds the rest (dotaccent.cap
+# only in the italic styles; tildecomb.cap 2026-11-08).
 MARK_CAP = [
-    0x0300, # acute
-    0x0301, # grave
+    0x0300, # grave
+    0x0301, # acute
     0x0302, # circumflex
+    0x0303, # tilde
     0x0306, # breve
-# added in patch
-    0x0307, # dot
-    0x0308, # diaresis
-    0x0309, # hook
+    0x0307, # dot above
+    0x0308, # diaeresis
+    0x0309, # hook above
     0x030B, # double acute
     0x030C, # caron
-    0x030F, # dopuble grave
+    0x030F, # double grave
     0x0311, # inverted breve
 ]
 

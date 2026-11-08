@@ -3,6 +3,10 @@
 anchors = {
 
     "bases": {
+        # Dotted i letters: above as i (2026-11-08); marks that keep the dot (all marks on į ị, U+033F on ɨ) crowded it
+        0x0268: { # ɨ
+            0: (156, 837), # was (152, 818)
+        },
         0x0041: { # A
             # 2: (330, -110), # centre between the serif feet, 109 and 551.5; bbox midpoint 350 is too far right  # removed 2026-11-07: the candidate (350) is nearer the precomposed glyphs (349)
         },
@@ -117,9 +121,10 @@ anchors = {
         0x025C: { # ɜ reversed open e
             2: (204, -110),  # below under the lowest point of the bowl, as ə (2026-11-07)
         },
-        0x026D: { # ɭ l with retroflex hook
-            0: (150, 885),  # above over the stem midline; not inherited (stem match 0%), the candidate (194) was 44 right (2026-11-07)
-        },
+        # 0x026D: { # ɭ l with retroflex hook
+            # 0: (150, 885),  # above over the stem midline; not inherited (stem match 0%), the candidate (194) was 44 right (2026-11-07)
+            #                 # removed 2026-11-08: ɭ is rebuilt from l (stage 2), so stage 8 inherits l's anchors
+        # },
         0x026E: { # ɮ: below ʒ's below anchor (193) + the shift of the ezh (+90), as regular (2026-11-07)
             2: (283, -319),
         },
@@ -176,6 +181,40 @@ anchors = {
     },
 
     "marks": {
+        # Half rings above (2026-11-08): the designer's anchors were class 1 (top_punkt, y 547, 549), raised 96 by
+        # stage 1, so they sat 156-158 above the mark's bottom against regular's 126-136, and the marks landed
+        # 20-32 low (40-53 above the letter). Now regular's anchor-to-outline offsets (from the outline's centre
+        # and bottom), so they land as in regular.
+        0x0351: { # left half ring above
+            0: (90, 623), # was (100, 643)
+        },
+        0x0357: { # right half ring above
+            0: (82, 613), # was (100, 645)
+        },
+        # Tall below marks (2026-11-08): anchor moved up so that the mark rises at most 62 above it,
+        # as U+0329 and U+0348; they overlapped descenders at -319 and crowded baseline letters
+        # (report, "Mark anchor model", stage 7). x unchanged.
+        0x0318: { # left tack below
+            2: (-224, -118), # was (-224, -148)
+        },
+        0x0319: { # right tack below
+            2: (-285, -118), # was (-285, -147)
+        },
+        0x031C: { # left half ring below
+            2: (-216, -114), # was (-216, -146)
+        },
+        0x031F: { # plus sign below
+            2: (-249, -116), # was (-249, -146)
+        },
+        0x0339: { # right half ring below
+            2: (-216, -114), # was (-216, -146)
+        },
+        0x0325: { # ring below
+            2: (-218, -96), # was (-218, -116)
+        },
+        0x034E: { # upwards arrow below
+            2: (-227, -90), # was (-227, -110)
+        },
         0x0300: { # grave
             0: (-127, 683), # designer (-127, 713); y as acute. x was -156 with no reason (2026-11-06):
                             # -127 is on the mark-axis model, precomposed 37 -> 10 (7 glyphs)

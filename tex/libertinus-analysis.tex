@@ -134,25 +134,9 @@
 
 \subsection*{To do}
 
-Audit mark anchors to fit roman and italic anchor models; patch as necessary.
-
-Decide whether the semibold italic \verb|acute.cap|, \verb|grave.cap|, \verb|hungarumlaut.cap| and \verb|uni030F.cap| should be set by stage 4 or curated.
-They are now curated at the mark-axis position ($X = C + Y\tan\theta + d - K$), which the precomposed capitals support better than stage 4's value (median distance 54 to 17, 31 to 18, 37 to 7, 37 to 16).
-Stage 4 places these asymmetric marks by their median offset from the midline in the precomposed capitals, which assumes that the capital above-anchors are on the midline; the designer's are left of it.
-If the capital base anchors are moved to the candidates, check whether stage 4 is then right and the curated anchors can go.
-
-Add alt cap dot above for italic and semibold italic.
-
-Look at the full-descender line for tall below marks. At $Y = -319$, 2--7 of the 32 below marks overlap almost every descending letter tested (p, q, g, \char"0292; y is clear): mostly U+0318, U+0319, U+031C, U+031F and U+0339.
-The fault is not in any one letter, so the fix would be in the anchors of those marks or in the reference line itself.
-
-Check the below anchor of J by eye in all styles. The designer's $Y = -319$ is deleted because J is not a full descender, and J now has the candidate (regular 120, $-257$; italic 146, $-285$; semibold 131, $-267$; semibold italic 187, $-249$).
-The best $X$ is open. $Y$ may need a curated anchor with the bowl correction of 10 instead of 2 (semibold 109, $-259$ looked right; regular had 109, $-254$).
-
-Review the designer anchors more than 5 from a $Y$ reference, which stage 5 lists but does not move (they are in the output of \verb|run_patch_font.py|).
-Many are legitimate, such as stacked marks on precomposed glyphs. Likely errors include: above and below swapped on \char"02AE, \char"02AF\ and \char"2132;
-k $-214$ below; \char"0263\ $-277$ below, not flagged by the audit;
-and capitals near 805 in the other styles, the semibold problem again: \char"014A, \char"01A2, \char"0181, \char"0184, \char"2C69, \char"2C6B\ and others.
+Add mark-to-mark positioning (stacking) for the common above-marks in all four styles: ring, dieresis, macron, acute, grave, circumflex, caron, tilde, breve.
+Without it, a precomposed letter with two above-marks plus a below-mark is recomposed by the shaper onto the base with the below-mark, and its two above-marks collide (Ǻ\,+\,dot below becomes Ạ with ring and acute overlapping; 130 cases among the precomposed letters; see ``Precomposed characters'').
+The designer's stacked precomposed glyphs (Ǻ, Ǖ, Ṓ, \ldots) could supply the mark-to-mark anchors, as the precomposed capitals do for stage 4.
 
 Audit the above anchors of the vowels against their precomposed glyphs, which are many and good evidence (survey of 2026-11-07).
 Where the patched anchor differs from the median mark centre of the precomposed glyphs by more than 15:
@@ -161,15 +145,11 @@ Regular O is within 12, but its marks land 16--19 left of the centre line of O.
 Two cautions: italic and semibold italic Y and U were just curated so that shaped marks land on their axes, and their precomposed glyphs disagree by 14--58;
 and the semibold italic precomposed glyphs run 30--40 right of the anchor model for g and E too.
 
-Check two outlines and two anchors found on 2026-11-07: semibold \char"026D\ has a stem 75 wide (l's is 110), apparently the regular-weight outline;
-semibold \char"0285\ has exactly the bounding box of \char"0283; semibold and semibold italic l below are regular's $(135, -110)$, and semibold \char"026D\ below is the candidate, 44 right of its stem;
+Check an outline and anchors found on 2026-11-07: semibold \char"0285\ has exactly the bounding box of \char"0283; semibold and semibold italic l below are regular's $(135, -110)$;
 italic \char"0272\ above is at $Y = 654$, raised by stage 8 because its arch is 9 taller than n's (at 645 no mark overlaps it).
 
-Semibold italic dieresis U+0308 lands about 38 units left of the circumflex, breve and caron on every lowercase base tested (ȷ ı o n), and the macron U+0304 about 12 left (found 2026-11-07): mark anchors for the mark audit.
+Semibold italic dieresis U+0308 lands about 38 units left of the circumflex, breve and caron on every lowercase base tested (ȷ ı o n), and the macron U+0304 about 12 left (found 2026-11-07): candidates for curated mark anchors, though the precomposed glyphs do not support moving the dieresis on lowercase (see ``Changes needed'' at the end of ``Mark anchor model'').
 
-A side finding about the patched fonts. After Ç, the patched fonts render the plain acute (acutecomb), not acute.cap as the originals do. So the rebuilt ccmp seems to have dropped Ç, and possibly other glyphs, from the capital list. I haven't checked how many.
-
-A side finding: semibold U+0351 and U+0357 have mark-anchor X = +100, while regular has −171. That looks wrong, and may come from the copies the original font has in U+0358–U+0363.
 
 \subsection*{Anchor model}
 
@@ -443,8 +423,8 @@ In what follows, ``lower'' and ``higher'' and ``left'' and ``right'' describe wh
 A mark lands lower when its anchor is further above its outline, and left when its anchor is further right.
 
 \paragraph{Status.}
-The to-do item ``Audit mark anchors to fit roman and italic anchor models'' has not been done.
-There is no audit of mark anchors, and no stage of the patch moves the designer's mark anchors to the model.
+There is no audit of mark anchors, and no stage of the patch moves the designer's mark anchors to the model (see the end of this section for why).
+Mark anchors are changed one at a time, where the precomposed glyphs support the change, and checked by eye against the mark zone figures.
 The patch changes mark anchors in four places, and one change of base anchors (in stage 1) serves the marks.
 \begin{itemize}
 	\item Stage 1, semibold only: the designer's second above-anchor class \verb|top_punkt| (class 1) is merged into the above class.
@@ -470,15 +450,29 @@ The patch changes mark anchors in four places, and one change of base anchors (i
 	\item Stage 7, curated mark anchors in \verb|data/fontanchors_human/|:
 	\begin{itemize}
 		\item Regular, left and right tack below (U+0318, U+0319): the designer's anchors were 25 units right and 36 units left of the centre of the outline;
-		the curated anchors are at the centre. The other styles keep the designer's anchors, so the tacks now differ between regular and the other styles.
+		the curated anchors are at the centre. The other styles keep the designer's $X$, so the tacks now differ between regular and the other styles.
+		\item Semibold, half rings above U+0351 and U+0357 (2026-11-08): their anchors were the designer's class 1 (\verb|top_punkt|, $Y$ 547, 549), raised 96 by stage 1,
+		so they sat 156--158 above the mark's bottom against regular's 126--136, and the marks landed 20--32 units low (40--53 above x-height letters, against 67--88 in regular).
+		They now have regular's anchor-to-outline offsets, measured from the outline's centre and bottom: $(90, 623)$ and $(82, 613)$, so they land as in regular.
+		(The $X$ of $+100$ was not itself wrong: semibold draws these two marks right of the origin.)
+		Regular's left half ring lands 16 units right of centre, as it shares the right half ring's anchor; Gentium Plus puts it about 11 left. Left as it is.
+		\item All styles, seven tall below-marks (2026-11-08): left and right tack U+0318, U+0319, left and right half ring U+031C, U+0339, plus sign U+031F, ring U+0325 and up arrow U+034E.
+		They rose 82 to 94 units above their own anchor, against 33 to 77 for the other below-marks,
+		so at the descender's below-anchor ($Y = -319$, 87 below the descender) each overlapped 1 to 13 of the 26 to 31 Latin and IPA descenders (p, q, g, þ, ʒ, \ldots),
+		and under baseline letters their median gap was 7 to 26 units, against about 40 for marks such as the vertical line below.
+		Each anchor is moved up, $X$ unchanged, so that the mark rises 62 above it, as U+0329 and U+0348 do: the marks sit 20 to 32 units lower under every base.
+		No below-mark now overlaps a descender, and their median gap under baseline letters is 38 to 47.
+		The precomposed Ḁ and ḁ confirm the ring: their ring is within 2 units of where the combining ring now lands (regular, italic, semibold italic; semibold's precomposed ring is a different outline).
+		The alternative, lowering the descender reference to $-342$ (the baseline's clearance of 110), also removed the overlaps but left the crowding under baseline letters and moved every mark under descenders.
+		The up tack U+031D (rising 65 to 77) clears every descender, by 4 to 7 units at the closest.
 		\item Semibold, grave and acute: 30 units lower (713 to 683), which makes them sit as in regular.
 		The grave keeps the designer's $X = -127$; an earlier curated $-156$ had no recorded reason and put the grave 37 units (median) from the precomposed glyphs, against 10.
 		The grave and acute tone marks U+0340 and U+0341, which stage 3 adds, still have 713, so they sit 30 units lower than the grave and acute.
 		\item Mark-axis positions, $X = C + Y\tan\theta + d - K$, where the precomposed glyphs confirm the move
 		(median distance of the mark from the precomposed glyphs, before and after; added 2026-11-06):
 		semibold inverted breve U+0311 $-217$ (11 to 4) and tilde below U+0330 $-200$ (13 to 4);
-		semibold italic hook above U+0309 $-142$ (26 to 8), inverted breve U+0311 $-223$ (19 to 3), U+0314 $-91$ (19 to 4, on one glyph),
-		and the capital forms \verb|acute.cap| $-236$, \verb|grave.cap| $-194$, \verb|hungarumlaut.cap| $-282$ and \verb|uni030F.cap| $-214$, which overrule stage 4 (see the to-do).
+		semibold italic hook above U+0309 $-142$ (26 to 8), inverted breve U+0311 $-223$ (19 to 3) and U+0314 $-91$ (19 to 4, on one glyph).
+		The semibold italic capital forms \verb|acute.cap|, \verb|grave.cap|, \verb|hungarumlaut.cap| and \verb|uni030F.cap| were also curated here (2026-11-06) and removed on 2026-11-08 in favour of stage 4; see the capital alternates.
 		A patch stage that moved every mark anchor to this position was tested and rejected:
 		most moves were under 20 units, and as many marks got further from the precomposed glyphs as got closer.
 		\item Italic, \verb|acute.cap|: the curated $(-65, 724)$ had no recorded reason and has been removed, so stage 4's $(-37, 724)$ applies.
@@ -512,8 +506,8 @@ Compared with regular, after the patch:
 	\item Italic. The marks conform. The tilde is 11 units off its axis.
 	The dot above sits 10 units higher than in regular, which is still 11 units lower than in the precomposed ȯ.
 	\item Semibold. Horizontally, the marks are within about 12 units of regular's offsets.
-	Vertically, about a quarter of the above-marks sit lower than in regular:
-	U+0357 32, U+0351 20, double acute 19,
+	Vertically, about a quarter of the above-marks sat lower than in regular:
+	U+0357 32 and U+0351 20 (fixed, see stage 7), double acute 19,
 	diaeresis 14, dot above 13 (ȯ confirms, 21), hook above 13, macron 13 (ō confirms, 12), circumflex 10.
 	The tilde sits 12 units higher (õ confirms, 14), and so does the breve below.
 	Semibold's x-height is 5 units higher than regular's, so differences under 10 do not matter.
@@ -528,14 +522,16 @@ Compared with regular, after the patch:
 \begin{itemize}
 	\item Semibold italic: move the anchors of the marks whose $k$ is far from 150 to the model (done for the hook above, inverted breve and U+0314; the precomposed glyphs do not support moving U+0313, U+030F or, on lowercase, the diaeresis);
 	move the macron's anchor 32 units down. The macron below's anchor was moved 52 units up, to $(-233, -58)$, 23 units below its outline as in the other styles (curated, 2026-11-06): it sat 25 units under n, against 86 to 96 in the other styles.
-	\item Semibold: lower the anchors of the above-marks that sit low by the amounts listed, so that they sit as in regular;
+	\item Semibold: lower the anchors of the above-marks that sit low by the amounts listed, so that they sit as in regular (done for U+0351 and U+0357);
 	give U+0340 and U+0341 the curated height of the grave and acute (683).
 	\item Regular: lower the anchor of the dot above by about 45 units (and by about 11 in italic and 21 in semibold) to match the precomposed glyphs;
 	decide between regular and the other styles for the dot below and diaeresis below, and for the tacks below.
 	\item Italic: remove the curated double acute, restoring the designer's anchor.
-	\item Implement these as an audit of mark anchors (the counterpart of the anchor audit of base anchors) and a patch stage,
-	rather than as more curated anchors, so that the check can be repeated.
 \end{itemize}
+These are done one at a time, as curated anchors, not by an audit of mark anchors and a patch stage (decided 2026-11-08).
+A stage that moved every mark anchor onto the model, $X = C + Y\tan\theta + d - K$, was tested and rejected:
+most moves were under 20 units, and as many marks got further from the precomposed glyphs as got closer.
+Since the precomposed glyphs are used wherever they exist, a composed combination should match them, and an audit against the model would flag the wrong marks.
 
 %Libertinus serif has few mark positioning GPOS tables.
 %Regular has two mark-to-base LookupList tables: 
@@ -807,6 +803,14 @@ The designer set semibold's capitals near 805 (clearance 160) and compensated on
 so a mark without a capital alternate crashed into the capital: in 225 of the 780 combinations of A--Z with 30 above marks, the bottom of the mark was below the top of the letter.
 The patch moves the capitals to 850 and adds 45 to the mark anchors of the capital alternates, which stay where they were.
 That leaves 4 such combinations, all on T, whose serif tips rise to 673 away from the marks; under the marks the gap is 21--26.
+A few capitals have the same problem in the other styles (Ŋ Ƅ Ƣ Ɋ Ћ Ỻ Ⱪ Ⱬ at 798--805), so since 2026-11-08 stage 5 moves every capital with an above-anchor in 795--835 to 850 in every style.
+In italic and semibold italic the designer's $X$ of Ŋ Ƅ Ƣ Ⱪ Ⱬ was regular's, without the slant (italic Ƣ 355 against the candidate 622), so they are deleted in stage 1 and get the candidate;
+Ћ, outside the Latin/IPA scope, keeps regular's $X$ there.
+These capitals are also in \verb|@capitals|, so the twelve marks with a capital alternate take it on them.
+
+Of the other designer anchors more than 5 from a reference (stage 5 lists them), most are legitimate: stacked marks on precomposed glyphs, superscripts at 805--815, small capitals at their own height, 685.
+Fixed on 2026-11-08: above and below swapped on ʮ ʯ (regular, italic, semibold italic) and Ⅎ (regular), now deleted in stage 1 and given the candidates;
+and į ị ɨ, whose above-anchors were 9--59 units below i's, so that a mark keeping the dot crowded it, now curated at i's anchor.
 
 For the vertical aspect, the first single value is the optical value of the vertical aspect.
 In practice, this is the y-coordinate of the central control point of a (vertical) stem that meets that aspect.
@@ -845,6 +849,14 @@ Where the added part stays clear of a mark, the derived letter should attach the
 The designer often drew the derived letter in a shifted frame: Ɗ is D moved about 80 units right, to make room for the hook.
 So the derived letter's anchor is the base letter's anchor plus that shift.
 The heuristic candidate cannot know this: a hook or tail moves the midpoint of the bounding box that the candidate is centred on.
+
+Semibold ɭ is redrawn by the patch (stage 2, \verb|font_patching_redraw.py|, 2026-11-08).
+The designer's glyph had a regular-weight stem (75 units; semibold l, ɫ and ɬ have 110--112), a plain slab head instead of l's serif, and a hook deeper than ɖ's.
+Regular ɭ is regular l with the foot serif replaced by the retroflex hook of regular ɖ, to about 5 units per control point;
+so semibold ɭ is now semibold l with its foot serif replaced by the hook of semibold ɖ, moved 236 units left onto l's stem,
+its first control point on the stem line as in regular ɭ and its return curve 7 units left, because ɖ's stem is 117 wide and l's 110 (advance 275).
+Its stem now matches l's exactly, so stage 8 inherits l's anchors (stem match 100\%): above $(150, 885)$ and below $(150, -319)$, on the stem's midline, below the hook.
+The curated above-anchor that replaced the failed inheritance is commented out.
 
 Stage 8 of the patch inherits these anchors.
 \verb|data/derived_letters.py| lists each derived letter with its base letter and the anchor classes it may inherit:
@@ -890,7 +902,7 @@ at the designer's baseline anchors, 4 to 29 of the 32 below marks overlapped the
 	\item The curated below anchors of regular ɭ, ɳ and ʂ were removed: the rule gives ɳ and ʂ within 7 units of them, and ɭ $X$ from the stem of l (133 against 196), where one below mark overlaps instead of four.
 \end{itemize}
 After the change, no below mark overlaps ɖ ɱ ɲ ɳ in any style.
-New overlaps, all with the tall half rings and tacks of the to-do item on the full-descender line: regular ʑ with U+031C, italic ʈ with U+0339.
+New overlaps, all with the tall half rings and tacks: regular ʑ with U+031C, italic ʈ with U+0339; these marks have since been lowered (see ``Mark anchor model'', stage 7), and no below mark overlaps a descender.
 
 ɯ has the candidate in every style (its designer anchors are deleted in stage 1): the candidate lies on the central stem, within 2 to 7 units.
 ɰ is not derived from ɯ: it is narrower and its stems are spaced differently (the outline match is 21\% in regular).
@@ -2139,6 +2151,8 @@ A semibold italic mark is the italic outline moved right by 12 units, with the a
 In semibold, U+0358--U+0363 were copies of the capital accents, and they are replaced.
 The patch also adds \verb|dotaccent.cap| to italic and semibold italic: 
 the dot of the precomposed İ, at the height it has in the precomposed dotted capitals.
+It adds \verb|tildecomb.cap| to every style (2026-11-08): the tilde of the precomposed capitals,
+which is \verb|tildecomb| itself in regular, italic and semibold, and in semibold italic the taller tilde of Ã (also of Ñ Õ Ĩ Ẽ Ỹ Ṽ and ã ñ õ), which differs from \verb|tildecomb| there.
 
 The designer does not thicken below-marks between weights, but thickens above-marks by about 12 percent 
 (mean stroke thickness, measured as twice the area of the outline divided by its perimeter: tilde 40 to 45, caron 36 to 42).
@@ -2528,37 +2542,80 @@ In this case only the base glyph is shown.
 \newpage
 \section*{Capital alternates}
 
-These grids display capitals with alternate marks.
+A capital alternate (\verb|grave.cap|, \verb|acute.cap|, \ldots) is a form of an above-mark that sits lower over a capital, as the accents of the designer's precomposed capitals do.
+In the original fonts, \verb|ccmp| substitutes only four of them, for the grave, acute, circumflex and breve,
+although the designer also drew the caron, double acute, double grave, inverted breve, dieresis and hook above (and, in regular and semibold, the dot above).
+The patched fonts substitute twelve, after every capital listed in \verb|@capitals| of \verb|data/fea/{style}/ccmp.fea| (stage 10):
+grave, acute, circumflex, tilde, breve, dot above, dieresis, hook above, double acute, caron, double grave and inverted breve.
+Stage 3 adds the two forms that were missing: \verb|dotaccent.cap| in italic and semibold italic, the dot of the precomposed İ,
+and \verb|tildecomb.cap| in every style (2026-11-08), the tilde of the precomposed tilded capitals
+(\verb|tildecomb| itself, except in semibold italic, where the precomposed capitals use a taller tilde, that of Ã).
+The other above-marks have no capital form and attach with their own anchors.
+The ring above has none by decision: the precomposed Å sets the ring on the apex, and the combining ring keeps its clearance; nor do the vertical lines above U+030D and U+033E.
 
-In the patched fonts, the mark anchor of each capital alternate is set by script (\verb|font_patching_capmarks.py|) from the precomposed capitals A--Z.
-The $Y$ coordinate is the capital anchor reference (850) less the height by which the mark is raised in the precomposed glyphs.
-The $X$ coordinate of a symmetric mark is the center of its outline on its own axis;
-for the grave, acute, double acute and double grave it is the median position of the mark in the precomposed glyphs, relative to the midline of the base.
-In semibold italic both are shifted left by 150 units, as in the semibold italic anchor model.
-A human-curated anchor overrules the scripted one.
-Measured over the capitals that have an above-anchor, the median distance of an alternate mark from the midline 
-falls from 142 to 17 units in italic and from 171 to 42 units in semibold italic; regular (16) and semibold (11) are unchanged.
+In stage 4 of the patched fonts (\verb|font_patching_capmarks.py|), the mark anchor of each capital alternate is set from the designer's precomposed capitals A--Z.
+The mark's outline is found in each precomposed glyph that is a capital plus that mark, which gives how far the designer moved it there.
+The $Y$ coordinate is the capital anchor reference (850) less the median height by which the mark is raised in the precomposed glyphs.
+The $X$ coordinate of a symmetric mark is the centre of its outline on its own axis, $X = C + Y\tan\theta - K$.
+For the asymmetric grave, acute, double acute and double grave, it is the median position of the mark in the precomposed glyphs relative to the candidate above-anchor of the capital, $W/2 + 850\tan\theta - K$.
+$K$ is 150 in semibold italic and 0 elsewhere.
+The precomposed placement is reproduced exactly where a capital's above-anchor is on its candidate; where it is not, the composed mark is displaced by the same amount.
+Human-curated anchors (stage 7) overrule stage 4.
 
-Check these by eye:
+The table compares each composed capital (base, capital alternate, anchors) with the designer's precomposed glyph, over the capitals that have one.
+Vertically every capital alternate matches: the median difference is 0 in every style, and no single capital differs by more than 12, except Ỏ, whose precomposed hook above is 24 units higher than the composed one in all styles but semibold italic.
+The numbers are the median horizontal distance; $n$ is the number of precomposed capitals, and $^*$ marks a curated anchor.
+\begin{center}
+\begin{tabular}{lrrrrr}
+mark & $n$ & regular & italic & semibold & semibold italic \\ \hline
+grave & 8 & 17 & $30^*$ & 4 & 10 \\
+acute & 17 & 9 & $14^*$ & 16 & 28 \\
+circumflex & 12--13 & 4 & $9^*$ & 14 & 16 \\
+tilde & 7--8 & 5 & 10 & 10 & 25 \\
+breve & 6 & 2 & $6^*$ & 10 & 10 \\
+dot above & 20 & 9 & 13 & 10 & 15 \\
+dieresis & 7 & 2 & 6 & 8 & 8 \\
+hook above & 6 & 4 & 12 & 12 & 16 \\
+double acute & 2 & 0 & $2^*$ & 18 & 6 \\
+caron & 12--15 & 7 & $6^*$ & 16 & 11 \\
+double grave & 6 & 12 & $4^*$ & 15 & 15 \\
+inverted breve & 6 & 2 & $10^*$ & 12 & 9 \\
+\end{tabular}
+\end{center}
+
+Notes by style:
 \begin{itemize}
-	\item Italic (2026-11-07). Eight curated anchors, fitted to the precomposed capitals, overrule the script: grave $-6$ (script 17), acute $-50$ ($-37$), circumflex 15 (24), breve $-14$ ($-1$), caron $-32$ ($-29$), double acute $-109$ ($-103$), double grave $-40$ ($-34$), inverted breve $-12$ ($-2$);
-	dieresis, dot above and hook above were within 4 units and keep the script's. The grave and acute are drawn letter by letter in the precomposed glyphs (the grave from $+8$ to $+89$ about the median), so any single anchor is a compromise.
-	Before: grave $-45$, caron $-50$, inverted breve $-23$, double grave $-47$.
-	The curated acute $-65$ was removed (2026-11-06; it had no recorded reason), so the script's $-37$ applies;
-	breve, circumflex, hook, dieresis and double acute were within 8 units of the script and were removed earlier.
-	The curated values fit the designer's capital anchors, which are left of the midline; the scripted values assume an anchor on the midline.
-	If the capital anchors are moved to the midline, the curated values should be dropped.
-	\item Regular. The curated grave $(-175, 723)$ and acute $(-210, 723)$ are kept; the script gives $-162$ and $-218$. 
-	The other eight curated anchors are within 4 units of the script and are commented out in \verb|fontanchors_human|.
-	\item Semibold italic. The acute, grave, double acute and double grave are curated at the mark-axis position (see the to-do); the others are scripted. With scripted anchors the marks were still about 35 units left of the midline, because the designer's capital anchors 
-	are left of the candidates of the semibold italic anchor model; J and L are far off (their base anchors do not conform).
-	\item Semibold. Only J, O, Q, R, S, T, V, W, X, Y, Z have an above-anchor; on the other capitals the alternates are placed by fallback.
-	The hook above is raised by 89 units, and the double acute and double grave are lowered by 30 and 23 units, relative to the designer's anchors.
-	\item The acute, grave and their doubles. The precomposed glyphs place these by eye, letter by letter, 
-	so the implied $X$ varies by up to 190 units over the bases (most for the acute, because of L), and one anchor is a compromise.
-	\item \verb|dotaccent.cap| is new in italic and semibold italic, and in regular its anchor is raised by 50 units to match the precomposed dotted capitals.
-	\item Not used as evidence, because the mark outline differs in the precomposed glyph: Ÿ and Ẅ (dieresis), Ľ (comma-style caron), and Ĵ in semibold italic.
+	\item Regular. All scripted (2026-11-08). The curated grave $(-175, 723)$ was removed in favour of stage 4's $(-162, 724)$, as in semibold italic:
+	the median distance from the precomposed graves goes from 18 to 17 units, and the median offset from 18 units right to 6, since the graves vary letter by letter.
+	The other curated anchors are reproduced by the script and are commented out in \verb|fontanchors_human|.
+	\item Italic. Eight curated anchors (2026-11-07) overrule stage 4: grave $-6$ (stage 4: 17), acute $-50$ ($-37$), circumflex 15 (24), breve $-14$ ($-1$), caron $-32$ ($-29$), double acute $-109$ ($-103$), double grave $-40$ ($-34$), inverted breve $-12$ ($-2$).
+	Each is fitted so that the accent lands, as a median over the capitals, where the designer drew it in the precomposed glyphs, with the capitals' actual above-anchors (so the signed median is 0).
+	The dieresis, dot above, hook above and tilde are scripted.
+	\item Semibold. All scripted. The designer's capital above-anchors were near 805, with the capital alternates drawn to compensate; stage 5 moves the capitals to 850, the reference stage 4 computes from.
+	\item Semibold italic. All scripted (2026-11-08).
+	The acute, grave, double acute and double grave had been curated on 2026-11-06 at the mark-axis position, $X = C + Y\tan\theta + d - K$ with $d$ from regular ($-236$, $-194$, $-282$, $-214$, against stage 4's $-195$, $-168$, $-243$, $-167$).
+	Those reproduced the precomposed capitals only on the designer's capital anchors, which are left of the candidates (median $k$ 173 against $K = 150$), because the designer drew the precomposed accents on those anchors.
+	Stage 4 is preferred because the precomposed glyphs are used wherever they exist, so a composed capital without one should match them;
+	and since H I J K L N O U V Y Æ were moved on 2026-11-07, it is also closer to them.
+	The larger distances of the acute (28) and tilde (25) come from capitals whose above-anchors are off their candidates (A, B, D, Q, R, W, X; V, Y and E for the tilde), not from the mark anchors.
 \end{itemize}
+
+Notes by mark:
+\begin{itemize}
+	\item The grave, acute and their doubles are placed by eye, letter by letter, in the precomposed glyphs,
+	so the implied $X$ varies by up to 190 units over the bases (most for the acute, because of L), and one anchor is a compromise.
+	\item Tilde. Unicode has no precomposed G̃, which Guarani writes, so G\,+\,U+0303 is composed.
+	With the combining tilde it sat 25 to 47 units higher than the tilde of the precomposed Ñ, Ã, Õ beside it; \verb|tildecomb.cap| matches their height exactly.
+	Gentium Plus does the same with its \verb|tildecomb.LP|.
+	\item Dot above. \verb|dotaccent.cap| is new in italic and semibold italic; in regular, stage 4 raises its anchor by 50 units to match the precomposed dotted capitals.
+	\item Not used as evidence, because the mark outline differs in the precomposed glyph: Ÿ and Ẅ (dieresis), Ľ (comma-style caron), Ũ in semibold italic (tilde), and Ĵ in semibold italic.
+\end{itemize}
+
+The grids show these twelve marks on every Latin and IPA capital of \verb|@capitals|: A--Z, Æ, Œ, Ð, Ø, Đ, Ħ, Ł, the IPA and African capitals,
+and the 59 precomposed capitals with a cedilla, ogonek, horn or below-mark that stage 9 gives an above-anchor (Ç Ą Ę Į Ų Ư Ḍ Ẹ Ọ \ldots; added to \verb|@capitals| 2026-11-08, so that, e.g., Lithuanian Ą́ and Yoruba Ẹ́ take the capital acute like Á and É).
+The Greek and Cyrillic capitals of \verb|@capitals| are not shown: their combinations with these marks are all precomposed.
+Blue cells are precomposed glyphs, which the shaper substitutes for base\,+\,mark wherever the font has one, so they do not use the capital alternates.
+Black cells are composed: in the patched fonts, the base with the capital alternate; in the original fonts, the base with the alternate only for the grave, acute, circumflex and breve, and otherwise with the ordinary mark.
 
 \input{input/cap_alt.tex}
 
@@ -2569,6 +2626,16 @@ These grids show the IPA above-marks and below-marks on the precomposed Latin le
 above-marks on the letters that have no mark above, below-marks on those that have no mark below.
 Each such letter inherits its base letter's anchor, moved to where the base sits in the precomposed glyph.
 The excluded letters (ģ and the horn letters above, and a few letters in one style whose base was redrawn) keep only the anchors they already had.
+
+Every cell is the letter, \verb|\cgj| and the mark (2026-11-08).
+Without CGJ the shaper decomposes the letter, puts the marks in canonical order and recomposes greedily from the base,
+so a cell can show a different letter with loose marks instead of the letter's own anchor:
+Ǻ with a dot below becomes Ạ\,+\,ring above\,+\,acute, Ẹ with a circumflex becomes Ệ.
+That happened in 674 of the 11\,456 below-mark cells.
+In 130 of them two above-marks were left to stack (Ǖ--ǜ, Ǟ--ǡ, Ǻ ǻ, Ȫ--ȱ, Ḕ--ḗ, Ṍ--ṓ, Ṹ--ṻ, Ấ--ẵ, Ế--ễ \ldots{} with a dot, ring, circumflex, tilde, diaeresis or comma below),
+and they collide, because Libertinus has almost no mark-to-mark positioning
+(regular stacks on 11 marks, italic on 4, semibold only on the spacing macron, semibold italic not at all; nothing stacks on the ring).
+That is what real text without CGJ gets; see the to-do.
 
 \input{input/precomposed_inherit_above.tex}
 

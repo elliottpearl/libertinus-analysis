@@ -95,6 +95,10 @@
 
 	% combining grapheme joiner
 \newcommand{\cgj}{\char"034F }
+	% no-break space, the base for a floating mark: \nbsp\char"030F
+\newcommand{\nbsp}{\char"00A0 }
+	% vowel + mark, then the same mark floating on NBSP (a floating tone): \floattone{e}{\char"030F}
+\newcommand{\floattone}[2]{#1\cgj#2\nbsp#2}
 
 
 % fedotov
@@ -1398,6 +1402,8 @@ dotless i with tilde below with double acute
 
 \subsection*{Lowercase a with double grave, followed by floating double grave, in italic}
 
+\textit{Superseded by ``Floating tones'' below:} write \verb|\floattone{a}{\char"030F}|.
+
 In italic, we want to produce a (precomposed) vowel with a double grave, followed by floating double grave.
 Ideally, the two double graves should be aligned.
 We cannot use the combining double grave as the floater, because it has nothing to combine to, 
@@ -1788,33 +1794,87 @@ Patched grave
 }
 
 
-\subsection*{Mark over space}
+\subsection*{Floating tones}
 
-I added a new en-width x-height PUA character, U+E100, with anchors.
-To float an above mark, say double grave U+030F over a space, write \verb|\char"E100\char"030F|
-But in practice, the floating mark carries the same tonal specification as the preceding vowel, 
-and therefore must align exactly with the height of that vowel's combining mark.
-To ensure this mark alignment, insert a combining grapheme joiner, \verb|\cgj|, 
-in the prior vowel + mark combo, to force anchor positioning without substituting a precomposed glyph there.
+A floating tone is written as a tone mark with no vowel of its own: after a vowel that bears the same tone ({\LibertinusSerifPatch\floattone{e}{\char"030F}}), or standing alone as a morpheme in a gloss.
+By Unicode convention, a mark that stands alone is applied to U+00A0 no-break space (the Unicode Standard prefers NBSP over U+0020 space, which allows a line break between the space and its mark).
+The patched fonts give U+00A0 an above and a below anchor at the lowercase references (645 above, $-110$ below), with X on each style's anchor model, so a mark on NBSP sits at exactly the height it has on a lowercase vowel, in all four styles.
+
+\subsubsection*{How to write a floating tone in XeLaTeX}
+\begin{enumerate}
+\item Load the patched fonts with \verb|fontspec|, e.g.
+\begin{verbatim}
+\setmainfont{LibertinusSerif-Regular-patch.otf}[
+    Path           = ../fonts/,
+    ItalicFont     = LibertinusSerif-Italic-patch.otf,
+    BoldFont       = LibertinusSerif-Semibold-patch.otf,
+    BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf]
+\end{verbatim}
+\item Define three commands in the preamble (this report does):
+\begin{verbatim}
+\newcommand{\cgj}{\char"034F }                % combining grapheme joiner
+\newcommand{\nbsp}{\char"00A0 }               % no-break space, base for a floating mark
+\newcommand{\floattone}[2]{#1\cgj#2\nbsp#2}   % vowel + mark, then the same mark floating
+\end{verbatim}
+\item Write a vowel followed by a floating tone of the same specification as \verb|\floattone{|\emph{vowel}\verb|}{|\emph{mark}\verb|}|, e.g.\ \verb|\floattone{e}{\char"030F}| gives {\LibertinusSerifPatch\floattone{e}{\char"030F}}.
+The mark may also be typed as the literal combining character between the braces.
+The vowel may carry other marks (\verb|\floattone{a\char"0330}{\char"0300}| gives {\LibertinusSerifPatch\floattone{a\char"0330}{\char"0300}}), and may be any lowercase tone-bearing unit, such as a syllabic nasal (\verb|\floattone{ŋ}{\char"0300}| gives {\LibertinusSerifPatch\floattone{ŋ}{\char"0300}}).
+\item Write a floating tone on its own as \verb|\nbsp| followed by the mark: \verb|-\nbsp\char"0300| gives {\LibertinusSerifPatch -\nbsp\char"0300}.
+\item Punctuation may follow directly: \verb|\floattone{e}{\char"0300}.| gives {\LibertinusSerifPatch\floattone{e}{\char"0300}.}
+NBSP is a quarter em wide (250 units; 274 in semibold italic), so there is that much space before the punctuation.
+\end{enumerate}
+Two things to avoid.
+Do not write the base as \verb|~| or \verb|\nobreakspace|: in TeX these are glue, not a character, so HarfBuzz sees no base and the mark is set on its own at its default position.
+Do not leave out the CGJ when the floating tone repeats the vowel's mark: without it, HarfBuzz substitutes the precomposed glyph where one exists (ȅ), and a precomposed glyph may carry its mark at a different height from the anchor (the dot above U+0307 is 45 units higher in the precomposed glyphs of regular); with it, both marks are placed by anchors at the same height.
+\verb|\floattone| inserts the CGJ.
+When typing \verb|\nbsp| by hand before a literal combining mark, write \verb|\nbsp{}|, since XeTeX reads a combining mark as a letter of the command name; \verb|\floattone| has no such problem.
+
+The anchors are lowercase ones, so a floating mark after a capital does not take its \verb|.cap| form or the capital height.
+In fonts without NBSP anchors (original Libertinus, Noto Serif) the mark still appears, at its default position; Gentium Plus and Charis SIL have NBSP anchors of their own.
+
+\subsubsection*{Comparison}
+Patched fonts, with \verb|\floattone|: \verb|-k\floattone{e}{\char"030F}|
+
+{\LibertinusSerifPatch \ribbiline{-k\floattone{e}{\char"030F}\ }}
+
+Patched fonts, without CGJ: \verb|-ke\char"030F\nbsp\char"030F|
+
+{\LibertinusSerifPatch \ribbiline{-ke\char"030F\nbsp\char"030F\ }}
+
+Original Libertinus, with \verb|\floattone|
+
+\ribbiline{-k\floattone{e}{\char"030F}}
+
+Gentium Plus, with \verb|\floattone| 
+
+{\Gentium -k\floattone{e}{\char"030F}}
+
 Note that in Libertinus, the two graves in the U+030F glyph are not translates of an identical outline;
 this is a deliberate design choice by the designer.
 
+\clearpage
 
-Original 
+\subsubsection*{Showcase}
+Each item is \verb|\floattone{|\emph{vowel}\verb|}{|\emph{mark}\verb|}| for the vowels a e i o u ɛ ɔ ə ɪ ʊ ɨ ʉ ʌ æ and the syllabic nasals m n ŋ, in the patched fonts (regular, italic, semibold, semibold italic), 
+at \verb|\Large| font size.
+The floating mark matches the height of the vowel's mark throughout, since every x-height letter and NBSP share the same above reference (645) and below reference ($-110$).
 
-\verb|-ke\char"030F\ \char"030F|  
-\ribbiline{-ke\char"030F\ \char"030F\ }  
+\newcommand{\FLv}[2]{\floattone{#1}{\char"#2}\quad}
+\newcommand{\FLvowels}[1]{\FLv{a}{#1}\FLv{e}{#1}\FLv{i}{#1}\FLv{o}{#1}\FLv{u}{#1}\FLv{ɛ}{#1}\FLv{ɔ}{#1}\FLv{ə}{#1}\FLv{ɪ}{#1}\FLv{ʊ}{#1}\FLv{ɨ}{#1}\FLv{ʉ}{#1}\FLv{ʌ}{#1}\FLv{æ}{#1}\quad\FLv{m}{#1}\FLv{n}{#1}\FLv{ŋ}{#1}}
+\newcommand{\FLblock}[2]{\par\smallskip{\normalsize U+#1 #2}\par
+	{\LibertinusSerifPatch\Large
+	\FLvowels{#1}\par
+	{\itshape \FLvowels{#1}}\par
+	{\bfseries \FLvowels{#1}}\par
+	{\bfseries\itshape \FLvowels{#1}}\par}}
 
-Patched without CGJ 
-
-\verb|-ke\char"030F \char"E100\char"030F|
-{\LibertinusSerifPatch \ribbiline{-ke\char"030F \char"E100\char"030F\ }}
-
-Patched with CGJ
-
-\verb|-ke\cgj\char"030F \char"E100\char"030F|
-{\LibertinusSerifPatch \ribbiline{-ke\cgj\char"030F \char"E100\char"030F\ }}
-
+\FLblock{0301}{acute}
+\FLblock{0300}{grave}
+\FLblock{030B}{double acute}
+\FLblock{030F}{double grave}
+\FLblock{0304}{macron}
+\FLblock{0302}{circumflex}
+\FLblock{030C}{caron}
 
 \subsection*{f with dot below}
 

@@ -11,7 +11,7 @@ Stages, in order (each is its own module):
      1. clean up the lookup:
         merge semibold top_punkt      font_patching_mergeclasses
         delete bad anchors            font_patching_deleteanchors
-     2. add glyphs (spacing base, CGJ) font_patching_addglyphs
+     2. add glyphs (CGJ)              font_patching_addglyphs
      3. add missing marks             font_patching_addmarks
      4. capital-mark anchors          font_patching_capmarks
      5. normalize designer anchor y   font_patching_normalizeanchors

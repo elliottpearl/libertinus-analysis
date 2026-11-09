@@ -1,4 +1,4 @@
-I compared every curated anchor in `data/fontanchors_human/italic.py` and `semibold_italic.py` with the current model. Five are clearly wrong, about seven more are worth a second look, and the rest are either fine or deliberate exceptions. Bases were checked with `W/2 + Y tan θ − K` at the curated anchor's own height; marks against the mark candidate (`C + Y tan θ − K`, with Y from the outline plus the style's median offset). I haven't changed anything.
+I compared every curated anchor in `data/fontanchors_human/italic.py` and `semibold_italic.py` with the current model. Five were clearly wrong (U+E100, one of them, was removed on 2026-11-09), about seven more are worth a second look, and the rest are either fine or deliberate exceptions. Bases were checked with `W/2 + Y tan θ − K` at the curated anchor's own height; marks against the mark candidate (`C + Y tan θ − K`, with Y from the outline plus the style's median offset). I haven't changed anything.
 
 ## Clearly wrong
 
@@ -6,8 +6,6 @@ I compared every curated anchor in `data/fontanchors_human/italic.py` and `semib
 |---|---|---|---|---|
 | semibold italic | grave U+0300, mark | (0, 683) | −156 | The comment says "was (−142, 683)". That original value fit the model; the curated one has no K, so the grave lands about 150 units right on every base. |
 | semibold italic | double acute U+030B, mark | (−28, 719) | −163 | Comment: "x-mid of bbox". That's the upright midpoint, with no slant and no K, so it lands about 135 units right. |
-| italic | U+E100 spacing base, above | (160, 645) | 297 | W/2 with no slant (the roman rule). Floating marks sit about 137 units left of where they sit on italic letters. Its own NBSP entry (262) is correct. |
-| italic | U+E100 spacing base, below | (160, −110) | 137 | The same roman rule, 23 units right. |
 
 The fifth is ʊ U+028A, in both styles. Its above-anchor is about 30 units too far left and its below-anchor about 30 too far right. That's what you get from roughly half the slant:
 - italic: (358, 645) and (267, −110), against a model of 392 and 232;
@@ -36,7 +34,6 @@ Everything else matches the model within a few units: italic O, Y, Ģ, Ş, Ɵ, �
 Do you want me to fix the clearly wrong ones?
 - Restore the original grave anchor (−142, 683).
 - Set the double acute to (−168, 719), which is the model's −163 plus the −5 offset your comment intended.
-- Set italic U+E100 to (297, 645) and (137, −110).
 - For ʊ, either drop the curated anchors or use the model values.
 
 The "second look" items need your judgement.

@@ -174,10 +174,6 @@ anchors = {
         0x029F: { # ʟ: above over the stem, as L less K = 150, regular's method (2026-11-07)
             0: (137, 645),
         },
-        0xE100: { # en space with anchor, width = 280
-            0: (140, 645),
-            2: (140, -110),
-        },
     },
     "marks": {
         # Tall below marks (2026-11-08): anchor moved up so that the mark rises at most 62 above it,

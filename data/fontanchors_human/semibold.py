@@ -174,10 +174,6 @@ anchors = {
         0x029F: { # ʟ: above over the stem, as L, regular's method (2026-11-07)
             0: (148, 645),
         },
-        0xE100: { # en space with anchor, width = 300
-            0: (150,645),
-            2: (150,-110),
-        },
     },
 
     "marks": {

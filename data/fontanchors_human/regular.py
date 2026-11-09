@@ -614,4 +614,10 @@ anchors = {
 #        },
         # "circumflex.cap" implied matches designer
     },
+    "bases_by_name": {
+        "uni027F.desc": {  # ɿ with descender, U+E27F, added in stage 2 (2026-11-09): below under the stem's centre
+                            # (stem 182-257) at the descender reference, as q; above is inherited from ɿ in stage 8
+            2: (220, -319),
+        },
+    },
 }

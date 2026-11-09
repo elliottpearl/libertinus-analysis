@@ -78,6 +78,9 @@ derived = {
     0x0272: (0x006E, (0, 2)),    # ɲ n with left hook < n
     0x0273: (0x006E, (0, 2)),    # ɳ n with retroflex hook < n
     0x027B: (0x0279, (0, 2)),    # ɻ turned r with hook < ɹ
+    0x0285: (0x027F, (0,)),      # ʅ squat reversed esh < ɿ: redrawn in stage 2 as ɿ with ɳ's retroflex hook
+                                 # (2026-11-09). Above only: below is stage 6's candidate, on the redrawn outline
+                                 # (the tail rule here would read the original outline's fontmetrics)
     0x027D: (0x0072, (0, 2)),    # ɽ r with tail < r
     0x0282: (0x0073, (0, 2)),    # ʂ s with hook < s
     0x0286: (0x0283, (0, 2)),    # ʆ esh with curl < ʃ
@@ -101,7 +104,7 @@ derived = {
 
 bottom_tail = {
     0x0191, 0x019D, 0x0255, 0x0256, 0x026D, 0x0271, 0x0272, 0x0273,
-    0x027B, 0x027D, 0x0282, 0x0286, 0x0288, 0x0290, 0x0291, 0x0293,
+    0x027B, 0x027D, 0x0282, 0x0285, 0x0286, 0x0288, 0x0290, 0x0291, 0x0293,
 }
 
 # Letters matched on their stems (stem_shift) rather than their whole
@@ -156,4 +159,7 @@ derived_y = {
 
 derived_by_name = {
     "uni0268.dotless": ("dotlessi", (0,)),  # ɨ before an above mark < ı
+    # ɿ with descender, U+E27F (PUA), added in stage 2 as ɿ's top and q's descender serif (2026-11-09).
+    # Above as ɿ; below is curated, under the stem at the descender reference
+    "uni027F.desc": ("uni027F", (0,)),
 }

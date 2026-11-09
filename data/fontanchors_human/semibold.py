@@ -233,4 +233,10 @@ anchors = {
             2: (-200, -70), # was (-213, -70); precomposed 13 -> 4 (6 glyphs)
         },
     },
+    "bases_by_name": {
+        "uni027F.desc": {  # ɿ with descender, U+E27F, added in stage 2 (2026-11-09): below under the stem's centre
+                            # (stem 172-290) at the descender reference, as q; above is inherited from ɿ in stage 8
+            2: (231, -319),
+        },
+    },
 }

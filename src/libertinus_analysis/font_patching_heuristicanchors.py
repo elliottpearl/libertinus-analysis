@@ -9,8 +9,10 @@ below (class 2) anchor the anchor candidate of the anchor model
     X: roman → bbox midpoint; italic → W/2 + Y tan(theta) - K.
 
 Only missing anchors are added; an existing anchor is never moved. The
-candidates are computed from the original font's fontmetrics, which hold
-the same base outlines as the patched font.
+candidates are computed from the patched font's own outlines (bbox and
+advance, measured as fontmetrics_extractor measures them), so that glyphs
+redrawn in stage 2 (ʅ) get the candidate of their new outline; for every
+other glyph this equals the original font's fontmetrics.
 
 Skipped:
     - glyphs with a canonical Unicode decomposition: stage 8 lets them
@@ -23,8 +25,8 @@ Human-curated anchors (stage 7) overrule the anchors added here.
 import unicodedata
 
 from libertinus_analysis import unicode_groups
+from .fontmetrics_extractor import get_glyph_bbox
 from .fontmetrics_helpers import get_anchor_candidate
-from .fontmetrics_loader import load_fontmetrics
 from .font_patching_precomposed_anchors import (
     ensure_base_record_for_glyph,
     find_mark_to_base_subtables,
@@ -56,10 +58,15 @@ def patch_anchors_heuristic(ttfont, font_key, lookup_index):
         return [f"No MarkToBase (LookupType 4) subtables found in lookup {lookup_index}; SKIPPED"]
     sub = subtables[0]
 
-    metrics = load_fontmetrics(font_key)
     cmap = ttfont.getBestCmap()
+    glyphset = ttfont.getGlyphSet()
 
     codepoints = sorted({cp for g in BASE_GROUPS for cp in unicode_groups[g]["items"]})
+    # The two fields get_anchor_candidate reads, from the patched font
+    metrics = {"codepoint": {
+        cp: {"bbox": list(get_glyph_bbox(glyphset, cmap[cp])), "width": ttfont["hmtx"][cmap[cp]][0]}
+        for cp in codepoints if cp in cmap
+    }}
 
     added = 0
     for cp in codepoints:

@@ -53,6 +53,22 @@
 	Path = ../fonts/,
 ]{GentiumPlus-Regular.ttf}
 
+% Gentium Plus in four styles, for comparisons by style
+\newfontfamily\GentiumPlusFamily[
+	Path           = ../fonts/,
+	ItalicFont     = GentiumPlus-Italic.ttf,
+	BoldFont       = GentiumPlus-Bold.ttf,
+	BoldItalicFont = GentiumPlus-BoldItalic.ttf
+]{GentiumPlus-Regular.ttf}
+
+% Langscitinus Serif: Language Science Press's own patch of Libertinus
+\newfontfamily\Langscitinus[
+	Path           = ../fonts/,
+	ItalicFont     = LangscitinusSerif-Italic.otf,
+	BoldFont       = LangscitinusSerif-Semibold.otf,
+	BoldItalicFont = LangscitinusSerif-SemiboldItalic.otf
+]{LangscitinusSerif-Regular.otf}
+
 \newfontfamily\SerifRegularDutch[
 	Path = ../fonts/,
 	Language = Dutch,
@@ -99,6 +115,8 @@
 \newcommand{\nbsp}{\char"00A0 }
 	% vowel + mark, then the same mark floating on NBSP (a floating tone): \floattone{e}{\char"030F}
 \newcommand{\floattone}[2]{#1\cgj#2\nbsp#2}
+	% reversed r with fishhook and descender, U+E27F in the patched fonts (PUA)
+\newcommand{\rfishdesc}{\char"E27F }
 
 
 % fedotov
@@ -148,9 +166,6 @@ italic o $+20$, O $+22$, E $-20$, Y $-17$; semibold y $-19$, Æ $-16$; semibold 
 Regular O is within 12, but its marks land 16--19 left of the centre line of O.
 Two cautions: italic and semibold italic Y and U were just curated so that shaped marks land on their axes, and their precomposed glyphs disagree by 14--58;
 and the semibold italic precomposed glyphs run 30--40 right of the anchor model for g and E too.
-
-Check an outline and anchors found on 2026-11-07: semibold \char"0285\ has exactly the bounding box of \char"0283; semibold and semibold italic l below are regular's $(135, -110)$;
-italic \char"0272\ above is at $Y = 654$, raised by stage 8 because its arch is 9 taller than n's (at 645 no mark overlaps it).
 
 Semibold italic dieresis U+0308 lands about 38 units left of the circumflex, breve and caron on every lowercase base tested (ȷ ı o n), and the macron U+0304 about 12 left (found 2026-11-07): candidates for curated mark anchors, though the precomposed glyphs do not support moving the dieresis on lowercase (see ``Changes needed'' at the end of ``Mark anchor model'').
 
@@ -1875,6 +1890,66 @@ The floating mark matches the height of the vowel's mark throughout, since every
 \FLblock{0304}{macron}
 \FLblock{0302}{circumflex}
 \FLblock{030C}{caron}
+
+\clearpage
+
+\subsection*{Squat reversed esh (Sinological apical vowels)}
+
+U+0285 \textsc{latin small letter squat reversed esh} \char"0285\ is the apical vowel of Sinological transcription after retroflex sibilants (Mandarin \emph{shī} [ʂʅ⁵⁵], \emph{zhī} [tʂʅ⁵⁵], \emph{rì} [ʐʅ⁵¹]).
+Its partner \char"027F\ U+027F follows dental sibilants (\emph{sī} [sɿ⁵⁵], \emph{cí} [tsʰɿ³⁵]).
+\char"0285\ is \char"027F\ with a retroflex hook, the hook of \char"0273\ \char"0288\ \char"0282\ \char"0290\ \char"026D: its top is \char"027F's fishhook, at the x-height.
+
+The designer's \char"0285\ was 550 high in regular, 119 above the x-height, and in italic, semibold and semibold italic it is \char"0283\ mirrored, rising to the ascender (semibold exactly so: every point $x \mapsto 305 - x$, hence the same bounding box as \char"0283).
+In a survey of 22 fonts (2026-11-09) every font that draws the letter rather than mirroring \char"0283\ tops it at the x-height, level with its own \char"027F: Gentium Plus, Charis SIL, Andika, Noto Serif, STIX Two, Junicode, EB Garamond, DejaVu Serif, Tinos, Roboto.
+The ascender form occurs only as a mirrored \char"0283\ (Gentium 1.x, which Gentium Plus replaced with the squat form; Lato) and in Libertinus and Langscitinus, which has Libertinus's glyph unchanged.
+
+Stage 2 of the patch redraws \char"0285\ in all four styles by control points: \char"027F's fishhook and stem, with \char"0273's retroflex hook in place of the foot serif.
+The hook reaches as deep as \char"0273's ($-221$ in regular, $-229$ in the other styles), short of the descender ($-234$), like the other retroflex hooks.
+The left sidebearing is \char"027F's, the right \char"0273's at the hook.
+The above-anchor is \char"027F's (stage 8, which treats \char"0285\ as \char"027F\ with a bottom tail); the below-anchor is the anchor model's candidate on the new outline (stage 6), at the descender reference.
+The designer's anchors, placed for the old outline, are deleted in stage 1, including regular's ogonek and cedilla anchors.
+
+\medskip
+\begin{tabular}{@{}ll@{}}
+Original Libertinus & \ribbiline{ʂʅ⁵⁵ tʂʰʅ⁵⁵ ʐʅ⁵¹ sɿ⁵⁵\quad aʅa}\\[4pt]
+Langscitinus & {\Langscitinus \ribbiline{ʂʅ⁵⁵ tʂʰʅ⁵⁵ ʐʅ⁵¹ sɿ⁵⁵\quad aʅa}}\\[4pt]
+Patched & {\LibertinusSerifPatch \ribbiline{ʂʅ⁵⁵ tʂʰʅ⁵⁵ ʐʅ⁵¹ sɿ⁵⁵\quad aʅa}}\\[4pt]
+Gentium Plus & {\GentiumPlusFamily \ribbiline{ʂʅ⁵⁵ tʂʰʅ⁵⁵ ʐʅ⁵¹ sɿ⁵⁵\quad aʅa}}\\
+\end{tabular}
+
+\medskip
+With tone and other marks, patched: {\LibertinusSerifPatch \ribbiline{[ʂʅ̄ ʂʅ́ ʂʅ̌ ʂʅ̀] [ʂʅ̰] [ʅ̩]}}
+
+\subsection*{Reversed r with fishhook}
+
+U+027F \textsc{latin small letter reversed r with fishhook} \char"027F\ is the apical vowel after dental sibilants (see the previous section).
+Fonts draw it in two ways: on the baseline, as \char"027E\ mirrored (Libertinus, Langscitinus, Gentium 1.x, Junicode, STIX Two, DejaVu Serif, EB Garamond), or with a straight descender (Gentium Plus, Charis SIL, Andika, Noto, Tinos, Roboto).
+SIL changed it from the baseline form in Gentium 1.x to the descending form in Gentium Plus, and the current SIL fonts offer no way back: they have one glyph for U+027F, no character variant or stylistic set for it, and no PUA alternate.
+Both forms are established, and the patch keeps Libertinus's baseline \char"027F\ as U+027F.
+
+For users who want the descending form, the patched fonts add it at a Private Use Area code point, U+E27F (glyph \verb|uni027F.desc|), in all four styles.
+It is \char"027F's fishhook and stem continued down to q's descender serif, with \char"027F's advance width.
+The above-anchor is \char"027F's (stage 8); the below-anchor is curated, under the stem at the descender reference ($-319$), as q's.
+
+\medskip
+\begin{tabular}{@{}ll@{}}
+U+027F, patched & {\LibertinusSerifPatch \ribbiline{sɿ⁵⁵ tsʰɿ³⁵ [sɿ̄ sɿ́ sɿ̌ sɿ̀] [sɿ̰]}}\\[4pt]
+U+E27F, patched & {\LibertinusSerifPatch \ribbiline{s\rfishdesc⁵⁵ tsʰ\rfishdesc³⁵ [s\rfishdesc{}̄ s\rfishdesc{}́ s\rfishdesc{}̌ s\rfishdesc{}̀] [s\rfishdesc{}̰]}}\\[4pt]
+Gentium Plus & {\GentiumPlusFamily \ribbiline{sɿ⁵⁵ tsʰɿ³⁵ [sɿ̄ sɿ́ sɿ̌ sɿ̀] [sɿ̰]}}\\
+\end{tabular}
+
+\subsubsection*{How to use the descending form}
+\begin{itemize}
+\item In XeLaTeX or LuaLaTeX with the patched fonts, write \verb|\char"E27F| or define a command, as this report does:
+\begin{verbatim}
+\newcommand{\rfishdesc}{\char"E27F }   % reversed r with fishhook and descender
+\end{verbatim}
+\verb|s\rfishdesc| gives {\LibertinusSerifPatch s\rfishdesc}.
+Before a literal combining mark write \verb|\rfishdesc{}|, since XeTeX reads a combining mark as a letter of the command name (\verb|s\rfishdesc{}́| gives {\LibertinusSerifPatch s\rfishdesc{}́}).
+\item In other applications, enter the code point E27F with the application's Unicode input (e.g.\ type \verb|e27f| then Alt+X in Word, or Ctrl+Shift+U e27f in GTK applications).
+\end{itemize}
+A Private Use code point has no meaning outside the font: in any other font U+E27F shows as a missing glyph, and searching, sorting, spell-checking and copied text see U+E27F, not U+027F.
+Use it for display where the descending form is wanted, and keep U+027F wherever the text must be interchanged or searched.
 
 \subsection*{f with dot below}
 

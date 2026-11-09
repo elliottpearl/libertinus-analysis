@@ -1,0 +1,81 @@
+\documentclass[10pt]{article}
+\usepackage{fontspec}\usepackage{tikz}\usepackage{geometry}
+\geometry{a4paper,left=1.2cm,right=1.2cm,top=1.2cm,bottom=1.2cm}
+\setlength{\parindent}{0pt}
+\setmainfont{LibertinusSerif-Regular.otf}[Path=../fonts/]
+% #1 font cmd, #2 glyph, #3 x-height, #4 ascender, #5 descender (all as fractions of the em)
+\newcommand{\gbox}[5]{%
+  \sbox0{#1\fontsize{30}{30}\selectfont #2}%
+  \begin{tikzpicture}[baseline=0pt]
+    \fill[yellow!25] (0pt,{-0.30*30pt}) rectangle (\wd0,{0.85*30pt});
+    \foreach \y/\c in {#4/red,#3/blue,0/black,#5/red} \draw[\c!50,very thin] (-6pt,{\y*30pt}) -- ([xshift=6pt]\wd0,{\y*30pt});
+    \node[anchor=base west,inner sep=0pt] at (0pt,0pt) {\usebox0};
+  \end{tikzpicture}\hspace{10pt}}
+\begin{document}
+\section*{\char"0283\ \char"0285\ \char"027E\ \char"027F\ across fonts}
+Yellow = advance width (ink outside it overhangs). Lines: ascender (top of l), x-height (top of x), baseline, descender (bottom of p), from each font's own outlines.
+Glyphs per row: \char"0283\ \char"0285\ \char"027E\ \char"027F, then in context: \char"0282\char"0285\ t\char"0282\char"0285\ \char"0290\char"0285\ s\char"027F\ ts\char"02B0\char"027F\ \char"0283\char"0285\ a\char"0285 a \ \ a\char"0283 a.
+
+\medskip
+
+\newfontfamily\FAA{LibertinusSerif-Regular.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Libertinus Regular}\gbox{\FAA}{\char"0283}{0.431}{0.698}{-0.234}\gbox{\FAA}{\char"0285}{0.431}{0.698}{-0.234}\gbox{\FAA}{\char"027E}{0.431}{0.698}{-0.234}\gbox{\FAA}{\char"027F}{0.431}{0.698}{-0.234}{\FAA\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAB{LibertinusSerif-Italic.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Libertinus Italic}\gbox{\FAB}{\char"0283}{0.439}{0.698}{-0.238}\gbox{\FAB}{\char"0285}{0.439}{0.698}{-0.238}\gbox{\FAB}{\char"027E}{0.439}{0.698}{-0.238}\gbox{\FAB}{\char"027F}{0.439}{0.698}{-0.238}{\FAB\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAC{LibertinusSerif-Semibold.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Libertinus Semibold}\gbox{\FAC}{\char"0283}{0.436}{0.698}{-0.234}\gbox{\FAC}{\char"0285}{0.436}{0.698}{-0.234}\gbox{\FAC}{\char"027E}{0.436}{0.698}{-0.234}\gbox{\FAC}{\char"027F}{0.436}{0.698}{-0.234}{\FAC\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAD{LibertinusSerif-SemiboldItalic.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Libertinus Semibold Italic}\gbox{\FAD}{\char"0283}{0.439}{0.698}{-0.234}\gbox{\FAD}{\char"0285}{0.439}{0.698}{-0.234}\gbox{\FAD}{\char"027E}{0.439}{0.698}{-0.234}\gbox{\FAD}{\char"027F}{0.439}{0.698}{-0.234}{\FAD\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAE{LibertinusSerif-Regular-patch.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Libertinus Regular, patched}\gbox{\FAE}{\char"0283}{0.431}{0.698}{-0.234}\gbox{\FAE}{\char"0285}{0.431}{0.698}{-0.234}\gbox{\FAE}{\char"027E}{0.431}{0.698}{-0.234}\gbox{\FAE}{\char"027F}{0.431}{0.698}{-0.234}{\FAE\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAF{LibertinusSerif-Italic-patch.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Libertinus Italic, patched}\gbox{\FAF}{\char"0283}{0.439}{0.698}{-0.238}\gbox{\FAF}{\char"0285}{0.439}{0.698}{-0.238}\gbox{\FAF}{\char"027E}{0.439}{0.698}{-0.238}\gbox{\FAF}{\char"027F}{0.439}{0.698}{-0.238}{\FAF\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAG{LibertinusSerif-Semibold-patch.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Libertinus Semibold, patched}\gbox{\FAG}{\char"0283}{0.436}{0.698}{-0.234}\gbox{\FAG}{\char"0285}{0.436}{0.698}{-0.234}\gbox{\FAG}{\char"027E}{0.436}{0.698}{-0.234}\gbox{\FAG}{\char"027F}{0.436}{0.698}{-0.234}{\FAG\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAH{LibertinusSerif-SemiboldItalic-patch.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Libertinus Semibold Italic, patched}\gbox{\FAH}{\char"0283}{0.439}{0.698}{-0.234}\gbox{\FAH}{\char"0285}{0.439}{0.698}{-0.234}\gbox{\FAH}{\char"027E}{0.439}{0.698}{-0.234}\gbox{\FAH}{\char"027F}{0.439}{0.698}{-0.234}{\FAH\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAI{LangscitinusSerif-Regular.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Langscitinus Regular}\gbox{\FAI}{\char"0283}{0.431}{0.698}{-0.234}\gbox{\FAI}{\char"0285}{0.431}{0.698}{-0.234}\gbox{\FAI}{\char"027E}{0.431}{0.698}{-0.234}\gbox{\FAI}{\char"027F}{0.431}{0.698}{-0.234}{\FAI\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAJ{LangscitinusSerif-Italic.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Langscitinus Italic}\gbox{\FAJ}{\char"0283}{0.439}{0.698}{-0.238}\gbox{\FAJ}{\char"0285}{0.439}{0.698}{-0.238}\gbox{\FAJ}{\char"027E}{0.439}{0.698}{-0.238}\gbox{\FAJ}{\char"027F}{0.439}{0.698}{-0.238}{\FAJ\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAK{LangscitinusSerif-Semibold.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Langscitinus Semibold}\gbox{\FAK}{\char"0283}{0.436}{0.698}{-0.234}\gbox{\FAK}{\char"0285}{0.436}{0.698}{-0.234}\gbox{\FAK}{\char"027E}{0.436}{0.698}{-0.234}\gbox{\FAK}{\char"027F}{0.436}{0.698}{-0.234}{\FAK\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAL{LangscitinusSerif-SemiboldItalic.otf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Langscitinus Semibold Italic}\gbox{\FAL}{\char"0283}{0.439}{0.698}{-0.234}\gbox{\FAL}{\char"0285}{0.439}{0.698}{-0.234}\gbox{\FAL}{\char"027E}{0.439}{0.698}{-0.234}\gbox{\FAL}{\char"027F}{0.439}{0.698}{-0.234}{\FAL\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAM{GentiumPlus-Regular.ttf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Gentium Plus Regular}\gbox{\FAM}{\char"0283}{0.454}{0.757}{-0.234}\gbox{\FAM}{\char"0285}{0.454}{0.757}{-0.234}\gbox{\FAM}{\char"027E}{0.454}{0.757}{-0.234}\gbox{\FAM}{\char"027F}{0.454}{0.757}{-0.234}{\FAM\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAN{GentiumPlus-Italic.ttf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Gentium Plus Italic}\gbox{\FAN}{\char"0283}{0.457}{0.742}{-0.244}\gbox{\FAN}{\char"0285}{0.457}{0.742}{-0.244}\gbox{\FAN}{\char"027E}{0.457}{0.742}{-0.244}\gbox{\FAN}{\char"027F}{0.457}{0.742}{-0.244}{\FAN\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAO{GentiumPlus-Bold.ttf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Gentium Plus Bold}\gbox{\FAO}{\char"0283}{0.454}{0.757}{-0.234}\gbox{\FAO}{\char"0285}{0.454}{0.757}{-0.234}\gbox{\FAO}{\char"027E}{0.454}{0.757}{-0.234}\gbox{\FAO}{\char"027F}{0.454}{0.757}{-0.234}{\FAO\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAP{GentiumPlus-BoldItalic.ttf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Gentium Plus Bold Italic}\gbox{\FAP}{\char"0283}{0.457}{0.742}{-0.244}\gbox{\FAP}{\char"0285}{0.457}{0.742}{-0.244}\gbox{\FAP}{\char"027E}{0.457}{0.742}{-0.244}\gbox{\FAP}{\char"027F}{0.457}{0.742}{-0.244}{\FAP\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAQ{Gentium-R.ttf}[Path=../../../../../usr/share/fonts/truetype/gentium/]
+\makebox[3.4cm][l]{\small Gentium 1.x Regular (old)}\gbox{\FAQ}{\char"0283}{0.454}{0.757}{-0.234}\gbox{\FAQ}{\char"0285}{0.454}{0.757}{-0.234}\gbox{\FAQ}{\char"027E}{0.454}{0.757}{-0.234}\gbox{\FAQ}{\char"027F}{0.454}{0.757}{-0.234}{\FAQ\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAR{CharisSIL-Regular.ttf}[Path=../../../../../usr/share/fonts/truetype/charis/]
+\makebox[3.4cm][l]{\small Charis SIL Regular}\gbox{\FAR}{\char"0283}{0.482}{0.737}{-0.218}\gbox{\FAR}{\char"0285}{0.482}{0.737}{-0.218}\gbox{\FAR}{\char"027E}{0.482}{0.737}{-0.218}\gbox{\FAR}{\char"027F}{0.482}{0.737}{-0.218}{\FAR\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAS{CharisSIL-Italic.ttf}[Path=../../../../../usr/share/fonts/truetype/charis/]
+\makebox[3.4cm][l]{\small Charis SIL Italic}\gbox{\FAS}{\char"0283}{0.494}{0.737}{-0.218}\gbox{\FAS}{\char"0285}{0.494}{0.737}{-0.218}\gbox{\FAS}{\char"027E}{0.494}{0.737}{-0.218}\gbox{\FAS}{\char"027F}{0.494}{0.737}{-0.218}{\FAS\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAT{NotoSerif-Regular.ttf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Noto Serif Regular}\gbox{\FAT}{\char"0283}{0.536}{0.760}{-0.240}\gbox{\FAT}{\char"0285}{0.536}{0.760}{-0.240}\gbox{\FAT}{\char"027E}{0.536}{0.760}{-0.240}\gbox{\FAT}{\char"027F}{0.536}{0.760}{-0.240}{\FAT\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAU{NotoSerif-Italic.ttf}[Path=../fonts/]
+\makebox[3.4cm][l]{\small Noto Serif Italic}\gbox{\FAU}{\char"0283}{0.536}{0.760}{-0.240}\gbox{\FAU}{\char"0285}{0.536}{0.760}{-0.240}\gbox{\FAU}{\char"027E}{0.536}{0.760}{-0.240}\gbox{\FAU}{\char"027F}{0.536}{0.760}{-0.240}{\FAU\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAV{STIX-Regular.otf}[Path=../../../../../usr/share/fonts/opentype/stix-word/]
+\makebox[3.4cm][l]{\small STIX Two Regular}\gbox{\FAV}{\char"0283}{0.450}{0.683}{-0.217}\gbox{\FAV}{\char"0285}{0.450}{0.683}{-0.217}\gbox{\FAV}{\char"027E}{0.450}{0.683}{-0.217}\gbox{\FAV}{\char"027F}{0.450}{0.683}{-0.217}{\FAV\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAW{STIX-Italic.otf}[Path=../../../../../usr/share/fonts/opentype/stix-word/]
+\makebox[3.4cm][l]{\small STIX Two Italic}\gbox{\FAW}{\char"0283}{0.441}{0.683}{-0.205}\gbox{\FAW}{\char"0285}{0.441}{0.683}{-0.205}\gbox{\FAW}{\char"027E}{0.441}{0.683}{-0.205}\gbox{\FAW}{\char"027F}{0.441}{0.683}{-0.205}{\FAW\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAX{JunicodeTwoBeta-Regular.otf}[Path=../../../../../usr/share/fonts/opentype/junicode/]
+\makebox[3.4cm][l]{\small Junicode 2 Regular}\gbox{\FAX}{\char"0283}{0.418}{0.726}{-0.273}\gbox{\FAX}{\char"0285}{0.418}{0.726}{-0.273}\gbox{\FAX}{\char"027E}{0.418}{0.726}{-0.273}\gbox{\FAX}{\char"027F}{0.418}{0.726}{-0.273}{\FAX\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAY{JunicodeTwoBeta-Italic.otf}[Path=../../../../../usr/share/fonts/opentype/junicode/]
+\makebox[3.4cm][l]{\small Junicode 2 Italic}\gbox{\FAY}{\char"0283}{0.416}{0.725}{-0.273}\gbox{\FAY}{\char"0285}{0.416}{0.725}{-0.273}\gbox{\FAY}{\char"027E}{0.416}{0.725}{-0.273}\gbox{\FAY}{\char"027F}{0.416}{0.725}{-0.273}{\FAY\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FAZ{EBGaramond12-Regular.ttf}[Path=../../../../../usr/share/fonts/truetype/ebgaramond/]
+\makebox[3.4cm][l]{\small EB Garamond}\gbox{\FAZ}{\char"0283}{0.405}{0.705}{-0.285}\gbox{\FAZ}{\char"0285}{0.405}{0.705}{-0.285}\gbox{\FAZ}{\char"027E}{0.405}{0.705}{-0.285}\gbox{\FAZ}{\char"027F}{0.405}{0.705}{-0.285}{\FAZ\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FBA{DejaVuSerif.ttf}[Path=../../../../../usr/share/fonts/truetype/dejavu/]
+\makebox[3.4cm][l]{\small DejaVu Serif}\gbox{\FBA}{\char"0283}{0.519}{0.760}{-0.208}\gbox{\FBA}{\char"0285}{0.519}{0.760}{-0.208}\gbox{\FBA}{\char"027E}{0.519}{0.760}{-0.208}\gbox{\FBA}{\char"027F}{0.519}{0.760}{-0.208}{\FBA\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FBB{DejaVuSerif-Italic.ttf}[Path=../../../../../usr/share/fonts/truetype/dejavu/]
+\makebox[3.4cm][l]{\small DejaVu Serif Italic}\gbox{\FBB}{\char"0283}{0.519}{0.760}{-0.208}\gbox{\FBB}{\char"0285}{0.519}{0.760}{-0.208}\gbox{\FBB}{\char"027E}{0.519}{0.760}{-0.208}\gbox{\FBB}{\char"027F}{0.519}{0.760}{-0.208}{\FBB\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FBC{Tinos-Italic.ttf}[Path=../../../../../usr/share/fonts/truetype/croscore/]
+\makebox[3.4cm][l]{\small Tinos Italic}\gbox{\FBC}{\char"0283}{0.459}{0.694}{-0.213}\gbox{\FBC}{\char"0285}{0.459}{0.694}{-0.213}\gbox{\FBC}{\char"027E}{0.459}{0.694}{-0.213}\gbox{\FBC}{\char"027F}{0.459}{0.694}{-0.213}{\FBC\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\newfontfamily\FBD{Lato-Regular.ttf}[Path=../../../../../usr/share/fonts/truetype/lato/]
+\makebox[3.4cm][l]{\small Lato}\gbox{\FBD}{\char"0283}{0.506}{0.737}{-0.172}\gbox{\FBD}{\char"0285}{0.506}{0.737}{-0.172}\gbox{\FBD}{\char"027E}{0.506}{0.737}{-0.172}\gbox{\FBD}{\char"027F}{0.506}{0.737}{-0.172}{\FBD\fontsize{20}{20}\selectfont\relax ʂʅ tʂʅ ʐʅ sɿ tsʰɿ ʃʅ aʅa aʃa}\par\vspace{5pt}
+\end{document}

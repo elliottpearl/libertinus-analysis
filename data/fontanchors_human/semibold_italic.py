@@ -243,4 +243,10 @@ anchors = {
         # on 2026-11-07, stage 4 is closer to the precomposed glyphs (median 10/30/6/15
         # against 32/30/45/37 for grave/acute/double acute/double grave).
     },
+    "bases_by_name": {
+        "uni027F.desc": {  # ɿ with descender, U+E27F, added in stage 2 (2026-11-09): below under the stem's centre
+                            # (stem 99-218 at y -319, centre 158, plus 12 (K below)) at the descender reference, as q; above is inherited from ɿ in stage 8
+            2: (170, -319),
+        },
+    },
 }

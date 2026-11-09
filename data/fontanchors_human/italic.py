@@ -288,5 +288,11 @@ anchors = {
         "breveinvertedcmb.cap": {
             0: (-12, 703),   # median +10 from (-23, 703)
         },
-    },    
+    },
+    "bases_by_name": {
+        "uni027F.desc": {  # ɿ with descender, U+E27F, added in stage 2 (2026-11-09): below under the stem's centre
+                            # (stem 109-181 at y -319) at the descender reference, as q; above is inherited from ɿ in stage 8
+            2: (145, -319),
+        },
+    },
 }

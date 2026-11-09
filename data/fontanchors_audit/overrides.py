@@ -85,7 +85,8 @@ overrides = {
         # baseline, a reversed fish-hook r, which tolerates a below anchor not under the stem (confirmed 2026-11-07)
         "uni0283": {0: "delete"},  # ʃ (209, 645)
         "uni0284": {0: "delete"},  # ʄ (209, 645)
-        "uni0285": {0: "delete", 2: "delete"},  # ʅ (209, 645)
+        "uni0285": {0: "delete", 2: "delete", 4: "delete", 5: "delete"},  # ʅ (209, 645); below-right (ogonek, 410, 16)
+        # and cedilla (167, -3) too, placed for the designer's outline, which stage 2 replaces (2026-11-09)
         "uni0294": {0: "delete"},  # ʔ
         "uni0295": {0: "delete"},  # ʕ
         "uni0296": {0: "delete", 2: "delete"},  # ʖ; below a's (196, -110), 2026-11-07

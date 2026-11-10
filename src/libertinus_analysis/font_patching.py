@@ -14,6 +14,7 @@ Stages, in order (each is its own module):
      2. add glyphs (CGJ)              font_patching_addglyphs
      3. add missing marks             font_patching_addmarks
      4. capital-mark anchors          font_patching_capmarks
+        mark-axis rule                font_patching_markaxis
      5. normalize designer anchor y   font_patching_normalizeanchors
      6. heuristic anchors             font_patching_heuristicanchors
      7. human-curated anchors         font_patching_anchors
@@ -44,6 +45,7 @@ from .font_patching_addmarks import add_cap_dot, add_cap_tilde, add_missing_mark
 from .font_patching_redraw import redraw_glyphs
 from .font_patching_anchors import patch_anchors_human
 from .font_patching_capmarks import patch_cap_mark_anchors
+from .font_patching_markaxis import patch_mark_axis
 from .font_patching_deleteanchors import delete_bad_anchors
 from .font_patching_derivedanchors import patch_derived_anchors
 from .font_patching_gsub import patch_gsub_ccmp
@@ -127,9 +129,13 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     cmap_reverse = {g: u for u, g in cmap.items()}
 
     # ------------------------------------------------------------
-    # 4. Capital-mark anchors, from the precomposed capitals
+    # 4. Capital-mark anchors, from the precomposed capitals;
+    #    then the mark-axis rule: symmetric above marks with
+    #    |k - K| >= 10 get their anchor X on their own axis
     # ------------------------------------------------------------
     for line in patch_cap_mark_anchors(ttfont, font_key, lookup_index):
+        print(f"[{font_key}] {line}")
+    for line in patch_mark_axis(ttfont, font_key, lookup_index):
         print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------

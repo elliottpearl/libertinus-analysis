@@ -89,8 +89,9 @@ BASE_IPA = [
     0x029C,0x029D,
     # 0x029E, 
     0x029F,
-    # Greek letters used in IPA
-    0x03B2,
+    # Greek letters used in IPA: β θ χ (Unicode has no Latin theta; the Latin beta U+A7B5 and
+    # chi U+AB53 are for other orthographies, and IPA uses the Greek letters). θ and χ added 2026-11-09
+    0x03B2, 0x03B8, 0x03C7,
     # Extended IPA / small caps / modifier-like bases
     # 0x1D00,0x1D01,0x1D02,0x1D03,0x1D04,0x1D05,0x1D06,0x1D07,0x1D08,0x1D09,
     # 0x1D0A,0x1D0B,0x1D0C,0x1D0D,0x1D0E,0x1D0F,0x1D10,0x1D11,0x1D12,0x1D13,

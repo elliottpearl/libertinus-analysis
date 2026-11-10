@@ -1,0 +1,354 @@
+% Generated: mark-axis rule, threshold 10 against exact.
+\documentclass[10pt]{article}
+\usepackage{fontspec}\usepackage{geometry}\usepackage{xcolor}
+\geometry{a4paper,left=1.2cm,right=1.2cm,top=1.2cm,bottom=1.2cm}
+\setlength{\parindent}{0pt}\setlength{\parskip}{2pt}
+\setmainfont{LibertinusSerif-Regular.otf}[Path=../fonts/]
+\newfontfamily\Pt[Path=../fonts/,ItalicFont=LibertinusSerif-Italic-patch.otf,BoldFont=LibertinusSerif-Semibold-patch.otf,
+  BoldItalicFont=LibertinusSerif-SemiboldItalic-patch.otf]{LibertinusSerif-Regular-patch.otf}
+
+\newfontfamily\ExR[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{exact-regular.otf}
+\newfontfamily\ExI[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{exact-italic.otf}
+\newfontfamily\ExB[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{exact-semibold.otf}
+\newfontfamily\ExBI[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{exact-semibold_italic.otf}
+\definecolor{precomposed}{RGB}{0,60,200}
+\newcommand{\PC}[1]{\textcolor{precomposed}{#1}}
+\newcommand{\row}[2]{\par\makebox[1.4cm][l]{\small #1}{#2\par}}
+\begin{document}
+\section*{Test sheet: the mark-axis rule, threshold 10 or exact}
+The patched fonts apply the mark-axis rule to every symmetric above mark: where its $k$ is 10 or more from $K$ (0; 150 in semibold italic), its anchor X is moved onto its axis ($k = K$).
+The question is whether the threshold should be lower, for very symmetric marks such as the ring, where a few units may show.
+``Rule'' rows are the patched fonts (threshold 10); ``exact'' rows are the patched fonts with every symmetric above mark exactly on its axis, curated anchors included (threshold 0).
+{\color{precomposed}Blue}: the designer's precomposed letter (not changed). Black: base + mark, placed by the anchors.
+$k$ is now measured on the mark's ink (its bounds with the slant removed).
+
+\subsection*{What is left under the rule: $k - K$, in units (positive: the mark lands right of its axis)}
+Rows below are shown for the marks with $|k - K| \ge 3$ in that style; a mark at 0 does not move.
+
+\medskip
+{\small\begin{tabular}{@{}lrrrr@{}}
+mark & Regular & Italic & Semibold & Semibold italic\\\hline
+
+\char"25CC\char"0302\ circumflex & -1 & +0 & +0 & \textbf{+3}\\
+\char"25CC\char"0303\ tilde & +0 & +0 & \textbf{-4} & +0\\
+\char"25CC\char"0304\ macron & -2 & -1 & \textbf{+6} & \textbf{-9}\\
+\char"25CC\char"0306\ breve & +0 & +0 & +0 & +0\\
+\char"25CC\char"0307\ dot above & +0 & \textbf{+3} & +1 & -2\\
+\char"25CC\char"0308\ dieresis & +0 & +0 & +0 & +0\\
+\char"25CC\char"030A\ ring above & +2 & \textbf{+3} & +0 & \textbf{+7}\\
+\char"25CC\char"030C\ caron & +2 & +1 & +0 & +0\\
+\char"25CC\char"030D\ vertical line above & +1 & +2 & +0 & \textbf{+8}\\
+\char"25CC\char"030E\ double vertical line above & +0 & +2 & +0 & \textbf{+9}\\
+\char"25CC\char"0310\ candrabindu & +0 & +0 & \textbf{+4} & \textbf{+3}\\
+\char"25CC\char"0311\ inverted breve & \textbf{-3} & -1 & \textbf{-3} & \textbf{-3}\\
+\char"25CC\char"033D\ x above & \textbf{+4} & \textbf{+5} & \textbf{+4} & +0\\
+\char"25CC\char"033E\ vertical tilde & +0 & +0 & +0 & \textbf{+3}\\
+\char"25CC\char"033F\ double overline & \textbf{-5} & \textbf{-4} & \textbf{-5} & +0\\
+\char"25CC\char"0342\ perispomeni & +0 & +0 & +0 & +0\\
+\char"25CC\char"0346\ bridge above & \textbf{-4} & \textbf{-3} & \textbf{-4} & +0\\
+\char"25CC\char"034A\ not tilde above & -2 & -1 & -2 & \textbf{-9}\\
+\char"25CC\char"034B\ homothetic above & +0 & +0 & +0 & +0\\
+\char"25CC\char"034C\ almost equal to above & \textbf{-4} & -2 & \textbf{-4} & +0\\
+\char"25CC\char"0352\ fermata & +0 & +1 & +0 & \textbf{-7}\\
+\char"25CC\char"035B\ zigzag above & +0 & \textbf{-10} & +0 & +0\\
+\char"25CC\char"0363\ combining letter a & \textbf{+6} & \textbf{+7} & \textbf{+6} & -1\\
+\char"25CC\char"0364\ combining letter e & +0 & \textbf{-10} & +0 & +0\\
+\char"25CC\char"0365\ combining letter i & \textbf{-7} & \textbf{-6} & \textbf{-7} & +0\\
+\char"25CC\char"0366\ combining letter o & \textbf{-4} & \textbf{-4} & \textbf{-4} & +0\\
+\char"25CC\char"0367\ combining letter u & -2 & -1 & -2 & \textbf{-9}\\
+\char"25CC\char"0368\ combining letter c & +0 & +0 & +0 & +0\\
+\char"25CC\char"0369\ combining letter d & +2 & \textbf{+3} & +2 & \textbf{-5}\\
+\char"25CC\char"036A\ combining letter h & +0 & +0 & +0 & +0\\
+\char"25CC\char"036B\ combining letter m & -2 & -1 & -2 & \textbf{-9}\\
+\char"25CC\char"036C\ combining letter r & \textbf{-7} & \textbf{-7} & \textbf{-7} & +0\\
+\char"25CC\char"036D\ combining letter t & \textbf{-3} & \textbf{-3} & \textbf{-3} & +0\\
+\char"25CC\char"036E\ combining letter v & \textbf{-5} & \textbf{-5} & \textbf{-5} & +0\\
+\char"25CC\char"036F\ combining letter x & \textbf{-3} & -2 & \textbf{-3} & \textbf{-10}\\
+\end{tabular}}
+
+Marks with no above anchor in a style (semibold perispomeni) show 0.
+
+\clearpage
+\subsection*{Regular}
+\medskip\textbf{combining letter i} U+0365 \quad {\small $k - K = -7$: exact moves the mark 7 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax aͥ bͥ cͥ dͥ eͥ fͥ gͥ hͥ iͥ jͥ kͥ lͥ mͥ nͥ oͥ pͥ qͥ rͥ sͥ tͥ uͥ vͥ wͥ xͥ yͥ zͥ}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͥ ɑͥ ɒͥ æͥ ɔͥ əͥ ɘͥ ɛͥ ɜͥ ɞͥ ɤͥ ɪͥ ɨͥ ʉͥ ʊͥ ʌͥ øͥ ɵͥ œͥ ʏͥ ɯͥ ŋͥ ɲͥ ɳͥ ʃͥ ʒͥ ɾͥ ɹͥ βͥ ðͥ θͥ ɣͥ χͥ ʔͥ}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax aͥ bͥ cͥ dͥ eͥ fͥ gͥ hͥ iͥ jͥ kͥ lͥ mͥ nͥ oͥ pͥ qͥ rͥ sͥ tͥ uͥ vͥ wͥ xͥ yͥ zͥ}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐͥ ɑͥ ɒͥ æͥ ɔͥ əͥ ɘͥ ɛͥ ɜͥ ɞͥ ɤͥ ɪͥ ɨͥ ʉͥ ʊͥ ʌͥ øͥ ɵͥ œͥ ʏͥ ɯͥ ŋͥ ɲͥ ɳͥ ʃͥ ʒͥ ɾͥ ɹͥ βͥ ðͥ θͥ ɣͥ χͥ ʔͥ}
+\medskip\textbf{combining letter r} U+036C \quad {\small $k - K = -7$: exact moves the mark 7 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax aͬ bͬ cͬ dͬ eͬ fͬ gͬ hͬ iͬ jͬ kͬ lͬ mͬ nͬ oͬ pͬ qͬ rͬ sͬ tͬ uͬ vͬ wͬ xͬ yͬ zͬ}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͬ ɑͬ ɒͬ æͬ ɔͬ əͬ ɘͬ ɛͬ ɜͬ ɞͬ ɤͬ ɪͬ ɨͬ ʉͬ ʊͬ ʌͬ øͬ ɵͬ œͬ ʏͬ ɯͬ ŋͬ ɲͬ ɳͬ ʃͬ ʒͬ ɾͬ ɹͬ βͬ ðͬ θͬ ɣͬ χͬ ʔͬ}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax aͬ bͬ cͬ dͬ eͬ fͬ gͬ hͬ iͬ jͬ kͬ lͬ mͬ nͬ oͬ pͬ qͬ rͬ sͬ tͬ uͬ vͬ wͬ xͬ yͬ zͬ}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐͬ ɑͬ ɒͬ æͬ ɔͬ əͬ ɘͬ ɛͬ ɜͬ ɞͬ ɤͬ ɪͬ ɨͬ ʉͬ ʊͬ ʌͬ øͬ ɵͬ œͬ ʏͬ ɯͬ ŋͬ ɲͬ ɳͬ ʃͬ ʒͬ ɾͬ ɹͬ βͬ ðͬ θͬ ɣͬ χͬ ʔͬ}
+\medskip\textbf{combining letter a} U+0363 \quad {\small $k - K = +6$: exact moves the mark 6 left}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax aͣ bͣ cͣ dͣ eͣ fͣ gͣ hͣ iͣ jͣ kͣ lͣ mͣ nͣ oͣ pͣ qͣ rͣ sͣ tͣ uͣ vͣ wͣ xͣ yͣ zͣ}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͣ ɑͣ ɒͣ æͣ ɔͣ əͣ ɘͣ ɛͣ ɜͣ ɞͣ ɤͣ ɪͣ ɨͣ ʉͣ ʊͣ ʌͣ øͣ ɵͣ œͣ ʏͣ ɯͣ ŋͣ ɲͣ ɳͣ ʃͣ ʒͣ ɾͣ ɹͣ βͣ ðͣ θͣ ɣͣ χͣ ʔͣ}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax aͣ bͣ cͣ dͣ eͣ fͣ gͣ hͣ iͣ jͣ kͣ lͣ mͣ nͣ oͣ pͣ qͣ rͣ sͣ tͣ uͣ vͣ wͣ xͣ yͣ zͣ}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐͣ ɑͣ ɒͣ æͣ ɔͣ əͣ ɘͣ ɛͣ ɜͣ ɞͣ ɤͣ ɪͣ ɨͣ ʉͣ ʊͣ ʌͣ øͣ ɵͣ œͣ ʏͣ ɯͣ ŋͣ ɲͣ ɳͣ ʃͣ ʒͣ ɾͣ ɹͣ βͣ ðͣ θͣ ɣͣ χͣ ʔͣ}
+\medskip\textbf{double overline} U+033F \quad {\small $k - K = -5$: exact moves the mark 5 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax a̿ b̿ c̿ d̿ e̿ f̿ g̿ h̿ i̿ j̿ k̿ l̿ m̿ n̿ o̿ p̿ q̿ r̿ s̿ t̿ u̿ v̿ w̿ x̿ y̿ z̿}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̿ ɑ̿ ɒ̿ æ̿ ɔ̿ ə̿ ɘ̿ ɛ̿ ɜ̿ ɞ̿ ɤ̿ ɪ̿ ɨ̿ ʉ̿ ʊ̿ ʌ̿ ø̿ ɵ̿ œ̿ ʏ̿ ɯ̿ ŋ̿ ɲ̿ ɳ̿ ʃ̿ ʒ̿ ɾ̿ ɹ̿ β̿ ð̿ θ̿ ɣ̿ χ̿ ʔ̿}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax a̿ b̿ c̿ d̿ e̿ f̿ g̿ h̿ i̿ j̿ k̿ l̿ m̿ n̿ o̿ p̿ q̿ r̿ s̿ t̿ u̿ v̿ w̿ x̿ y̿ z̿}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐ̿ ɑ̿ ɒ̿ æ̿ ɔ̿ ə̿ ɘ̿ ɛ̿ ɜ̿ ɞ̿ ɤ̿ ɪ̿ ɨ̿ ʉ̿ ʊ̿ ʌ̿ ø̿ ɵ̿ œ̿ ʏ̿ ɯ̿ ŋ̿ ɲ̿ ɳ̿ ʃ̿ ʒ̿ ɾ̿ ɹ̿ β̿ ð̿ θ̿ ɣ̿ χ̿ ʔ̿}
+\medskip\textbf{combining letter v} U+036E \quad {\small $k - K = -5$: exact moves the mark 5 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax aͮ bͮ cͮ dͮ eͮ fͮ gͮ hͮ iͮ jͮ kͮ lͮ mͮ nͮ oͮ pͮ qͮ rͮ sͮ tͮ uͮ vͮ wͮ xͮ yͮ zͮ}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͮ ɑͮ ɒͮ æͮ ɔͮ əͮ ɘͮ ɛͮ ɜͮ ɞͮ ɤͮ ɪͮ ɨͮ ʉͮ ʊͮ ʌͮ øͮ ɵͮ œͮ ʏͮ ɯͮ ŋͮ ɲͮ ɳͮ ʃͮ ʒͮ ɾͮ ɹͮ βͮ ðͮ θͮ ɣͮ χͮ ʔͮ}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax aͮ bͮ cͮ dͮ eͮ fͮ gͮ hͮ iͮ jͮ kͮ lͮ mͮ nͮ oͮ pͮ qͮ rͮ sͮ tͮ uͮ vͮ wͮ xͮ yͮ zͮ}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐͮ ɑͮ ɒͮ æͮ ɔͮ əͮ ɘͮ ɛͮ ɜͮ ɞͮ ɤͮ ɪͮ ɨͮ ʉͮ ʊͮ ʌͮ øͮ ɵͮ œͮ ʏͮ ɯͮ ŋͮ ɲͮ ɳͮ ʃͮ ʒͮ ɾͮ ɹͮ βͮ ðͮ θͮ ɣͮ χͮ ʔͮ}
+\medskip\textbf{x above} U+033D \quad {\small $k - K = +4$: exact moves the mark 4 left}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax a̽ b̽ c̽ d̽ e̽ f̽ g̽ h̽ i̽ j̽ k̽ l̽ m̽ n̽ o̽ p̽ q̽ r̽ s̽ t̽ u̽ v̽ w̽ x̽ y̽ z̽}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̽ ɑ̽ ɒ̽ æ̽ ɔ̽ ə̽ ɘ̽ ɛ̽ ɜ̽ ɞ̽ ɤ̽ ɪ̽ ɨ̽ ʉ̽ ʊ̽ ʌ̽ ø̽ ɵ̽ œ̽ ʏ̽ ɯ̽ ŋ̽ ɲ̽ ɳ̽ ʃ̽ ʒ̽ ɾ̽ ɹ̽ β̽ ð̽ θ̽ ɣ̽ χ̽ ʔ̽}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax a̽ b̽ c̽ d̽ e̽ f̽ g̽ h̽ i̽ j̽ k̽ l̽ m̽ n̽ o̽ p̽ q̽ r̽ s̽ t̽ u̽ v̽ w̽ x̽ y̽ z̽}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐ̽ ɑ̽ ɒ̽ æ̽ ɔ̽ ə̽ ɘ̽ ɛ̽ ɜ̽ ɞ̽ ɤ̽ ɪ̽ ɨ̽ ʉ̽ ʊ̽ ʌ̽ ø̽ ɵ̽ œ̽ ʏ̽ ɯ̽ ŋ̽ ɲ̽ ɳ̽ ʃ̽ ʒ̽ ɾ̽ ɹ̽ β̽ ð̽ θ̽ ɣ̽ χ̽ ʔ̽}
+\medskip\textbf{bridge above} U+0346 \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax a͆ b͆ c͆ d͆ e͆ f͆ g͆ h͆ i͆ j͆ k͆ l͆ m͆ n͆ o͆ p͆ q͆ r͆ s͆ t͆ u͆ v͆ w͆ x͆ y͆ z͆}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ͆ ɑ͆ ɒ͆ æ͆ ɔ͆ ə͆ ɘ͆ ɛ͆ ɜ͆ ɞ͆ ɤ͆ ɪ͆ ɨ͆ ʉ͆ ʊ͆ ʌ͆ ø͆ ɵ͆ œ͆ ʏ͆ ɯ͆ ŋ͆ ɲ͆ ɳ͆ ʃ͆ ʒ͆ ɾ͆ ɹ͆ β͆ ð͆ θ͆ ɣ͆ χ͆ ʔ͆}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax a͆ b͆ c͆ d͆ e͆ f͆ g͆ h͆ i͆ j͆ k͆ l͆ m͆ n͆ o͆ p͆ q͆ r͆ s͆ t͆ u͆ v͆ w͆ x͆ y͆ z͆}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐ͆ ɑ͆ ɒ͆ æ͆ ɔ͆ ə͆ ɘ͆ ɛ͆ ɜ͆ ɞ͆ ɤ͆ ɪ͆ ɨ͆ ʉ͆ ʊ͆ ʌ͆ ø͆ ɵ͆ œ͆ ʏ͆ ɯ͆ ŋ͆ ɲ͆ ɳ͆ ʃ͆ ʒ͆ ɾ͆ ɹ͆ β͆ ð͆ θ͆ ɣ͆ χ͆ ʔ͆}
+\medskip\textbf{almost equal to above} U+034C \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax a͌ b͌ c͌ d͌ e͌ f͌ g͌ h͌ i͌ j͌ k͌ l͌ m͌ n͌ o͌ p͌ q͌ r͌ s͌ t͌ u͌ v͌ w͌ x͌ y͌ z͌}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ͌ ɑ͌ ɒ͌ æ͌ ɔ͌ ə͌ ɘ͌ ɛ͌ ɜ͌ ɞ͌ ɤ͌ ɪ͌ ɨ͌ ʉ͌ ʊ͌ ʌ͌ ø͌ ɵ͌ œ͌ ʏ͌ ɯ͌ ŋ͌ ɲ͌ ɳ͌ ʃ͌ ʒ͌ ɾ͌ ɹ͌ β͌ ð͌ θ͌ ɣ͌ χ͌ ʔ͌}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax a͌ b͌ c͌ d͌ e͌ f͌ g͌ h͌ i͌ j͌ k͌ l͌ m͌ n͌ o͌ p͌ q͌ r͌ s͌ t͌ u͌ v͌ w͌ x͌ y͌ z͌}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐ͌ ɑ͌ ɒ͌ æ͌ ɔ͌ ə͌ ɘ͌ ɛ͌ ɜ͌ ɞ͌ ɤ͌ ɪ͌ ɨ͌ ʉ͌ ʊ͌ ʌ͌ ø͌ ɵ͌ œ͌ ʏ͌ ɯ͌ ŋ͌ ɲ͌ ɳ͌ ʃ͌ ʒ͌ ɾ͌ ɹ͌ β͌ ð͌ θ͌ ɣ͌ χ͌ ʔ͌}
+\medskip\textbf{combining letter o} U+0366 \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax aͦ bͦ cͦ dͦ eͦ fͦ gͦ hͦ iͦ jͦ kͦ lͦ mͦ nͦ oͦ pͦ qͦ rͦ sͦ tͦ uͦ vͦ wͦ xͦ yͦ zͦ}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͦ ɑͦ ɒͦ æͦ ɔͦ əͦ ɘͦ ɛͦ ɜͦ ɞͦ ɤͦ ɪͦ ɨͦ ʉͦ ʊͦ ʌͦ øͦ ɵͦ œͦ ʏͦ ɯͦ ŋͦ ɲͦ ɳͦ ʃͦ ʒͦ ɾͦ ɹͦ βͦ ðͦ θͦ ɣͦ χͦ ʔͦ}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax aͦ bͦ cͦ dͦ eͦ fͦ gͦ hͦ iͦ jͦ kͦ lͦ mͦ nͦ oͦ pͦ qͦ rͦ sͦ tͦ uͦ vͦ wͦ xͦ yͦ zͦ}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐͦ ɑͦ ɒͦ æͦ ɔͦ əͦ ɘͦ ɛͦ ɜͦ ɞͦ ɤͦ ɪͦ ɨͦ ʉͦ ʊͦ ʌͦ øͦ ɵͦ œͦ ʏͦ ɯͦ ŋͦ ɲͦ ɳͦ ʃͦ ʒͦ ɾͦ ɹͦ βͦ ðͦ θͦ ɣͦ χͦ ʔͦ}
+\medskip\textbf{inverted breve} U+0311 \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ȃ} b̑ c̑ d̑ \PC{ȇ} f̑ g̑ h̑ \PC{ȋ} j̑ k̑ l̑ m̑ n̑ \PC{ȏ} p̑ q̑ \PC{ȓ} s̑ t̑ \PC{ȗ} v̑ w̑ x̑ y̑ z̑}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̑ ɑ̑ ɒ̑ æ̑ ɔ̑ ə̑ ɘ̑ ɛ̑ ɜ̑ ɞ̑ ɤ̑ ɪ̑ ɨ̑ ʉ̑ ʊ̑ ʌ̑ ø̑ ɵ̑ œ̑ ʏ̑ ɯ̑ ŋ̑ ɲ̑ ɳ̑ ʃ̑ ʒ̑ ɾ̑ ɹ̑ β̑ ð̑ θ̑ ɣ̑ χ̑ ʔ̑}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax \PC{ȃ} b̑ c̑ d̑ \PC{ȇ} f̑ g̑ h̑ \PC{ȋ} j̑ k̑ l̑ m̑ n̑ \PC{ȏ} p̑ q̑ \PC{ȓ} s̑ t̑ \PC{ȗ} v̑ w̑ x̑ y̑ z̑}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐ̑ ɑ̑ ɒ̑ æ̑ ɔ̑ ə̑ ɘ̑ ɛ̑ ɜ̑ ɞ̑ ɤ̑ ɪ̑ ɨ̑ ʉ̑ ʊ̑ ʌ̑ ø̑ ɵ̑ œ̑ ʏ̑ ɯ̑ ŋ̑ ɲ̑ ɳ̑ ʃ̑ ʒ̑ ɾ̑ ɹ̑ β̑ ð̑ θ̑ ɣ̑ χ̑ ʔ̑}
+\medskip\textbf{combining letter t} U+036D \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax aͭ bͭ cͭ dͭ eͭ fͭ gͭ hͭ iͭ jͭ kͭ lͭ mͭ nͭ oͭ pͭ qͭ rͭ sͭ tͭ uͭ vͭ wͭ xͭ yͭ zͭ}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͭ ɑͭ ɒͭ æͭ ɔͭ əͭ ɘͭ ɛͭ ɜͭ ɞͭ ɤͭ ɪͭ ɨͭ ʉͭ ʊͭ ʌͭ øͭ ɵͭ œͭ ʏͭ ɯͭ ŋͭ ɲͭ ɳͭ ʃͭ ʒͭ ɾͭ ɹͭ βͭ ðͭ θͭ ɣͭ χͭ ʔͭ}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax aͭ bͭ cͭ dͭ eͭ fͭ gͭ hͭ iͭ jͭ kͭ lͭ mͭ nͭ oͭ pͭ qͭ rͭ sͭ tͭ uͭ vͭ wͭ xͭ yͭ zͭ}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐͭ ɑͭ ɒͭ æͭ ɔͭ əͭ ɘͭ ɛͭ ɜͭ ɞͭ ɤͭ ɪͭ ɨͭ ʉͭ ʊͭ ʌͭ øͭ ɵͭ œͭ ʏͭ ɯͭ ŋͭ ɲͭ ɳͭ ʃͭ ʒͭ ɾͭ ɹͭ βͭ ðͭ θͭ ɣͭ χͭ ʔͭ}
+\medskip\textbf{combining letter x} U+036F \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax aͯ bͯ cͯ dͯ eͯ fͯ gͯ hͯ iͯ jͯ kͯ lͯ mͯ nͯ oͯ pͯ qͯ rͯ sͯ tͯ uͯ vͯ wͯ xͯ yͯ zͯ}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͯ ɑͯ ɒͯ æͯ ɔͯ əͯ ɘͯ ɛͯ ɜͯ ɞͯ ɤͯ ɪͯ ɨͯ ʉͯ ʊͯ ʌͯ øͯ ɵͯ œͯ ʏͯ ɯͯ ŋͯ ɲͯ ɳͯ ʃͯ ʒͯ ɾͯ ɹͯ βͯ ðͯ θͯ ɣͯ χͯ ʔͯ}
+\row{exact}{\ExR\fontsize{16}{24}\selectfont\relax aͯ bͯ cͯ dͯ eͯ fͯ gͯ hͯ iͯ jͯ kͯ lͯ mͯ nͯ oͯ pͯ qͯ rͯ sͯ tͯ uͯ vͯ wͯ xͯ yͯ zͯ}
+\row{}{\ExR\fontsize{16}{24}\selectfont\relax ɐͯ ɑͯ ɒͯ æͯ ɔͯ əͯ ɘͯ ɛͯ ɜͯ ɞͯ ɤͯ ɪͯ ɨͯ ʉͯ ʊͯ ʌͯ øͯ ɵͯ œͯ ʏͯ ɯͯ ŋͯ ɲͯ ɳͯ ʃͯ ʒͯ ɾͯ ɹͯ βͯ ðͯ θͯ ɣͯ χͯ ʔͯ}
+\clearpage
+\subsection*{Italic}
+\medskip\textbf{zigzag above} U+035B \quad {\small $k - K = -10$: exact moves the mark 10 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax a͛ b͛ c͛ d͛ e͛ f͛ g͛ h͛ i͛ j͛ k͛ l͛ m͛ n͛ o͛ p͛ q͛ r͛ s͛ t͛ u͛ v͛ w͛ x͛ y͛ z͛}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ͛ ɑ͛ ɒ͛ æ͛ ɔ͛ ə͛ ɘ͛ ɛ͛ ɜ͛ ɞ͛ ɤ͛ ɪ͛ ɨ͛ ʉ͛ ʊ͛ ʌ͛ ø͛ ɵ͛ œ͛ ʏ͛ ɯ͛ ŋ͛ ɲ͛ ɳ͛ ʃ͛ ʒ͛ ɾ͛ ɹ͛ β͛ ð͛ θ͛ ɣ͛ χ͛ ʔ͛}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax a͛ b͛ c͛ d͛ e͛ f͛ g͛ h͛ i͛ j͛ k͛ l͛ m͛ n͛ o͛ p͛ q͛ r͛ s͛ t͛ u͛ v͛ w͛ x͛ y͛ z͛}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐ͛ ɑ͛ ɒ͛ æ͛ ɔ͛ ə͛ ɘ͛ ɛ͛ ɜ͛ ɞ͛ ɤ͛ ɪ͛ ɨ͛ ʉ͛ ʊ͛ ʌ͛ ø͛ ɵ͛ œ͛ ʏ͛ ɯ͛ ŋ͛ ɲ͛ ɳ͛ ʃ͛ ʒ͛ ɾ͛ ɹ͛ β͛ ð͛ θ͛ ɣ͛ χ͛ ʔ͛}
+\medskip\textbf{combining letter e} U+0364 \quad {\small $k - K = -10$: exact moves the mark 10 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax aͤ bͤ cͤ dͤ eͤ fͤ gͤ hͤ iͤ jͤ kͤ lͤ mͤ nͤ oͤ pͤ qͤ rͤ sͤ tͤ uͤ vͤ wͤ xͤ yͤ zͤ}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͤ ɑͤ ɒͤ æͤ ɔͤ əͤ ɘͤ ɛͤ ɜͤ ɞͤ ɤͤ ɪͤ ɨͤ ʉͤ ʊͤ ʌͤ øͤ ɵͤ œͤ ʏͤ ɯͤ ŋͤ ɲͤ ɳͤ ʃͤ ʒͤ ɾͤ ɹͤ βͤ ðͤ θͤ ɣͤ χͤ ʔͤ}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax aͤ bͤ cͤ dͤ eͤ fͤ gͤ hͤ iͤ jͤ kͤ lͤ mͤ nͤ oͤ pͤ qͤ rͤ sͤ tͤ uͤ vͤ wͤ xͤ yͤ zͤ}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐͤ ɑͤ ɒͤ æͤ ɔͤ əͤ ɘͤ ɛͤ ɜͤ ɞͤ ɤͤ ɪͤ ɨͤ ʉͤ ʊͤ ʌͤ øͤ ɵͤ œͤ ʏͤ ɯͤ ŋͤ ɲͤ ɳͤ ʃͤ ʒͤ ɾͤ ɹͤ βͤ ðͤ θͤ ɣͤ χͤ ʔͤ}
+\medskip\textbf{combining letter a} U+0363 \quad {\small $k - K = +7$: exact moves the mark 7 left}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax aͣ bͣ cͣ dͣ eͣ fͣ gͣ hͣ iͣ jͣ kͣ lͣ mͣ nͣ oͣ pͣ qͣ rͣ sͣ tͣ uͣ vͣ wͣ xͣ yͣ zͣ}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͣ ɑͣ ɒͣ æͣ ɔͣ əͣ ɘͣ ɛͣ ɜͣ ɞͣ ɤͣ ɪͣ ɨͣ ʉͣ ʊͣ ʌͣ øͣ ɵͣ œͣ ʏͣ ɯͣ ŋͣ ɲͣ ɳͣ ʃͣ ʒͣ ɾͣ ɹͣ βͣ ðͣ θͣ ɣͣ χͣ ʔͣ}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax aͣ bͣ cͣ dͣ eͣ fͣ gͣ hͣ iͣ jͣ kͣ lͣ mͣ nͣ oͣ pͣ qͣ rͣ sͣ tͣ uͣ vͣ wͣ xͣ yͣ zͣ}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐͣ ɑͣ ɒͣ æͣ ɔͣ əͣ ɘͣ ɛͣ ɜͣ ɞͣ ɤͣ ɪͣ ɨͣ ʉͣ ʊͣ ʌͣ øͣ ɵͣ œͣ ʏͣ ɯͣ ŋͣ ɲͣ ɳͣ ʃͣ ʒͣ ɾͣ ɹͣ βͣ ðͣ θͣ ɣͣ χͣ ʔͣ}
+\medskip\textbf{combining letter r} U+036C \quad {\small $k - K = -7$: exact moves the mark 7 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax aͬ bͬ cͬ dͬ eͬ fͬ gͬ hͬ iͬ jͬ kͬ lͬ mͬ nͬ oͬ pͬ qͬ rͬ sͬ tͬ uͬ vͬ wͬ xͬ yͬ zͬ}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͬ ɑͬ ɒͬ æͬ ɔͬ əͬ ɘͬ ɛͬ ɜͬ ɞͬ ɤͬ ɪͬ ɨͬ ʉͬ ʊͬ ʌͬ øͬ ɵͬ œͬ ʏͬ ɯͬ ŋͬ ɲͬ ɳͬ ʃͬ ʒͬ ɾͬ ɹͬ βͬ ðͬ θͬ ɣͬ χͬ ʔͬ}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax aͬ bͬ cͬ dͬ eͬ fͬ gͬ hͬ iͬ jͬ kͬ lͬ mͬ nͬ oͬ pͬ qͬ rͬ sͬ tͬ uͬ vͬ wͬ xͬ yͬ zͬ}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐͬ ɑͬ ɒͬ æͬ ɔͬ əͬ ɘͬ ɛͬ ɜͬ ɞͬ ɤͬ ɪͬ ɨͬ ʉͬ ʊͬ ʌͬ øͬ ɵͬ œͬ ʏͬ ɯͬ ŋͬ ɲͬ ɳͬ ʃͬ ʒͬ ɾͬ ɹͬ βͬ ðͬ θͬ ɣͬ χͬ ʔͬ}
+\medskip\textbf{combining letter i} U+0365 \quad {\small $k - K = -6$: exact moves the mark 6 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax aͥ bͥ cͥ dͥ eͥ fͥ gͥ hͥ iͥ jͥ kͥ lͥ mͥ nͥ oͥ pͥ qͥ rͥ sͥ tͥ uͥ vͥ wͥ xͥ yͥ zͥ}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͥ ɑͥ ɒͥ æͥ ɔͥ əͥ ɘͥ ɛͥ ɜͥ ɞͥ ɤͥ ɪͥ ɨͥ ʉͥ ʊͥ ʌͥ øͥ ɵͥ œͥ ʏͥ ɯͥ ŋͥ ɲͥ ɳͥ ʃͥ ʒͥ ɾͥ ɹͥ βͥ ðͥ θͥ ɣͥ χͥ ʔͥ}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax aͥ bͥ cͥ dͥ eͥ fͥ gͥ hͥ iͥ jͥ kͥ lͥ mͥ nͥ oͥ pͥ qͥ rͥ sͥ tͥ uͥ vͥ wͥ xͥ yͥ zͥ}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐͥ ɑͥ ɒͥ æͥ ɔͥ əͥ ɘͥ ɛͥ ɜͥ ɞͥ ɤͥ ɪͥ ɨͥ ʉͥ ʊͥ ʌͥ øͥ ɵͥ œͥ ʏͥ ɯͥ ŋͥ ɲͥ ɳͥ ʃͥ ʒͥ ɾͥ ɹͥ βͥ ðͥ θͥ ɣͥ χͥ ʔͥ}
+\medskip\textbf{x above} U+033D \quad {\small $k - K = +5$: exact moves the mark 5 left}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax a̽ b̽ c̽ d̽ e̽ f̽ g̽ h̽ i̽ j̽ k̽ l̽ m̽ n̽ o̽ p̽ q̽ r̽ s̽ t̽ u̽ v̽ w̽ x̽ y̽ z̽}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̽ ɑ̽ ɒ̽ æ̽ ɔ̽ ə̽ ɘ̽ ɛ̽ ɜ̽ ɞ̽ ɤ̽ ɪ̽ ɨ̽ ʉ̽ ʊ̽ ʌ̽ ø̽ ɵ̽ œ̽ ʏ̽ ɯ̽ ŋ̽ ɲ̽ ɳ̽ ʃ̽ ʒ̽ ɾ̽ ɹ̽ β̽ ð̽ θ̽ ɣ̽ χ̽ ʔ̽}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax a̽ b̽ c̽ d̽ e̽ f̽ g̽ h̽ i̽ j̽ k̽ l̽ m̽ n̽ o̽ p̽ q̽ r̽ s̽ t̽ u̽ v̽ w̽ x̽ y̽ z̽}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐ̽ ɑ̽ ɒ̽ æ̽ ɔ̽ ə̽ ɘ̽ ɛ̽ ɜ̽ ɞ̽ ɤ̽ ɪ̽ ɨ̽ ʉ̽ ʊ̽ ʌ̽ ø̽ ɵ̽ œ̽ ʏ̽ ɯ̽ ŋ̽ ɲ̽ ɳ̽ ʃ̽ ʒ̽ ɾ̽ ɹ̽ β̽ ð̽ θ̽ ɣ̽ χ̽ ʔ̽}
+\medskip\textbf{combining letter v} U+036E \quad {\small $k - K = -5$: exact moves the mark 5 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax aͮ bͮ cͮ dͮ eͮ fͮ gͮ hͮ iͮ jͮ kͮ lͮ mͮ nͮ oͮ pͮ qͮ rͮ sͮ tͮ uͮ vͮ wͮ xͮ yͮ zͮ}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͮ ɑͮ ɒͮ æͮ ɔͮ əͮ ɘͮ ɛͮ ɜͮ ɞͮ ɤͮ ɪͮ ɨͮ ʉͮ ʊͮ ʌͮ øͮ ɵͮ œͮ ʏͮ ɯͮ ŋͮ ɲͮ ɳͮ ʃͮ ʒͮ ɾͮ ɹͮ βͮ ðͮ θͮ ɣͮ χͮ ʔͮ}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax aͮ bͮ cͮ dͮ eͮ fͮ gͮ hͮ iͮ jͮ kͮ lͮ mͮ nͮ oͮ pͮ qͮ rͮ sͮ tͮ uͮ vͮ wͮ xͮ yͮ zͮ}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐͮ ɑͮ ɒͮ æͮ ɔͮ əͮ ɘͮ ɛͮ ɜͮ ɞͮ ɤͮ ɪͮ ɨͮ ʉͮ ʊͮ ʌͮ øͮ ɵͮ œͮ ʏͮ ɯͮ ŋͮ ɲͮ ɳͮ ʃͮ ʒͮ ɾͮ ɹͮ βͮ ðͮ θͮ ɣͮ χͮ ʔͮ}
+\medskip\textbf{double overline} U+033F \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax a̿ b̿ c̿ d̿ e̿ f̿ g̿ h̿ i̿ j̿ k̿ l̿ m̿ n̿ o̿ p̿ q̿ r̿ s̿ t̿ u̿ v̿ w̿ x̿ y̿ z̿}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̿ ɑ̿ ɒ̿ æ̿ ɔ̿ ə̿ ɘ̿ ɛ̿ ɜ̿ ɞ̿ ɤ̿ ɪ̿ ɨ̿ ʉ̿ ʊ̿ ʌ̿ ø̿ ɵ̿ œ̿ ʏ̿ ɯ̿ ŋ̿ ɲ̿ ɳ̿ ʃ̿ ʒ̿ ɾ̿ ɹ̿ β̿ ð̿ θ̿ ɣ̿ χ̿ ʔ̿}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax a̿ b̿ c̿ d̿ e̿ f̿ g̿ h̿ i̿ j̿ k̿ l̿ m̿ n̿ o̿ p̿ q̿ r̿ s̿ t̿ u̿ v̿ w̿ x̿ y̿ z̿}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐ̿ ɑ̿ ɒ̿ æ̿ ɔ̿ ə̿ ɘ̿ ɛ̿ ɜ̿ ɞ̿ ɤ̿ ɪ̿ ɨ̿ ʉ̿ ʊ̿ ʌ̿ ø̿ ɵ̿ œ̿ ʏ̿ ɯ̿ ŋ̿ ɲ̿ ɳ̿ ʃ̿ ʒ̿ ɾ̿ ɹ̿ β̿ ð̿ θ̿ ɣ̿ χ̿ ʔ̿}
+\medskip\textbf{combining letter o} U+0366 \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax aͦ bͦ cͦ dͦ eͦ fͦ gͦ hͦ iͦ jͦ kͦ lͦ mͦ nͦ oͦ pͦ qͦ rͦ sͦ tͦ uͦ vͦ wͦ xͦ yͦ zͦ}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͦ ɑͦ ɒͦ æͦ ɔͦ əͦ ɘͦ ɛͦ ɜͦ ɞͦ ɤͦ ɪͦ ɨͦ ʉͦ ʊͦ ʌͦ øͦ ɵͦ œͦ ʏͦ ɯͦ ŋͦ ɲͦ ɳͦ ʃͦ ʒͦ ɾͦ ɹͦ βͦ ðͦ θͦ ɣͦ χͦ ʔͦ}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax aͦ bͦ cͦ dͦ eͦ fͦ gͦ hͦ iͦ jͦ kͦ lͦ mͦ nͦ oͦ pͦ qͦ rͦ sͦ tͦ uͦ vͦ wͦ xͦ yͦ zͦ}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐͦ ɑͦ ɒͦ æͦ ɔͦ əͦ ɘͦ ɛͦ ɜͦ ɞͦ ɤͦ ɪͦ ɨͦ ʉͦ ʊͦ ʌͦ øͦ ɵͦ œͦ ʏͦ ɯͦ ŋͦ ɲͦ ɳͦ ʃͦ ʒͦ ɾͦ ɹͦ βͦ ðͦ θͦ ɣͦ χͦ ʔͦ}
+\medskip\textbf{dot above} U+0307 \quad {\small $k - K = +3$: exact moves the mark 3 left}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\medskip\textbf{ring above} U+030A \quad {\small $k - K = +3$: exact moves the mark 3 left}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\medskip\textbf{bridge above} U+0346 \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax a͆ b͆ c͆ d͆ e͆ f͆ g͆ h͆ i͆ j͆ k͆ l͆ m͆ n͆ o͆ p͆ q͆ r͆ s͆ t͆ u͆ v͆ w͆ x͆ y͆ z͆}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ͆ ɑ͆ ɒ͆ æ͆ ɔ͆ ə͆ ɘ͆ ɛ͆ ɜ͆ ɞ͆ ɤ͆ ɪ͆ ɨ͆ ʉ͆ ʊ͆ ʌ͆ ø͆ ɵ͆ œ͆ ʏ͆ ɯ͆ ŋ͆ ɲ͆ ɳ͆ ʃ͆ ʒ͆ ɾ͆ ɹ͆ β͆ ð͆ θ͆ ɣ͆ χ͆ ʔ͆}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax a͆ b͆ c͆ d͆ e͆ f͆ g͆ h͆ i͆ j͆ k͆ l͆ m͆ n͆ o͆ p͆ q͆ r͆ s͆ t͆ u͆ v͆ w͆ x͆ y͆ z͆}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐ͆ ɑ͆ ɒ͆ æ͆ ɔ͆ ə͆ ɘ͆ ɛ͆ ɜ͆ ɞ͆ ɤ͆ ɪ͆ ɨ͆ ʉ͆ ʊ͆ ʌ͆ ø͆ ɵ͆ œ͆ ʏ͆ ɯ͆ ŋ͆ ɲ͆ ɳ͆ ʃ͆ ʒ͆ ɾ͆ ɹ͆ β͆ ð͆ θ͆ ɣ͆ χ͆ ʔ͆}
+\medskip\textbf{combining letter d} U+0369 \quad {\small $k - K = +3$: exact moves the mark 3 left}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax aͩ bͩ cͩ dͩ eͩ fͩ gͩ hͩ iͩ jͩ kͩ lͩ mͩ nͩ oͩ pͩ qͩ rͩ sͩ tͩ uͩ vͩ wͩ xͩ yͩ zͩ}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͩ ɑͩ ɒͩ æͩ ɔͩ əͩ ɘͩ ɛͩ ɜͩ ɞͩ ɤͩ ɪͩ ɨͩ ʉͩ ʊͩ ʌͩ øͩ ɵͩ œͩ ʏͩ ɯͩ ŋͩ ɲͩ ɳͩ ʃͩ ʒͩ ɾͩ ɹͩ βͩ ðͩ θͩ ɣͩ χͩ ʔͩ}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax aͩ bͩ cͩ dͩ eͩ fͩ gͩ hͩ iͩ jͩ kͩ lͩ mͩ nͩ oͩ pͩ qͩ rͩ sͩ tͩ uͩ vͩ wͩ xͩ yͩ zͩ}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐͩ ɑͩ ɒͩ æͩ ɔͩ əͩ ɘͩ ɛͩ ɜͩ ɞͩ ɤͩ ɪͩ ɨͩ ʉͩ ʊͩ ʌͩ øͩ ɵͩ œͩ ʏͩ ɯͩ ŋͩ ɲͩ ɳͩ ʃͩ ʒͩ ɾͩ ɹͩ βͩ ðͩ θͩ ɣͩ χͩ ʔͩ}
+\medskip\textbf{combining letter t} U+036D \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax aͭ bͭ cͭ dͭ eͭ fͭ gͭ hͭ iͭ jͭ kͭ lͭ mͭ nͭ oͭ pͭ qͭ rͭ sͭ tͭ uͭ vͭ wͭ xͭ yͭ zͭ}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐͭ ɑͭ ɒͭ æͭ ɔͭ əͭ ɘͭ ɛͭ ɜͭ ɞͭ ɤͭ ɪͭ ɨͭ ʉͭ ʊͭ ʌͭ øͭ ɵͭ œͭ ʏͭ ɯͭ ŋͭ ɲͭ ɳͭ ʃͭ ʒͭ ɾͭ ɹͭ βͭ ðͭ θͭ ɣͭ χͭ ʔͭ}
+\row{exact}{\ExI\fontsize{16}{24}\selectfont\relax aͭ bͭ cͭ dͭ eͭ fͭ gͭ hͭ iͭ jͭ kͭ lͭ mͭ nͭ oͭ pͭ qͭ rͭ sͭ tͭ uͭ vͭ wͭ xͭ yͭ zͭ}
+\row{}{\ExI\fontsize{16}{24}\selectfont\relax ɐͭ ɑͭ ɒͭ æͭ ɔͭ əͭ ɘͭ ɛͭ ɜͭ ɞͭ ɤͭ ɪͭ ɨͭ ʉͭ ʊͭ ʌͭ øͭ ɵͭ œͭ ʏͭ ɯͭ ŋͭ ɲͭ ɳͭ ʃͭ ʒͭ ɾͭ ɹͭ βͭ ðͭ θͭ ɣͭ χͭ ʔͭ}
+\clearpage
+\subsection*{Semibold}
+\medskip\textbf{combining letter i} U+0365 \quad {\small $k - K = -7$: exact moves the mark 7 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax aͥ bͥ cͥ dͥ eͥ fͥ gͥ hͥ iͥ jͥ kͥ lͥ mͥ nͥ oͥ pͥ qͥ rͥ sͥ tͥ uͥ vͥ wͥ xͥ yͥ zͥ}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͥ ɑͥ ɒͥ æͥ ɔͥ əͥ ɘͥ ɛͥ ɜͥ ɞͥ ɤͥ ɪͥ ɨͥ ʉͥ ʊͥ ʌͥ øͥ ɵͥ œͥ ʏͥ ɯͥ ŋͥ ɲͥ ɳͥ ʃͥ ʒͥ ɾͥ ɹͥ βͥ ðͥ θͥ ɣͥ χͥ ʔͥ}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax aͥ bͥ cͥ dͥ eͥ fͥ gͥ hͥ iͥ jͥ kͥ lͥ mͥ nͥ oͥ pͥ qͥ rͥ sͥ tͥ uͥ vͥ wͥ xͥ yͥ zͥ}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐͥ ɑͥ ɒͥ æͥ ɔͥ əͥ ɘͥ ɛͥ ɜͥ ɞͥ ɤͥ ɪͥ ɨͥ ʉͥ ʊͥ ʌͥ øͥ ɵͥ œͥ ʏͥ ɯͥ ŋͥ ɲͥ ɳͥ ʃͥ ʒͥ ɾͥ ɹͥ βͥ ðͥ θͥ ɣͥ χͥ ʔͥ}
+\medskip\textbf{combining letter r} U+036C \quad {\small $k - K = -7$: exact moves the mark 7 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax aͬ bͬ cͬ dͬ eͬ fͬ gͬ hͬ iͬ jͬ kͬ lͬ mͬ nͬ oͬ pͬ qͬ rͬ sͬ tͬ uͬ vͬ wͬ xͬ yͬ zͬ}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͬ ɑͬ ɒͬ æͬ ɔͬ əͬ ɘͬ ɛͬ ɜͬ ɞͬ ɤͬ ɪͬ ɨͬ ʉͬ ʊͬ ʌͬ øͬ ɵͬ œͬ ʏͬ ɯͬ ŋͬ ɲͬ ɳͬ ʃͬ ʒͬ ɾͬ ɹͬ βͬ ðͬ θͬ ɣͬ χͬ ʔͬ}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax aͬ bͬ cͬ dͬ eͬ fͬ gͬ hͬ iͬ jͬ kͬ lͬ mͬ nͬ oͬ pͬ qͬ rͬ sͬ tͬ uͬ vͬ wͬ xͬ yͬ zͬ}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐͬ ɑͬ ɒͬ æͬ ɔͬ əͬ ɘͬ ɛͬ ɜͬ ɞͬ ɤͬ ɪͬ ɨͬ ʉͬ ʊͬ ʌͬ øͬ ɵͬ œͬ ʏͬ ɯͬ ŋͬ ɲͬ ɳͬ ʃͬ ʒͬ ɾͬ ɹͬ βͬ ðͬ θͬ ɣͬ χͬ ʔͬ}
+\medskip\textbf{macron} U+0304 \quad {\small $k - K = +6$: exact moves the mark 6 left}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\medskip\textbf{combining letter a} U+0363 \quad {\small $k - K = +6$: exact moves the mark 6 left}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax aͣ bͣ cͣ dͣ eͣ fͣ gͣ hͣ iͣ jͣ kͣ lͣ mͣ nͣ oͣ pͣ qͣ rͣ sͣ tͣ uͣ vͣ wͣ xͣ yͣ zͣ}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͣ ɑͣ ɒͣ æͣ ɔͣ əͣ ɘͣ ɛͣ ɜͣ ɞͣ ɤͣ ɪͣ ɨͣ ʉͣ ʊͣ ʌͣ øͣ ɵͣ œͣ ʏͣ ɯͣ ŋͣ ɲͣ ɳͣ ʃͣ ʒͣ ɾͣ ɹͣ βͣ ðͣ θͣ ɣͣ χͣ ʔͣ}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax aͣ bͣ cͣ dͣ eͣ fͣ gͣ hͣ iͣ jͣ kͣ lͣ mͣ nͣ oͣ pͣ qͣ rͣ sͣ tͣ uͣ vͣ wͣ xͣ yͣ zͣ}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐͣ ɑͣ ɒͣ æͣ ɔͣ əͣ ɘͣ ɛͣ ɜͣ ɞͣ ɤͣ ɪͣ ɨͣ ʉͣ ʊͣ ʌͣ øͣ ɵͣ œͣ ʏͣ ɯͣ ŋͣ ɲͣ ɳͣ ʃͣ ʒͣ ɾͣ ɹͣ βͣ ðͣ θͣ ɣͣ χͣ ʔͣ}
+\medskip\textbf{double overline} U+033F \quad {\small $k - K = -5$: exact moves the mark 5 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax a̿ b̿ c̿ d̿ e̿ f̿ g̿ h̿ i̿ j̿ k̿ l̿ m̿ n̿ o̿ p̿ q̿ r̿ s̿ t̿ u̿ v̿ w̿ x̿ y̿ z̿}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̿ ɑ̿ ɒ̿ æ̿ ɔ̿ ə̿ ɘ̿ ɛ̿ ɜ̿ ɞ̿ ɤ̿ ɪ̿ ɨ̿ ʉ̿ ʊ̿ ʌ̿ ø̿ ɵ̿ œ̿ ʏ̿ ɯ̿ ŋ̿ ɲ̿ ɳ̿ ʃ̿ ʒ̿ ɾ̿ ɹ̿ β̿ ð̿ θ̿ ɣ̿ χ̿ ʔ̿}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax a̿ b̿ c̿ d̿ e̿ f̿ g̿ h̿ i̿ j̿ k̿ l̿ m̿ n̿ o̿ p̿ q̿ r̿ s̿ t̿ u̿ v̿ w̿ x̿ y̿ z̿}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐ̿ ɑ̿ ɒ̿ æ̿ ɔ̿ ə̿ ɘ̿ ɛ̿ ɜ̿ ɞ̿ ɤ̿ ɪ̿ ɨ̿ ʉ̿ ʊ̿ ʌ̿ ø̿ ɵ̿ œ̿ ʏ̿ ɯ̿ ŋ̿ ɲ̿ ɳ̿ ʃ̿ ʒ̿ ɾ̿ ɹ̿ β̿ ð̿ θ̿ ɣ̿ χ̿ ʔ̿}
+\medskip\textbf{combining letter v} U+036E \quad {\small $k - K = -5$: exact moves the mark 5 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax aͮ bͮ cͮ dͮ eͮ fͮ gͮ hͮ iͮ jͮ kͮ lͮ mͮ nͮ oͮ pͮ qͮ rͮ sͮ tͮ uͮ vͮ wͮ xͮ yͮ zͮ}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͮ ɑͮ ɒͮ æͮ ɔͮ əͮ ɘͮ ɛͮ ɜͮ ɞͮ ɤͮ ɪͮ ɨͮ ʉͮ ʊͮ ʌͮ øͮ ɵͮ œͮ ʏͮ ɯͮ ŋͮ ɲͮ ɳͮ ʃͮ ʒͮ ɾͮ ɹͮ βͮ ðͮ θͮ ɣͮ χͮ ʔͮ}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax aͮ bͮ cͮ dͮ eͮ fͮ gͮ hͮ iͮ jͮ kͮ lͮ mͮ nͮ oͮ pͮ qͮ rͮ sͮ tͮ uͮ vͮ wͮ xͮ yͮ zͮ}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐͮ ɑͮ ɒͮ æͮ ɔͮ əͮ ɘͮ ɛͮ ɜͮ ɞͮ ɤͮ ɪͮ ɨͮ ʉͮ ʊͮ ʌͮ øͮ ɵͮ œͮ ʏͮ ɯͮ ŋͮ ɲͮ ɳͮ ʃͮ ʒͮ ɾͮ ɹͮ βͮ ðͮ θͮ ɣͮ χͮ ʔͮ}
+\medskip\textbf{tilde} U+0303 \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\medskip\textbf{candrabindu} U+0310 \quad {\small $k - K = +4$: exact moves the mark 4 left}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax a̐ b̐ c̐ d̐ e̐ f̐ g̐ h̐ i̐ j̐ k̐ l̐ m̐ n̐ o̐ p̐ q̐ r̐ s̐ t̐ u̐ v̐ w̐ x̐ y̐ z̐}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̐ ɑ̐ ɒ̐ æ̐ ɔ̐ ə̐ ɘ̐ ɛ̐ ɜ̐ ɞ̐ ɤ̐ ɪ̐ ɨ̐ ʉ̐ ʊ̐ ʌ̐ ø̐ ɵ̐ œ̐ ʏ̐ ɯ̐ ŋ̐ ɲ̐ ɳ̐ ʃ̐ ʒ̐ ɾ̐ ɹ̐ β̐ ð̐ θ̐ ɣ̐ χ̐ ʔ̐}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax a̐ b̐ c̐ d̐ e̐ f̐ g̐ h̐ i̐ j̐ k̐ l̐ m̐ n̐ o̐ p̐ q̐ r̐ s̐ t̐ u̐ v̐ w̐ x̐ y̐ z̐}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐ̐ ɑ̐ ɒ̐ æ̐ ɔ̐ ə̐ ɘ̐ ɛ̐ ɜ̐ ɞ̐ ɤ̐ ɪ̐ ɨ̐ ʉ̐ ʊ̐ ʌ̐ ø̐ ɵ̐ œ̐ ʏ̐ ɯ̐ ŋ̐ ɲ̐ ɳ̐ ʃ̐ ʒ̐ ɾ̐ ɹ̐ β̐ ð̐ θ̐ ɣ̐ χ̐ ʔ̐}
+\medskip\textbf{x above} U+033D \quad {\small $k - K = +4$: exact moves the mark 4 left}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax a̽ b̽ c̽ d̽ e̽ f̽ g̽ h̽ i̽ j̽ k̽ l̽ m̽ n̽ o̽ p̽ q̽ r̽ s̽ t̽ u̽ v̽ w̽ x̽ y̽ z̽}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̽ ɑ̽ ɒ̽ æ̽ ɔ̽ ə̽ ɘ̽ ɛ̽ ɜ̽ ɞ̽ ɤ̽ ɪ̽ ɨ̽ ʉ̽ ʊ̽ ʌ̽ ø̽ ɵ̽ œ̽ ʏ̽ ɯ̽ ŋ̽ ɲ̽ ɳ̽ ʃ̽ ʒ̽ ɾ̽ ɹ̽ β̽ ð̽ θ̽ ɣ̽ χ̽ ʔ̽}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax a̽ b̽ c̽ d̽ e̽ f̽ g̽ h̽ i̽ j̽ k̽ l̽ m̽ n̽ o̽ p̽ q̽ r̽ s̽ t̽ u̽ v̽ w̽ x̽ y̽ z̽}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐ̽ ɑ̽ ɒ̽ æ̽ ɔ̽ ə̽ ɘ̽ ɛ̽ ɜ̽ ɞ̽ ɤ̽ ɪ̽ ɨ̽ ʉ̽ ʊ̽ ʌ̽ ø̽ ɵ̽ œ̽ ʏ̽ ɯ̽ ŋ̽ ɲ̽ ɳ̽ ʃ̽ ʒ̽ ɾ̽ ɹ̽ β̽ ð̽ θ̽ ɣ̽ χ̽ ʔ̽}
+\medskip\textbf{bridge above} U+0346 \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax a͆ b͆ c͆ d͆ e͆ f͆ g͆ h͆ i͆ j͆ k͆ l͆ m͆ n͆ o͆ p͆ q͆ r͆ s͆ t͆ u͆ v͆ w͆ x͆ y͆ z͆}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ͆ ɑ͆ ɒ͆ æ͆ ɔ͆ ə͆ ɘ͆ ɛ͆ ɜ͆ ɞ͆ ɤ͆ ɪ͆ ɨ͆ ʉ͆ ʊ͆ ʌ͆ ø͆ ɵ͆ œ͆ ʏ͆ ɯ͆ ŋ͆ ɲ͆ ɳ͆ ʃ͆ ʒ͆ ɾ͆ ɹ͆ β͆ ð͆ θ͆ ɣ͆ χ͆ ʔ͆}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax a͆ b͆ c͆ d͆ e͆ f͆ g͆ h͆ i͆ j͆ k͆ l͆ m͆ n͆ o͆ p͆ q͆ r͆ s͆ t͆ u͆ v͆ w͆ x͆ y͆ z͆}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐ͆ ɑ͆ ɒ͆ æ͆ ɔ͆ ə͆ ɘ͆ ɛ͆ ɜ͆ ɞ͆ ɤ͆ ɪ͆ ɨ͆ ʉ͆ ʊ͆ ʌ͆ ø͆ ɵ͆ œ͆ ʏ͆ ɯ͆ ŋ͆ ɲ͆ ɳ͆ ʃ͆ ʒ͆ ɾ͆ ɹ͆ β͆ ð͆ θ͆ ɣ͆ χ͆ ʔ͆}
+\medskip\textbf{almost equal to above} U+034C \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax a͌ b͌ c͌ d͌ e͌ f͌ g͌ h͌ i͌ j͌ k͌ l͌ m͌ n͌ o͌ p͌ q͌ r͌ s͌ t͌ u͌ v͌ w͌ x͌ y͌ z͌}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ͌ ɑ͌ ɒ͌ æ͌ ɔ͌ ə͌ ɘ͌ ɛ͌ ɜ͌ ɞ͌ ɤ͌ ɪ͌ ɨ͌ ʉ͌ ʊ͌ ʌ͌ ø͌ ɵ͌ œ͌ ʏ͌ ɯ͌ ŋ͌ ɲ͌ ɳ͌ ʃ͌ ʒ͌ ɾ͌ ɹ͌ β͌ ð͌ θ͌ ɣ͌ χ͌ ʔ͌}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax a͌ b͌ c͌ d͌ e͌ f͌ g͌ h͌ i͌ j͌ k͌ l͌ m͌ n͌ o͌ p͌ q͌ r͌ s͌ t͌ u͌ v͌ w͌ x͌ y͌ z͌}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐ͌ ɑ͌ ɒ͌ æ͌ ɔ͌ ə͌ ɘ͌ ɛ͌ ɜ͌ ɞ͌ ɤ͌ ɪ͌ ɨ͌ ʉ͌ ʊ͌ ʌ͌ ø͌ ɵ͌ œ͌ ʏ͌ ɯ͌ ŋ͌ ɲ͌ ɳ͌ ʃ͌ ʒ͌ ɾ͌ ɹ͌ β͌ ð͌ θ͌ ɣ͌ χ͌ ʔ͌}
+\medskip\textbf{combining letter o} U+0366 \quad {\small $k - K = -4$: exact moves the mark 4 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax aͦ bͦ cͦ dͦ eͦ fͦ gͦ hͦ iͦ jͦ kͦ lͦ mͦ nͦ oͦ pͦ qͦ rͦ sͦ tͦ uͦ vͦ wͦ xͦ yͦ zͦ}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͦ ɑͦ ɒͦ æͦ ɔͦ əͦ ɘͦ ɛͦ ɜͦ ɞͦ ɤͦ ɪͦ ɨͦ ʉͦ ʊͦ ʌͦ øͦ ɵͦ œͦ ʏͦ ɯͦ ŋͦ ɲͦ ɳͦ ʃͦ ʒͦ ɾͦ ɹͦ βͦ ðͦ θͦ ɣͦ χͦ ʔͦ}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax aͦ bͦ cͦ dͦ eͦ fͦ gͦ hͦ iͦ jͦ kͦ lͦ mͦ nͦ oͦ pͦ qͦ rͦ sͦ tͦ uͦ vͦ wͦ xͦ yͦ zͦ}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐͦ ɑͦ ɒͦ æͦ ɔͦ əͦ ɘͦ ɛͦ ɜͦ ɞͦ ɤͦ ɪͦ ɨͦ ʉͦ ʊͦ ʌͦ øͦ ɵͦ œͦ ʏͦ ɯͦ ŋͦ ɲͦ ɳͦ ʃͦ ʒͦ ɾͦ ɹͦ βͦ ðͦ θͦ ɣͦ χͦ ʔͦ}
+\medskip\textbf{inverted breve} U+0311 \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ȃ} b̑ c̑ d̑ \PC{ȇ} f̑ g̑ h̑ \PC{ȋ} j̑ k̑ l̑ m̑ n̑ \PC{ȏ} p̑ q̑ \PC{ȓ} s̑ t̑ \PC{ȗ} v̑ w̑ x̑ y̑ z̑}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̑ ɑ̑ ɒ̑ æ̑ ɔ̑ ə̑ ɘ̑ ɛ̑ ɜ̑ ɞ̑ ɤ̑ ɪ̑ ɨ̑ ʉ̑ ʊ̑ ʌ̑ ø̑ ɵ̑ œ̑ ʏ̑ ɯ̑ ŋ̑ ɲ̑ ɳ̑ ʃ̑ ʒ̑ ɾ̑ ɹ̑ β̑ ð̑ θ̑ ɣ̑ χ̑ ʔ̑}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax \PC{ȃ} b̑ c̑ d̑ \PC{ȇ} f̑ g̑ h̑ \PC{ȋ} j̑ k̑ l̑ m̑ n̑ \PC{ȏ} p̑ q̑ \PC{ȓ} s̑ t̑ \PC{ȗ} v̑ w̑ x̑ y̑ z̑}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐ̑ ɑ̑ ɒ̑ æ̑ ɔ̑ ə̑ ɘ̑ ɛ̑ ɜ̑ ɞ̑ ɤ̑ ɪ̑ ɨ̑ ʉ̑ ʊ̑ ʌ̑ ø̑ ɵ̑ œ̑ ʏ̑ ɯ̑ ŋ̑ ɲ̑ ɳ̑ ʃ̑ ʒ̑ ɾ̑ ɹ̑ β̑ ð̑ θ̑ ɣ̑ χ̑ ʔ̑}
+\medskip\textbf{combining letter t} U+036D \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax aͭ bͭ cͭ dͭ eͭ fͭ gͭ hͭ iͭ jͭ kͭ lͭ mͭ nͭ oͭ pͭ qͭ rͭ sͭ tͭ uͭ vͭ wͭ xͭ yͭ zͭ}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͭ ɑͭ ɒͭ æͭ ɔͭ əͭ ɘͭ ɛͭ ɜͭ ɞͭ ɤͭ ɪͭ ɨͭ ʉͭ ʊͭ ʌͭ øͭ ɵͭ œͭ ʏͭ ɯͭ ŋͭ ɲͭ ɳͭ ʃͭ ʒͭ ɾͭ ɹͭ βͭ ðͭ θͭ ɣͭ χͭ ʔͭ}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax aͭ bͭ cͭ dͭ eͭ fͭ gͭ hͭ iͭ jͭ kͭ lͭ mͭ nͭ oͭ pͭ qͭ rͭ sͭ tͭ uͭ vͭ wͭ xͭ yͭ zͭ}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐͭ ɑͭ ɒͭ æͭ ɔͭ əͭ ɘͭ ɛͭ ɜͭ ɞͭ ɤͭ ɪͭ ɨͭ ʉͭ ʊͭ ʌͭ øͭ ɵͭ œͭ ʏͭ ɯͭ ŋͭ ɲͭ ɳͭ ʃͭ ʒͭ ɾͭ ɹͭ βͭ ðͭ θͭ ɣͭ χͭ ʔͭ}
+\medskip\textbf{combining letter x} U+036F \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax aͯ bͯ cͯ dͯ eͯ fͯ gͯ hͯ iͯ jͯ kͯ lͯ mͯ nͯ oͯ pͯ qͯ rͯ sͯ tͯ uͯ vͯ wͯ xͯ yͯ zͯ}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͯ ɑͯ ɒͯ æͯ ɔͯ əͯ ɘͯ ɛͯ ɜͯ ɞͯ ɤͯ ɪͯ ɨͯ ʉͯ ʊͯ ʌͯ øͯ ɵͯ œͯ ʏͯ ɯͯ ŋͯ ɲͯ ɳͯ ʃͯ ʒͯ ɾͯ ɹͯ βͯ ðͯ θͯ ɣͯ χͯ ʔͯ}
+\row{exact}{\ExB\fontsize{16}{24}\selectfont\relax aͯ bͯ cͯ dͯ eͯ fͯ gͯ hͯ iͯ jͯ kͯ lͯ mͯ nͯ oͯ pͯ qͯ rͯ sͯ tͯ uͯ vͯ wͯ xͯ yͯ zͯ}
+\row{}{\ExB\fontsize{16}{24}\selectfont\relax ɐͯ ɑͯ ɒͯ æͯ ɔͯ əͯ ɘͯ ɛͯ ɜͯ ɞͯ ɤͯ ɪͯ ɨͯ ʉͯ ʊͯ ʌͯ øͯ ɵͯ œͯ ʏͯ ɯͯ ŋͯ ɲͯ ɳͯ ʃͯ ʒͯ ɾͯ ɹͯ βͯ ðͯ θͯ ɣͯ χͯ ʔͯ}
+\clearpage
+\subsection*{Semibold italic}
+\medskip\textbf{combining letter x} U+036F \quad {\small $k - K = -10$: exact moves the mark 10 right}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax aͯ bͯ cͯ dͯ eͯ fͯ gͯ hͯ iͯ jͯ kͯ lͯ mͯ nͯ oͯ pͯ qͯ rͯ sͯ tͯ uͯ vͯ wͯ xͯ yͯ zͯ}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͯ ɑͯ ɒͯ æͯ ɔͯ əͯ ɘͯ ɛͯ ɜͯ ɞͯ ɤͯ ɪͯ ɨͯ ʉͯ ʊͯ ʌͯ øͯ ɵͯ œͯ ʏͯ ɯͯ ŋͯ ɲͯ ɳͯ ʃͯ ʒͯ ɾͯ ɹͯ βͯ ðͯ θͯ ɣͯ χͯ ʔͯ}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax aͯ bͯ cͯ dͯ eͯ fͯ gͯ hͯ iͯ jͯ kͯ lͯ mͯ nͯ oͯ pͯ qͯ rͯ sͯ tͯ uͯ vͯ wͯ xͯ yͯ zͯ}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐͯ ɑͯ ɒͯ æͯ ɔͯ əͯ ɘͯ ɛͯ ɜͯ ɞͯ ɤͯ ɪͯ ɨͯ ʉͯ ʊͯ ʌͯ øͯ ɵͯ œͯ ʏͯ ɯͯ ŋͯ ɲͯ ɳͯ ʃͯ ʒͯ ɾͯ ɹͯ βͯ ðͯ θͯ ɣͯ χͯ ʔͯ}
+\medskip\textbf{macron} U+0304 \quad {\small $k - K = -9$: exact moves the mark 9 right}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\medskip\textbf{double vertical line above} U+030E \quad {\small $k - K = +9$: exact moves the mark 9 left}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax a̎ b̎ c̎ d̎ e̎ f̎ g̎ h̎ i̎ j̎ k̎ l̎ m̎ n̎ o̎ p̎ q̎ r̎ s̎ t̎ u̎ v̎ w̎ x̎ y̎ z̎}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̎ ɑ̎ ɒ̎ æ̎ ɔ̎ ə̎ ɘ̎ ɛ̎ ɜ̎ ɞ̎ ɤ̎ ɪ̎ ɨ̎ ʉ̎ ʊ̎ ʌ̎ ø̎ ɵ̎ œ̎ ʏ̎ ɯ̎ ŋ̎ ɲ̎ ɳ̎ ʃ̎ ʒ̎ ɾ̎ ɹ̎ β̎ ð̎ θ̎ ɣ̎ χ̎ ʔ̎}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax a̎ b̎ c̎ d̎ e̎ f̎ g̎ h̎ i̎ j̎ k̎ l̎ m̎ n̎ o̎ p̎ q̎ r̎ s̎ t̎ u̎ v̎ w̎ x̎ y̎ z̎}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ̎ ɑ̎ ɒ̎ æ̎ ɔ̎ ə̎ ɘ̎ ɛ̎ ɜ̎ ɞ̎ ɤ̎ ɪ̎ ɨ̎ ʉ̎ ʊ̎ ʌ̎ ø̎ ɵ̎ œ̎ ʏ̎ ɯ̎ ŋ̎ ɲ̎ ɳ̎ ʃ̎ ʒ̎ ɾ̎ ɹ̎ β̎ ð̎ θ̎ ɣ̎ χ̎ ʔ̎}
+\medskip\textbf{not tilde above} U+034A \quad {\small $k - K = -9$: exact moves the mark 9 right}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax a͊ b͊ c͊ d͊ e͊ f͊ g͊ h͊ i͊ j͊ k͊ l͊ m͊ n͊ o͊ p͊ q͊ r͊ s͊ t͊ u͊ v͊ w͊ x͊ y͊ z͊}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ͊ ɑ͊ ɒ͊ æ͊ ɔ͊ ə͊ ɘ͊ ɛ͊ ɜ͊ ɞ͊ ɤ͊ ɪ͊ ɨ͊ ʉ͊ ʊ͊ ʌ͊ ø͊ ɵ͊ œ͊ ʏ͊ ɯ͊ ŋ͊ ɲ͊ ɳ͊ ʃ͊ ʒ͊ ɾ͊ ɹ͊ β͊ ð͊ θ͊ ɣ͊ χ͊ ʔ͊}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax a͊ b͊ c͊ d͊ e͊ f͊ g͊ h͊ i͊ j͊ k͊ l͊ m͊ n͊ o͊ p͊ q͊ r͊ s͊ t͊ u͊ v͊ w͊ x͊ y͊ z͊}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ͊ ɑ͊ ɒ͊ æ͊ ɔ͊ ə͊ ɘ͊ ɛ͊ ɜ͊ ɞ͊ ɤ͊ ɪ͊ ɨ͊ ʉ͊ ʊ͊ ʌ͊ ø͊ ɵ͊ œ͊ ʏ͊ ɯ͊ ŋ͊ ɲ͊ ɳ͊ ʃ͊ ʒ͊ ɾ͊ ɹ͊ β͊ ð͊ θ͊ ɣ͊ χ͊ ʔ͊}
+\medskip\textbf{combining letter u} U+0367 \quad {\small $k - K = -9$: exact moves the mark 9 right}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax aͧ bͧ cͧ dͧ eͧ fͧ gͧ hͧ iͧ jͧ kͧ lͧ mͧ nͧ oͧ pͧ qͧ rͧ sͧ tͧ uͧ vͧ wͧ xͧ yͧ zͧ}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͧ ɑͧ ɒͧ æͧ ɔͧ əͧ ɘͧ ɛͧ ɜͧ ɞͧ ɤͧ ɪͧ ɨͧ ʉͧ ʊͧ ʌͧ øͧ ɵͧ œͧ ʏͧ ɯͧ ŋͧ ɲͧ ɳͧ ʃͧ ʒͧ ɾͧ ɹͧ βͧ ðͧ θͧ ɣͧ χͧ ʔͧ}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax aͧ bͧ cͧ dͧ eͧ fͧ gͧ hͧ iͧ jͧ kͧ lͧ mͧ nͧ oͧ pͧ qͧ rͧ sͧ tͧ uͧ vͧ wͧ xͧ yͧ zͧ}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐͧ ɑͧ ɒͧ æͧ ɔͧ əͧ ɘͧ ɛͧ ɜͧ ɞͧ ɤͧ ɪͧ ɨͧ ʉͧ ʊͧ ʌͧ øͧ ɵͧ œͧ ʏͧ ɯͧ ŋͧ ɲͧ ɳͧ ʃͧ ʒͧ ɾͧ ɹͧ βͧ ðͧ θͧ ɣͧ χͧ ʔͧ}
+\medskip\textbf{combining letter m} U+036B \quad {\small $k - K = -9$: exact moves the mark 9 right}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax aͫ bͫ cͫ dͫ eͫ fͫ gͫ hͫ iͫ jͫ kͫ lͫ mͫ nͫ oͫ pͫ qͫ rͫ sͫ tͫ uͫ vͫ wͫ xͫ yͫ zͫ}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͫ ɑͫ ɒͫ æͫ ɔͫ əͫ ɘͫ ɛͫ ɜͫ ɞͫ ɤͫ ɪͫ ɨͫ ʉͫ ʊͫ ʌͫ øͫ ɵͫ œͫ ʏͫ ɯͫ ŋͫ ɲͫ ɳͫ ʃͫ ʒͫ ɾͫ ɹͫ βͫ ðͫ θͫ ɣͫ χͫ ʔͫ}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax aͫ bͫ cͫ dͫ eͫ fͫ gͫ hͫ iͫ jͫ kͫ lͫ mͫ nͫ oͫ pͫ qͫ rͫ sͫ tͫ uͫ vͫ wͫ xͫ yͫ zͫ}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐͫ ɑͫ ɒͫ æͫ ɔͫ əͫ ɘͫ ɛͫ ɜͫ ɞͫ ɤͫ ɪͫ ɨͫ ʉͫ ʊͫ ʌͫ øͫ ɵͫ œͫ ʏͫ ɯͫ ŋͫ ɲͫ ɳͫ ʃͫ ʒͫ ɾͫ ɹͫ βͫ ðͫ θͫ ɣͫ χͫ ʔͫ}
+\medskip\textbf{vertical line above} U+030D \quad {\small $k - K = +8$: exact moves the mark 8 left}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax a̍ b̍ c̍ d̍ e̍ f̍ g̍ h̍ i̍ j̍ k̍ l̍ m̍ n̍ o̍ p̍ q̍ r̍ s̍ t̍ u̍ v̍ w̍ x̍ y̍ z̍}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̍ ɑ̍ ɒ̍ æ̍ ɔ̍ ə̍ ɘ̍ ɛ̍ ɜ̍ ɞ̍ ɤ̍ ɪ̍ ɨ̍ ʉ̍ ʊ̍ ʌ̍ ø̍ ɵ̍ œ̍ ʏ̍ ɯ̍ ŋ̍ ɲ̍ ɳ̍ ʃ̍ ʒ̍ ɾ̍ ɹ̍ β̍ ð̍ θ̍ ɣ̍ χ̍ ʔ̍}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax a̍ b̍ c̍ d̍ e̍ f̍ g̍ h̍ i̍ j̍ k̍ l̍ m̍ n̍ o̍ p̍ q̍ r̍ s̍ t̍ u̍ v̍ w̍ x̍ y̍ z̍}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ̍ ɑ̍ ɒ̍ æ̍ ɔ̍ ə̍ ɘ̍ ɛ̍ ɜ̍ ɞ̍ ɤ̍ ɪ̍ ɨ̍ ʉ̍ ʊ̍ ʌ̍ ø̍ ɵ̍ œ̍ ʏ̍ ɯ̍ ŋ̍ ɲ̍ ɳ̍ ʃ̍ ʒ̍ ɾ̍ ɹ̍ β̍ ð̍ θ̍ ɣ̍ χ̍ ʔ̍}
+\medskip\textbf{ring above} U+030A \quad {\small $k - K = +7$: exact moves the mark 7 left}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\medskip\textbf{fermata} U+0352 \quad {\small $k - K = -7$: exact moves the mark 7 right}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax a͒ b͒ c͒ d͒ e͒ f͒ g͒ h͒ i͒ j͒ k͒ l͒ m͒ n͒ o͒ p͒ q͒ r͒ s͒ t͒ u͒ v͒ w͒ x͒ y͒ z͒}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ͒ ɑ͒ ɒ͒ æ͒ ɔ͒ ə͒ ɘ͒ ɛ͒ ɜ͒ ɞ͒ ɤ͒ ɪ͒ ɨ͒ ʉ͒ ʊ͒ ʌ͒ ø͒ ɵ͒ œ͒ ʏ͒ ɯ͒ ŋ͒ ɲ͒ ɳ͒ ʃ͒ ʒ͒ ɾ͒ ɹ͒ β͒ ð͒ θ͒ ɣ͒ χ͒ ʔ͒}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax a͒ b͒ c͒ d͒ e͒ f͒ g͒ h͒ i͒ j͒ k͒ l͒ m͒ n͒ o͒ p͒ q͒ r͒ s͒ t͒ u͒ v͒ w͒ x͒ y͒ z͒}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ͒ ɑ͒ ɒ͒ æ͒ ɔ͒ ə͒ ɘ͒ ɛ͒ ɜ͒ ɞ͒ ɤ͒ ɪ͒ ɨ͒ ʉ͒ ʊ͒ ʌ͒ ø͒ ɵ͒ œ͒ ʏ͒ ɯ͒ ŋ͒ ɲ͒ ɳ͒ ʃ͒ ʒ͒ ɾ͒ ɹ͒ β͒ ð͒ θ͒ ɣ͒ χ͒ ʔ͒}
+\medskip\textbf{combining letter d} U+0369 \quad {\small $k - K = -5$: exact moves the mark 5 right}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax aͩ bͩ cͩ dͩ eͩ fͩ gͩ hͩ iͩ jͩ kͩ lͩ mͩ nͩ oͩ pͩ qͩ rͩ sͩ tͩ uͩ vͩ wͩ xͩ yͩ zͩ}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐͩ ɑͩ ɒͩ æͩ ɔͩ əͩ ɘͩ ɛͩ ɜͩ ɞͩ ɤͩ ɪͩ ɨͩ ʉͩ ʊͩ ʌͩ øͩ ɵͩ œͩ ʏͩ ɯͩ ŋͩ ɲͩ ɳͩ ʃͩ ʒͩ ɾͩ ɹͩ βͩ ðͩ θͩ ɣͩ χͩ ʔͩ}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax aͩ bͩ cͩ dͩ eͩ fͩ gͩ hͩ iͩ jͩ kͩ lͩ mͩ nͩ oͩ pͩ qͩ rͩ sͩ tͩ uͩ vͩ wͩ xͩ yͩ zͩ}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐͩ ɑͩ ɒͩ æͩ ɔͩ əͩ ɘͩ ɛͩ ɜͩ ɞͩ ɤͩ ɪͩ ɨͩ ʉͩ ʊͩ ʌͩ øͩ ɵͩ œͩ ʏͩ ɯͩ ŋͩ ɲͩ ɳͩ ʃͩ ʒͩ ɾͩ ɹͩ βͩ ðͩ θͩ ɣͩ χͩ ʔͩ}
+\medskip\textbf{circumflex} U+0302 \quad {\small $k - K = +3$: exact moves the mark 3 left}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{â} b̂ \PC{ĉ} d̂ \PC{ê} f̂ \PC{ĝ} \PC{ĥ} \PC{î} \PC{ĵ} k̂ l̂ m̂ n̂ \PC{ô} p̂ q̂ r̂ \PC{ŝ} t̂ \PC{û} v̂ \PC{ŵ} x̂ \PC{ŷ} \PC{ẑ}}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̂ ɑ̂ ɒ̂ æ̂ ɔ̂ ə̂ ɘ̂ ɛ̂ ɜ̂ ɞ̂ ɤ̂ ɪ̂ ɨ̂ ʉ̂ ʊ̂ ʌ̂ ø̂ ɵ̂ œ̂ ʏ̂ ɯ̂ ŋ̂ ɲ̂ ɳ̂ ʃ̂ ʒ̂ ɾ̂ ɹ̂ β̂ ð̂ θ̂ ɣ̂ χ̂ ʔ̂}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax \PC{â} b̂ \PC{ĉ} d̂ \PC{ê} f̂ \PC{ĝ} \PC{ĥ} \PC{î} \PC{ĵ} k̂ l̂ m̂ n̂ \PC{ô} p̂ q̂ r̂ \PC{ŝ} t̂ \PC{û} v̂ \PC{ŵ} x̂ \PC{ŷ} \PC{ẑ}}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ̂ ɑ̂ ɒ̂ æ̂ ɔ̂ ə̂ ɘ̂ ɛ̂ ɜ̂ ɞ̂ ɤ̂ ɪ̂ ɨ̂ ʉ̂ ʊ̂ ʌ̂ ø̂ ɵ̂ œ̂ ʏ̂ ɯ̂ ŋ̂ ɲ̂ ɳ̂ ʃ̂ ʒ̂ ɾ̂ ɹ̂ β̂ ð̂ θ̂ ɣ̂ χ̂ ʔ̂}
+\medskip\textbf{candrabindu} U+0310 \quad {\small $k - K = +3$: exact moves the mark 3 left}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax a̐ b̐ c̐ d̐ e̐ f̐ g̐ h̐ i̐ j̐ k̐ l̐ m̐ n̐ o̐ p̐ q̐ r̐ s̐ t̐ u̐ v̐ w̐ x̐ y̐ z̐}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̐ ɑ̐ ɒ̐ æ̐ ɔ̐ ə̐ ɘ̐ ɛ̐ ɜ̐ ɞ̐ ɤ̐ ɪ̐ ɨ̐ ʉ̐ ʊ̐ ʌ̐ ø̐ ɵ̐ œ̐ ʏ̐ ɯ̐ ŋ̐ ɲ̐ ɳ̐ ʃ̐ ʒ̐ ɾ̐ ɹ̐ β̐ ð̐ θ̐ ɣ̐ χ̐ ʔ̐}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax a̐ b̐ c̐ d̐ e̐ f̐ g̐ h̐ i̐ j̐ k̐ l̐ m̐ n̐ o̐ p̐ q̐ r̐ s̐ t̐ u̐ v̐ w̐ x̐ y̐ z̐}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ̐ ɑ̐ ɒ̐ æ̐ ɔ̐ ə̐ ɘ̐ ɛ̐ ɜ̐ ɞ̐ ɤ̐ ɪ̐ ɨ̐ ʉ̐ ʊ̐ ʌ̐ ø̐ ɵ̐ œ̐ ʏ̐ ɯ̐ ŋ̐ ɲ̐ ɳ̐ ʃ̐ ʒ̐ ɾ̐ ɹ̐ β̐ ð̐ θ̐ ɣ̐ χ̐ ʔ̐}
+\medskip\textbf{inverted breve} U+0311 \quad {\small $k - K = -3$: exact moves the mark 3 right}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ȃ} b̑ c̑ d̑ \PC{ȇ} f̑ g̑ h̑ \PC{ȋ} j̑ k̑ l̑ m̑ n̑ \PC{ȏ} p̑ q̑ \PC{ȓ} s̑ t̑ \PC{ȗ} v̑ w̑ x̑ y̑ z̑}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̑ ɑ̑ ɒ̑ æ̑ ɔ̑ ə̑ ɘ̑ ɛ̑ ɜ̑ ɞ̑ ɤ̑ ɪ̑ ɨ̑ ʉ̑ ʊ̑ ʌ̑ ø̑ ɵ̑ œ̑ ʏ̑ ɯ̑ ŋ̑ ɲ̑ ɳ̑ ʃ̑ ʒ̑ ɾ̑ ɹ̑ β̑ ð̑ θ̑ ɣ̑ χ̑ ʔ̑}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax \PC{ȃ} b̑ c̑ d̑ \PC{ȇ} f̑ g̑ h̑ \PC{ȋ} j̑ k̑ l̑ m̑ n̑ \PC{ȏ} p̑ q̑ \PC{ȓ} s̑ t̑ \PC{ȗ} v̑ w̑ x̑ y̑ z̑}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ̑ ɑ̑ ɒ̑ æ̑ ɔ̑ ə̑ ɘ̑ ɛ̑ ɜ̑ ɞ̑ ɤ̑ ɪ̑ ɨ̑ ʉ̑ ʊ̑ ʌ̑ ø̑ ɵ̑ œ̑ ʏ̑ ɯ̑ ŋ̑ ɲ̑ ɳ̑ ʃ̑ ʒ̑ ɾ̑ ɹ̑ β̑ ð̑ θ̑ ɣ̑ χ̑ ʔ̑}
+\medskip\textbf{vertical tilde} U+033E \quad {\small $k - K = +3$: exact moves the mark 3 left}\par
+\row{rule}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax a̾ b̾ c̾ d̾ e̾ f̾ g̾ h̾ i̾ j̾ k̾ l̾ m̾ n̾ o̾ p̾ q̾ r̾ s̾ t̾ u̾ v̾ w̾ x̾ y̾ z̾}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̾ ɑ̾ ɒ̾ æ̾ ɔ̾ ə̾ ɘ̾ ɛ̾ ɜ̾ ɞ̾ ɤ̾ ɪ̾ ɨ̾ ʉ̾ ʊ̾ ʌ̾ ø̾ ɵ̾ œ̾ ʏ̾ ɯ̾ ŋ̾ ɲ̾ ɳ̾ ʃ̾ ʒ̾ ɾ̾ ɹ̾ β̾ ð̾ θ̾ ɣ̾ χ̾ ʔ̾}
+\row{exact}{\ExBI\fontsize{16}{24}\selectfont\relax a̾ b̾ c̾ d̾ e̾ f̾ g̾ h̾ i̾ j̾ k̾ l̾ m̾ n̾ o̾ p̾ q̾ r̾ s̾ t̾ u̾ v̾ w̾ x̾ y̾ z̾}
+\row{}{\ExBI\fontsize{16}{24}\selectfont\relax ɐ̾ ɑ̾ ɒ̾ æ̾ ɔ̾ ə̾ ɘ̾ ɛ̾ ɜ̾ ɞ̾ ɤ̾ ɪ̾ ɨ̾ ʉ̾ ʊ̾ ʌ̾ ø̾ ɵ̾ œ̾ ʏ̾ ɯ̾ ŋ̾ ɲ̾ ɳ̾ ʃ̾ ʒ̾ ɾ̾ ɹ̾ β̾ ð̾ θ̾ ɣ̾ χ̾ ʔ̾}
+\end{document}

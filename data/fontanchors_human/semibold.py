@@ -177,6 +177,20 @@ anchors = {
     },
 
     "marks": {
+        # Above marks moved vertically by Delta y (2026-11-09): the median offset, composed (base + CGJ + mark)
+        # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
+        # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
+        # X unchanged (k within 10 of the mark-axis rule, k = K); in the slanted styles X moves by Delta y tan theta.
+        0x0303: { # tilde
+            0: (-133, 693), # was (-133, 679); Delta y +14 (ã ẽ ĩ ñ õ ũ ṽ ỹ, all +14)
+        },
+        0x0304: { # macron
+            0: (-205, 613), # was (-205, 625); Delta y -12 (ā ē ī ō ū ȳ ḡ, all -12)
+        },
+        0x0307: { # dot above
+            0: (-169, 678), # was (-169, 699); Delta y -21 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -20 to -23)
+        },
+
         # Half rings above (2026-11-08): the designer's anchors were class 1 (top_punkt, y 547, 549), raised 96 by
         # stage 1, so they sat 156-158 above the mark's bottom against regular's 126-136, and the marks landed
         # 20-32 low (40-53 above the letter). Now regular's anchor-to-outline offsets (from the outline's centre

@@ -1,0 +1,195 @@
+% Generated: a-z and IPA rows with above marks; blue precomposed, black anchored.
+\documentclass[10pt]{article}
+\usepackage{fontspec}\usepackage{geometry}\usepackage{xcolor}
+\geometry{a4paper,left=1.2cm,right=1.2cm,top=1.2cm,bottom=1.2cm}
+\setlength{\parindent}{0pt}\setlength{\parskip}{2pt}
+\setmainfont{LibertinusSerif-Regular.otf}[Path=../fonts/]
+\newfontfamily\Pt[Path=../fonts/,ItalicFont=LibertinusSerif-Italic-patch.otf,BoldFont=LibertinusSerif-Semibold-patch.otf,
+  BoldItalicFont=LibertinusSerif-SemiboldItalic-patch.otf]{LibertinusSerif-Regular-patch.otf}
+\newfontfamily\TrR[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{trial-regular.otf}
+\newfontfamily\TrI[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{trial-italic.otf}
+\newfontfamily\TrB[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{trial-semibold.otf}
+\newfontfamily\TrBI[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{trial-semibold_italic.otf}
+\definecolor{precomposed}{RGB}{0,60,200}
+\newcommand{\PC}[1]{\textcolor{precomposed}{#1}}
+\newcommand{\row}[2]{\par\makebox[1.3cm][l]{\small #1}{#2\par}}
+\begin{document}
+\section*{Test sheet: above marks on a--z and IPA letters, precomposed and anchored}
+{\color{precomposed}Blue}: the designer's precomposed letter, which is not changed.
+Black: base + mark, placed by the anchors.
+For each style and mark, ``now'' is the patched font; ``trial'' (only where the mark moves) is the patched font with the proposed mark anchor moves:
+the symmetric-mark rule ($k = K$ where $|k-K| \ge 10$) and the vertical moves supported by $\Delta y$ (median, x-height bases, $|\Delta y| \ge 10$, the bases agreeing).
+A move is better where the black letters sit more like the blue ones.
+
+\medskip
+\begin{tabular}{@{}lll@{}}
+
+Regular & macron U+0304 & anchor $(-209, 644) \to (-209, 662)$: Delta y +18\\
+Regular & dot above U+0307 & anchor $(-180, 667) \to (-180, 622)$: Delta y -45\\
+Regular & double acute U+030B & anchor $(-219, 714) \to (-219, 725)$: Delta y +11\\
+Italic & tilde U+0303 & anchor $(-17, 697) \to (-6, 697)$: k 11 to 0\\
+Italic & dot above U+0307 & anchor $(-40, 689) \to (-40, 678)$: Delta y -11\\
+Italic & double acute U+030B & anchor $(-57, 714) \to (-57, 725)$: Delta y +11\\
+Semibold & tilde U+0303 & anchor $(-133, 679) \to (-133, 693)$: Delta y +14\\
+Semibold & macron U+0304 & anchor $(-205, 625) \to (-205, 613)$: Delta y -12\\
+Semibold & dot above U+0307 & anchor $(-169, 699) \to (-169, 678)$: Delta y -21\\
+Semibold & dieresis U+0308 & anchor $(-198, 653) \to (-186, 653)$: k 12 to 0\\
+Semibold italic & tilde U+0303 & anchor $(-134, 700) \to (-145, 700)$: k 139 to 150\\
+Semibold italic & macron U+0304 & anchor $(-209, 645) \to (-209, 613)$: Delta y -32\\
+Semibold italic & dot above U+0307 & anchor $(-180, 667) \to (-180, 678)$: Delta y +11\\
+Semibold italic & dieresis U+0308 & anchor $(-210, 645) \to (-248, 645)$: k 112 to 150\\
+Semibold italic & ring U+030A & anchor $(-184, 708) \to (-184, 731)$: Delta y +23\\
+Semibold italic & double acute U+030B & anchor $(-219, 714) \to (-219, 725)$: Delta y +11\\
+\end{tabular}
+
+Not moved: the italic macron, whose precomposed glyphs disagree ($-1$ on ā ē ḡ, $-32$ on ī ō ū ȳ).
+
+\clearpage
+\subsection*{Regular}
+\medskip\textbf{circumflex} U+0302 \quad {\small not moved}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{â} b̂ \PC{ĉ} d̂ \PC{ê} f̂ \PC{ĝ} \PC{ĥ} \PC{î} \PC{ĵ} k̂ l̂ m̂ n̂ \PC{ô} p̂ q̂ r̂ \PC{ŝ} t̂ \PC{û} v̂ \PC{ŵ} x̂ \PC{ŷ} \PC{ẑ}}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̂ ɑ̂ ɒ̂ æ̂ ɔ̂ ə̂ ɘ̂ ɛ̂ ɜ̂ ɞ̂ ɤ̂ ɪ̂ ɨ̂ ʉ̂ ʊ̂ ʌ̂ ø̂ ɵ̂ œ̂ ʏ̂ ɯ̂ ŋ̂ ɲ̂ ɳ̂ ʃ̂ ʒ̂ ɾ̂ ɹ̂ β̂ ð̂ θ̂ ɣ̂ χ̂ ʔ̂}
+\medskip\textbf{tilde} U+0303 \quad {\small not moved}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\medskip\textbf{macron} U+0304 \quad {\small moved: Delta y +18}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\row{trial}{\TrR\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\TrR\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\medskip\textbf{breve} U+0306 \quad {\small not moved}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ă} b̆ c̆ d̆ \PC{ĕ} f̆ \PC{ğ} h̆ \PC{ĭ} j̆ k̆ l̆ m̆ n̆ \PC{ŏ} p̆ q̆ r̆ s̆ t̆ \PC{ŭ} v̆ w̆ x̆ y̆ z̆}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̆ ɑ̆ ɒ̆ æ̆ ɔ̆ ə̆ ɘ̆ ɛ̆ ɜ̆ ɞ̆ ɤ̆ ɪ̆ ɨ̆ ʉ̆ ʊ̆ ʌ̆ ø̆ ɵ̆ œ̆ ʏ̆ ɯ̆ ŋ̆ ɲ̆ ɳ̆ ʃ̆ ʒ̆ ɾ̆ ɹ̆ β̆ ð̆ θ̆ ɣ̆ χ̆ ʔ̆}
+\medskip\textbf{dot above} U+0307 \quad {\small moved: Delta y -45}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\row{trial}{\TrR\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\TrR\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\medskip\textbf{dieresis} U+0308 \quad {\small not moved}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ä} b̈ c̈ d̈ \PC{ë} f̈ g̈ \PC{ḧ} \PC{ï} j̈ k̈ l̈ m̈ n̈ \PC{ö} p̈ q̈ r̈ s̈ \PC{ẗ} \PC{ü} v̈ \PC{ẅ} \PC{ẍ} \PC{ÿ} z̈}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̈ ɑ̈ ɒ̈ æ̈ ɔ̈ ə̈ ɘ̈ ɛ̈ ɜ̈ ɞ̈ ɤ̈ ɪ̈ ɨ̈ ʉ̈ ʊ̈ ʌ̈ ø̈ ɵ̈ œ̈ ʏ̈ ɯ̈ ŋ̈ ɲ̈ ɳ̈ ʃ̈ ʒ̈ ɾ̈ ɹ̈ β̈ ð̈ θ̈ ɣ̈ χ̈ ʔ̈}
+\medskip\textbf{ring} U+030A \quad {\small not moved}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\medskip\textbf{double acute} U+030B \quad {\small moved: Delta y +11}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax a̋ b̋ c̋ d̋ e̋ f̋ g̋ h̋ i̋ j̋ k̋ l̋ m̋ n̋ \PC{ő} p̋ q̋ r̋ s̋ t̋ \PC{ű} v̋ w̋ x̋ y̋ z̋}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̋ ɑ̋ ɒ̋ æ̋ ɔ̋ ə̋ ɘ̋ ɛ̋ ɜ̋ ɞ̋ ɤ̋ ɪ̋ ɨ̋ ʉ̋ ʊ̋ ʌ̋ ø̋ ɵ̋ œ̋ ʏ̋ ɯ̋ ŋ̋ ɲ̋ ɳ̋ ʃ̋ ʒ̋ ɾ̋ ɹ̋ β̋ ð̋ θ̋ ɣ̋ χ̋ ʔ̋}
+\row{trial}{\TrR\fontsize{16}{24}\selectfont\relax a̋ b̋ c̋ d̋ e̋ f̋ g̋ h̋ i̋ j̋ k̋ l̋ m̋ n̋ \PC{ő} p̋ q̋ r̋ s̋ t̋ \PC{ű} v̋ w̋ x̋ y̋ z̋}
+\row{}{\TrR\fontsize{16}{24}\selectfont\relax ɐ̋ ɑ̋ ɒ̋ æ̋ ɔ̋ ə̋ ɘ̋ ɛ̋ ɜ̋ ɞ̋ ɤ̋ ɪ̋ ɨ̋ ʉ̋ ʊ̋ ʌ̋ ø̋ ɵ̋ œ̋ ʏ̋ ɯ̋ ŋ̋ ɲ̋ ɳ̋ ʃ̋ ʒ̋ ɾ̋ ɹ̋ β̋ ð̋ θ̋ ɣ̋ χ̋ ʔ̋}
+\medskip\textbf{caron} U+030C \quad {\small not moved}\par
+\row{now}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ǎ} b̌ \PC{č} \PC{ď} \PC{ě} f̌ \PC{ǧ} \PC{ȟ} \PC{ǐ} \PC{ǰ} \PC{ǩ} \PC{ľ} m̌ \PC{ň} \PC{ǒ} p̌ q̌ \PC{ř} \PC{š} \PC{ť} \PC{ǔ} v̌ w̌ x̌ y̌ \PC{ž}}
+\row{}{\Pt\upshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̌ ɑ̌ ɒ̌ æ̌ ɔ̌ ə̌ ɘ̌ ɛ̌ ɜ̌ ɞ̌ ɤ̌ ɪ̌ ɨ̌ ʉ̌ ʊ̌ ʌ̌ ø̌ ɵ̌ œ̌ ʏ̌ ɯ̌ ŋ̌ ɲ̌ ɳ̌ ʃ̌ \PC{ǯ} ɾ̌ ɹ̌ β̌ ð̌ θ̌ ɣ̌ χ̌ ʔ̌}
+\clearpage
+\subsection*{Italic}
+\medskip\textbf{circumflex} U+0302 \quad {\small not moved}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{â} b̂ \PC{ĉ} d̂ \PC{ê} f̂ \PC{ĝ} \PC{ĥ} \PC{î} \PC{ĵ} k̂ l̂ m̂ n̂ \PC{ô} p̂ q̂ r̂ \PC{ŝ} t̂ \PC{û} v̂ \PC{ŵ} x̂ \PC{ŷ} \PC{ẑ}}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̂ ɑ̂ ɒ̂ æ̂ ɔ̂ ə̂ ɘ̂ ɛ̂ ɜ̂ ɞ̂ ɤ̂ ɪ̂ ɨ̂ ʉ̂ ʊ̂ ʌ̂ ø̂ ɵ̂ œ̂ ʏ̂ ɯ̂ ŋ̂ ɲ̂ ɳ̂ ʃ̂ ʒ̂ ɾ̂ ɹ̂ β̂ ð̂ θ̂ ɣ̂ χ̂ ʔ̂}
+\medskip\textbf{tilde} U+0303 \quad {\small moved: k 11 to 0}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\row{trial}{\TrI\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\TrI\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\medskip\textbf{macron} U+0304 \quad {\small not moved}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\medskip\textbf{breve} U+0306 \quad {\small not moved}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ă} b̆ c̆ d̆ \PC{ĕ} f̆ \PC{ğ} h̆ \PC{ĭ} j̆ k̆ l̆ m̆ n̆ \PC{ŏ} p̆ q̆ r̆ s̆ t̆ \PC{ŭ} v̆ w̆ x̆ y̆ z̆}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̆ ɑ̆ ɒ̆ æ̆ ɔ̆ ə̆ ɘ̆ ɛ̆ ɜ̆ ɞ̆ ɤ̆ ɪ̆ ɨ̆ ʉ̆ ʊ̆ ʌ̆ ø̆ ɵ̆ œ̆ ʏ̆ ɯ̆ ŋ̆ ɲ̆ ɳ̆ ʃ̆ ʒ̆ ɾ̆ ɹ̆ β̆ ð̆ θ̆ ɣ̆ χ̆ ʔ̆}
+\medskip\textbf{dot above} U+0307 \quad {\small moved: Delta y -11}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\row{trial}{\TrI\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\TrI\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\medskip\textbf{dieresis} U+0308 \quad {\small not moved}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ä} b̈ c̈ d̈ \PC{ë} f̈ g̈ \PC{ḧ} \PC{ï} j̈ k̈ l̈ m̈ n̈ \PC{ö} p̈ q̈ r̈ s̈ \PC{ẗ} \PC{ü} v̈ \PC{ẅ} \PC{ẍ} \PC{ÿ} z̈}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̈ ɑ̈ ɒ̈ æ̈ ɔ̈ ə̈ ɘ̈ ɛ̈ ɜ̈ ɞ̈ ɤ̈ ɪ̈ ɨ̈ ʉ̈ ʊ̈ ʌ̈ ø̈ ɵ̈ œ̈ ʏ̈ ɯ̈ ŋ̈ ɲ̈ ɳ̈ ʃ̈ ʒ̈ ɾ̈ ɹ̈ β̈ ð̈ θ̈ ɣ̈ χ̈ ʔ̈}
+\medskip\textbf{ring} U+030A \quad {\small not moved}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\medskip\textbf{double acute} U+030B \quad {\small moved: Delta y +11}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax a̋ b̋ c̋ d̋ e̋ f̋ g̋ h̋ i̋ j̋ k̋ l̋ m̋ n̋ \PC{ő} p̋ q̋ r̋ s̋ t̋ \PC{ű} v̋ w̋ x̋ y̋ z̋}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̋ ɑ̋ ɒ̋ æ̋ ɔ̋ ə̋ ɘ̋ ɛ̋ ɜ̋ ɞ̋ ɤ̋ ɪ̋ ɨ̋ ʉ̋ ʊ̋ ʌ̋ ø̋ ɵ̋ œ̋ ʏ̋ ɯ̋ ŋ̋ ɲ̋ ɳ̋ ʃ̋ ʒ̋ ɾ̋ ɹ̋ β̋ ð̋ θ̋ ɣ̋ χ̋ ʔ̋}
+\row{trial}{\TrI\fontsize{16}{24}\selectfont\relax a̋ b̋ c̋ d̋ e̋ f̋ g̋ h̋ i̋ j̋ k̋ l̋ m̋ n̋ \PC{ő} p̋ q̋ r̋ s̋ t̋ \PC{ű} v̋ w̋ x̋ y̋ z̋}
+\row{}{\TrI\fontsize{16}{24}\selectfont\relax ɐ̋ ɑ̋ ɒ̋ æ̋ ɔ̋ ə̋ ɘ̋ ɛ̋ ɜ̋ ɞ̋ ɤ̋ ɪ̋ ɨ̋ ʉ̋ ʊ̋ ʌ̋ ø̋ ɵ̋ œ̋ ʏ̋ ɯ̋ ŋ̋ ɲ̋ ɳ̋ ʃ̋ ʒ̋ ɾ̋ ɹ̋ β̋ ð̋ θ̋ ɣ̋ χ̋ ʔ̋}
+\medskip\textbf{caron} U+030C \quad {\small not moved}\par
+\row{now}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax \PC{ǎ} b̌ \PC{č} \PC{ď} \PC{ě} f̌ \PC{ǧ} \PC{ȟ} \PC{ǐ} \PC{ǰ} \PC{ǩ} \PC{ľ} m̌ \PC{ň} \PC{ǒ} p̌ q̌ \PC{ř} \PC{š} \PC{ť} \PC{ǔ} v̌ w̌ x̌ y̌ \PC{ž}}
+\row{}{\Pt\itshape\mdseries\fontsize{16}{24}\selectfont\relax ɐ̌ ɑ̌ ɒ̌ æ̌ ɔ̌ ə̌ ɘ̌ ɛ̌ ɜ̌ ɞ̌ ɤ̌ ɪ̌ ɨ̌ ʉ̌ ʊ̌ ʌ̌ ø̌ ɵ̌ œ̌ ʏ̌ ɯ̌ ŋ̌ ɲ̌ ɳ̌ ʃ̌ \PC{ǯ} ɾ̌ ɹ̌ β̌ ð̌ θ̌ ɣ̌ χ̌ ʔ̌}
+\clearpage
+\subsection*{Semibold}
+\medskip\textbf{circumflex} U+0302 \quad {\small not moved}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{â} b̂ \PC{ĉ} d̂ \PC{ê} f̂ \PC{ĝ} \PC{ĥ} \PC{î} \PC{ĵ} k̂ l̂ m̂ n̂ \PC{ô} p̂ q̂ r̂ \PC{ŝ} t̂ \PC{û} v̂ \PC{ŵ} x̂ \PC{ŷ} \PC{ẑ}}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̂ ɑ̂ ɒ̂ æ̂ ɔ̂ ə̂ ɘ̂ ɛ̂ ɜ̂ ɞ̂ ɤ̂ ɪ̂ ɨ̂ ʉ̂ ʊ̂ ʌ̂ ø̂ ɵ̂ œ̂ ʏ̂ ɯ̂ ŋ̂ ɲ̂ ɳ̂ ʃ̂ ʒ̂ ɾ̂ ɹ̂ β̂ ð̂ θ̂ ɣ̂ χ̂ ʔ̂}
+\medskip\textbf{tilde} U+0303 \quad {\small moved: Delta y +14}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\row{trial}{\TrB\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\TrB\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\medskip\textbf{macron} U+0304 \quad {\small moved: Delta y -12}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\row{trial}{\TrB\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\TrB\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\medskip\textbf{breve} U+0306 \quad {\small not moved}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ă} b̆ c̆ d̆ \PC{ĕ} f̆ \PC{ğ} h̆ \PC{ĭ} j̆ k̆ l̆ m̆ n̆ \PC{ŏ} p̆ q̆ r̆ s̆ t̆ \PC{ŭ} v̆ w̆ x̆ y̆ z̆}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̆ ɑ̆ ɒ̆ æ̆ ɔ̆ ə̆ ɘ̆ ɛ̆ ɜ̆ ɞ̆ ɤ̆ ɪ̆ ɨ̆ ʉ̆ ʊ̆ ʌ̆ ø̆ ɵ̆ œ̆ ʏ̆ ɯ̆ ŋ̆ ɲ̆ ɳ̆ ʃ̆ ʒ̆ ɾ̆ ɹ̆ β̆ ð̆ θ̆ ɣ̆ χ̆ ʔ̆}
+\medskip\textbf{dot above} U+0307 \quad {\small moved: Delta y -21}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\row{trial}{\TrB\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\TrB\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\medskip\textbf{dieresis} U+0308 \quad {\small moved: k 12 to 0}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ä} b̈ c̈ d̈ \PC{ë} f̈ g̈ \PC{ḧ} \PC{ï} j̈ k̈ l̈ m̈ n̈ \PC{ö} p̈ q̈ r̈ s̈ \PC{ẗ} \PC{ü} v̈ \PC{ẅ} \PC{ẍ} \PC{ÿ} z̈}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̈ ɑ̈ ɒ̈ æ̈ ɔ̈ ə̈ ɘ̈ ɛ̈ ɜ̈ ɞ̈ ɤ̈ ɪ̈ ɨ̈ ʉ̈ ʊ̈ ʌ̈ ø̈ ɵ̈ œ̈ ʏ̈ ɯ̈ ŋ̈ ɲ̈ ɳ̈ ʃ̈ ʒ̈ ɾ̈ ɹ̈ β̈ ð̈ θ̈ ɣ̈ χ̈ ʔ̈}
+\row{trial}{\TrB\fontsize{16}{24}\selectfont\relax \PC{ä} b̈ c̈ d̈ \PC{ë} f̈ g̈ \PC{ḧ} \PC{ï} j̈ k̈ l̈ m̈ n̈ \PC{ö} p̈ q̈ r̈ s̈ \PC{ẗ} \PC{ü} v̈ \PC{ẅ} \PC{ẍ} \PC{ÿ} z̈}
+\row{}{\TrB\fontsize{16}{24}\selectfont\relax ɐ̈ ɑ̈ ɒ̈ æ̈ ɔ̈ ə̈ ɘ̈ ɛ̈ ɜ̈ ɞ̈ ɤ̈ ɪ̈ ɨ̈ ʉ̈ ʊ̈ ʌ̈ ø̈ ɵ̈ œ̈ ʏ̈ ɯ̈ ŋ̈ ɲ̈ ɳ̈ ʃ̈ ʒ̈ ɾ̈ ɹ̈ β̈ ð̈ θ̈ ɣ̈ χ̈ ʔ̈}
+\medskip\textbf{ring} U+030A \quad {\small not moved}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\medskip\textbf{double acute} U+030B \quad {\small not moved}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax a̋ b̋ c̋ d̋ e̋ f̋ g̋ h̋ i̋ j̋ k̋ l̋ m̋ n̋ \PC{ő} p̋ q̋ r̋ s̋ t̋ \PC{ű} v̋ w̋ x̋ y̋ z̋}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̋ ɑ̋ ɒ̋ æ̋ ɔ̋ ə̋ ɘ̋ ɛ̋ ɜ̋ ɞ̋ ɤ̋ ɪ̋ ɨ̋ ʉ̋ ʊ̋ ʌ̋ ø̋ ɵ̋ œ̋ ʏ̋ ɯ̋ ŋ̋ ɲ̋ ɳ̋ ʃ̋ ʒ̋ ɾ̋ ɹ̋ β̋ ð̋ θ̋ ɣ̋ χ̋ ʔ̋}
+\medskip\textbf{caron} U+030C \quad {\small not moved}\par
+\row{now}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ǎ} b̌ \PC{č} \PC{ď} \PC{ě} f̌ \PC{ǧ} \PC{ȟ} \PC{ǐ} \PC{ǰ} \PC{ǩ} \PC{ľ} m̌ \PC{ň} \PC{ǒ} p̌ q̌ \PC{ř} \PC{š} \PC{ť} \PC{ǔ} v̌ w̌ x̌ y̌ \PC{ž}}
+\row{}{\Pt\upshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̌ ɑ̌ ɒ̌ æ̌ ɔ̌ ə̌ ɘ̌ ɛ̌ ɜ̌ ɞ̌ ɤ̌ ɪ̌ ɨ̌ ʉ̌ ʊ̌ ʌ̌ ø̌ ɵ̌ œ̌ ʏ̌ ɯ̌ ŋ̌ ɲ̌ ɳ̌ ʃ̌ \PC{ǯ} ɾ̌ ɹ̌ β̌ ð̌ θ̌ ɣ̌ χ̌ ʔ̌}
+\clearpage
+\subsection*{Semibold italic}
+\medskip\textbf{circumflex} U+0302 \quad {\small not moved}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{â} b̂ \PC{ĉ} d̂ \PC{ê} f̂ \PC{ĝ} \PC{ĥ} \PC{î} \PC{ĵ} k̂ l̂ m̂ n̂ \PC{ô} p̂ q̂ r̂ \PC{ŝ} t̂ \PC{û} v̂ \PC{ŵ} x̂ \PC{ŷ} \PC{ẑ}}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̂ ɑ̂ ɒ̂ æ̂ ɔ̂ ə̂ ɘ̂ ɛ̂ ɜ̂ ɞ̂ ɤ̂ ɪ̂ ɨ̂ ʉ̂ ʊ̂ ʌ̂ ø̂ ɵ̂ œ̂ ʏ̂ ɯ̂ ŋ̂ ɲ̂ ɳ̂ ʃ̂ ʒ̂ ɾ̂ ɹ̂ β̂ ð̂ θ̂ ɣ̂ χ̂ ʔ̂}
+\medskip\textbf{tilde} U+0303 \quad {\small moved: k 139 to 150}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\row{trial}{\TrBI\fontsize{16}{24}\selectfont\relax \PC{ã} b̃ c̃ d̃ \PC{ẽ} f̃ g̃ h̃ \PC{ĩ} j̃ k̃ l̃ m̃ \PC{ñ} \PC{õ} p̃ q̃ r̃ s̃ t̃ \PC{ũ} \PC{ṽ} w̃ x̃ \PC{ỹ} z̃}
+\row{}{\TrBI\fontsize{16}{24}\selectfont\relax ɐ̃ ɑ̃ ɒ̃ æ̃ ɔ̃ ə̃ ɘ̃ ɛ̃ ɜ̃ ɞ̃ ɤ̃ ɪ̃ ɨ̃ ʉ̃ ʊ̃ ʌ̃ ø̃ ɵ̃ œ̃ ʏ̃ ɯ̃ ŋ̃ ɲ̃ ɳ̃ ʃ̃ ʒ̃ ɾ̃ ɹ̃ β̃ ð̃ θ̃ ɣ̃ χ̃ ʔ̃}
+\medskip\textbf{macron} U+0304 \quad {\small moved: Delta y -32}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\row{trial}{\TrBI\fontsize{16}{24}\selectfont\relax \PC{ā} b̄ c̄ d̄ \PC{ē} f̄ \PC{ḡ} h̄ \PC{ī} j̄ k̄ l̄ m̄ n̄ \PC{ō} p̄ q̄ r̄ s̄ t̄ \PC{ū} v̄ w̄ x̄ \PC{ȳ} z̄}
+\row{}{\TrBI\fontsize{16}{24}\selectfont\relax ɐ̄ ɑ̄ ɒ̄ \PC{ǣ} ɔ̄ ə̄ ɘ̄ ɛ̄ ɜ̄ ɞ̄ ɤ̄ ɪ̄ ɨ̄ ʉ̄ ʊ̄ ʌ̄ ø̄ ɵ̄ œ̄ ʏ̄ ɯ̄ ŋ̄ ɲ̄ ɳ̄ ʃ̄ ʒ̄ ɾ̄ ɹ̄ β̄ ð̄ θ̄ ɣ̄ χ̄ ʔ̄}
+\medskip\textbf{breve} U+0306 \quad {\small not moved}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ă} b̆ c̆ d̆ \PC{ĕ} f̆ \PC{ğ} h̆ \PC{ĭ} j̆ k̆ l̆ m̆ n̆ \PC{ŏ} p̆ q̆ r̆ s̆ t̆ \PC{ŭ} v̆ w̆ x̆ y̆ z̆}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̆ ɑ̆ ɒ̆ æ̆ ɔ̆ ə̆ ɘ̆ ɛ̆ ɜ̆ ɞ̆ ɤ̆ ɪ̆ ɨ̆ ʉ̆ ʊ̆ ʌ̆ ø̆ ɵ̆ œ̆ ʏ̆ ɯ̆ ŋ̆ ɲ̆ ɳ̆ ʃ̆ ʒ̆ ɾ̆ ɹ̆ β̆ ð̆ θ̆ ɣ̆ χ̆ ʔ̆}
+\medskip\textbf{dot above} U+0307 \quad {\small moved: Delta y +11}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\row{trial}{\TrBI\fontsize{16}{24}\selectfont\relax \PC{ȧ} \PC{ḃ} \PC{ċ} \PC{ḋ} \PC{ė} \PC{ḟ} \PC{ġ} \PC{ḣ} i̇ j̇ k̇ l̇ \PC{ṁ} \PC{ṅ} \PC{ȯ} \PC{ṗ} q̇ \PC{ṙ} \PC{ṡ} \PC{ṫ} u̇ v̇ \PC{ẇ} \PC{ẋ} \PC{ẏ} \PC{ż}}
+\row{}{\TrBI\fontsize{16}{24}\selectfont\relax ɐ̇ ɑ̇ ɒ̇ æ̇ ɔ̇ ə̇ ɘ̇ ɛ̇ ɜ̇ ɞ̇ ɤ̇ ɪ̇ ɨ̇ ʉ̇ ʊ̇ ʌ̇ ø̇ ɵ̇ œ̇ ʏ̇ ɯ̇ ŋ̇ ɲ̇ ɳ̇ ʃ̇ ʒ̇ ɾ̇ ɹ̇ β̇ ð̇ θ̇ ɣ̇ χ̇ ʔ̇}
+\medskip\textbf{dieresis} U+0308 \quad {\small moved: k 112 to 150}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ä} b̈ c̈ d̈ \PC{ë} f̈ g̈ \PC{ḧ} \PC{ï} j̈ k̈ l̈ m̈ n̈ \PC{ö} p̈ q̈ r̈ s̈ \PC{ẗ} \PC{ü} v̈ \PC{ẅ} \PC{ẍ} \PC{ÿ} z̈}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̈ ɑ̈ ɒ̈ æ̈ ɔ̈ ə̈ ɘ̈ ɛ̈ ɜ̈ ɞ̈ ɤ̈ ɪ̈ ɨ̈ ʉ̈ ʊ̈ ʌ̈ ø̈ ɵ̈ œ̈ ʏ̈ ɯ̈ ŋ̈ ɲ̈ ɳ̈ ʃ̈ ʒ̈ ɾ̈ ɹ̈ β̈ ð̈ θ̈ ɣ̈ χ̈ ʔ̈}
+\row{trial}{\TrBI\fontsize{16}{24}\selectfont\relax \PC{ä} b̈ c̈ d̈ \PC{ë} f̈ g̈ \PC{ḧ} \PC{ï} j̈ k̈ l̈ m̈ n̈ \PC{ö} p̈ q̈ r̈ s̈ \PC{ẗ} \PC{ü} v̈ \PC{ẅ} \PC{ẍ} \PC{ÿ} z̈}
+\row{}{\TrBI\fontsize{16}{24}\selectfont\relax ɐ̈ ɑ̈ ɒ̈ æ̈ ɔ̈ ə̈ ɘ̈ ɛ̈ ɜ̈ ɞ̈ ɤ̈ ɪ̈ ɨ̈ ʉ̈ ʊ̈ ʌ̈ ø̈ ɵ̈ œ̈ ʏ̈ ɯ̈ ŋ̈ ɲ̈ ɳ̈ ʃ̈ ʒ̈ ɾ̈ ɹ̈ β̈ ð̈ θ̈ ɣ̈ χ̈ ʔ̈}
+\medskip\textbf{ring} U+030A \quad {\small moved: Delta y +23}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\row{trial}{\TrBI\fontsize{16}{24}\selectfont\relax \PC{å} b̊ c̊ d̊ e̊ f̊ g̊ h̊ i̊ j̊ k̊ l̊ m̊ n̊ o̊ p̊ q̊ r̊ s̊ t̊ \PC{ů} v̊ \PC{ẘ} x̊ \PC{ẙ} z̊}
+\row{}{\TrBI\fontsize{16}{24}\selectfont\relax ɐ̊ ɑ̊ ɒ̊ æ̊ ɔ̊ ə̊ ɘ̊ ɛ̊ ɜ̊ ɞ̊ ɤ̊ ɪ̊ ɨ̊ ʉ̊ ʊ̊ ʌ̊ ø̊ ɵ̊ œ̊ ʏ̊ ɯ̊ ŋ̊ ɲ̊ ɳ̊ ʃ̊ ʒ̊ ɾ̊ ɹ̊ β̊ ð̊ θ̊ ɣ̊ χ̊ ʔ̊}
+\medskip\textbf{double acute} U+030B \quad {\small moved: Delta y +11}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax a̋ b̋ c̋ d̋ e̋ f̋ g̋ h̋ i̋ j̋ k̋ l̋ m̋ n̋ \PC{ő} p̋ q̋ r̋ s̋ t̋ \PC{ű} v̋ w̋ x̋ y̋ z̋}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̋ ɑ̋ ɒ̋ æ̋ ɔ̋ ə̋ ɘ̋ ɛ̋ ɜ̋ ɞ̋ ɤ̋ ɪ̋ ɨ̋ ʉ̋ ʊ̋ ʌ̋ ø̋ ɵ̋ œ̋ ʏ̋ ɯ̋ ŋ̋ ɲ̋ ɳ̋ ʃ̋ ʒ̋ ɾ̋ ɹ̋ β̋ ð̋ θ̋ ɣ̋ χ̋ ʔ̋}
+\row{trial}{\TrBI\fontsize{16}{24}\selectfont\relax a̋ b̋ c̋ d̋ e̋ f̋ g̋ h̋ i̋ j̋ k̋ l̋ m̋ n̋ \PC{ő} p̋ q̋ r̋ s̋ t̋ \PC{ű} v̋ w̋ x̋ y̋ z̋}
+\row{}{\TrBI\fontsize{16}{24}\selectfont\relax ɐ̋ ɑ̋ ɒ̋ æ̋ ɔ̋ ə̋ ɘ̋ ɛ̋ ɜ̋ ɞ̋ ɤ̋ ɪ̋ ɨ̋ ʉ̋ ʊ̋ ʌ̋ ø̋ ɵ̋ œ̋ ʏ̋ ɯ̋ ŋ̋ ɲ̋ ɳ̋ ʃ̋ ʒ̋ ɾ̋ ɹ̋ β̋ ð̋ θ̋ ɣ̋ χ̋ ʔ̋}
+\medskip\textbf{caron} U+030C \quad {\small not moved}\par
+\row{now}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax \PC{ǎ} b̌ \PC{č} \PC{ď} \PC{ě} f̌ \PC{ǧ} \PC{ȟ} \PC{ǐ} \PC{ǰ} \PC{ǩ} \PC{ľ} m̌ \PC{ň} \PC{ǒ} p̌ q̌ \PC{ř} \PC{š} \PC{ť} \PC{ǔ} v̌ w̌ x̌ y̌ \PC{ž}}
+\row{}{\Pt\itshape\bfseries\fontsize{16}{24}\selectfont\relax ɐ̌ ɑ̌ ɒ̌ æ̌ ɔ̌ ə̌ ɘ̌ ɛ̌ ɜ̌ ɞ̌ ɤ̌ ɪ̌ ɨ̌ ʉ̌ ʊ̌ ʌ̌ ø̌ ɵ̌ œ̌ ʏ̌ ɯ̌ ŋ̌ ɲ̌ ɳ̌ ʃ̌ \PC{ǯ} ɾ̌ ɹ̌ β̌ ð̌ θ̌ ɣ̌ χ̌ ʔ̌}
+\end{document}

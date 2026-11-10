@@ -156,9 +156,16 @@
 
 \subsection*{To do}
 
-Add mark-to-mark positioning (stacking) for the common above-marks in all four styles: ring, dieresis, macron, acute, grave, circumflex, caron, tilde, breve.
-Without it, a precomposed letter with two above-marks plus a below-mark is recomposed by the shaper onto the base with the below-mark, and its two above-marks collide (Ǻ\,+\,dot below becomes Ạ with ring and acute overlapping; 130 cases among the precomposed letters; see ``Precomposed characters'').
-The designer's stacked precomposed glyphs (Ǻ, Ǖ, Ṓ, \ldots) could supply the mark-to-mark anchors, as the precomposed capitals do for stage 4.
+Long term: add mark-to-mark positioning (stacking) for the common above-marks in all four styles: ring, dieresis, macron, acute, grave, circumflex, caron, tilde, breve.
+The designer's stacked precomposed glyphs (ḕ, ṏ, ẫ, \ldots) could supply the mark-to-mark anchors, as the precomposed capitals do for stage 4.
+Only glyphs drawn as a true stack are evidence: others among the short list of precomposed letters with two above-marks are composed more compactly in some other configuration (Ǻ, Ǖ, Ṓ), so each needs to be verified by eye before it is used.
+
+Write general instructions for using CGJ U+034F to block unwanted normalization.
+A below-mark typed after a precomposed letter that already has an above-mark is reordered and recomposed by normalization: ì\,+\,tilde below becomes ḭ\,+\,grave, which brings back the dot of i,
+and Ǻ\,+\,dot below becomes Ạ\,+\,ring\,+\,acute (130 cases among the precomposed letters; see ``Precomposed characters'').
+That is a decomposition problem, to be avoided with a CGJ (or a dotless base) whether or not the font has mark-to-mark positioning;
+the sections ``Lowercase i with tilde below and grave above, in italic and semibold italic'' and following explore it, and ``Floating tones'' uses CGJ for a similar reason.
+The instructions should say when CGJ is needed, where it goes, and its cost (a precomposed glyph before CGJ has no below-anchor, so the below-mark falls back to a default position).
 
 Audit the above anchors of the vowels against their precomposed glyphs, which are many and good evidence (survey of 2026-11-07).
 Where the patched anchor differs from the median mark centre of the precomposed glyphs by more than 15:
@@ -166,8 +173,10 @@ italic o $+20$, O $+22$, E $-20$, Y $-17$; semibold y $-19$, Æ $-16$; semibold 
 Regular O is within 12, but its marks land 16--19 left of the centre line of O.
 Two cautions: italic and semibold italic Y and U were just curated so that shaped marks land on their axes, and their precomposed glyphs disagree by 14--58;
 and the semibold italic precomposed glyphs run 30--40 right of the anchor model for g and E too.
+The vowel base anchors have not changed since; with the symmetric marks on their axes (2026-11-09), the median offset of composed marks from the precomposed glyphs per letter confirms the lowercase figures (italic o $+19$, semibold y $-18$, semibold italic y $+30$, a $+22$),
+and adds i: marks on ı land 12--18 right of ì í î ï in every style (regular $+16$, italic $+18$, semibold $+18$, semibold italic $+12$). The capitals were not remeasured.
+O and o lean to the left, unlike most of the other humanist letters, so their optical centre at the top may lie right of the bbox midpoint: a reason to move their above-anchors right, to weigh in the audit.
 
-Semibold italic dieresis U+0308 lands about 38 units left of the circumflex, breve and caron on every lowercase base tested (ȷ ı o n), and the macron U+0304 about 12 left (found 2026-11-07): candidates for curated mark anchors, though the precomposed glyphs do not support moving the dieresis on lowercase (see ``Changes needed'' at the end of ``Mark anchor model'').
 
 
 \subsection*{Anchor model}
@@ -402,6 +411,7 @@ The following do not conform to the semibold italic anchor model and probably ne
 	koronis U+0343 (371), right tack below U+0319 ($-30$) and tilde below U+0330 ($+10$).
 	The double acute U+030B (156) conforms.
 	\item Tilde U+0303, one of the two mark anchors that is not a copy of regular; its shift is 139.
+	(These are the designer's values. In the patched font the dieresis and tilde are on the model by the mark-axis rule, and the hook above, inverted breve, U+0314 and tilde below by curated anchors; see ``Mark anchor model''.)
 	\item The Hebrew ligatures U+05F0, U+05F1, U+05F2, which have above- and below-anchors in this lookup table in semibold italic only.
 	\item Letters that overhang their advance width, such as f and j, which need curated anchors in every italic style.
 \end{itemize}
@@ -433,18 +443,21 @@ a mark sits at the same height in every style only if its distance is the same a
 
 So each mark can be checked in two ways: its $X$ offset from its axis, compared with regular,
 and the distance between its anchor and its outline, compared with regular.
-A third, weaker check is the designer's precomposed glyphs,
-measured on bases whose own anchors conform to the model (o, n, u).
-The precomposed glyphs are not consistent between styles
-(the macron of ō is 18 units lower than the combining macron in regular, but 32 units higher in italic),
-so they can confirm a finding but not settle one.
+A third check is the designer's precomposed glyphs.
+They are not consistent between styles
+(the macron of ō was 18 units lower than the combining macron in regular, but 32 units higher in italic),
+and horizontally they also carry the offsets of the base anchors, so for $X$ they can confirm a finding but not settle one: the $X$ of a symmetric mark is set by the model (the mark-axis rule).
+Vertically they are better evidence: every x-height base has its above-anchor at 645, so where the offset of a composed mark from the precomposed glyphs is the same on every base, it belongs to the mark's anchor, and the anchor is moved by it (``Vertical moves from the precomposed glyphs'').
 In what follows, ``lower'' and ``higher'' and ``left'' and ``right'' describe where the mark lands on a base whose anchor conforms.
 A mark lands lower when its anchor is further above its outline, and left when its anchor is further right.
 
 \paragraph{Status.}
-There is no audit of mark anchors, and no stage of the patch moves the designer's mark anchors to the model (see the end of this section for why).
-Mark anchors are changed one at a time, where the precomposed glyphs support the change, and checked by eye against the mark zone figures.
-The patch changes mark anchors in four places, and one change of base anchors (in stage 1) serves the marks.
+There is no audit of mark anchors.
+One stage moves designer mark anchors to the model, and only their X: the mark-axis rule for symmetric above marks (stage 4, 2026-11-09; see the end of this section).
+A wholesale move of every mark anchor to the model was rejected (also at the end of this section).
+Otherwise mark anchors are changed one at a time, as curated anchors, where the precomposed glyphs support the change (including the vertical moves from $\Delta y$), and checked by eye against the mark zone figures.
+A curated mark anchor is the final anchor and obeys the mark-axis rule itself.
+The patch changes mark anchors in five places, and one change of base anchors (in stage 1) serves the marks.
 \begin{itemize}
 	\item Stage 1, semibold only: the designer's second above-anchor class \verb|top_punkt| (class 1) is merged into the above class.
 	Its 12 marks (dot above, diaeresis, hook above, ring above, U+0312, U+0313, U+0314, U+031A, U+0351, U+0357, U+0363 and \verb|hookabovecomb.cap|)
@@ -455,8 +468,8 @@ The patch changes mark anchors in four places, and one change of base anchors (i
 	\item Stage 3, semibold and semibold italic: the combining marks the style lacks are added,
 	and semibold's U+0358--U+0363, which were copies of the capital accents, are replaced.
 	Their anchors are regular's. In semibold italic, regular's anchor is used with italic's outline moved right by 12 units.
-	There, the added above-marks land 7 to 15 units left of the model ($K = 150$),
-	which is well inside the spread of the designer's own above-marks ($k$ from 111 to 168).
+	There, the added above-marks landed 7 to 15 units left of the model ($K = 150$),
+	inside the spread of the designer's own above-marks ($k$ from 111 to 168); the symmetric ones 10 or more off are now moved onto their axes by the mark-axis rule (stage 4).
 	\item Stage 4, all styles: the capital forms (\verb|grave.cap|, \verb|acute.cap|, \ldots) get anchors computed from the designer's precomposed capitals,
 	on the axis for a symmetric mark, at the precomposed offset for an asymmetric one, and with $K = 150$ in semibold italic.
 	This fixes semibold italic, whose capital forms had anchors without the shift $K$ and landed 120 to 160 units left,
@@ -466,7 +479,14 @@ The patch changes mark anchors in four places, and one change of base anchors (i
 	as in regular, where every capital form is within a few units of them.
 	Stage 4 had left the symmetric marks about 14 units left of the precomposed accents, and the earlier curated caron (placed at its vertex, ignoring the slant) about 15 right.
 	The fit was made after italic O, U and Y took the median accent centre of their own precomposed glyphs as their above-anchor $X$ (493, 508, 441; the designer's O was 515, 22 right, which Ø inherited).
+	\item Stage 4, all styles, the mark-axis rule (2026-11-09): every symmetric above mark whose $k$ is 10 or more from $K$ gets its anchor $X$ on its own axis; 37 anchors move, $Y$ unchanged.
+	Marks with a curated anchor are skipped. See ``Mark-axis rule for symmetric above marks'' at the end of this section.
 	\item Stage 7, curated mark anchors in \verb|data/fontanchors_human/|:
+	\begin{itemize}
+		\item Vertical moves from the precomposed glyphs (2026-11-09): dot above in all four styles, macron in all but italic, semibold tilde, semibold italic ring, and the double acute;
+		each anchor is moved by the median $\Delta y$ (with $X$ along the slant in the italic styles). See ``Vertical moves from the precomposed glyphs'' at the end of this section.
+	\end{itemize}
+	Earlier curated mark anchors:
 	\begin{itemize}
 		\item Regular, left and right tack below (U+0318, U+0319): the designer's anchors were 25 units right and 36 units left of the centre of the outline;
 		the curated anchors are at the centre. The other styles keep the designer's $X$, so the tacks now differ between regular and the other styles.
@@ -492,12 +512,12 @@ The patch changes mark anchors in four places, and one change of base anchors (i
 		semibold inverted breve U+0311 $-217$ (11 to 4) and tilde below U+0330 $-200$ (13 to 4);
 		semibold italic hook above U+0309 $-142$ (26 to 8), inverted breve U+0311 $-223$ (19 to 3) and U+0314 $-91$ (19 to 4, on one glyph).
 		The semibold italic capital forms \verb|acute.cap|, \verb|grave.cap|, \verb|hungarumlaut.cap| and \verb|uni030F.cap| were also curated here (2026-11-06) and removed on 2026-11-08 in favour of stage 4; see the capital alternates.
-		A patch stage that moved every mark anchor to this position was tested and rejected:
-		most moves were under 20 units, and as many marks got further from the precomposed glyphs as got closer.
+		The inverted breves are symmetric marks and obey the mark-axis rule.
 		\item Italic, \verb|acute.cap|: the curated $(-65, 724)$ had no recorded reason and has been removed, so stage 4's $(-37, 724)$ applies.
 		\item Italic and semibold italic, tilde below: moved to the centre of the outline.
 		In semibold italic this corrects an offset 22 units different from regular's; in italic it moves the anchor by 8 units, harmlessly.
 		\item Italic, double acute: the designer's anchor $(-74, 714)$ had regular's offset; the curated $(-57, 714)$ lands the mark 17 units left.
+		Since 2026-11-09 it is $(-55, 725)$, after the vertical move.
 		\item Semibold italic, grave $(0, 683)$ and double acute $(-28, 719)$: these were wrong, and have been removed.
 		The designer's anchors, $(-142, 683)$ and $(-219, 714)$, conform to the model.
 		The curated ones lacked the shift $K$, so on every conforming base the grave landed 142 units left and the double acute 190 units left
@@ -518,39 +538,73 @@ The patch changes mark anchors in four places, and one change of base anchors (i
 Compared with regular, after the patch:
 \begin{itemize}
 	\item Regular. The marks conform.
-	The dot above U+0307 sits 45 units lower than the dot of the precomposed ȯ.
+	The dot above U+0307 sat 45 units lower than the dot of the precomposed ȯ; since 2026-11-09 it sits as in the precomposed glyphs, and so does the macron (18 units lower than before).
 	The dot below U+0323 and diaeresis below U+0324 are drawn 43 units lower, relative to their anchors, than in the other three styles.
 	Regular's precomposed ạ agrees with the combining dot below, but in ṳ the diaeresis is 35 units higher.
 	Whether regular or the other styles should change is a design decision.
-	\item Italic. The marks conform. The tilde is 11 units off its axis.
-	The dot above sits 10 units higher than in regular, which is still 11 units lower than in the precomposed ȯ.
+	\item Italic. The marks conform. The tilde was 11 units off its axis; the mark-axis rule puts it on its axis.
+	The dot above sat 10 units higher than in regular, still 11 units lower than in the precomposed ȯ; since 2026-11-09 it sits as in the precomposed glyphs.
+	The macron is not moved: its precomposed glyphs disagree ($-1$ on ā ē ḡ, $-32$ on ī ō ū ȳ).
 	\item Semibold. Horizontally, the marks are within about 12 units of regular's offsets.
 	Vertically, about a quarter of the above-marks sat lower than in regular:
 	U+0357 32 and U+0351 20 (fixed, see stage 7), double acute 19,
 	diaeresis 14, dot above 13 (ȯ confirms, 21), hook above 13, macron 13 (ō confirms, 12), circumflex 10.
 	The tilde sits 12 units higher (õ confirms, 14), and so does the breve below.
 	Semibold's x-height is 5 units higher than regular's, so differences under 10 do not matter.
-	\item Semibold italic. Horizontally, the marks whose $K$ is far from 150 are listed above Figure \ref{fig:libertinus-semibolditalic-geometry}
-	(dieresis lands 38 units left; comma above, inverted breve, hook above, double grave, koronis, right tack below); none is patched.
+	Since 2026-11-09 the macron, dot above and tilde sit as in the precomposed glyphs (vertical moves of $-12$, $-21$, $+14$), and the dieresis is on its axis (the mark-axis rule, 12 units left).
+	\item Semibold italic. Horizontally, the marks whose $k$ is far from 150 are listed above Figure \ref{fig:libertinus-semibolditalic-geometry}.
+	Of these, the hook above, inverted breve and U+0314 have curated anchors on the model, and the dieresis (38 units left) and the tilde (11 right) are moved onto it by the mark-axis rule;
+	the comma above, double grave, koronis and right tack below remain, the precomposed glyphs not supporting a move of the first two.
 	Vertically, the designer drew some outlines at a different height from regular's but kept regular's anchors:
 	the macron sits 32 units lower than in regular (ō confirms, 32), the macron below 52 units higher (ṉ confirms, 26),
 	the dot above 21 units higher (which agrees with the precomposed ȯ), the up tack below U+031D 12 units lower and the down tack below U+031E 12 units higher.
+	Since 2026-11-09 the macron sits as in the precomposed glyphs (32 units higher than before), the dot above 11 units lower (it was 11 above the precomposed ċ ė ġ \ldots), the ring 23 lower and the double acute 11 lower.
 \end{itemize}
 
 \paragraph{Changes needed.}
 \begin{itemize}
-	\item Semibold italic: move the anchors of the marks whose $k$ is far from 150 to the model (done for the hook above, inverted breve and U+0314; the precomposed glyphs do not support moving U+0313, U+030F or, on lowercase, the diaeresis);
-	move the macron's anchor 32 units down. The macron below's anchor was moved 52 units up, to $(-233, -58)$, 23 units below its outline as in the other styles (curated, 2026-11-06): it sat 25 units under n, against 86 to 96 in the other styles.
-	\item Semibold: lower the anchors of the above-marks that sit low by the amounts listed, so that they sit as in regular (done for U+0351 and U+0357);
+	\item Semibold italic: move the anchors of the marks whose $k$ is far from 150 to the model (done for the hook above, inverted breve and U+0314, and by the mark-axis rule for the dieresis and tilde; the precomposed glyphs do not support moving U+0313 or U+030F);
+	move the macron's anchor 32 units down (done, see below). The macron below's anchor was moved 52 units up, to $(-233, -58)$, 23 units below its outline as in the other styles (curated, 2026-11-06): it sat 25 units under n, against 86 to 96 in the other styles.
+	\item Semibold: lower the anchors of the above-marks that sit low by the amounts listed, so that they sit as in regular (done for U+0351 and U+0357, and against the precomposed glyphs for the macron and dot above, and for the tilde, which sat high; see below).
+	The double acute, dieresis, hook above and circumflex are within 10 of their precomposed glyphs vertically, which do not support moving them;
 	give U+0340 and U+0341 the curated height of the grave and acute (683).
-	\item Regular: lower the anchor of the dot above by about 45 units (and by about 11 in italic and 21 in semibold) to match the precomposed glyphs;
+	\item Regular: lower the anchor of the dot above by about 45 units (and by about 11 in italic and 21 in semibold) to match the precomposed glyphs (done, see below);
 	decide between regular and the other styles for the dot below and diaeresis below, and for the tacks below.
-	\item Italic: remove the curated double acute, restoring the designer's anchor.
+	\item Italic: the curated double acute keeps its X; its Y is now set from the precomposed glyphs (below).
 \end{itemize}
-These are done one at a time, as curated anchors, not by an audit of mark anchors and a patch stage (decided 2026-11-08).
+
+\paragraph{Vertical moves from the precomposed glyphs (2026-11-09).}
+For each above mark, $\Delta y$ is the median vertical offset of the composed mark (base + CGJ + mark) from the designer's precomposed glyphs, over the lowercase letters with an x-height base.
+Every such base has its above-anchor at 645, and $\Delta y$ is the same on every base to within a few units, so it belongs to the mark's anchor.
+Where $|\Delta y| \ge 10$ the mark anchor is curated (stage 7) $\Delta y$ higher, so that the mark sits $\Delta y$ lower; in the italic styles its X moves with the slant, by $\Delta y \tan\theta$, so that the mark stays on its axis and keeps its $k$.
+Regular: macron $+18$, dot above $-45$, double acute $+11$.
+Italic: dot above $-11$, double acute $+11$.
+Semibold: tilde $+14$, macron $-12$, dot above $-21$.
+Semibold italic: macron $-32$, dot above $+11$, ring $+23$, double acute $+11$.
+Not moved: the italic macron, whose precomposed glyphs disagree ($-1$ on ā ē ḡ, $-32$ on ī ō ū ȳ).
+A curated mark anchor is the final anchor: it obeys the mark-axis rule itself, and stage 4 skips it (and reports it if it does not).
+
+\paragraph{Rejected: moving every mark anchor to the model (2026-11-08).}
 A stage that moved every mark anchor onto the model, $X = C + Y\tan\theta + d - K$, was tested and rejected:
 most moves were under 20 units, and as many marks got further from the precomposed glyphs as got closer.
-Since the precomposed glyphs are used wherever they exist, a composed combination should match them, and an audit against the model would flag the wrong marks.
+Since the precomposed glyphs are used wherever they exist, a composed combination should match them; mark anchors are therefore changed one at a time, as curated anchors, not by an audit of mark anchors.
+
+\paragraph{Mark-axis rule for symmetric above marks (2026-11-09).}
+The exception is one rule, applied in stage 4 (\verb|font_patching_markaxis.py|):
+a symmetric above mark has its anchor X on its own axis, $k = K$ (0; 150 in semibold italic), wherever $|k - K| \ge 10$, with $k$ measured on the mark's ink.
+The symmetric above marks are the mirror-symmetric ones (circumflex, tilde, macron, breve, dot above, dieresis, ring, caron, vertical line and double vertical line above, candrabindu, inverted breve, x above, vertical tilde, double overline, perispomeni, bridge above, not tilde, homothetic, almost equal to, fermata, zigzag) and the combining Latin letters U+0363--U+036F, centred on their ink as base letters are.
+Smaller deviations are within the designer's spread and are left.
+Matching each mark to the precomposed glyphs ($\Delta x = 0$ per mark) would be the wrong target:
+what a composed mark differs from the precomposed glyphs by is partly the base anchor's offset, common to every mark on that base, and fitting it into each mark would carry that offset to every base without a precomposed form (most IPA letters).
+Under the rule what remains is common to the marks of a style (semibold italic about $+12$ to $+16$), a question for the base anchors.
+The rule moves 37 mark anchors. Among the common marks: italic tilde ($k$ 11, 11 units left), semibold dieresis (12, 12 left), semibold italic tilde (139, 11 right) and dieresis (112, 38 right);
+among the others, the vertical tilde (about 18, in regular, italic and semibold), the perispomeni (18, in regular and italic) and most of semibold italic's combining letters ($k$ 130--140, 10--20 right).
+It does not repeat the rejected move above: it moves only symmetric marks, only their $X$, and only where they are 10 or more off.
+The semibold italic dieresis, which landed 26 units left of its precomposed glyphs where every other mark landed 5--16 right, now lands 12 right, like the others; the semibold italic tilde moves from 12 to 23 right of its precomposed glyphs, the rule's one cost.
+Asymmetric marks keep their designed $k$: grave, acute and their tone-mark forms, double acute and double grave (a symmetric pair placed off-centre), hook above, the comma-shaped marks, the half rings and the right arrowhead. The rule does not touch Y.
+What the threshold leaves is under 10 units (the ring: $+2$, $+3$, 0, $+7$); the threshold is likely to be lowered.
+That first needs a more precise mark axis than the centre of the ink bounds, which does not always find the midline, determined per glyph and checked by eye:
+for instance the line about which the outline best matches its mirror image (circumflex, ring, dieresis), or its rotation by 180° for marks that are symmetric that way (tilde, zigzag, vertical tilde), whose terminals can push the bounds off centre.
 
 %Libertinus serif has few mark positioning GPOS tables.
 %Regular has two mark-to-base LookupList tables: 
@@ -558,14 +612,6 @@ Since the precomposed glyphs are used wherever they exist, a composed combinatio
 %one mark-to-mark LookupList table, index 5.
 
 \newpage
-\subsection*{\AE: a letter the midpoint cannot centre}
-
-Over \AE, accents do not go at the midpoint of the glyph. The left leg of the A stops short of the top, so the top edge runs from the apex of the A to the end of the arm of the E, and its centre lies well to the right.
-Other fonts agree: Charis SIL, Gentium Plus, EB Garamond, Junicode, DejaVu Serif and Andika put the above-anchor at the macron of Ǣ, within 5 units, and below they use the common stroke or the same $X$.
-In Libertinus the designer's above-anchors missed the accents of Ǣ and Ǽ by 55--88 and 16--68 units, so the curated above-anchors lie between the two (555, 674, 555, 545 for regular, italic, semibold, semibold italic).
-In the italic styles the macron and the acute cannot both be met, and each lands about 30 units from its precomposed position.
-Below, semibold's anchor is curated under the common stroke, at 510. The designer's 549 of the other three styles stands: nothing collides there.
-
 \subsection*{Mark outline zones}
 
 Figures \ref{fig:mark-zones-regular}, \ref{fig:mark-zones-italic}, \ref{fig:mark-zones-semibold} and \ref{fig:mark-zones-semibold-italic}
@@ -1309,6 +1355,16 @@ This behavior does not make sense for the Latvian \textit{komatiņš} bases -- g
 because any person trying to produce Latvian g with \textit{komatiņš} would not try \verb|g\char"0327| or \verb|\c{g}|.
 
 This behavior is tolerable for the other bases --  c, d, e, h, s, t.
+
+\subsection*{\AE: a letter the midpoint cannot centre}
+
+Why Æ has curated anchors in every style rather than the anchor model's candidate (see ``Where candidates fail'' in \verb|ANCHOR-HEURISTICS.md|).
+
+Over \AE, accents do not go at the midpoint of the glyph. The left leg of the A stops short of the top, so the top edge runs from the apex of the A to the end of the arm of the E, and its centre lies well to the right.
+Other fonts agree: Charis SIL, Gentium Plus, EB Garamond, Junicode, DejaVu Serif and Andika put the above-anchor at the macron of Ǣ, within 5 units, and below they use the common stroke or the same $X$.
+In Libertinus the designer's above-anchors missed the accents of Ǣ and Ǽ by 55--88 and 16--68 units, so the curated above-anchors lie between the two (555, 674, 555, 545 for regular, italic, semibold, semibold italic).
+In the italic styles the macron and the acute cannot both be met, and each lands about 30 units from its precomposed position.
+Below, semibold's anchor is curated under the common stroke, at 510. The designer's 549 of the other three styles stands: nothing collides there.
 
 \subsection*{IJ}
 

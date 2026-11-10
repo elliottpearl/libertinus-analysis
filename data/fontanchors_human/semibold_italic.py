@@ -176,6 +176,24 @@ anchors = {
         },
     },
     "marks": {
+        # Above marks moved vertically by Delta y (2026-11-09): the median offset, composed (base + CGJ + mark)
+        # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
+        # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
+        # X moves with the slant (by Delta y tan theta) so that the mark stays on its axis: k is unchanged, within
+        # 10 of the mark-axis rule (k = K). In regular and semibold X is unchanged.
+        0x0304: { # macron
+            0: (-216, 613), # was (-209, 645); Delta y -32 (ā ē ī ō ȳ, -32; the precomposed macron is drawn 32 higher)
+        },
+        0x0307: { # dot above
+            0: (-178, 678), # was (-180, 667); Delta y +11 (ċ ė ġ ż ȧ ṁ ṅ …, +11 to +12)
+        },
+        0x030A: { # ring above
+            0: (-179, 731), # was (-184, 708); Delta y +23 (å ẙ +23, ẘ +16)
+        },
+        0x030B: { # double acute
+            0: (-217, 725), # was (-219, 714); Delta y +11 (ő)
+        },
+
         # Tall below marks (2026-11-08): anchor moved up so that the mark rises at most 62 above it,
         # as U+0329 and U+0348; they overlapped descenders at -319 and crowded baseline letters
         # (report, "Mark anchor model", stage 7). x unchanged.

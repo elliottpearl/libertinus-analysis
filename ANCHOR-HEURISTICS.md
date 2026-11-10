@@ -114,6 +114,8 @@ A mark anchor lies on the mark's own axis: `X = C + Y tan θ + d − K`.
 
 When the anchors meet, the mark's axis lies on the base's midline: an italic mark is displaced along the italic axis, not straight up or down.
 
+The patch enforces this for the X of symmetric above marks only, and only where a mark's shift `k = C + Y tan θ − X` is 10 or more from K (mark-axis rule, stage 4, 2026-11-09; italic tilde, semibold dieresis, semibold italic tilde and dieresis). Other mark anchors are curated one at a time against the precomposed glyphs.
+
 ## 4. Where candidates fail
 
 These need curated anchors (`data/fontanchors_human/{style}.py`):

@@ -1,0 +1,165 @@
+% Generated: the proposed rule for symmetric above marks, and the vertical evidence.
+\documentclass[10pt]{article}
+\usepackage{fontspec}\usepackage{tikz}\usepackage{geometry}\usepackage{xcolor}
+\geometry{a4paper,left=1.2cm,right=1.2cm,top=1.2cm,bottom=1.2cm}
+\setlength{\parindent}{0pt}\setlength{\parskip}{3pt}
+\setmainfont{LibertinusSerif-Regular.otf}[Path=../fonts/]
+\newfontfamily\Pt[Path=../fonts/,ItalicFont=LibertinusSerif-Italic-patch.otf,BoldFont=LibertinusSerif-Semibold-patch.otf,
+  BoldItalicFont=LibertinusSerif-SemiboldItalic-patch.otf]{LibertinusSerif-Regular-patch.otf}
+\newfontfamily\RuleR[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{rule-regular.otf}
+\newfontfamily\RuleI[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{rule-italic.otf}
+\newfontfamily\RuleB[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{rule-semibold.otf}
+\newfontfamily\RuleBI[Path=/tmp/claude-1000/-home-elliott-dev-libertinus-analysis/c88bccdd-a4eb-4429-90a4-4a72cb660677/scratchpad/]{rule-semibold_italic.otf}
+\newcommand{\cgj}{\char"034F }
+% #1 font, #2 red layer, #3 blue layer; purple where they agree
+\newcommand{\ov}[3]{\begin{tikzpicture}[baseline=0pt]
+  \node[anchor=base west,inner sep=0pt,text=red,opacity=.6] at (0,0) {#1#2};
+  \node[anchor=base west,inner sep=0pt,text=blue,opacity=.6] at (0,0) {#1#3};\end{tikzpicture}\hspace{7pt}}
+\begin{document}
+\section*{Test sheet: the rule for symmetric above marks, and the vertical evidence}
+
+\textbf{Proposed rule.} A symmetric above mark (circumflex, tilde, macron, breve, dot above, dieresis, ring, caron) has its anchor on its own axis:
+$k = K$, where $k$ is the centre of the mark's outline on its axis minus its anchor X, and $K$ is 0 (150 in semibold italic).
+It is applied only where $|k - K| \ge 10$; smaller deviations are within the designer's own spread.
+Asymmetric marks (grave, acute, double acute, double grave) keep their designed $k$.
+In the patched fonts this moves four mark anchors:
+
+\begin{itemize}
+\item Italic \char"25CC\char"0303\ U+0303: $k = 11$; anchor $(-17, 697) \to (-6, 697)$, so the mark moves 11 left.
+\item Semibold \char"25CC\char"0308\ U+0308: $k = 12$; anchor $(-198, 653) \to (-186, 653)$, so the mark moves 12 left.
+\item Semibold italic \char"25CC\char"0303\ U+0303: $k = 139$; anchor $(-134, 700) \to (-145, 700)$, so the mark moves 11 right.
+\item Semibold italic \char"25CC\char"0308\ U+0308: $k = 112$; anchor $(-210, 645) \to (-248, 645)$, so the mark moves 38 right.
+\end{itemize}
+The ``rule'' fonts below are the patched fonts with only these anchors changed.
+
+\subsection*{1. Horizontal: composed minus precomposed, now and under the rule}
+$\Delta x$: median over the lowercase precomposed letters of the mark's offset, composed (base + CGJ + mark) minus the designer's precomposed glyph, along the slant;
+positive means the composed mark lands right of the designer's.
+Under the rule $\Delta x$ is no longer zeroed per mark: what remains is common to all the marks of a style (about $+12$ to $+16$ in semibold italic, where the designer builds the precomposed glyphs with the base about 12 right), which is a question for the base anchors, not the marks.
+
+\medskip
+{\small \begin{tabular}{@{}lrrrrrrrrrrrr@{}}
+ & \multicolumn{3}{c}{Regular} & \multicolumn{3}{c}{Italic} & \multicolumn{3}{c}{Semibold} & \multicolumn{3}{c}{Semibold italic}\\
+ & $k$ & now & rule & $k$ & now & rule & $k$ & now & rule & $k$ & now & rule\\\hline
+\char"25CC\char"0302\ circumflex & -1 & +3 & +3 & 0 & +18 & +18 & 0 & +0 & +0 & 153 & +16 & +16\\
+\char"25CC\char"0303\ tilde & 0 & -4 & -4 & \textbf{11} & \textbf{+24} & \textbf{+13} & -4 & -9 & -9 & \textbf{139} & \textbf{+12} & \textbf{+23}\\
+\char"25CC\char"0304\ macron & -2 & -9 & -9 & -1 & +0 & +0 & 6 & -2 & -2 & 141 & +5 & +5\\
+\char"25CC\char"0306\ breve & 0 & +8.5 & +8.5 & 0 & +5 & +5 & 0 & +6 & +6 & 150 & +14 & +14\\
+\char"25CC\char"0307\ dot above & 0 & +3 & +3 & 3 & +15 & +15 & 1 & -4 & -4 & 148 & -8 & -8\\
+\char"25CC\char"0308\ dieresis & 0 & -0.5 & -0.5 & 0 & -3.5 & -3.5 & \textbf{12} & \textbf{+13.5} & \textbf{+1.5} & \textbf{112} & \textbf{-26} & \textbf{+12}\\
+\char"25CC\char"030A\ ring & 2 & +3 & +3 & 3 & +8 & +8 & 0 & -0.5 & -0.5 & 158 & +24 & +24\\
+\char"25CC\char"030C\ caron & 2 & +5.5 & +5.5 & 1 & +10 & +10 & 0 & +0 & +0 & 150 & +1 & +1\\
+\end{tabular}}
+
+\subsection*{2. Vertical: the evidence of $\Delta y$}
+$\Delta y$: the same comparison vertically; positive means the composed mark sits higher than the designer's.
+Median over the precomposed letters with an x-height base (ascender letters such as ḃ ḋ ḣ ḱ excluded: the designer puts the mark beside the ascender), with the range.
+On x-height bases the base anchor is at the reference height (645) for every letter, so a $\Delta y$ that is the same on every base belongs to the mark's anchor: it is evidence for moving that anchor down (positive $\Delta y$) or up (negative).
+A spread across bases (italic macron: $-1$ on ā ē ḡ, $-32$ on ī ō ū ȳ) means the designer's precomposed glyphs disagree among themselves.
+Bold: $|\Delta y| \ge 10$.
+
+\medskip
+{\small \begin{tabular}{@{}lrrrrrrrr@{}}
+ & \multicolumn{2}{c}{Regular} & \multicolumn{2}{c}{Italic} & \multicolumn{2}{c}{Semibold} & \multicolumn{2}{c}{Semibold italic}\\
+ & $\Delta y$ & range & $\Delta y$ & range & $\Delta y$ & range & $\Delta y$ & range\\\hline
+\char"25CC\char"0300\ grave & -1 & {\tiny -1..-1} & -1 & {\tiny -1..-1} & -1 & {\tiny -1..-1} & +0 & {\tiny 0..1}\\
+\char"25CC\char"0301\ acute & +0 & {\tiny 0..0} & +0 & {\tiny -9..5} & -1 & {\tiny -1..-1} & +6.5 & {\tiny 6..9}\\
+\char"25CC\char"0302\ circumflex & -1 & {\tiny -1..1} & -1 & {\tiny -8..1} & -4 & {\tiny -4..-2} & -1 & {\tiny -1..1}\\
+\char"25CC\char"0303\ tilde & -4 & {\tiny -4..-4} & -4 & {\tiny -4..1} & \textbf{+14} & {\tiny 14..14} & -2 & {\tiny -2..-1}\\
+\char"25CC\char"0304\ macron & \textbf{+18} & {\tiny 18..18} & \textbf{-32} & {\tiny -32..-1} & \textbf{-12} & {\tiny -12..-12} & \textbf{-32} & {\tiny -32..-5}\\
+\char"25CC\char"0306\ breve & -6.5 & {\tiny -10..-4} & -6.5 & {\tiny -10..-4} & -9.5 & {\tiny -13..-7} & -7 & {\tiny -10..-4}\\
+\char"25CC\char"0307\ dot above & \textbf{-45} & {\tiny -46..-44} & \textbf{-11} & {\tiny -15..-10} & \textbf{-21} & {\tiny -23..-20} & \textbf{+11} & {\tiny 3..12}\\
+\char"25CC\char"0308\ dieresis & -2 & {\tiny -2..0} & +0 & {\tiny 0..2} & -6 & {\tiny -6..-2} & +6 & {\tiny 6..10}\\
+\char"25CC\char"030A\ ring & +7.5 & {\tiny 7..8} & +7 & {\tiny -3..8} & +0.5 & {\tiny 0..1} & \textbf{+23} & {\tiny 16..23}\\
+\char"25CC\char"030B\ double acute & \textbf{+11} & {\tiny 11..11} & \textbf{+11} & {\tiny 11..11} & -8 & {\tiny -8..-8} & \textbf{+11} & {\tiny 11..11}\\
+\char"25CC\char"030C\ caron & +0 & {\tiny -7..2} & +0 & {\tiny -7..2} & +0 & {\tiny -7..2} & +0 & {\tiny -7..2}\\
+\end{tabular}}
+
+\clearpage
+\subsection*{3. The rule: the four marks it moves}
+Red: the designer's precomposed glyph. Blue: composed now (upper row) and under the rule (lower row). Purple where they agree.
+
+\medskip\textbf{Italic tilde}\par
+\makebox[1.4cm][l]{\small now}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ã}{{a\cgj\char"0303}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ẽ}{{e\cgj\char"0303}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ĩ}{{ı\cgj\char"0303}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{õ}{{o\cgj\char"0303}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ũ}{{u\cgj\char"0303}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ñ}{{n\cgj\char"0303}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ỹ}{{y\cgj\char"0303}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ṽ}{{v\cgj\char"0303}}\par
+\makebox[1.4cm][l]{\small rule}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{ã}{{a\cgj\char"0303}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{ẽ}{{e\cgj\char"0303}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{ĩ}{{ı\cgj\char"0303}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{õ}{{o\cgj\char"0303}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{ũ}{{u\cgj\char"0303}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{ñ}{{n\cgj\char"0303}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{ỹ}{{y\cgj\char"0303}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{ṽ}{{v\cgj\char"0303}}\par
+\medskip\textbf{Semibold dieresis}\par
+\makebox[1.4cm][l]{\small now}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ä}{{a\cgj\char"0308}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ë}{{e\cgj\char"0308}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ï}{{ı\cgj\char"0308}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ö}{{o\cgj\char"0308}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ü}{{u\cgj\char"0308}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ÿ}{{y\cgj\char"0308}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ẅ}{{w\cgj\char"0308}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ẍ}{{x\cgj\char"0308}}\par
+\makebox[1.4cm][l]{\small rule}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{ä}{{a\cgj\char"0308}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{ë}{{e\cgj\char"0308}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{ï}{{ı\cgj\char"0308}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{ö}{{o\cgj\char"0308}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{ü}{{u\cgj\char"0308}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{ÿ}{{y\cgj\char"0308}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{ẅ}{{w\cgj\char"0308}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{ẍ}{{x\cgj\char"0308}}\par
+\medskip\textbf{Semibold italic tilde}\par
+\makebox[1.4cm][l]{\small now}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ã}{{a\cgj\char"0303}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ẽ}{{e\cgj\char"0303}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ĩ}{{ı\cgj\char"0303}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{õ}{{o\cgj\char"0303}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ñ}{{n\cgj\char"0303}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ỹ}{{y\cgj\char"0303}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ṽ}{{v\cgj\char"0303}}\par
+\makebox[1.4cm][l]{\small rule}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ã}{{a\cgj\char"0303}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ẽ}{{e\cgj\char"0303}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ĩ}{{ı\cgj\char"0303}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{õ}{{o\cgj\char"0303}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ñ}{{n\cgj\char"0303}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ỹ}{{y\cgj\char"0303}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ṽ}{{v\cgj\char"0303}}\par
+\medskip\textbf{Semibold italic dieresis}\par
+\makebox[1.4cm][l]{\small now}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ä}{{a\cgj\char"0308}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ë}{{e\cgj\char"0308}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ï}{{ı\cgj\char"0308}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ö}{{o\cgj\char"0308}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ÿ}{{y\cgj\char"0308}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ẅ}{{w\cgj\char"0308}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ẍ}{{x\cgj\char"0308}}\par
+\makebox[1.4cm][l]{\small rule}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ä}{{a\cgj\char"0308}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ë}{{e\cgj\char"0308}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ï}{{ı\cgj\char"0308}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ö}{{o\cgj\char"0308}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ÿ}{{y\cgj\char"0308}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ẅ}{{w\cgj\char"0308}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{ẍ}{{x\cgj\char"0308}}\par
+
+\paragraph{Against the circumflex on the same base.}
+Red: the moved mark; blue: the circumflex, both composed. Upper row now, lower row under the rule.
+
+\makebox[4.2cm][l]{\small Italic tilde, now}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{{o\cgj\char"0303}}{{o\cgj\char"0302}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{{n\cgj\char"0303}}{{n\cgj\char"0302}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{{ı\cgj\char"0303}}{{ı\cgj\char"0302}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{{ȷ\cgj\char"0303}}{{ȷ\cgj\char"0302}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{{u\cgj\char"0303}}{{u\cgj\char"0302}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{{a\cgj\char"0303}}{{a\cgj\char"0302}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{{ə\cgj\char"0303}}{{ə\cgj\char"0302}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{{ɔ\cgj\char"0303}}{{ɔ\cgj\char"0302}}\par
+\makebox[4.2cm][l]{\small \quad rule}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{{o\cgj\char"0303}}{{o\cgj\char"0302}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{{n\cgj\char"0303}}{{n\cgj\char"0302}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{{ı\cgj\char"0303}}{{ı\cgj\char"0302}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{{ȷ\cgj\char"0303}}{{ȷ\cgj\char"0302}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{{u\cgj\char"0303}}{{u\cgj\char"0302}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{{a\cgj\char"0303}}{{a\cgj\char"0302}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{{ə\cgj\char"0303}}{{ə\cgj\char"0302}}\ov{\RuleI\fontsize{32}{32}\selectfont\relax }{{ɔ\cgj\char"0303}}{{ɔ\cgj\char"0302}}\par\smallskip
+\makebox[4.2cm][l]{\small Semibold dieresis, now}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{{o\cgj\char"0308}}{{o\cgj\char"0302}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{{n\cgj\char"0308}}{{n\cgj\char"0302}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ı\cgj\char"0308}}{{ı\cgj\char"0302}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ȷ\cgj\char"0308}}{{ȷ\cgj\char"0302}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{{u\cgj\char"0308}}{{u\cgj\char"0302}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{{a\cgj\char"0308}}{{a\cgj\char"0302}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ə\cgj\char"0308}}{{ə\cgj\char"0302}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ɔ\cgj\char"0308}}{{ɔ\cgj\char"0302}}\par
+\makebox[4.2cm][l]{\small \quad rule}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{{o\cgj\char"0308}}{{o\cgj\char"0302}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{{n\cgj\char"0308}}{{n\cgj\char"0302}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{{ı\cgj\char"0308}}{{ı\cgj\char"0302}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{{ȷ\cgj\char"0308}}{{ȷ\cgj\char"0302}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{{u\cgj\char"0308}}{{u\cgj\char"0302}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{{a\cgj\char"0308}}{{a\cgj\char"0302}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{{ə\cgj\char"0308}}{{ə\cgj\char"0302}}\ov{\RuleB\fontsize{32}{32}\selectfont\relax }{{ɔ\cgj\char"0308}}{{ɔ\cgj\char"0302}}\par\smallskip
+\makebox[4.2cm][l]{\small Semibold italic tilde, now}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{o\cgj\char"0303}}{{o\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{n\cgj\char"0303}}{{n\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ı\cgj\char"0303}}{{ı\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ȷ\cgj\char"0303}}{{ȷ\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{u\cgj\char"0303}}{{u\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{a\cgj\char"0303}}{{a\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ə\cgj\char"0303}}{{ə\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ɔ\cgj\char"0303}}{{ɔ\cgj\char"0302}}\par
+\makebox[4.2cm][l]{\small \quad rule}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{o\cgj\char"0303}}{{o\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{n\cgj\char"0303}}{{n\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{ı\cgj\char"0303}}{{ı\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{ȷ\cgj\char"0303}}{{ȷ\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{u\cgj\char"0303}}{{u\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{a\cgj\char"0303}}{{a\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{ə\cgj\char"0303}}{{ə\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{ɔ\cgj\char"0303}}{{ɔ\cgj\char"0302}}\par\smallskip
+\makebox[4.2cm][l]{\small Semibold italic dieresis, now}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{o\cgj\char"0308}}{{o\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{n\cgj\char"0308}}{{n\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ı\cgj\char"0308}}{{ı\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ȷ\cgj\char"0308}}{{ȷ\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{u\cgj\char"0308}}{{u\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{a\cgj\char"0308}}{{a\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ə\cgj\char"0308}}{{ə\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{{ɔ\cgj\char"0308}}{{ɔ\cgj\char"0302}}\par
+\makebox[4.2cm][l]{\small \quad rule}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{o\cgj\char"0308}}{{o\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{n\cgj\char"0308}}{{n\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{ı\cgj\char"0308}}{{ı\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{ȷ\cgj\char"0308}}{{ȷ\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{u\cgj\char"0308}}{{u\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{a\cgj\char"0308}}{{a\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{ə\cgj\char"0308}}{{ə\cgj\char"0302}}\ov{\RuleBI\fontsize{32}{32}\selectfont\relax }{{ɔ\cgj\char"0308}}{{ɔ\cgj\char"0302}}\par\smallskip
+
+\paragraph{In text.} Nasal and centralized vowels: precomposed letters (ã ẽ õ ũ, ä ë ö ü) beside composed ones with no precomposed form (ɛ̃ ə̃ ɔ̃ ʊ̃, ɛ̈ ə̈ ɔ̈ ʊ̈).
+
+\medskip
+
+\makebox[3.4cm][l]{\small Italic, now}{\Pt\itshape\mdseries\fontsize{17}{24}\selectfont\relax [ã ɐ̃ ẽ ɛ̃ ə̃ ĩ ɪ̃ õ ɔ̃ ũ ʊ̃ ỹ ʏ̃]\quad [ä ɐ̈ ë ɛ̈ ə̈ ï ɪ̈ ö ɔ̈ ü ʊ̈ ÿ ʏ̈]\par}
+\makebox[3.4cm][l]{\small \quad rule}{\RuleI\fontsize{17}{24}\selectfont\relax [ã ɐ̃ ẽ ɛ̃ ə̃ ĩ ɪ̃ õ ɔ̃ ũ ʊ̃ ỹ ʏ̃]\quad [ä ɐ̈ ë ɛ̈ ə̈ ï ɪ̈ ö ɔ̈ ü ʊ̈ ÿ ʏ̈]\par}
+\makebox[3.4cm][l]{\small Semibold, now}{\Pt\upshape\bfseries\fontsize{17}{24}\selectfont\relax [ã ɐ̃ ẽ ɛ̃ ə̃ ĩ ɪ̃ õ ɔ̃ ũ ʊ̃ ỹ ʏ̃]\quad [ä ɐ̈ ë ɛ̈ ə̈ ï ɪ̈ ö ɔ̈ ü ʊ̈ ÿ ʏ̈]\par}
+\makebox[3.4cm][l]{\small \quad rule}{\RuleB\fontsize{17}{24}\selectfont\relax [ã ɐ̃ ẽ ɛ̃ ə̃ ĩ ɪ̃ õ ɔ̃ ũ ʊ̃ ỹ ʏ̃]\quad [ä ɐ̈ ë ɛ̈ ə̈ ï ɪ̈ ö ɔ̈ ü ʊ̈ ÿ ʏ̈]\par}
+\makebox[3.4cm][l]{\small Semibold italic, now}{\Pt\itshape\bfseries\fontsize{17}{24}\selectfont\relax [ã ɐ̃ ẽ ɛ̃ ə̃ ĩ ɪ̃ õ ɔ̃ ũ ʊ̃ ỹ ʏ̃]\quad [ä ɐ̈ ë ɛ̈ ə̈ ï ɪ̈ ö ɔ̈ ü ʊ̈ ÿ ʏ̈]\par}
+\makebox[3.4cm][l]{\small \quad rule}{\RuleBI\fontsize{17}{24}\selectfont\relax [ã ɐ̃ ẽ ɛ̃ ə̃ ĩ ɪ̃ õ ɔ̃ ũ ʊ̃ ỹ ʏ̃]\quad [ä ɐ̈ ë ɛ̈ ə̈ ï ɪ̈ ö ɔ̈ ü ʊ̈ ÿ ʏ̈]\par}
+
+\clearpage
+\subsection*{4. How much the marks dance (patched fonts, now)}
+\paragraph{Composed (blue) over precomposed (red), on o.}
+Each pair is the designer's precomposed letter and o + CGJ + the same mark. A vertical offset is the $\Delta y$ of section 2, a horizontal one the $\Delta x$.
+
+\medskip
+
+\makebox[2.6cm][l]{\small Regular}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ò}{{o\cgj\char"0300}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ó}{{o\cgj\char"0301}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ô}{{o\cgj\char"0302}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{õ}{{o\cgj\char"0303}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ō}{{o\cgj\char"0304}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ŏ}{{o\cgj\char"0306}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ȯ}{{o\cgj\char"0307}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ö}{{o\cgj\char"0308}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ő}{{o\cgj\char"030B}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{ǒ}{{o\cgj\char"030C}}\ov{\Pt\upshape\mdseries\fontsize{32}{32}\selectfont\relax }{å}{{a\cgj\char"030A}}\par
+\makebox[2.6cm][l]{\small Italic}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ò}{{o\cgj\char"0300}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ó}{{o\cgj\char"0301}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ô}{{o\cgj\char"0302}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{õ}{{o\cgj\char"0303}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ō}{{o\cgj\char"0304}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ŏ}{{o\cgj\char"0306}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ȯ}{{o\cgj\char"0307}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ö}{{o\cgj\char"0308}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ő}{{o\cgj\char"030B}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{ǒ}{{o\cgj\char"030C}}\ov{\Pt\itshape\mdseries\fontsize{32}{32}\selectfont\relax }{å}{{a\cgj\char"030A}}\par
+\makebox[2.6cm][l]{\small Semibold}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ò}{{o\cgj\char"0300}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ó}{{o\cgj\char"0301}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ô}{{o\cgj\char"0302}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{õ}{{o\cgj\char"0303}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ō}{{o\cgj\char"0304}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ŏ}{{o\cgj\char"0306}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ȯ}{{o\cgj\char"0307}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ö}{{o\cgj\char"0308}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ő}{{o\cgj\char"030B}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{ǒ}{{o\cgj\char"030C}}\ov{\Pt\upshape\bfseries\fontsize{32}{32}\selectfont\relax }{å}{{a\cgj\char"030A}}\par
+\makebox[2.6cm][l]{\small Semibold italic}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ò}{{o\cgj\char"0300}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ó}{{o\cgj\char"0301}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ô}{{o\cgj\char"0302}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{õ}{{o\cgj\char"0303}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ō}{{o\cgj\char"0304}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ŏ}{{o\cgj\char"0306}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ȯ}{{o\cgj\char"0307}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ö}{{o\cgj\char"0308}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ő}{{o\cgj\char"030B}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{ǒ}{{o\cgj\char"030C}}\ov{\Pt\itshape\bfseries\fontsize{32}{32}\selectfont\relax }{å}{{a\cgj\char"030A}}\par
+
+\paragraph{In a line.} Each pair is a precomposed letter followed by a composed one with no precomposed form, on a base of the same height:
+o with ɔ, e with ə, u with ʊ. In the composed letters the marks are placed by the anchors; in the precomposed letters, where the designer drew them.
+A mark that jumps between the two letters of a pair is a mark whose $\Delta y$ (or $\Delta x$) is large.
+
+\medskip
+
+\makebox[2.6cm][l]{\small Regular}{\Pt\upshape\mdseries\fontsize{20}{30}\selectfont\relax ò{ɔ\cgj\char"0300} ó{ɔ\cgj\char"0301} ô{ɔ\cgj\char"0302} õ{ɔ\cgj\char"0303} ō{ɔ\cgj\char"0304} ŏ{ɔ\cgj\char"0306} ȯ{ɔ\cgj\char"0307} ö{ɔ\cgj\char"0308} ǒ{ɔ\cgj\char"030C} ő{ɔ\cgj\char"030B}\par}
+\makebox[2.6cm][l]{}{\Pt\upshape\mdseries\fontsize{20}{30}\selectfont\relax è{ə\cgj\char"0300} é{ə\cgj\char"0301} ê{ə\cgj\char"0302} ẽ{ə\cgj\char"0303} ē{ə\cgj\char"0304} ĕ{ə\cgj\char"0306} ė{ə\cgj\char"0307} ë{ə\cgj\char"0308} ě{ə\cgj\char"030C}\par}
+\makebox[2.6cm][l]{}{\Pt\upshape\mdseries\fontsize{20}{30}\selectfont\relax ù{ʊ\cgj\char"0300} ú{ʊ\cgj\char"0301} û{ʊ\cgj\char"0302} ũ{ʊ\cgj\char"0303} ū{ʊ\cgj\char"0304} ŭ{ʊ\cgj\char"0306} ü{ʊ\cgj\char"0308} ů{ʊ\cgj\char"030A} ű{ʊ\cgj\char"030B} ǔ{ʊ\cgj\char"030C}\par}\smallskip
+\makebox[2.6cm][l]{\small Italic}{\Pt\itshape\mdseries\fontsize{20}{30}\selectfont\relax ò{ɔ\cgj\char"0300} ó{ɔ\cgj\char"0301} ô{ɔ\cgj\char"0302} õ{ɔ\cgj\char"0303} ō{ɔ\cgj\char"0304} ŏ{ɔ\cgj\char"0306} ȯ{ɔ\cgj\char"0307} ö{ɔ\cgj\char"0308} ǒ{ɔ\cgj\char"030C} ő{ɔ\cgj\char"030B}\par}
+\makebox[2.6cm][l]{}{\Pt\itshape\mdseries\fontsize{20}{30}\selectfont\relax è{ə\cgj\char"0300} é{ə\cgj\char"0301} ê{ə\cgj\char"0302} ẽ{ə\cgj\char"0303} ē{ə\cgj\char"0304} ĕ{ə\cgj\char"0306} ė{ə\cgj\char"0307} ë{ə\cgj\char"0308} ě{ə\cgj\char"030C}\par}
+\makebox[2.6cm][l]{}{\Pt\itshape\mdseries\fontsize{20}{30}\selectfont\relax ù{ʊ\cgj\char"0300} ú{ʊ\cgj\char"0301} û{ʊ\cgj\char"0302} ũ{ʊ\cgj\char"0303} ū{ʊ\cgj\char"0304} ŭ{ʊ\cgj\char"0306} ü{ʊ\cgj\char"0308} ů{ʊ\cgj\char"030A} ű{ʊ\cgj\char"030B} ǔ{ʊ\cgj\char"030C}\par}\smallskip
+\makebox[2.6cm][l]{\small Semibold}{\Pt\upshape\bfseries\fontsize{20}{30}\selectfont\relax ò{ɔ\cgj\char"0300} ó{ɔ\cgj\char"0301} ô{ɔ\cgj\char"0302} õ{ɔ\cgj\char"0303} ō{ɔ\cgj\char"0304} ŏ{ɔ\cgj\char"0306} ȯ{ɔ\cgj\char"0307} ö{ɔ\cgj\char"0308} ǒ{ɔ\cgj\char"030C} ő{ɔ\cgj\char"030B}\par}
+\makebox[2.6cm][l]{}{\Pt\upshape\bfseries\fontsize{20}{30}\selectfont\relax è{ə\cgj\char"0300} é{ə\cgj\char"0301} ê{ə\cgj\char"0302} ẽ{ə\cgj\char"0303} ē{ə\cgj\char"0304} ĕ{ə\cgj\char"0306} ė{ə\cgj\char"0307} ë{ə\cgj\char"0308} ě{ə\cgj\char"030C}\par}
+\makebox[2.6cm][l]{}{\Pt\upshape\bfseries\fontsize{20}{30}\selectfont\relax ù{ʊ\cgj\char"0300} ú{ʊ\cgj\char"0301} û{ʊ\cgj\char"0302} ũ{ʊ\cgj\char"0303} ū{ʊ\cgj\char"0304} ŭ{ʊ\cgj\char"0306} ü{ʊ\cgj\char"0308} ů{ʊ\cgj\char"030A} ű{ʊ\cgj\char"030B} ǔ{ʊ\cgj\char"030C}\par}\smallskip
+\makebox[2.6cm][l]{\small Semibold italic}{\Pt\itshape\bfseries\fontsize{20}{30}\selectfont\relax ò{ɔ\cgj\char"0300} ó{ɔ\cgj\char"0301} ô{ɔ\cgj\char"0302} õ{ɔ\cgj\char"0303} ō{ɔ\cgj\char"0304} ŏ{ɔ\cgj\char"0306} ȯ{ɔ\cgj\char"0307} ö{ɔ\cgj\char"0308} ǒ{ɔ\cgj\char"030C} ő{ɔ\cgj\char"030B}\par}
+\makebox[2.6cm][l]{}{\Pt\itshape\bfseries\fontsize{20}{30}\selectfont\relax è{ə\cgj\char"0300} é{ə\cgj\char"0301} ê{ə\cgj\char"0302} ẽ{ə\cgj\char"0303} ē{ə\cgj\char"0304} ĕ{ə\cgj\char"0306} ė{ə\cgj\char"0307} ë{ə\cgj\char"0308} ě{ə\cgj\char"030C}\par}
+\makebox[2.6cm][l]{}{\Pt\itshape\bfseries\fontsize{20}{30}\selectfont\relax ù{ʊ\cgj\char"0300} ú{ʊ\cgj\char"0301} û{ʊ\cgj\char"0302} ũ{ʊ\cgj\char"0303} ū{ʊ\cgj\char"0304} ŭ{ʊ\cgj\char"0306} ü{ʊ\cgj\char"0308} ů{ʊ\cgj\char"030A} ű{ʊ\cgj\char"030B} ǔ{ʊ\cgj\char"030C}\par}\smallskip
+
+\paragraph{One base, every mark.} o + CGJ + each mark (upper row) and the designer's ò ó ô õ ō ŏ ȯ ö ő ǒ (lower row), with lines at the x-height and 100 above it.
+
+\medskip
+
+\makebox[2.6cm][l]{\small Regular}\begin{tikzpicture}[baseline=0pt]\node[anchor=base west,inner sep=0pt] (t) at (0,0) {\Pt\upshape\mdseries\fontsize{30}{30}\selectfont\relax {o\cgj\char"0300} {o\cgj\char"0301} {o\cgj\char"0302} {o\cgj\char"0303} {o\cgj\char"0304} {o\cgj\char"0306} {o\cgj\char"0307} {o\cgj\char"0308} {o\cgj\char"030B} {o\cgj\char"030C}};\draw[blue!40,very thin] (t.west |- 0,12.87pt) -- (t.east |- 0,12.87pt);\draw[red!40,very thin] (t.west |- 0,15.870000000000001pt) -- (t.east |- 0,15.870000000000001pt);\end{tikzpicture}\par\medskip
+\makebox[2.6cm][l]{\small }\begin{tikzpicture}[baseline=0pt]\node[anchor=base west,inner sep=0pt] (t) at (0,0) {\Pt\upshape\mdseries\fontsize{30}{30}\selectfont\relax ò ó ô õ ō ŏ ȯ ö ő ǒ};\draw[blue!40,very thin] (t.west |- 0,12.87pt) -- (t.east |- 0,12.87pt);\draw[red!40,very thin] (t.west |- 0,15.870000000000001pt) -- (t.east |- 0,15.870000000000001pt);\end{tikzpicture}\par\medskip
+\bigskip
+\makebox[2.6cm][l]{\small Italic}\begin{tikzpicture}[baseline=0pt]\node[anchor=base west,inner sep=0pt] (t) at (0,0) {\Pt\itshape\mdseries\fontsize{30}{30}\selectfont\relax {o\cgj\char"0300} {o\cgj\char"0301} {o\cgj\char"0302} {o\cgj\char"0303} {o\cgj\char"0304} {o\cgj\char"0306} {o\cgj\char"0307} {o\cgj\char"0308} {o\cgj\char"030B} {o\cgj\char"030C}};\draw[blue!40,very thin] (t.west |- 0,12.87pt) -- (t.east |- 0,12.87pt);\draw[red!40,very thin] (t.west |- 0,15.870000000000001pt) -- (t.east |- 0,15.870000000000001pt);\end{tikzpicture}\par\medskip
+\makebox[2.6cm][l]{\small }\begin{tikzpicture}[baseline=0pt]\node[anchor=base west,inner sep=0pt] (t) at (0,0) {\Pt\itshape\mdseries\fontsize{30}{30}\selectfont\relax ò ó ô õ ō ŏ ȯ ö ő ǒ};\draw[blue!40,very thin] (t.west |- 0,12.87pt) -- (t.east |- 0,12.87pt);\draw[red!40,very thin] (t.west |- 0,15.870000000000001pt) -- (t.east |- 0,15.870000000000001pt);\end{tikzpicture}\par\medskip
+\bigskip
+\makebox[2.6cm][l]{\small Semibold}\begin{tikzpicture}[baseline=0pt]\node[anchor=base west,inner sep=0pt] (t) at (0,0) {\Pt\upshape\bfseries\fontsize{30}{30}\selectfont\relax {o\cgj\char"0300} {o\cgj\char"0301} {o\cgj\char"0302} {o\cgj\char"0303} {o\cgj\char"0304} {o\cgj\char"0306} {o\cgj\char"0307} {o\cgj\char"0308} {o\cgj\char"030B} {o\cgj\char"030C}};\draw[blue!40,very thin] (t.west |- 0,13.02pt) -- (t.east |- 0,13.02pt);\draw[red!40,very thin] (t.west |- 0,16.02pt) -- (t.east |- 0,16.02pt);\end{tikzpicture}\par\medskip
+\makebox[2.6cm][l]{\small }\begin{tikzpicture}[baseline=0pt]\node[anchor=base west,inner sep=0pt] (t) at (0,0) {\Pt\upshape\bfseries\fontsize{30}{30}\selectfont\relax ò ó ô õ ō ŏ ȯ ö ő ǒ};\draw[blue!40,very thin] (t.west |- 0,13.02pt) -- (t.east |- 0,13.02pt);\draw[red!40,very thin] (t.west |- 0,16.02pt) -- (t.east |- 0,16.02pt);\end{tikzpicture}\par\medskip
+\bigskip
+\makebox[2.6cm][l]{\small Semibold italic}\begin{tikzpicture}[baseline=0pt]\node[anchor=base west,inner sep=0pt] (t) at (0,0) {\Pt\itshape\bfseries\fontsize{30}{30}\selectfont\relax {o\cgj\char"0300} {o\cgj\char"0301} {o\cgj\char"0302} {o\cgj\char"0303} {o\cgj\char"0304} {o\cgj\char"0306} {o\cgj\char"0307} {o\cgj\char"0308} {o\cgj\char"030B} {o\cgj\char"030C}};\draw[blue!40,very thin] (t.west |- 0,13.02pt) -- (t.east |- 0,13.02pt);\draw[red!40,very thin] (t.west |- 0,16.02pt) -- (t.east |- 0,16.02pt);\end{tikzpicture}\par\medskip
+\makebox[2.6cm][l]{\small }\begin{tikzpicture}[baseline=0pt]\node[anchor=base west,inner sep=0pt] (t) at (0,0) {\Pt\itshape\bfseries\fontsize{30}{30}\selectfont\relax ò ó ô õ ō ŏ ȯ ö ő ǒ};\draw[blue!40,very thin] (t.west |- 0,13.02pt) -- (t.east |- 0,13.02pt);\draw[red!40,very thin] (t.west |- 0,16.02pt) -- (t.east |- 0,16.02pt);\end{tikzpicture}\par\medskip
+\bigskip
+\end{document}

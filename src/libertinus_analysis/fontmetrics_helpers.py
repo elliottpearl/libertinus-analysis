@@ -250,14 +250,20 @@ SLOPE = {
 # per anchor class ("0" above, "2" below). Other styles have K = 0.
 SHIFT_K = {"semibold_italic": {"0": 150, "2": -12}}
 
-def get_anchor_candidate(style_key: str, style_metrics: dict, cp: int, anchor_id: str):
+def get_anchor_candidate(style_key: str, style_metrics: dict, cp: int, anchor_id: str,
+                         lane: str = "advance"):
     """
     Candidate (x, y) for the above ("0") or below ("2") anchor, per the
     anchor model in ANCHOR-HEURISTICS.md.
 
     y: edge of the ideal bounding box plus/minus the clearance (get_aya/get_bya).
-    x: roman → bbox midpoint; italic → W/2 + y tan(theta) - K, at the
-    candidate's own height.
+    x: roman → bbox midpoint; italic → midline of the glyph's lane at the
+    candidate's own height, minus K. lane="advance" (the model) is the
+    advance lane, midline W/2 + y tan(theta); lane="ink" is the ink lane, the
+    narrowest strip at the italic angle containing the outline, midline
+    C + y tan(theta) with C = axis_x where it meets the baseline (the lane
+    comparison sheet, run_print_lane_comparison.py). In roman both lanes give
+    the bbox midpoint.
 
     Returns (x, y, ideal) with ideal the aspect string, or None if the glyph
     has no bbox.
@@ -281,7 +287,8 @@ def get_anchor_candidate(style_key: str, style_metrics: dict, cp: int, anchor_id
         x = (xmin + xmax) / 2.0
     else:
         k = SHIFT_K.get(style_key, {}).get(anchor_id, 0)
-        x = entry["width"] / 2.0 + y * slope - k
+        centre = entry["axis_x"] if lane == "ink" else entry["width"] / 2.0
+        x = centre + y * slope - k
     return x, y, ideal
 
 # Mark anchor height relative to the mark's own outline, per anchor class:

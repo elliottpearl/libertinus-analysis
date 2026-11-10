@@ -20,6 +20,7 @@ There is no test suite and no linter. Work is driven by top-level `run_*` wrappe
 .venv/bin/python run_print_mark_zones.py              # patched fonts -> tex/input/mark_zones_{style}.tex, figures of all marks on o (run_patch_font.py does this too)
 .venv/bin/python run_mark_snap_sheet.py               # patched fonts -> fonts/*-marksnap.otf (mark anchor X moved to C + Y tan θ + d − K) and tex/input/mark_snap.tex, a test sheet (not \input by the report since 2026-11-06; the snap was rejected as a stage, see the report)
 ./run_xelatex_report.sh                               # tex/libertinus-analysis.tex -> PDF
+.venv/bin/python run_print_lane_comparison.py         # italic base-anchor candidate X, advance lane vs ink lane -> tex/input/lane_comparison_*.tex; PDF: cd tex && xelatex lane-comparison.tex (separate from the report)
 .venv/bin/python run_build_fontmetrics.py             # optional: dump metrics to data/fontmetrics/{style}.json; no code reads it
 
 # FontForge environment (Python 3.11; system fontforge module symlinked in)

@@ -1,0 +1,94 @@
+\documentclass[landscape]{article}
+
+% Lane comparison for the italic base-anchor candidate X (2026-11-10).
+% Tables: .venv/bin/python run_print_lane_comparison.py (from the repo root).
+% PDF: cd tex && xelatex lane-comparison.tex
+
+\usepackage[table]{xcolor}
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{array}
+
+\geometry{a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+\setlength{\parindent}{0pt}
+\addtolength{\parskip}{2pt}
+
+% always use `Path = ../fonts/`, always include the extension
+\setmainfont{Libertinus Serif}[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular.otf,
+	ItalicFont     = LibertinusSerif-Italic.otf,
+	BoldFont       = LibertinusSerif-Semibold.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic.otf
+]
+
+\newfontfamily\LibertinusSerifPatch[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular-patch.otf,
+	ItalicFont     = LibertinusSerif-Italic-patch.otf,
+	BoldFont       = LibertinusSerif-Semibold-patch.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf
+]{Libertinus Serif Patch}
+
+	% combining grapheme joiner
+\newcommand{\cgj}{\char"034F }
+
+\begin{document}
+
+\section*{Italic lanes for the base-anchor candidate $X$}
+
+A \emph{lane} is a strip at the italic angle $\theta$ (12° italic, 11.5° semibold italic) with a left and a right edge.
+A line at the italic angle through a point $(x, y)$ meets the baseline at $x - y\tan\theta$,
+so a lane is given by where its edges meet the baseline, and its midline at height $Y$ is
+the midpoint of those two values plus $Y\tan\theta$.
+For a glyph with outline $\mathcal{O}$ and advance width $W$:
+
+\begin{tabular}{lllll}
+lane & left edge & right edge & midline at $Y$ & \\
+\hline
+advance lane & $0$ & $W$ & $W/2 + Y\tan\theta$ & the model \\
+ink lane & $L = \min_{\mathcal{O}} (x - y\tan\theta)$ & $R = \max_{\mathcal{O}} (x - y\tan\theta)$ & $C + Y\tan\theta$, \ $C = (L+R)/2$ & the mark-anchor model's axis \\
+ideal lane & $L^*$ & $R^*$ & $(L^*+R^*)/2 + Y\tan\theta$ & where the glyph lives; not computed \\
+\end{tabular}
+
+The ink lane is the narrowest strip at the italic angle that contains the outline:
+its edges are lines at the italic angle that just touch the outline, as $X_\mathrm{min}$ and $X_\mathrm{max}$ are upright lines that just touch it.
+With $\theta = 0$, $L = X_\mathrm{min}$ and $R = X_\mathrm{max}$, so in roman both lanes give the bbox midpoint, the roman candidate; only the italic styles are compared.
+Italic n: $W = 518$, $L = 17$ (the entry serif at the top left), $R = 502$ (the outstroke at the bottom right), so $C = 259 = W/2$ and the lanes agree.
+They differ where the ink sits off-centre in the advance width.
+
+The candidate is $X = $ midline at the candidate's $Y$, minus $K$ (semibold italic: $K = 150$ above, $-12$ below; italic: $0$).
+$Y$ is the same for both lanes.
+
+\subsection*{Summary}
+
+$\delta X$ = anchor $X$ minus candidate $X$.
+\emph{designer}: the anchors of the original fonts (the fontmetrics); they were probably placed by advance width, so they favour the advance lane.
+\emph{no derived or precomposed}: without the letters of \verb|data/derived_letters.py| (which inherit from their base letter) and canonically decomposed letters.
+\emph{curated}: the human-curated base anchors (\verb|data/fontanchors_human/|, \verb|bases| by codepoint), with the candidate from the original glyph.
+Columns per lane: median and mean $|\delta X|$, how many $|\delta X| \le 10$, median signed $\delta X$.
+\emph{closer}: how many anchors each lane's candidate is closer to (rounded).
+
+{\footnotesize
+\input{input/lane_comparison_summary.tex}
+}
+
+\subsection*{Table rows}
+
+hex, cat: codepoint and Unicode category.
+it, si: the base alone, with dot above, and with macron below (via CGJ), original font; patch: the same in the patched font.
+a, b: the designer's above and below anchor $X, Y$.
+a?~adv, b?~adv: candidate from the advance lane; a$\delta$~adv, b$\delta$~adv: anchor minus that candidate.
+a?~ink, b?~ink and a$\delta$~ink, b$\delta$~ink: the same for the ink lane.
+Of the two $\delta$ cells, the one with the smaller $|\delta X|$ is bold.
+
+\clearpage
+
+\input{input/lane_comparison_AZ.tex}
+
+\input{input/lane_comparison_az.tex}
+
+\input{input/lane_comparison_latinIPA.tex}
+
+\end{document}

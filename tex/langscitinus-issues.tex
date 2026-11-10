@@ -1,0 +1,310 @@
+\documentclass{article}
+
+% Responses to some of Language Science Press's issues with Libertinus Serif
+% (moved from libertinus-analysis.tex on 2026-11-10)
+
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage{xstring}
+\usepackage{url}
+
+\geometry{
+	a4paper,
+	left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm
+}
+\setlength{\parindent}{0pt}
+\addtolength{\parskip}{2pt}
+
+% Load fonts
+% always use `Path = ../fonts/,`
+% always include extension e.g. `.otf`, `.ttf`
+
+\setmainfont{Libertinus Serif}[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular.otf,
+	ItalicFont     = LibertinusSerif-Italic.otf,
+	BoldFont       = LibertinusSerif-Semibold.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic.otf
+]
+
+\newfontfamily\LibertinusSerifPatch[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular-patch.otf,
+	ItalicFont     = LibertinusSerif-Italic-patch.otf,
+	BoldFont       = LibertinusSerif-Semibold-patch.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf
+]{Libertinus Serif Patch}
+
+% Helper commands for pretty printing samples in regular, italic, bold, bold italic
+
+\newcommand{\ribbi}[1]{#1\
+	
+	{\itshape #1}
+	
+	{\bfseries #1}
+	
+	{\itshape\bfseries #1}}
+
+\newcommand{\ribbiline}[1]{#1\ 
+	{\itshape #1}
+	{\bfseries #1}
+	{\itshape\bfseries #1}}
+
+
+% fedotov
+\newcommand{\E}{Ɛ\kern-1.5pt\raisebox{1pt}{̏}\kern1.5pt}
+\newcommand{\ù}{{ṵ}\kern-2pt{̀}\kern2pt}
+\newcommand{\ȕ}{{ṵ}\kern-2pt{̏}\kern2pt}
+\newcommand{\OO}{ɔ\kern-1pt\raisebox{-1pt}{̰}\kern1pt}
+\newcommand{\Ǒ}{{{ɔ̌\kern-1pt\raisebox{-.5pt}{̰}\kern1pt}}}
+\newcommand{\à}{{a̰}\kern-2pt{̀}\kern2pt}
+
+\newcommand{\Itildegrave}{I\char"034F\char"0330\char"0300}
+\newcommand{\atildecaron}{a\char"034F\char"0330\char"030C}
+\newcommand{\utildegrave}{u\char"034F\char"0330\char"0300}
+
+% --- Dispatcher: maps word → Unicode combining mark ---
+\newcommand{\markdispatch}[1]{%
+  \IfStrEq{#1}{acute}{\char"0301}{}%
+  \IfStrEq{#1}{grave}{\char"0300}{}%
+  \IfStrEq{#1}{caron}{\char"030C}{}%
+  \IfStrEq{#1}{doubleacute}{\char"030B}{}%
+  \IfStrEq{#1}{doublegrave}{\char"030F}{}%
+}
+
+% --- Builder: vowel + CGJ + tilde-below + mark ---
+\newcommand{\voweltildemark}[2]{%
+  #1\char"034F\char"0330%
+  \markdispatch{#2}%
+}
+
+\newcommand{\myex}{\makebox[0pt][r]{+ }}
+
+\begin{document}
+
+\section*{Issues}
+
+\url{https://github.com/langsci/fontforge/issues}
+
+\url{https://github.com/langsci/langscitinus}
+
+
+\begin{enumerate}
+  \item  "i" not losing its dot when there is a tone diacritic AND a tilde below
+
+   ḭ́
+   ı̰́
+
+   ı̰́
+
+   ı̰̀
+
+  \item troubles with capital I
+
+Ḭ̀\
+\textit{Ḭ̀} \
+\textbf{\textit{Ḭ̀}}
+
+Solution: Use combnining grapheme joiner (CGJ)
+
+\Itildegrave\
+\textit{\Itildegrave}\
+\textbf{\textit{\Itildegrave}}
+
+\item double acute critic shifted right in bold face
+
+\textbf{\textit{á}}
+\textbf{\textit{a̋}}
+\textbf{\textit{a̰}}
+\textbf{\textit{\H{a̰}}}
+\textbf{\textit{a̰̋}}
+\textbf{\textit{a̰̋}}
+
+Solution: Patch anchor of double acute
+
+{\LibertinusSerifPatch 
+	\ribbiline{
+		á\ 
+		a̋\ 
+		a̰\
+		\H{a̰}\
+		a̰̋\
+		a̰̋\
+	}
+}
+
+\item wrong tilde placement together with caron (and grave? and acute? and double grave? OK, it seems it's rather about vowels...) with some vowels
+
+ǎ̰
+\textit{ǎ̰}
+\textbf{ǎ̰}
+\textit{\textbf{ǎ̰}}
+
+ṵ̀
+\textbf{\textit{ṵ̀}}
+\textbf{\textit{ṵ}}
+\textbf{\textit{ṵ̀}}
+
+Solution: Use combnining grapheme joiner (CGJ)
+
+\ribbiline{\atildecaron}
+
+\ribbiline{\utildegrave}
+
+
+\item wrong acute placement in bold face
+
+ɛ́
+\textit{ɛ́}
+\textbf{ɛ́}
+\textit{\textbf{ɛ́}}
+
+á
+\textit{á}
+\textbf{á}
+\textit{\textbf{á}}
+
+ɔ́
+\textit{ɔ́}
+\textbf{ɔ́}
+\textit{\textbf{ɔ́}}
+
+ú
+\textit{ú}
+\textbf{ú}
+\textit{\textbf{ú}}
+
+ɛ̀
+\textit{ɛ̀}
+\textbf{ɛ̀}
+\textit{\textbf{ɛ̀}}
+
+à
+\textit{à}
+\textbf{à}
+\textit{\textbf{à}}
+
+ɔ̀
+\textit{ɔ̀}
+\textbf{ɔ̀}
+\textit{\textbf{ɔ̀}}
+
+ù
+\textit{ù}
+\textbf{ù}
+\textit{\textbf{ù}}
+
+Solution: Patch above-anchor of acute and grave in (semi)bold.
+
+{\LibertinusSerifPatch 
+	\ribbiline{ɛ́} \ribbiline{á}
+
+	\ribbiline{ɔ́} \ribbiline{ú}
+
+	\ribbiline{ɛ̀} \ribbiline{à}
+
+	\ribbiline{ɔ̀} \ribbiline{ù}
+}
+
+\item italic examples with tilde below 
+
+{\itshape
+
+Flȁ̰
+
+\myex Fl\voweltildemark{a}{doublegrave}
+
+gṵ̀ à̰
+
+g{\ù}{\à}
+
+\myex g\voweltildemark{u}{grave}\voweltildemark{a}{grave}
+
+lȅ ɔ ̰
+
+\myex l\char"0205\ \char"0254\char"0330
+
+mṵ
+
+kṵ̏,
+
+k{\ȕ}
+
+\myex k\voweltildemark{u}{doublegrave}
+
+nṵ̏
+
+\myex n\voweltildemark{u}{doublegrave}
+
+nɔ̰̌
+
+nṵ̀
+
+n{\ù}
+
+N-ǎ̰
+
+vɔ̰̏ṵ̏ṵ̏
+
+fɔ̰̏ṵ̏fɔ̰̏ṵ̏
+
+lȅ ɔ̰
+
+}
+
+
+{\itshape\bfseries
+
+
+Flȁ̰
+
+
+gṵ̀ à̰
+
+g{\ù}{\à}
+
+
+
+ lȅ ɔ̰
+
+  lȅ {\OO}
+
+mṵ
+
+kṵ̏,
+
+k{\ȕ}
+
+nṵ̏
+
+nɔ̰̌
+
+n{\Ǒ}
+
+ nṵ̀
+
+ n{\ù}
+
+ N-ǎ̰
+
+%  vɔ̰̏ṵ̏ṵ̏
+
+%  fɔ̰̏ṵ̏fɔ̰̏ṵ̏
+
+ }
+
+
+\item Ɛ̏ bold italics
+
+ Ɛ̏
+
+{\E}
+\textit{\E}
+\textbf{\E}
+\textbf{\textit{\E}}
+
+Solution: Set above-anchor for open-E, patch GSUB to use capital alternate mark glyph "uni"
+
+\end{enumerate}
+
+\end{document}

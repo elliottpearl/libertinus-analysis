@@ -7,6 +7,7 @@
 # Generated from the patched fonts by measuring, per style:
 #   - the side: a letter inherits above only if none of its marks is above (ccc 230), and
 #     below only if none is below or attached below (ccc 220, 202: cedilla, ogonek);
+#     except ģ, whose cedilla is drawn as a comma above (added to PRECOMPOSED_BELOW by hand);
 #   - the source: the deepest Unicode base, except that i and j inherit below from
 #     dotless ı and ȷ, which their precomposed glyphs are built on; i and j with a below
 #     mark (ḭ ị) keep their dot, as BASE_ABOVE already left them out;
@@ -48,6 +49,7 @@ PRECOMPOSED_BELOW = [
     0x00D9, 0x00DA, 0x00DB, 0x00DC, 0x00DD, 0x00E0, 0x00E1, 0x00E2, 0x00E3, 0x00E4,  # ÙÚÛÜÝàáâãä
     0x00E5, 0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x00EC, 0x00ED, 0x00EE, 0x00EF, 0x00F1,  # åèéêëìíîïñ
     0x00F2, 0x00F3, 0x00F4, 0x00F5, 0x00F6, 0x00F9, 0x00FA, 0x00FB, 0x00FC, 0x00FD,  # òóôõöùúûüý
+    0x0123,  # ģ: added by hand (2026-11-10). Its comma is encoded as a cedilla (U+0327, ccc 202) but drawn above, so the below side is free
     0x00FF, 0x0100, 0x0101, 0x0102, 0x0103, 0x0106, 0x0107, 0x0108, 0x0109, 0x010A,  # ÿĀāĂăĆćĈĉĊ
     0x010B, 0x010C, 0x010D, 0x010E, 0x010F, 0x0112, 0x0113, 0x0114, 0x0115, 0x0116,  # ċČčĎďĒēĔĕĖ
     0x0117, 0x011A, 0x011B, 0x011C, 0x011D, 0x011E, 0x011F, 0x0120, 0x0121, 0x0124,  # ėĚěĜĝĞğĠġĤ

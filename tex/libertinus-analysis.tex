@@ -2785,13 +2785,41 @@ Black cells are composed: in the patched fonts, the base with the capital altern
 These grids show the IPA above-marks and below-marks on the precomposed Latin letters of stage 9 (\verb|data/precomposed_letters.py|), in the patched fonts only:
 above-marks on the letters that have no mark above, below-marks on those that have no mark below.
 Each such letter inherits its base letter's anchor, moved to where the base sits in the precomposed glyph.
-The excluded letters (ģ and the horn letters above, and a few letters in one style whose base was redrawn) keep only the anchors they already had.
+Stage 9 leaves letters out for two reasons (\verb|EXCLUDED_ABOVE|, \verb|EXCLUDED_BELOW|).
+Where an IPA mark would collide with the letter, the letter gets no anchor on that side, and keeps only the anchor it already had, which is none:
+ģ and the horn letters Ơ ơ ư Ợ ợ ự get no above anchor in any style, because the comma of ģ (30 above-marks overlap it) and the horn (1--12) are in the way.
+Where the base letter was redrawn and fits less than 80\%, the letter gets a curated anchor instead (stage 7).
+These are all of stage 9's fit failures:
+\begin{itemize}
+\item {\LibertinusSerifPatch\bfseries ą\cgj\char"0304\quad a\cgj\char"0304}\quad semibold ą, above: a's anchor plus the shift of ą's upper part (+12), since the ogonek lowers the match to 69\%;
+\item {\LibertinusSerifPatch\itshape Ĵ\cgj\char"0331\quad J\cgj\char"0331}\quad italic Ĵ, below: the italic-model candidate from Ĵ's own metrics, (130, $-251$) (2026-11-10).
+  Ĵ is J moved 47 left, except for the tail, which was redrawn shallower ($-166$, J $-200$) and matches no other glyph,
+  so the fit fails (65\%);
+\item {\LibertinusSerifPatch\bfseries\itshape Ĵ\cgj\char"0331\quad J\cgj\char"0331}\quad semibold italic Ĵ, below: the semibold italic candidate from Ĵ's own metrics, (125, $-281$) (2026-11-10).
+  Its stem was redrawn with a flat top serif and its tail is deeper than J's ($-196$, J $-164$), so the fit fails (64\%);
+\item {\LibertinusSerifPatch\bfseries\itshape ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\quad u\cgj\char"0331}\quad semibold italic ư ứ ừ ử ữ, below: u's anchor, (239, $-110$), shift 0 (2026-11-10).
+  The stems of ư lie on u's, but the bottom of the bowl was redrawn about 15 wider on each side around the same midpoint,
+  so the fit fails (75\%). The toned forms reference ư.
+\end{itemize}
+Each sample is the letter and then its base letter, each with \verb|\cgj| and a macron above (U+0304) or below (U+0331), in the patched font;
+the base letter shows the anchor the letter would have inherited.
+ģ is in stage 9 below although its comma above is encoded as a cedilla (U+0327), an attached below-mark, which would normally keep it out;
+it inherits g's below anchor with a fit of 100\% in every style (2026-11-10).
+
+Stage 9 never replaces an anchor, so a precomposed letter keeps a designer or curated anchor even where the base letter inside it gives a better one.
+Such anchors were removed so that stage 9 inherits (designer anchors deleted in stage 1, \verb|"delete"| in \verb|data/fontanchors_audit/overrides.py|; curated ones commented out; 2026-11-08 and 2026-11-10):
+with a fit of 100\%, every anchor that differs in x, however little; with a lower fit, every one more than 10 off.
+Most were copies of a base anchor that the patch has since changed, or copies that miss how the base sits in the precomposed glyph (in semibold italic, 12 right of the base).
+Every letter with a fit of 100\% now has exactly the anchor stage 9 inherits (\verb|run_precomposed_existing_report.py| lists them).
+Semibold italic ơ below is curated on its advance lane without the horn, which should not move a below anchor (2026-11-10):
+without the horn ơ's ink ends at 527, and with o's sidebearings (72, $-10$) the lane is 517 wide, so $517/2 - 110 \tan 11.5^\circ + 12 = 248$.
+The designer's 243 was 4 left of the 247 its toned forms Ớ Ờ Ở Ỡ inherit (fit 98\%); the candidate from ơ's own advance (541, horn included) is 260.
 
 Every cell is the letter, \verb|\cgj| and the mark (2026-11-08).
 Without CGJ the shaper decomposes the letter, puts the marks in canonical order and recomposes greedily from the base,
 so a cell can show a different letter with loose marks instead of the letter's own anchor:
 Ǻ with a dot below becomes Ạ\,+\,ring above\,+\,acute, Ẹ with a circumflex becomes Ệ.
-That happened in 674 of the 11\,456 below-mark cells.
+That happened in 674 of the 11\,488 below-mark cells.
 In 130 of them two above-marks were left to stack (Ǖ--ǜ, Ǟ--ǡ, Ǻ ǻ, Ȫ--ȱ, Ḕ--ḗ, Ṍ--ṓ, Ṹ--ṻ, Ấ--ẵ, Ế--ễ \ldots{} with a dot, ring, circumflex, tilde, diaeresis or comma below),
 and they collide, because Libertinus has almost no mark-to-mark positioning
 (regular stacks on 11 marks, italic on 4, semibold only on the spacing macron, semibold italic not at all; nothing stacks on the ring).

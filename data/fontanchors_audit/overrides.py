@@ -14,6 +14,35 @@
 
 overrides = {
     "regular": {
+        # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
+        # stage 9 inherits (2026-11-10, report "Precomposed characters")
+        "Aogonek": {0: "delete"},  # Ą (365, 850), +4
+        "Eogonek": {0: "delete"},  # Ę (273, 850), -8
+        "Iogonek": {0: "delete"},  # Į (146, 850), -4
+        "uni0228": {0: "delete"},  # Ȩ (273, 850), -8
+        "uni1E2C": {0: "delete"},  # Ḭ (146, 850), -4
+        "uni1ECA": {0: "delete"},  # Ị (146, 850), -4
+        "uni1ECD": {0: "delete"},  # ọ (231, 645), -7
+        "Egrave": {2: "delete"},  # È (279, -110), -8
+        "Ecircumflex": {2: "delete"},  # Ê (279, -110), -8
+        "Edieresis": {2: "delete"},  # Ë (279, -110), -8
+        "Edotaccent": {2: "delete"},  # Ė (279, -110), -8
+        "emacron": {2: "delete"},  # ē (236, -110), +2
+        "ebreve": {2: "delete"},  # ĕ (236, -110), +2
+        "edotaccent": {2: "delete"},  # ė (236, -110), +2
+        "itilde": {2: "delete"},  # ĩ (136, -110), -6, ı's old x
+        "oslashacute": {2: "delete"},  # ǿ (243, -110), +2
+        # Precomposed letters whose designer anchor disagrees with what stage 9 inherits from the base letter
+        # (more than 10 off); deleted so that stage 9 inherits it (2026-11-10, report "Precomposed characters")
+        "eogonek": {0: "delete"},  # ę (231, 645), 12 left of e
+        "uni0229": {0: "delete"},  # ȩ (224, 645), 19 left of e
+        "uni1E19": {0: "delete"},  # ḙ (231, 645), 12 left of e
+        "uni1E1B": {0: "delete"},  # ḛ (231, 645), 12 left of e
+        "uni1EB9": {0: "delete"},  # ẹ (231, 645), 12 left of e
+        "ccircumflex": {2: "delete"},  # ĉ (236, -110), c's old anchor; c is now 218
+        "cdotaccent": {2: "delete"},  # ċ (236, -110), c's old anchor
+        "ccaron": {2: "delete"},  # č (236, -110), c's old anchor
+        "scaron": {2: "delete"},  # š (183, -110), 13 left of s
         # ʮ ʯ: above and below swapped (above at -214, below at 542); stage 6 gives the candidates (2026-11-08)
         "uni02AE": {0: "delete", 2: "delete"},
         "uni02AF": {0: "delete", 2: "delete"},
@@ -121,6 +150,14 @@ overrides = {
         "uni0265": {2: "delete"},  # (219, -129)
     },
     "italic": {
+        # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
+        # stage 9 inherits (2026-11-10, report "Precomposed characters")
+        "Oslashacute": {2: "delete"},  # Ǿ (310, -110), +4
+        # Precomposed letters whose designer anchor disagrees with what stage 9 inherits from the base letter
+        # (more than 10 off); deleted so that stage 9 inherits it (2026-11-10, report "Precomposed characters")
+        "Ohorn": {2: "delete"},  # Ơ (310, -113): O in Ơ is about 5% wider; its toned forms Ớ Ờ Ở Ỡ inherit 322
+        "ohorn": {2: "delete"},  # ơ (186, -107): its toned forms inherit 198
+        "oslashacute": {2: "delete"},  # ǿ (186, -107), o's; ø's is lowered to -148 to clear the slash, which ǿ has too
         # ʮ ʯ: above and below swapped (above at -214, below at 542); stage 6 gives the candidates (2026-11-08)
         "uni02AE": {0: "delete", 2: "delete"},
         "uni02AF": {0: "delete", 2: "delete"},
@@ -199,6 +236,9 @@ overrides = {
        
     },
     "semibold": {
+        # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
+        # stage 9 inherits (2026-11-10, report "Precomposed characters")
+        "uni1EE5": {0: "delete"},  # ụ (272, 645), +8
         # Precomposed letter whose designer above anchor stage 9 would otherwise keep; it inherits
         # U's instead (2026-11-08)
         "uni1EE4": {0: "delete"},  # Ụ (362, 833)
@@ -239,6 +279,28 @@ overrides = {
         "uni0237": {0: "keep"},
     },
     "semibold_italic": {
+        # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
+        # stage 9 inherits (2026-11-10, report "Precomposed characters")
+        "uni1ECD": {0: "delete"},  # ọ (231, 645), regular's, -7
+        "emacron": {2: "delete"},  # ē (236, -110), +2
+        "ebreve": {2: "delete"},  # ĕ (236, -110), +2
+        "edotaccent": {2: "delete"},  # ė (236, -110), +2
+        "Ohungarumlaut": {2: "delete"},  # Ő (350, -110), +2
+        "Oslashacute": {2: "delete"},  # Ǿ (350, -110), -5
+        # Precomposed letters whose designer anchor disagrees with what stage 9 inherits from the base letter
+        # (more than 10 off); deleted so that stage 9 inherits it (2026-11-10, report "Precomposed characters")
+        "Aogonek": {0: "delete"},  # Ą (365, 850), 11 right of A
+        "uni0228": {0: "delete"},  # Ȩ (273, 850), E's, without the 12 this style builds precomposed glyphs with
+        "eogonek": {0: "delete"},  # ę (231, 645), regular's, 12 left of e
+        "uni0229": {0: "delete"},  # ȩ (224, 645), regular's, 19 left of e
+        "uni1E19": {0: "delete"},  # ḙ (231, 645), regular's
+        "uni1E1B": {0: "delete"},  # ḛ (231, 645), regular's
+        "uni1EB9": {0: "delete"},  # ẹ (231, 645), regular's
+        "amacron": {2: "delete"},  # ā (196, -108), a's old anchor; a is now the candidate, 260
+        "itilde": {2: "delete"},  # ĩ (136, -110), 15 left of ı (153)
+        "scaron": {2: "delete"},  # š (183, -110), regular's, 13 left of s
+        "uni01D1": {2: "delete"},  # Ǒ (350, -110), O's, without the 12
+        "uni022A": {2: "delete"},  # Ȫ (350, -110), O's, without the 14
         # ʮ ʯ: above and below swapped (above at -214, below at 542); stage 6 gives the candidates (2026-11-08)
         "uni02AE": {0: "delete", 2: "delete"},
         "uni02AF": {0: "delete", 2: "delete"},

@@ -61,3 +61,54 @@ The audit built the patched fonts without stage 7 and compared every curated anc
 - italic: ʔ above (376, 867) against candidate (373, 850) (bowl overshoot of 10, decided); double acute mark (−57, 714) against designer −74 (the report's "Mark anchor model" section finds the designer's value has regular's offset, and lists removing the curated one under "Changes needed"); `uni030F.cap` (−47, 766) against stage 4 −34
 - semibold: e above (249, 645) against candidate 232
 - semibold italic: Y below (277, −110) against designer 295; tilde below mark (−196, −70) against designer −213
+
+
+# 2026-11-10
+
+Italic Ł and ł now inherit both anchors from L and l. The other letters you named can't inherit, because they were redrawn. I rebuilt the fonts, sheets and PDF; nothing is committed.
+
+## Ł and ł
+
+Italic Ł and ł were the only styles failing, and the cause was a bug in stage 8's outline matcher, not the outlines. Italic Ł is L plus the slash point for point, and ł is l plus the slash. At shift 0 the match is 95%. But the matcher scores each shift by the votes in a window of ±6 around it, and a few stray votes put the best window at +6. At that edge, crossings that coincide exactly miss by rounding, so the match fell to 56% and 42%.
+
+I fixed it in `outline_shift` (`font_patching_derivedanchors.py`). It now takes the vote peak among the shifts that pair nearly the most crossings (98%).
+- **Ł and ł:** italic Ł now inherits L's (314, 850) and (252, −110), and ł inherits l's (312, 890) and (99, −110). The other styles already inherited.
+- **Other letters:** no inheritance was lost anywhere, and other stage 8 anchors moved by 2–4. Every exact copy now gets shift 0, including Ł, Ø and ø in every style.
+- **Curated anchor:** italic Ł's curated above anchor was a stand-in for this inheritance, so I commented it out.
+
+## The barred u and i, ɽ and Ɽ, ʐ and ʑ
+
+| Letter | Why it doesn't inherit | Now | Option |
+|---|---|---|---|
+| ɨ above, italic | It's i moved +14 (93% match; below already inherits). `derived_letters.py` lists ɨ for below only: above marks use `ɨ.dotless`, so ɨ's own above anchor was left to stage 6. | 316 (lane; the bar widens the advance by 12) | Add the above class to ɨ's entry → i's 312 + 14 = 326. Regular and semibold italic keep their curated anchors. |
+| ʉ | Redrawn as a different u, with flat serifs and a foot spur, in italic and semibold italic. Its body exists in no other glyph, so there's nothing to inherit. | Italic 398 / 238, semibold italic 255 / 264 | The bar overhangs the advance rather than widening it, so I'd keep the lane anchors. |
+| ɽ above | Redrawn with a roman-style flag top (60% match in italic, 52% in semibold italic) | Italic 320, semibold italic 177 | Its own top ink plus r's offset: italic 326, semibold italic 179 |
+| Ɽ above | Not in `derived_letters.py` or in stage 6's base lists, and redrawn (58–59%). It has **no anchors at all** in any italic style. | — | Same method: italic 432, semibold italic 262 (R is 419 / 269) |
+| ʐ above (tail ignored) | Redrawn top (38% italic, 26% semibold italic) | Italic 343, semibold italic 202 | Upper-half ink plus z's offset: italic 361, semibold italic 258 |
+| ʑ above (curl ignored) | Same (37%, 26%) | Italic 352, semibold italic 208 | Same method: italic 363, semibold italic 229 |
+
+"Plus the base's offset" means: take the letter's own ink in the anchor's half, then place the anchor where the base letter's anchor sits relative to its own ink in that half. In italic, that puts ʐ and ʑ on z's 360. The semibold italic ʐ value (258, 38 right of z) is the one I trust least, and needs a look.
+
+## Semibold italic u below
+
+Semibold italic u's below anchor is (239, −110), regular's anchor copied unchanged. But semibold italic u is 30 units wider (561 vs 531). The anchor is 31 left of this style's model (561/2 − 110·tan 11.5° + 12 = 270).
+
+The precomposed glyphs show the effect: composed below marks land left of where the designer drew them in ụ ṳ ṵ ṷ.
+
+| | ụ | ṳ | ṵ | ṷ |
+|---|---|---|---|---|
+| Regular | −8 | +5 | 0 | −2 |
+| Semibold italic | −28 | −16 | −1 | −43 |
+
+The median is about −22 in semibold italic. ṵ is close only because the patch set the tilde below's own anchor. The precomposed glyphs disagree among themselves by about 25 units, so 270 fits them about as well as any single value.
+
+The error spreads:
+- **Stage 9:** every semibold italic precomposed u that inherits a below anchor, such as ù ú û ü ũ ū ŭ ů ű ǔ.
+- **Curated:** ư ứ ừ ử ữ, which copy u's 239.
+
+The usual fix is to delete u's below anchor so stage 6 fills in 270, and to set the curated ư family to u's new anchor.
+
+**Decisions for you:** which of these should I apply?
+1. ɨ inheriting its above anchor from i.
+2. Curated above anchors for ɽ, Ɽ, ʐ and ʑ at the "plus the base's offset" values.
+3. Semibold italic u below via delete + candidate (270), with the ư family following.

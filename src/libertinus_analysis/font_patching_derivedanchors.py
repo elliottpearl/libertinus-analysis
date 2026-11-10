@@ -176,13 +176,25 @@ def outline_shift(ttfont, derived_glyph, base_glyph):
     def score(dx):
         return sum(votes.get(dx + e, 0) for e in range(-MATCH_TOL, MATCH_TOL + 1, 2))
 
-    dx = max(votes, key=score)
     total = sum(len(xs) for xs in cb.values())
-    hits = sum(
-        1 for y, xs in cb.items() for xb in xs
-        if any(abs(xd - xb - dx) <= MATCH_TOL for xd in cd.get(y, []))
-    )
-    return dx, hits / total
+
+    def hits(d):
+        return sum(
+            1 for y, xs in cb.items() for xb in xs
+            if any(abs(xd - xb - d) <= MATCH_TOL for xd in cd.get(y, []))
+        )
+
+    dx = max(votes, key=score)
+    # within the winning window, the peak of the votes among the shifts that
+    # pair nearly the most crossings (98%): the window alone can win at its
+    # edge, where crossings that coincide exactly then miss (italic Ł, ł: +6 and
+    # 56%, 42%, instead of 0 and 95%), and an added part's own crossings can
+    # pair a few more a little off the copy (ł +4) (2026-11-10)
+    window = {d: hits(d) for d in range(dx - MATCH_TOL, dx + MATCH_TOL + 1, 2)}
+    best = max(window.values())
+    dx = max((d for d, h in window.items() if h >= 0.98 * best),
+             key=lambda d: (votes.get(d, 0), window[d], -abs(d - dx)))
+    return dx, hits(dx) / total
 
 def _segments(glyphset, glyph_name):
     pen = _SegmentPen(glyphset)

@@ -59,10 +59,15 @@ anchors = {
             0: (545, 850),
         },
         0x0122: { # Ģ G cedilla/comma
-            0: (383, 850), # G
+            # 0: (383, 850), # G  # removed 2026-11-10: 18 right of G's anchor in Ģ; stage 9 inherits G's (365, 850)
+        },
+        0x0134: { # Ĵ: below, the semibold italic candidate from Ĵ's own metrics (2026-11-10): W 340, ymin -196 (d+36),
+                  # by = -319 + 36 + 2 = -281, bx = W/2 + by tan θ + 12 = 125. Stage 9 cannot inherit J's: the stem was
+                  # redrawn (Ĵ has a flat top serif, J the italic swash) and the tail is deeper (-196, J -164) (match 64%)
+            2: (125, -281),
         },
         0x015E: { # S with cedilla
-            0: (232, 850),  # S
+            # 0: (232, 850),  # S  # removed 2026-11-10: stage 9 inherits S's, 1 left (231, 850)
         },
         0x0186: { # Ɔ open O: above over the bowl, 24 left of the outline's axis (2026-11-08), so marks land as in
                   # regular (curated, 32 left) and semibold (designer, 39 left). The stage 6 candidate (357, 850)
@@ -83,6 +88,20 @@ anchors = {
             # 0: (335, 850), # O  # removed 2026-10-29: inherited from O (stage 8): (335, 850)
             # 2: (350, -110), # O   # removed 2026-10-29: inherited from O (stage 8): (350, -110)
         # },
+        # ư and its toned forms Ứ Ừ Ử Ữ (which reference ư at (0, 0)): below as u's (239, -110), shift 0 (2026-11-10).
+        # Stage 9 cannot inherit it: ư's stems lie on u's (shift 0 left, +1 right), but the bottom of the bowl was
+        # redrawn about 15 wider on each side around the same midpoint (306, u 307), so the fit is 75%.
+        # ự has a dot below and needs no below anchor.
+        0x01B0: {2: (239, -110)},  # ư
+        0x01A1: { # ơ: below on the hornless advance lane (2026-11-10). Without the horn the ink ends at x 527; with o's
+                  # sidebearings (72, -10) the lane is 517 wide: 517/2 - 110 tan θ + 12 = 248. The designer's 243 was 4 left of
+                  # what Ớ Ờ Ở Ỡ inherit (247); the candidate from ơ's own advance (541, horn included) is 260
+            2: (248, -110),
+        },
+        0x1EE9: {2: (239, -110)},  # ứ
+        0x1EEB: {2: (239, -110)},  # ừ
+        0x1EED: {2: (239, -110)},  # ử
+        0x1EEF: {2: (239, -110)},  # ữ
         0x01B1: { # Upsilon
             0: (356, 850), # italic lane - K (150): semibold italic model
             2: (311, -110), # italic lane

@@ -94,10 +94,10 @@ anchors = {
             2: (125, -110),
         },
         0x00C0: { # A grave
-            2: (308,-110), # A anchor below
+            # 2: (308,-110), # A anchor below  # removed 2026-11-10: A's old designer anchor; stage 9 inherits A's curated (339, -110)
         },
         0x00C1: { # Á A acute
-            2: (308,-110), # A anchor below
+            # 2: (308,-110), # A anchor below  # removed 2026-11-10: A's old designer anchor; stage 9 inherits A's curated (339, -110)
         },
         0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (480, 850) misses by 81 and 68
             0: (555, 850),
@@ -137,10 +137,10 @@ anchors = {
             2: (234, -110),
         },
         0x00EC: { # i grave
-            2: (136, -110),
+            # 2: (136, -110),  # removed 2026-11-10: ı's old x; stage 9 inherits ı's (142, -110)
         },
         0x00ED: { # í i acute
-            2: (136, -110),
+            # 2: (136, -110),  # removed 2026-11-10: ı's old x; stage 9 inherits ı's (142, -110)
         },
         # 0x00F2: { # o grave
         #     2: (243, -110),
@@ -221,7 +221,7 @@ anchors = {
             # 0: (307, 850), # xm above  # removed 2026-10-29: candidate (stage 6) gives (303, 850)
         # },
         0x01CD: { # Ǎ A caron
-            2: (308,-110),
+            # 2: (308,-110),  # removed 2026-11-10: A's old designer anchor; stage 9 inherits A's curated (339, -110)
         },
         0x01CE: { # ǎ a caron
             2: (196,-110),
@@ -230,7 +230,7 @@ anchors = {
             2: (147,-110),
         },
         0x01D0: { # ǐ i caron
-            2: (136,-110),
+            # 2: (136,-110),  # removed 2026-11-10: ı's old x; stage 9 inherits ı's (142, -110)
         },
         # 0x01D1: { # Ǒ O caron
         #    2: (350,-110),
@@ -245,7 +245,7 @@ anchors = {
             2: (239,-110),
         },
         0x0200: { # Ȁ A double grave
-            2: (308, -110),
+            # 2: (308, -110),  # removed 2026-11-10: A's old designer anchor; stage 9 inherits A's curated (339, -110)
         },
         0x0201: { # ȁ a double grave
             2: (196, -110),
@@ -260,7 +260,7 @@ anchors = {
             2: (147, -110),
         },
         0x0209: { # ȉ i double grave
-            2: (136, -110),
+            # 2: (136, -110),  # removed 2026-11-10: ı's old x; stage 9 inherits ı's (142, -110)
         },
         # 0x020C: { # Ȍ O double grave
         #    2: (350, -110),

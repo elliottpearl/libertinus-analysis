@@ -41,7 +41,7 @@ from .font_patching_derivedanchors import (
     tail_anchor,
     style_classes,
 )
-from .font_patching_precomposed_anchors import MIN_FIT, fit_base
+from .font_patching_inherit import MIN_FIT, fit_base
 from .fontmetrics_helpers import SLOPE, get_anchor_candidate
 from .fontmetrics_loader import load_fontmetrics
 from .fontmetrics_report import STYLE_KEYS, STYLE_LABELS, apply_style, texify

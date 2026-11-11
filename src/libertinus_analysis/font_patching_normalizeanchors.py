@@ -26,7 +26,7 @@ verdict, and the audit only covers encoded glyphs.
 import unicodedata
 
 from .font_patching_deleteanchors import load_anchor_audit
-from .font_patching_precomposed_anchors import find_mark_to_base_subtables
+from .font_patching_inherit import find_mark_to_base_subtables
 from .fontmetrics_helpers import ANCHOR_Y_REF_OPT
 
 ABOVE = 0

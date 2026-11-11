@@ -127,7 +127,6 @@
 
 Long term: add mark-to-mark positioning (stacking) for the common above-marks in all four styles: ring, dieresis, macron, acute, grave, circumflex, caron, tilde, breve.
 The designer's stacked precomposed glyphs (ḕ, ṏ, ẫ, \ldots) could supply the mark-to-mark anchors, as the precomposed capitals do for stage 4.
-Only glyphs drawn as a true stack are evidence: others among the short list of precomposed letters with two above-marks are composed more compactly in some other configuration (Ǻ, Ǖ, Ṓ), so each needs to be verified by eye before it is used.
 
 Audit the SFD sources for glyphs that copy another glyph's splines where they could reference it (a derived letter drawn as a copy of its base, a precomposed letter as a copy of base and mark),
 so that a correction to the base reaches every glyph built on it, and the derived and precomposed stages need not rediscover the base in the outline.

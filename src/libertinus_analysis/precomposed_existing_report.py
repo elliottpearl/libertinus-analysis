@@ -20,6 +20,7 @@ from .font_context import FONTS
 from .font_patching_anchors import load_human_anchors
 from .font_patching_deleteanchors import load_audit_overrides
 from . import font_patching_precomposed_anchors as stage9
+from .font_patching_inherit import fit_base
 
 STYLES = ("regular", "italic", "semibold", "semibold_italic")
 STYLE_LABEL = {
@@ -82,7 +83,7 @@ def collect_rows(style):
             if base_xy is None:
                 rows.append((cp, cls, base_cp, source, anchor, None, None, deleted))
                 continue
-            dx, match, _scale = stage9.fit_base(font, style, g, base_g, cls, base_xy)
+            dx, match, _scale = fit_base(font, style, g, base_g, cls, base_xy)
             rows.append((cp, cls, base_cp, source, anchor,
                          (base_xy[0] + dx, base_xy[1]), match, deleted))
     return rows

@@ -313,6 +313,9 @@ overrides = {
         # u below: regular's (239, -110) copied into a u 30 wider; composed below marks land 16-43 left of ụ ṳ ṷ
         # (median -22); stage 6 gives the candidate (270, -110), stage 9 and the curated ư family follow (2026-11-10)
         "u": {2: "delete"},
+        # ū below: (239, -110), the designer's copy of u's deleted anchor; fit 100%, 31 left of what stage 9
+        # inherits from u (270) and of ú ù û ü ũ (2026-11-11)
+        "umacron": {2: "delete"},
         # n: regular's (264, 645), (265, -110) copied; 26 and 18 left of the precomposed glyphs' accents (290, 283);
         # stage 6 gives the candidates (2026-11-10)
         "n": {0: "delete", 2: "delete"},

@@ -21,7 +21,7 @@ letter is shorter there, Y stays, so marks keep the height they have on the
 base letter.
 
 The shift is found by fitting the base letter's ink to the derived letter's
-(fit_base, as in stage 9, 2026-11-11): on the inherited side only, ink
+(fit_base in font_patching_inherit, shared with stage 9, 2026-11-11): on the inherited side only, ink
 intervals of the base are paired with intervals of about the same width, and
 a line x_derived = scale * x_base + offset through the paired centres allows
 for a letter drawn up to 15% wider or narrower (the italic capitals with a
@@ -44,32 +44,34 @@ Behavior:
 
 from collections import Counter
 
-from fontTools.pens.basePen import BasePen
-
 from .font_patching_anchors import load_human_anchors
 from .fontmetrics_helpers import SHIFT_K, SLOPE, get_anchor_candidate
 from .fontmetrics_loader import load_fontmetrics
-from .font_patching_precomposed_anchors import (
+from .font_patching_inherit import (
+    GRID_STEP,
     MIN_FIT,
-    fit_base,
+    SegmentPen,
     ensure_base_record_for_glyph,
     find_mark_to_base_subtables,
+    fit_base,
+    fit_intervals,
     get_anchor_from_baserec,
     get_base_record_for_glyph,
+    glyph_points,
+    glyph_segments,
+    intervals,
     set_anchor_in_baserec,
 )
 
 MIN_MATCH = 0.70  # share of the base's outline found in the derived letter
 MATCH_TOL = 6     # units: a crossing within this of the shifted base matches
-GRID_STEP = 10    # units between sampled heights
 MARK_HALF_WIDTH = 120  # units either side of the mark's axis: a wide mark
 MIN_DY = 6        # smaller differences in reach are left alone
 
 # Letters matched on stems (stem_match in data/derived_letters.py): bottom tails, and ɗ
 STEM_LO = 60      # stem fit: heights from here to the letter's top (at most XHEIGHT) minus this
 XHEIGHT = 645
-STEM_TOL = 8      # units: a stem centre within this of the fit matches
-MAX_SCALE_DEV = 0.10  # a fitted scale further than this from 1 is not trusted: shift only
+STEM_MAX_SCALE_DEV = 0.10  # a fitted stem scale further than this from 1 is not trusted: shift only
 WIDE_SCALE_DEV = 0.15  # second try where the stems match too little: a letter drawn wider on one side
                        # (italic ɲ: n's left stem, the right leg 32 further right; scale 1.12)
 TAIL_Y = -30      # ink below this is the tail
@@ -122,41 +124,10 @@ def derived_pairs(cmap, font_key):
 # Outline matching
 # ------------------------------------------------------------
 
-class _SegmentPen(BasePen):
-    """Flattens an outline into line segments."""
-
-    def __init__(self, glyphset):
-        super().__init__(glyphset)
-        self.segs = []
-
-    def _moveTo(self, p):
-        self.cur = self.start = p
-
-    def _lineTo(self, p):
-        self.segs.append((self.cur, p))
-        self.cur = p
-
-    def _curveToOne(self, a, b, c):
-        p0 = self.cur
-        for i in range(1, 17):
-            u = i / 16
-            q = tuple(
-                (1 - u) ** 3 * p0[k] + 3 * (1 - u) ** 2 * u * a[k]
-                + 3 * (1 - u) * u * u * b[k] + u ** 3 * c[k]
-                for k in (0, 1)
-            )
-            self.segs.append((self.cur, q))
-            self.cur = q
-
-    def _closePath(self):
-        if self.cur != self.start:
-            self.segs.append((self.cur, self.start))
-
 def _crossings(glyphset, glyph_name):
     """{height: sorted x of the outline crossing it}, on a fixed grid."""
-    pen = _SegmentPen(glyphset)
-    glyphset[glyph_name].draw(pen)
-    ys = [y for seg in pen.segs for _, y in seg]
+    segs = glyph_segments(glyphset, glyph_name)
+    ys = [y for seg in segs for _, y in seg]
     if not ys:
         return {}
     lo, hi = min(ys), max(ys)
@@ -166,7 +137,7 @@ def _crossings(glyphset, glyph_name):
         if lo < y < hi:
             out[y] = sorted(
                 x0 + (y - y0) * (x1 - x0) / (y1 - y0)
-                for (x0, y0), (x1, y1) in pen.segs
+                for (x0, y0), (x1, y1) in segs
                 if (y0 - y) * (y1 - y) < 0
             )
     return out
@@ -211,62 +182,29 @@ def outline_shift(ttfont, derived_glyph, base_glyph):
              key=lambda d: (votes.get(d, 0), window[d], -abs(d - dx)))
     return dx, hits(dx) / total
 
-def _segments(glyphset, glyph_name):
-    pen = _SegmentPen(glyphset)
-    glyphset[glyph_name].draw(pen)
-    return pen.segs
-
-def _intervals(segs, slope, y):
-    """Ink intervals of the outline at height y, in sheared coordinates (x' = x - y tan)."""
-    xs = sorted(
-        x0 + (y - y0) * (x1 - x0) / (y1 - y0) - y * slope
-        for (x0, y0), (x1, y1) in segs
-        if (y0 - y) * (y1 - y) < 0
-    )
-    return list(zip(xs[0::2], xs[1::2]))
-
-def stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis, max_dev=MAX_SCALE_DEV):
+def stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis, max_dev=STEM_MAX_SCALE_DEV):
     """
     Return (dx, match) for a bottom-tail letter: the horizontal shift of the
     base letter inside the derived letter at the mark's axis, matched on the
     stems and bowl sides above the tail.
 
-    At every height from STEM_LO to the top (at most the x-height) minus
-    STEM_LO, each ink interval of the base is paired with the derived
-    letter's interval of about the same width nearest to it. A line
-    x_derived = a * x_base + b through the paired centres allows for a letter
-    drawn slightly narrower or wider (a is used only within MAX_SCALE_DEV of
-    1; max_dev), and dx is its shift at the axis. match is the share of the base's
-    intervals within STEM_TOL of the line.
+    fit_intervals at every height from STEM_LO to the top (at most the
+    x-height) minus STEM_LO: a line x_derived = a * x_base + b through the
+    centres of paired ink intervals allows for a letter drawn slightly
+    narrower or wider (a is used only within STEM_MAX_SCALE_DEV of 1;
+    max_dev), and dx is its shift at the axis. match is the share of the
+    base's intervals within STEM_TOL of the line.
     """
     glyphset = ttfont.getGlyphSet()
     slope = SLOPE[font_key]
-    sd, sb = _segments(glyphset, derived_glyph), _segments(glyphset, base_glyph)
+    sd, sb = glyph_segments(glyphset, derived_glyph), glyph_segments(glyphset, base_glyph)
     top = min(max(y for seg in s for _, y in seg) for s in (sd, sb))
-    pairs, total = [], 0
-    for y in range(STEM_LO, int(min(top, XHEIGHT)) - STEM_LO, GRID_STEP):
-        y += 0.5
-        ib, idv = _intervals(sb, slope, y), _intervals(sd, slope, y)
-        total += len(ib)
-        for a, b in ib:
-            w, c = b - a, (a + b) / 2
-            near = [(p + q) / 2 for p, q in idv if abs((q - p) - w) <= 0.2 * w + 4]
-            if near:
-                pairs.append((c, min(near, key=lambda z: abs(z - c))))
-    if len(pairs) < 3 or not total:
+    heights = range(STEM_LO, int(min(top, XHEIGHT)) - STEM_LO, GRID_STEP)
+    fit = fit_intervals(sd, sb, slope, heights, max_dev)
+    if fit is None:
         return 0, 0.0
-    diffs = sorted(d - b for b, d in pairs)
-    median = diffs[len(diffs) // 2]
-    kept = [(b, d) for b, d in pairs if abs(d - b - median) <= 40]
-    mb = sum(b for b, _ in kept) / len(kept)
-    md = sum(d for _, d in kept) / len(kept)
-    var = sum((b - mb) ** 2 for b, _ in kept)
-    scale = sum((b - mb) * (d - md) for b, d in kept) / var if var > 1e-6 else 1.0
-    if abs(scale - 1) > max_dev:
-        scale = 1.0
-    offset = md - scale * mb
-    good = sum(1 for b, d in kept if abs(scale * b + offset - d) <= STEM_TOL)
-    return round(scale * axis + offset - axis), good / total
+    scale, offset, match = fit
+    return round(scale * axis + offset - axis), match
 
 STEM_AXIS_LO, STEM_AXIS_HI = 120, 480  # heights where the stem midline is measured
 STEM_MIN_W, STEM_MAX_W = 50, 160          # an interval this wide is a stem (not a dot, bar or belt)
@@ -278,11 +216,11 @@ def stem_midline(ttfont, font_key, glyph_name):
     exactly one interval of stem width. None if fewer than 5 such heights.
     """
     glyphset = ttfont.getGlyphSet()
-    segs = _segments(glyphset, glyph_name)
+    segs = glyph_segments(glyphset, glyph_name)
     slope = SLOPE[font_key]
     centres = []
     for y in range(STEM_AXIS_LO, STEM_AXIS_HI, GRID_STEP):
-        iv = [(a, b) for a, b in _intervals(segs, slope, y + 0.5) if STEM_MIN_W <= b - a <= STEM_MAX_W]
+        iv = [(a, b) for a, b in intervals(segs, slope, y + 0.5) if STEM_MIN_W <= b - a <= STEM_MAX_W]
         if len(iv) == 1:
             centres.append((iv[0][0] + iv[0][1]) / 2)
     if len(centres) < 5:
@@ -298,11 +236,9 @@ def stem_axis_shift(ttfont, font_key, derived_glyph, base_glyph):
 
 def _tail_reaches(ttfont, font_key, glyph_name, axis):
     """True if the outline has ink below TAIL_Y within BELOW_ZONE of the mark's axis (sheared)."""
-    glyphset = ttfont.getGlyphSet()
-    pen = _PointPen(glyphset)
-    glyphset[glyph_name].draw(pen)
+    pts = glyph_points(ttfont.getGlyphSet(), glyph_name)
     slope = SLOPE[font_key]
-    return any(y < TAIL_Y and abs(x - y * slope - axis) <= BELOW_ZONE for x, y in pen.pts)
+    return any(y < TAIL_Y and abs(x - y * slope - axis) <= BELOW_ZONE for x, y in pts)
 
 def tail_anchor(ttfont, font_key, cp, derived_glyph, base_glyph, base_xy, cls):
     """
@@ -348,54 +284,14 @@ def tail_anchor(ttfont, font_key, cp, derived_glyph, base_glyph, base_xy, cls):
         return None, f"stem match {match:.0%} (shift {dx:+d}) below {MIN_MATCH:.0%}"
     return (base_xy[0] + dx, base_xy[1]), f"shift {dx:+d} (stem match {match:.0%}); tail clear of the mark"
 
-class _PointPen(BasePen):
-    """Samples points along an outline, straight edges included."""
-
-    def __init__(self, glyphset):
-        super().__init__(glyphset)
-        self.pts = []
-
-    def _moveTo(self, p):
-        self.cur = self.start = p
-        self.pts.append(p)
-
-    def _lineTo(self, p):
-        p0 = self.cur
-        for i in range(1, 21):
-            u = i / 20
-            self.pts.append((p0[0] + (p[0] - p0[0]) * u, p0[1] + (p[1] - p0[1]) * u))
-        self.cur = p
-
-    def _curveToOne(self, a, b, c):
-        p0 = self.cur
-        for i in range(1, 25):
-            u = i / 24
-            self.pts.append(tuple(
-                (1 - u) ** 3 * p0[k] + 3 * (1 - u) ** 2 * u * a[k]
-                + 3 * (1 - u) * u * u * b[k] + u ** 3 * c[k]
-                for k in (0, 1)
-            ))
-        self.cur = c
-
-    def _closePath(self):
-        self._lineTo(self.start)
-
-def _points(ttfont, glyph_name):
-    glyphset = ttfont.getGlyphSet()
-    pen = _PointPen(glyphset)
-    glyphset[glyph_name].draw(pen)
-    return pen.pts
-
 def _reach(ttfont, glyph_name, axis, slope, cls, offset=0):
     """
     Highest (above) or lowest (below) point of the outline within
     MARK_HALF_WIDTH of the mark's axis (sheared coordinates), with the
     outline moved right by offset. None if no ink there.
     """
-    glyphset = ttfont.getGlyphSet()
-    pen = _PointPen(glyphset)
-    glyphset[glyph_name].draw(pen)
-    ys = [y for x, y in pen.pts if abs(x + offset - y * slope - axis) <= MARK_HALF_WIDTH]
+    pts = glyph_points(ttfont.getGlyphSet(), glyph_name)
+    ys = [y for x, y in pts if abs(x + offset - y * slope - axis) <= MARK_HALF_WIDTH]
     if not ys:
         return None
     return max(ys) if cls == 0 else min(ys)
@@ -418,7 +314,7 @@ def inherited_anchor(ttfont, font_key, derived_glyph, base_glyph, base_xy, cls, 
         # only ink beyond that can reach the mark. Without this, a narrower
         # redrawing of a diagonal near the zone's edge (semibold italic Ɲ against
         # N) counts as a higher reach although it stays below the base's top.
-        ys = [p[1] for p in _points(ttfont, base_glyph)]
+        ys = [p[1] for p in glyph_points(ttfont.getGlyphSet(), base_glyph)]
         rb = max(rb, max(ys)) if cls == 0 else min(rb, min(ys))
         diff = rd - rb
         if (cls == 0 and diff >= MIN_DY) or (cls == 2 and diff <= -MIN_DY):

@@ -27,7 +27,7 @@ import unicodedata
 from libertinus_analysis import unicode_groups
 from .fontmetrics_extractor import get_glyph_bbox
 from .fontmetrics_helpers import get_anchor_candidate
-from .font_patching_precomposed_anchors import (
+from .font_patching_inherit import (
     ensure_base_record_for_glyph,
     find_mark_to_base_subtables,
     get_anchor_from_baserec,

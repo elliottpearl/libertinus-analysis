@@ -2700,13 +2700,13 @@ Black cells are composed: in the patched fonts, the base with the capital altern
 \section*{Derived letters}
 
 Many Latin and IPA letters are a base letter with a bar, stroke, belt, hook, tail or curl: Đ is D with a bar, Ɗ is D with a hook, ɖ is d with a tail.
-Unlike the precomposed letters of stage 9, they have no Unicode decomposition; the base letter is recognizable only in the outline.
+Unlike the precomposed letters of stage 9, they have no Unicode decomposition; the base letter is assigned to each one in \verb|data/derived_letters.py|.
 Stage 8 (\verb|src/libertinus_analysis/font_patching_derivedanchors.py|, letter lists in \verb|data/derived_letters.py|) gives each such letter its base letter's final anchor,
 moved by where the base letter sits inside it, on each side where the added part stays clear of the marks.
 The heuristic candidate of stage 6 cannot do this: a hook or bar moves the bounding box it is centred on (regular Ƒ above: candidate 183, F's anchor moved into Ƒ 276),
 and the designer often drew the derived letter in a shifted frame (regular Ɗ is D moved 80 units right).
 
-How stage 8 finds the base letter:
+Stage 8 measures how well the derived letter matches its base letter (the share of the base's outline that fits, in percent) and where the base sits in it (a shift, and a scale), in one of four ways:
 \begin{itemize}
 \item \textbf{Fit} (most letters). On each inherited side, the base letter's ink is fitted to the derived letter's with a shift and a scale of up to 15\%, as in stage 9;
   the anchor moves with the fit, so a letter drawn a few percent wider keeps the anchor at the same place in the shape (italic Ɖ is D drawn 4\% wider).
@@ -2718,7 +2718,7 @@ How stage 8 finds the base letter:
 \item \textbf{Fixed $Y$} (\verb|derived_y|): ɓ ʝ ɠ ɼ ƥ ʠ ƭ above, ɓ ɕ below take $X$ from the base letter and a $Y$ set by hand, usually because a hook rises to the ascender (ɠ ƥ ʠ ƭ).
 \end{itemize}
 Where the added part reaches further than the base letter within 120 units of the mark's axis, $Y$ moves away by the difference (ɇ above $+31$ to $+39$, italic Ⱦ $+96$).
-A curated anchor of the derived letter is never overwritten.
+A derived letter is curated (stage 7) only where stage 8 cannot inherit a good anchor: the match is too low, or the inherited anchor would be wrong; stage 8 runs after stage 7 and leaves those anchors alone. Where stage 8 cannot inherit and nothing is curated, the letter keeps stage 6's candidate.
 
 \begin{table}[h]
 \small
@@ -2752,6 +2752,13 @@ In the tables, each column is a derived letter, ordered by base letter, with its
 the letter with circumflex and macron below, original and patched (\verb|reg|, \verb|patch|), and its base letter patched (\verb|base|);
 then for the above anchor the shift and fit used (a\textasciitilde; \verb|s| stems, \verb!|! stem midline, italics if below the threshold),
 the designer's anchor (a), the candidate (a?), the inherited anchor (a<, bold where the patched font has it) and a curated anchor (a!); the same below (b).
+
+What the tables decide, per letter and side:
+a bold a< is the anchor the patched font has, inherited in stage 8, replacing the designer's anchor and the candidate (216 anchors in regular, 186 in semibold, 167 in italic, 165 in semibold italic);
+an a! is curated because inheritance fails or would be wrong there (5 anchors in regular and semibold, 12 in each italic style, mostly tail letters whose stems do not match: italic ɖ ɭ ɽ ʐ ʑ, ʓ), and the a< beside it, if any, is not used;
+an a\textasciitilde\ in italics means the match is below the threshold (3 in regular, 11 in semibold, 23 in italic, 21 in semibold italic: italic redrawings such as ƀ ƃ ƌ ƙ ȼ, and tails such as Ⱪ ⱪ Ɽ),
+and the letter keeps what it had before stage 8, the candidate (a?) or a designer anchor (a) that stage 1 kept;
+an empty a< means the side is not inherited, because the added part is in the mark's way (ɝ ɚ above, ħ ɦ above in the italics).
 The grids put the IPA marks on each base letter followed by its derived letters, patched fonts only, without \verb|\cgj| (a cell shows the precomposed glyph in \SUPPORTEDPREC{blue} where one exists).
 
 \subsection*{Turned letters}
@@ -2762,14 +2769,14 @@ since the turned letter has its own reference lines (h's ascender is ɥ's descen
 The designer's anchors on turned letters are bad: copied carelessly from other glyphs (a's (209, 645) and (196, $-110$) on ɰ ɹ ɺ ʁ ʇ ʌ ʍ ʎ ʖ in regular, and regular's numbers unslanted in the italics),
 or rotated along with the outline (ʮ ʯ Ⅎ, whose above anchor sat under the letter).
 So all of them are deleted in stage 1, except the few that happen to match the candidate within 4 units (regular and semibold italic ɥ above, semibold italic ɐ ɒ below), which stage 5 snaps to the reference line.
-The turned letters therefore get stage 6's candidate, or a curated anchor (stage 7) where the candidate is unsuitable:
+The turned letters therefore get stage 6's candidate, or a curated anchor (stage 7) where the candidate is unsuitable.
 \begin{itemize}
 \item Where the letter is symmetric about its axis, both anchors are the candidate in every style: Ɯ ɐ ɒ ɥ ɯ ʁ ʇ ʖ ʮ ʯ Ⅎ. ɯ's candidate lies on the central stem, within 2 to 7 units.
 \item Where a stem or a gap must be the centre and an arm pulls the candidate aside, the anchor is curated, in effect the upright letter's opposite anchor turned over:
   above, ɹ ɺ ɻ over the stem top, as r's below anchor sits on r's stem, and ʎ over the apex of the turned V, as y's below anchor;
-  below, ʌ between the feet, ʍ under the middle foot (the candidate in semibold), and ɰ under the middle stem, at ɯ's candidate $Y$.
+  below, ʌ between the feet, ʍ under the middle foot (the candidate in semibold), and ɰ under the middle stem, at ɯ's candidate $Y$. Their other anchor is the candidate.
 \item ɰ is not derived from ɯ: it is narrower and its stems are spaced differently (outline match 21\% in regular).
-  ɻ is a derived letter of ɹ (a tail at the bottom) and inherits ɹ's above anchor in semibold and semibold italic; its above anchor is curated in regular and italic.
+  ɻ is a derived letter of ɹ (a tail at the bottom) and inherits ɹ's above anchor in semibold and semibold italic; its above anchor is curated in regular and italic, and its below anchor follows stage 8's rule for a tail at the bottom (the candidate where the stems do not match, as in italic).
 \end{itemize}
 
 \input{input/derived_anchors.tex}

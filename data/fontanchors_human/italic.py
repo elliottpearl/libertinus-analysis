@@ -135,6 +135,28 @@ anchors = {
             0: (430, 850),
             2: (236, -319),
         },
+        0x0268: { # ɨ: above on the stem's axis, over the dot, as i (2026-11-10): ɨ is i moved 14 right (stage 8, 93%), so i's
+                  # (312, 810) + 14. The stage 6 lane (316) was pulled by the bar, which widens the advance by 12
+            0: (326, 810),
+        },
+        # Redrawn derived letters that cannot inherit by outline match: anchors on the geometric centre of their major
+        # strokes, measured in sheared coordinates and carried up the slant to the anchor's height (2026-11-10)
+        0x0289: { # ʉ: midline of the two stems (264.5 at y 0, below the bar); the stage 6 lane was pulled by the bar
+            0: (402, 645),
+            2: (241, -110),
+        },
+        0x027D: { # ɽ: above midway between the stem (127) and the ball (317); the left slab serif and the tail do not count
+            0: (359, 645),
+        },
+        # 0x2C64: { # Ɽ (removed 2026-11-10: stage 6's advance lane differs by 1-7; Ɽ is in BASE_LATIN): above on the lane of its P part without serifs, stem's left edge to bowl's right edge (92..474)
+        #     0: (464, 850),
+        # },
+        0x0290: { # ʐ: above on the midline of the top bar (63..371); the hook does not count
+            0: (354, 645),
+        },
+        0x0291: { # ʑ: above on the midline of the top bar (62..372); the curl does not count
+            0: (354, 645),
+        },
         0x0237: { # ȷ dotless j: above on the stem's midline, as j (2026-11-07): j takes this dotless form before nearly every above mark; the designer's (140, 645) was regular's, unslanted, 143 left
             0: (283, 645),
         },

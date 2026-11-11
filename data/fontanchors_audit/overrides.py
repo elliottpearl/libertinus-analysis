@@ -279,6 +279,12 @@ overrides = {
         "uni0237": {0: "keep"},
     },
     "semibold_italic": {
+        # u below: regular's (239, -110) copied into a u 30 wider; composed below marks land 16-43 left of ụ ṳ ṷ
+        # (median -22); stage 6 gives the candidate (270, -110), stage 9 and the curated ư family follow (2026-11-10)
+        "u": {2: "delete"},
+        # n: regular's (264, 645), (265, -110) copied; 26 and 18 left of the precomposed glyphs' accents (290, 283);
+        # stage 6 gives the candidates (2026-11-10)
+        "n": {0: "delete", 2: "delete"},
         # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
         # stage 9 inherits (2026-11-10, report "Precomposed characters")
         "uni1ECD": {0: "delete"},  # ọ (231, 645), regular's, -7

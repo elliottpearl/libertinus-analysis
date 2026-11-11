@@ -63,6 +63,7 @@ BASE_LATIN = [
     # Latin capitals added 2026-11-08 (their designer anchors were wrong; stage 6 fills them)
     0x014A,0x0184,0x01A2,0x024A,0x1EFA,0x2C69,0x2C6B,  # Ŋ Ƅ Ƣ Ɋ Ỻ Ⱪ Ⱬ
     0x2132,             # Ⅎ turned F
+    0x2C64,             # Ɽ R with tail: no designer anchors; stage 6 gives them (2026-11-10)
 ]
 
 # IPA (count: ?)
@@ -342,6 +343,7 @@ BASE_CAP = [
     0x0110, # D stroke
     0x0126, # H bar
     0x0141, # L slash
+    0x2C64, # R with tail (2026-11-10)
     # IPA/UPA and African capitals
     0x0181, # B hook
     0x0182, # B topbar

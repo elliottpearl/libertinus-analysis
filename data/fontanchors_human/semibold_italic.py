@@ -88,20 +88,20 @@ anchors = {
             # 0: (335, 850), # O  # removed 2026-10-29: inherited from O (stage 8): (335, 850)
             # 2: (350, -110), # O   # removed 2026-10-29: inherited from O (stage 8): (350, -110)
         # },
-        # ư and its toned forms Ứ Ừ Ử Ữ (which reference ư at (0, 0)): below as u's (239, -110), shift 0 (2026-11-10).
+        # ư and its toned forms Ứ Ừ Ử Ữ (which reference ư at (0, 0)): below as u's (270, -110), shift 0 (2026-11-10; u's was 239 until it was deleted).
         # Stage 9 cannot inherit it: ư's stems lie on u's (shift 0 left, +1 right), but the bottom of the bowl was
         # redrawn about 15 wider on each side around the same midpoint (306, u 307), so the fit is 75%.
         # ự has a dot below and needs no below anchor.
-        0x01B0: {2: (239, -110)},  # ư
+        0x01B0: {2: (270, -110)},  # ư
         0x01A1: { # ơ: below on the hornless advance lane (2026-11-10). Without the horn the ink ends at x 527; with o's
                   # sidebearings (72, -10) the lane is 517 wide: 517/2 - 110 tan θ + 12 = 248. The designer's 243 was 4 left of
                   # what Ớ Ờ Ở Ỡ inherit (247); the candidate from ơ's own advance (541, horn included) is 260
             2: (248, -110),
         },
-        0x1EE9: {2: (239, -110)},  # ứ
-        0x1EEB: {2: (239, -110)},  # ừ
-        0x1EED: {2: (239, -110)},  # ử
-        0x1EEF: {2: (239, -110)},  # ữ
+        0x1EE9: {2: (270, -110)},  # ứ
+        0x1EEB: {2: (270, -110)},  # ừ
+        0x1EED: {2: (270, -110)},  # ử
+        0x1EEF: {2: (270, -110)},  # ữ
         0x01B1: { # Upsilon
             0: (356, 850), # italic lane - K (150): semibold italic model
             2: (311, -110), # italic lane
@@ -117,6 +117,24 @@ anchors = {
         0x01B5: { # Z stroke
             0: (312, 850), # italic lane - K (150): semibold italic model
             2: (267, -110) # italic lane
+        },
+        # Redrawn derived letters that cannot inherit by outline match: anchors on the geometric centre of their major
+        # strokes, measured in sheared coordinates and carried up the slant to the anchor's height (2026-11-10)
+        0x0289: { # ʉ: midline of the two stems (294 at y 0, below the bar), less K (150 above, -12 below); the lane was pulled by the bar
+            0: (275, 645),
+            2: (284, -110),
+        },
+        0x027D: { # ɽ: above midway between the stem (142) and the ball (333), less K = 150; the slab serif and tail do not count
+            0: (218, 645),
+        },
+        # 0x2C64: { # Ɽ (removed 2026-11-10: stage 6's advance lane differs by 1-7; Ɽ is in BASE_LATIN): above on the lane of its P part without serifs (68..487), less K = 150
+        #     0: (300, 850),
+        # },
+        0x0290: { # ʐ: above on the midline of the top bar (103..422), less K = 150; the hook does not count
+            0: (244, 645),
+        },
+        0x0291: { # ʑ: above on the midline of the top bar (60..407), less K = 150; the curl does not count
+            0: (215, 645),
         },
         0x0237: { # ȷ dotless j: above on the stem's midline, as j (2026-11-07): j takes this dotless form before nearly every above mark, less K = 150; the designer's (140, 645) was regular's, 31 left
             0: (171, 645),

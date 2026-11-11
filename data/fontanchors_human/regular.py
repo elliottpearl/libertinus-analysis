@@ -25,8 +25,9 @@ anchors = {
         0x1ECB: { # ị
             0: (142, 834), # was (132, 775)
         },
-        0x0268: { # ɨ
-            0: (142, 834), # was (155, 795)
+        0x0268: { # ɨ: above on the stem's axis, over the dot, as i (2026-11-10): ɨ is i moved 14 right (stage 8, 93%), so i's 142 + 14;
+                  # the bar does not count. Was (142, 834), i's own, and the designer's (155, 795)
+            0: (156, 834),
         },
         0x0041: {  # A; designer's (354, 850), (308, -110) are left of the midline
             0: (361, 850),  # centre of the cut apex, x 334..389

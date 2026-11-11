@@ -55,6 +55,8 @@ feature ccmp {
     # add more capitals
     # Latin capitals with stroke, bar or ligature
     Eth Oslash Dcroat Hbar Lslash OE
+    # Ɽ R with tail (2026-11-10): it has an above anchor at the capital reference since then
+    uni2C64
     # IPA/UPA capitals
     uni0186 uni018F uni0190 uni019F uni01A9 uni01B1 uni01B2 uni01B3 
     uni01B5 uni01B7 

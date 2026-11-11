@@ -14,6 +14,12 @@
 
 overrides = {
     "regular": {
+        "uni027A": {2: "delete"},  # turned letter: the designer's below anchor is 16-23 off the candidate (2026-11-11)
+        # ⱬ: (204, -110), z's baseline anchor copied onto a descender letter; 5 below marks overlapped (2026-11-11)
+        "uni2C6C": {2: "delete"},
+        # ƕ hwair: (299, 645) and (259, -111), h's regular anchors copied (unslanted in the italic styles);
+        # it takes no marks in any orthography, so it is in BASE_NO_MARK (2026-11-11)
+        "uni0195": {0: "delete", 2: "delete"},
         # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
         # stage 9 inherits (2026-11-10, report "Precomposed characters")
         "Aogonek": {0: "delete"},  # Ą (365, 850), +4
@@ -93,7 +99,7 @@ overrides = {
         "uni0269": {2: "keep"},
         # "q": {0: "keep"},
         # Ɯ: above-anchor y 801, 49 below the capital reference (850)
-        "uni019C": {0: "delete"},  # (431, 801)
+        "uni019C": {0: "delete", 2: "delete"},  # (431, 801); turned letter: the designer's below anchor is 16-23 off the candidate (2026-11-11)
         # Ɗ: D's above-anchor copied without D's 80-unit shift, at y 805
         "uni018A": {0: "delete"},  # (306, 805)
         # Ɣ: y 805, 45 below the capital reference
@@ -151,6 +157,21 @@ overrides = {
         "uni0265": {2: "delete"},  # (219, -129)
     },
     "italic": {
+        "uni027A": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
+        "uni0252": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
+        "uni0250": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
+        # ɍ: the designer's (312, 645) and (113, -110) are r's original anchors; the glyph was broken (IJacute
+        # overlaid) and is rebuilt in stage 2, after which stage 8 inherits r's final anchors.
+        # ⱬ: z's baseline anchor on a descender letter; stage 6 gives the candidate (2026-11-11)
+        "uni024D": {0: "delete", 2: "delete"},
+        "uni2C6C": {2: "delete"},
+        # ƌ ⱪ: (209, 645) and (275, 645), regular's x-height copies on ascender letters; 30 above marks overlapped.
+        # The fit to d and the stem match to k fail in italic, so stage 6 gives the candidate (2026-11-11)
+        "uni018C": {0: "delete"},
+        "uni2C6A": {0: "delete"},
+        # ƕ hwair: (299, 645) and (259, -111), h's regular anchors copied (unslanted in the italic styles);
+        # it takes no marks in any orthography, so it is in BASE_NO_MARK (2026-11-11)
+        "uni0195": {0: "delete", 2: "delete"},
         # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
         # stage 9 inherits (2026-11-10, report "Precomposed characters")
         "Oslashacute": {2: "delete"},  # Ǿ (310, -110), +4
@@ -197,7 +218,7 @@ overrides = {
         "uni0266": {0: "delete"},  # (299, 565)
         # Ɯ: above-anchor y 801, 49 below the capital reference (850), and
         # regular's x, not slanted
-        "uni019C": {0: "delete"},  # (431, 801)
+        "uni019C": {0: "delete", 2: "delete"},  # (431, 801); turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
         # Ɗ: regular's anchors (D's, without the shift; y 805), not slanted
         "uni018A": {0: "delete", 2: "delete"},  # (306, 805), (369, -107)
         # Ɣ: regular's anchor, y 805, not slanted
@@ -237,6 +258,7 @@ overrides = {
        
     },
     "semibold": {
+        "uni0250": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
         # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
         # stage 9 inherits (2026-11-10, report "Precomposed characters")
         "uni1EE5": {0: "delete"},  # ụ (272, 645), +8
@@ -280,6 +302,14 @@ overrides = {
         "uni0237": {0: "keep"},
     },
     "semibold_italic": {
+        "uni027A": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
+        # ⱬ: regular's (204, -110), on a descender letter; 7 below marks overlapped (2026-11-11)
+        "uni2C6C": {2: "delete"},
+        # ⱪ: (275, 645), regular's x-height copy on an ascender letter; 19 above marks overlapped (2026-11-11)
+        "uni2C6A": {0: "delete"},
+        # ƕ hwair: (299, 645) and (259, -111), h's regular anchors copied (unslanted in the italic styles);
+        # it takes no marks in any orthography, so it is in BASE_NO_MARK (2026-11-11)
+        "uni0195": {0: "delete", 2: "delete"},
         # u below: regular's (239, -110) copied into a u 30 wider; composed below marks land 16-43 left of ụ ṳ ṷ
         # (median -22); stage 6 gives the candidate (270, -110), stage 9 and the curated ư family follow (2026-11-10)
         "u": {2: "delete"},
@@ -377,7 +407,7 @@ overrides = {
         "J": {0: "delete", 2: "delete"},  # (432, 850), (109, -319), not a full descender
         # Ɯ: above-anchor y 801, 49 below the capital reference (850), and
         # regular's x, not slanted
-        "uni019C": {0: "delete"},  # (431, 801)
+        "uni019C": {0: "delete", 2: "delete"},  # (431, 801); turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
         # Ɗ: regular's anchors (D's, without the shift; y 805), not slanted
         "uni018A": {0: "delete", 2: "delete"},  # (306, 805), (369, -107)
         # Ɣ: regular's anchor, y 805, not slanted

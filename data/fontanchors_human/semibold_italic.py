@@ -99,10 +99,15 @@ anchors = {
             0: (348, 850), # italic lane - K (150): semibold italic model
             2: (303, -110) # italic lane
         },
-        0x01B3: { # Y hook
-            0: (391, 850), # italic lane of stem - K (150): semibold italic model
-            2: (379, -110) # italic lane of stem
+        0x01B4: { # ƴ y with hook: redrawn narrower than y, its V ~100 left of y's (fit 20%), so not inherited; the designer's
+                  # (270, 645) was regular's, 18 above marks overlapping. X: y's offset from the centre of its arms (-14),
+                  # less 10 so that U+033F clears the hook (gap 1); Y the x-height reference (2026-11-11)
+            0: (152, 645),
         },
+        # 0x01B3: { # Y hook
+        #     0: (391, 850), # italic lane of stem - K (150): semibold italic model
+        #     2: (379, -110) # italic lane of stem
+        # },  # removed 2026-11-11: stage 8 reproduces it within 8 (stem_axis)
         0x01B5: { # Z stroke
             0: (312, 850), # italic lane - K (150): semibold italic model
             2: (267, -110) # italic lane

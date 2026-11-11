@@ -64,6 +64,31 @@ BASE_LATIN = [
     0x014A,0x0184,0x01A2,0x024A,0x1EFA,0x2C69,0x2C6B,  # Ŋ Ƅ Ƣ Ɋ Ỻ Ⱪ Ⱬ
     0x2132,             # Ⅎ turned F
     0x2C64,             # Ɽ R with tail: no designer anchors; stage 6 gives them (2026-11-10)
+    # Letters with a stroke, bar or middle dot, derived in stage 8 (2026-11-11); stage 6 fills
+    # what stage 8 cannot (a style where the letter was redrawn)
+    0x013F,0x0140,      # Ŀ ŀ
+    0x2C62,             # Ɫ (ɫ is in BASE_IPA)
+    0x019A,0x023D,0x2C60,0x2C61,  # ƚ Ƚ Ⱡ ⱡ
+    0x0166,0x0167,0x023E,0x2C66,  # Ŧ ŧ Ⱦ ⱦ
+    0x01E4,0x01E5,      # Ǥ ǥ
+    0x023A,0x2C65,      # Ⱥ ⱥ
+    0x023B,0x023C,0xA793,  # Ȼ ȼ ꞓ
+    0x0243,0x0180,      # Ƀ ƀ
+    0x0246,0x0247,      # Ɇ ɇ
+    0x0248,0x0249,      # Ɉ ɉ
+    0x024C,0x024D,      # Ɍ ɍ
+    0x024E,0x024F,      # Ɏ ɏ
+    0x2C63,             # Ᵽ
+    0x01B5,0x01B6,      # Ƶ ƶ
+    0x1E9C,0x1E9D,      # ẜ ẝ
+    0xA765,             # ꝥ
+    # Letters with a hook, tail, curl, topbar or descender, derived in stage 8 (2026-11-11, "Group 4")
+    0x01A4,0x01AC,0x01AE,  # Ƥ Ƭ Ʈ
+    0x0183,0x018C,      # ƃ ƌ topbar
+    0x01B3,0x01B4,      # Ƴ ƴ
+    0x2C67,0x2C68,0x2C6A,0x2C6C,  # Ⱨ ⱨ ⱪ ⱬ descender
+    0x2C6E,             # Ɱ
+    0x1E9A,0x1EFF,0xAB52,  # ẚ ỿ ꭒ
 ]
 
 # IPA (count: ?)
@@ -88,6 +113,9 @@ BASE_IPA = [
     # IPA affricates, fricatives, ejectives, etc.
     0x0290,0x0291,0x0292,0x0293,0x0294,0x0295,0x0296,0x0297,0x0299,0x029B,
     0x029C,0x029D,
+    0x02A1,0x02A2,  # ʡ ʢ epiglottal plosive and fricative, derived from ʔ ʕ in stage 8 (2026-11-11)
+    0x0188,0x0199,0x01A5,0x01AB,0x01AD,0x02A0,  # ƈ ƙ ƥ ƫ ƭ ʠ: obsolete IPA, derived in stage 8 (2026-11-11)
+    0x0221,0x0234,0x0235,0x0236,  # ȡ ȴ ȵ ȶ: Sinological curls, derived in stage 8 (2026-11-11)
     # 0x029E, 
     0x029F,
     # Greek letters used in IPA: β θ χ (Unicode has no Latin theta; the Latin beta U+A7B5 and
@@ -343,6 +371,28 @@ BASE_CAP = [
     0x0110, # D stroke
     0x0126, # H bar
     0x0141, # L slash
+    # stroke, bar, middle dot: derived in stage 8 (2026-11-11)
+    0x013F, # L middle dot
+    0x2C62, # L middle tilde
+    0x023D, # L bar
+    0x2C60, # L double bar
+    0x0166, # T stroke
+    0x023E, # T diagonal stroke
+    0x01E4, # G stroke
+    0x023A, # A stroke
+    0x023B, # C stroke
+    0x0243, # B stroke
+    0x0246, # E stroke
+    0x0248, # J stroke
+    0x024C, # R stroke
+    0x024E, # Y stroke
+    0x2C63, # P stroke
+    # hook, tail, descender: derived in stage 8 (2026-11-11)
+    0x01A4, # P hook
+    0x01AC, # T hook
+    0x01AE, # T retroflex hook
+    0x2C67, # H descender
+    0x2C6E, # M hook
     0x2C64, # R with tail (2026-11-10)
     # IPA/UPA and African capitals
     0x0181, # B hook
@@ -444,6 +494,7 @@ BASE_CAP = [
 BASE_NO_MARK = [
     0x01B8,0x01B9,0x01F1,0x01F2,0x01F3,0x01C4,0x01C5,0x01C6,0x01C7,0x01C8,
     0x01C9,0x01CA,0x01CB,0x01CC,
+    0x0195,0x01F6,  # ƕ Ƕ hwair: Gothic transliteration, no marks in any orthography (2026-11-11)
 ]
 
 # Precomposed characters that might support another combining mark, 
@@ -924,6 +975,57 @@ BASE_COVERAGE = sorted(BASE_COVERAGE)
 # "label" is a printable semantic label for the group
 # "items" is the python symbol name of the group list
 from data import precomposed_letters as _precomposed
+from data import derived_letters as _derived
+
+# derived_by_name in the test sheets: glyph name -> (codepoint to type, base
+# letter to list it under). ɨ's dotless form is reached through ccmp, by
+# typing ɨ before an above mark; U+E27F is a PUA codepoint of the patch.
+_DERIVED_BY_NAME_CP = {"uni0268.dotless": (0x0268, 0x0069), "uni027F.desc": (0xE27F, 0x027F)}
+
+def _derived_sheet(cls, only=None):
+    """
+    Stage 8's letters that may inherit anchor class cls (0 above, 2 below) in
+    some style, each base letter followed by its derived letters: ordered by
+    base letter, then by codepoint. With only, just those derived letters.
+    """
+    def has(classes):
+        styles = classes.values() if isinstance(classes, dict) else [classes]
+        return any(cls in c for c in styles)
+
+    by_base = {}
+    for cp, (base_cp, classes) in _derived.derived.items():
+        if has(classes):
+            by_base.setdefault(base_cp, set()).add(cp)
+    for cp, (base_cp, ys) in _derived.derived_y.items():
+        if cls in ys:
+            by_base.setdefault(base_cp, set()).add(cp)
+    for name, (base_name, classes) in _derived.derived_by_name.items():
+        if name in _DERIVED_BY_NAME_CP and has(classes):
+            cp, base_cp = _DERIVED_BY_NAME_CP[name]
+            by_base.setdefault(base_cp, set()).add(cp)
+    if only is not None:
+        by_base = {b: ds & set(only) for b, ds in by_base.items() if ds & set(only)}
+    return [c for base_cp in sorted(by_base) for c in [base_cp, *sorted(by_base[base_cp])]]
+
+# The "Base and mark shaping -- Complete" grids leave out the letters whose anchors stage 8 or stage 9
+# sets: they have their own grids, after their base letters (2026-11-11)
+_STAGE_8_9 = (set(_derived.derived) | set(_derived.derived_y)
+              | set(_precomposed.PRECOMPOSED_ABOVE) | set(_precomposed.PRECOMPOSED_BELOW))
+BASE_LATIN_COMPLETE = [c for c in BASE_LATIN if c not in _STAGE_8_9]
+BASE_IPA_COMPLETE = [c for c in BASE_IPA if c not in _STAGE_8_9]
+
+DERIVED_ABOVE = _derived_sheet(0)
+DERIVED_BELOW = _derived_sheet(2)
+
+# Group 4 of 2026-11-11 (hooks, tails, curls, topbars, descenders), for its own test sheet
+# (tex/derived-group4.tex)
+DERIVED_GROUP4 = [
+    0x01A4, 0x0183, 0x018C, 0x01B3, 0x01B4, 0x0199, 0x0188, 0x1E9A, 0xAB52, 0x01AC,
+    0x01A5, 0x02A0, 0x01AD, 0x01AB, 0x01AE, 0x0221, 0x0234, 0x0235, 0x0236, 0x2C64,
+    0x2C67, 0x2C68, 0x2C69, 0x2C6A, 0x2C6E, 0x1EFF,
+]
+DERIVED_GROUP4_ABOVE = _derived_sheet(0, DERIVED_GROUP4)
+DERIVED_GROUP4_BELOW = _derived_sheet(2, DERIVED_GROUP4)
 
 unicode_groups = {
     # === Base Unicode blocks ===
@@ -934,6 +1036,15 @@ unicode_groups = {
     "BASE_IPA": {
         "label": "IPA",
         "items": BASE_IPA,
+    },
+    # for the "Complete" grids: without the letters of stages 8 and 9
+    "BASE_LATIN_COMPLETE": {
+        "label": "Latin",
+        "items": BASE_LATIN_COMPLETE,
+    },
+    "BASE_IPA_COMPLETE": {
+        "label": "IPA",
+        "items": BASE_IPA_COMPLETE,
     },
     "BASE_SUPERSCRIPT_CONSONANT": {
         "label": "Superscript consonant",
@@ -979,6 +1090,23 @@ unicode_groups = {
     "PRECOMPOSED_BELOW": {
         "label": "Precomposed letters that inherit a below anchor in stage 9",
         "items": _precomposed.PRECOMPOSED_BELOW,
+    },
+    # Stage 8's lists (data/derived_letters.py), with their base letters, for the test sheets
+    "DERIVED_ABOVE": {
+        "label": "Derived letters that may inherit an above anchor in stage 8, after their base letters",
+        "items": DERIVED_ABOVE,
+    },
+    "DERIVED_BELOW": {
+        "label": "Derived letters that may inherit a below anchor in stage 8, after their base letters",
+        "items": DERIVED_BELOW,
+    },
+    "DERIVED_GROUP4_ABOVE": {
+        "label": "Group 4, above",
+        "items": DERIVED_GROUP4_ABOVE,
+    },
+    "DERIVED_GROUP4_BELOW": {
+        "label": "Group 4, below",
+        "items": DERIVED_GROUP4_BELOW,
     },
 
     # === Precomposed blocks ===

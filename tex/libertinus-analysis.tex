@@ -129,6 +129,18 @@ Long term: add mark-to-mark positioning (stacking) for the common above-marks in
 The designer's stacked precomposed glyphs (ḕ, ṏ, ẫ, \ldots) could supply the mark-to-mark anchors, as the precomposed capitals do for stage 4.
 Only glyphs drawn as a true stack are evidence: others among the short list of precomposed letters with two above-marks are composed more compactly in some other configuration (Ǻ, Ǖ, Ṓ), so each needs to be verified by eye before it is used.
 
+Audit the SFD sources for glyphs that copy another glyph's splines where they could reference it (a derived letter drawn as a copy of its base, a precomposed letter as a copy of base and mark),
+so that a correction to the base reaches every glyph built on it, and the derived and precomposed stages need not rediscover the base in the outline.
+
+Create the glyphs that are missing in the non-regular styles because the base groups now reach further than the designer's coverage
+(Ɇ Ɍ Ɏ ɏ ꝥ ꞓ Ɱ ꭒ ỿ exist only in regular, Ɉ ẜ ẝ not in every style, and Ɋ Ỻ Ⅎ before them), as stage 2 already does for a few.
+
+Revise how stage 8 moves $Y$ away from an added part (the hook, tail or stroke of a derived letter).
+Now the anchor moves by how much further the added part reaches than the base letter within 120 units of the mark's axis, and a tail at the bottom takes the candidate's $Y$, from the letter's lowest point;
+both use the extreme point, not where the marks actually come close, so most anchors get more clearance than they need and a few too little (ʛ above overlaps one mark).
+Alternatives measured on 2026-11-11 with every IPA mark: (A) the tightest mark on the derived letter gets the base letter's tightest gap, which removes over-clearance on 83 of 148 anchors but adds clearance on 43;
+(B) the same, but only toward the glyph, with a floor of about 20, so that only over-clearance and near-collisions change.
+
 Write general instructions for using CGJ U+034F to block unwanted normalization.
 A below-mark typed after a precomposed letter that already has an above-mark is reordered and recomposed by normalization: ì\,+\,tilde below becomes ḭ\,+\,grave, which brings back the dot of i,
 and Ǻ\,+\,dot below becomes Ạ\,+\,ring\,+\,acute (130 cases among the precomposed letters).
@@ -874,103 +886,6 @@ then the correction is 6; otherwise I assume that the glyph must look like a fla
 But for a non-full descender that is closer to the baseline, the bowl correction is 10.
 Full descender bowls tend to be flatter because the lower threhold of the descender really is a hard lower bound.
 
-
-\section*{Derived letters}
-
-Many letters are a base letter plus a bar, stroke, hook, tail, curl or belt:
-Đ is D with a bar, Ɗ is D with a hook, ɖ is d with a tail.
-Where the added part stays clear of a mark, the derived letter should attach the mark where its base letter does.
-The designer often drew the derived letter in a shifted frame: Ɗ is D moved about 80 units right, to make room for the hook.
-So the derived letter's anchor is the base letter's anchor plus that shift.
-The heuristic candidate cannot know this: a hook or tail moves the midpoint of the bounding box that the candidate is centred on.
-
-Semibold ɭ is redrawn by the patch (stage 2, \verb|font_patching_redraw.py|, 2026-11-08).
-The designer's glyph had a regular-weight stem (75 units; semibold l, ɫ and ɬ have 110--112), a plain slab head instead of l's serif, and a hook deeper than ɖ's.
-Regular ɭ is regular l with the foot serif replaced by the retroflex hook of regular ɖ, to about 5 units per control point;
-so semibold ɭ is now semibold l with its foot serif replaced by the hook of semibold ɖ, moved 236 units left onto l's stem,
-its first control point on the stem line as in regular ɭ and its return curve 7 units left, because ɖ's stem is 117 wide and l's 110 (advance 275).
-Its stem now matches l's exactly, so stage 8 inherits l's anchors (stem match 100\%): above $(150, 885)$ and below $(150, -319)$, on the stem's midline, below the hook.
-The curated above-anchor that replaced the failed inheritance is commented out.
-
-Stage 8 of the patch inherits these anchors.
-\verb|data/derived_letters.py| lists each derived letter with its base letter and the anchor classes it may inherit:
-both above and below for a bar or stroke through the letter, or a hook at the top away from the centre;
-above and below for a hook, tail or curl at the bottom (see below); below only for a hook at the top in the way of an above mark (ɝ, ɚ, ʄ).
-The classes can differ by style. In italic and semibold italic the designer put the above-anchor of d and h at the x-height, over the bowl beside the ascender,
-where the bar or hook of đ ɗ ħ ɦ is in the mark's way (in semibold italic, 27 above marks overlapped the ascender of d itself).
-Both are now at the ascender reference (deleted in stage 1, candidate in stage 6), and đ ɗ inherit above in every style; ħ ɦ still inherit only the below-anchor there.
-The shift is found by matching outlines: at every height on a 10-unit grid, the positions where the base letter's outline crosses that height
-are compared with the derived letter's, and the shift that pairs the most crossings within 6 units wins.
-The share of the base letter's crossings so paired measures how much of the base letter the derived letter really contains.
-Below 70\% the derived letter was redrawn rather than built on the base, and nothing is inherited in that style.
-Stage 8 runs after the curated anchors, so it inherits the base letter's final anchor, and it never overwrites a curated anchor of the derived letter.
-
-In the tables, each column is a derived letter, with its base letter's codepoint below it.
-For each style: the derived letter with circumflex above and macron below, in the original and patched fonts (\verb|reg|, \verb|patch|),
-the base letter likewise in the patched font (\verb|base|),
-and the outline shift and match (in italics if below 70\%).
-Then, for the above anchor:
-a, the designer's anchor;
-a?, the heuristic candidate;
-a<, the base letter's final anchor plus the shift, in bold where the patched font has it;
-a!, a curated anchor, which stage 8 keeps.
-The same for the below anchor (b).
-
-\paragraph{Letters with a tail at the bottom.}
-Ƒ Ɲ ɕ ɖ ɭ ɱ ɲ ɳ ɻ ɽ ʂ ʆ ʈ ʐ ʑ ʓ (\verb|bottom_tail| in \verb|data/derived_letters.py|) follow one rule, decided 2026-11-06,
-whether the tail curls toward the centre (ɱ, ɭ, ɽ, ʂ) or away from it (ɖ, ɳ, ɲ, Ɲ).
-A dot below clears an outward tail at the baseline, but most below marks are much wider:
-at the designer's baseline anchors, 4 to 29 of the 32 below marks overlapped the tail of ɖ, ɱ, ɲ or ɳ in some style.
-\begin{itemize}
-	\item The shift is matched on the stems and bowl sides above the tail (heights from 60 to the x-height less 60),
-	not on the whole outline, since the tail replaces the base letter's foot.
-	Each ink interval of the base is paired with the derived letter's interval of about the same width at the same height,
-	and a line through the paired centres allows for a letter drawn a little narrower or wider (ɱ ɲ ɳ are about 3\% narrower than m and n in regular).
-	The whole-outline match was 46--59\% for regular ɱ ɲ ɳ ɽ; the stem match is 72--97\%.
-	It fails where there are no stems (ʐ ʑ ʓ in the italic styles) and where the italic letter was redrawn (italic ɖ ɲ).
-	\item Below, where the tail has ink within 195 units of the mark's axis (the half-width of the widest below mark, U+0347), $Y$ is the anchor model's candidate,
-	the descender reference with its clearance from the letter's own outline, and $X$ is the base letter's plus the shift, following the slant down.
-	Where the tail is clear of the mark, $Y$ is the base letter's: Ɲ in regular and italic, whose hook is more than 195 units left of the axis.
-	In semibold and semibold italic Ɲ keeps a descender anchor: at the baseline U+0347 and U+034D would overlap its hook.
-	\item Where the stems match less than 70\%, the above anchor is not inherited, and a below anchor over a tail gets the candidate, $X$ and $Y$.
-	\item The curated below anchors of regular ɭ, ɳ and ʂ were removed: the rule gives ɳ and ʂ within 7 units of them, and ɭ $X$ from the stem of l (133 against 196), where one below mark overlaps instead of four.
-\end{itemize}
-After the change, no below mark overlaps ɖ ɱ ɲ ɳ in any style.
-New overlaps, all with the tall half rings and tacks: regular ʑ with U+031C, italic ʈ with U+0339; these marks have since been lowered (see ``Mark anchor model'', stage 7), and no below mark overlaps a descender.
-
-ɯ has the candidate in every style (its designer anchors are deleted in stage 1): the candidate lies on the central stem, within 2 to 7 units.
-ɰ is not derived from ɯ: it is narrower and its stems are spaced differently (the outline match is 21\% in regular).
-Its below anchor is curated under the middle stem, at ɯ's candidate $Y$; only U+0347 overlaps its long leg, in semibold and semibold italic.
-
-Two letters have an anchor set apart from these rules.
-The curl of ɕ reaches about $-100$, so at c's $Y = -110$ most below marks overlap it.
-Its below-anchor keeps the $Y$ of the anchor model, under the curl ($-214$ regular, $-208$ italic, $-209$ semibold and semibold italic), and takes $X$ from c's final below-anchor plus the shift, following the slant down to that height.
-\char"027C\ matches r too little to inherit, but its above-anchor takes $X$ from r in the same way, at the x-height reference, 645. Its below-anchor is curated on the axis of its stem, at the descender reference, $-319$.
-This is \verb|derived_y| in \verb|data/derived_letters.py|. It does not depend on the outline match, since only $X$ is borrowed.
-
-What the comparison shows:
-\begin{itemize}
-	\item In regular and semibold most derived letters are built on the base letter (90\% or more of its outline).
-	In italic and semibold italic most were redrawn, and inherit only where the bar or stroke was added to a traced base: Ð Đ đ Ħ ħ Ø ø Ɨ ɫ ɬ ɝ ʛ, and some others.
-	\item Several designer anchors are copies: (209, 645) and (196, $-110$) recur on many IPA letters in regular,
-	including ɖ and ɭ, which have ascenders and now inherit 885 from d and l, and ʈ, which inherits t's anchor (769).
-	ʄ, which descends, had a below-anchor at $-110$; it now inherits $-319$ from ȷ.
-	\item The heuristic candidate is pulled sideways by a hook or bar: for Ƒ, 183 against 276 from F; for Ł, 256 against 147 from L (over the stem, as the designer placed it on L).
-	\item Ɓ and Ɗ inherit B's and D's anchors moved about 58 and 82 units right, which the designer's copies lacked.
-	\item The inheritance carries the base letter's own anchor, right or wrong. Where the base letter's anchor is questionable
-	(D in regular is 76 units left of the centre of its body), Ð, Đ, Ɖ and Ɗ follow it.
-	\item Checked for collisions with a circumflex and a macron: none in what is inherited.
-	ɝ and ɚ inherit only below, because their hook rises into the above mark at the inherited height;
-	italic and semibold italic ħ ɦ inherit only below (see above).
-	ɗ is matched on its stems, like the letters with a tail below: its hook replaces the top of the ascender, and the whole-outline match was 50--53\% in semibold and semibold italic.
-	The candidate for ɗ and ɖ is pulled right by the hook or tail (by the bounding box in roman, the advance width in italic): regular ɗ 322 against 233 inherited from d.
-	The curated regular ɗ (218, 885), 17 units left of d's anchor, was removed.
-	Italic ɖ was redrawn wider than d (bowl 16 units left, stem 21 right), so it does not match; its above anchor is curated at d's plus the 4-unit shift of the centre of bowl and stem, (440, 899).
-	ʛ is much better inherited: the designer's anchors put the marks on the hook.
-	Italic ɦ's designer above-anchor (299, 565) put marks inside the hook; it is deleted in stage 1, and stage 6 gives it the ascender candidate.
-\end{itemize}
-
-\input{input/derived_anchors.tex}
 
 \newpage
 \section*{Anchor survey, with patches}
@@ -2683,6 +2598,8 @@ XeLaTeX documents in Libertinus without tofu for missing glyphs.
 These grids display base and mark rendering in XeLaTeX documents in 
 Libertinus serif regular, italic, semibold and semibold italic.
 The grids use more complete sets of Latin and IPA bases and above and below marks.
+They leave out the letters whose anchors stage 8 or stage 9 sets, the derived and precomposed letters, which have their own grids after their base letters
+(sections ``Derived letters'' and ``Precomposed characters'').
 
 \SUPPORTEDPREC{Blue} indicates that XeLaTeX uses a precomposed
 Unicode character glyph.
@@ -2780,12 +2697,96 @@ Black cells are composed: in the patched fonts, the base with the capital altern
 \input{input/cap_alt.tex}
 
 \newpage
+\section*{Derived letters}
+
+Many Latin and IPA letters are a base letter with a bar, stroke, belt, hook, tail or curl: Đ is D with a bar, Ɗ is D with a hook, ɖ is d with a tail.
+Unlike the precomposed letters of stage 9, they have no Unicode decomposition; the base letter is recognizable only in the outline.
+Stage 8 (\verb|src/libertinus_analysis/font_patching_derivedanchors.py|, letter lists in \verb|data/derived_letters.py|) gives each such letter its base letter's final anchor,
+moved by where the base letter sits inside it, on each side where the added part stays clear of the marks.
+The heuristic candidate of stage 6 cannot do this: a hook or bar moves the bounding box it is centred on (regular Ƒ above: candidate 183, F's anchor moved into Ƒ 276),
+and the designer often drew the derived letter in a shifted frame (regular Ɗ is D moved 80 units right).
+
+How stage 8 finds the base letter:
+\begin{itemize}
+\item \textbf{Fit} (most letters). On each inherited side, the base letter's ink is fitted to the derived letter's with a shift and a scale of up to 15\%, as in stage 9;
+  the anchor moves with the fit, so a letter drawn a few percent wider keeps the anchor at the same place in the shape (italic Ɖ is D drawn 4\% wider).
+  At least 80\% of the base must fit; otherwise the letter keeps its stage 6 candidate (or a curated anchor) on that side.
+\item \textbf{Stems} (\verb|stem_match|: a hook, tail or curl at the bottom, and ɗ). The fit uses only the stems above the tail, at least 70\%.
+  The below anchor goes to the descender, as the stage 6 candidate does, where the tail lies under the mark; otherwise it stays at the base letter's $Y$ (Ɲ, Ⱨ).
+\item \textbf{Stem midline} (\verb|stem_axis|: ƚ ɫ ɬ ⱡ Ɫ ɩ ɟ, and Ƭ ƭ Ƴ Ⱦ). The anchor moves by the distance between the two stems, whatever the fit,
+  for letters whose bar, belt, tilde or hook spoils the fit but not the stem.
+\item \textbf{Fixed $Y$} (\verb|derived_y|): ɓ ʝ ɠ ɼ ƥ ʠ ƭ above, ɓ ɕ below take $X$ from the base letter and a $Y$ set by hand, usually because a hook rises to the ascender (ɠ ƥ ʠ ƭ).
+\end{itemize}
+Where the added part reaches further than the base letter within 120 units of the mark's axis, $Y$ moves away by the difference (ɇ above $+31$ to $+39$, italic Ⱦ $+96$).
+A curated anchor of the derived letter is never overwritten.
+
+\begin{table}[h]
+\small
+\begin{tabular}{>{\raggedright}p{0.28\linewidth}>{\raggedright}p{0.17\linewidth}p{0.47\linewidth}}
+letters & inherit & note \\
+\hline
+Ð Đ Ɖ đ Ħ Ł ł Ø ø Ɵ ɵ Ɨ ʉ ɫ ɬ ƚ ⱡ Ɫ Ⱡ Ƚ Ŧ ŧ Ⱦ ⱦ Ǥ ǥ Ⱥ ⱥ Ȼ ȼ ꞓ Ƀ ƀ Ɇ ɇ Ɉ Ɍ ɍ Ɏ ɏ Ᵽ Ƶ ƶ ẜ ẝ ꝥ Ŀ ŀ ʡ ʢ & both & bar, stroke, belt or middle dot \\
+Ɓ Ɗ Ƈ Ɠ Ƙ ɗ ʛ Ƥ Ƴ ƴ ƙ ƈ Ƭ ƃ ƌ ẚ ꭒ & both & hook, topbar or ring clear of the marks \\
+ħ ɦ & both (italics: below) & the bar or hook sits at the top of the italic ascender \\
+ɝ ɚ ƥ ʠ ƭ & below & the hook rises into the above mark (ƥ ʠ ƭ above: fixed $Y$) \\
+Ƒ Ɲ ɕ ɖ ɭ ɱ ɲ ɳ ɻ ɽ ʂ ʆ ʈ ʐ ʑ ʓ ƫ Ʈ ȡ ȴ ȵ ȶ Ɽ Ⱨ ⱨ Ⱪ ⱪ Ɱ ỿ & both & tail at the bottom (stems) \\
+ɨ ɉ & below & above: their dotless forms, from ı ȷ \\
+ɮ ʅ U+E27F & above & below curated (ɮ) or the candidate \\
+ɩ ɟ ʄ & both & from ı, ȷ, and ʃ (Libertinus draws ʄ as ʃ with a bar) \\
+ɓ ʝ ɠ ɼ & ɓ both, the others above & fixed $Y$, $X$ from b, j, script ɡ, r \\
+\end{tabular}
+\end{table}
+
+Not derived, although the Unicode name says so: Ƃ Ƌ (topbar), Ʋ ʋ ƒ ƺ ƾ Ƞ ɀ ȥ Ỿ ⱴ ɾ, which match their base letters 5--50\%, and Ⱬ ⱬ, whose base has no stems to match; they keep stage 6's candidate or a curated anchor.
+ƕ Ƕ take no marks in any orthography; ƕ's copied anchors are deleted and both are in \verb|BASE_NO_MARK|.
+
+Fixes made on the way (2026-11-11):
+the copied x-height or baseline anchors of italic ƌ ⱪ, semibold italic ⱪ and ⱬ (three styles) are deleted, so that stage 6 fills them;
+the curated Ƴ of regular and semibold, at Y's own $X$, was 63--78 units left of Ƴ's stem and is retired;
+semibold italic ƴ, redrawn narrower than y, is curated at $(152, 645)$;
+italic ɍ is rebuilt in stage 2 (its SFD glyph referred to IJ and two acutes as well) and now inherits r's anchors.
+Inheritance carries the base letter's anchor, right or wrong: Ƈ and Ȼ follow C's below anchor, which the designer put right of centre.
+The stem-midline check (Table~\ref{table:stem_check}) confirms that every anchor of an l-like or i-like letter lies within 5 units of its own stem, except ɮ below, under the ezh by design.
+
+In the tables, each column is a derived letter, ordered by base letter, with its base letter's codepoint below it; per style:
+the letter with circumflex and macron below, original and patched (\verb|reg|, \verb|patch|), and its base letter patched (\verb|base|);
+then for the above anchor the shift and fit used (a\textasciitilde; \verb|s| stems, \verb!|! stem midline, italics if below the threshold),
+the designer's anchor (a), the candidate (a?), the inherited anchor (a<, bold where the patched font has it) and a curated anchor (a!); the same below (b).
+The grids put the IPA marks on each base letter followed by its derived letters, patched fonts only, without \verb|\cgj| (a cell shows the precomposed glyph in \SUPPORTEDPREC{blue} where one exists).
+
+\subsection*{Turned letters}
+
+Turned letters are drawn from upright letters too, rotated by 180°: Ɯ ɐ ɒ ɥ ɯ ɰ ɹ ɺ ɻ ʁ ʇ ʌ ʍ ʎ ʖ ʮ ʯ Ⅎ in the base groups.
+Stage 8 does not derive their anchors: not even swapping the upright letter's above and below anchors makes sense,
+since the turned letter has its own reference lines (h's ascender is ɥ's descender), and the anchor's $Y$ and clearance come from those, not from the upright letter's.
+The designer's anchors on turned letters are bad: copied carelessly from other glyphs (a's (209, 645) and (196, $-110$) on ɰ ɹ ɺ ʁ ʇ ʌ ʍ ʎ ʖ in regular, and regular's numbers unslanted in the italics),
+or rotated along with the outline (ʮ ʯ Ⅎ, whose above anchor sat under the letter).
+So all of them are deleted in stage 1, except the few that happen to match the candidate within 4 units (regular and semibold italic ɥ above, semibold italic ɐ ɒ below), which stage 5 snaps to the reference line.
+The turned letters therefore get stage 6's candidate, or a curated anchor (stage 7) where the candidate is unsuitable:
+\begin{itemize}
+\item Where the letter is symmetric about its axis, both anchors are the candidate in every style: Ɯ ɐ ɒ ɥ ɯ ʁ ʇ ʖ ʮ ʯ Ⅎ. ɯ's candidate lies on the central stem, within 2 to 7 units.
+\item Where a stem or a gap must be the centre and an arm pulls the candidate aside, the anchor is curated, in effect the upright letter's opposite anchor turned over:
+  above, ɹ ɺ ɻ over the stem top, as r's below anchor sits on r's stem, and ʎ over the apex of the turned V, as y's below anchor;
+  below, ʌ between the feet, ʍ under the middle foot (the candidate in semibold), and ɰ under the middle stem, at ɯ's candidate $Y$.
+\item ɰ is not derived from ɯ: it is narrower and its stems are spaced differently (outline match 21\% in regular).
+  ɻ is a derived letter of ɹ (a tail at the bottom) and inherits ɹ's above anchor in semibold and semibold italic; its above anchor is curated in regular and italic.
+\end{itemize}
+
+\input{input/derived_anchors.tex}
+
+\input{input/stem_check.tex}
+
+\input{input/derived_inherit_above.tex}
+
+\input{input/derived_inherit_below.tex}
+
+\newpage
 \section*{Precomposed characters}
 
 Stage 9 (\verb|src/libertinus_analysis/font_patching_precomposed_anchors.py|, letter lists in \verb|data/precomposed_letters.py|)
 gives a precomposed Latin letter the above- or below-anchor of its base letter where the other side is free:
 a letter with an above-mark (é, ñ) inherits a below-anchor, and a letter with a below-mark or attached below-mark (ẹ, ç, ą) inherits an above-anchor.
-(Letters with a bar or stroke, such as Ø, Ł, Đ, have no Unicode decomposition; they inherit both anchors in stage 8, \verb|data/derived_letters.py|.)
+(Letters with a bar or stroke, such as Ø, Ł, Đ, have no Unicode decomposition; they inherit in stage 8, previous section.)
 The stage also tests that the base letter's form is really there, since some precomposed letters were redrawn unlike their bases:
 it fits the base's ink on the inherited side to the precomposed glyph (a shift, and a scale of up to 15\%), requires a fit of at least 80\%,
 and moves the anchor by the fitted shift.

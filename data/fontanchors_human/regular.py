@@ -147,10 +147,10 @@ anchors = {
             0: (369, 850), # xm above
             2: (324, -110) # ymin
         },
-        0x01B3: { # Y hook
-            0: (295, 850), # Y
-            2: (295, -110) # Y
-        },
+        # 0x01B3: { # Y hook
+        #     0: (295, 850), # Y
+        #     2: (295, -110) # Y
+        # },  # removed 2026-11-11: Y's numbers, but Ƴ is Y moved 65 right; stage 8 puts it on the stem (stem_axis)
         0x01B5: { # Z stroke
             0: (320, 850), # Z
             2: (287, -110) # Z

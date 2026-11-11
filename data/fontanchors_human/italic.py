@@ -113,10 +113,10 @@ anchors = {
             0: (506, 850), # italic lane
             2: (302, -110), # italic lane
         },
-        0x01B3: { # Y hook
-            0: (511, 850), # italic lane of stem
-            2: (342, -110), # italic lane of stem
-        },
+        # 0x01B3: { # Y hook
+        #     0: (511, 850), # italic lane of stem
+        #     2: (342, -110), # italic lane of stem
+        # },  # removed 2026-11-11: stage 8 reproduces it within 4 (stem_axis)
         0x01B5: { # Z stroke
             0: (489, 850), # italic lane
             2: (286, -110), # italic lane

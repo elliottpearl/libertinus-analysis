@@ -1,0 +1,73 @@
+\documentclass[landscape]{article}
+
+% Test sheet for the Group 4 derived letters (hooks, tails, curls, topbars, descenders), 2026-11-11.
+% Grids: .venv/bin/python run_print_combo_matrix.py (from the repo root, after run_patch_font.py).
+% PDF: cd tex && xelatex derived-group4.tex
+
+\usepackage[table]{xcolor}
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage{array}
+
+\geometry{a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+\setlength{\parindent}{0pt}
+\addtolength{\parskip}{2pt}
+
+% always use `Path = ../fonts/`, always include the extension
+\setmainfont{Libertinus Serif}[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular.otf,
+	ItalicFont     = LibertinusSerif-Italic.otf,
+	BoldFont       = LibertinusSerif-Semibold.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic.otf
+]
+
+\newfontfamily\LibertinusSerifPatch[
+	Path = ../fonts/,
+	UprightFont    = LibertinusSerif-Regular-patch.otf,
+	ItalicFont     = LibertinusSerif-Italic-patch.otf,
+	BoldFont       = LibertinusSerif-Semibold-patch.otf,
+	BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf
+]{Libertinus Serif Patch}
+
+\newcommand{\gs}{\hspace{0.5mm}}
+\newcommand{\cgj}{\char"034F }
+
+\definecolor{supportedanchor}{RGB}{0,0,0}
+\definecolor{supportedprec}{RGB}{0,0,180}
+\definecolor{supportedfall}{RGB}{180,0,0}
+\definecolor{unsupportedanchor}{RGB}{180,180,180}
+\definecolor{unsupportedprec}{RGB}{150,190,255}
+\definecolor{unsupportedfall}{RGB}{255,180,200}
+\definecolor{missingglyph}{RGB}{200,200,200}
+\newcommand{\SUPPORTEDANCH}[1]{{\color{supportedanchor}#1}}
+\newcommand{\SUPPORTEDPREC}[1]{{\color{supportedprec}#1}}
+\newcommand{\SUPPORTEDFALL}[1]{{\color{supportedfall}#1}}
+\newcommand{\UNSUPPORTEDANCH}[1]{{\color{unsupportedanchor}#1}}
+\newcommand{\UNSUPPORTEDPREC}[1]{{\color{unsupportedprec}#1}}
+\newcommand{\UNSUPPORTEDFALL}[1]{{\color{unsupportedfall}#1}}
+\newcommand{\MISSINGGLYPH}[1]{{\color{missingglyph}#1}}
+
+\begin{document}
+
+\section*{Group 4 derived letters: test sheet}
+
+Letters with a hook, tail, curl, topbar or descender, added to stage 8 on 2026-11-11 (\verb|data/derived_letters.py|), each after its base letter.
+Each grid row is one IPA mark on every letter; black is positioned by an anchor, red is the fallback (no anchor), blue a precomposed glyph, gray a missing glyph.
+The original fonts come first, then the patched fonts.
+
+\begin{tabular}{>{\raggedright}p{0.17\linewidth}>{\raggedright}p{0.28\linewidth}p{0.47\linewidth}}
+letters & rule & why \\
+\hline
+Ƥ ƃ ƌ Ƴ ƴ ƙ ƈ ẚ ꭒ & inherit both (fit) & the hook, topbar or ring stays clear of the marks; italic and semibold italic redrawings keep stage 6's candidate \\
+Ƭ ƭ & stem shift (\verb|stem_axis|) & the hook at the end of T's bar spoils the fit above; ƭ's hook replaces the top of t's stem \\
+ƥ ʠ ƭ above & \verb|derived_y|: $X$ from p, q, t, $Y$ at the ascender reference & the hook rises from the stem to the ascender, under the mark (it would move $Y$ by $+102$ to $+256$) \\
+ƫ Ʈ ȡ ȴ ȵ ȶ Ɽ Ⱨ ⱨ Ⱪ ⱪ Ɱ ỿ & \verb|bottom_tail| & stems matched above the tail; below, the candidate's $Y$ where the tail is under the mark, else the base letter's (Ⱨ) \\
+Ⱬ ⱬ & not derived & Z has no stems: stage 6's candidate \\
+\end{tabular}
+
+\input{input/derived_group4_above.tex}
+
+\input{input/derived_group4_below.tex}
+
+\end{document}

@@ -32,6 +32,14 @@ corrected outlines.
                          This is ɿ's fishhook and stem run down to q's
                          descender serif; advance ɿ's.
 
+    italic ɍ (U+024D)    The compiled glyph is the designer's ɍ (italic r with
+                         a bar, one contour) plus three stray references in
+                         the SFD: IJ (U+0132) and two acutes, i.e. IJacute
+                         overlaid, with IJacute's advance (601). Rebuilt from
+                         the glyph's own SplineSet in fonts/LibertinusSerif-
+                         Italic.sfd, without the references, with r's advance
+                         (357), as regular ɍ has regular r's (2026-11-11).
+
 The grafts translate the added part (hook or serif) so that its left stem
 edge lies on ɿ's left stem edge (in the italics, the sheared edge line), and
 move the points of its right half by the few units that put its right stem
@@ -233,6 +241,102 @@ def _add_base_glyph(ttfont, glyph_name, codepoint, outline, advance):
     _encode(ttfont, codepoint, glyph_name)
 
 
+# ------------------------------------------------------------
+# Italic ɍ, from the SFD's control points
+# ------------------------------------------------------------
+
+from .config import FONTS_DIR
+
+ITALIC_SFD = FONTS_DIR / "LibertinusSerif-Italic.sfd"
+R_STROKE_REFS = 3  # the stray references (IJ, two acutes) that the fix drops
+
+
+def _sfd_glyph(sfd_path, glyph_name):
+    """(width, SplineSet lines, number of Refer lines) of a glyph in an SFD file."""
+    width, lines, refs, inside, in_splines = None, [], 0, False, False
+    with open(sfd_path, encoding="utf-8") as fh:
+        for line in fh:
+            line = line.rstrip("\n")
+            if line == f"StartChar: {glyph_name}":
+                inside = True
+                continue
+            if not inside:
+                continue
+            if line == "EndChar":
+                break
+            if line.startswith("Width: "):
+                width = int(line.split()[1])
+            elif line == "SplineSet":
+                in_splines = True
+            elif line == "EndSplineSet":
+                in_splines = False
+            elif in_splines:
+                lines.append(line.strip())
+            elif line.startswith("Refer: "):
+                refs += 1
+    if width is None:
+        raise ValueError(f"{glyph_name} not found in {sfd_path}")
+    return width, lines, refs
+
+
+def _sfd_recording(lines):
+    """RecordingPen value from SFD SplineSet lines ("x y m", "x y l", "x1 y1 x2 y2 x3 y3 c", flags)."""
+    rec, open_contour = [], False
+    for line in lines:
+        parts = line.split()
+        op = parts[[i for i, t in enumerate(parts) if t in ("m", "l", "c")][0]]
+        nums = [float(t) for t in parts[:parts.index(op)]]
+        pts = tuple(zip(nums[0::2], nums[1::2]))
+        if op == "m":
+            if open_contour:
+                rec.append(("closePath", ()))
+            rec.append(("moveTo", pts))
+            open_contour = True
+        elif op == "l":
+            rec.append(("lineTo", pts))
+        else:
+            rec.append(("curveTo", pts))
+    if open_contour:
+        rec.append(("closePath", ()))
+    # SFD repeats the start point at the end of a closed contour; drop a final lineTo onto it
+    out, start = [], None
+    for i, (op, args) in enumerate(rec):
+        if op == "moveTo":
+            start = args[0]
+        if (op == "lineTo" and args[0] == start and i + 1 < len(rec) and rec[i + 1][0] == "closePath"):
+            continue
+        out.append((op, args))
+    # FontForge reverses the SFD's contours when it writes CFF; do the same
+    from fontTools.pens.recordingPen import RecordingPen
+    from fontTools.pens.reverseContourPen import ReverseContourPen
+    rp = RecordingPen()
+    rev = ReverseContourPen(rp)
+    for op, args in out:
+        getattr(rev, op)(*args)
+    return rp.value
+
+
+def _same_outline(a, b, tol=1.0):
+    pa = [p for op, args in a for p in args]
+    pb = [p for op, args in b for p in args]
+    return ([op for op, _ in a] == [op for op, _ in b]
+            and all(abs(x - u) <= tol and abs(y - v) <= tol for (x, y), (u, v) in zip(pa, pb)))
+
+
+def _italic_r_stroke(glyphset):
+    """The italic ɍ outline from the SFD, and r's advance. Raises if the sources are not as expected."""
+    r_width, r_lines, _ = _sfd_glyph(ITALIC_SFD, "r")
+    if not _same_outline(_sfd_recording(r_lines), _recording(glyphset, "r")):
+        raise ValueError("italic r in the SFD does not match the compiled font: SFD parse or source changed")
+    width, lines, refs = _sfd_glyph(ITALIC_SFD, "uni024D")
+    if refs != R_STROKE_REFS or width != 601:
+        raise ValueError(f"italic uni024D in the SFD changed (width {width}, {refs} references); check the fix")
+    outline = _sfd_recording(lines)
+    if sum(op == "moveTo" for op, _ in outline) != 1:
+        raise ValueError("italic uni024D SplineSet is no longer one contour; check the fix")
+    return outline, r_width
+
+
 def redraw_glyphs(ttfont, font_key):
     """Apply the outline fixes for this style. Returns report lines."""
     report = []
@@ -242,6 +346,13 @@ def redraw_glyphs(ttfont, font_key):
         old = ttfont["hmtx"]["uni026D"][0]
         _replace_outline(ttfont, "uni026D", outline, advance)
         report.append(f"uni026D: rebuilt from l and the hook of uni0256; advance {old} -> {advance}")
+
+    if font_key == "italic":
+        outline, advance = _italic_r_stroke(glyphset)
+        old = ttfont["hmtx"]["uni024D"][0]
+        _replace_outline(ttfont, "uni024D", outline, advance)
+        report.append(f"uni024D: rebuilt from its SFD SplineSet, without the stray IJ and acute references; "
+                      f"bbox {tuple(round(v) for v in _bounds(outline))}, advance {old} -> {advance}")
 
     if font_key in RHO:
         # Both from the original ɿ, ɳ and q, read before either glyph changes

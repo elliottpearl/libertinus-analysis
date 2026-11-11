@@ -20,12 +20,21 @@ counts, since the base anchor's Y already clears that. Where the derived
 letter is shorter there, Y stays, so marks keep the height they have on the
 base letter.
 
-The shift is found by matching outlines: at every height on a 10-unit grid,
-the x positions where the base's outline crosses that height are compared
-with the derived letter's, and the shift that pairs most crossings (within
-MATCH_TOL) wins. The fraction of the base's crossings so paired measures how
-much of the base letter the derived letter really contains; below MIN_MATCH
-the derived letter was redrawn, and nothing is inherited in that style.
+The shift is found by fitting the base letter's ink to the derived letter's
+(fit_base, as in stage 9, 2026-11-11): on the inherited side only, ink
+intervals of the base are paired with intervals of about the same width, and
+a line x_derived = scale * x_base + offset through the paired centres allows
+for a letter drawn up to 15% wider or narrower (the italic capitals with a
+hook or bar are about 4% wider than their bases). The shift is that line's
+displacement at the mark's axis. Below MIN_FIT of the base's intervals on
+the line, the derived letter was redrawn, and nothing is inherited for that
+class in that style. Before 2026-11-11 the whole outline was matched by
+translation only (outline_shift, still used for derived_y).
+
+Letters in stem_match (bottom tails, ɗ) are matched on their stems
+(stem_shift); letters in stem_axis (an l or i with a bar, belt or tilde
+across the stem) take the shift between the two stems' midlines, whatever
+the match.
 
 Behavior:
     - Overwrites designer and heuristic anchors of the listed classes.
@@ -41,6 +50,8 @@ from .font_patching_anchors import load_human_anchors
 from .fontmetrics_helpers import SHIFT_K, SLOPE, get_anchor_candidate
 from .fontmetrics_loader import load_fontmetrics
 from .font_patching_precomposed_anchors import (
+    MIN_FIT,
+    fit_base,
     ensure_base_record_for_glyph,
     find_mark_to_base_subtables,
     get_anchor_from_baserec,
@@ -78,6 +89,10 @@ def load_derived_letters():
 def load_derived_y():
     """Return derived_y from data/derived_letters.py."""
     return __import__("data.derived_letters", fromlist=["derived_y"]).derived_y
+
+def load_stem_axis():
+    """Return stem_axis from data/derived_letters.py: letters placed on their own stem midline."""
+    return __import__("data.derived_letters", fromlist=["stem_axis"]).stem_axis
 
 def load_stem_match():
     """Return stem_match from data/derived_letters.py: letters matched on their stems."""
@@ -252,6 +267,34 @@ def stem_shift(ttfont, font_key, derived_glyph, base_glyph, axis, max_dev=MAX_SC
     offset = md - scale * mb
     good = sum(1 for b, d in kept if abs(scale * b + offset - d) <= STEM_TOL)
     return round(scale * axis + offset - axis), good / total
+
+STEM_AXIS_LO, STEM_AXIS_HI = 120, 480  # heights where the stem midline is measured
+STEM_MIN_W, STEM_MAX_W = 50, 160          # an interval this wide is a stem (not a dot, bar or belt)
+
+def stem_midline(ttfont, font_key, glyph_name):
+    """
+    The midline of the glyph's stem, in sheared coordinates (x - y tan):
+    the median centre of the ink interval at heights where the outline has
+    exactly one interval of stem width. None if fewer than 5 such heights.
+    """
+    glyphset = ttfont.getGlyphSet()
+    segs = _segments(glyphset, glyph_name)
+    slope = SLOPE[font_key]
+    centres = []
+    for y in range(STEM_AXIS_LO, STEM_AXIS_HI, GRID_STEP):
+        iv = [(a, b) for a, b in _intervals(segs, slope, y + 0.5) if STEM_MIN_W <= b - a <= STEM_MAX_W]
+        if len(iv) == 1:
+            centres.append((iv[0][0] + iv[0][1]) / 2)
+    if len(centres) < 5:
+        return None
+    centres.sort()
+    return centres[len(centres) // 2]
+
+def stem_axis_shift(ttfont, font_key, derived_glyph, base_glyph):
+    """The shift between the base letter's stem midline and the derived letter's, or None."""
+    d = stem_midline(ttfont, font_key, derived_glyph)
+    b = stem_midline(ttfont, font_key, base_glyph)
+    return None if d is None or b is None else round(d - b)
 
 def _tail_reaches(ttfont, font_key, glyph_name, axis):
     """True if the outline has ink below TAIL_Y within BELOW_ZONE of the mark's axis (sheared)."""
@@ -444,6 +487,7 @@ def patch_derived_anchors(ttfont, font_key, lookup_index):
     report = []
     inherited = 0
     stem_match = load_stem_match()
+    stem_axis = load_stem_axis()
     for derived_glyph, base_glyph, classes, label in derived_pairs(cmap, font_key):
         if not classes:
             continue
@@ -457,13 +501,12 @@ def patch_derived_anchors(ttfont, font_key, lookup_index):
                                             classes, label, cmap_reverse, report)
             continue
 
-        dx, match = outline_shift(ttfont, derived_glyph, base_glyph)
-        if match < MIN_MATCH:
-            report.append(
-                f"{label} {derived_glyph} < {base_glyph}: outline match {match:.0%} "
-                f"(shift {dx:+d}) below {MIN_MATCH:.0%}; SKIPPED"
-            )
-            continue
+        stem_dx = None
+        if cp in stem_axis:
+            stem_dx = stem_axis_shift(ttfont, font_key, derived_glyph, base_glyph)
+            if stem_dx is None:
+                report.append(f"{label} {derived_glyph} < {base_glyph}: no stem midline; SKIPPED")
+                continue
 
         curated = curated_classes(font_key, derived_glyph, cmap_reverse)
         base_rec, _ = get_base_record_for_glyph(sub, base_glyph)
@@ -477,6 +520,15 @@ def patch_derived_anchors(ttfont, font_key, lookup_index):
                 report.append(f"{label} {derived_glyph}: base {base_glyph} has no {name} anchor; SKIPPED")
                 continue
 
+            if stem_dx is not None:
+                dx, how = stem_dx, f"stem midline shift {stem_dx:+d}"
+            else:
+                dx, match, scale = fit_base(ttfont, font_key, derived_glyph, base_glyph, cls, base_xy)
+                how = f"shift {dx:+d}" + (f", scale {scale:.3f}" if abs(scale - 1) > 1e-3 else "") + f" (fit {match:.0%})"
+                if match < MIN_FIT:
+                    report.append(f"{label} {derived_glyph} < {base_glyph}: {name}: {how} below {MIN_FIT:.0%}; SKIPPED")
+                    continue
+
             rec, _ = ensure_base_record_for_glyph(sub, derived_glyph)
             old = get_anchor_from_baserec(rec, cls)
             x, y, dy = inherited_anchor(ttfont, font_key, derived_glyph, base_glyph, base_xy, cls, dx)
@@ -485,7 +537,7 @@ def patch_derived_anchors(ttfont, font_key, lookup_index):
             moved = f", y moved {dy:+d} to clear the added part" if dy else ""
             report.append(
                 f"{label} {derived_glyph}: {name} anchor ({x}, {y}) from {base_glyph} "
-                f"{base_xy} shift {dx:+d} (match {match:.0%}){moved}; was {old}"
+                f"{base_xy}, {how}{moved}; was {old}"
             )
 
     for cp, (base_cp, by_class) in load_derived_y().items():

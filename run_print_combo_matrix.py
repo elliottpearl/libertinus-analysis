@@ -129,10 +129,10 @@ if __name__ == "__main__":
 
     # print complete grids
     classifier = classify_combo_plain
+    # without the letters whose anchors stage 8 or stage 9 sets (they have their own grids)
     chosen_base_groups = [
-        "BASE_LATIN",
-        "BASE_IPA"
-
+        "BASE_LATIN_COMPLETE",
+        "BASE_IPA_COMPLETE",
     ]
     chosen_mark_groups = [
         "MARK_ABOVE",
@@ -203,3 +203,35 @@ if __name__ == "__main__":
         outfile=outfile,
         cgj=True,  # keep the shaper from recomposing the precomposed base with the mark
     )
+
+    # print derived-letter grids: each base letter, then its derived letters (stage 8).
+    # No CGJ: a derived letter has no decomposition, and a base letter's cell then
+    # shows what text gets (the precomposed glyph where one exists, the dotless
+    # form of i and j)
+    classifier = classify_combo_plain
+    for group, marks, outfile in (
+        ("DERIVED_ABOVE", "MARK_ABOVE", "derived_inherit_above.tex"),
+        ("DERIVED_BELOW", "MARK_BELOW", "derived_inherit_below.tex"),
+    ):
+        print_combo_matrix(
+            chosen_fonts=[fk for fk in chosen_fonts if fk.endswith("_patch")],  # what stage 8 set
+            chosen_base_groups=[group],
+            chosen_mark_groups=[marks],
+            classifier=classifier,
+            builder=builder,
+            outfile=outfile,
+        )
+
+    # Group 4 test sheet (tex/derived-group4.tex): original and patched fonts
+    for group, marks, outfile in (
+        ("DERIVED_GROUP4_ABOVE", "MARK_ABOVE", "derived_group4_above.tex"),
+        ("DERIVED_GROUP4_BELOW", "MARK_BELOW", "derived_group4_below.tex"),
+    ):
+        print_combo_matrix(
+            chosen_fonts=chosen_fonts,
+            chosen_base_groups=[group],
+            chosen_mark_groups=[marks],
+            classifier=classifier,
+            builder=builder,
+            outfile=outfile,
+        )

@@ -34,7 +34,9 @@ class ComboMatrix:
         # cgj: put CGJ (U+034F) between base and mark in every cell. The shaper
         # then cannot decompose a precomposed base and recompose it with the mark
         # (Ǻ + dot below would become Ạ + ring + acute), so each cell shows the
-        # base glyph's own anchor; nothing is classified "precomposed".
+        # base glyph's own anchor. The exception is a pair that NFC composes to a
+        # single character the font has (Ç + acute = Ḉ, ạ + circumflex = ậ): text
+        # gets that glyph, so the cell shows it, without CGJ, as "precomposed".
         self.cgj = cgj
 
         self.font_contexts = {}
@@ -74,11 +76,6 @@ class ComboMatrix:
                                 classIndex,
                                 fontctx,
                             )
-                            if self.cgj and result[0] == "precomposed":
-                                kind = ("anchored" if classIndex is not None
-                                        and fontctx.has_anchor(base_cp, classIndex, fontctx.cmap)
-                                        else "fallback")
-                                result = (kind,) + tuple(result[1:])
                             self.grid[(mark_cp, base_cp, font_key)] = result
 
         return self
@@ -100,8 +97,8 @@ class ComboMatrix:
 
             if self.classifier in (classify_combo_sanity, classify_combo_plain):
                 kind, flags, infos, positions = result
-                cell = render_cell(base_cp, mark_cp, kind, flags,
-                                   separator="\\cgj " if self.cgj else "")
+                separator = "\\cgj " if self.cgj and kind != "precomposed" else ""
+                cell = render_cell(base_cp, mark_cp, kind, flags, separator=separator)
 
             else:
                 raise ValueError(f"Unknown classifier: {self.classifier}")

@@ -2814,6 +2814,9 @@ The letters that do not simply inherit:
 The grids show the IPA above-marks on the precomposed letters that inherit above and the below-marks on those that inherit below, in the patched fonts only.
 For completeness they include the letters whose anchor is curated instead of inherited (ą, Ĵ, ư ứ ừ ử ữ).
 Samples and grid cells put \verb|\cgj| between the letter and the mark, so that the mark is positioned by the letter's anchor and the shaper does not decompose and recompose the letter.
+The exception is a letter and mark that compose to one of the 24 precomposed letters with both an above- and a below-mark (Ç\,+\,acute $=$ Ḉ, ạ\,+\,circumflex $=$ ậ, Ơ\,+\,dot below $=$ Ợ):
+text gets the precomposed glyph, so the cell shows it, in \SUPPORTEDPREC{blue}, without \verb|\cgj|.
+They are Ǭ ǭ Ḉ ḉ Ḝ ḝ Ḹ ḹ Ṝ ṝ Ṩ ṩ Ậ ậ Ặ ặ Ệ ệ Ộ ộ, and, with the horn, Ợ ợ Ự ự.
 
 \input{input/precomposed_inherit_above.tex}
 

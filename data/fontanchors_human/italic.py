@@ -77,17 +77,11 @@ anchors = {
         0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (615, 850) misses by 88 and 30
             0: (674, 850),
         },
-        0x0122: { # Ģ G cedilla/comma
-            0: (513, 850), # G
-        },
         0x0134: { # Ĵ: below, the italic-model candidate from Ĵ's own metrics (2026-11-10): W 367, ymin -166 (d+66),
                   # by = -319 + 66 + 2 = -251, bx = W/2 + by tan θ = 130. Stage 6 skips it (decomposable) and stage 9
                   # cannot inherit J's: the body is J's moved -47, but the tail was redrawn shallower (-166, J -200)
                   # and matches no other glyph, so the fit fails (65%)
             2: (130, -251),
-        },
-        0x0141: { # Ł: above as L, on the stem (same outline there); not inherited, the slash lowers the outline match to 56% (2026-11-07)
-            # 0: (314, 850),  # removed 2026-11-10: stage 8 inherits L's (314, 850) since the outline match was fixed (95%)
         },
         0x014B: { # ŋ eng: above as n's (394, 645), widened with ŋ (2026-11-07). The arch is n's, but the right leg is
                   # 31 further right (mean, y 120-300; stem centres 126 and 370 in n, 126 and 402 in ŋ); n's anchor sits 54%
@@ -99,9 +93,6 @@ anchors = {
         0x0153: { # œ: above over the stroke shared by o and e (2026-11-07), as the designer's œ in the other styles
                   # (regular 405 on 405, semibold 430 on 427, semibold italic 415 on 416); the designer's (480, 645) is æ's, 27 left
             0: (507, 645),
-        },
-        0x015E: { # S with cedilla
-            0: (402, 850),  # S
         },
         0x016B: { # u with macron
             0: (396, 785),  # translated from o with macron
@@ -148,9 +139,6 @@ anchors = {
         0x027D: { # ɽ: above midway between the stem (127) and the ball (317); the left slab serif and the tail do not count
             0: (359, 645),
         },
-        # 0x2C64: { # Ɽ (removed 2026-11-10: stage 6's advance lane differs by 1-7; Ɽ is in BASE_LATIN): above on the lane of its P part without serifs, stem's left edge to bowl's right edge (92..474)
-        #     0: (464, 850),
-        # },
         0x0290: { # ʐ: above on the midline of the top bar (63..371); the hook does not count
             0: (354, 645),
         },

@@ -131,7 +131,7 @@ Only glyphs drawn as a true stack are evidence: others among the short list of p
 
 Write general instructions for using CGJ U+034F to block unwanted normalization.
 A below-mark typed after a precomposed letter that already has an above-mark is reordered and recomposed by normalization: ì\,+\,tilde below becomes ḭ\,+\,grave, which brings back the dot of i,
-and Ǻ\,+\,dot below becomes Ạ\,+\,ring\,+\,acute (130 cases among the precomposed letters; see ``Precomposed characters'').
+and Ǻ\,+\,dot below becomes Ạ\,+\,ring\,+\,acute (130 cases among the precomposed letters).
 That is a decomposition problem, to be avoided with a CGJ (or a dotless base) whether or not the font has mark-to-mark positioning;
 the sections ``Lowercase i with tilde below and grave above, in italic and semibold italic'' and following explore it, and ``Floating tones'' uses CGJ for a similar reason.
 The instructions should say when CGJ is needed, where it goes, and its cost (a precomposed glyph before CGJ has no below-anchor, so the below-mark falls back to a default position).
@@ -2782,38 +2782,38 @@ Black cells are composed: in the patched fonts, the base with the capital altern
 \newpage
 \section*{Precomposed characters}
 
-Stage 9 (\verb|data/precomposed_letters.py|) gives a precomposed Latin letter the anchor of its base letter, moved by where the base sits in the precomposed glyph:
-a shift, and a scale of up to 15\%, fitted to the base's ink on the inherited side only, which must fit at least 80\%.
-A letter inherits above if it has no mark above, and below if it has no mark below or attached below;
-ģ inherits below too, because its comma, encoded as a cedilla (U+0327), is drawn above (fit 100\% in every style).
-Stage 9 never replaces an anchor, so designer and curated anchors that disagree with it have been removed
-(\verb|"delete"| in \verb|data/fontanchors_audit/overrides.py|, curated ones commented out):
-every letter with a fit of 100\% now has exactly the anchor it inherits (\verb|run_precomposed_existing_report.py| checks this).
+Stage 9 (\verb|src/libertinus_analysis/font_patching_precomposed_anchors.py|, letter lists in \verb|data/precomposed_letters.py|)
+gives a precomposed Latin letter the above- or below-anchor of its base letter where the other side is free:
+a letter with an above-mark (é, ñ) inherits a below-anchor, and a letter with a below-mark or attached below-mark (ẹ, ç, ą) inherits an above-anchor.
+(Letters with a bar or stroke, such as Ø, Ł, Đ, have no Unicode decomposition; they inherit both anchors in stage 8, \verb|data/derived_letters.py|.)
+The stage also tests that the base letter's form is really there, since some precomposed letters were redrawn unlike their bases:
+it fits the base's ink on the inherited side to the precomposed glyph (a shift, and a scale of up to 15\%), requires a fit of at least 80\%,
+and moves the anchor by the fitted shift.
 
-The letters that do not inherit:
+Precomposed letters inherit zealously.
+A designer anchor on a letter that can inherit is deleted in stage 1 (\verb|"delete"| in \verb|data/fontanchors_audit/overrides.py|)
+whenever it differs from the inherited anchor at all where the fit is 100\%, or by more than 10 where the fit is lower;
+curated anchors that differed were commented out the same way.
+Most were copies of a base anchor that the patch has since changed, or copies that miss how the base sits in the precomposed glyph.
+Curated anchors (stage 7, \verb|data/fontanchors_human/{style}.py|) are set on precomposed letters only where inheritance fails to find a good match.
+Every letter with a fit of 100\% now has exactly the anchor it inherits (\verb|run_precomposed_existing_report.py| checks this).
+The letters that do not simply inherit:
 \begin{itemize}
-\item ģ and the horn letters Ơ ơ ư Ợ ợ ự, above, in every style: IPA marks would collide with the comma (30 marks) or the horn (1--12), so they have no above anchor.
-\item {\LibertinusSerifPatch\bfseries ą\cgj\char"0304\quad a\cgj\char"0304}\quad semibold ą, above (fit 69\%, the ogonek): curated at a's anchor plus the shift of ą's upper part (+12).
-\item {\LibertinusSerifPatch\itshape Ĵ\cgj\char"0331\quad J\cgj\char"0331}\quad italic Ĵ, below (fit 65\%): Ĵ is J moved 47 left with a shallower tail ($-166$, J $-200$);
-  curated at the italic-model candidate from its own metrics, (130, $-251$).
-\item {\LibertinusSerifPatch\bfseries\itshape Ĵ\cgj\char"0331\quad J\cgj\char"0331}\quad semibold italic Ĵ, below (fit 64\%): a flat top serif and a deeper tail ($-196$, J $-164$);
-  curated at the candidate from its own metrics, (125, $-281$).
-\item {\LibertinusSerifPatch\bfseries\itshape ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\quad u\cgj\char"0331}\quad semibold italic ư ứ ừ ử ữ, below (fit 75\%):
-  ư's stems lie on u's but the bottom of the bowl is about 15 wider on each side; curated at u's anchor, (270, $-110$). The toned forms reference ư.
+\item ģ (U+0123) is formally g with a below-mark, a cedilla (U+0327), but is drawn with a comma above. It does inherit a below-anchor from g (fit 100\% in every style), and gets no above-anchor: 30 IPA above-marks would collide with the comma.
+\item The horn letters Ơ ơ ư Ợ ợ ự (U+01A0, U+01A1, U+01B0, U+1EE2, U+1EE3, U+1EF1) get no above-anchor in any style: 1--12 IPA above-marks per style would collide with the horn.
+  Ơ ơ ư inherit a below-anchor (Ợ ợ ự have a dot below), except semibold italic ư, whose below-anchor is curated (see the last item).
+\item {\LibertinusSerifPatch\bfseries ą\cgj\char"0304\quad a\cgj\char"0304}\quad semibold ą (U+0105), above: the ogonek lowers the fit to 69\%; curated at a's anchor plus the shift of ą's upper part (+12).
+\item {\LibertinusSerifPatch\itshape Ĵ\cgj\char"0331\quad J\cgj\char"0331}\quad italic Ĵ (U+0134), below: J moved 47 left with a shallower tail ($-166$, J $-200$), fit 65\%;
+  curated at the italic-model candidate from Ĵ's own metrics, (130, $-251$).
+\item {\LibertinusSerifPatch\bfseries\itshape Ĵ\cgj\char"0331\quad J\cgj\char"0331}\quad semibold italic Ĵ, below: a flat top serif and a deeper tail ($-196$, J $-164$), fit 64\%;
+  curated at the candidate from Ĵ's own metrics, (125, $-281$).
+\item {\LibertinusSerifPatch\bfseries\itshape ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\quad u\cgj\char"0331}\quad semibold italic ư ứ ừ ử ữ (U+01B0, U+1EE9, U+1EEB, U+1EED, U+1EEF), below:
+  the stems lie on u's but the bottom of the bowl is about 15 wider on each side, fit 75\%; curated at u's anchor, (270, $-110$). The toned forms reference ư.
 \end{itemize}
-Each sample is the letter and then its base letter, each with \verb|\cgj| and a macron, in the patched font.
-One letter that fits is curated anyway: semibold italic ơ below, on its advance lane without the horn, which should not move a below mark
-(ink to 527 and o's sidebearings: a lane 517 wide, $517/2 - 110 \tan 11.5^\circ + 12 = 248$; its toned forms Ớ Ờ Ở Ỡ inherit 247).
 
-The grids show the IPA above-marks on the letters that inherit above and the below-marks on those that inherit below, in the patched fonts only.
-Every cell is the letter, \verb|\cgj| and the mark.
-Without CGJ the shaper decomposes the letter, puts the marks in canonical order and recomposes greedily from the base,
-so the cell would show a different letter with loose marks: Ǻ with a dot below becomes Ạ\,+\,ring above\,+\,acute, Ẹ with a circumflex becomes Ệ.
-That happens in 674 of the 11\,488 below-mark cells.
-In 130 of them two above-marks are left to stack (Ǖ--ǜ, Ǟ--ǡ, Ǻ ǻ, Ȫ--ȱ, Ḕ--ḗ, Ṍ--ṓ, Ṹ--ṻ, Ấ--ẵ, Ế--ễ \ldots{} with a dot, ring, circumflex, tilde, diaeresis or comma below),
-and they collide, because Libertinus has almost no mark-to-mark positioning
-(regular stacks on 11 marks, italic on 4, semibold only on the spacing macron, semibold italic not at all; nothing stacks on the ring).
-That is what real text without CGJ gets; see the to-do.
+The grids show the IPA above-marks on the precomposed letters that inherit above and the below-marks on those that inherit below, in the patched fonts only.
+For completeness they include the letters whose anchor is curated instead of inherited (ą, Ĵ, ư ứ ừ ử ữ).
+Samples and grid cells put \verb|\cgj| between the letter and the mark, so that the mark is positioned by the letter's anchor and the shaper does not decompose and recompose the letter.
 
 \input{input/precomposed_inherit_above.tex}
 

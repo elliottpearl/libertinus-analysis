@@ -24,6 +24,7 @@ overrides = {
         "uni1ECA": {0: "delete"},  # Ị (146, 850), -4
         "uni1ECD": {0: "delete"},  # ọ (231, 645), -7
         "Egrave": {2: "delete"},  # È (279, -110), -8
+        "Eacute": {2: "delete"},  # É (279, -107), -8; a curated copy of E's (287) hid it until 2026-11-10
         "Ecircumflex": {2: "delete"},  # Ê (279, -110), -8
         "Edieresis": {2: "delete"},  # Ë (279, -110), -8
         "Edotaccent": {2: "delete"},  # Ė (279, -110), -8
@@ -285,6 +286,7 @@ overrides = {
         # n: regular's (264, 645), (265, -110) copied; 26 and 18 left of the precomposed glyphs' accents (290, 283);
         # stage 6 gives the candidates (2026-11-10)
         "n": {0: "delete", 2: "delete"},
+        "ohorn": {2: "delete"},  # ơ (243, -107): 4 left of what stage 9 inherits from o (247), like its toned forms ớ ờ ở ỡ (2026-11-10)
         # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
         # stage 9 inherits (2026-11-10, report "Precomposed characters")
         "uni1ECD": {0: "delete"},  # ọ (231, 645), regular's, -7

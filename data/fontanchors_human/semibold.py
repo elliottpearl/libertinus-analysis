@@ -67,12 +67,6 @@ anchors = {
                   # the designer redrew ą, so stage 9's fit is weak (69%), but it is still an a with an ogonek
             0: (231, 645),
         },
-        0x0122: { # Ģ G cedilla/comma
-            # 0: (383, 850), # ymax  # removed 2026-11-10: stage 9 inherits G's, 2 left (385, 850)
-        },
-        0x015E: { # S with cedilla
-            # 0: (252, 850),  # S  # removed 2026-11-10: S's old X; stage 9 inherits S's (238, 850)
-        },
         0x018F: { # Schwa
             0: (331, 850), # centre of the top of the arc (was 353, bbox x mid, 22 right)
             # 2: (343,-110) # ymin  # removed 2026-11-07: within 10 of the candidate

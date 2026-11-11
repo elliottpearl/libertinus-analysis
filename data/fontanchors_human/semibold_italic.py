@@ -58,16 +58,10 @@ anchors = {
         0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (500, 850) misses by 75 and 16
             0: (545, 850),
         },
-        0x0122: { # Ģ G cedilla/comma
-            # 0: (383, 850), # G  # removed 2026-11-10: 18 right of G's anchor in Ģ; stage 9 inherits G's (365, 850)
-        },
         0x0134: { # Ĵ: below, the semibold italic candidate from Ĵ's own metrics (2026-11-10): W 340, ymin -196 (d+36),
                   # by = -319 + 36 + 2 = -281, bx = W/2 + by tan θ + 12 = 125. Stage 9 cannot inherit J's: the stem was
                   # redrawn (Ĵ has a flat top serif, J the italic swash) and the tail is deeper (-196, J -164) (match 64%)
             2: (125, -281),
-        },
-        0x015E: { # S with cedilla
-            # 0: (232, 850),  # S  # removed 2026-11-10: stage 9 inherits S's, 1 left (231, 850)
         },
         0x0186: { # Ɔ open O: above over the bowl, 24 left of the outline's axis (2026-11-08), so marks land as in
                   # regular (curated, 32 left) and semibold (designer, 39 left). The stage 6 candidate (357, 850)
@@ -93,11 +87,6 @@ anchors = {
         # redrawn about 15 wider on each side around the same midpoint (306, u 307), so the fit is 75%.
         # ự has a dot below and needs no below anchor.
         0x01B0: {2: (270, -110)},  # ư
-        0x01A1: { # ơ: below on the hornless advance lane (2026-11-10). Without the horn the ink ends at x 527; with o's
-                  # sidebearings (72, -10) the lane is 517 wide: 517/2 - 110 tan θ + 12 = 248. The designer's 243 was 4 left of
-                  # what Ớ Ờ Ở Ỡ inherit (247); the candidate from ơ's own advance (541, horn included) is 260
-            2: (248, -110),
-        },
         0x1EE9: {2: (270, -110)},  # ứ
         0x1EEB: {2: (270, -110)},  # ừ
         0x1EED: {2: (270, -110)},  # ử
@@ -127,9 +116,6 @@ anchors = {
         0x027D: { # ɽ: above midway between the stem (142) and the ball (333), less K = 150; the slab serif and tail do not count
             0: (218, 645),
         },
-        # 0x2C64: { # Ɽ (removed 2026-11-10: stage 6's advance lane differs by 1-7; Ɽ is in BASE_LATIN): above on the lane of its P part without serifs (68..487), less K = 150
-        #     0: (300, 850),
-        # },
         0x0290: { # ʐ: above on the midline of the top bar (103..422), less K = 150; the hook does not count
             0: (244, 645),
         },

@@ -204,6 +204,12 @@ anchors = {
         },
     },
     "marks": {
+        0x0324: { # diaeresis below
+            2: (-210, -82), # 2026-11-12: mark-zone consistency across styles: diaeresis below at +28, as the dot below (ṳ, its only precomposed letter, is unusually tight)
+        },
+        0x0323: { # dot below
+            2: (-207, -86), # 2026-11-12: mark-zone consistency across styles: dot below at +28 relative to the style's below marks, as the diaeresis below (the precomposed dots below are loose in regular, tight in the other styles)
+        },
         # Above marks moved vertically by Delta y (2026-11-09): the median offset, composed (base + CGJ + mark)
         # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
         # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
@@ -214,10 +220,10 @@ anchors = {
             0: (-225, 613), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -216; was (-209, 645); Delta y -32 (ā ē ī ō ȳ, -32; the precomposed macron is drawn 32 higher)
         },
         0x0307: { # dot above
-            0: (-180, 678), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -178; was (-180, 667); Delta y +11 (ċ ė ġ ż ȧ ṁ ṅ …, +11 to +12)
+            0: (-183, 662), # 2026-11-12: mark-zone consistency across styles: dot above at +30 relative to the style's above marks (the precomposed dots are loose in regular, tight in the other styles); was (-180, 678); 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -178; was (-180, 667); Delta y +11 (ċ ė ġ ż ȧ ṁ ṅ …, +11 to +12)
         },
         0x030A: { # ring above
-            0: (-172, 731), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -179; was (-184, 708); Delta y +23 (å ẙ +23, ẘ +16)
+            0: (-175, 714), # 2026-11-12: mark-zone consistency across styles: ring up 16, to +3 like the other styles (å is not evidence: a and A are discarded); was (-172, 731); 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -179; was (-184, 708); Delta y +23 (å ẙ +23, ẘ +16)
         },
         0x030B: { # double acute
             0: (-217, 725), # was (-219, 714); Delta y +11 (ő)
@@ -245,16 +251,16 @@ anchors = {
             2: (-216, -114), # was (-216, -146)
         },
         0x031F: { # plus sign below
-            2: (-249, -116), # was (-249, -145)
+            2: (-251, -116), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -249; was (-249, -145)
         },
         0x0339: { # right half ring below
             2: (-216, -114), # was (-216, -146)
         },
         0x0325: { # ring below
-            2: (-218, -96), # was (-218, -116); the precomposed Ḁ ḁ put the ring here (within 2)
+            2: (-212, -96), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -218; was (-218, -116); the precomposed Ḁ ḁ put the ring here (within 2)
         },
         0x034E: { # upwards arrow below
-            2: (-227, -90), # was (-227, -110)
+            2: (-223, -90), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -227; was (-227, -110)
         },
         # Removed: the designer's grave (-142, 683) and double acute (-219, 714)
         # fit the semibold italic model. These lacked K and landed the marks
@@ -267,13 +273,13 @@ anchors = {
         #     0: (-28, 719),  # -23 = x-mid of bbox, with -5 left offset for acute weight
         # },
         0x0330: { # tilde below
-            2: (-196, -70), # x-mid of bbox
+            2: (-183, -70), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -196; x-mid of bbox
         },
         0x0331: { # macron below: the outline is semibold's (y -79..-35) but the anchor was regular's (-244, -110),
                   # 75 below the outline's top instead of 23 as in every other style, so the mark sat 52 higher
                   # (gap to n 25, against 86-96 in the other styles). Y = top - 23, as semibold;
                   # X + 52 tan 11.5 to stay on the axis (2026-11-06). The precomposed glyphs put it only 27 lower.
-            2: (-233, -58),
+            2: (-228, -58), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -233
         },
         # Mark-axis snap (2026-11-06): X = C + Y tan 11.5 + d - 150, d = regular's
         # offset from the axis; checked against the precomposed glyphs

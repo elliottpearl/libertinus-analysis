@@ -23,6 +23,10 @@ for the base anchors, not for each mark. Asymmetric marks (grave, acute,
 double acute, double grave) keep their designed k. Mark anchor Y is not
 touched here.
 
+Since 2026-11-12 the rule also covers the mirror-symmetric below marks
+(SYMMETRIC_BELOW), with K = -12 in semibold italic (SHIFT_K_BELOW), and has
+no threshold (THRESHOLD = 0); the tacks keep their decided placement.
+
 k is measured on the mark's ink (its bounds with the slant removed). With the
 threshold of 10 the rule moves 37 anchors (2026-11-09), among them italic tilde
 (k 11), semibold dieresis (12), semibold italic tilde (139) and dieresis (112),
@@ -49,6 +53,7 @@ from .font_patching_capmarks import SHIFT_K
 from .font_patching_inherit import stem_line
 
 ABOVE = 0
+BELOW = 2
 THRESHOLD = 0
 
 SLOPE = {
@@ -92,6 +97,36 @@ COMBINING_LETTERS = {0x0363: "a", 0x0364: "e", 0x0365: "i", 0x0366: "o", 0x0367:
                      0x0369: "d", 0x036A: "h", 0x036B: "m", 0x036C: "r", 0x036D: "t", 0x036E: "v",
                      0x036F: "x"}
 SYMMETRIC_ABOVE.update({cp: f"combining letter {letter}" for cp, letter in COMBINING_LETTERS.items()})
+
+# Symmetric below marks (2026-11-12): the mirror-symmetric ones. Left out: the tacks U+0318 U+0319
+# U+031D U+031E (decided: centred on the whole outline, or X along the slant), grave and acute below,
+# the half rings, comma below and left angle below (asymmetric), and the attached marks (other classes).
+SYMMETRIC_BELOW = {
+    0x031F: "plus sign below",
+    0x0320: "minus sign below",
+    0x0323: "dot below",
+    0x0324: "diaeresis below",
+    0x0325: "ring below",
+    0x0329: "vertical line below",
+    0x032A: "bridge below",
+    0x032B: "inverted double arch below",
+    0x032C: "caron below",
+    0x032D: "circumflex below",
+    0x032E: "breve below",
+    0x032F: "inverted breve below",
+    0x0330: "tilde below",
+    0x0331: "macron below",
+    0x0333: "double low line",
+    0x033A: "inverted bridge below",
+    0x033B: "square below",
+    0x033C: "seagull below",
+    0x0347: "equals sign below",
+    0x0348: "double vertical line below",
+    0x034D: "left right arrow below",
+    0x034E: "upwards arrow below",
+}
+# K of the below marks: semibold italic draws them, as its base anchors, 12 right of the axis.
+SHIFT_K_BELOW = {"regular": 0, "italic": 0, "semibold": 0, "semibold_italic": -12}
 
 # How the axis of a mark is measured, where it is not the centre of its bounds ("bbox").
 # The combining letters that are not boxy (2026-11-12): bbox and area centroid more than
@@ -140,35 +175,37 @@ def mark_shift(glyphset, glyph_name, anchor, slope, measure="bbox"):
 
 
 def patch_mark_axis(ttfont, font_key, lookup_index, threshold=THRESHOLD, skip_curated=True):
-    """Move the anchor X of each symmetric above mark with |k - K| >= threshold to k = K."""
+    """Move the anchor X of each symmetric above and below mark with |k - K| >= threshold to k = K."""
     glyphset = ttfont.getGlyphSet()
     cmap = ttfont.getBestCmap()
     slope = SLOPE[font_key]
-    target = SHIFT_K[font_key]
     human = load_human_anchors(font_key) if skip_curated else {}
     report = []
-    for codepoint, name in SYMMETRIC_ABOVE.items():
-        glyph_name = cmap.get(codepoint)
-        curated = (human.get("marks", {}).get(codepoint, {}).get(ABOVE)
-                   or human.get("marks_by_name", {}).get(glyph_name, {}).get(ABOVE))
-        if curated is not None:
-            k = mark_shift(glyphset, glyph_name, curated, slope, AXIS_MEASURE.get(codepoint, "bbox"))
-            off = abs(k - target) >= threshold and round(curated[0] + k - target) != curated[0]
-            verdict = (f"k {k:.1f}, {abs(k - target):.1f} off the rule (X {curated[0] + k - target:.1f}); CHECK"
-                       if off else "obeys the rule")
-            report.append(f"U+{codepoint:04X} {name}: curated anchor {curated} (stage 7), {verdict}; skipped")
-            continue
-        found = _mark_anchor(ttfont, lookup_index, glyph_name) if glyph_name else None
-        if found is None or found[0] != ABOVE:
-            report.append(f"U+{codepoint:04X} {name}: no above mark anchor; SKIPPED")
-            continue
-        _, (x, y) = found
-        k = mark_shift(glyphset, glyph_name, (x, y), slope, AXIS_MEASURE.get(codepoint, "bbox"))
-        new_x = round(x + k - target)
-        if abs(k - target) < threshold or new_x == x:
-            continue
-        _set_mark_anchor(ttfont, lookup_index, glyph_name, ABOVE, (new_x, y))
-        report.append(f"U+{codepoint:04X} {name} {glyph_name}: k {k:.0f} -> {target}; "
-                      f"anchor ({x}, {y}) -> ({new_x}, {y}), the mark moves {abs(new_x - x)} "
-                      f"{'right' if new_x < x else 'left'}")
+    for cls, marks, target in ((ABOVE, SYMMETRIC_ABOVE, SHIFT_K[font_key]),
+                               (BELOW, SYMMETRIC_BELOW, SHIFT_K_BELOW[font_key])):
+        side = "above" if cls == ABOVE else "below"
+        for codepoint, name in marks.items():
+            glyph_name = cmap.get(codepoint)
+            curated = (human.get("marks", {}).get(codepoint, {}).get(cls)
+                       or human.get("marks_by_name", {}).get(glyph_name, {}).get(cls))
+            if curated is not None:
+                k = mark_shift(glyphset, glyph_name, curated, slope, AXIS_MEASURE.get(codepoint, "bbox"))
+                off = abs(k - target) >= threshold and round(curated[0] + k - target) != curated[0]
+                verdict = (f"k {k:.1f}, {abs(k - target):.1f} off the rule (X {curated[0] + k - target:.1f}); CHECK"
+                           if off else "obeys the rule")
+                report.append(f"U+{codepoint:04X} {name}: curated anchor {curated} (stage 7), {verdict}; skipped")
+                continue
+            found = _mark_anchor(ttfont, lookup_index, glyph_name) if glyph_name else None
+            if found is None or found[0] != cls:
+                report.append(f"U+{codepoint:04X} {name}: no {side} mark anchor; SKIPPED")
+                continue
+            _, (x, y) = found
+            k = mark_shift(glyphset, glyph_name, (x, y), slope, AXIS_MEASURE.get(codepoint, "bbox"))
+            new_x = round(x + k - target)
+            if abs(k - target) < threshold or new_x == x:
+                continue
+            _set_mark_anchor(ttfont, lookup_index, glyph_name, cls, (new_x, y))
+            report.append(f"U+{codepoint:04X} {name} {glyph_name}: k {k:.0f} -> {target}; "
+                          f"anchor ({x}, {y}) -> ({new_x}, {y}), the mark moves {abs(new_x - x)} "
+                          f"{'right' if new_x < x else 'left'}")
     return report

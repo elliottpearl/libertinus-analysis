@@ -235,6 +235,12 @@ anchors = {
         },
     },
     "marks": {
+        0x0324: { # diaeresis below
+            2: (-233, -86), # 2026-11-12: mark-zone consistency across styles: diaeresis below at +28, as the dot below (ṳ, its only precomposed letter, is unusually tight)
+        },
+        0x0323: { # dot below
+            2: (-232, -86), # 2026-11-12: mark-zone consistency across styles: dot below at +28 relative to the style's below marks, as the diaeresis below (the precomposed dots below are loose in regular, tight in the other styles)
+        },
         # Above marks moved vertically by Delta y (2026-11-09): the median offset, composed (base + CGJ + mark)
         # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
         # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
@@ -242,7 +248,7 @@ anchors = {
         # 10 of the mark-axis rule (k = K). In regular and semibold X is unchanged. Since 2026-11-12 the rule has
         # no threshold, and X is on the axis (k = K).
         0x0307: { # dot above
-            0: (-39, 678), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -42; was (-40, 689); Delta y -11 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -10 to -15)
+            0: (-41, 668), # 2026-11-12: mark-zone consistency across styles: dot above at +30 relative to the style's above marks (the precomposed dots are loose in regular, tight in the other styles); was (-39, 678); 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -42; was (-40, 689); Delta y -11 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -10 to -15)
         },
 
         # Tall below marks (2026-11-08): anchor moved up so that the mark rises at most 62 above it,
@@ -267,23 +273,23 @@ anchors = {
             2: (-246, -114), # was (-246, -146)
         },
         0x031F: { # plus sign below
-            2: (-278, -115), # was (-278, -145)
+            2: (-274, -115), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -278; was (-278, -145)
         },
         0x0339: { # right half ring below
             2: (-246, -114), # was (-246, -146)
         },
         0x0325: { # ring below
-            2: (-242, -96), # was (-242, -116); the precomposed Ḁ ḁ put the ring here (within 2)
+            2: (-237, -96), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -242; was (-242, -116); the precomposed Ḁ ḁ put the ring here (within 2)
         },
         0x034E: { # upwards arrow below
-            2: (-249, -90), # was (-249, -110)
+            2: (-246, -90), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -249; was (-249, -110)
         },
         0x030B: { # double acute above
             0: (-55, 725), # -52 = x-mid of bbox, with -5 offset for acute weght; y was 714,
                            # raised 11 by Delta y +11 (ő ű) (2026-11-09)
         },
         0x0330: { # tilde below
-            2: (-220, -70), # x-mid of bbox
+            2: (-219, -70), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -220; x-mid of bbox
         },
     },
     "marks_by_name": {

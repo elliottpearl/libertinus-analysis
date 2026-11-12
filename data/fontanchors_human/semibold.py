@@ -171,6 +171,18 @@ anchors = {
     },
 
     "marks": {
+        0x032E: { # breve below
+            2: (-240, -104), # 2026-11-12: mark-zone consistency across styles: breve below down 6, to +1 like the other styles
+        },
+        0x0308: { # diaeresis
+            0: (-186, 644), # 2026-11-12: mark-zone consistency across styles: diaeresis up 9, to +24 like the other styles
+        },
+        0x0324: { # diaeresis below
+            2: (-218, -86), # 2026-11-12: mark-zone consistency across styles: diaeresis below at +28, as the dot below (ṳ, its only precomposed letter, is unusually tight)
+        },
+        0x0323: { # dot below
+            2: (-216, -90), # 2026-11-12: mark-zone consistency across styles: dot below at +28 relative to the style's below marks, as the diaeresis below (the precomposed dots below are loose in regular, tight in the other styles)
+        },
         # Above marks moved vertically by Delta y (2026-11-09): the median offset, composed (base + CGJ + mark)
         # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
         # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
@@ -182,7 +194,7 @@ anchors = {
             0: (-200, 613), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -205; was (-205, 625); Delta y -12 (ā ē ī ō ū ȳ ḡ, all -12)
         },
         0x0307: { # dot above
-            0: (-168, 678), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -169; was (-169, 699); Delta y -21 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -20 to -23)
+            0: (-168, 661), # 2026-11-12: mark-zone consistency across styles: dot above at +30 relative to the style's above marks (the precomposed dots are loose in regular, tight in the other styles); was (-168, 678); 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -169; was (-169, 699); Delta y -21 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -20 to -23)
         },
 
         # Half rings above (2026-11-08): the designer's anchors were class 1 (top_punkt, y 547, 549), raised 96 by
@@ -217,16 +229,16 @@ anchors = {
             2: (-216, -114), # was (-216, -146)
         },
         0x031F: { # plus sign below
-            2: (-249, -116), # was (-249, -146)
+            2: (-251, -116), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -249; was (-249, -146)
         },
         0x0339: { # right half ring below
             2: (-216, -114), # was (-216, -146)
         },
         0x0325: { # ring below
-            2: (-218, -96), # was (-218, -116)
+            2: (-216, -96), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -218; was (-218, -116)
         },
         0x034E: { # upwards arrow below
-            2: (-227, -90), # was (-227, -110)
+            2: (-228, -90), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -227; was (-227, -110)
         },
         0x0300: { # grave
             0: (-127, 683), # designer (-127, 713); y as acute. x was -156 with no reason (2026-11-06):
@@ -255,7 +267,7 @@ anchors = {
             0: (-220, 645), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -217; was (-205, 645); precomposed 11 -> 4 (5 glyphs)
         },
         0x0330: { # tilde below
-            2: (-200, -70), # was (-213, -70); precomposed 13 -> 4 (6 glyphs)
+            2: (-192, -70), # 2026-11-12: X on the mark's axis (mark-axis rule for below marks), was -200; was (-213, -70); precomposed 13 -> 4 (6 glyphs)
         },
         # Koronis (2026-11-11): the designer's uni0343 is a reference to the horn uni031B, moved
         # up, and had no mark anchor, so it attached to nothing. Placed as regular's and italic's
@@ -263,6 +275,11 @@ anchors = {
         # centroid. The outline is left as it is (to-do: audit referenced commas and horns).
         0x0343: { # Greek koronis
             0: (-92, 539), # was none
+        },
+    },
+    "marks_by_name": {
+        "dieresis.cap": { # 2026-11-12: mark-zone consistency: up 9 with the lowercase diaeresis (stage 4 gave (-238, 849))
+            0: (-238, 840),
         },
     },
     "bases_by_name": {

@@ -162,9 +162,10 @@ overrides = {
         "uni0250": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
         # ɍ: the designer's (312, 645) and (113, -110) are r's original anchors; the glyph was broken (IJacute
         # overlaid) and is rebuilt in stage 2, after which stage 8 inherits r's final anchors.
-        # ⱬ: z's baseline anchor on a descender letter; stage 6 gives the candidate (2026-11-11)
+        # ⱬ: z's baseline anchor on a descender letter; stage 6 gives the candidate (2026-11-11).
+        # Above: (218, 645), regular's anchor copied without the slant, about 140 left of z's (2026-11-12)
         "uni024D": {0: "delete", 2: "delete"},
-        "uni2C6C": {2: "delete"},
+        "uni2C6C": {0: "delete", 2: "delete"},
         # ƌ ⱪ: (209, 645) and (275, 645), regular's x-height copies on ascender letters; 30 above marks overlapped.
         # The fit to d and the stem match to k fail in italic, so stage 6 gives the candidate (2026-11-11)
         "uni018C": {0: "delete"},

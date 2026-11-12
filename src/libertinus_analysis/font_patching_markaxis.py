@@ -40,14 +40,16 @@ anchor that does not.
 import math
 
 from fontTools.pens.boundsPen import BoundsPen
+from fontTools.pens.statisticsPen import StatisticsPen
 from fontTools.pens.transformPen import TransformPen
 
 from .font_patching_addmarks import _mark_anchor, _set_mark_anchor
 from .font_patching_anchors import load_human_anchors
 from .font_patching_capmarks import SHIFT_K
+from .font_patching_inherit import stem_line
 
 ABOVE = 0
-THRESHOLD = 10
+THRESHOLD = 0
 
 SLOPE = {
     "regular": 0.0,
@@ -91,19 +93,50 @@ COMBINING_LETTERS = {0x0363: "a", 0x0364: "e", 0x0365: "i", 0x0366: "o", 0x0367:
                      0x036F: "x"}
 SYMMETRIC_ABOVE.update({cp: f"combining letter {letter}" for cp, letter in COMBINING_LETTERS.items()})
 
+# How the axis of a mark is measured, where it is not the centre of its bounds ("bbox").
+# The combining letters that are not boxy (2026-11-12): bbox and area centroid more than
+# about 4 apart in regular (r 11, c 9, h 8, e 6, t 4). Their axis is the area centroid,
+# which weights the stems over a thin arm, terminal or open side; combining i is
+# measured on its stem, which its left top serif pulls the bounds 2.6 off.
+# Boxy enough for the bounds: a, d, m, o, u, v, x (bounds and centroid within 3).
+AXIS_MEASURE = {
+    0x0364: "centroid",  # e
+    0x0365: "stem",      # i
+    0x0368: "centroid",  # c
+    0x036A: "centroid",  # h
+    0x036C: "centroid",  # r
+    0x036D: "centroid",  # t
+}
 
-def ink_axis(glyphset, glyph_name, slope):
-    """Where the mark's axis meets the baseline: the centre of its ink with the slant removed."""
+
+def ink_axis(glyphset, glyph_name, slope, measure="bbox"):
+    """
+    Where the mark's axis meets the baseline, with the slant removed:
+        bbox      the centre of its bounds;
+        centroid  the centre of its ink area;
+        stem      the midline of its stem at the stem's top, carried down at the slant.
+    """
+    deslant = (1, 0, -slope, 1, 0, 0)
+    if measure == "centroid":
+        pen = StatisticsPen(glyphset)
+        glyphset[glyph_name].draw(TransformPen(pen, deslant))
+        return pen.meanX
     pen = BoundsPen(glyphset)
-    glyphset[glyph_name].draw(TransformPen(pen, (1, 0, -slope, 1, 0, 0)))
-    xmin, _, xmax, _ = pen.bounds
+    glyphset[glyph_name].draw(TransformPen(pen, deslant))
+    xmin, ymin, xmax, ymax = pen.bounds
+    if measure == "stem":
+        found = stem_line(glyphset, glyph_name)
+        if found is None:
+            raise ValueError(f"{glyph_name}: no stem found")
+        midline, _, y_top = found
+        return midline(y_top) - slope * y_top
     return (xmin + xmax) / 2
 
 
-def mark_shift(glyphset, glyph_name, anchor, slope):
+def mark_shift(glyphset, glyph_name, anchor, slope, measure="bbox"):
     """k of a mark: the centre of its ink on its axis, at the anchor's height, minus the anchor's X."""
     x, y = anchor
-    return ink_axis(glyphset, glyph_name, slope) + slope * y - x
+    return ink_axis(glyphset, glyph_name, slope, measure) + slope * y - x
 
 
 def patch_mark_axis(ttfont, font_key, lookup_index, threshold=THRESHOLD, skip_curated=True):
@@ -119,9 +152,10 @@ def patch_mark_axis(ttfont, font_key, lookup_index, threshold=THRESHOLD, skip_cu
         curated = (human.get("marks", {}).get(codepoint, {}).get(ABOVE)
                    or human.get("marks_by_name", {}).get(glyph_name, {}).get(ABOVE))
         if curated is not None:
-            k = mark_shift(glyphset, glyph_name, curated, slope)
-            verdict = ("obeys the rule" if abs(k - target) < threshold
-                       else f"k {k:.0f}, {abs(k - target):.0f} off the rule; CHECK")
+            k = mark_shift(glyphset, glyph_name, curated, slope, AXIS_MEASURE.get(codepoint, "bbox"))
+            off = abs(k - target) >= threshold and round(curated[0] + k - target) != curated[0]
+            verdict = (f"k {k:.1f}, {abs(k - target):.1f} off the rule (X {curated[0] + k - target:.1f}); CHECK"
+                       if off else "obeys the rule")
             report.append(f"U+{codepoint:04X} {name}: curated anchor {curated} (stage 7), {verdict}; skipped")
             continue
         found = _mark_anchor(ttfont, lookup_index, glyph_name) if glyph_name else None
@@ -129,10 +163,10 @@ def patch_mark_axis(ttfont, font_key, lookup_index, threshold=THRESHOLD, skip_cu
             report.append(f"U+{codepoint:04X} {name}: no above mark anchor; SKIPPED")
             continue
         _, (x, y) = found
-        k = mark_shift(glyphset, glyph_name, (x, y), slope)
-        if abs(k - target) < max(threshold, 0.5):
-            continue
+        k = mark_shift(glyphset, glyph_name, (x, y), slope, AXIS_MEASURE.get(codepoint, "bbox"))
         new_x = round(x + k - target)
+        if abs(k - target) < threshold or new_x == x:
+            continue
         _set_mark_anchor(ttfont, lookup_index, glyph_name, ABOVE, (new_x, y))
         report.append(f"U+{codepoint:04X} {name} {glyph_name}: k {k:.0f} -> {target}; "
                       f"anchor ({x}, {y}) -> ({new_x}, {y}), the mark moves {abs(new_x - x)} "

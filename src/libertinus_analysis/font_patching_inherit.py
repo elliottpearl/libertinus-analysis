@@ -17,6 +17,8 @@ base letter sits inside it. This module holds what they share:
 """
 
 from fontTools.pens.basePen import BasePen
+from fontTools.pens.boundsPen import BoundsPen
+from fontTools.pens.recordingPen import RecordingPen
 from fontTools.ttLib.tables import otTables
 
 from .fontmetrics_helpers import SHIFT_K, SLOPE
@@ -191,6 +193,120 @@ def intervals(segs, slope, y):
         if (y0 - y) * (y1 - y) < 0
     )
     return list(zip(xs[0::2], xs[1::2]))
+
+STEM_MIN_EDGE = 40    # units: the shortest straight edge, and the least overlap of the two, that can be a stem
+
+def stem_edges(glyphset, glyph_name):
+    """The glyph's straight edges (line segments, closing lines included) at least STEM_MIN_EDGE tall."""
+    pen = RecordingPen()
+    glyphset[glyph_name].draw(pen)
+    edges, cur, start = [], None, None
+    for op, args in pen.value:
+        if op == "moveTo":
+            cur = start = args[0]
+            continue
+        if op in ("closePath", "endPath"):
+            seg, cur = (cur, start), None
+        else:
+            seg, cur = (cur, args[-1]), args[-1]
+            if op != "lineTo":
+                continue
+        if seg[0] is not None and abs(seg[1][1] - seg[0][1]) >= STEM_MIN_EDGE:
+            edges.append(seg)
+    return edges
+
+STEM_EDGE_TOL = 2     # units: an ink interval's end within this of a straight edge is that edge
+
+def _line(seg):
+    (x0, y0), (x1, y1) = seg
+    return lambda y: x0 + (y - y0) * (x1 - x0) / (y1 - y0)
+
+def _yrange(seg):
+    return min(seg[0][1], seg[1][1]), max(seg[0][1], seg[1][1])
+
+def stem_candidates(glyphset, glyph_name):
+    """
+    Every stem of the glyph with a straight edge, as (midline, y_bottom, y_top, kind).
+
+    "pair": two straight edges that run in opposite directions and bound one
+    ink interval (checked by a scanline at mid-height), overlapping by at
+    least STEM_MIN_EDGE; the midline is the mean of the two edge lines, and
+    the straight part is their overlap.
+    "edge": a straight edge with no partner (the other side of the stem is a
+    curve, as in the middle stem of semibold italic m); it takes the centres
+    of the ink intervals that end at the edge, over the
+    edge's height; the midline is the edge line moved by the median distance
+    from the edge to those centres (so it keeps the edge's angle, which the
+    curved side would skew), and the straight part is the edge's height.
+    """
+    segs = glyph_segments(glyphset, glyph_name)
+    edges = stem_edges(glyphset, glyph_name)
+    out, paired = [], set()
+
+    def bounds_interval(xl, xr, y):
+        return any(abs(a - xl) <= STEM_EDGE_TOL and abs(b - xr) <= STEM_EDGE_TOL for a, b in intervals(segs, 0, y))
+
+    for i, e in enumerate(edges):
+        for j in range(i + 1, len(edges)):
+            f = edges[j]
+            if (e[1][1] - e[0][1]) * (f[1][1] - f[0][1]) >= 0:
+                continue  # same direction: not the two sides of a stem
+            lo = max(_yrange(e)[0], _yrange(f)[0])
+            hi = min(_yrange(e)[1], _yrange(f)[1])
+            if hi - lo < STEM_MIN_EDGE:
+                continue
+            le, lf = _line(e), _line(f)
+            y = (lo + hi) / 2 + 0.5
+            xl, xr = sorted((le(y), lf(y)))
+            if not bounds_interval(xl, xr, y):
+                continue  # edges of two different stems
+            out.append(((lambda y, le=le, lf=lf: (le(y) + lf(y)) / 2), lo, hi, "pair"))
+            paired.update((i, j))
+    for i, e in enumerate(edges):
+        if i in paired:
+            continue
+        le, (lo, hi) = _line(e), _yrange(e)
+        ys, ms = [], []
+        for y in range(int(lo) + 1, int(hi)):
+            x = le(y + 0.5)
+            for a, b in intervals(segs, 0, y + 0.5):
+                if abs(a - x) <= STEM_EDGE_TOL or abs(b - x) <= STEM_EDGE_TOL:
+                    ys.append(y + 0.5); ms.append((a + b) / 2)
+        if len(ys) < 5:
+            continue
+        shifts = sorted(m - le(y) for y, m in zip(ys, ms))
+        d = shifts[len(shifts) // 2]
+        out.append(((lambda y, le=le, d=d: le(y) + d), lo, hi, "edge"))
+    return out
+
+def stem_line(glyphset, glyph_name, central=False):
+    """
+    The straight part of the glyph's stem, from its control points (stem_candidates).
+
+    By default the stem is the tallest candidate, a pair of edges before a
+    single edge (i, j, l, combining i). With central=True it is the candidate
+    whose midline, at mid-height of its straight part, is nearest the centre of
+    the glyph's ink bounds with the slant of the stem removed (the middle stem
+    of m). midline(y) is exact on the straight part and extends it linearly
+    beyond, at the stem's own angle.
+    Returns (midline, y_bottom, y_top), or None if the glyph has no stem.
+    """
+    cands = stem_candidates(glyphset, glyph_name)
+    if not cands:
+        return None
+    if central:
+        pen = BoundsPen(glyphset)
+        glyphset[glyph_name].draw(pen)
+        xmin, ymin, xmax, ymax = pen.bounds
+        def dist(c):
+            m, lo, hi, _ = c
+            slope = (m(hi) - m(lo)) / (hi - lo)
+            centre_at = lambda y: (xmin + xmax) / 2 + slope * (y - (ymin + ymax) / 2)
+            return abs(m((lo + hi) / 2) - centre_at((lo + hi) / 2))
+        best = min(cands, key=dist)
+    else:
+        best = max(cands, key=lambda c: (c[3] == "pair", c[2] - c[1]))
+    return best[:3]
 
 # ------------------------------------------------------------
 # Fit of a base letter inside another letter

@@ -457,7 +457,7 @@ There is no scripted audit of them, as there is of base anchors (\verb|anchor_au
 They change in three ways:
 \begin{itemize}
 	\item The capital forms (\verb|grave.cap|, \verb|acute.cap|, \ldots) are set from the precomposed capitals (stage 4).
-	\item A symmetric above mark whose $X$ is 10 or more off its own axis is moved onto it (the mark-axis rule, stage 4, end of this section).
+	\item A symmetric above mark whose $X$ is off its own axis is moved onto it (the mark-axis rule, stage 4, end of this section; no threshold since 2026-11-12).
 	\item Everything else is changed one anchor at a time, as a curated anchor (stage 7), where the precomposed glyphs support the change:
 	for $Y$, the median offset of the composed mark from the precomposed glyphs (``Vertical moves from the precomposed glyphs'', below).
 	A curated mark anchor is the final anchor and obeys the mark-axis rule itself; stage 4 skips it, and reports it if it does not.
@@ -466,10 +466,15 @@ Moving every mark anchor onto the model at once was tested and rejected (end of 
 
 \paragraph{Open decisions.}
 \begin{itemize}
-	\item The mark-axis threshold of 10: what it leaves is under 10 units (the ring: $+2$, $+3$, 0, $+7$).
-	To decide, look at the test sheet \verb|tex/mark_threshold_test_sheet.pdf| (regenerated 2026-11-11): for every symmetric above mark 3 or more units off its axis under the rule, a--z and IPA rows in the patched fonts (threshold 10) against the same with every such mark exactly on its axis (threshold 0), with the precomposed letters in blue.
-	Lowering it first needs a more precise mark axis than the centre of the ink bounds, determined per glyph and checked by eye
-	(the line about which the outline best matches its mirror image, or its rotation by 180° for the tilde, zigzag and vertical tilde, whose terminals can push the bounds off centre).
+	\item To curate (stem-axis rule, ``Patch j regular, above-anchor''): the below anchors of i, ı and l, and the above anchor of m, in italic and semibold italic.
+	The rule leaves them out because a curl moves the optical centre off the stem (the curled foot of i ı l, right; the arches of m).
+	None of the existing values (the designer's i, ı and m, the curated l) is known to be reliable.
+	Evidence from the precomposed glyphs, composed minus precomposed with the anchor on the stem: italic ị $-14$, ḷ $+4$ (median of the other dot-below letters $+11$); semibold italic ị $-33$, ḷ $-22$ (median $-19$, spread about $\pm 30$); italic ṁ $+7$, semibold italic $-21$.
+	The ink-area centroid of the bottom zone (baseline to 100 above the stem's straight part) came within 4 units of ị and ḷ in three of four cases.
+	Test sheets \verb|tex/stem_axis_test_sheet.pdf|, \verb|tex/stem_angle_test_sheet.pdf|.
+	\item Semibold j: its dot is 14 units left of its stem (regular $-3$), but the dot rules apply only in the italic styles; ĵ and ǰ put the accent on the stem ($+2$).
+	\item The axis of a mirror-symmetric mark is the centre of its ink bounds.
+	A more precise one would be the line about which the outline best matches its mirror image, or its rotation by 180° for the tilde, zigzag and vertical tilde, whose terminals can push the bounds off centre.
 \end{itemize}
 
 \paragraph{Decided: left as they are.}
@@ -516,7 +521,7 @@ Moving every mark anchor onto the model at once was tested and rejected (end of 
 	Italic's eight \verb|.cap| anchors are curated (2026-11-07): each $X$ is fitted so that the accent lands, as a median over the capitals, where the designer drew it in the precomposed glyphs, as in regular
 	(stage 4 had left the symmetric marks about 14 units left of them).
 	The fit was made after italic O, U and Y took the median accent centre of their own precomposed glyphs as their above-anchor $X$ (493, 508, 441).
-	\item Stage 4, all styles, the mark-axis rule (2026-11-09): 37 anchors move, $X$ only (end of this section).
+	\item Stage 4, all styles, the mark-axis rule (2026-11-09; threshold 0 and an axis measure per combining letter since 2026-11-12): $X$ only (end of this section).
 	\item Stage 7, curated mark anchors (\verb|data/fontanchors_human/|):
 	\begin{itemize}
 		\item Vertical moves from the precomposed glyphs (2026-11-09): dot above in all four styles, macron in all but italic, semibold tilde, semibold italic ring, the double acute in all but semibold (below).
@@ -569,10 +574,18 @@ Where $|\Delta y| \ge 10$ the mark anchor is curated $\Delta y$ higher, so that 
 \end{itemize}
 
 \paragraph{Mark-axis rule for symmetric above marks (2026-11-09).}
-Stage 4 (\verb|font_patching_markaxis.py|) puts the anchor $X$ of a symmetric above mark on its own axis, $k = K$ (0; 150 in semibold italic), wherever $|k - K| \ge 10$, with $k$ measured on the mark's ink.
-The symmetric above marks are the mirror-symmetric ones (circumflex, tilde, macron, breve, dot above, dieresis, ring, caron, vertical line and double vertical line above, candrabindu, inverted breve, x above, vertical tilde, double overline, perispomeni, bridge above, not tilde, homothetic, almost equal to, fermata, zigzag) and the combining Latin letters U+0363--U+036F, centred on their ink as base letters are.
+Stage 4 (\verb|font_patching_markaxis.py|) puts the anchor $X$ of a symmetric above mark on its own axis, $k = K$ (0; 150 in semibold italic), with $k$ measured on the mark's ink.
+Until 2026-11-12 it moved only anchors with $|k - K| \ge 10$; it now has no threshold, and moves every anchor whose $X$ rounds to a different value.
+The symmetric above marks are the mirror-symmetric ones (circumflex, tilde, macron, breve, dot above, dieresis, ring, caron, vertical line and double vertical line above, candrabindu, inverted breve, x above, vertical tilde, double overline, perispomeni, bridge above, not tilde, homothetic, almost equal to, fermata, zigzag) and the combining Latin letters U+0363--U+036F.
 Asymmetric marks keep their designed $k$: grave, acute and their tone-mark forms, double acute and double grave (a symmetric pair placed off centre), hook above, the comma-shaped marks, the half rings and the right arrowhead.
-The rule does not touch $Y$, and smaller deviations are within the designer's spread.
+The rule does not touch $Y$.
+
+The axis is the centre of the ink bounds, with the slant removed, except for the combining letters that are not boxy (2026-11-12).
+For those, bounds and area centroid are more than about 4 units apart in regular (r 11, c 9, h 8, e 6, t 4), and the axis is the area centroid, which weights the stems over a thin arm, terminal or open side;
+it lies between the bounds and the stem for r ($-7$, $-18$, $-28$ relative to the old anchor in regular), as Gentium Plus, Noto Serif and Junicode place their combining r (75\%, 40\% and 30\% of the way to the stem).
+Combining i U+0365 is measured on its stem (midline at the stem's top, carried at the slant), which its left top serif pulls the bounds 2.6 units off.
+Combining a, d, m, o, u, v, x are boxy enough for the bounds (bounds and centroid within 3).
+Curated anchors of symmetric marks were moved onto the axis with the change (X only; regular macron, italic dot above, semibold tilde, macron, dot above and inverted breve, semibold italic macron, dot above, ring and inverted breve; 1 to 9 units).
 
 Matching each mark to the precomposed glyphs ($\Delta x = 0$ per mark) would be the wrong target:
 part of what a composed mark differs from the precomposed glyphs by is the base anchor's offset, common to every mark on that base,
@@ -585,7 +598,7 @@ The semibold italic dieresis, which landed 26 units left of its precomposed glyp
 \paragraph{Rejected: moving every mark anchor to the model (2026-11-08).}
 A stage that moved every mark anchor onto the model, $X = C + Y\tan\theta + d - K$, was tested and rejected:
 most moves were under 20 units, and as many marks got further from the precomposed glyphs as got closer.
-The mark-axis rule does not repeat it: it moves only symmetric marks, only their $X$, and only where they are 10 or more off.
+The mark-axis rule does not repeat it: it moves only symmetric marks, and only their $X$.
 
 %Libertinus serif has few mark positioning GPOS tables.
 %Regular has two mark-to-base LookupList tables: 
@@ -1002,6 +1015,37 @@ at the candidate's $Y$, the dot top plus the ascender clearance
 so the double overline sits 55--60 above the dot.
 The candidate's $X$ is right for i but not for j, whose hook pulls the bounding-box midpoint left
 of the stem (by 84 in semibold).
+
+\paragraph{Stem-axis rule (2026-11-12).}
+Letters with a central stem and no curl have their anchors on the axis of the stem (\verb|font_patching_stemaxis.py|, stage 7b, after the curated anchors:
+it sets $X$ over the designer's and the curated anchors alike, and reports each curated $X$ it changes; $Y$ is not touched).
+The group is the basest such letters: i, ı, j, ȷ, l, m (its middle stem), I, T, ɪ, above and below (j and ȷ above only, their below anchor being under the hook).
+The letters derived from them (ɨ ɩ ɫ ƚ Ŧ Ƭ ɱ \ldots) move with their base letter in stage 8; ɾ and ɿ are not in the group, because their hooked top puts the optical centre 40 to 55 units off the stem.
+
+The stem's midline is the mean of its two straight edges, read from the control points (a pair of line segments on opposite sides of one ink interval, overlapping in height;
+where one side is a curve, as in the middle stem of semibold italic m, the straight edge moved by the median half-width).
+It is taken at the top of the straight part for the above anchor and at its bottom for the below anchor, and carried to the anchor's height at the style's declared slant (12°, 11.5°), less $K$ in semibold italic.
+
+The stems are not drawn at the declared slant: the lowercase stems are steeper (italic 12.1° to 13.5°, semibold italic 12.8° to 13.4°), the capitals I and T shallower (11°, 10°).
+Carrying the midline at the stem's own angle was tested and rejected (test sheet \verb|tex/stem_angle_test_sheet.pdf|):
+it moves the above anchors of ı, ȷ and l 4 to 9 units right in italic and 9 to 12 in semibold italic, and the evidence points the other way:
+the dot of i and j, and the accents of the precomposed ì í î ĩ ī ĭ ï ǐ ȋ ỉ ĵ ǰ, sit left of the line at the declared slant, not right of it.
+Against the precomposed ṁ ṃ İ Ị Ī Ṫ Ṭ Ṯ neither slant was consistently closer.
+
+In the italic styles, curls change the optical centre, and the rule is adapted:
+\begin{itemize}
+	\item Dotted i and j: the above anchor is over the centre of the dot, 11 to 13 units left of the stem's axis (only U+033F attaches there, right over the dot).
+	\item Dotless ı and ȷ: the above anchor is on the axis of the dot of i and j, so that an accent takes the dot's place.
+	Their curved entry stroke at the top left pulls the optical centre left of the stem, and the precomposed accents agree:
+	composed minus precomposed (median), on the stem's axis and on the dot's: italic ı $+20$, $+8$, ȷ $+28$, $+15$; semibold italic ı $+14$, $+1$, ȷ $+10$, $-14$.
+	\item The below anchors of i, ı and l (curled foot) and the above anchor of m (arches) are left out, to be curated (``Open decisions'').
+\end{itemize}
+In regular and semibold the rule applies to the whole group, above and below.
+The accents of the precomposed accented i are 16 to 20 units left of ı's stem there too, but the designer puts accents about 9 left of centre on lowercase letters generally, and the rule looked better on the test sheets.
+
+Moves, in units: regular and semibold m $+11$ to $+12$, T below $+8$ (regular), others 0 to 2;
+italic ı above $-10$, ȷ $-13$, I above $-5$ and below $-12$, T below $-16$, m below $-9$, i and j above (dot) $-12$, $-13$;
+semibold italic ı above $-11$, ȷ $-21$, T above $-12$ and below $-26$, i and j above (dot) $-11$; the derived and precomposed letters move with them.
 
 
 \subsubsection*{Patch n, p, r, v, w, x, z regular, above-anchor}

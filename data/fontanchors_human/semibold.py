@@ -174,15 +174,15 @@ anchors = {
         # Above marks moved vertically by Delta y (2026-11-09): the median offset, composed (base + CGJ + mark)
         # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
         # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
-        # X unchanged (k within 10 of the mark-axis rule, k = K); in the slanted styles X moves by Delta y tan theta.
+        # X then unchanged (k was within 10 of the mark-axis rule, k = K; since 2026-11-12 the rule has no threshold and X is on the axis); in the slanted styles X moves by Delta y tan theta.
         0x0303: { # tilde
-            0: (-133, 693), # was (-133, 679); Delta y +14 (ã ẽ ĩ ñ õ ũ ṽ ỹ, all +14)
+            0: (-136, 693), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -133; was (-133, 679); Delta y +14 (ã ẽ ĩ ñ õ ũ ṽ ỹ, all +14)
         },
         0x0304: { # macron
-            0: (-205, 613), # was (-205, 625); Delta y -12 (ā ē ī ō ū ȳ ḡ, all -12)
+            0: (-200, 613), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -205; was (-205, 625); Delta y -12 (ā ē ī ō ū ȳ ḡ, all -12)
         },
         0x0307: { # dot above
-            0: (-169, 678), # was (-169, 699); Delta y -21 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -20 to -23)
+            0: (-168, 678), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -169; was (-169, 699); Delta y -21 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -20 to -23)
         },
 
         # Half rings above (2026-11-08): the designer's anchors were class 1 (top_punkt, y 547, 549), raised 96 by
@@ -252,7 +252,7 @@ anchors = {
         # Mark-axis snap (2026-11-06): X = C + d, d = regular's offset from the axis;
         # checked against the precomposed glyphs (median distance, before -> after).
         0x0311: { # inverted breve
-            0: (-217, 645), # was (-205, 645); precomposed 11 -> 4 (5 glyphs)
+            0: (-220, 645), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -217; was (-205, 645); precomposed 11 -> 4 (5 glyphs)
         },
         0x0330: { # tilde below
             2: (-200, -70), # was (-213, -70); precomposed 13 -> 4 (6 glyphs)

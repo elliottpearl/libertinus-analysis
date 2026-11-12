@@ -18,6 +18,7 @@ Stages, in order (each is its own module):
      5. normalize designer anchor y   font_patching_normalizeanchors
      6. heuristic anchors             font_patching_heuristicanchors
      7. human-curated anchors         font_patching_anchors
+        stem-axis rule (7b)           font_patching_stemaxis
      8. derived-letter inheritance    font_patching_derivedanchors
      9. precomposed inheritance       font_patching_precomposed_anchors
     10. GSUB ccmp                     font_patching_gsub
@@ -50,6 +51,7 @@ from .font_patching_deleteanchors import delete_bad_anchors
 from .font_patching_derivedanchors import patch_derived_anchors
 from .font_patching_gsub import patch_gsub_ccmp
 from .font_patching_heuristicanchors import patch_anchors_heuristic
+from .font_patching_stemaxis import patch_stem_axis
 from .font_patching_mergeclasses import merge_anchor_classes
 from .font_patching_normalizeanchors import normalize_anchor_y
 from .font_patching_precomposed_anchors import patch_precomposed_anchors
@@ -131,7 +133,7 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # ------------------------------------------------------------
     # 4. Capital-mark anchors, from the precomposed capitals;
     #    then the mark-axis rule: symmetric above marks with
-    #    |k - K| >= 10 get their anchor X on their own axis
+    #    k != K get their anchor X on their own axis
     # ------------------------------------------------------------
     for line in patch_cap_mark_anchors(ttfont, font_key, lookup_index):
         print(f"[{font_key}] {line}")
@@ -165,6 +167,13 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
         cmap=cmap,
         cmap_reverse=cmap_reverse,
     )
+
+    # ------------------------------------------------------------
+    # 7b. Stem-axis rule: i ı j ȷ l get their anchor X on the axis
+    #     of their stem, over designer and curated anchors alike
+    # ------------------------------------------------------------
+    for line in patch_stem_axis(ttfont, font_key, lookup_index):
+        print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------
     # 8. Derived letters inherit their base letter's anchor, plus the

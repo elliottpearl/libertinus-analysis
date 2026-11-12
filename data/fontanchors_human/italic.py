@@ -48,16 +48,16 @@ anchors = {
         },
         0x0069: { # i: above on the stem's axis. Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (312, 810),
+            0: (300, 810),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 312
         },
         0x006A: { # j: above on the stem's axis (the candidate's X is pulled left by the hook). Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (318, 810),
+            0: (305, 810),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 318
         },
         0x006C: { # l: above and below on the stem's midline, as regular (2026-11-07); the designer's (292, 890) was 20 left, (115, -110) 16 right.
                   # ɫ ɬ ɭ ɮ inherit from it
-            0: (312, 890),
-            2: (99, -110),
+            0: (313, 890),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 312
+            2: (99, -110),  # NOT RELIABLE, to curate (2026-11-12): the curl foot pulls the optical centre right of the stem's axis; stage 7b leaves this anchor out of the rule. Pre-2026-11-12 value
         },
         0x0071: { # q: below at the descender reference, under the stem (2026-11-07), as regular's curated q (386, -319).
                   # Fonts with the anchor at descender depth centre it on the stem (Noto Serif, DejaVu Serif,
@@ -146,7 +146,7 @@ anchors = {
             0: (354, 645),
         },
         0x0237: { # ȷ dotless j: above on the stem's midline, as j (2026-11-07): j takes this dotless form before nearly every above mark; the designer's (140, 645) was regular's, unslanted, 143 left
-            0: (283, 645),
+            0: (270, 645),  # 2026-11-12: X on the axis of the dot of j (stem-axis rule, stage 7b, which sets it over this value), was 283
         },
         0x0251: { # ɑ alpha
             2: (197, -110),  # below under the lowest point of the bowl, as ə (2026-11-07)
@@ -239,9 +239,10 @@ anchors = {
         # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
         # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
         # X moves with the slant (by Delta y tan theta) so that the mark stays on its axis: k is unchanged, within
-        # 10 of the mark-axis rule (k = K). In regular and semibold X is unchanged.
+        # 10 of the mark-axis rule (k = K). In regular and semibold X is unchanged. Since 2026-11-12 the rule has
+        # no threshold, and X is on the axis (k = K).
         0x0307: { # dot above
-            0: (-42, 678), # was (-40, 689); Delta y -11 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -10 to -15)
+            0: (-39, 678), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -42; was (-40, 689); Delta y -11 (ċ ė ġ ż ȧ ȯ ṁ ṅ …, -10 to -15)
         },
 
         # Tall below marks (2026-11-08): anchor moved up so that the mark rises at most 62 above it,

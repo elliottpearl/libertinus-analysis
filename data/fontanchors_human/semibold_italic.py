@@ -15,7 +15,7 @@ anchors = {
         },
         0x0049: { # I: below on the stem's axis (179 at y 0), plus 12 (K below) (2026-11-07). The designer's (147, -110),
                   # regular's copy, is 22 left of it; the candidate (161, -110) 8 left
-            2: (169, -110),
+            2: (174, -110),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 169
         },
         0x004C: { # L: above on the stem's axis, less K = 150 (2026-11-07), where the designer centred the acute of Ĺ (8 left)
             0: (209, 850),
@@ -40,16 +40,16 @@ anchors = {
         },
         0x0069: { # i: above on the stem's axis less K = 150. Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (180, 823),
+            0: (169, 823),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 180
         },
         0x006A: { # j: above on the stem's axis less K = 150 (the candidate's X is pulled left by the hook). Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (197, 823),
+            0: (186, 823),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 197
         },
         0x006C: { # l: above and below on the stem's midline (less K = 150 above, plus 12 below), as regular (2026-11-07); the designer's (174, 890) was 6 left; (135, -110) was regular's.
                   # ɫ ɬ ɭ ɮ inherit from it
-            0: (180, 890),
-            2: (138, -110),
+            0: (184, 890),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 180
+            2: (138, -110),  # NOT RELIABLE, to curate (2026-11-12): the curl foot pulls the optical centre right of the stem's axis; stage 7b leaves this anchor out of the rule. Pre-2026-11-12 value
         },
         0x00A0: { # no-break space, base for a floating mark, width = 274
             0: (118, 645), # x-height aspect; x = W/2 + Y tan 11.5 - K
@@ -128,7 +128,7 @@ anchors = {
             0: (215, 645),
         },
         0x0237: { # ȷ dotless j: above on the stem's midline, as j (2026-11-07): j takes this dotless form before nearly every above mark, less K = 150; the designer's (140, 645) was regular's, 31 left
-            0: (171, 645),
+            0: (150, 645),  # 2026-11-12: X on the axis of the dot of j (stem-axis rule, stage 7b, which sets it over this value), was 171
         },
         0x0251: { # ɑ alpha
             2: (225, -110),  # below under the lowest point of the bowl, as ə (2026-11-07), plus 12 (K below)
@@ -208,15 +208,16 @@ anchors = {
         # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
         # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
         # X moves with the slant (by Delta y tan theta) so that the mark stays on its axis: k is unchanged, within
-        # 10 of the mark-axis rule (k = K). In regular and semibold X is unchanged.
+        # 10 of the mark-axis rule (k = K). In regular and semibold X is unchanged. Since 2026-11-12 the rule has
+        # no threshold, and X is on the axis (k = K).
         0x0304: { # macron
-            0: (-216, 613), # was (-209, 645); Delta y -32 (ā ē ī ō ȳ, -32; the precomposed macron is drawn 32 higher)
+            0: (-225, 613), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -216; was (-209, 645); Delta y -32 (ā ē ī ō ȳ, -32; the precomposed macron is drawn 32 higher)
         },
         0x0307: { # dot above
-            0: (-178, 678), # was (-180, 667); Delta y +11 (ċ ė ġ ż ȧ ṁ ṅ …, +11 to +12)
+            0: (-180, 678), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -178; was (-180, 667); Delta y +11 (ċ ė ġ ż ȧ ṁ ṅ …, +11 to +12)
         },
         0x030A: { # ring above
-            0: (-179, 731), # was (-184, 708); Delta y +23 (å ẙ +23, ẘ +16)
+            0: (-172, 731), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -179; was (-184, 708); Delta y +23 (å ẙ +23, ẘ +16)
         },
         0x030B: { # double acute
             0: (-217, 725), # was (-219, 714); Delta y +11 (ő)
@@ -281,7 +282,7 @@ anchors = {
             0: (-142, 765), # was (-160, 765); precomposed 26 -> 8 (5 glyphs)
         },
         0x0311: { # inverted breve
-            0: (-223, 645), # was (-205, 645); precomposed 19 -> 3 (5 glyphs)
+            0: (-226, 645), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -223; was (-205, 645); precomposed 19 -> 3 (5 glyphs)
         },
         0x0314: { # reversed comma above
             0: (-91, 605), # was (-76, 605); precomposed 19 -> 4 (1 glyph)

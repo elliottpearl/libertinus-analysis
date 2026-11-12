@@ -114,14 +114,22 @@ A mark anchor lies on the mark's own axis: `X = C + Y tan θ + d − K`.
 
 When the anchors meet, the mark's axis lies on the base's midline: an italic mark is displaced along the italic axis, not straight up or down.
 
-The patch enforces this for the X of symmetric above marks only, and only where a mark's shift `k = C + Y tan θ − X` is 10 or more from K (mark-axis rule, stage 4, 2026-11-09; italic tilde, semibold dieresis, semibold italic tilde and dieresis). Other mark anchors are curated one at a time against the precomposed glyphs.
+The patch enforces this for the X of symmetric above marks only, setting a mark's shift `k = C + Y tan θ − X` to K exactly (mark-axis rule, stage 4, 2026-11-09; threshold 10 until 2026-11-12, now none). `C` is the centre of the de-slanted ink bounds, except for the combining letters that are not boxy: the area centroid for e c h r t (U+0364 U+0368 U+036A U+036C U+036D), and for combining i (U+0365) the stem's midline at the stem's top, carried to the baseline at the slant (`AXIS_MEASURE` in `font_patching_markaxis.py`). Other mark anchors are curated one at a time against the precomposed glyphs.
+
+### Central-stem letters
+
+Letters with a central stem and no curl (i, ı, j, ȷ, l, m by its middle stem, I, T, ɪ) have their above anchor, and all but j and ȷ their below anchor, on the stem's axis (stem-axis rule, stage 7b, 2026-11-12): `X = m(y_ref) + (Y − y_ref) tan θ − K`, where `m` is the stem's midline, the mean of its two straight edges read from the control points, and `y_ref` the top of their overlap in height for the above anchor and its bottom for the below anchor. Y is not touched. The rule runs after the curated anchors and sets X over them; derived letters (ɨ ɩ ɫ Ŧ ɱ …) move with their base letter in stage 8, and ɾ ɿ are not in the group (hooked top).
+
+The anchor is carried at the declared θ, not at the stem's own angle (lowercase italic stems are steeper, 12.1–13.5°; I and T shallower, 10–11°): the stem's own angle was tested and rejected, because the designer's dots and precomposed accents sit left of the θ line, not right of it.
+
+In italic and semibold italic, curls move the optical centre, and the rule adapts: dotted i and j put the above anchor over the centre of the dot (11–13 left of the stem's axis); dotless ı and ȷ put it on the axis of that dot, so that an accent takes the dot's place (their curved entry stroke pulls the centre left, and the precomposed ì í î … ĵ ǰ agree); the below anchors of i, ı, l (curled foot) and the above anchor of m (arches) are left out, to be curated. See the report and `tex/stem_axis_test_sheet.pdf`, `tex/stem_angle_test_sheet.pdf`.
 
 ## 4. Where candidates fail
 
 These need curated anchors (`data/fontanchors_human/{style}.py`):
 - asymmetric letterforms, where the geometric centre is not the optical one;
 - letters that overhang their advance width, such as f and j, in every italic style (the lane midline comes from W);
-- the above-anchor of j in every style: the hook pulls the bbox midpoint left of the stem, so X is put on the stem's axis. Its Y (and i's) is the candidate's, from the dot: only marks that skip the ccmp dotless swap (U+033F) attach to i or j, so the anchor must clear the dot;
+- the above-anchor of j in every style: the hook pulls the bbox midpoint left of the stem, so X is put on the stem's axis (section 3, central-stem letters). Its Y (and i's) is the candidate's, from the dot: only marks that skip the ccmp dotless swap (U+033F) attach to i or j, so the anchor must clear the dot;
 - Æ, whose top edge lies right of the glyph's midpoint: the above-anchor belongs where Ǣ and Ǽ put their accents, the below-anchor under the common stroke;
 - in semibold italic, the non-conforming glyphs and marks listed in the report (capitals, `.cap` marks, a s h J, marks with unusual K).
 
@@ -131,7 +139,7 @@ These need curated anchors (`data/fontanchors_human/{style}.py`):
 - **Mark anchors:** `font_patching_capmarks.py` and `font_patching_addmarks.py` implement `C + Y tan θ − K` with K = 150 in semibold italic.
 - **Audit X:** `anchor_audit.py` compares X in sheared coordinates against the centre of the sheared outline, not `W/2`, with K added back in semibold italic.
 - **Patch, stage 5:** `font_patching_normalizeanchors.py` moves semibold's capitals to the capital reference, snaps designer anchors within 5 of a Y reference to it, and reports the rest without moving them.
-- **Patch, stage 6:** `font_patching_heuristicanchors.py` writes `get_anchor_candidate` (rounded) into the patched font for each Latin/IPA base that lacks an above- or below-anchor. Curated anchors overrule it; existing anchors are not moved.
+- **Patch, stage 6:** `font_patching_heuristicanchors.py` writes `get_anchor_candidate` (rounded) into the patched font for each Latin/IPA base that lacks an above- or below-anchor. Curated anchors overrule it; existing anchors are not moved. - **Patch, stage 7b:** after the curated anchors, `font_patching_stemaxis.py` moves the X of the central-stem letters onto the stem's axis (section 3), over designer and curated anchors alike.
 - **Fontmetrics tables:** `get_anchor_candidate` in `fontmetrics_helpers.py` gives the candidate (X, Y) for the a? and b? rows: Y from `get_aya` / `get_bya`, X from section 3 at that Y (bbox midpoint in roman, `W/2 + Y tan θ − K` in italic styles). The marks tables use `get_mark_anchor_candidate`: Y is the outline bottom plus (above) or top minus (below) the style's median mark-anchor offset (`MARK_ANCHOR_OFFSET_OPT`), X is `axis_x + Y tan θ − K`, with `axis_x` the de-slanted outline centre stored by the extractor.
 
 ## 6. Possible second pass (not implemented)

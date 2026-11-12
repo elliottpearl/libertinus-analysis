@@ -59,11 +59,11 @@ anchors = {
         },
         0x0069: { # i: above on the stem's axis. Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (142, 834),
+            0: (142, 834),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 142
         },
         0x006A: { # j: above on the stem's axis (the candidate's X is pulled left by the hook). Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (152, 834),
+            0: (152, 834),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 152
         },
         # 0x006A: {  # j
             # 0: (126, 795),  # shifted by 11 from i  # removed 2026-11-07: 26 left of the stem; U+033F 16 above the dot
@@ -168,7 +168,7 @@ anchors = {
         #    2: (243, -110),
         # },
         0x0237: { # dotless j
-            0: (152, 645),  # above on the stem's midline, as j (2026-11-07): j takes this dotless form before nearly every above mark; the designer's (140, 645) was 12 left
+            0: (152, 645),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 152; above on the stem's midline, as j (2026-11-07): j takes this dotless form before nearly every above mark; the designer's (140, 645) was 12 left
             2: (109, -319), # j
         },
         0x023F: {  # ȿ s-swash-tail
@@ -448,9 +448,9 @@ anchors = {
         # Above marks moved vertically by Delta y (2026-11-09): the median offset, composed (base + CGJ + mark)
         # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)
         # on every base. A positive Delta y raises the anchor by that much, so the mark sits that much lower.
-        # X unchanged (k within 10 of the mark-axis rule, k = K); in the slanted styles X moves by Delta y tan theta.
+        # X then unchanged (k was within 10 of the mark-axis rule, k = K; since 2026-11-12 the rule has no threshold and X is on the axis); in the slanted styles X moves by Delta y tan theta.
         0x0304: { # macron
-            0: (-209, 662), # was (-209, 644); Delta y +18 (ā ē ī ō ū ȳ ḡ, all +18)
+            0: (-212, 662), # 2026-11-12: X on the mark's axis, mark-axis rule at threshold 0, was -209; was (-209, 644); Delta y +18 (ā ē ī ō ū ȳ ḡ, all +18)
         },
         0x0307: { # dot above
             0: (-180, 622), # was (-180, 667); Delta y -45 (ċ ė ġ ż ȧ ȯ ṁ ṅ ṗ ṙ ṡ ẇ ẋ ẏ, -44 to -46)

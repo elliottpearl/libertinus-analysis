@@ -468,6 +468,15 @@ anchors = {
         0x0319: { # right tack below
             2: (-249, -117), # was (-249, -146)
         },
+        # Up and down tack below (2026-11-11): the boxes level, both tops 62 above the anchor
+        # (48 below the baseline on x-height letters), as the left and right tacks and the
+        # vertical line below; other fonts level the two boxes. X unchanged.
+        0x031D: { # up tack below
+            2: (-249, -128), # was (-249, -143)
+        },
+        0x031E: { # down tack below
+            2: (-247, -128), # was (-247, -106)
+        },
         0x031C: { # left half ring below
             2: (-216, -114), # was (-216, -146)
         },

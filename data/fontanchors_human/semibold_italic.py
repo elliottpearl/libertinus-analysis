@@ -226,10 +226,19 @@ anchors = {
         # as U+0329 and U+0348; they overlapped descenders at -319 and crowded baseline letters
         # (report, "Mark anchor model", stage 7). x unchanged.
         0x0318: { # left tack below
-            2: (-224, -118), # was (-224, -148)
+            2: (-249, -118), # was (-224, -148); x centred on the outline along the slant, K -12, as regular (2026-11-11)
         },
         0x0319: { # right tack below
-            2: (-285, -118), # was (-285, -147)
+            2: (-261, -118), # was (-285, -147); x centred on the outline along the slant, K -12, as regular (2026-11-11)
+        },
+        # Up and down tack below (2026-11-11): the boxes level, both tops 62 above the anchor
+        # (48 below the baseline on x-height letters), as the left and right tacks and the
+        # vertical line below; other fonts level the two boxes. X moved along the slant.
+        0x031D: { # up tack below
+            2: (-248, -140), # was (-249, -143)
+        },
+        0x031E: { # down tack below
+            2: (-249, -116), # was (-247, -106)
         },
         0x031C: { # left half ring below
             2: (-216, -114), # was (-216, -146)
@@ -276,6 +285,14 @@ anchors = {
         },
         0x0314: { # reversed comma above
             0: (-91, 605), # was (-76, 605); precomposed 19 -> 4 (1 glyph)
+        },
+        # Koronis (2026-11-11): the designer drew it as a horn-sized outline right of the origin
+        # (bbox 170..358 x 397..575), with U+0313's anchor (-96, 605), so k was 371. Placed as
+        # regular's and italic's U+0313 (= U+0343): anchor 135 above the outline's bottom, and
+        # 21.4 left of its ink centroid along the slant, with K = 150. The outline is left as it
+        # is (to-do: audit referenced commas and horns).
+        0x0343: { # Greek koronis
+            0: (128, 532), # was (-96, 605)
         },
     },
     "marks_by_name": {

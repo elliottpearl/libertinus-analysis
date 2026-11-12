@@ -199,10 +199,19 @@ anchors = {
         # as U+0329 and U+0348; they overlapped descenders at -319 and crowded baseline letters
         # (report, "Mark anchor model", stage 7). x unchanged.
         0x0318: { # left tack below
-            2: (-224, -118), # was (-224, -148)
+            2: (-249, -118), # was (-224, -148); x centred on the outline, as regular (2026-11-11)
         },
         0x0319: { # right tack below
-            2: (-285, -118), # was (-285, -147)
+            2: (-249, -118), # was (-285, -147); x centred on the outline, as regular (2026-11-11)
+        },
+        # Up and down tack below (2026-11-11): the boxes level, both tops 62 above the anchor
+        # (48 below the baseline on x-height letters), as the left and right tacks and the
+        # vertical line below; other fonts level the two boxes. X unchanged.
+        0x031D: { # up tack below
+            2: (-249, -129), # was (-249, -143)
+        },
+        0x031E: { # down tack below
+            2: (-247, -128), # was (-247, -106)
         },
         0x031C: { # left half ring below
             2: (-216, -114), # was (-216, -146)
@@ -226,6 +235,14 @@ anchors = {
         0x0301: { # acute
             0: (-180, 683), # was (-180, 713)
         },
+        # Grave and acute tone marks, added by stage 3 at y 713, 30 below the curated grave and acute;
+        # given their anchors, as in regular, where the tone marks share the grave's and acute's (2026-11-11)
+        0x0340: { # grave tone mark
+            0: (-127, 683), # was (-127, 713)
+        },
+        0x0341: { # acute tone mark
+            0: (-180, 683), # was (-180, 713)
+        },
         0x030A: { # ring above
             0: (-170, 715), # was (-170, 742) after stage 1; height of the ring in ů
         },
@@ -239,6 +256,13 @@ anchors = {
         },
         0x0330: { # tilde below
             2: (-200, -70), # was (-213, -70); precomposed 13 -> 4 (6 glyphs)
+        },
+        # Koronis (2026-11-11): the designer's uni0343 is a reference to the horn uni031B, moved
+        # up, and had no mark anchor, so it attached to nothing. Placed as regular's and italic's
+        # U+0313 (= U+0343): anchor 135 above the outline's bottom and 21.2 left of its ink
+        # centroid. The outline is left as it is (to-do: audit referenced commas and horns).
+        0x0343: { # Greek koronis
+            0: (-92, 539), # was none
         },
     },
     "bases_by_name": {

@@ -248,10 +248,19 @@ anchors = {
         # as U+0329 and U+0348; they overlapped descenders at -319 and crowded baseline letters
         # (report, "Mark anchor model", stage 7). x unchanged.
         0x0318: { # left tack below
-            2: (-254, -118), # was (-254, -148)
+            2: (-273, -118), # was (-254, -148); x centred on the outline along the slant, as regular (2026-11-11)
         },
         0x0319: { # right tack below
-            2: (-315, -117), # was (-315, -147)
+            2: (-273, -117), # was (-315, -147); x centred on the outline along the slant, as regular (2026-11-11)
+        },
+        # Up and down tack below (2026-11-11): the boxes level, both tops 62 above the anchor
+        # (48 below the baseline on x-height letters), as the left and right tacks and the
+        # vertical line below; other fonts level the two boxes. X moved along the slant.
+        0x031D: { # up tack below
+            2: (-275, -128), # was (-278, -143)
+        },
+        0x031E: { # down tack below
+            2: (-274, -128), # was (-269, -106)
         },
         0x031C: { # left half ring below
             2: (-246, -114), # was (-246, -146)

@@ -1,2490 +1,754 @@
 {
- "derived": [
-  [
-   "Dcroat",
-   0
-  ],
-  [
-   "Dcroat",
-   2
-  ],
-  [
-   "Eth",
-   0
-  ],
-  [
-   "Eth",
-   2
-  ],
-  [
-   "Ldot",
-   0
-  ],
-  [
-   "Lslash",
-   0
-  ],
-  [
-   "Lslash",
-   2
-  ],
-  [
-   "Oslash",
-   0
-  ],
-  [
-   "Oslash",
-   2
-  ],
-  [
-   "hbar",
-   2
-  ],
-  [
-   "ldot",
-   0
-  ],
-  [
-   "ldot",
-   2
-  ],
-  [
-   "lslash",
-   0
-  ],
-  [
-   "lslash",
-   2
-  ],
-  [
-   "oslash",
-   0
-  ],
-  [
-   "oslash",
-   2
-  ],
-  [
-   "tbar",
-   2
-  ],
-  [
-   "uni0181",
-   0
-  ],
-  [
-   "uni0181",
-   2
-  ],
-  [
-   "uni0183",
-   0
-  ],
-  [
-   "uni0183",
-   2
-  ],
-  [
-   "uni0187",
-   0
-  ],
-  [
-   "uni0187",
-   2
-  ],
-  [
-   "uni0188",
-   0
-  ],
-  [
-   "uni0188",
-   2
-  ],
-  [
-   "uni0189",
-   0
-  ],
-  [
-   "uni0189",
-   2
-  ],
-  [
-   "uni018A",
-   0
-  ],
-  [
-   "uni018A",
-   2
-  ],
-  [
-   "uni018C",
-   0
-  ],
-  [
-   "uni018C",
-   2
-  ],
-  [
-   "uni0193",
-   0
-  ],
-  [
-   "uni0193",
-   2
-  ],
-  [
-   "uni0197",
-   0
-  ],
-  [
-   "uni0197",
-   2
-  ],
-  [
-   "uni0198",
-   2
-  ],
-  [
-   "uni0199",
-   2
-  ],
-  [
-   "uni019A",
-   0
-  ],
-  [
-   "uni019A",
-   2
-  ],
-  [
-   "uni019F",
-   0
-  ],
-  [
-   "uni01A4",
-   0
-  ],
-  [
-   "uni01A4",
-   2
-  ],
-  [
-   "uni01A5",
-   0
-  ],
-  [
-   "uni01A5",
-   2
-  ],
-  [
-   "uni01AB",
-   2
-  ],
-  [
-   "uni01AC",
-   0
-  ],
-  [
-   "uni01AC",
-   2
-  ],
-  [
-   "uni01AD",
-   0
-  ],
-  [
-   "uni01AD",
-   2
-  ],
-  [
-   "uni01AE",
-   0
-  ],
-  [
-   "uni01AE",
-   2
-  ],
-  [
-   "uni01B3",
-   0
-  ],
-  [
-   "uni01B3",
-   2
-  ],
-  [
-   "uni01E4",
-   0
-  ],
-  [
-   "uni01E5",
-   0
-  ],
-  [
-   "uni01E5",
-   2
-  ],
-  [
-   "uni0221",
-   0
-  ],
-  [
-   "uni0221",
-   2
-  ],
-  [
-   "uni0234",
-   0
-  ],
-  [
-   "uni0234",
-   2
-  ],
-  [
-   "uni0235",
-   0
-  ],
-  [
-   "uni0235",
-   2
-  ],
-  [
-   "uni0236",
-   0
-  ],
-  [
-   "uni0236",
-   2
-  ],
-  [
-   "uni023A",
-   2
-  ],
-  [
-   "uni023B",
-   2
-  ],
-  [
-   "uni023C",
-   0
-  ],
-  [
-   "uni023C",
-   2
-  ],
-  [
-   "uni023D",
-   0
-  ],
-  [
-   "uni023D",
-   2
-  ],
-  [
-   "uni023E",
-   2
-  ],
-  [
-   "uni0243",
-   0
-  ],
-  [
-   "uni0243",
-   2
-  ],
-  [
-   "uni0247",
-   0
-  ],
-  [
-   "uni0247",
-   2
-  ],
-  [
-   "uni0249",
-   2
-  ],
-  [
-   "uni0249.dotless",
-   0
-  ],
-  [
-   "uni0249.dotless",
-   2
-  ],
-  [
-   "uni024D",
-   0
-  ],
-  [
-   "uni024D",
-   2
-  ],
-  [
-   "uni0253",
-   0
-  ],
-  [
-   "uni0253",
-   2
-  ],
-  [
-   "uni0255",
-   0
-  ],
-  [
-   "uni0255",
-   2
-  ],
-  [
-   "uni0256",
-   0
-  ],
-  [
-   "uni0256",
-   2
-  ],
-  [
-   "uni0257",
-   0
-  ],
-  [
-   "uni0257",
-   2
-  ],
-  [
-   "uni025D",
-   2
-  ],
-  [
-   "uni025F",
-   0
-  ],
-  [
-   "uni025F",
-   2
-  ],
-  [
-   "uni0260",
-   0
-  ],
-  [
-   "uni0266",
-   0
-  ],
-  [
-   "uni0268",
-   2
-  ],
-  [
-   "uni0268.dotless",
-   0
-  ],
-  [
-   "uni0268.dotless",
-   2
-  ],
-  [
-   "uni0269",
-   0
-  ],
-  [
-   "uni0269",
-   2
-  ],
-  [
-   "uni026B",
-   0
-  ],
-  [
-   "uni026B",
-   2
-  ],
-  [
-   "uni026C",
-   0
-  ],
-  [
-   "uni026C",
-   2
-  ],
-  [
-   "uni026D",
-   0
-  ],
-  [
-   "uni026D",
-   2
-  ],
-  [
-   "uni026E",
-   0
-  ],
-  [
-   "uni0271",
-   0
-  ],
-  [
-   "uni0271",
-   2
-  ],
-  [
-   "uni0272",
-   0
-  ],
-  [
-   "uni0272",
-   2
-  ],
-  [
-   "uni0273",
-   0
-  ],
-  [
-   "uni0273",
-   2
-  ],
-  [
-   "uni0275",
-   2
-  ],
-  [
-   "uni027B",
-   0
-  ],
-  [
-   "uni027B",
-   2
-  ],
-  [
-   "uni027C",
-   0
-  ],
-  [
-   "uni027D",
-   0
-  ],
-  [
-   "uni027D",
-   2
-  ],
-  [
-   "uni027F.desc",
-   0
-  ],
-  [
-   "uni0284",
-   2
-  ],
-  [
-   "uni0285",
-   0
-  ],
-  [
-   "uni0286",
-   0
-  ],
-  [
-   "uni0286",
-   2
-  ],
-  [
-   "uni0288",
-   0
-  ],
-  [
-   "uni0288",
-   2
-  ],
-  [
-   "uni0289",
-   0
-  ],
-  [
-   "uni0289",
-   2
-  ],
-  [
-   "uni0290",
-   0
-  ],
-  [
-   "uni0290",
-   2
-  ],
-  [
-   "uni029B",
-   0
-  ],
-  [
-   "uni029B",
-   2
-  ],
-  [
-   "uni029D",
-   0
-  ],
-  [
-   "uni02A0",
-   0
-  ],
-  [
-   "uni02A0",
-   2
-  ],
-  [
-   "uni02A1",
-   0
-  ],
-  [
-   "uni02A2",
-   0
-  ],
-  [
-   "uni1E9A",
-   0
-  ],
-  [
-   "uni1E9A",
-   2
-  ],
-  [
-   "uni2C60",
-   0
-  ],
-  [
-   "uni2C60",
-   2
-  ],
-  [
-   "uni2C61",
-   0
-  ],
-  [
-   "uni2C61",
-   2
-  ],
-  [
-   "uni2C62",
-   0
-  ],
-  [
-   "uni2C62",
-   2
-  ],
-  [
-   "uni2C63",
-   0
-  ],
-  [
-   "uni2C63",
-   2
-  ],
-  [
-   "uni2C65",
-   0
-  ],
-  [
-   "uni2C65",
-   2
-  ],
-  [
-   "uni2C66",
-   0
-  ],
-  [
-   "uni2C66",
-   2
-  ],
-  [
-   "uni2C67",
-   2
-  ],
-  [
-   "uni2C68",
-   0
-  ],
-  [
-   "uni2C68",
-   2
-  ]
- ],
- "precomposed": [
-  [
-   "AEacute",
-   2
-  ],
-  [
-   "Aacute",
-   2
-  ],
-  [
-   "Abreve",
-   2
-  ],
-  [
-   "Acircumflex",
-   2
-  ],
-  [
-   "Adieresis",
-   2
-  ],
-  [
-   "Agrave",
-   2
-  ],
-  [
-   "Amacron",
-   2
-  ],
-  [
-   "Aogonek",
-   0
-  ],
-  [
-   "Aring",
-   2
-  ],
-  [
-   "Aringacute",
-   2
-  ],
-  [
-   "Atilde",
-   2
-  ],
-  [
-   "Cacute",
-   2
-  ],
-  [
-   "Ccaron",
-   2
-  ],
-  [
-   "Ccedilla",
-   0
-  ],
-  [
-   "Ccircumflex",
-   2
-  ],
-  [
-   "Cdotaccent",
-   2
-  ],
-  [
-   "Dcaron",
-   2
-  ],
-  [
-   "Eacute",
-   2
-  ],
-  [
-   "Ebreve",
-   2
-  ],
-  [
-   "Ecaron",
-   2
-  ],
-  [
-   "Ecircumflex",
-   2
-  ],
-  [
-   "Edieresis",
-   2
-  ],
-  [
-   "Edotaccent",
-   2
-  ],
-  [
-   "Egrave",
-   2
-  ],
-  [
-   "Emacron",
-   2
-  ],
-  [
-   "Eogonek",
-   0
-  ],
-  [
-   "Gbreve",
-   2
-  ],
-  [
-   "Gcaron",
-   2
-  ],
-  [
-   "Gcircumflex",
-   2
-  ],
-  [
-   "Gdotaccent",
-   2
-  ],
-  [
-   "Hcircumflex",
-   2
-  ],
-  [
-   "Iacute",
-   2
-  ],
-  [
-   "Ibreve",
-   2
-  ],
-  [
-   "Icircumflex",
-   2
-  ],
-  [
-   "Idieresis",
-   2
-  ],
-  [
-   "Idotaccent",
-   2
-  ],
-  [
-   "Igrave",
-   2
-  ],
-  [
-   "Imacron",
-   2
-  ],
-  [
-   "Iogonek",
-   0
-  ],
-  [
-   "Itilde",
-   2
-  ],
-  [
-   "Jcircumflex",
-   2
-  ],
-  [
-   "Lacute",
-   2
-  ],
-  [
-   "Lcaron",
-   2
-  ],
-  [
-   "Nacute",
-   2
-  ],
-  [
-   "Ncaron",
-   2
-  ],
-  [
-   "Ntilde",
-   2
-  ],
-  [
-   "Oacute",
-   2
-  ],
-  [
-   "Obreve",
-   2
-  ],
-  [
-   "Ocircumflex",
-   2
-  ],
-  [
-   "Odieresis",
-   2
-  ],
-  [
-   "Ograve",
-   2
-  ],
-  [
-   "Ohorn",
-   2
-  ],
-  [
-   "Ohungarumlaut",
-   2
-  ],
-  [
-   "Omacron",
-   2
-  ],
-  [
-   "Oslashacute",
-   2
-  ],
-  [
-   "Otilde",
-   2
-  ],
-  [
-   "Racute",
-   2
-  ],
-  [
-   "Rcaron",
-   2
-  ],
-  [
-   "Sacute",
-   2
-  ],
-  [
-   "Scaron",
-   2
-  ],
-  [
-   "Scedilla",
-   0
-  ],
-  [
-   "Scircumflex",
-   2
-  ],
-  [
-   "Tcaron",
-   2
-  ],
-  [
-   "Uacute",
-   2
-  ],
-  [
-   "Ubreve",
-   2
-  ],
-  [
-   "Ucircumflex",
-   2
-  ],
-  [
-   "Udieresis",
-   2
-  ],
-  [
-   "Ugrave",
-   2
-  ],
-  [
-   "Uhorn",
-   0
-  ],
-  [
-   "Uhorn",
-   2
-  ],
-  [
-   "Uhungarumlaut",
-   2
-  ],
-  [
-   "Umacron",
-   2
-  ],
-  [
-   "Uogonek",
-   0
-  ],
-  [
-   "Uring",
-   2
-  ],
-  [
-   "Utilde",
-   2
-  ],
-  [
-   "Wacute",
-   2
-  ],
-  [
-   "Wcircumflex",
-   2
-  ],
-  [
-   "Wdieresis",
-   2
-  ],
-  [
-   "Wgrave",
-   2
-  ],
-  [
-   "Yacute",
-   2
-  ],
-  [
-   "Ycircumflex",
-   2
-  ],
-  [
-   "Ydieresis",
-   2
-  ],
-  [
-   "Ygrave",
-   2
-  ],
-  [
-   "Zacute",
-   2
-  ],
-  [
-   "Zcaron",
-   2
-  ],
-  [
-   "Zdotaccent",
-   2
-  ],
-  [
-   "aacute",
-   2
-  ],
-  [
-   "abreve",
-   2
-  ],
-  [
-   "acircumflex",
-   2
-  ],
-  [
-   "adieresis",
-   2
-  ],
-  [
-   "aeacute",
-   2
-  ],
-  [
-   "agrave",
-   2
-  ],
-  [
-   "amacron",
-   2
-  ],
-  [
-   "aring",
-   2
-  ],
-  [
-   "aringacute",
-   2
-  ],
-  [
-   "atilde",
-   2
-  ],
-  [
-   "cacute",
-   2
-  ],
-  [
-   "ccaron",
-   2
-  ],
-  [
-   "ccedilla",
-   0
-  ],
-  [
-   "ccircumflex",
-   2
-  ],
-  [
-   "cdotaccent",
-   2
-  ],
-  [
-   "dcaron",
-   2
-  ],
-  [
-   "eacute",
-   2
-  ],
-  [
-   "ebreve",
-   2
-  ],
-  [
-   "ecaron",
-   2
-  ],
-  [
-   "ecircumflex",
-   2
-  ],
-  [
-   "edieresis",
-   2
-  ],
-  [
-   "edotaccent",
-   2
-  ],
-  [
-   "egrave",
-   2
-  ],
-  [
-   "emacron",
-   2
-  ],
-  [
-   "eogonek",
-   0
-  ],
-  [
-   "gbreve",
-   2
-  ],
-  [
-   "gcaron",
-   2
-  ],
-  [
-   "gcircumflex",
-   2
-  ],
-  [
-   "gdotaccent",
-   2
-  ],
-  [
-   "hcircumflex",
-   2
-  ],
-  [
-   "iacute",
-   2
-  ],
-  [
-   "ibreve",
-   2
-  ],
-  [
-   "icircumflex",
-   2
-  ],
-  [
-   "idieresis",
-   2
-  ],
-  [
-   "igrave",
-   2
-  ],
-  [
-   "imacron",
-   2
-  ],
-  [
-   "itilde",
-   2
-  ],
-  [
-   "jcircumflex",
-   2
-  ],
-  [
-   "lacute",
-   2
-  ],
-  [
-   "lcaron",
-   2
-  ],
-  [
-   "nacute",
-   2
-  ],
-  [
-   "ncaron",
-   2
-  ],
-  [
-   "ntilde",
-   2
-  ],
-  [
-   "oacute",
-   2
-  ],
-  [
-   "obreve",
-   2
-  ],
-  [
-   "ocircumflex",
-   2
-  ],
-  [
-   "odieresis",
-   2
-  ],
-  [
-   "ograve",
-   2
-  ],
-  [
-   "ohorn",
-   2
-  ],
-  [
-   "ohungarumlaut",
-   2
-  ],
-  [
-   "omacron",
-   2
-  ],
-  [
-   "oslashacute",
-   2
-  ],
-  [
-   "otilde",
-   2
-  ],
-  [
-   "racute",
-   2
-  ],
-  [
-   "rcaron",
-   2
-  ],
-  [
-   "sacute",
-   2
-  ],
-  [
-   "scaron",
-   2
-  ],
-  [
-   "scedilla",
-   0
-  ],
-  [
-   "scircumflex",
-   2
-  ],
-  [
-   "tcaron",
-   2
-  ],
-  [
-   "uacute",
-   2
-  ],
-  [
-   "ubreve",
-   2
-  ],
-  [
-   "ucircumflex",
-   2
-  ],
-  [
-   "udieresis",
-   2
-  ],
-  [
-   "ugrave",
-   2
-  ],
-  [
-   "uhorn",
-   2
-  ],
-  [
-   "uhungarumlaut",
-   2
-  ],
-  [
-   "umacron",
-   2
-  ],
-  [
-   "uni0122",
-   0
-  ],
-  [
-   "uni0123",
-   2
-  ],
-  [
-   "uni0136",
-   0
-  ],
-  [
-   "uni0137",
-   0
-  ],
-  [
-   "uni013B",
-   0
-  ],
-  [
-   "uni013C",
-   0
-  ],
-  [
-   "uni0145",
-   0
-  ],
-  [
-   "uni0146",
-   0
-  ],
-  [
-   "uni0156",
-   0
-  ],
-  [
-   "uni0157",
-   0
-  ],
-  [
-   "uni0162",
-   0
-  ],
-  [
-   "uni0163",
-   0
-  ],
-  [
-   "uni01CD",
-   2
-  ],
-  [
-   "uni01CE",
-   2
-  ],
-  [
-   "uni01CF",
-   2
-  ],
-  [
-   "uni01D0",
-   2
-  ],
-  [
-   "uni01D1",
-   2
-  ],
-  [
-   "uni01D2",
-   2
-  ],
-  [
-   "uni01D3",
-   2
-  ],
-  [
-   "uni01D4",
-   2
-  ],
-  [
-   "uni01D5",
-   2
-  ],
-  [
-   "uni01D6",
-   2
-  ],
-  [
-   "uni01D7",
-   2
-  ],
-  [
-   "uni01D8",
-   2
-  ],
-  [
-   "uni01D9",
-   2
-  ],
-  [
-   "uni01DA",
-   2
-  ],
-  [
-   "uni01DB",
-   2
-  ],
-  [
-   "uni01DC",
-   2
-  ],
-  [
-   "uni01DE",
-   2
-  ],
-  [
-   "uni01DF",
-   2
-  ],
-  [
-   "uni01E0",
-   2
-  ],
-  [
-   "uni01E1",
-   2
-  ],
-  [
-   "uni01E2",
-   2
-  ],
-  [
-   "uni01E3",
-   2
-  ],
-  [
-   "uni01E8",
-   2
-  ],
-  [
-   "uni01E9",
-   2
-  ],
-  [
-   "uni01EA",
-   0
-  ],
-  [
-   "uni01EB",
-   0
-  ],
-  [
-   "uni01EE",
-   2
-  ],
-  [
-   "uni01EF",
-   2
-  ],
-  [
-   "uni01F0",
-   2
-  ],
-  [
-   "uni01F4",
-   2
-  ],
-  [
-   "uni01F5",
-   2
-  ],
-  [
-   "uni01F8",
-   2
-  ],
-  [
-   "uni01F9",
-   2
-  ],
-  [
-   "uni0200",
-   2
-  ],
-  [
-   "uni0201",
-   2
-  ],
-  [
-   "uni0202",
-   2
-  ],
-  [
-   "uni0203",
-   2
-  ],
-  [
-   "uni0204",
-   2
-  ],
-  [
-   "uni0205",
-   2
-  ],
-  [
-   "uni0206",
-   2
-  ],
-  [
-   "uni0207",
-   2
-  ],
-  [
-   "uni0208",
-   2
-  ],
-  [
-   "uni0209",
-   2
-  ],
-  [
-   "uni020A",
-   2
-  ],
-  [
-   "uni020B",
-   2
-  ],
-  [
-   "uni020C",
-   2
-  ],
-  [
-   "uni020D",
-   2
-  ],
-  [
-   "uni020E",
-   2
-  ],
-  [
-   "uni020F",
-   2
-  ],
-  [
-   "uni0210",
-   2
-  ],
-  [
-   "uni0211",
-   2
-  ],
-  [
-   "uni0212",
-   2
-  ],
-  [
-   "uni0213",
-   2
-  ],
-  [
-   "uni0214",
-   2
-  ],
-  [
-   "uni0215",
-   2
-  ],
-  [
-   "uni0216",
-   2
-  ],
-  [
-   "uni0217",
-   2
-  ],
-  [
-   "uni0218",
-   0
-  ],
-  [
-   "uni0219",
-   0
-  ],
-  [
-   "uni021A",
-   0
-  ],
-  [
-   "uni021B",
-   0
-  ],
-  [
-   "uni021E",
-   2
-  ],
-  [
-   "uni021F",
-   2
-  ],
-  [
-   "uni0226",
-   2
-  ],
-  [
-   "uni0227",
-   2
-  ],
-  [
-   "uni0228",
-   0
-  ],
-  [
-   "uni0229",
-   0
-  ],
-  [
-   "uni022A",
-   2
-  ],
-  [
-   "uni022B",
-   2
-  ],
-  [
-   "uni022C",
-   2
-  ],
-  [
-   "uni022D",
-   2
-  ],
-  [
-   "uni022E",
-   2
-  ],
-  [
-   "uni022F",
-   2
-  ],
-  [
-   "uni0230",
-   2
-  ],
-  [
-   "uni0231",
-   2
-  ],
-  [
-   "uni0232",
-   2
-  ],
-  [
-   "uni0233",
-   2
-  ],
-  [
-   "uni1E00",
-   0
-  ],
-  [
-   "uni1E01",
-   0
-  ],
-  [
-   "uni1E02",
-   2
-  ],
-  [
-   "uni1E03",
-   2
-  ],
-  [
-   "uni1E04",
-   0
-  ],
-  [
-   "uni1E05",
-   0
-  ],
-  [
-   "uni1E06",
-   0
-  ],
-  [
-   "uni1E07",
-   0
-  ],
-  [
-   "uni1E0A",
-   2
-  ],
-  [
-   "uni1E0B",
-   2
-  ],
-  [
-   "uni1E0C",
-   0
-  ],
-  [
-   "uni1E0D",
-   0
-  ],
-  [
-   "uni1E0E",
-   0
-  ],
-  [
-   "uni1E0F",
-   0
-  ],
-  [
-   "uni1E10",
-   0
-  ],
-  [
-   "uni1E11",
-   0
-  ],
-  [
-   "uni1E12",
-   0
-  ],
-  [
-   "uni1E13",
-   0
-  ],
-  [
-   "uni1E14",
-   2
-  ],
-  [
-   "uni1E15",
-   2
-  ],
-  [
-   "uni1E16",
-   2
-  ],
-  [
-   "uni1E17",
-   2
-  ],
-  [
-   "uni1E18",
-   0
-  ],
-  [
-   "uni1E19",
-   0
-  ],
-  [
-   "uni1E1A",
-   0
-  ],
-  [
-   "uni1E1B",
-   0
-  ],
-  [
-   "uni1E1E",
-   2
-  ],
-  [
-   "uni1E1F",
-   2
-  ],
-  [
-   "uni1E20",
-   2
-  ],
-  [
-   "uni1E21",
-   2
-  ],
-  [
-   "uni1E22",
-   2
-  ],
-  [
-   "uni1E23",
-   2
-  ],
-  [
-   "uni1E24",
-   0
-  ],
-  [
-   "uni1E25",
-   0
-  ],
-  [
-   "uni1E26",
-   2
-  ],
-  [
-   "uni1E27",
-   2
-  ],
-  [
-   "uni1E28",
-   0
-  ],
-  [
-   "uni1E29",
-   0
-  ],
-  [
-   "uni1E2A",
-   0
-  ],
-  [
-   "uni1E2B",
-   0
-  ],
-  [
-   "uni1E2C",
-   0
-  ],
-  [
-   "uni1E2E",
-   2
-  ],
-  [
-   "uni1E2F",
-   2
-  ],
-  [
-   "uni1E30",
-   2
-  ],
-  [
-   "uni1E31",
-   2
-  ],
-  [
-   "uni1E32",
-   0
-  ],
-  [
-   "uni1E33",
-   0
-  ],
-  [
-   "uni1E34",
-   0
-  ],
-  [
-   "uni1E35",
-   0
-  ],
-  [
-   "uni1E36",
-   0
-  ],
-  [
-   "uni1E37",
-   0
-  ],
-  [
-   "uni1E3A",
-   0
-  ],
-  [
-   "uni1E3B",
-   0
-  ],
-  [
-   "uni1E3C",
-   0
-  ],
-  [
-   "uni1E3D",
-   0
-  ],
-  [
-   "uni1E3E",
-   2
-  ],
-  [
-   "uni1E3F",
-   2
-  ],
-  [
-   "uni1E40",
-   2
-  ],
-  [
-   "uni1E41",
-   2
-  ],
-  [
-   "uni1E42",
-   0
-  ],
-  [
-   "uni1E43",
-   0
-  ],
-  [
-   "uni1E44",
-   2
-  ],
-  [
-   "uni1E45",
-   2
-  ],
-  [
-   "uni1E46",
-   0
-  ],
-  [
-   "uni1E47",
-   0
-  ],
-  [
-   "uni1E48",
-   0
-  ],
-  [
-   "uni1E49",
-   0
-  ],
-  [
-   "uni1E4A",
-   0
-  ],
-  [
-   "uni1E4B",
-   0
-  ],
-  [
-   "uni1E4C",
-   2
-  ],
-  [
-   "uni1E4D",
-   2
-  ],
-  [
-   "uni1E4E",
-   2
-  ],
-  [
-   "uni1E4F",
-   2
-  ],
-  [
-   "uni1E50",
-   2
-  ],
-  [
-   "uni1E51",
-   2
-  ],
-  [
-   "uni1E52",
-   2
-  ],
-  [
-   "uni1E53",
-   2
-  ],
-  [
-   "uni1E54",
-   2
-  ],
-  [
-   "uni1E55",
-   2
-  ],
-  [
-   "uni1E56",
-   2
-  ],
-  [
-   "uni1E57",
-   2
-  ],
-  [
-   "uni1E58",
-   2
-  ],
-  [
-   "uni1E59",
-   2
-  ],
-  [
-   "uni1E5A",
-   0
-  ],
-  [
-   "uni1E5B",
-   0
-  ],
-  [
-   "uni1E5E",
-   0
-  ],
-  [
-   "uni1E5F",
-   0
-  ],
-  [
-   "uni1E60",
-   2
-  ],
-  [
-   "uni1E61",
-   2
-  ],
-  [
-   "uni1E62",
-   0
-  ],
-  [
-   "uni1E63",
-   0
-  ],
-  [
-   "uni1E64",
-   2
-  ],
-  [
-   "uni1E65",
-   2
-  ],
-  [
-   "uni1E66",
-   2
-  ],
-  [
-   "uni1E67",
-   2
-  ],
-  [
-   "uni1E6A",
-   2
-  ],
-  [
-   "uni1E6B",
-   2
-  ],
-  [
-   "uni1E6C",
-   0
-  ],
-  [
-   "uni1E6D",
-   0
-  ],
-  [
-   "uni1E6E",
-   0
-  ],
-  [
-   "uni1E6F",
-   0
-  ],
-  [
-   "uni1E70",
-   0
-  ],
-  [
-   "uni1E71",
-   0
-  ],
-  [
-   "uni1E72",
-   0
-  ],
-  [
-   "uni1E73",
-   0
-  ],
-  [
-   "uni1E74",
-   0
-  ],
-  [
-   "uni1E75",
-   0
-  ],
-  [
-   "uni1E76",
-   0
-  ],
-  [
-   "uni1E77",
-   0
-  ],
-  [
-   "uni1E78",
-   2
-  ],
-  [
-   "uni1E79",
-   2
-  ],
-  [
-   "uni1E7A",
-   2
-  ],
-  [
-   "uni1E7B",
-   2
-  ],
-  [
-   "uni1E7C",
-   2
-  ],
-  [
-   "uni1E7D",
-   2
-  ],
-  [
-   "uni1E7E",
-   0
-  ],
-  [
-   "uni1E7F",
-   0
-  ],
-  [
-   "uni1E86",
-   2
-  ],
-  [
-   "uni1E87",
-   2
-  ],
-  [
-   "uni1E88",
-   0
-  ],
-  [
-   "uni1E89",
-   0
-  ],
-  [
-   "uni1E8A",
-   2
-  ],
-  [
-   "uni1E8B",
-   2
-  ],
-  [
-   "uni1E8C",
-   2
-  ],
-  [
-   "uni1E8D",
-   2
-  ],
-  [
-   "uni1E8E",
-   2
-  ],
-  [
-   "uni1E8F",
-   2
-  ],
-  [
-   "uni1E90",
-   2
-  ],
-  [
-   "uni1E91",
-   2
-  ],
-  [
-   "uni1E92",
-   0
-  ],
-  [
-   "uni1E93",
-   0
-  ],
-  [
-   "uni1E94",
-   0
-  ],
-  [
-   "uni1E95",
-   0
-  ],
-  [
-   "uni1E96",
-   0
-  ],
-  [
-   "uni1E97",
-   2
-  ],
-  [
-   "uni1E98",
-   2
-  ],
-  [
-   "uni1E99",
-   2
-  ],
-  [
-   "uni1E9B",
-   2
-  ],
-  [
-   "uni1EA0",
-   0
-  ],
-  [
-   "uni1EA1",
-   0
-  ],
-  [
-   "uni1EA2",
-   2
-  ],
-  [
-   "uni1EA3",
-   2
-  ],
-  [
-   "uni1EA4",
-   2
-  ],
-  [
-   "uni1EA5",
-   2
-  ],
-  [
-   "uni1EA6",
-   2
-  ],
-  [
-   "uni1EA7",
-   2
-  ],
-  [
-   "uni1EA8",
-   2
-  ],
-  [
-   "uni1EA9",
-   2
-  ],
-  [
-   "uni1EAA",
-   2
-  ],
-  [
-   "uni1EAB",
-   2
-  ],
-  [
-   "uni1EAE",
-   2
-  ],
-  [
-   "uni1EAF",
-   2
-  ],
-  [
-   "uni1EB0",
-   2
-  ],
-  [
-   "uni1EB1",
-   2
-  ],
-  [
-   "uni1EB2",
-   2
-  ],
-  [
-   "uni1EB3",
-   2
-  ],
-  [
-   "uni1EB4",
-   2
-  ],
-  [
-   "uni1EB5",
-   2
-  ],
-  [
-   "uni1EB8",
-   0
-  ],
-  [
-   "uni1EB9",
-   0
-  ],
-  [
-   "uni1EBA",
-   2
-  ],
-  [
-   "uni1EBB",
-   2
-  ],
-  [
-   "uni1EBC",
-   2
-  ],
-  [
-   "uni1EBD",
-   2
-  ],
-  [
-   "uni1EBE",
-   2
-  ],
-  [
-   "uni1EBF",
-   2
-  ],
-  [
-   "uni1EC0",
-   2
-  ],
-  [
-   "uni1EC1",
-   2
-  ],
-  [
-   "uni1EC2",
-   2
-  ],
-  [
-   "uni1EC3",
-   2
-  ],
-  [
-   "uni1EC4",
-   2
-  ],
-  [
-   "uni1EC5",
-   2
-  ],
-  [
-   "uni1EC8",
-   2
-  ],
-  [
-   "uni1EC9",
-   2
-  ],
-  [
-   "uni1ECA",
-   0
-  ],
-  [
-   "uni1ECE",
-   2
-  ],
-  [
-   "uni1ECF",
-   2
-  ],
-  [
-   "uni1ED0",
-   2
-  ],
-  [
-   "uni1ED1",
-   2
-  ],
-  [
-   "uni1ED2",
-   2
-  ],
-  [
-   "uni1ED3",
-   2
-  ],
-  [
-   "uni1ED4",
-   2
-  ],
-  [
-   "uni1ED5",
-   2
-  ],
-  [
-   "uni1ED6",
-   2
-  ],
-  [
-   "uni1ED7",
-   2
-  ],
-  [
-   "uni1EDA",
-   2
-  ],
-  [
-   "uni1EDB",
-   2
-  ],
-  [
-   "uni1EDC",
-   2
-  ],
-  [
-   "uni1EDD",
-   2
-  ],
-  [
-   "uni1EDE",
-   2
-  ],
-  [
-   "uni1EDF",
-   2
-  ],
-  [
-   "uni1EE0",
-   2
-  ],
-  [
-   "uni1EE1",
-   2
-  ],
-  [
-   "uni1EE4",
-   0
-  ],
-  [
-   "uni1EE5",
-   0
-  ],
-  [
-   "uni1EE6",
-   2
-  ],
-  [
-   "uni1EE7",
-   2
-  ],
-  [
-   "uni1EE8",
-   2
-  ],
-  [
-   "uni1EE9",
-   2
-  ],
-  [
-   "uni1EEA",
-   2
-  ],
-  [
-   "uni1EEB",
-   2
-  ],
-  [
-   "uni1EEC",
-   2
-  ],
-  [
-   "uni1EED",
-   2
-  ],
-  [
-   "uni1EEE",
-   2
-  ],
-  [
-   "uni1EEF",
-   2
-  ],
-  [
-   "uni1EF0",
-   0
-  ],
-  [
-   "uni1EF4",
-   0
-  ],
-  [
-   "uni1EF5",
-   0
-  ],
-  [
-   "uni1EF6",
-   2
-  ],
-  [
-   "uni1EF7",
-   2
-  ],
-  [
-   "uni1EF8",
-   2
-  ],
-  [
-   "uni1EF9",
-   2
-  ],
-  [
-   "uogonek",
-   0
-  ],
-  [
-   "uring",
-   2
-  ],
-  [
-   "utilde",
-   2
-  ],
-  [
-   "wacute",
-   2
-  ],
-  [
-   "wcircumflex",
-   2
-  ],
-  [
-   "wdieresis",
-   2
-  ],
-  [
-   "wgrave",
-   2
-  ],
-  [
-   "yacute",
-   2
-  ],
-  [
-   "ycircumflex",
-   2
-  ],
-  [
-   "ydieresis",
-   2
-  ],
-  [
-   "ygrave",
-   2
-  ],
-  [
-   "zacute",
-   2
-  ],
-  [
-   "zcaron",
-   2
-  ],
-  [
-   "zdotaccent",
-   2
-  ]
- ]
+"A": {"0": "heuristic", "2": "heuristic"},
+"AE": {"0": "curated", "2": "curated"},
+"AEacute": {"2": "precomposed"},
+"Aacute": {"2": "precomposed"},
+"Abreve": {"2": "precomposed"},
+"Acircumflex": {"2": "precomposed"},
+"Adieresis": {"2": "precomposed"},
+"Agrave": {"2": "precomposed"},
+"Amacron": {"2": "precomposed"},
+"Aogonek": {"0": "precomposed"},
+"Aring": {"2": "precomposed"},
+"Aringacute": {"2": "precomposed"},
+"Atilde": {"2": "precomposed"},
+"B": {"0": "curated", "2": "heuristic"},
+"C": {"0": "heuristic", "2": "heuristic"},
+"Cacute": {"2": "precomposed"},
+"Ccaron": {"2": "precomposed"},
+"Ccedilla": {"0": "precomposed"},
+"Ccircumflex": {"2": "precomposed"},
+"Cdotaccent": {"2": "precomposed"},
+"D": {"0": "heuristic", "2": "heuristic"},
+"Dcaron": {"2": "precomposed"},
+"Dcroat": {"0": "derived", "2": "derived"},
+"E": {"0": "heuristic", "2": "heuristic"},
+"Eacute": {"0": "designer", "2": "precomposed"},
+"Ebreve": {"2": "precomposed"},
+"Ecaron": {"2": "precomposed"},
+"Ecircumflex": {"2": "precomposed"},
+"Edieresis": {"2": "precomposed"},
+"Edotaccent": {"2": "precomposed"},
+"Egrave": {"2": "precomposed"},
+"Emacron": {"2": "precomposed"},
+"Eng": {"0": "heuristic", "2": "heuristic"},
+"Eogonek": {"0": "precomposed"},
+"Eth": {"0": "derived", "2": "derived"},
+"F": {"0": "heuristic", "2": "heuristic"},
+"G": {"0": "normalized", "2": "heuristic"},
+"Gbreve": {"2": "precomposed"},
+"Gcaron": {"2": "precomposed"},
+"Gcircumflex": {"2": "precomposed"},
+"Gdotaccent": {"2": "precomposed"},
+"H": {"0": "heuristic", "2": "designer"},
+"Hbar": {"0": "derived", "2": "derived"},
+"Hcircumflex": {"2": "precomposed"},
+"I": {"0": "heuristic", "2": "heuristic"},
+"Iacute": {"2": "precomposed"},
+"Ibreve": {"2": "precomposed"},
+"Icircumflex": {"2": "precomposed"},
+"Idieresis": {"2": "precomposed"},
+"Idotaccent": {"2": "precomposed"},
+"Igrave": {"2": "precomposed"},
+"Imacron": {"2": "precomposed"},
+"Iogonek": {"0": "precomposed"},
+"Itilde": {"2": "precomposed"},
+"J": {"0": "normalized", "2": "heuristic"},
+"J.alt": {"0": "designer"},
+"Jcircumflex": {"2": "precomposed"},
+"K": {"0": "heuristic", "2": "heuristic"},
+"L": {"0": "curated", "2": "heuristic"},
+"Lacute": {"2": "precomposed"},
+"Lcaron": {"2": "precomposed"},
+"Ldot": {"0": "derived", "2": "derived"},
+"Lslash": {"0": "derived", "2": "derived"},
+"M": {"0": "heuristic", "2": "heuristic"},
+"N": {"0": "heuristic", "2": "heuristic"},
+"Nacute": {"2": "precomposed"},
+"Ncaron": {"2": "precomposed"},
+"Ntilde": {"2": "precomposed"},
+"O": {"0": "curated", "2": "heuristic"},
+"OE": {"0": "designer", "2": "heuristic"},
+"Oacute": {"2": "precomposed"},
+"Obreve": {"2": "precomposed"},
+"Ocircumflex": {"2": "precomposed"},
+"Odieresis": {"2": "precomposed"},
+"Ograve": {"2": "precomposed"},
+"Ohorn": {"2": "precomposed"},
+"Ohungarumlaut": {"2": "precomposed"},
+"Omacron": {"2": "precomposed"},
+"Oslash": {"0": "derived", "2": "derived"},
+"Oslashacute": {"2": "precomposed"},
+"Otilde": {"2": "precomposed"},
+"P": {"0": "heuristic", "2": "heuristic"},
+"Q": {"0": "normalized", "2": "heuristic"},
+"R": {"0": "normalized", "2": "normalized", "4": "designer"},
+"R.alt": {"0": "normalized", "2": "normalized", "4": "designer"},
+"Racute": {"2": "precomposed"},
+"Rcaron": {"2": "precomposed"},
+"S": {"0": "heuristic", "2": "normalized", "4": "designer"},
+"Sacute": {"2": "precomposed"},
+"Scaron": {"2": "precomposed"},
+"Scedilla": {"0": "precomposed"},
+"Scircumflex": {"2": "precomposed"},
+"T": {"0": "stem", "2": "stem", "4": "designer"},
+"Tbar": {"0": "derived", "2": "derived"},
+"Tcaron": {"2": "precomposed"},
+"Thorn": {"0": "heuristic", "2": "heuristic"},
+"U": {"0": "heuristic", "2": "heuristic"},
+"Uacute": {"2": "precomposed"},
+"Ubreve": {"2": "precomposed"},
+"Ucircumflex": {"2": "precomposed"},
+"Udieresis": {"2": "precomposed"},
+"Ugrave": {"2": "precomposed"},
+"Uhorn": {"0": "precomposed", "2": "precomposed"},
+"Uhungarumlaut": {"2": "precomposed"},
+"Umacron": {"2": "precomposed"},
+"Uogonek": {"0": "precomposed"},
+"Uring": {"2": "precomposed"},
+"Utilde": {"2": "precomposed"},
+"V": {"0": "normalized", "2": "normalized", "4": "designer"},
+"W": {"0": "normalized", "2": "normalized", "4": "designer"},
+"Wacute": {"2": "precomposed"},
+"Wcircumflex": {"2": "precomposed"},
+"Wdieresis": {"2": "precomposed"},
+"Wgrave": {"2": "precomposed"},
+"X": {"0": "normalized", "2": "normalized", "4": "designer"},
+"Y": {"0": "normalized", "2": "normalized", "4": "designer"},
+"Yacute": {"2": "precomposed"},
+"Ycircumflex": {"2": "precomposed"},
+"Ydieresis": {"2": "precomposed"},
+"Ygrave": {"2": "precomposed"},
+"Z": {"0": "curated", "2": "normalized", "4": "designer"},
+"Zacute": {"2": "precomposed"},
+"Zcaron": {"2": "precomposed"},
+"Zdotaccent": {"2": "precomposed"},
+"a": {"0": "curated", "2": "heuristic", "3": "designer"},
+"a.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"aacute": {"2": "precomposed"},
+"abreve": {"2": "precomposed"},
+"acircumflex": {"2": "precomposed"},
+"adieresis": {"2": "precomposed"},
+"ae": {"0": "designer", "2": "heuristic"},
+"ae.sc": {"0": "designer"},
+"aeacute": {"2": "precomposed"},
+"agrave": {"2": "precomposed"},
+"amacron": {"2": "precomposed"},
+"aogonek": {"0": "curated"},
+"aring": {"0": "designer", "2": "precomposed"},
+"aringacute": {"2": "precomposed"},
+"atilde": {"0": "designer", "2": "precomposed"},
+"b": {"0": "heuristic", "2": "heuristic"},
+"b.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"beta": {"0": "heuristic", "2": "heuristic"},
+"c": {"0": "heuristic", "2": "heuristic"},
+"c.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"cacute": {"2": "precomposed"},
+"ccaron": {"2": "precomposed"},
+"ccedilla": {"0": "precomposed"},
+"ccircumflex": {"2": "precomposed"},
+"cdotaccent": {"2": "precomposed"},
+"chi": {"0": "heuristic", "2": "heuristic"},
+"d": {"0": "heuristic", "2": "heuristic"},
+"d.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"dcaron": {"2": "precomposed"},
+"dcroat": {"0": "derived", "2": "derived"},
+"dotlessi": {"0": "heuristic", "2": "heuristic"},
+"e": {"0": "curated", "2": "heuristic"},
+"e.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"eacute": {"2": "precomposed"},
+"ebreve": {"2": "precomposed"},
+"ecaron": {"2": "precomposed"},
+"ecircumflex": {"2": "precomposed"},
+"edieresis": {"2": "precomposed"},
+"edotaccent": {"2": "precomposed"},
+"egrave": {"2": "precomposed"},
+"emacron": {"2": "precomposed"},
+"eng": {"0": "heuristic", "2": "heuristic"},
+"eogonek": {"0": "precomposed"},
+"eth": {"0": "heuristic", "2": "heuristic"},
+"f": {"0": "heuristic", "2": "heuristic"},
+"f.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"f.short": {"2": "designer"},
+"f_t": {"2": "normalized", "3": "designer", "4": "designer"},
+"florin": {"0": "curated", "2": "curated"},
+"g": {"0": "designer", "2": "designer"},
+"g.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"gbreve": {"2": "precomposed"},
+"gcaron": {"2": "precomposed"},
+"gcircumflex": {"2": "precomposed"},
+"gdotaccent": {"2": "precomposed"},
+"germandbls": {"0": "heuristic", "2": "heuristic"},
+"h": {"0": "heuristic", "2": "designer", "4": "designer"},
+"h.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"hbar": {"0": "derived", "2": "derived"},
+"hcircumflex": {"2": "precomposed"},
+"i": {"0": "curated", "2": "heuristic", "3": "designer", "4": "designer"},
+"i.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"iacute": {"2": "precomposed"},
+"ibreve": {"2": "precomposed"},
+"icircumflex": {"2": "precomposed"},
+"idieresis": {"2": "precomposed"},
+"igrave": {"2": "precomposed"},
+"imacron": {"2": "precomposed"},
+"itilde": {"0": "designer", "2": "precomposed"},
+"j": {"0": "curated", "2": "designer"},
+"j.sc": {"0": "designer", "2": "designer"},
+"jcircumflex": {"2": "precomposed"},
+"k": {"0": "heuristic", "2": "heuristic"},
+"k.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"kgreenlandic": {"0": "normalized", "2": "normalized", "4": "designer"},
+"l": {"0": "curated", "2": "curated"},
+"l.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"lacute": {"2": "precomposed"},
+"lcaron": {"2": "precomposed"},
+"ldot": {"0": "derived", "2": "derived"},
+"longs": {"0": "heuristic", "2": "heuristic"},
+"lslash": {"0": "derived", "2": "derived"},
+"m": {"0": "stem", "2": "stem", "4": "designer"},
+"m.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"n": {"0": "heuristic", "2": "normalized", "4": "designer"},
+"n.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"nacute": {"2": "precomposed"},
+"ncaron": {"2": "precomposed"},
+"ntilde": {"2": "precomposed"},
+"o": {"0": "heuristic", "2": "heuristic"},
+"o.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"oacute": {"2": "precomposed"},
+"obreve": {"2": "precomposed"},
+"ocircumflex": {"2": "precomposed"},
+"odieresis": {"2": "precomposed"},
+"oe": {"0": "designer", "2": "heuristic"},
+"oe.sc": {"0": "designer"},
+"ograve": {"2": "precomposed"},
+"ohorn": {"2": "precomposed"},
+"ohungarumlaut": {"2": "precomposed"},
+"omacron": {"2": "precomposed"},
+"oslash": {"0": "derived", "2": "derived"},
+"oslashacute": {"2": "precomposed"},
+"otilde": {"0": "designer", "2": "precomposed"},
+"p": {"0": "heuristic", "2": "heuristic"},
+"p.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"q": {"0": "heuristic", "2": "heuristic"},
+"q.sc": {"0": "designer"},
+"r": {"0": "heuristic", "2": "curated"},
+"r.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"racute": {"2": "precomposed"},
+"rcaron": {"2": "precomposed"},
+"s": {"0": "heuristic", "2": "heuristic"},
+"s.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"sacute": {"2": "precomposed"},
+"scaron": {"2": "precomposed"},
+"scedilla": {"0": "precomposed"},
+"scircumflex": {"2": "precomposed"},
+"t": {"0": "heuristic", "2": "normalized", "3": "designer", "4": "designer"},
+"t.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"tbar": {"0": "derived", "2": "derived"},
+"tcaron": {"2": "precomposed"},
+"theta": {"0": "heuristic", "2": "heuristic"},
+"thorn": {"0": "heuristic", "2": "heuristic"},
+"u": {"0": "normalized", "2": "normalized", "3": "designer", "4": "designer"},
+"u.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"uacute": {"2": "precomposed"},
+"ubreve": {"2": "precomposed"},
+"ucircumflex": {"2": "precomposed"},
+"udieresis": {"2": "precomposed"},
+"ugrave": {"2": "precomposed"},
+"uhorn": {"2": "precomposed"},
+"uhungarumlaut": {"2": "precomposed"},
+"umacron": {"2": "precomposed"},
+"uni00A0": {"0": "curated", "2": "curated"},
+"uni0122": {"0": "precomposed"},
+"uni0123": {"2": "precomposed"},
+"uni0136": {"0": "precomposed"},
+"uni0137": {"0": "precomposed"},
+"uni013B": {"0": "precomposed"},
+"uni013C": {"0": "precomposed"},
+"uni0145": {"0": "precomposed"},
+"uni0146": {"0": "precomposed"},
+"uni0156": {"0": "precomposed"},
+"uni0157": {"0": "precomposed"},
+"uni0162": {"0": "precomposed"},
+"uni0163": {"0": "precomposed"},
+"uni0180": {"0": "derived", "2": "derived"},
+"uni0181": {"0": "derived", "2": "derived"},
+"uni0182": {"0": "heuristic", "2": "heuristic"},
+"uni0183": {"0": "derived", "2": "derived"},
+"uni0184": {"0": "heuristic", "2": "heuristic"},
+"uni0186": {"0": "normalized", "2": "heuristic"},
+"uni0187": {"0": "derived", "2": "derived"},
+"uni0188": {"0": "derived", "2": "derived"},
+"uni0189": {"0": "derived", "2": "derived"},
+"uni018A": {"0": "derived", "2": "derived"},
+"uni018B": {"0": "heuristic", "2": "heuristic"},
+"uni018C": {"0": "derived", "2": "derived"},
+"uni018E": {"0": "heuristic", "2": "heuristic"},
+"uni018F": {"0": "curated", "2": "heuristic"},
+"uni0190": {"0": "heuristic", "2": "heuristic"},
+"uni0191": {"0": "heuristic", "2": "derived"},
+"uni0193": {"0": "derived", "2": "derived"},
+"uni0194": {"0": "heuristic", "2": "heuristic"},
+"uni0196": {"0": "heuristic", "2": "heuristic"},
+"uni0197": {"0": "derived", "2": "derived"},
+"uni0198": {"0": "heuristic", "2": "derived"},
+"uni0199": {"0": "heuristic", "2": "derived"},
+"uni019A": {"0": "derived", "2": "derived"},
+"uni019C": {"0": "heuristic", "2": "heuristic"},
+"uni019D": {"0": "heuristic", "2": "derived"},
+"uni019F": {"0": "derived", "2": "derived"},
+"uni01A2": {"0": "heuristic", "2": "heuristic"},
+"uni01A4": {"0": "derived", "2": "derived"},
+"uni01A5": {"0": "derived", "2": "derived"},
+"uni01A9": {"0": "curated", "2": "curated"},
+"uni01AB": {"0": "derived", "2": "derived"},
+"uni01AC": {"0": "derived", "2": "derived"},
+"uni01AD": {"0": "derived", "2": "derived"},
+"uni01AE": {"0": "derived", "2": "derived"},
+"uni01B1": {"0": "curated", "2": "curated"},
+"uni01B2": {"0": "curated", "2": "curated"},
+"uni01B3": {"0": "derived", "2": "derived"},
+"uni01B4": {"0": "heuristic", "2": "heuristic"},
+"uni01B5": {"0": "curated", "2": "curated"},
+"uni01B6": {"0": "derived", "2": "derived"},
+"uni01B7": {"0": "heuristic", "2": "designer"},
+"uni01CD": {"2": "precomposed"},
+"uni01CE": {"2": "precomposed"},
+"uni01CF": {"2": "precomposed"},
+"uni01D0": {"2": "precomposed"},
+"uni01D1": {"2": "precomposed"},
+"uni01D2": {"2": "precomposed"},
+"uni01D3": {"2": "precomposed"},
+"uni01D4": {"2": "precomposed"},
+"uni01D5": {"2": "precomposed"},
+"uni01D6": {"2": "precomposed"},
+"uni01D7": {"2": "precomposed"},
+"uni01D8": {"2": "precomposed"},
+"uni01D9": {"2": "precomposed"},
+"uni01DA": {"2": "precomposed"},
+"uni01DB": {"2": "precomposed"},
+"uni01DC": {"2": "precomposed"},
+"uni01DE": {"2": "precomposed"},
+"uni01DF": {"2": "precomposed"},
+"uni01E0": {"2": "precomposed"},
+"uni01E1": {"2": "precomposed"},
+"uni01E2": {"2": "precomposed"},
+"uni01E3": {"2": "precomposed"},
+"uni01E4": {"0": "derived", "2": "derived"},
+"uni01E5": {"0": "derived", "2": "derived"},
+"uni01E8": {"2": "precomposed"},
+"uni01E9": {"2": "precomposed"},
+"uni01EA": {"0": "precomposed"},
+"uni01EB": {"0": "precomposed"},
+"uni01EE": {"2": "precomposed"},
+"uni01EF": {"2": "precomposed"},
+"uni01F0": {"2": "precomposed"},
+"uni01F4": {"2": "precomposed"},
+"uni01F5": {"2": "precomposed"},
+"uni01F8": {"2": "precomposed"},
+"uni01F9": {"2": "precomposed"},
+"uni0200": {"2": "precomposed"},
+"uni0201": {"2": "precomposed"},
+"uni0202": {"2": "precomposed"},
+"uni0203": {"2": "precomposed"},
+"uni0204": {"2": "precomposed"},
+"uni0205": {"2": "precomposed"},
+"uni0206": {"2": "precomposed"},
+"uni0207": {"2": "precomposed"},
+"uni0208": {"2": "precomposed"},
+"uni0209": {"2": "precomposed"},
+"uni020A": {"2": "precomposed"},
+"uni020B": {"2": "precomposed"},
+"uni020C": {"2": "precomposed"},
+"uni020D": {"2": "precomposed"},
+"uni020E": {"2": "precomposed"},
+"uni020F": {"2": "precomposed"},
+"uni0210": {"2": "precomposed"},
+"uni0211": {"2": "precomposed"},
+"uni0212": {"2": "precomposed"},
+"uni0213": {"2": "precomposed"},
+"uni0214": {"2": "precomposed"},
+"uni0215": {"2": "precomposed"},
+"uni0216": {"2": "precomposed"},
+"uni0217": {"2": "precomposed"},
+"uni0218": {"0": "precomposed"},
+"uni0219": {"0": "precomposed"},
+"uni021A": {"0": "precomposed"},
+"uni021B": {"0": "precomposed"},
+"uni021E": {"2": "precomposed"},
+"uni021F": {"2": "precomposed"},
+"uni0221": {"0": "derived", "2": "derived"},
+"uni0226": {"2": "precomposed"},
+"uni0227": {"2": "precomposed"},
+"uni0228": {"0": "precomposed"},
+"uni0229": {"0": "precomposed"},
+"uni022A": {"2": "precomposed"},
+"uni022B": {"2": "precomposed"},
+"uni022C": {"2": "precomposed"},
+"uni022D": {"2": "precomposed"},
+"uni022E": {"2": "precomposed"},
+"uni022F": {"2": "precomposed"},
+"uni0230": {"2": "precomposed"},
+"uni0231": {"2": "precomposed"},
+"uni0232": {"2": "precomposed"},
+"uni0233": {"2": "precomposed"},
+"uni0234": {"0": "derived", "2": "derived"},
+"uni0235": {"0": "derived", "2": "derived"},
+"uni0236": {"0": "derived", "2": "derived"},
+"uni0237": {"0": "stem", "2": "heuristic"},
+"uni023A": {"0": "derived", "2": "derived"},
+"uni023B": {"0": "derived", "2": "derived"},
+"uni023C": {"0": "derived", "2": "derived"},
+"uni023D": {"0": "derived", "2": "derived"},
+"uni023E": {"0": "derived", "2": "derived"},
+"uni0243": {"0": "derived", "2": "derived"},
+"uni0247": {"0": "derived", "2": "derived"},
+"uni0248": {"0": "derived", "2": "derived"},
+"uni0249": {"0": "heuristic", "2": "derived"},
+"uni0249.dotless": {"0": "derived", "2": "derived"},
+"uni024D": {"0": "derived", "2": "derived"},
+"uni0250": {"0": "heuristic", "2": "heuristic"},
+"uni0251": {"0": "curated", "2": "curated"},
+"uni0252": {"0": "heuristic", "2": "heuristic"},
+"uni0253": {"0": "derived", "2": "derived"},
+"uni0254": {"0": "designer", "2": "normalized"},
+"uni0255": {"0": "derived", "2": "derived"},
+"uni0256": {"0": "derived", "2": "derived"},
+"uni0257": {"0": "derived", "2": "derived"},
+"uni0258": {"0": "heuristic", "2": "curated"},
+"uni0259": {"0": "heuristic", "2": "normalized"},
+"uni025A": {"0": "heuristic", "2": "curated"},
+"uni025B": {"0": "heuristic", "2": "heuristic"},
+"uni025C": {"0": "heuristic", "2": "curated"},
+"uni025D": {"0": "heuristic", "2": "derived"},
+"uni025E": {"0": "heuristic", "2": "heuristic"},
+"uni025F": {"0": "derived", "2": "derived"},
+"uni0260": {"0": "derived", "2": "heuristic"},
+"uni0261": {"0": "heuristic", "2": "heuristic"},
+"uni0262": {"0": "heuristic", "2": "heuristic"},
+"uni0263": {"0": "heuristic", "2": "heuristic"},
+"uni0264": {"0": "heuristic", "2": "heuristic"},
+"uni0265": {"0": "heuristic", "2": "heuristic"},
+"uni0266": {"0": "derived", "2": "derived"},
+"uni0267": {"0": "heuristic", "2": "heuristic"},
+"uni0268": {"0": "curated", "2": "derived"},
+"uni0268.dotless": {"0": "derived", "2": "derived"},
+"uni0269": {"0": "derived", "2": "derived"},
+"uni026A": {"0": "heuristic", "2": "heuristic"},
+"uni026B": {"0": "derived", "2": "derived"},
+"uni026C": {"0": "derived", "2": "derived"},
+"uni026D": {"0": "derived", "2": "derived"},
+"uni026E": {"0": "derived", "2": "curated"},
+"uni026F": {"0": "heuristic", "2": "heuristic"},
+"uni0270": {"0": "heuristic", "2": "curated"},
+"uni0271": {"0": "derived", "2": "derived"},
+"uni0272": {"0": "derived", "2": "derived"},
+"uni0273": {"0": "derived", "2": "derived"},
+"uni0274": {"0": "heuristic", "2": "heuristic"},
+"uni0275": {"0": "derived", "2": "derived"},
+"uni0276": {"0": "curated", "2": "curated"},
+"uni0277": {"0": "heuristic", "2": "heuristic"},
+"uni0278": {"0": "heuristic", "2": "heuristic"},
+"uni0279": {"0": "curated", "2": "heuristic"},
+"uni027A": {"0": "curated", "2": "heuristic"},
+"uni027B": {"0": "derived", "2": "derived"},
+"uni027C": {"0": "derived", "2": "curated"},
+"uni027D": {"0": "derived", "2": "derived"},
+"uni027E": {"0": "heuristic", "2": "curated"},
+"uni027F": {"0": "heuristic", "2": "heuristic"},
+"uni027F.desc": {"0": "derived", "2": "curated"},
+"uni0280": {"0": "curated", "2": "heuristic"},
+"uni0281": {"0": "heuristic", "2": "heuristic"},
+"uni0282": {"0": "derived", "2": "derived"},
+"uni0283": {"0": "heuristic", "2": "curated"},
+"uni0284": {"0": "derived", "2": "derived"},
+"uni0285": {"0": "derived", "2": "heuristic"},
+"uni0286": {"0": "derived", "2": "derived"},
+"uni0287": {"0": "heuristic", "2": "heuristic"},
+"uni0288": {"0": "derived", "2": "derived"},
+"uni0289": {"0": "derived", "2": "derived"},
+"uni028A": {"0": "designer", "2": "heuristic"},
+"uni028B": {"0": "heuristic", "2": "heuristic"},
+"uni028C": {"0": "heuristic", "2": "curated"},
+"uni028D": {"0": "heuristic", "2": "heuristic"},
+"uni028E": {"0": "curated", "2": "heuristic"},
+"uni028F": {"0": "heuristic", "2": "heuristic"},
+"uni0290": {"0": "derived", "2": "derived"},
+"uni0291": {"0": "heuristic", "2": "derived"},
+"uni0292": {"0": "designer", "2": "designer"},
+"uni0293": {"0": "curated", "2": "curated"},
+"uni0294": {"0": "heuristic", "2": "heuristic"},
+"uni0295": {"0": "heuristic", "2": "heuristic"},
+"uni0296": {"0": "heuristic", "2": "heuristic"},
+"uni0297": {"0": "heuristic", "2": "heuristic"},
+"uni0299": {"0": "heuristic", "2": "heuristic"},
+"uni029B": {"0": "derived", "2": "derived"},
+"uni029C": {"0": "heuristic", "2": "designer"},
+"uni029D": {"0": "derived", "2": "heuristic"},
+"uni029F": {"0": "curated", "2": "heuristic"},
+"uni02A0": {"0": "derived", "2": "derived"},
+"uni02A1": {"0": "derived", "2": "derived"},
+"uni02A2": {"0": "derived", "2": "derived"},
+"uni02AE": {"0": "heuristic", "2": "heuristic"},
+"uni02AF": {"0": "heuristic", "2": "heuristic"},
+"uni03D9": {"4": "designer"},
+"uni040B": {"0": "normalized", "2": "normalized", "3": "designer"},
+"uni0433": {"4": "designer"},
+"uni043B": {"4": "designer"},
+"uni045A": {"4": "designer"},
+"uni0473": {"0": "designer", "2": "normalized", "4": "designer"},
+"uni04E9": {"0": "designer", "2": "normalized"},
+"uni1E00": {"0": "precomposed"},
+"uni1E01": {"0": "precomposed"},
+"uni1E02": {"2": "precomposed"},
+"uni1E03": {"2": "precomposed"},
+"uni1E04": {"0": "precomposed"},
+"uni1E05": {"0": "precomposed"},
+"uni1E06": {"0": "precomposed"},
+"uni1E07": {"0": "precomposed"},
+"uni1E0A": {"2": "precomposed"},
+"uni1E0B": {"2": "precomposed"},
+"uni1E0C": {"0": "precomposed"},
+"uni1E0D": {"0": "precomposed"},
+"uni1E0E": {"0": "precomposed"},
+"uni1E0F": {"0": "precomposed"},
+"uni1E10": {"0": "precomposed"},
+"uni1E11": {"0": "precomposed"},
+"uni1E12": {"0": "precomposed"},
+"uni1E13": {"0": "precomposed"},
+"uni1E14": {"2": "precomposed"},
+"uni1E15": {"2": "precomposed"},
+"uni1E16": {"2": "precomposed"},
+"uni1E17": {"2": "precomposed"},
+"uni1E18": {"0": "precomposed"},
+"uni1E19": {"0": "precomposed"},
+"uni1E1A": {"0": "precomposed"},
+"uni1E1B": {"0": "precomposed"},
+"uni1E1E": {"2": "precomposed"},
+"uni1E1F": {"2": "precomposed"},
+"uni1E20": {"2": "precomposed"},
+"uni1E21": {"2": "precomposed"},
+"uni1E22": {"2": "precomposed"},
+"uni1E23": {"2": "precomposed"},
+"uni1E24": {"0": "precomposed"},
+"uni1E25": {"0": "precomposed"},
+"uni1E26": {"2": "precomposed"},
+"uni1E27": {"2": "precomposed"},
+"uni1E28": {"0": "precomposed"},
+"uni1E29": {"0": "precomposed"},
+"uni1E2A": {"0": "precomposed"},
+"uni1E2B": {"0": "precomposed"},
+"uni1E2C": {"0": "precomposed"},
+"uni1E2E": {"2": "precomposed"},
+"uni1E2F": {"2": "precomposed"},
+"uni1E30": {"2": "precomposed"},
+"uni1E31": {"2": "precomposed"},
+"uni1E32": {"0": "precomposed"},
+"uni1E33": {"0": "precomposed"},
+"uni1E34": {"0": "precomposed"},
+"uni1E35": {"0": "precomposed"},
+"uni1E36": {"0": "precomposed"},
+"uni1E37": {"0": "precomposed"},
+"uni1E3A": {"0": "precomposed"},
+"uni1E3B": {"0": "precomposed"},
+"uni1E3C": {"0": "precomposed"},
+"uni1E3D": {"0": "precomposed"},
+"uni1E3E": {"2": "precomposed"},
+"uni1E3F": {"2": "precomposed"},
+"uni1E40": {"2": "precomposed"},
+"uni1E41": {"2": "precomposed"},
+"uni1E42": {"0": "precomposed"},
+"uni1E43": {"0": "precomposed"},
+"uni1E44": {"2": "precomposed"},
+"uni1E45": {"2": "precomposed"},
+"uni1E46": {"0": "precomposed"},
+"uni1E47": {"0": "precomposed"},
+"uni1E48": {"0": "precomposed"},
+"uni1E49": {"0": "precomposed"},
+"uni1E4A": {"0": "precomposed"},
+"uni1E4B": {"0": "precomposed"},
+"uni1E4C": {"2": "precomposed"},
+"uni1E4D": {"2": "precomposed"},
+"uni1E4E": {"2": "precomposed"},
+"uni1E4F": {"2": "precomposed"},
+"uni1E50": {"2": "precomposed"},
+"uni1E51": {"2": "precomposed"},
+"uni1E52": {"2": "precomposed"},
+"uni1E53": {"2": "precomposed"},
+"uni1E54": {"2": "precomposed"},
+"uni1E55": {"2": "precomposed"},
+"uni1E56": {"2": "precomposed"},
+"uni1E57": {"2": "precomposed"},
+"uni1E58": {"2": "precomposed"},
+"uni1E59": {"2": "precomposed"},
+"uni1E5A": {"0": "precomposed"},
+"uni1E5B": {"0": "precomposed"},
+"uni1E5E": {"0": "precomposed"},
+"uni1E5F": {"0": "precomposed"},
+"uni1E60": {"2": "precomposed"},
+"uni1E61": {"2": "precomposed"},
+"uni1E62": {"0": "precomposed"},
+"uni1E63": {"0": "precomposed"},
+"uni1E64": {"2": "precomposed"},
+"uni1E65": {"2": "precomposed"},
+"uni1E66": {"2": "precomposed"},
+"uni1E67": {"2": "precomposed"},
+"uni1E6A": {"2": "precomposed"},
+"uni1E6B": {"2": "precomposed"},
+"uni1E6C": {"0": "precomposed"},
+"uni1E6D": {"0": "precomposed"},
+"uni1E6E": {"0": "precomposed"},
+"uni1E6F": {"0": "precomposed"},
+"uni1E70": {"0": "precomposed"},
+"uni1E71": {"0": "precomposed"},
+"uni1E72": {"0": "precomposed"},
+"uni1E73": {"0": "precomposed"},
+"uni1E74": {"0": "precomposed"},
+"uni1E75": {"0": "precomposed"},
+"uni1E76": {"0": "precomposed"},
+"uni1E77": {"0": "precomposed"},
+"uni1E78": {"2": "precomposed"},
+"uni1E79": {"2": "precomposed"},
+"uni1E7A": {"2": "precomposed"},
+"uni1E7B": {"2": "precomposed"},
+"uni1E7C": {"0": "designer", "2": "precomposed"},
+"uni1E7D": {"0": "designer", "2": "precomposed"},
+"uni1E7E": {"0": "precomposed"},
+"uni1E7F": {"0": "precomposed"},
+"uni1E86": {"2": "precomposed"},
+"uni1E87": {"2": "precomposed"},
+"uni1E88": {"0": "precomposed"},
+"uni1E89": {"0": "precomposed"},
+"uni1E8A": {"2": "precomposed"},
+"uni1E8B": {"2": "precomposed"},
+"uni1E8C": {"2": "precomposed"},
+"uni1E8D": {"2": "precomposed"},
+"uni1E8E": {"2": "precomposed"},
+"uni1E8F": {"2": "precomposed"},
+"uni1E90": {"2": "precomposed"},
+"uni1E91": {"2": "precomposed"},
+"uni1E92": {"0": "precomposed"},
+"uni1E93": {"0": "precomposed"},
+"uni1E94": {"0": "precomposed"},
+"uni1E95": {"0": "precomposed"},
+"uni1E96": {"0": "precomposed"},
+"uni1E97": {"2": "precomposed"},
+"uni1E98": {"2": "precomposed"},
+"uni1E99": {"2": "precomposed"},
+"uni1E9A": {"0": "derived", "2": "derived"},
+"uni1E9B": {"2": "precomposed"},
+"uni1EA0": {"0": "precomposed"},
+"uni1EA1": {"0": "precomposed"},
+"uni1EA2": {"2": "precomposed"},
+"uni1EA3": {"2": "precomposed"},
+"uni1EA4": {"2": "precomposed"},
+"uni1EA5": {"2": "precomposed"},
+"uni1EA6": {"2": "precomposed"},
+"uni1EA7": {"2": "precomposed"},
+"uni1EA8": {"2": "precomposed"},
+"uni1EA9": {"2": "precomposed"},
+"uni1EAA": {"2": "precomposed"},
+"uni1EAB": {"2": "precomposed"},
+"uni1EAE": {"2": "precomposed"},
+"uni1EAF": {"2": "precomposed"},
+"uni1EB0": {"2": "precomposed"},
+"uni1EB1": {"2": "precomposed"},
+"uni1EB2": {"2": "precomposed"},
+"uni1EB3": {"2": "precomposed"},
+"uni1EB4": {"2": "precomposed"},
+"uni1EB5": {"2": "precomposed"},
+"uni1EB8": {"0": "precomposed"},
+"uni1EB9": {"0": "precomposed"},
+"uni1EBA": {"2": "precomposed"},
+"uni1EBB": {"2": "precomposed"},
+"uni1EBC": {"2": "precomposed"},
+"uni1EBD": {"0": "designer", "2": "precomposed"},
+"uni1EBE": {"2": "precomposed"},
+"uni1EBF": {"2": "precomposed"},
+"uni1EC0": {"2": "precomposed"},
+"uni1EC1": {"2": "precomposed"},
+"uni1EC2": {"2": "precomposed"},
+"uni1EC3": {"2": "precomposed"},
+"uni1EC4": {"2": "precomposed"},
+"uni1EC5": {"2": "precomposed"},
+"uni1EC8": {"2": "precomposed"},
+"uni1EC9": {"2": "precomposed"},
+"uni1ECA": {"0": "precomposed"},
+"uni1ECC": {"0": "normalized"},
+"uni1ECD": {"0": "normalized"},
+"uni1ECE": {"2": "precomposed"},
+"uni1ECF": {"2": "precomposed"},
+"uni1ED0": {"2": "precomposed"},
+"uni1ED1": {"2": "precomposed"},
+"uni1ED2": {"2": "precomposed"},
+"uni1ED3": {"2": "precomposed"},
+"uni1ED4": {"2": "precomposed"},
+"uni1ED5": {"2": "precomposed"},
+"uni1ED6": {"2": "precomposed"},
+"uni1ED7": {"2": "precomposed"},
+"uni1EDA": {"2": "precomposed"},
+"uni1EDB": {"2": "precomposed"},
+"uni1EDC": {"2": "precomposed"},
+"uni1EDD": {"2": "precomposed"},
+"uni1EDE": {"2": "precomposed"},
+"uni1EDF": {"2": "precomposed"},
+"uni1EE0": {"2": "precomposed"},
+"uni1EE1": {"2": "precomposed"},
+"uni1EE4": {"0": "precomposed"},
+"uni1EE5": {"0": "precomposed"},
+"uni1EE6": {"2": "precomposed"},
+"uni1EE7": {"2": "precomposed"},
+"uni1EE8": {"2": "precomposed"},
+"uni1EE9": {"2": "precomposed"},
+"uni1EEA": {"2": "precomposed"},
+"uni1EEB": {"2": "precomposed"},
+"uni1EEC": {"2": "precomposed"},
+"uni1EED": {"2": "precomposed"},
+"uni1EEE": {"2": "precomposed"},
+"uni1EEF": {"2": "precomposed"},
+"uni1EF0": {"0": "precomposed"},
+"uni1EF4": {"0": "precomposed"},
+"uni1EF5": {"0": "precomposed"},
+"uni1EF6": {"2": "precomposed"},
+"uni1EF7": {"2": "precomposed"},
+"uni1EF8": {"2": "precomposed"},
+"uni1EF9": {"2": "precomposed"},
+"uni2139": {"2": "normalized", "3": "designer", "4": "designer"},
+"uni2C60": {"0": "derived", "2": "derived"},
+"uni2C61": {"0": "derived", "2": "derived"},
+"uni2C62": {"0": "derived", "2": "derived"},
+"uni2C63": {"0": "derived", "2": "derived"},
+"uni2C64": {"0": "heuristic", "2": "derived"},
+"uni2C65": {"0": "derived", "2": "derived"},
+"uni2C66": {"0": "derived", "2": "derived"},
+"uni2C67": {"0": "derived", "2": "derived"},
+"uni2C68": {"0": "derived", "2": "derived"},
+"uni2C69": {"0": "heuristic", "2": "heuristic"},
+"uni2C6A": {"0": "heuristic", "2": "derived"},
+"uni2C6B": {"0": "heuristic", "2": "heuristic"},
+"uni2C6C": {"0": "heuristic", "2": "heuristic"},
+"uogonek": {"0": "precomposed"},
+"uring": {"2": "precomposed"},
+"utilde": {"0": "designer", "2": "precomposed"},
+"v": {"0": "heuristic", "2": "heuristic"},
+"v.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"w": {"0": "heuristic", "2": "heuristic"},
+"w.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"wacute": {"2": "precomposed"},
+"wcircumflex": {"2": "precomposed"},
+"wdieresis": {"2": "precomposed"},
+"wgrave": {"2": "precomposed"},
+"x": {"0": "heuristic", "2": "heuristic"},
+"x.sc": {"0": "designer", "2": "designer", "4": "designer"},
+"y": {"0": "heuristic", "2": "heuristic"},
+"y.alt": {"0": "normalized", "2": "normalized", "3": "designer", "4": "designer"},
+"y.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"yacute": {"2": "precomposed"},
+"ycircumflex": {"2": "precomposed"},
+"ydieresis": {"2": "precomposed"},
+"ygrave": {"2": "precomposed"},
+"z": {"0": "heuristic", "2": "heuristic"},
+"z.sc": {"0": "designer", "2": "designer", "3": "designer", "4": "designer"},
+"zacute": {"2": "precomposed"},
+"zcaron": {"2": "precomposed"},
+"zdotaccent": {"2": "precomposed"}
 }

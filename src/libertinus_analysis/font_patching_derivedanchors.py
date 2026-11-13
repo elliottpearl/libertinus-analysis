@@ -340,7 +340,7 @@ def curated_classes(font_key, glyph_name, cmap_reverse):
 # ------------------------------------------------------------
 
 def _patch_tail_letter(ttfont, font_key, sub, cp, derived_glyph, base_glyph, classes, label,
-                       cmap_reverse, report):
+                       cmap_reverse, report, touched):
     """Stage 8 for a letter in stem_match (tail_anchor). Returns the number of anchors set."""
     curated = curated_classes(font_key, derived_glyph, cmap_reverse)
     base_rec, _ = get_base_record_for_glyph(sub, base_glyph)
@@ -361,16 +361,21 @@ def _patch_tail_letter(ttfont, font_key, sub, cp, derived_glyph, base_glyph, cla
         rec, _ = ensure_base_record_for_glyph(sub, derived_glyph)
         old = get_anchor_from_baserec(rec, cls)
         set_anchor_in_baserec(rec, cls, xy[0], xy[1])
+        touched.add((derived_glyph, cls))
         count += 1
         report.append(f"{label} {derived_glyph}: {name} anchor ({xy[0]}, {xy[1]}) from {base_glyph} "
                       f"{base_xy}, {note}; was {old}")
     return count
 
-def patch_derived_anchors(ttfont, font_key, lookup_index):
+def patch_derived_anchors(ttfont, font_key, lookup_index, touched=None):
     """
     Give each derived letter its base letter's anchor plus the outline shift,
-    for the listed classes. Returns: list of report lines.
+    for the listed classes. Returns: list of report lines. If touched is a set,
+    every (glyph name, class) set here is added to it, also where the anchor
+    already had the inherited value (the patch's owner record needs this).
     """
+    if touched is None:
+        touched = set()
     subtables = find_mark_to_base_subtables(ttfont, lookup_index)
     if not subtables:
         return [f"No MarkToBase (LookupType 4) subtables found in lookup {lookup_index}; SKIPPED"]
@@ -394,7 +399,7 @@ def patch_derived_anchors(ttfont, font_key, lookup_index):
         cp = cmap_reverse.get(derived_glyph)
         if cp in stem_match:
             inherited += _patch_tail_letter(ttfont, font_key, sub, cp, derived_glyph, base_glyph,
-                                            classes, label, cmap_reverse, report)
+                                            classes, label, cmap_reverse, report, touched)
             continue
 
         stem_dx = None
@@ -429,6 +434,7 @@ def patch_derived_anchors(ttfont, font_key, lookup_index):
             old = get_anchor_from_baserec(rec, cls)
             x, y, dy = inherited_anchor(ttfont, font_key, derived_glyph, base_glyph, base_xy, cls, dx)
             set_anchor_in_baserec(rec, cls, x, y)
+            touched.add((derived_glyph, cls))
             inherited += 1
             moved = f", y moved {dy:+d} to clear the added part" if dy else ""
             report.append(
@@ -453,6 +459,7 @@ def patch_derived_anchors(ttfont, font_key, lookup_index):
             rec, _ = ensure_base_record_for_glyph(sub, derived_glyph)
             old = get_anchor_from_baserec(rec, cls)
             set_anchor_in_baserec(rec, cls, x, y)
+            touched.add((derived_glyph, cls))
             inherited += 1
             report.append(
                 f"U+{cp:04X} {derived_glyph}: {name} anchor ({x}, {y}), x from {base_glyph} "

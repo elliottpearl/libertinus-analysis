@@ -1,6 +1,8 @@
 # fontmetrics_report.py
 from __future__ import annotations
 
+from functools import lru_cache
+
 from .fontmetrics_loader import (
     load_all_fontmetrics,
     load_fontmetrics,
@@ -89,12 +91,48 @@ def sample_letter_glyph(cp: int, style_key: str) -> str:
 # Main table for letters
 # ----------------------------------------------------------------------
 
+# Tags of the a! and b! rows for patched anchors owned by neither the designer
+# (unmoved), the heuristic nor a curator; see PROVENANCE_DIR in font_patching.py.
+OWNER_TAGS = {"normalized": "n", "derived": "i", "precomposed": "i",
+              "designer": "d", "heuristic": "h"}
+
+
+@lru_cache(maxsize=None)
+def patch_owners(style_key: str) -> dict:
+    """{codepoint: {class: (owner, (x, y))}} of the base anchors of the patched font."""
+    import json
+    from fontTools.ttLib import TTFont
+    from .font_context import FONTS
+    from .font_patching import PROVENANCE_DIR, _base_anchors
+
+    owners = json.loads((PROVENANCE_DIR / f"{style_key}.json").read_text(encoding="utf-8"))
+    meta = FONTS[f"{style_key}_patch"]
+    ttfont = TTFont(meta["path"])
+    anchors = _base_anchors(ttfont, meta["lookup_index"])
+    result = {}
+    for cp, glyph in ttfont.getBestCmap().items():
+        for (g, cls), xy in ((k, v) for k, v in anchors.items() if k[0] == glyph):
+            result.setdefault(cp, {})[cls] = (owners.get(glyph, {}).get(str(cls), "?"), xy)
+    return result
+
+
+def bold(cell: str) -> str:
+    return f"\\textbf{{{cell}}}" if cell else cell
+
+
 def make_fontmetrics_table(bases: list[str]) -> str:
     """
     One column per base; per style a block of rows: glyph samples in the
     original and patched fonts, the ideal bounding box, then for the above (a)
-    and below (b) anchor the font's anchor, the candidate (?) and anchor minus
-    candidate (delta). Anchor and candidate cells hold "X, Y".
+    and below (b) anchor the original font's anchor, the candidate (?), anchor
+    minus candidate (delta), and the patched anchor where a curator or a later
+    stage set it (!). Cells hold "X, Y". The owner of the patched anchor is
+    shown in bold: the a/b cell if it is the designer's anchor, the ? cell if it
+    is the candidate, the ! cell if it is curated or set by the stem-axis rule.
+    A designer anchor whose Y stage 5 moved to the candidate's reference has its
+    X bolded in a/b and its Y in ?; one snapped (by up to 5) to another
+    reference is bolded whole. Any other patched anchor (inherited, or one that
+    neither cell shows) is in the ! row with a tag (OWNER_TAGS).
     """
     cps = [ord(cp) for cp in bases]
     all_metrics = load_all_fontmetrics()
@@ -108,6 +146,7 @@ def make_fontmetrics_table(bases: list[str]) -> str:
     for style_key in STYLE_KEYS:
         style_label = STYLE_LABELS[style_key]
         style_metrics = all_metrics[style_key]
+        owners = patch_owners(style_key)
 
         rows.append(["\\hline " + style_label + SAMPLE_STRUT] + [sample_letter_glyph(cp, style_key) for cp in cps])
         rows.append(["patch" + SAMPLE_STRUT] + [sample_letter_glyph(cp, f"{style_key}_patch") for cp in cps])
@@ -115,28 +154,50 @@ def make_fontmetrics_table(bases: list[str]) -> str:
         anchor_rows = {}
         ideals = {}
         for anchor_id, prefix in [("0", "a"), ("2", "b")]:
-            have, want, delta, ideal = [], [], [], []
+            have, want, delta, ideal, final = [], [], [], [], []
             for cp in cps:
                 anchor = get_anchor(style_metrics, cp, anchor_id)
                 cand = get_anchor_candidate(style_key, style_metrics, cp, anchor_id)
-                have.append(xy_cell(*anchor) if anchor else "")
-                want.append(xy_cell(cand[0], cand[1]) if cand else "")
+                have_cell = xy_cell(*anchor) if anchor else ""
+                want_cell = xy_cell(cand[0], cand[1]) if cand else ""
+                final_cell = ""
+                owner, xy = owners.get(cp, {}).get(int(anchor_id), (None, None))
+                if owner == "designer" and have_cell == xy_cell(*xy):
+                    have_cell = bold(have_cell)
+                elif owner == "heuristic" and want_cell == xy_cell(*xy):
+                    want_cell = bold(want_cell)
+                elif owner in ("curated", "stem"):
+                    final_cell = bold(xy_cell(*xy))
+                elif (owner == "normalized" and anchor and cand
+                      and round(anchor[0]) == xy[0] and round(cand[1]) == xy[1]):
+                    # stage 5 moved Y only: the designer's X, the candidate's Y (its reference)
+                    have_cell = f"{bold(str(round(anchor[0])))}, {round(anchor[1])}"
+                    want_cell = f"{round(cand[0])}, {bold(str(round(cand[1])))}"
+                elif owner == "normalized" and anchor and round(anchor[0]) == xy[0]:
+                    # stage 5 snapped Y by up to 5 units to a reference other than the candidate's
+                    have_cell = bold(have_cell)
+                elif owner is not None:
+                    final_cell = f"{xy_cell(*xy)}\\textsuperscript{{{OWNER_TAGS.get(owner, '?')}}}"
+                have.append(have_cell)
+                want.append(want_cell)
+                final.append(final_cell)
                 ideal.append(cand[2] if cand else "")
                 if anchor and cand:
                     delta.append(xy_cell(anchor[0] - cand[0], anchor[1] - cand[1]))
                 else:
                     delta.append("")
-            anchor_rows[prefix] = (have, want, delta)
+            anchor_rows[prefix] = (have, want, delta, final)
             ideals[prefix] = ideal
 
         ideal = [f"{t}, {b}" if t and b else "" for t, b in zip(ideals["a"], ideals["b"])]
         rows.append(["ideal"] + ideal)
 
         for prefix in ("a", "b"):
-            have, want, delta = anchor_rows[prefix]
+            have, want, delta, final = anchor_rows[prefix]
             rows.append([prefix] + have)
             rows.append([f"{prefix}?"] + want)
             rows.append([f"{prefix}$\\delta$"] + delta)
+            rows.append([f"{prefix}!"] + final)
 
     return texify(rows)
 
@@ -223,24 +284,14 @@ def inherited_only(cps: list[int]) -> set[int]:
     A letter that keeps a designer, curated or heuristic anchor in any style,
     or has no anchor at all, is not among them.
     """
-    import json
-    from fontTools.ttLib import TTFont
-    from .font_context import FONTS
-    from .font_patching import INHERITED_DIR, _base_anchors
-
     status = {cp: {"inherited": False, "other": False} for cp in cps}
     for style_key in STYLE_KEYS:
-        record = json.loads((INHERITED_DIR / f"{style_key}.json").read_text(encoding="utf-8"))
-        inherited = {(g, c) for g, c in record["derived"] + record["precomposed"]}
-        meta = FONTS[f"{style_key}_patch"]
-        ttfont = TTFont(meta["path"])
-        cmap = ttfont.getBestCmap()
-        anchors = _base_anchors(ttfont, meta["lookup_index"])
+        owners = patch_owners(style_key)
         for cp in cps:
-            glyph = cmap.get(cp)
             for cls in (0, 2):
-                if glyph and (glyph, cls) in anchors:
-                    status[cp]["inherited" if (glyph, cls) in inherited else "other"] = True
+                if cls in owners.get(cp, {}):
+                    owner = owners[cp][cls][0]
+                    status[cp]["inherited" if owner in ("derived", "precomposed") else "other"] = True
     return {cp for cp, st in status.items() if st["inherited"] and not st["other"]}
 
 

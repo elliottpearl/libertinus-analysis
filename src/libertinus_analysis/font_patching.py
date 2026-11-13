@@ -47,7 +47,7 @@ from .font_context import FontContext, FONTS
 from .font_patching_addglyphs import add_custom_glyphs
 from .font_patching_addmarks import add_cap_dot, add_cap_tilde, add_missing_marks
 from .font_patching_redraw import redraw_glyphs
-from .font_patching_anchors import patch_anchors_human
+from .font_patching_anchors import load_human_anchors, patch_anchors_human
 from .font_patching_capmarks import patch_cap_mark_anchors
 from .font_patching_markaxis import patch_mark_axis
 from .font_patching_deleteanchors import delete_bad_anchors
@@ -69,10 +69,18 @@ from .font_patching_sortcoverage import sort_mark_to_base_coverage
 # outside them. Decisions go in overrides.py as "delete" and "keep".
 DELETE_BAD_ANCHORS = False
 
-# Which anchors stages 8 and 9 set, per style: {"derived": [[glyph, class], ...],
-# "precomposed": [...]}, written on every patch run. The fontmetrics tables of the
-# report read it to leave out letters whose anchors are all inherited.
-INHERITED_DIR = Path(__file__).resolve().parents[2] / "data" / "anchor_provenance"
+# The owner of every base anchor in the patched font, per style, written on every
+# patch run to data/anchor_provenance/{style}.json as {glyph: {class: owner}}.
+# The owner is the last stage that set the anchor:
+#   designer     the original font's anchor (after stage 1's merge and deletions), unchanged
+#   normalized   the designer's anchor, moved by stage 5 (Y snapped or moved to the capital reference)
+#   heuristic    stage 6's candidate
+#   curated      stage 7 (data/fontanchors_human/{style}.py), even where it equals the anchor before it
+#   stem         stage 7b, the stem-axis rule
+#   derived      stage 8, inherited by a derived letter
+#   precomposed  stage 9, inherited by a precomposed letter
+# The fontmetrics tables of the report read it.
+PROVENANCE_DIR = Path(__file__).resolve().parents[2] / "data" / "anchor_provenance"
 
 
 def _base_anchors(ttfont, lookup_index):
@@ -91,9 +99,34 @@ def _base_anchors(ttfont, lookup_index):
     return found
 
 
-def _set_by(before, after):
-    """Anchors that are new or changed between two snapshots, sorted."""
-    return sorted([g, c] for (g, c), xy in after.items() if before.get((g, c)) != xy)
+def _curated_bases(font_key, cmap):
+    """{(glyph name, class)} of the curated base anchors of stage 7."""
+    human = load_human_anchors(font_key)
+    keys = set()
+    for cp, classes in human.get("bases", {}).items():
+        if cp in cmap:
+            keys.update((cmap[cp], int(c)) for c in classes)
+    for glyph, classes in human.get("bases_by_name", {}).items():
+        keys.update((glyph, int(c)) for c in classes)
+    return keys
+
+
+def _owners(snapshots, set_by):
+    """
+    {glyph: {class: owner}} from base-anchor snapshots [(owner, {(glyph, class): xy}), ...],
+    the first taken after stage 1 and one after each anchor stage: an anchor is owned by
+    the last stage that changed it, or that set it even to the value it had, where
+    set_by[stage] lists what the stage set (curated anchors; stage 8's inherited ones).
+    """
+    owner = {key: snapshots[0][0] for key in snapshots[0][1]}
+    for (_, before), (name, after) in zip(snapshots, snapshots[1:]):
+        for key, xy in after.items():
+            if before.get(key) != xy or key in set_by.get(name, ()):
+                owner[key] = name
+    result = {}
+    for (glyph, cls), name in sorted(owner.items()):
+        result.setdefault(glyph, {})[str(cls)] = name
+    return result
 
 def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> None:
     """
@@ -136,6 +169,7 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
         ttfont, font_key, lookup_index, use_audit=DELETE_BAD_ANCHORS, extra=extra_deletions
     ):
         print(f"[{font_key}] {glyph_name}: deleted anchor class {classIndex} {xy}")
+    snapshots = [("designer", _base_anchors(ttfont, lookup_index))]
 
     # ------------------------------------------------------------
     # 2. Add glyphs (spacing base glyph, combining grapheme joiner);
@@ -177,6 +211,7 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # ------------------------------------------------------------
     for line in normalize_anchor_y(ttfont, font_key, lookup_index):
         print(f"[{font_key}] {line}")
+    snapshots.append(("normalized", _base_anchors(ttfont, lookup_index)))
 
     # ------------------------------------------------------------
     # 6. Heuristic anchors: the anchor-model candidate for each
@@ -184,6 +219,7 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # ------------------------------------------------------------
     for line in patch_anchors_heuristic(ttfont, font_key, lookup_index):
         print(f"[{font_key}] {line}")
+    snapshots.append(("heuristic", _base_anchors(ttfont, lookup_index)))
 
     # ------------------------------------------------------------
     # 7. Patch anchors using human-curated data
@@ -196,6 +232,7 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
         cmap=cmap,
         cmap_reverse=cmap_reverse,
     )
+    snapshots.append(("curated", _base_anchors(ttfont, lookup_index)))
 
     # ------------------------------------------------------------
     # 7b. Stem-axis rule: i ı j ȷ l get their anchor X on the axis
@@ -203,15 +240,16 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # ------------------------------------------------------------
     for line in patch_stem_axis(ttfont, font_key, lookup_index):
         print(f"[{font_key}] {line}")
+    snapshots.append(("stem", _base_anchors(ttfont, lookup_index)))
 
     # ------------------------------------------------------------
     # 8. Derived letters inherit their base letter's anchor, plus the
     #    outline shift (data/derived_letters.py)
     # ------------------------------------------------------------
-    before_derived = _base_anchors(ttfont, lookup_index)
-    for line in patch_derived_anchors(ttfont, font_key, lookup_index):
+    derived_set = set()
+    for line in patch_derived_anchors(ttfont, font_key, lookup_index, touched=derived_set):
         print(f"[{font_key}] {line}")
-    after_derived = _base_anchors(ttfont, lookup_index)
+    snapshots.append(("derived", _base_anchors(ttfont, lookup_index)))
 
     # ------------------------------------------------------------
     # 9. Patch precomposed anchors
@@ -222,11 +260,13 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     for line in report_above + report_below:
         print(f"[{font_key}] {line}")
 
-    INHERITED_DIR.mkdir(exist_ok=True)
-    (INHERITED_DIR / f"{font_key}.json").write_text(json.dumps({
-        "derived": _set_by(before_derived, after_derived),
-        "precomposed": _set_by(after_derived, _base_anchors(ttfont, lookup_index)),
-    }, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    snapshots.append(("precomposed", _base_anchors(ttfont, lookup_index)))
+
+    PROVENANCE_DIR.mkdir(exist_ok=True)
+    owners = _owners(snapshots, {"curated": _curated_bases(font_key, cmap), "derived": derived_set})
+    lines = [f"{json.dumps(glyph)}: {json.dumps(classes)}" for glyph, classes in owners.items()]
+    (PROVENANCE_DIR / f"{font_key}.json").write_text(
+        "{\n" + ",\n".join(lines) + "\n}\n", encoding="utf-8")
 
     # ------------------------------------------------------------
     # 10. Patch GSUB using human-curated .fea file

@@ -40,6 +40,9 @@ ANCHOR-HEURISTICS.md). It only fills gaps: designer anchors are moved only by
 stage 5, and curated anchors (stage 7) overrule its candidates.
 """
 
+import json
+from pathlib import Path
+
 from .font_context import FontContext, FONTS
 from .font_patching_addglyphs import add_custom_glyphs
 from .font_patching_addmarks import add_cap_dot, add_cap_tilde, add_missing_marks
@@ -65,6 +68,32 @@ from .font_patching_sortcoverage import sort_mark_to_base_coverage
 # audit's list is not limited to Latin and IPA, and stage 6 replaces nothing
 # outside them. Decisions go in overrides.py as "delete" and "keep".
 DELETE_BAD_ANCHORS = False
+
+# Which anchors stages 8 and 9 set, per style: {"derived": [[glyph, class], ...],
+# "precomposed": [...]}, written on every patch run. The fontmetrics tables of the
+# report read it to leave out letters whose anchors are all inherited.
+INHERITED_DIR = Path(__file__).resolve().parents[2] / "data" / "anchor_provenance"
+
+
+def _base_anchors(ttfont, lookup_index):
+    """{(glyph name, class): (x, y)} of every base anchor in the mark-to-base lookup."""
+    found = {}
+    lookup = ttfont["GPOS"].table.LookupList.Lookup[lookup_index]
+    for sub in lookup.SubTable:
+        if sub.LookupType == 9:
+            sub = sub.ExtSubTable
+        if sub.LookupType != 4:
+            continue
+        for glyph, record in zip(sub.BaseCoverage.glyphs, sub.BaseArray.BaseRecord):
+            for cls, anchor in enumerate(record.BaseAnchor):
+                if anchor is not None:
+                    found[(glyph, cls)] = (anchor.XCoordinate, anchor.YCoordinate)
+    return found
+
+
+def _set_by(before, after):
+    """Anchors that are new or changed between two snapshots, sorted."""
+    return sorted([g, c] for (g, c), xy in after.items() if before.get((g, c)) != xy)
 
 def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> None:
     """
@@ -179,8 +208,10 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # 8. Derived letters inherit their base letter's anchor, plus the
     #    outline shift (data/derived_letters.py)
     # ------------------------------------------------------------
+    before_derived = _base_anchors(ttfont, lookup_index)
     for line in patch_derived_anchors(ttfont, font_key, lookup_index):
         print(f"[{font_key}] {line}")
+    after_derived = _base_anchors(ttfont, lookup_index)
 
     # ------------------------------------------------------------
     # 9. Patch precomposed anchors
@@ -190,6 +221,12 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
 
     for line in report_above + report_below:
         print(f"[{font_key}] {line}")
+
+    INHERITED_DIR.mkdir(exist_ok=True)
+    (INHERITED_DIR / f"{font_key}.json").write_text(json.dumps({
+        "derived": _set_by(before_derived, after_derived),
+        "precomposed": _set_by(after_derived, _base_anchors(ttfont, lookup_index)),
+    }, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
     # ------------------------------------------------------------
     # 10. Patch GSUB using human-curated .fea file

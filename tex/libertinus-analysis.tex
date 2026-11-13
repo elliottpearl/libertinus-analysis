@@ -535,9 +535,14 @@ In semibold italic the above marks lie well to the right of the blue dot, becaus
 
 See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 
 (regular, italic, semibold, semibold italic) in the following tables 
-(Tables \ref{table:fontmetrics_AZ_1}--\ref{table:fontmetrics_latinIPA_7}), 
+(Tables \ref{table:fontmetrics_AZ_1}--\ref{table:fontmetrics_latinIPA_9}), 
 and the mark anchors of above- and below-marks 
 (Tables \ref{table:fontmetrics_above_1}--\ref{table:fontmetrics_below_2}).
+The Latin and IPA tables leave out the letters whose above and below anchors in the patched fonts are all inherited from their base letter, in every style
+(derived letters, stage 8, and precomposed letters, stage 9: Ð Đ ŀ Ł ł Ɓ Ƈ Ɖ Ɗ Ɠ ƚ ƥ Ƭ Ʈ Ƴ ǥ ȴ ȶ Ƚ ɇ Ɏ ɏ ɗ ɟ ɩ ɬ ʈ ʛ ẚ ỿ Ⱡ ⱡ Ɫ Ᵽ ⱥ ⱨ ꝥ):
+their anchors follow the base letter's, which is in the tables.
+A letter that keeps a designer, curated or heuristic anchor in any style is kept.
+The patch records which anchors stages 8 and 9 set in \verb|data/anchor_provenance/|.
 Recall that Language Science Press uses semibold Libertinus fonts, e.g. 
 \verb|LibertinusSerif-Semibold.otf|, for boldface styles.
 
@@ -582,22 +587,17 @@ In the tables of marks, each column is a mark and the rows are as follows.
 reg, it, sb, si, patch: the mark on n and on H (via combining grapheme joiner), 
 in the original and patched fonts.
 
-m: $X, Y$ coordinates of the mark anchor. 
+m: $X, Y$ coordinates of the mark anchor in the original font.
 A class in parentheses is an anchor class other than above (0) or below (2): 
 semibold puts the dot above, diaeresis, ring, hook above and comma above in class 1, 
 whose base anchors are lower (n has 550 in class 1 and 646 in class 0).
 This is the designer's anchor class \verb|top_punkt|; it places the marks at the same height as class 0, 
-but only 24 bases have it. The patched semibold merges it into class 0.
+but only 24 bases have it. The patched semibold merges it into class 0, with the mark anchors raised by 96.
 
-m?: $X, Y$ coordinates of the mark-anchor candidate.
-$Y$ is the bottom of the mark outline plus the style's median distance of an above-mark anchor above it
-(regular 143, italic 142, semibold 157 in class 0 and 60 in class 1, semibold italic 147),
-or the top of the outline minus the median distance of a below-mark anchor below it
-(regular 46, italic 48, semibold 54, semibold italic 54).
-$X$ is on the mark's own axis at that height, $C + Y\tan\theta - K$.
+mp: $X, Y$ coordinates of the mark anchor in the patched font.
 
-m$\delta$: $X, Y$ coordinate differences between mark anchor and mark-anchor candidate.
-An asymmetric mark, such as the acute or grave, has an $X$ difference by design.
+m$\delta$: patched minus original, $X, Y$; empty where the anchor is unchanged, ``new'' where the original font has no anchor (a mark added by the patch).
+For semibold's class 1 it is taken from the anchor raised by 96, so it shows how far the mark moves.
 
 \input{input/fontmetrics_AZ.tex}
 

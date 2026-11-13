@@ -10,6 +10,7 @@ from libertinus_analysis.fontmetrics_report import (
     make_fontmetrics_table,
     make_fontmetrics_table_for_marks,
     wrap_in_table_environment,
+    inherited_only,
 )
 from libertinus_analysis.config import TEX_INPUT_DIR
 from data.ipa.ipa_unicode import unicode_groups
@@ -37,8 +38,13 @@ def main():
     # BASE_LATIN minus ASCII
     latin_remainder = base_latin - ascii_all
 
-    # Union with IPA
+    # Union with IPA, less the letters whose anchors are all inherited from
+    # their base letter (patch stages 8 and 9) in every style: their anchors
+    # follow the base letter's, which is in the tables
     latin_plus_ipa = sorted(latin_remainder | base_ipa)
+    omitted = inherited_only(latin_plus_ipa)
+    latin_plus_ipa = [cp for cp in latin_plus_ipa if cp not in omitted]
+    print(f"Latin and IPA: {len(omitted)} letters with only inherited anchors omitted, {len(latin_plus_ipa)} kept")
 
     # --- Define table sources ---
     table_sources = [

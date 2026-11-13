@@ -9,7 +9,8 @@ description = "Analysis of combining marks in Libertinus"
 authors = [{ name = "Elliott Pearl" }]
 dependencies = [
     "fonttools[ufo,lxml]",
-    "uharfbuzz"
+    "uharfbuzz",
+    "skia-pathops"
 ]
 
 [tool.setuptools.packages.find]

@@ -19,6 +19,7 @@ There is no test suite and no linter. Work is driven by top-level `run_*` wrappe
 .venv/bin/python run_patch_font.py                    # fonts/*.otf -> fonts/*-patch.otf, then writes the mark zone figures
 .venv/bin/python run_print_mark_zones.py              # patched fonts -> tex/input/mark_zones_{style}.tex, figures of all marks on o (run_patch_font.py does this too)
 .venv/bin/python run_mark_snap_sheet.py               # patched fonts -> fonts/*-marksnap.otf (mark anchor X moved to C + Y tan θ + d − K) and tex/input/mark_snap.tex, a test sheet (not \input by the report since 2026-11-06; the snap was rejected as a stage, see the report)
+.venv/bin/python run_missing_glyphs_sheet.py           # patched fonts -> fonts/*-draft.otf (drafts of the base letters the non-regular styles lack, no anchors) and tex/missing_glyphs_test_sheet.tex; PDF: cd tex && xelatex missing_glyphs_test_sheet.tex. Needs skia-pathops
 ./run_xelatex_report.sh                               # tex/libertinus-analysis.tex -> PDF
 .venv/bin/python run_precomposed_existing_report.py    # after run_patch_font.py: precomposed letters that keep a designer/curated anchor vs what stage 9 would inherit -> tex/input/precomposed_existing.tex (a check; not \input by the report since 2026-11-10)
 .venv/bin/python run_print_lane_comparison.py         # italic base-anchor candidate X, advance lane vs ink lane -> tex/input/lane_comparison_*.tex; PDF: cd tex && xelatex lane-comparison.tex (separate from the report)

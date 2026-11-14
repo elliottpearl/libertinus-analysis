@@ -345,3 +345,92 @@ def reverse_path(path):
 def reverse(segs):
     """A contour's direction reversed."""
     return reverse_path(segs)
+
+
+# ------------------------------------------------------------
+# Replacing part of a contour by a fitted curve
+# ------------------------------------------------------------
+
+def tangent_out(seg):
+    """Unit direction leaving a segment's start."""
+    p = seg[0]
+    for q in seg[1:]:
+        if math.dist(p, q) > 1e-6:
+            d = math.dist(p, q)
+            return ((q[0] - p[0]) / d, (q[1] - p[1]) / d)
+    return (0.0, 0.0)
+
+
+def tangent_in(seg):
+    """Unit direction arriving at a segment's end."""
+    p = seg[-1]
+    for q in reversed(seg[:-1]):
+        if math.dist(p, q) > 1e-6:
+            d = math.dist(p, q)
+            return ((p[0] - q[0]) / d, (p[1] - q[1]) / d)
+    return (0.0, 0.0)
+
+
+def fit_cubic(p0, t0, p3, t3, samples):
+    """
+    The cubic from p0 to p3 leaving p0 along t0 and arriving at p3 along t3
+    (unit vectors), its two handle lengths fitted by least squares to the
+    sample points (chord-length parameters): Schneider's fit with both end
+    tangents fixed. Returns (p0, p1, p2, p3).
+    """
+    pts = [p0] + list(samples) + [p3]
+    lens = [0.0]
+    for a, b in zip(pts, pts[1:]):
+        lens.append(lens[-1] + math.dist(a, b))
+    us = [l / lens[-1] for l in lens]
+    c11 = c12 = c22 = x1 = x2 = 0.0
+    for u, p in zip(us, pts):
+        b0, b1, b2, b3 = (1 - u) ** 3, 3 * u * (1 - u) ** 2, 3 * u * u * (1 - u), u ** 3
+        a1 = (t0[0] * b1, t0[1] * b1)
+        a2 = (-t3[0] * b2, -t3[1] * b2)
+        c11 += a1[0] * a1[0] + a1[1] * a1[1]
+        c12 += a1[0] * a2[0] + a1[1] * a2[1]
+        c22 += a2[0] * a2[0] + a2[1] * a2[1]
+        r = (p[0] - (b0 + b1) * p0[0] - (b2 + b3) * p3[0], p[1] - (b0 + b1) * p0[1] - (b2 + b3) * p3[1])
+        x1 += a1[0] * r[0] + a1[1] * r[1]
+        x2 += a2[0] * r[0] + a2[1] * r[1]
+    det = c11 * c22 - c12 * c12
+    chord = math.dist(p0, p3)
+    if abs(det) < 1e-9:
+        alpha = beta = chord / 3
+    else:
+        alpha = (x1 * c22 - x2 * c12) / det
+        beta = (c11 * x2 - c12 * x1) / det
+        if alpha < chord * 1e-3 or beta < chord * 1e-3:
+            alpha = beta = chord / 3
+    p1 = (p0[0] + t0[0] * alpha, p0[1] + t0[1] * alpha)
+    p2 = (p3[0] - t3[0] * beta, p3[1] - t3[1] * beta)
+    return (p0, p1, p2, p3)
+
+
+def replace_run(segs, i0, i1, new_segs):
+    """The contour with segments i0..i1 (inclusive, forward, wrapping) replaced by new_segs."""
+    n = len(segs)
+    idx = [(i0 + k) % n for k in range(((i1 - i0) % n) + 1)]
+    keep = [segs[(i1 + 1 + k) % n] for k in range(n - len(idx))]
+    return list(new_segs) + keep
+
+
+def sample(seg, n=8):
+    return [_point(seg, k / n) for k in range(1, n)]
+
+
+def drop_tiny(segs, length=1.5):
+    """Drop segments shorter than `length` (their ends joined): slivers left at a cut."""
+    segs = list(segs)
+    changed = True
+    while changed and len(segs) > 3:
+        changed = False
+        for i, seg in enumerate(segs):
+            if math.dist(seg[0], seg[-1]) < length:
+                nxt = segs[(i + 1) % len(segs)]
+                segs[(i + 1) % len(segs)] = (seg[0],) + tuple(nxt[1:])
+                del segs[i]
+                changed = True
+                break
+    return segs

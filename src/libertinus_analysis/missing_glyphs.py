@@ -23,7 +23,9 @@ compared with the designer's glyph (PUA U+F600 and up in the regular draft
 font), as a check of the recipe.
 """
 
+import json
 import math
+from pathlib import Path
 import statistics
 
 import pathops
@@ -31,8 +33,10 @@ from fontTools.pens.recordingPen import RecordingPen
 from fontTools.pens.t2CharStringPen import T2CharStringPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
+from fontTools.ttLib.removeOverlaps import removeOverlaps
 
 from . import glyph_construction as gc
+from . import pen_stroke
 from .config import FONTS_DIR, TEX_DIR
 from .font_patching_addmarks import embolden
 from .font_patching_inherit import SegmentPen, intervals
@@ -171,6 +175,9 @@ class Style:
         self.font = font or TTFont(FONTS_DIR / f"{STYLES[key]}-patch.otf")
         self.glyphs = self.font.getGlyphSet()
         self.cmap = self.font.getBestCmap()
+        # Coverage of the original font: the patch adds the approved drafts
+        # (font_patching_drafts.py), which are still drafted, not the designer's.
+        self.original = TTFont(FONTS_DIR / f"{STYLES[key]}.otf").getBestCmap()
         self.slope = SLOPE[key]
 
     def name(self, char):
@@ -183,7 +190,8 @@ class Style:
         return self.font["hmtx"].metrics[self.name(char)][0]
 
     def has(self, char):
-        return ord(char) in self.cmap
+        """The designer drew the letter (in the original font)."""
+        return ord(char) in self.original
 
 
 def _run(path, x, y, step=0.5, vertical=True):
@@ -1244,6 +1252,8 @@ def _ref_x(style, base_path, ref, y):
     if ref == "centre":
         return _de_slanted_centre(base_path, style.slope, y)
     pairs = intervals(_segs(base_path), 0.0, y)
+    if ref == "extent":
+        return (pairs[0][0] + pairs[-1][1]) / 2
     if ref == "pair":
         return (sum(pairs[0]) + sum(pairs[1])) / 4
     return sum(pairs[ref[1]]) / 2
@@ -1254,13 +1264,13 @@ def _ref_x(style, base_path, ref, y):
 # char: (base letters [(letter, dx)], overlay mark, reference, the style's own
 # analogous stroke for its thickness)
 BAR_SPECS = {
-    "Ɍ": ([("R", 0)], "̵", ("stem", 0), ("Đ", "D")),
-    "Ɏ": ([("Y", 0)], "̶", "centre", ("Ƚ", "L")),
-    "ɏ": ([("y", 0)], "̶", "centre", ("đ", "d")),
-    "Ɉ": ([("J", 50)], "̶", ("stem", 0), ("Đ", "D")),
-    "ẝ": ([("ſ", 0)], "̵", ("stem", 0), ("đ", "d")),
-    "ꞓ": ([("c", 85)], "̵", "centre", ("đ", "d")),
-    "ỻ": ([("l", 10), ("l", "advance")], "̶", "pair", ("đ", "d")),
+    "Ɍ": ([("R", 0)], "\u0335", ("stem", 0), ("Đ", "D")),
+    "Ɏ": ([("Y", 0)], "\u0336", "centre", ("Ƚ", "L")),
+    "ɏ": ([("y", 0)], "\u0336", "extent", ("đ", "d")),
+    "Ɉ": ([("J", 50)], "\u0336", ("stem", 0), ("Đ", "D")),
+    "ẝ": ([("ſ", 0)], "\u0335", ("stem", 0), ("đ", "d")),
+    "ꞓ": ([("c", 85)], "\u0335", "centre", ("đ", "d")),
+    "ỻ": ([("l", 10), ("l", "advance")], "\u0336", "pair", ("đ", "d")),
 }
 _FITS = {}
 
@@ -1351,8 +1361,140 @@ def draft_bar(style, styles, char, src_key="regular", base_contours=None, base_p
     return base_contours + bar, advance, (
         f"{' + '.join(l for l, _ in bases)} + U+{ord(mark):04X} (the style's own), placed as in {src_key}'s"
         f" {char} (fit {100 * fit:.1f}%): centre at y {cy:.0f}, {offset:+.0f} across from the"
-        f" {'de-slanted centre' if ref == 'centre' else 'stems' if ref == 'pair' else 'stem'}, {width:.0f} long,"
+        f" {'de-slanted centre' if ref == 'centre' else 'stems' if ref == 'pair' else 'outer edges' if ref == 'extent' else 'stem'},"
+        f" {width:.0f} long,"
         f" {thick:.0f} thick (own {tref[0]})")
+
+
+def _middle_bar_bottom(style, r_path):
+    """The lower edge of R's own middle bar (where the lower bowl meets the stem): scanned just right of the stem."""
+    sl = style.slope
+    a, b = intervals(_segs(r_path), sl, 200.5)[0]
+    ink = [y10 / 10 for y10 in range(2000, 4800, 5) if r_path.contains((b + y10 / 10 * sl + 12, y10 / 10))]
+    return ink[0], b
+
+
+R_BAR_OVERHANG = 86   # regular Ɍ: the bar sticks out 86 left of the stem (18 to 104)
+
+
+def draft_R_bar(style, styles):
+    """
+    Ɍ: R and the left half of a stroke overlay U+0335: the style's own mark,
+    scaled to run from R_BAR_OVERHANG left of the stem into the stem's middle
+    (its right end hidden in the stem), its lower edge on the lower edge of
+    R's own middle bar (as regular's: 291 both), as thick as the style's Đ bar.
+    """
+    r = style.path("R")
+    bottom, _ = _middle_bar_bottom(style, r)
+    thick = _ref_thickness(style, ("Đ", "D"))
+    yc = bottom + thick / 2
+    # The stem's edges at the bar's height: measured below the middle bar (at
+    # y 200, de-slanted, where the stem stands alone) and carried up the slant.
+    sa, sb = intervals(_segs(r), style.slope, 200.5)[0]
+    a, b = sa + yc * style.slope, sb + yc * style.slope
+    middle = (a + b) / 2
+    # The mark scaled to run from the overhang to the stem's right edge, then
+    # cut along the stem's centre line (parallel to the stem) and closed there
+    # by one straight edge: its left half only, nothing right of the stem.
+    left, right = a - R_BAR_OVERHANG, b
+    m = style.path("\u0335")
+    mcx, mcy, w, h = _mark_box(m)
+    kx, ky = (right - left) / w, thick / h
+    mark = _cs(style, "\u0335", (kx, 0, 0, ky, (left + right) / 2 - kx * mcx, yc - ky * mcy))[0]
+    sl = style.slope
+    line = (middle + (0 - yc) * sl, 0.0, middle + (1000 - yc) * sl, 1000.0)    # upward: left of it is kept
+    cr = sorted(gc.crossings(mark, line), key=lambda c: c[2][1])
+    half = gc.join(_path_on_side(mark, cr[-1], cr[0], line, 1))
+    if gc.signed_area(half) < 0:
+        half = gc.reverse(half)
+    return _cs(style, "R") + [half], style.advance("R"), (
+        f"R + the left half of U+0335 (the style's own, cut along the stem's centre line and closed"
+        f" there): from {R_BAR_OVERHANG} left of the stem to the stem's middle, lower edge on R's middle"
+        f" bar ({bottom:.0f}), {thick:.0f} thick (own Đ); {len(half)} points")
+
+
+def draft_ll(style, styles):
+    """
+    ỻ: two l's and regular's tie bar, blunt as regular's (the bar is a tie
+    making the two l's one letter, as in Middle Welsh manuscripts; not a
+    stroke overlay, whose ends are rounded): one four-point contour, as
+    high as regular's, as thick as regular's times the style's own đ bar
+    against regular's, overhanging the two l's outer edges as regular's
+    does (measured at its middle, in de-slanted coordinates), its ends
+    parallel to the stems.
+    """
+    src = styles["regular"]
+
+    def pair(st, path_only=True):
+        return [("l", 10), ("l", st.advance("l"))]
+
+    def outer_edges(st, y):
+        b = _union(*(st.path(l, dx) for l, dx in pair(st)))
+        pairs = intervals(_segs(b), st.slope, y)
+        return pairs[0][0], pairs[-1][1]
+    d = src.path("ỻ")
+    base = _union(*(src.path(l, dx) for l, dx in pair(src)))
+    pieces = [c for c in _contours(_diff(d, base)) if abs(c.area) > MIN_PIECE]
+    x0, y0 = min(c.bounds[0] for c in pieces), min(c.bounds[1] for c in pieces)
+    x1, y1 = max(c.bounds[2] for c in pieces), max(c.bounds[3] for c in pieces)
+    yc = (y0 + y1) / 2
+    a, b = outer_edges(src, yc)
+    over_l, over_r = a - x0, x1 - b
+    t = (y1 - y0) * _ref_thickness(style, ("đ", "d")) / _ref_thickness(src, ("đ", "d"))
+    sa, sb = outer_edges(style, yc)
+    sl = style.slope
+    left, right = sa - over_l, sb + over_r
+    lo, hi = yc - t / 2, yc + t / 2
+    bar = [((left + lo * sl, lo), (right + lo * sl, lo)), ((right + lo * sl, lo), (right + hi * sl, hi)),
+           ((right + hi * sl, hi), (left + hi * sl, hi)), ((left + hi * sl, hi), (left + lo * sl, lo))]
+    ls = [c for l, dx in pair(style) for c in _cs(style, l, (1, 0, 0, 1, dx, 0))]
+    advance = src.advance("ỻ") + 2 * (style.advance("l") - src.advance("l"))
+    return ls + [bar], advance, (
+        f"two l's and regular's tie bar as one blunt contour: {right - left:.0f} long (overhanging the"
+        f" l's outer edges {over_l:.0f} and {over_r:.0f}, as regular's), {t:.0f} thick (own đ), centre at y {yc:.0f}")
+
+
+def _bar_rows(st, char, base):
+    """Heights where the designer's char reaches more than 20 left of its base (the bar), with both intervals."""
+    d, b = st.path(char), st.path(base)
+    rows = []
+    for y10 in range(4000, 7000, 5):
+        y = y10 / 10 + 0.05
+        di, bi = intervals(_segs(d), st.slope, y), intervals(_segs(b), st.slope, y)
+        if di and bi and di[0][0] < bi[0][0] - 20:
+            rows.append((y, di[0], bi[0]))
+    return rows
+
+
+def draft_s_bar(style, styles):
+    """
+    ẝ: ſ and a blunt bar (as the designer's regular and italic ẝ, and as
+    ỻ's tie bar; not U+0335, whose ends are rounded) as one four-point
+    contour, its ends parallel to the stem. One rule in every style
+    (2026-11-14): regular's height and overhangs, measured at the bar's
+    middle in de-slanted coordinates (left 77, right 92 of the stem: about
+    45% / 55%), so that the bar is as long as the stem is wide plus
+    regular's overhangs; thickness regular's times the style's own đ bar
+    against regular's. Italic's designer ẝ is reversed (101 / 71); the
+    rule's italic is a revision beside it.
+    """
+    src = styles["regular"]
+    rows = _bar_rows(src, "ẝ", "ſ")
+    y0, y1 = rows[0][0] - 0.05, rows[-1][0] + 0.05
+    yc = (y0 + y1) / 2
+    (x0, x1), = [r[1] for r in rows if abs(r[0] - yc) < 3][:1]
+    a, b = intervals(_segs(src.path("ſ")), 0.0, yc)[0]
+    over_l, over_r = a - x0, x1 - b
+    t = (y1 - y0) * _ref_thickness(style, ("đ", "d")) / _ref_thickness(src, ("đ", "d"))
+    sl = style.slope
+    sa, sb = intervals(_segs(style.path("ſ")), sl, yc)[0]
+    left, right = sa - over_l, sb + over_r
+    lo, hi = yc - t / 2, yc + t / 2
+    bar = [((left + lo * sl, lo), (right + lo * sl, lo)), ((right + lo * sl, lo), (right + hi * sl, hi)),
+           ((right + hi * sl, hi), (left + hi * sl, hi)), ((left + hi * sl, hi), (left + lo * sl, lo))]
+    return _cs(style, "ſ") + [bar], style.advance("ſ"), (
+        f"ſ + a blunt bar as one contour: {right - left:.0f} long (overhanging the stem {over_l:.0f} left"
+        f" and {over_r:.0f} right, as regular's), {t:.0f} thick (own đ), centre at y {yc:.0f}")
 
 
 # ---------- parts taken once from the designer's glyph ----------
@@ -1378,9 +1520,42 @@ def _part(src, char, base, base_dx, convex):
     hull = _hull_polygon(pts)
     if convex:
         return [hull]
-    hp = _as_path([hull])
-    whole = _union(*pieces, _inter(b, hp))
-    return [gc.merge_lines(c, 0.5) for c in _path_contours(whole)]
+    return [_stroke_from_terminals(pieces, b)]
+
+
+def _stroke_from_terminals(pieces, base):
+    """
+    A stroke through a stem, from the two pieces that stick out on either
+    side (its terminals): each piece without its edge along the stem, the
+    two joined by straight lines across the stem, points left on a straight
+    edge dropped. (Not the stem's ink inside the stroke: that left a square
+    "buckle" of stem edges in the middle of the stroke.)
+    """
+    def on_stem(p):
+        return base.contains((p[0] - 2, p[1])) != base.contains((p[0] + 2, p[1]))
+
+    ends = []
+    for c in pieces:
+        segs = gc._from_recording(_recording(c))[0]
+        n = len(segs)
+        cut = [all(on_stem(q) for q in (sg[0], gc._point(sg, 0.5), sg[-1])) for sg in segs]
+        i = next(k for k in range(n) if cut[k] and not cut[k - 1])
+        j = i
+        while cut[(j + 1) % n]:
+            j = (j + 1) % n
+        open_path = [segs[(j + 1 + k) % n] for k in range(n - ((j - i) % n + 1))]
+        ends.append(open_path)
+    p, q = ends
+    best = None
+    for qq in (q, gc.reverse_path(q)):
+        c = gc.join(p, qq)
+        a = abs(gc.signed_area(c))
+        if best is None or a > best[0]:
+            best = (a, c)
+    contour = best[1]
+    if gc.signed_area(contour) < 0:
+        contour = gc.reverse(contour)
+    return gc.merge_lines(contour, 2.0)
 
 
 PART_SPECS = {
@@ -1448,12 +1623,47 @@ class _ListPen:
 
 # ---------- references ----------
 
+# Semibold italic only (in semibold the thick stroke may close the small
+# counters; in semibold italic they are wanted, but not wide open): the stroke
+# is shifted right until the counter at the lower left (between the stroke
+# and E's foot) is as large as regular Ɇ's, 1523 units²; the counter under
+# the middle arm then opens, and the one above it stays open.
+SOLIDUS_SHIFTED = {"semibold_italic"}
+REGULAR_LOWER_COUNTER = 1523
+
+
+def _small_counters(contours, big=20000):
+    """The areas of the merged letter's small counters (holes under `big`)."""
+    p = _as_path(contours)
+    return [abs(c.area) for c in p.contours if abs(c.area) < big and c.clockwise != p.clockwise]
+
+
+def _shift_to_regular_counter(e, sol, limit=24):
+    """The rightward shift (0..limit) that brings the largest small counter nearest regular's lower-left one."""
+    best = None
+    for dx in range(0, limit + 1):
+        holes = _small_counters(e + _path_contours(_moved(sol, (1, 0, 0, 1, dx, 0))))
+        if len(holes) < 3:
+            continue
+        err = abs(max(holes) - REGULAR_LOWER_COUNTER)
+        if best is None or err < best[0]:
+            best = (err, dx, holes)
+    return best[1], best[2]
+
+
 def draft_E_solidus_c(style, styles):
     """Ɇ: the style's E and its long solidus U+0338, as regular's Ɇ is built."""
     sol, src = _placed_solidus(style, styles)
-    return _cs(style, "E") + _path_contours(sol), style.advance("E"), (
+    e = _cs(style, "E")
+    note = ""
+    if style.key in SOLIDUS_SHIFTED:
+        dx, holes = _shift_to_regular_counter(e, sol)
+        sol = _moved(sol, (1, 0, 0, 1, dx, 0))
+        note = (f"; shifted right {dx}, the lower-left counter as large as regular's ({REGULAR_LOWER_COUNTER} units²):"
+                f" small counters {', '.join(str(round(h)) for h in sorted(holes))} units²")
+    return e + _path_contours(sol), style.advance("E"), (
         f"{style.key}'s E + {src} (long solidus overlay), crossing half E's height"
-        f" {-SOLIDUS_OFFSET:.0f} left of E's de-slanted centre, as in regular Ɇ")
+        f" {-SOLIDUS_OFFSET:.0f} left of E's de-slanted centre, as in regular Ɇ" + note)
 
 
 def turned_c(style, letter):
@@ -1461,22 +1671,176 @@ def turned_c(style, letter):
     return _path_contours(path), w, note
 
 
+LL_SERIF_OVERLAP = 17  # regular Ỻ: I's right serifs reach 282, L's left serifs (L at +250) start at 265 (their extremes)
+
+
+def _path_on_side(segs, ca, cb, line, side):
+    """The path along the contour from crossing ca to crossing cb lying wholly on one side of the line."""
+    p = gc.path_between(segs, ca, cb)
+    if gc.wholly(p, line, side):
+        return p
+    q = gc.path_between(segs, cb, ca)
+    if gc.wholly(q, line, side):
+        return gc.reverse_path(q)
+    raise ValueError("neither path between the crossings lies on one side of the line")
+
+
+def _join_straight(a, b):
+    """
+    One closed contour from two open paths cut at a line, joined as regular
+    Ỻ joins I and L: at each join, the pieces from each path's last on-curve
+    point to its cut point go, and one straight line runs from one path's
+    last on-curve point to the other's first; points then left on a straight
+    line are dropped (as L's foot point).
+    """
+    p0, p1 = a[0][-1], a[-1][0]          # a's first and last on-curve points (after and before its cuts)
+    q0, q1 = b[0][-1], b[-1][0]
+    segs = list(a[1:-1]) + [(p1, q0)] + list(b[1:-1]) + [(q1, p0)]
+    return gc.merge_lines(segs, 1.5)
+
+
+LL_BRACKET = 0.315   # regular Ỻ: the brackets end 55 and 54 in from the stems, of a counter 173 wide
+LL_BOX = 0.8         # regular Ỻ's brackets: 44 tall for 55 wide
+LL_HANDLE = 0.73     # regular Ỻ's bracket handles: 0.64-0.82 of their box, 0.73 on average
+LL_SHORT = 0.4       # a fitted bracket handle shorter than this (of its box) is a pinch
+
+
+def _join_counter(a, b):
+    """
+    The counter between two stems from their inner paths cut at a line, as
+    regular Ỻ's is drawn (8 points): each stem's straight edge, four brackets
+    and two level lines. A bracket is one cubic from the end of the stem's
+    straight edge, leaving along the stem, to a point LL_BRACKET of the
+    counter's width in from the stem, arriving level, fitted to the original
+    bracket and serif underside there (Schneider's fit with end tangents);
+    the level lines run between the brackets at the mean height of the cut.
+    a: the first stem's path, from the bottom cut up to the top cut; b: the
+    other's, from the top cut down to the bottom cut.
+    """
+    def split_at_stem(path):
+        s = max(range(len(path)), key=lambda i: math.dist(path[i][0], path[i][-1]))
+        return path[:s], path[s], path[s + 1:]
+    a_low, a_stem, a_high = split_at_stem(a)
+    b_high, b_stem, b_low = split_at_stem(b)
+    y_top = (a[-1][-1][1] + b[0][0][1]) / 2
+    y_bottom = (a[0][0][1] + b[-1][-1][1]) / 2
+    w_top = b_stem[0][0] - a_stem[-1][0]
+    w_bottom = b_stem[-1][0] - a_stem[0][0]
+    e_it = (a_stem[-1][0] + LL_BRACKET * w_top, y_top)
+    e_lt = (b_stem[0][0] - LL_BRACKET * w_top, y_top)
+    e_ib = (a_stem[0][0] + LL_BRACKET * w_bottom, y_bottom)
+    e_lb = (b_stem[-1][0] - LL_BRACKET * w_bottom, y_bottom)
+
+    def pts_between(run, x0, x1):
+        lo, hi = min(x0, x1), max(x0, x1)
+        return [q for seg in run for q in [seg[0]] + gc.sample(seg) + [seg[-1]] if lo <= q[0] <= hi]
+    left, right = (-1.0, 0.0), (1.0, 0.0)
+    br_ib = gc.fit_cubic(e_ib, left, a_stem[0], gc.tangent_out(a_stem),
+                         pts_between(a_low, e_ib[0], a_stem[0][0]))
+    br_it = gc.fit_cubic(a_stem[-1], gc.tangent_in(a_stem), e_it, right,
+                         pts_between(a_high, a_stem[-1][0], e_it[0]))
+    br_lt = gc.fit_cubic(e_lt, right, b_stem[0], gc.tangent_out(b_stem),
+                         pts_between(b_high, e_lt[0], b_stem[0][0]))
+    br_lb = gc.fit_cubic(b_stem[-1], gc.tangent_in(b_stem), e_lb, left,
+                         pts_between(b_low, b_stem[-1][0], e_lb[0]))
+    # A fitted bracket with a handle shorter than LL_SHORT of its box (where
+    # the donor's bracket is a long sweep, as semibold italic I's top right)
+    # falls back to regular Ỻ's proportions: a box LL_BOX as tall as wide,
+    # the stem's straight edge running on to meet it, handles LL_HANDLE of the box.
+    def handles_ok(br):
+        p0, p1, p2, p3 = br
+        w, h = abs(p3[0] - p0[0]), abs(p3[1] - p0[1])
+        r = [math.dist(p0, p1), math.dist(p2, p3)]
+        boxes = [h if abs(p1[1] - p0[1]) > abs(p1[0] - p0[0]) else w,
+                 w if abs(p1[1] - p0[1]) > abs(p1[0] - p0[0]) else h]
+        return all(rr >= LL_SHORT * bb for rr, bb in zip(r, boxes))
+
+    def on_stem(stem, y):
+        (x0, y0), (x1, y1) = stem[0], stem[-1]
+        return (x0 + (x1 - x0) * (y - y0) / (y1 - y0), y)
+
+    def designed(stem_pt_y, end, up_from_stem):
+        """A bracket from the stem (at the height LL_BOX of the width from `end`) to `end`."""
+        w = abs(end[0] - on_stem(stem_ref, end[1])[0])
+        start = on_stem(stem_ref, end[1] - LL_BOX * w if up_from_stem else end[1] + LL_BOX * w)
+        u = gc.tangent_out(stem_ref) if up_from_stem else gc.tangent_in(stem_ref)
+        if not up_from_stem:
+            u = (-u[0], -u[1])
+        h = abs(end[1] - start[1])
+        lvl = (1.0 if end[0] > start[0] else -1.0, 0.0)
+        return (start, (start[0] + u[0] * LL_HANDLE * h, start[1] + u[1] * LL_HANDLE * h),
+                (end[0] - lvl[0] * LL_HANDLE * w, end[1]), end)
+    if not handles_ok(br_it):
+        stem_ref = a_stem
+        br_it = designed(None, e_it, True)
+        a_stem = (a_stem[0], br_it[0])
+    if not handles_ok(br_ib):
+        stem_ref = a_stem
+        d = designed(None, e_ib, False)
+        br_ib = tuple(reversed(d))
+        a_stem = (d[0], a_stem[-1])
+    if not handles_ok(br_lt):
+        stem_ref = (b_stem[-1], b_stem[0])
+        d = designed(None, e_lt, True)
+        br_lt = tuple(reversed(d))
+        b_stem = (d[0], b_stem[-1])
+    if not handles_ok(br_lb):
+        stem_ref = (b_stem[-1], b_stem[0])
+        br_lb = designed(None, e_lb, False)
+        b_stem = (b_stem[0], br_lb[0])
+    return [br_ib, a_stem, br_it, (e_it, e_lt), br_lt, b_stem, br_lb, (e_lb, e_ib)]
+
+
 def draft_LL_c(style, styles):
-    """Ỻ: the style's I and L as they are, and one bar contour along the baseline between their stems."""
+    """
+    Ỻ as regular's is drawn: I and L merged where their serifs overlap. L is
+    placed so that its left serifs overlap I's right serifs by
+    LL_SERIF_OVERLAP (at the top); both are cut along the line through the
+    middle of the overlap at the top and at the foot, and joined: I's left
+    part and L's right part make the outline (its top and foot running on
+    across), I's stem's right side and L's stem's left side make the counter
+    between the stems (its corners the serifs' brackets). No bar is added;
+    the serif ends between the stems go.
+    """
+    i_path = style.path("I")
+    i_cs = _cs(style, "I")[0]
+    top = i_path.bounds[3]
+    y_top, y_foot = top - 12, 12
+
+    def reach(path, y, right, span=40):
+        """How far the serif reaches (right or left), at its extreme within `span` of the edge."""
+        ys = [y + (k if y < 100 else -k) for k in range(-12, span - 12, 2)]
+        xs = []
+        for yy in ys:
+            pairs = intervals(_segs(path), 0.0, yy + 0.5)
+            if pairs:
+                xs.append(pairs[-1][1] if right else pairs[0][0])
+        return max(xs) if right else min(xs)
+    l0 = style.path("L")
+    dx = reach(i_path, y_top, True) - LL_SERIF_OVERLAP - reach(l0, y_top, False)
+    l_path = style.path("L", dx)
+    l_cs = _cs(style, "L", (1, 0, 0, 1, dx, 0))[0]
+    # The cutting line through the middle of the overlap, at the top and at the foot.
+    x_t = (reach(i_path, y_top, True) + reach(l_path, y_top, False)) / 2
+    x_f = (reach(i_path, y_foot, True) + reach(l_path, y_foot, False)) / 2
+    line = (x_f, y_foot, x_t, y_top)                   # running up: left of it is I's side
+    ci = sorted(gc.crossings(i_cs, line), key=lambda c: c[2][1])
+    cl = sorted(gc.crossings(l_cs, line), key=lambda c: c[2][1])
+    if len(ci) != 4 or len(cl) != 4:
+        raise ValueError(f"Ỻ: the serifs do not overlap on the cutting line ({len(ci)}, {len(cl)} crossings)")
+    # Crossings from the bottom: foot's underside, foot's top, top serif's underside, top edge.
+    outer = _join_straight(_path_on_side(i_cs, ci[3], ci[0], line, 1), _path_on_side(l_cs, cl[0], cl[3], line, -1))
+    counter = _join_counter(_path_on_side(i_cs, ci[1], ci[2], line, 1), _path_on_side(l_cs, cl[2], cl[1], line, -1))
+    if gc.signed_area(outer) < 0:
+        outer = gc.reverse(outer)
+    if gc.signed_area(counter) > 0:
+        counter = gc.reverse(counter)
     src = styles["regular"]
-    dx_src = _fit_dx(src.path("Ỻ"), lambda x: _union(src.path("I"), src.path("L", x)), range(200, 300))
-    dx = round(dx_src * style.advance("I") / src.advance("I"))
-    i, l = style.path("I"), style.path("L", dx)
-    s = style.slope
-    x_arm = (_interval(l, 300, s, 0)[1] + 300 * s + l.bounds[2]) / 2
-    t = next(y for y in range(5, 200) if not l.contains((x_arm, y)))
-    xa = sum(_interval(i, t / 2, s, 0)) / 2 + t / 2 * s
-    xb = sum(_interval(l, t / 2, s, 0)) / 2 + t / 2 * s
-    bar = [[((xa, 0), (xb, 0)), ((xb, 0), (xb, t)), ((xb, t), (xa, t)), ((xa, t), (xa, 0))]]
-    advance = dx + style.advance("L") + (src.advance("Ỻ") - dx_src - src.advance("L"))
-    return _cs(style, "I") + _cs(style, "L", (1, 0, 0, 1, dx, 0)) + bar, advance, (
-        f"{style.key}'s I + L at {dx:+d} (regular's at {dx_src:+d}, × I's advance), and a bar"
-        f" {t} thick (L's foot) from stem to stem along the baseline: three overlapping contours")
+    advance = dx + style.advance("L") + (src.advance("Ỻ") - 250 - src.advance("L"))
+    return [outer, counter], advance, (
+        f"{style.key}'s I and L at {dx:+.0f} (L's left serifs overlapping I's right serifs by"
+        f" {LL_SERIF_OVERLAP}, as in regular), cut along the middle of the overlap and joined: one outline"
+        f" ({len(outer)} points) and the counter between the stems ({len(counter)} points); no bar")
 
 
 # ---------- splices ----------
@@ -1545,8 +1909,24 @@ def draft_M_hook_c(style):
     m_path, j_path = style.path("M"), style.path("J")
     band = _crossbar_band(style)
     y = _join_height(m_path, -1, j_path, 0, cap=None if band is None else math.floor(band[0]) - 3)
-    matrix, k = _stem_align(m_path, -1, j_path, 0, y + 2.5, y + (60.5 if band else 100.5))
-    donor = _cs(style, "J", matrix)
+    j_cs = _cs(style, "J")
+    if band is not None and y >= band[0] - 10:
+        # J's stem is a curve all the way below its crossbar (semibold italic): no
+        # straight stretch to join at. Take J without its crossbar (smoothed) and
+        # join lower, at the lowest height where lining J's stem up with M's leg
+        # shears it no more than just below the bar does (within 0.005).
+        j_cs = draft_J_nobar(style)
+        j_path = _as_path(j_cs)
+        top_shear = _stem_align(m_path, -1, j_path, 0, y + 2.5, y + 40.5)[0][2]
+        low = _join_height(m_path, -1, m_path, -1)
+        for cand in range(math.ceil(low) + 10, y, 10):
+            if abs(_stem_align(m_path, -1, j_path, 0, cand + 2.5, cand + 40.5)[0][2] - top_shear) <= 0.005:
+                y = cand
+                break
+        matrix, k = _stem_align(m_path, -1, j_path, 0, y + 2.5, y + 40.5)
+    else:
+        matrix, k = _stem_align(m_path, -1, j_path, 0, y + 2.5, y + (60.5 if band else 100.5))
+    donor = gc.transform(j_cs, matrix)
     out = _splice_at(_cs(style, "M"), donor, y, -1, 0, True)
     JOINS[("Ɱ", style.key)] = y
     OVERLAYS[("Ɱ", style.key)] = _as_path(donor)
@@ -1669,6 +2049,155 @@ def _q_body_c(style, styles):
     return [outer, counter], advance, note + "; bowl spliced from own O (arc dipped into the notch)"
 
 
+def _hook_donor(style, top):
+    """The first hook of HOOK_DONORS, moved down to g's depth, that is straight down to at most `top`."""
+    target = style.path("g").bounds[1]
+    for donor in HOOK_DONORS:
+        d = style.path(donor)
+        dy = target - d.bounds[1]
+        d = _moved(d, (1, 0, 0, 1, 0, dy))
+        probe = 150.5 + dy
+        x0, x1 = intervals(_segs(d), 0.0, probe)[0]
+        y = math.ceil(max(_straight_end(d, probe, x0, True), _straight_end(d, probe, x1, True)))
+        if y <= top:
+            break
+    return donor, d, dy, y, target
+
+
+def _hook_on_stem(style, base_cs, e_l, e_r, y_cut, b_idx=-1):
+    """
+    The base's outline spliced at y_cut with a hook (ʈ's, ɽ's in regular) moved
+    down to g's depth and put on the base's stem lines e_l, e_r (x(y) lines):
+    the stem runs straight from the base into the hook. Returns
+    (contours, donor name, hook contours as placed).
+    """
+    donor, d, dy, y_j, target = _hook_donor(style, y_cut - 2)
+    h1, h2 = y_j + 2.5, y_j + 40.5
+    (d0, d1), (D0, D1) = intervals(_segs(d), 0.0, h1)[0], intervals(_segs(d), 0.0, h2)[0]
+    k = (e_r(h1) - e_l(h1)) / (d1 - d0)
+    c1 = (e_l(h1) + e_r(h1)) / 2 - k * (d0 + d1) / 2
+    c2 = (e_l(h2) + e_r(h2)) / 2 - k * (D0 + D1) / 2
+    cy = (c2 - c1) / (h2 - h1)
+    hook = _cs(style, donor, (k, 0, cy, 1, c1 - cy * h1, dy))
+    out = _splice_at(base_cs, hook, y_cut, b_idx, 0, True)
+    return out, donor, hook
+
+
+def _tail_left_edge_one_curve(contour, edge, slack=25):
+    """
+    Ɋ's tail: the left edge from the cusp (where the bowl's bottom arc meets
+    the stem) to the bottom of the hook made one cubic, as the designer drew
+    regular's (474, 12) to (606, -192): it leaves the cusp along the edge's
+    own direction there and arrives at the bottom level, its handles fitted
+    to the edge as it was (the stem's straight part and the hook's curve).
+    Curves that are straight become lines and lines in line are merged
+    first, so that the stem's right edge is one vertical line. Returns
+    (contour, the fitted curve's largest distance from the old edge).
+    """
+    segs = gc.merge_lines(gc.straighten(contour, 0.5), 1.0)
+    n = len(segs)
+    ib = min(range(n), key=lambda i: segs[i][-1][1])           # the hook's bottom point
+    k = ib
+    while True:
+        start = segs[k][0]
+        if start[0] < edge(start[1]) - slack:                  # this segment comes from the bowl
+            break
+        k = (k - 1) % n
+        if k == ib:
+            return segs, 0.0
+    # Segments k+1 .. ib run from the cusp down to the bottom.
+    run = [segs[(k + 1 + j) % n] for j in range(((ib - k - 1) % n) + 1)]
+    if len(run) < 2:
+        return segs, 0.0
+    cusp, bottom = run[0][0], run[-1][-1]
+    samples = [q for sg in run for q in gc.sample(sg, 16) + [sg[-1]]][:-1]
+    curve = gc.fit_cubic(cusp, gc.tangent_out(run[0]), bottom, gc.tangent_in(run[-1]), samples)
+    err = max(min(math.dist(q, gc._point(curve, t / 200)) for t in range(201)) for q in samples)
+    out = gc.replace_run(segs, (k + 1) % n, ib, [curve])
+    return out, err
+
+
+def draft_Q_c(style, styles):
+    """
+    Ɋ in the styles that lack it, built as regular's is drawn:
+
+      outline  the copy's stem side (regular's Ɋ slanted and pushed outward:
+               stem, spur and notch) right of the stem's left edge, joined
+               there to the style's O, its arcs dipped so that the outer arc
+               meets the copy's at the notch; the bottom joint is the cusp;
+      counter  O's counter left of the stem's left edge, closed by one
+               straight line along it (curves meeting the stem at corners,
+               as regular's (473, 569) and (473, 61));
+      tail     the stem straight from just below the cusp into the hook ɋ
+               has (ʈ's), at g's depth.
+    """
+    copy, advance, note = copied(style, styles["regular"], "Ɋ")
+    cc = _path_contours(copy)
+    co = _outer(cc)
+    edge = _line_through(copy, 300.5, 450.5, -1, 0)
+    edge_r = _line_through(copy, 300.5, 450.5, -1, 1)
+    line = (edge(0), 0.0, edge(1000), 1000.0)              # upward: left of it is the bowl's side
+    o = style.path("O")
+    o = _moved(o, (1, 0, 0, 1, copy.bounds[0] - o.bounds[0], 0))
+    oc = _path_contours(o)
+    top_c = max(gc.crossings(cc[co], line), key=lambda c: c[2][1])[2]
+    o_top = o.bounds[3]
+    mid = (o.bounds[1] + o_top) / 2
+    x_top = max((p for seg in _segs(o) for p in seg), key=lambda p: p[1])[0]
+
+    def bent(dip):
+        def bend(p):
+            x, y = p
+            if y <= mid or x <= x_top:
+                return p
+            u = min(1.0, (x - x_top) / (top_c[0] - x_top))
+            return (x, y - dip * u * u * (y - mid) / (o_top - mid))
+        return [[tuple(bend(p) for p in seg) for seg in segs] for segs in oc]
+
+    def top_y(dip):
+        b = bent(dip)
+        return max(gc.crossings(b[_outer(b)], line), key=lambda c: c[2][1])[2][1]
+    lo, hi = -50.0, 200.0
+    for _ in range(40):
+        m_ = (lo + hi) / 2
+        if top_y(m_) > top_c[1]:
+            lo = m_
+        else:
+            hi = m_
+    ob = bent((lo + hi) / 2)
+    oo = _outer(ob)
+    oi = [i for i in range(len(ob)) if i != oo][0]
+    # Outline: the copy right of the stem's left edge, O left of it.
+    cb = sorted(gc.crossings(cc[co], line), key=lambda c: c[2][1])
+    od = sorted(gc.crossings(ob[oo], line), key=lambda c: c[2][1])
+    copy_top, copy_cusp = cb[-1], min(cb, key=lambda c: abs(c[2][1] - 0))
+    o_top_c = od[-1]
+    o_bottom = min(od, key=lambda c: c[2][1])
+    right = _path_on_side(cc[co], copy_cusp, copy_top, line, -1)
+    left = _path_on_side(ob[oo], o_top_c, o_bottom, line, 1)
+    outline = gc.join(right, left)
+    if gc.signed_area(outline) < 0:
+        outline = gc.reverse(outline)
+    # Counter: O's, left of the stem's left edge, closed along it.
+    ci = sorted(gc.crossings(ob[oi], line), key=lambda c: c[2][1])
+    counter = gc.join(_path_on_side(ob[oi], ci[0], ci[-1], line, 1))
+    if gc.signed_area(counter) > 0:
+        counter = gc.reverse(counter)
+    counter = gc.merge_lines(counter, 1.0)
+    # Tail: straight from just below the cusp into the hook.
+    y_cusp = o_bottom[2][1]
+    y_cut = math.floor(y_cusp) - 6
+    out, donor, hook = _hook_on_stem(style, [outline, counter], edge, edge_r, y_cut)
+    out = [gc.merge_lines(gc.drop_tiny(c), 1.0) for c in out]
+    out[0], err = _tail_left_edge_one_curve(out[0], edge)
+    JOINS[("Ɋ", style.key)] = y_cut
+    OVERLAYS[("Ɋ", style.key)] = _as_path(hook)
+    return out, advance, (
+        note + f"; bowl and counter from own O (cut at the stem's left edge, the counter closed along it);"
+        f" tail: the stem straight from y {y_cut} into {donor}'s hook at g's depth (as ɋ's), its left edge"
+        f" one curve from the cusp (within {err:.1f} of the edge it replaces)")
+
+
 def draft_Q_tail_c(style, styles):
     """
     Ɋ: the body (`_q_body_c`) with its own tail (regular's, ɖ's hook) run
@@ -1686,6 +2215,9 @@ def draft_Q_tail_c(style, styles):
     m = ((e_l(450.5) + e_r(450.5)) - (e_l(300.5) + e_r(300.5))) / 2 / 150
     lower = gc.transform(body, (1, 0, 0, 1, -delta * m, -delta))
     out = _splice_at(body, lower, y, -1, -1, True, donor_y=y - delta)
+    edge = _line_through(bp, 300.5, 450.5, -1, 0)
+    out[0], err = _tail_left_edge_one_curve(out[0], edge)
+    note += f"; the tail's left edge one curve from the cusp (within {err:.1f} of the lowered edge)"
     JOINS[("Ɋ", style.key)] = y
     return out, advance, note + f"; tail lengthened by {delta:.0f} below y {y:.0f} (stem only)"
 
@@ -1724,14 +2256,245 @@ def draft_y_loop_c(dst, src):
         f" (dx/dy {m_dst:.3f} vs {m_src:.3f}), loop × {t_dst / t_src:.2f} (right arm)")
 
 
+J_SMOOTH_REACH = (170, 210)   # how far below and above the bar the refitted edge reaches at most
+
+
+def _split_at_y(seg, y):
+    """A segment split where it crosses height y: (lower t part, upper t part), or None."""
+    c = gc.crossings([seg], gc.horizontal(y))
+    if not c:
+        return None
+    return gc.split(seg, c[0][1])
+
+
+def pen_of(style):
+    """
+    The style's broad nib, from its o: the ring's thickest (W) and thinnest
+    (h) along rays from the centre, and the nib's angle phi: the direction in
+    which the ring is thinnest (the tangent where the thinnest ray meets it).
+    Regular: W 88, h 34, phi 10°; italic: 92, 37, -10°; semibold 124, 43,
+    10°; semibold italic 132, 43, -10°.
+    """
+    o = style.path("o")
+    x0, y0, x1, y1 = o.bounds
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    rows = []
+    for adeg in range(0, 180, 5):
+        a = math.radians(adeg)
+        ux, uy = math.cos(a), math.sin(a)
+        best = 0.0
+        for sign in (1, -1):
+            inside, start = False, 0.0
+            for r5 in range(0, 2000):
+                r = r5 / 5
+                c = o.contains((cx + sign * ux * r, cy + sign * uy * r))
+                if c and not inside:
+                    start, inside = r, True
+                if inside and not c:
+                    best = max(best, r - start)
+                    break
+        rows.append((adeg, best))
+    W = max(t for _, t in rows)
+    a_min, h = min(rows, key=lambda r: r[1])
+    return W, h, math.radians(a_min - 90)
+
+
+Y_PEN_JOIN = -10
+Y_PEN_TIP = -57        # regular ỿ's counter: its tip, on the descender's left edge
+
+
+def _ring(segs, step=2.0):
+    """A contour as a closed polyline (sampled every `step` or so)."""
+    pts = []
+    for seg in segs:
+        n = 1 if len(seg) == 2 else max(4, int(math.dist(seg[0], seg[-1]) / step))
+        pts += [gc._point(seg, k / n) for k in range(n)]
+    return pts
+
+
+def draft_y_pen(style, styles):
+    """
+    ỿ: y with its tail replaced by a loop drawn as a broad-nib pen stroke.
+
+    The counter is regular ỿ's teardrop, turned so that its straight side
+    lies along the style's descender, its tip on the descender's left edge at
+    regular's height. The pen's centreline runs down the descender from above
+    the join, then round the counter at half the pen's width (for each
+    direction of travel) outside it, and back up to the tip: the counter
+    stays regular's, the stroke grows outward, thick where the pen moves
+    across its edge, thin where along it. The nib is the style's own (from
+    o: angle and hairline), its width set so that the stroke is as wide as
+    the y's descender where they join. The swept outline is fitted with
+    cubic curves (on-curve points at corners and extremes) and spliced with
+    the y at Y_PEN_JOIN.
+    """
+    reg = styles["regular"]
+    W_o, h, phi = pen_of(style)
+    y_path = style.path("y")
+    # The descender: its edges below the join, as lines.
+    e_l = _line_through(y_path, Y_PEN_JOIN - 5.5, Y_PEN_JOIN - 35.5, -1, 0)
+    e_r = _line_through(y_path, Y_PEN_JOIN - 5.5, Y_PEN_JOIN - 35.5, -1, 1)
+    c0 = ((e_l(Y_PEN_JOIN) + e_r(Y_PEN_JOIN)) / 2, Y_PEN_JOIN)
+    c1 = ((e_l(Y_PEN_JOIN - 100) + e_r(Y_PEN_JOIN - 100)) / 2, Y_PEN_JOIN - 100)
+    d = (c1[0] - c0[0], c1[1] - c0[1])
+    theta = math.atan2(d[1], d[0])
+    dxdy = d[0] / d[1]
+    w_join = (e_r(Y_PEN_JOIN) - e_l(Y_PEN_JOIN)) * abs(math.cos(math.atan(dxdy)))
+    # The nib: o's width and hairline; its angle such that the stroke is as
+    # wide as the descender where they join (a thin descender can only
+    # continue a broad nib held close to its own direction), the solution
+    # nearer o's stress.
+    W = W_o
+    a = 0.0
+    for k in range(0, 9001):
+        a = math.radians(k / 100)
+        if pen_stroke.thickness(a, W, h, 0.0) >= w_join:
+            break
+    candidates = [theta - a, theta + a, theta - a + math.pi, theta + a - math.pi]
+    phi_o = phi
+
+    def gap(x):
+        return abs((x - phi_o + math.pi / 2) % math.pi - math.pi / 2)
+    phi = min(candidates, key=gap)
+
+    # Regular's counter, turned onto the style's descender.
+    ry = reg.path("ỿ")
+    r_cs = _cs(reg, "ỿ")
+    counter = min(r_cs, key=lambda c: abs(gc.signed_area(c)))
+    pts = _ring(counter)
+    tip_r = max(pts, key=lambda p: p[1])
+    # Regular's descender edge along the counter's straight side.
+    r_side = [p for p in pts if p[0] > tip_r[0] - 60 and p[1] < tip_r[1] - 20 and p[1] > tip_r[1] - 100]
+    far = min(r_side, key=lambda p: p[1])
+    ang_r = math.atan2(far[1] - tip_r[1], far[0] - tip_r[0])
+    tip_s = (e_l(tip_r[1]), tip_r[1])
+    ang_s = math.atan2(-100.0, e_l(tip_r[1] - 100) - e_l(tip_r[1]))
+    rot = ang_s - ang_r
+    cr, sr = math.cos(rot), math.sin(rot)
+
+    def place(p):
+        x, y = p[0] - tip_r[0], p[1] - tip_r[1]
+        return (tip_s[0] + x * cr - y * sr, tip_s[1] + x * sr + y * cr)
+
+    def unplace(p):
+        x, y = p[0] - tip_s[0], p[1] - tip_s[1]
+        return (tip_r[0] + x * cr + y * sr, tip_r[1] - x * sr + y * cr)
+    pts = [place(p) for p in pts]
+    # Clockwise, from the tip down the side along the descender.
+    area = sum(x0 * y1 - x1 * y0 for (x0, y0), (x1, y1) in zip(pts, pts[1:] + pts[:1]))
+    if area > 0:
+        pts.reverse()
+    i_tip = max(range(len(pts)), key=lambda i: pts[i][1])
+    pts = pts[i_tip:] + pts[:i_tip]
+    n = len(pts)
+    # The centreline: the middle of regular's loop (midway between its counter
+    # and its outer edge, along the counter's outward normal), placed with the
+    # counter. The pen then thickens and thins about regular's own path.
+    ry_ink = ry
+    centre = []
+    for i in range(n):
+        p, q = pts[i - 1], pts[(i + 1) % n]
+        t = (q[0] - p[0], q[1] - p[1])
+        L = math.hypot(*t)
+        t = (t[0] / L, t[1] / L)
+        normal = (-t[1], t[0])                        # outward from a clockwise counter
+        # The loop's thickness in regular here (measured on regular's glyph, in its own frame).
+        rx, ry_ = unplace(pts[i])
+        rn = (normal[0] * cr + normal[1] * sr, -normal[0] * sr + normal[1] * cr)
+        k = 1.0
+        while k < 200 and ry_ink.contains((rx + rn[0] * (k + 0.5), ry_ + rn[1] * (k + 0.5))):
+            k += 1.0
+        centre.append((pts[i][0] + normal[0] * k / 2, pts[i][1] + normal[1] * k / 2))
+    # Down the descender from above the join to the counter's tip.
+    start = ((e_l(Y_PEN_JOIN + 40) + e_r(Y_PEN_JOIN + 40)) / 2, Y_PEN_JOIN + 40)
+    lead = [(start[0] + (centre[0][0] - start[0]) * k / 30, start[1] + (centre[0][1] - start[1]) * k / 30)
+            for k in range(30)]
+    # Back into the descender at the end, past the tip.
+    end = centre[-1]
+    tail = [(end[0] + (centre[0][0] - end[0]) * k / 10, end[1] + (centre[0][1] - end[1]) * k / 10)
+            for k in range(1, 11)]
+    swept = pen_stroke.sweep(lead + centre + tail, W, h, phi)
+    loops = []
+    for c in swept.contours:
+        poly = [pt for op, pt in [(op, pts_[-1]) for op, pts_ in _recording(c) if pts_]]
+        loops.append(pen_stroke.fit_closed(poly, tol=1.5))
+    loops.sort(key=lambda c: -abs(gc.signed_area(c)))
+    outline = loops[0]
+    if gc.signed_area(outline) < 0:
+        outline = gc.reverse(outline)
+    counters = [gc.reverse(c) if gc.signed_area(c) > 0 else c for c in loops[1:]
+                if abs(gc.signed_area(c)) > MIN_CONTOUR]
+    out = _splice_at(_cs(style, "y"), [outline], Y_PEN_JOIN, -1, -1, True)
+    JOINS[("ỿ", style.key)] = Y_PEN_JOIN
+    return out + counters, style.advance("y"), (
+        f"{style.key}'s y with a broad-nib loop: nib {W:.0f} wide, hairline {h:.0f} (o's), held at"
+        f" {math.degrees(phi):.0f}° (o's stress {math.degrees(phi_o):.0f}°) so that the stroke is {w_join:.0f}, the"
+        f" descender's width at the join; round regular's counter turned onto the descender"
+        f" ({math.degrees(rot):+.1f}°)")
+
+
 def draft_J_nobar(style):
-    """Italic J with its own crossbar spliced out: below the bar and above it, joined along the stem's edges."""
-    j = _cs(style, "J")
+    """
+    Italic J without its own crossbar: on each edge of the stem, the run of
+    segments round the bar (from the last on-curve point below it to the
+    first above, at most J_SMOOTH_REACH away, a longer segment being split
+    there) is replaced by one cubic, with the tangents of the edge it leaves
+    at both ends, fitted to the edge above and below the bar and to the
+    points where the bar met the stem (Schneider's fit with end tangents);
+    the end tangents are the edge's own there.
+    """
+    contours = _cs(style, "J")
     band = _crossbar_band(style)
     if band is None:
-        return j
+        return contours
     y0, y1 = band
-    return _splice_at(j, j, y0 - 2, 0, 0, keep_base_above=False, donor_y=y1 + 2)
+    lo, hi = y0 - J_SMOOTH_REACH[0], y1 + J_SMOOTH_REACH[1]
+    o = _outer(contours)
+    segs = list(contours[o])
+
+    def touches(seg):
+        return any(y0 - 12 <= p[1] <= y1 + 12 for p in (seg[0], seg[-1]))
+    for _ in range(2):                         # the two edges, one run at a time
+        n = len(segs)
+        flags = [touches(sg) for sg in segs]
+        # A run: consecutive touching segments, not wrapping through a non-touching one.
+        start = next(i for i in range(n) if flags[i] and not flags[i - 1])
+        end = start
+        while flags[(end + 1) % n]:
+            end = (end + 1) % n
+        if getattr(draft_J_nobar, "_done", None) == start:
+            break
+        first, last = segs[start], segs[end]
+        # Split end segments that reach far beyond the bar.
+        for which in ("first", "last"):
+            seg = first if which == "first" else last
+            far = seg[0] if which == "first" else seg[-1]
+            if far[1] < lo or far[1] > hi:
+                cut_y = lo if far[1] < lo else hi
+                parts = _split_at_y(seg, cut_y)
+                if parts:
+                    a, b = parts
+                    if which == "first":
+                        segs[start:start + 1] = [a, b]
+                        if end > start:
+                            end += 1
+                        start += 1
+                        first = b
+                    else:
+                        segs[end:end + 1] = [a, b]
+                        last = a
+        p_start, p_end = first[0], last[-1]
+        # The stem edge's own directions at the two ends (its neighbours'
+        # where it is smooth; at a corner, as at the flag, the edge's).
+        t_start = gc.tangent_out(first)
+        t_end = gc.tangent_in(last)
+        samples = (gc.sample(first) + [first[-1]] + ([last[0]] if last is not first else [])
+                   + (gc.sample(last) if last is not first else []))
+        samples = [q for q in samples if not (y0 + 2 < q[1] < y1 - 2)] or samples
+        curve = gc.fit_cubic(p_start, t_start, p_end, t_end, samples)
+        segs = gc.replace_run(segs, start, end, [curve])
+    contours[o] = segs
+    return contours
 
 
 def draft_J_bar_c(style, styles):
@@ -1769,20 +2532,20 @@ J_BAR_OVERHANG = (118, 113)
 
 LETTERS = [
     ("Ɇ", "reference", lambda d, S: draft_E_solidus_c(d, S)),
-    ("Ɍ", "overlay", lambda d, S: draft_bar(d, S, "Ɍ")),
+    ("Ɍ", "overlay", lambda d, S: draft_R_bar(d, S)),
     ("Ɏ", "overlay", lambda d, S: draft_bar(d, S, "Ɏ")),
     ("ɏ", "overlay", lambda d, S: draft_bar(d, S, "ɏ")),
     ("Ɉ", "splice + overlay", lambda d, S: draft_J_bar_c(d, S)),
     # From regular in both styles: italic's ẜ is drawn afresh (not ſ + stroke),
     # so its difference from ſ is slivers, not the stroke.
     ("ẜ", "part", lambda d, S: draft_part(d, S, "ẜ")),
-    ("ẝ", "overlay", lambda d, S: draft_bar(d, S, "ẝ", "italic" if d.key == "semibold_italic" else "regular")),
+    ("ẝ", "part", lambda d, S: draft_s_bar(d, S)),
     ("ꝥ", "part", lambda d, S: draft_part(d, S, "ꝥ")),
     ("ꞓ", "overlay", lambda d, S: draft_bar(d, S, "ꞓ")),
     ("Ɱ", "splice", lambda d, S: draft_M_hook_c(d)),
     ("ꭒ", "splice", lambda d, S: draft_u_hook_c(d)),
-    ("ỿ", "splice", lambda d, S: draft_y_loop_c(d, S["regular"])),
-    ("Ɋ", "splice", lambda d, S: draft_Q_tail_c(d, S)),
+    # ỿ moved to the report's to-do item "Add even more glyphs" (2026-11-14); draft_y_pen is a start.
+    ("Ɋ", "splice", lambda d, S: draft_Q_c(d, S)),
     ("Ỻ", "reference", lambda d, S: draft_LL_c(d, S)),
     ("Ⅎ", "turn", lambda d, S: turned_c(d, "F")),
 ]
@@ -1791,7 +2554,7 @@ LETTERS = [
 # turned capitals, which also exist only in regular.
 EXTRAS = [
     ("ɋ", "splice", lambda d, S: draft_q_tail_c(d)),
-    ("ỻ", "overlay", lambda d, S: draft_bar(d, S, "ỻ")),
+    ("ỻ", "part", lambda d, S: draft_ll(d, S)),
     ("Ɐ", "turn", lambda d, S: turned_c(d, "A")),
     ("Ʌ", "turn", lambda d, S: turned_c(d, "V")),
 ]
@@ -1802,28 +2565,28 @@ EXTRAS = [
 # (tentative, or revised and not yet reviewed); rejected.
 REBUILT = "rebuilt 2026-11-13 from components (references, overlapping contours, splices)"
 DECISIONS = {
-    "Ɇ": ("pending", "E + the long solidus U+0338 (as regular's Ɇ); middle anchor moved right in the italics"),
-    "Ɍ": ("changed", f"approved 2026-11-13; {REBUILT}: R + U+0335"),
-    "Ɏ": ("changed", f"approved 2026-11-13; {REBUILT}: Y + U+0336"),
-    "ɏ": ("changed", f"approved 2026-11-13 (italic's spikes since); {REBUILT}: y + U+0336"),
-    "Ɉ": ("changed", f"approved 2026-11-13; {REBUILT}: J, its crossbar spliced out, + U+0336"),
-    "ẜ": ("changed", f"approved 2026-11-13; {REBUILT}: ſ + the stroke of regular's ẜ as one contour"),
-    "ẝ": ("changed", f"approved 2026-11-13; {REBUILT}: ſ + U+0335"),
-    "ꝥ": ("changed", f"approved 2026-11-13; {REBUILT}: þ + regular's stroke as one contour"),
-    "ꞓ": ("changed", f"approved 2026-11-13; {REBUILT}: c + U+0335"),
-    "Ɱ": ("changed", f"approved 2026-11-13; {REBUILT}: M and J spliced"),
-    "ꭒ": ("changed", f"approved 2026-11-13; {REBUILT}: u and ɿ spliced"),
-    "ỿ": ("pending", f"{REBUILT}: y and regular's ỿ spliced"),
-    "Ɋ": ("pending", f"{REBUILT}: regular's Ɋ, bowl spliced from O, tail lengthened (stem only)"),
-    "Ỻ": ("pending", f"rejected 2026-11-13; {REBUILT}: I, L and a bar contour"),
-    "Ⅎ": ("approved", "2026-11-13 (a turned reference)"),
-    "ɋ": ("pending", f"{REBUILT}: q's own descender spliced with a hook at the descender"),
-    "ỻ": ("changed", f"approved 2026-11-13; {REBUILT}: l + l + U+0336"),
-    "Ɐ": ("approved", "2026-11-13 (a turned reference)"),
-    "Ʌ": ("approved", "2026-11-13 (a turned reference)"),
+    "Ɇ": ("approved", "2026-11-14 (E + U+0338; semibold italic shifted 7)"),
+    "Ɍ": ("approved", "2026-11-14 (R + the left half of U+0335)"),
+    "Ɏ": ("approved", "2026-11-14 (Y + U+0336)"),
+    "ɏ": ("approved", "2026-11-14 (y + U+0336, centred between the arms' outer edges)"),
+    "Ɉ": ("approved", "2026-11-14 (italic stems refitted; semibold: bar centred on the stem, revision U+F632)"),
+    "ẜ": ("approved", "2026-11-14 (ſ + regular's stroke as one contour)"),
+    "ẝ": ("approved", "2026-11-14 (ſ + a blunt bar, regular's overhangs in every style; italic revision U+F633)"),
+    "ꝥ": ("approved", "2026-11-14 (þ + regular's stroke from its terminals)"),
+    "ꞓ": ("approved", "2026-11-14 (c + U+0335)"),
+    "Ɱ": ("approved", "2026-11-14 (M and J spliced)"),
+    "ꭒ": ("approved", "2026-11-14 (u and ɿ spliced)"),
+    "ỿ": ("rejected", "2026-11-14: wanted a broad-nib pen loop like Noto Serif's and Junicode's, respecting regular's counter (in progress)"),
+    "Ɋ": ("approved", "2026-11-14, after the tail and counter corners were smoothed as ɋ's"),
+    "Ỻ": ("approved", "2026-11-14 (I and L merged where their serifs overlap, counter drawn as regular's)"),
+    "Ⅎ": ("approved", "2026-11-14 (a turned reference)"),
+    "ɋ": ("approved", "2026-11-14 (q's own descender spliced with ʈ's hook, ɽ's in regular)"),
+    "ỻ": ("approved", "2026-11-14 (two l's and regular's tie bar, blunt)"),
+    "Ɐ": ("approved", "2026-11-14 (a turned reference)"),
+    "Ʌ": ("approved", "2026-11-14 (a turned reference)"),
 }
 SECTIONS = [
-    ("approved", "Approved", "Approved on 2026-11-13."),
+    ("approved", "Approved", "Approved on 2026-11-13 and 2026-11-14."),
     ("changed", "Approved, but rebuilt since", "Rebuilt from components; to check again (FontForge)."),
     ("pending", "Pending", "Tentative, or redrafted after a comment."),
     ("rejected", "Rejected", ""),
@@ -1831,13 +2594,10 @@ SECTIONS = [
 
 # Other candidates for comparison: char -> [(label, recipe)], in the draft
 # fonts at VARIANT_PUA[char] + i.
-VARIANTS = {
-    "Ɇ": [
-        ("rectangle: the solidus's centreline and thickness, square ends", lambda d, S: draft_E_rectangle(d, S)),
-        ("parallelogram: the same, level ends (as Ⱥ's stroke)", lambda d, S: draft_E_rectangle(d, S, sheared=True)),
-    ],
-}
-VARIANT_PUA = {"Ɇ": 0xF640}
+# Ɇ's rectangle and parallelogram candidates (draft_E_rectangle) were
+# removed from the sheet on 2026-11-14, once E + U+0338 was approved.
+VARIANTS = {}
+VARIANT_PUA = {}
 
 # Revisions of the designer's own regular glyph: char -> (label, recipe), in
 # the regular draft font at REVISION_PUA[char].
@@ -1845,18 +2605,23 @@ REVISIONS = {
     "ɋ": ("revision: tail to the descender (g's depth), straight descender", lambda d, S: draft_q_tail_c(d)),
     "Ɋ": ("revision: tail to the descender (g's depth), stem lengthened", lambda d, S: draft_Q_tail_c(d, S)),
 }
-REVISION_PUA = {"ɋ": 0xF630, "Ɋ": 0xF631}
+REVISIONS["Ɉ"] = ("revision: U+0336 centred on the stem as in regular (semibold's is off centre)",
+                   lambda d, S: draft_bar(d, S, "Ɉ"))
+REVISIONS["ẝ"] = ("revision: blunt bar with regular's overhangs (the designer's italic bar overhangs left)",
+                   lambda d, S: draft_s_bar(d, S))
+REVISION_PUA = {"ɋ": 0xF630, "Ɋ": 0xF631, "Ɉ": 0xF632, "ẝ": 0xF633}
+REVISION_STYLES = {"Ɉ": {"semibold"}, "ẝ": {"italic"}}   # default: wherever the designer's glyph exists
 
 # Recipes checked in regular against the designer's glyph.
 CHECKS = [
     ("Ɇ", lambda S: draft_E_solidus_c(S["regular"], S)),
-    ("Ɍ", lambda S: draft_bar(S["regular"], S, "Ɍ")),
+    ("Ɍ", lambda S: draft_R_bar(S["regular"], S)),
     ("Ɏ", lambda S: draft_bar(S["regular"], S, "Ɏ")),
     ("ɏ", lambda S: draft_bar(S["regular"], S, "ɏ")),
     ("Ɉ", lambda S: draft_bar(S["regular"], S, "Ɉ")),
-    ("ẝ", lambda S: draft_bar(S["regular"], S, "ẝ")),
+    ("ẝ", lambda S: draft_s_bar(S["regular"], S)),
     ("ꞓ", lambda S: draft_bar(S["regular"], S, "ꞓ")),
-    ("ỻ", lambda S: draft_bar(S["regular"], S, "ỻ")),
+    ("ỻ", lambda S: draft_ll(S["regular"], S)),
     ("ẜ", lambda S: draft_part(S["regular"], S, "ẜ")),
     ("ꝥ", lambda S: draft_part(S["regular"], S, "ꝥ")),
     ("Ɱ", lambda S: draft_M_hook_c(S["regular"])),
@@ -1993,7 +2758,7 @@ def build_drafts():
     # Revisions of the designer's own glyphs.
     for char, (label, recipe) in REVISIONS.items():
         for key in ORDER:
-            if status[char][key] != "designer":
+            if status[char][key] != "designer" or key not in REVISION_STYLES.get(char, {key}):
                 continue
             path, advance, note = recipe(styles[key], styles)
             _add_glyph(out[key], f"uni{ord(char):04X}.rev", REVISION_PUA[char], path, advance)
@@ -2020,9 +2785,180 @@ def build_drafts():
         _add_glyph(out["regular"], f"uni{ord(char):04X}.recipe", CHECK_PUA + i, path, advance)
         checks.append((char, CHECK_PUA + i, ratio, shifted, shift, advance, regular.advance(char), note))
 
+    anchors = {}
     for key in ORDER:
+        drafted = {f"uni{ord(c):04X}" for c in status if status[c][key] == "draft"}
+        anchors[key] = _draft_anchors(out[key], key, drafted)
         out[key].save(FONTS_DIR / f"{STYLES[key]}-draft.otf")
+        _save_merged(key)
+        _write_approved(key, status)
+    for char in status:
+        for key in ORDER:
+            if status[char][key] == "draft":
+                got = anchors[key].get(f"uni{ord(char):04X}", {})
+                notes[char][key] += "; anchors: " + (", ".join(
+                    f"{'above' if c == 0 else 'below'} ({x}, {y}) {how}" for c, (x, y, how) in sorted(got.items()))
+                    or "none")
     return notes, checks, status
+
+
+def _base_anchor_table(ttfont, lookup_index):
+    """{glyph: {class: (x, y)}} of the mark-to-base lookup's above (0) and below (2) classes."""
+    out = {}
+    lookup = ttfont["GPOS"].table.LookupList.Lookup[lookup_index]
+    for sub in lookup.SubTable:
+        sub = getattr(sub, "ExtSubTable", sub)
+        for glyph, record in zip(sub.BaseCoverage.glyphs, sub.BaseArray.BaseRecord):
+            for cls, anchor in enumerate(record.BaseAnchor):
+                if anchor is not None and cls in (0, 2):
+                    out.setdefault(glyph, {})[cls] = (anchor.XCoordinate, anchor.YCoordinate)
+    return out
+
+
+def _draft_anchors(ttfont, key, drafted):
+    """
+    Give the drafts anchors as the patch would if the designer had drawn
+    them: stage 6 (the candidate, for the base groups), 7 (curated), 7b (stem
+    axis), 8 (derived letters inherit their base letter's anchor), then 10
+    (ccmp: the draft capitals join @capitals, as in regular's ccmp.fea, so
+    that above marks take their .cap forms) and 11 (coverage sorted). The
+    stages run on the whole font; they only fill gaps or reproduce what they
+    set in the patch, and the function checks that no other anchor moved.
+    Returns {glyph: {class: (x, y, stage)}} for the drafts.
+    """
+    from .font_context import FONTS
+    from .font_patching_anchors import patch_anchors_human
+    from .font_patching_derivedanchors import patch_derived_anchors
+    from .font_patching_heuristicanchors import patch_anchors_heuristic
+    from .font_patching_sortcoverage import sort_mark_to_base_coverage
+    from .font_patching_stemaxis import patch_stem_axis
+    import contextlib
+    import io
+
+    lookup_index = FONTS[key]["lookup_index"]
+    before = _base_anchor_table(ttfont, lookup_index)
+    cmap = ttfont.getBestCmap()
+    # Stage 1's "delete" overrides, for the sheet's own letters (the patch
+    # applies them on its next run; regular Ỻ above, 2026-11-14).
+    own = {cmap[ord(c)] for c, _, _ in LETTERS + EXTRAS if ord(c) in cmap}
+    overrides = __import__("data.fontanchors_audit.overrides", fromlist=["overrides"]).overrides
+    lookup = ttfont["GPOS"].table.LookupList.Lookup[lookup_index]
+    for sub in lookup.SubTable:
+        sub = getattr(sub, "ExtSubTable", sub)
+        for glyph, record in zip(sub.BaseCoverage.glyphs, sub.BaseArray.BaseRecord):
+            for cls, verdict in overrides.get(key, {}).get(glyph, {}).items():
+                if glyph in own and verdict == "delete":
+                    record.BaseAnchor[cls] = None
+    stages = []
+    with contextlib.redirect_stdout(io.StringIO()):
+        patch_anchors_heuristic(ttfont, key, lookup_index)
+        stages.append(("candidate", _base_anchor_table(ttfont, lookup_index)))
+        patch_anchors_human(ttfont=ttfont, font_key=key, lookup_index=lookup_index,
+                            cmap=cmap, cmap_reverse={g: u for u, g in cmap.items()})
+        stages.append(("curated", _base_anchor_table(ttfont, lookup_index)))
+        patch_stem_axis(ttfont, key, lookup_index)
+        stages.append(("stem axis", _base_anchor_table(ttfont, lookup_index)))
+        patch_derived_anchors(ttfont, key, lookup_index)
+        stages.append(("inherited", _base_anchor_table(ttfont, lookup_index)))
+        sort_mark_to_base_coverage(ttfont, lookup_index)
+    after = stages[-1][1]
+    # The sheet's letters themselves may change in every style (regular's
+    # designer ɋ Ɐ Ʌ: data/derived_letters.py and BASE_LATIN since
+    # 2026-11-14, which the patch applies on its next run).
+    moved = sorted(g for g in set(before) | set(after)
+                   if g not in drafted | own and before.get(g) != after.get(g))
+    if moved:
+        raise RuntimeError(f"{key}: the anchor stages moved anchors outside the drafts: {moved[:10]}")
+    result = {}
+    for glyph in drafted:
+        for cls, xy in after.get(glyph, {}).items():
+            how, prev = "", {}
+            for stage, table in stages:
+                if table.get(glyph, {}).get(cls) != prev.get(cls):
+                    how = stage
+                prev = table.get(glyph, {})
+            result.setdefault(glyph, {})[cls] = (*xy, how)
+    _draft_ccmp(ttfont, key, drafted)
+    return result
+
+
+def _draft_ccmp(ttfont, key, drafted):
+    """GSUB ccmp rebuilt from the style's ccmp.fea with the draft capitals regular lists added to @capitals."""
+    from fontTools.feaLib.builder import Builder
+    import re
+
+    regular = Path("data/fea/regular/ccmp.fea").read_text(encoding="utf-8")
+    fea = Path(f"data/fea/{key}/ccmp.fea").read_text(encoding="utf-8")
+
+    def capitals(text):
+        m = re.search(r"@capitals\s*=\s*\[(.*?)\];", text, re.S)
+        return m, {w for line in m.group(1).splitlines() for w in line.split("#")[0].split()}
+    m, own = capitals(fea)
+    add = sorted(g for g in capitals(regular)[1] & drafted if g not in own)
+    if add:
+        fea = (fea[:m.end(1)] + "    # draft capitals (missing_glyphs.py)\n    " + " ".join(add) + "\n  "
+               + fea[m.end(1):])
+    gpos, gdef = ttfont["GPOS"], ttfont["GDEF"]
+    Builder(ttfont, io_fea(fea, f"data/fea/{key}/ccmp.fea")).build()
+    ttfont["GPOS"], ttfont["GDEF"] = gpos, gdef
+
+
+def io_fea(text, path):
+    """A feature file as a file object with the original's name (so that include() resolves beside it)."""
+    import io
+    f = io.StringIO(text)
+    f.name = path
+    return f
+
+
+APPROVED_DIR = Path("data/draft_glyphs")
+
+
+def _write_approved(key, status):
+    """
+    data/draft_glyphs/{style}.json: the approved drafts' outlines (merged, from
+    fonts/*-draft-merged.otf) and advances, which stage 2 of the patch adds
+    (font_patching_drafts.py).
+    """
+    font = TTFont(FONTS_DIR / f"{STYLES[key]}-draft-merged.otf")
+    gs = font.getGlyphSet()
+    out = {}
+    for char, _, _ in LETTERS + EXTRAS:
+        if status[char][key] != "draft" or DECISIONS[char][0] != "approved":
+            continue
+        name = f"uni{ord(char):04X}"
+        pen = RecordingPen()
+        gs[name].draw(pen)
+        out[name] = {"unicode": ord(char), "char": char, "advance": font["hmtx"][name][0],
+                     "decision": DECISIONS[char][1],
+                     "outline": [[op, [[round(v, 2) for v in p] for p in pts]] for op, pts in pen.value]}
+    APPROVED_DIR.mkdir(exist_ok=True)
+    lines = [f"  {json.dumps(n)}: {json.dumps(e, ensure_ascii=False)}" for n, e in out.items()]
+    (APPROVED_DIR / f"{key}.json").write_text("{\n" + ",\n".join(lines) + "\n}\n", encoding="utf-8")
+
+
+def _save_merged(key):
+    """
+    fonts/*-draft-merged.otf: the draft font with the drafts' overlapping
+    contours merged, as font generation does. The unmerged draft font is for
+    FontForge and the control-point figures; the sheet sets text in this one,
+    because some PDF renderers fill CFF glyphs with the even-odd rule and
+    paint overlaps white (CFF's rule is nonzero, but fonts are expected not
+    to overlap).
+    """
+    font = TTFont(FONTS_DIR / f"{STYLES[key]}-draft.otf")
+    # Every glyph the drafts added or replaced (some names, e.g. semibold's
+    # uni1EFB, exist in the patched font with another outline).
+    patched = TTFont(FONTS_DIR / f"{STYLES[key]}-patch.otf").getGlyphSet()
+    drafts = font.getGlyphSet()
+
+    def outline(gs, name):
+        pen = RecordingPen()
+        gs[name].draw(pen)
+        return pen.value
+    removeOverlaps(font, [n for n in font.getGlyphOrder()
+                          if n not in patched or outline(patched, n) != outline(drafts, n)])
+    font.save(FONTS_DIR / f"{STYLES[key]}-draft-merged.otf")
 
 
 # ------------------------------------------------------------
@@ -2117,14 +3053,21 @@ def _cell(family, key, text, target, cmap, draft=False, size=30):
 # char, joining height where not in JOINS, cm per unit (Ɱ larger, two to a row).
 # Underneath (light grey): "donor", the donor glyph as its graft placed it;
 # "y", the style's y at the same origin.
-GRAFT_FIGURES = [("Ɱ", None, 0.0098, "donor"), ("ꭒ", None, 0.0055, "donor"),
-                 ("ɋ", None, 0.0055, "donor"), ("ɋ", "rev", 0.0055, "donor"),
-                 ("Ɋ", None, 0.0055, None), ("Ɋ", "rev", 0.0055, None),
-                 ("ỿ", None, 0.0055, "y"),
-                 ("Ỻ", None, 0.0046, None), ("Ɇ", None, 0.0055, None),
-                 ("Ɍ", None, 0.0055, None), ("Ɏ", None, 0.0055, None), ("ɏ", None, 0.0055, None),
-                 ("Ɉ", None, 0.0055, None), ("ẜ", None, 0.0055, None), ("ẝ", None, 0.0055, None),
-                 ("ꝥ", None, 0.0055, None), ("ꞓ", None, 0.0055, None), ("ỻ", None, 0.0055, None)]
+# Every draft, in the order of the letter lists; underneath (light grey):
+# "donor", the donor glyph as its splice placed it; "y", the style's y. The
+# revisions of designer glyphs follow their letter. Ɱ larger, Ỻ smaller.
+FIGURE_UNDER = {"Ɱ": "donor", "ꭒ": "donor", "ɋ": "donor", "Ɋ": "donor", "ỿ": "y"}
+FIGURE_SCALE = {"Ɱ": 0.0098, "Ỻ": 0.0046}
+
+
+def _figure_list():
+    out = []
+    for char, _, _ in LETTERS + EXTRAS:
+        k = FIGURE_SCALE.get(char, 0.0055)
+        out.append((char, None, k, FIGURE_UNDER.get(char)))
+        if char in REVISIONS:
+            out.append((char, "rev", k, FIGURE_UNDER.get(char)))
+    return out
 
 
 def _tikz_under(path, k):
@@ -2219,9 +3162,9 @@ def write_sheet(notes, checks, status):
     w(r"\setmainfont{Libertinus Serif}[Path = ../fonts/, UprightFont = LibertinusSerif-Regular.otf,"
       r" ItalicFont = LibertinusSerif-Italic.otf, BoldFont = LibertinusSerif-Semibold.otf,"
       r" BoldItalicFont = LibertinusSerif-SemiboldItalic.otf]")
-    w(r"\newfontfamily\LibDraft[Path = ../fonts/, UprightFont = LibertinusSerif-Regular-draft.otf,"
-      r" ItalicFont = LibertinusSerif-Italic-draft.otf, BoldFont = LibertinusSerif-Semibold-draft.otf,"
-      r" BoldItalicFont = LibertinusSerif-SemiboldItalic-draft.otf]{Libertinus Serif Draft}")
+    w(r"\newfontfamily\LibDraft[Path = ../fonts/, UprightFont = LibertinusSerif-Regular-draft-merged.otf,"
+      r" ItalicFont = LibertinusSerif-Italic-draft-merged.otf, BoldFont = LibertinusSerif-Semibold-draft-merged.otf,"
+      r" BoldItalicFont = LibertinusSerif-SemiboldItalic-draft-merged.otf]{Libertinus Serif Draft}")
     for fam, label, files in COMPARE:
         w(f"\\newfontfamily\\{fam}[Path = ../fonts/, UprightFont = {files[0]}, ItalicFont = {files[1]},"
           f" BoldFont = {files[2]}, BoldItalicFont = {files[3]}]{{{label}}}")
@@ -2233,7 +3176,9 @@ def write_sheet(notes, checks, status):
       r" BASE\_IPA has no gaps; these 15 letters of BASE\_LATIN are all.")
     w("")
     w(r"\smallskip Drafts are in \textcolor{draft}{blue}; black is the designer's glyph."
-      r" The drafts are in \verb|fonts/*-draft.otf| (the patched fonts plus the drafts; no anchors),"
+      r" The drafts are in \verb|fonts/*-draft.otf| (the patched fonts plus the drafts, with the anchors the patch's stages give them;"
+      r" contours unmerged, as built) and \verb|fonts/*-draft-merged.otf| (overlaps merged, as font"
+      r" generation does; the text of this sheet is set in it),"
       r" written by \verb|run_missing_glyphs_sheet.py|; the recipes are in \verb|missing_glyphs.py|."
       r" Each letter is drafted from the style's own letters where the regular glyph shows how the designer built it:")
     w(r"\begin{description}\setlength\itemsep{0pt}\small")
@@ -2248,12 +3193,13 @@ def write_sheet(notes, checks, status):
       r" fits in the designer's glyph: its height, and its offset from the stem (or the de-slanted centre).")
     w(r"\item[reference] Ɇ: E and the long solidus U+0338 (redrawn in semibold and semibold italic, where"
       r" it was the short one), crossing half E's height 23 left of E's de-slanted centre."
-      r" Ỻ: I, L and a bar contour. Ⅎ Ɐ Ʌ: turned references.")
+      r" Ⅎ Ɐ Ʌ: turned references.")
     w(r"\item[part] ẜ ꝥ: the base and the stroke of regular's glyph as one contour (ẜ's a rectangle,"
       r" ꝥ's with its swelling ends), slanted and thickened to the style.")
     w(r"\item[splice] Ɱ (M and J's hook), ꭒ (u and ɿ's fishhook), ỿ (y and regular's ỿ loop),"
       r" ɋ (q's own descender and ʈ's hook, regular ɽ's, at the descender), Ɉ (italic J, its own crossbar"
-      r" spliced out, + U+0336), Ɋ (regular's Ɋ, its bowl spliced from the style's O, its tail lengthened"
+      r" spliced out, + U+0336), Ỻ (I and L cut where their serifs overlap and joined, as regular's: one"
+      r" outline and the counter between the stems), Ɋ (regular's Ɋ, its bowl spliced from the style's O, its tail lengthened"
       r" by splicing it with itself moved down): the outlines are cut where they cross a line and joined"
       r" there; points left on a straight edge are dropped.")
     w(r"\end{description}")
@@ -2263,7 +3209,8 @@ def write_sheet(notes, checks, status):
 
     # Overview
     w(r"\subsection*{All drafts in context}")
-    w(r"Each letter after its base letter; the last four are outside the base groups."
+    w(r"Each letter after its base letter; the last four are not in the to-do item (ɋ is outside the base"
+      r" groups; Ɐ Ʌ ỻ have been in BASE\_LATIN since 2026-11-14, for their anchors)."
       r" The letters follow by decision: approved, approved but changed since, then the general sections"
       r" (control points of the grafts, recipe checks, turned letters), and the pending and rejected"
       r" letters last.\par\smallskip")
@@ -2274,9 +3221,31 @@ def write_sheet(notes, checks, status):
         w(f"{{\\small {LABEL[key]}}}\\par\\nopagebreak{{\\LibDraft{SHAPE[key]}\\fontsize{{18}}{{24}}\\selectfont "
           + pairs(LETTERS) + r"\quad " + pairs(EXTRAS) + r"}\par\smallskip")
 
+    w(r"\medskip\noindent\begin{minipage}{\linewidth}")
+    marks = '\\char"034F\\char"0303\\char"0330'
+    for key in ORDER:
+        def marked(entries, original):
+            out = []
+            for c, _, _ in entries:
+                base = _chars(CONTEXT[c][0]) + marks
+                cell = _chars(c) + marks
+                if original and status[c][key] == "draft":
+                    cell = f"\\hphantom{{\\LibDraft{SHAPE[key]}{cell}}}"
+                elif not original and status[c][key] == "draft":
+                    cell = f"\\textcolor{{draft}}{{{cell}}}"
+                out.append(base + cell)
+            return r"\ ".join(out)
+        for original, family, label in ((True, r"\rmfamily", "original"), (False, r"\LibDraft", "patched")):
+            w(f"{{\\small {LABEL[key]}, {label}}}\\par\\nopagebreak{{{family}{SHAPE[key]}\\fontsize{{19}}{{30}}\\selectfont "
+              + marked(LETTERS, original) + r"\quad " + marked(EXTRAS, original) + r"}\par"
+              + (r"\smallskip" if original else r"\medskip"))
+    w(r"\end{minipage}\par\medskip")
+
     # Per letter
     import unicodedata
-    outside = {c for c, _, _ in EXTRAS}
+    from data.ipa.ipa_unicode import unicode_groups
+    in_groups = {cp for g in ("BASE_LATIN", "BASE_IPA") for cp in unicode_groups[g]["items"]}
+    outside = {c for c, _, _ in EXTRAS if ord(c) not in in_groups}
     def letter_sections(states):
         for state, title, intro in [x for x in SECTIONS if x[0] in states]:
             entries = [e for e in LETTERS + EXTRAS if DECISIONS[e[0]][0] == state]
@@ -2332,22 +3301,21 @@ def write_sheet(notes, checks, status):
 
     letter_sections(("approved", "changed"))
 
-    # Control points of the grafts
-    w(r"\section*{Control points of the grafts}")
-    w(r"The drafts as compiled into \verb|fonts/*-draft.otf| (what FontForge shows on opening them):"
-      r" on-curve points black, off-curve points as open circles on their handles;"
-      r" the dashed line is the joining height (on the designer's regular glyph, where the recipe joins when"
-      r" it is run in regular). The outlines are the result of a boolean union and cut (skia-pathops);"
-      r" at the join, points left on a straight stem are dropped, so a stem runs straight from the base"
-      r" letter's line into the donor's, as in regular Ɱ.\par\medskip")
-    for char, y_join, k, under_kind in GRAFT_FIGURES:
+    # Control points of every draft
+    w(r"\section*{Control points of the drafts}")
+    w(r"Every draft as compiled into \verb|fonts/*-draft.otf| (what FontForge shows on opening them),"
+      r" beside the designer's regular glyph: on-curve points black, off-curve points as open circles on"
+      r" their handles. The components overlap, unmerged, as in a font source. The dashed line is a"
+      r" splice's joining height (on the designer's regular glyph, where the recipe joins when it is run"
+      r" in regular); at a splice, points left on a straight edge are dropped.\par\medskip")
+    for char, y_join, k, under_kind in _figure_list():
         revision = y_join == "rev"
         fig_key = char
         under_note = {"donor": r" (underneath, in grey: the donor glyph as the graft placed it)",
                       "y": r" (underneath, in grey: the style's y)"}.get(under_kind, "")
         w(r"\par\begin{minipage}{\linewidth}")
         w(f"{{\\LibDraft {_chars(char)}}}\\ U+{ord(char):04X}"
-          + (r" revision: tail to the descender" if revision else "") + under_note + r"\par\nopagebreak")
+          + ((r" revision: " + _tex(REVISIONS[char][0].split(": ", 1)[-1])) if revision else "") + under_note + r"\par\nopagebreak")
         for key in ORDER:
             glyphs = drafts[key].getGlyphSet()
             if revision:
@@ -2384,60 +3352,6 @@ def write_sheet(notes, checks, status):
         w(f"{_chars(char)} & {cell_d} & {cell_r} & {100 * ratio:.1f}\\,\\% &"
           f" {100 * shifted:.1f}\\,\\% at {shift:+d} & {adv_designer} / {round(adv)} &"
           f" \\parbox{{5.4cm}}{{\\footnotesize {_tex(note)}}}\\\\")
-    w(r"\end{tabular}}")
-
-    # Turned letters
-    w(r"\section*{Turned letters: turned or redrawn?}")
-    w(r"Mismatch of each turned letter against its base letter turned 180° (centred across; aligned at"
-      r" the top, middle or bottom, whichever fits best):"
-      f" under {100 * TURNED_EXACT:.0f}\\,\\% the letter is its base turned (\\textbf{{t}}); above, it was"
-      r" redrawn or adjusted. Libertinus original fonts, then the comparison fonts' Ⅎ Ɐ Ʌ.\par")
-    w(r"\medskip{\small\begin{tabular}{@{}l" + "r" * 4 + "@{}}")
-    w(" & " + " & ".join(LABEL[k] for k in ORDER) + r"\\\hline")
-
-    def row(label, ttfonts, family, base, t):
-        cells = []
-        for key, ttfont in zip(ORDER, ttfonts):
-            r = turn_fit(ttfont, base, t)
-            if r is None:
-                cells.append(r"{\color{gray}--}")
-            else:
-                glyphs = f"{{{family}{SHAPE[key]}\\fontsize{{14}}{{16}}\\selectfont {_chars(base + t)}}}"
-                cells.append(f"{glyphs}\\enspace\\makebox[2.4em][r]{{{_verdict(r)}}}")
-        w(f"{label} & " + " & ".join(cells) + r"\\")
-
-    for base, t in TURNED_PAIRS:
-        row(f"Libertinus {_chars(t)}", [orig[k] for k in ORDER], "", base, t)
-    w(r"\hline")
-    for fam, label, _ in COMPARE:
-        for base, t in TURNED_PAIRS[-3:]:
-            row(f"{label} {_chars(t)}", compare[fam], f"\\{fam}", base, t)
-    w(r"\end{tabular}}")
-    # Tail depths
-    w(r"\section*{Depths of q, the hook tails, Q and J}")
-    w(r"Lowest point of each letter (units per 1000). Libertinus: the original fonts, then the drafts"
-      r" (the designer's glyph where there is one), then the revision of ɋ Ɋ with the tail to g's depth."
-      r" The Libertinus descender line is $-232$; g reaches $-238$. Junicode has neither ɋ nor Ɋ.\par\medskip")
-    w(r"{\small\begin{tabular}{@{}ll" + "r" * 8 + "@{}}")
-    depth_chars = "qgɋɖQɊJj"
-    w(r"& & " + " & ".join(f"{{\\LibDraft {_chars(c)}}}" for c in depth_chars) + r"\\\hline")
-    for label, fonts, rev in [("Libertinus original", [orig[k] for k in ORDER], False),
-                              ("Libertinus draft", [drafts[k] for k in ORDER], False),
-                              ("Libertinus revision", [drafts[k] for k in ORDER], True)] + \
-                             [(lab, compare[fam], False) for fam, lab, _ in COMPARE]:
-        for key, ttfont in zip(ORDER, fonts):
-            cmap, gs = ttfont.getBestCmap(), ttfont.getGlyphSet()
-            upm = ttfont["head"].unitsPerEm
-            cells = []
-            for c in depth_chars:
-                cp = REVISION_PUA[c] if rev and c in REVISION_PUA else ord(c)
-                if cp not in cmap or (rev and c not in REVISION_PUA):
-                    cells.append(r"{\color{gray}--}" if cp not in cmap else "")
-                    continue
-                y = _path(gs, cmap[cp]).bounds[1] * 1000 / upm
-                cells.append(f"{y:.0f}")
-            w(f"{label} & {LABEL[key]} & " + " & ".join(cells) + r"\\")
-        w(r"\hline")
     w(r"\end{tabular}}")
 
     letter_sections(("pending", "rejected"))

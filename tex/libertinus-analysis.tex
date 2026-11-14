@@ -154,6 +154,13 @@ Long term: audit the SFD sources for consistent component referencing, across th
 
 Create the glyphs that are missing in the non-regular styles because the base groups now reach further than the designer's coverage
 (Ɇ Ɍ Ɏ ɏ ꝥ ꞓ Ɱ ꭒ ỿ exist only in regular, Ɉ ẜ ẝ not in every style, and Ɋ Ỻ Ⅎ before them), as stage 2 already does for a few.
+Drafts on the test sheet \verb|tex/missing_glyphs_test_sheet.pdf| (\verb|run_missing_glyphs_sheet.py|, 2026-11-13/14), all but ỿ, which moved to the next item.
+
+Add even more glyphs.
+ỿ (U+1EFF) in italic, semibold and semibold italic: its loop drawn as a broad-nib pen stroke, as Noto Serif's and Junicode's are, while respecting the counter of regular's ỿ (components, the method of the drafts, do not work for it).
+First attempts (2026-11-14, \verb|pen_stroke.py|, \verb|draft_y_pen| in \verb|missing_glyphs.py|) show that no fixed nib angle fits: Libertinus's y descender is nearly a hairline (43 in regular, against o's 34 and 88), so a fixed nib either draws a nearly monoline loop or a heavy one; the pen has to turn along the stroke (steep where it leaves the descender, at o's stress round the bottom, along the return stroke at the end).
+Open: that pen twist, and which part of regular's counter to keep (its teardrop shape, its size, or the loop's overall size).
+Also Ʉ (U+0244), which exists only in regular (outside the base groups).
 
 Revise how stage 8 moves $Y$ away from an added part (the hook, tail or stroke of a derived letter).
 Now the anchor moves by how much further the added part reaches than the base letter within 120 units of the mark's axis, and a tail at the bottom takes the candidate's $Y$, from the letter's lowest point;

@@ -63,6 +63,8 @@ BASE_LATIN = [
     # Latin capitals added 2026-11-08 (their designer anchors were wrong; stage 6 fills them)
     0x014A,0x0184,0x01A2,0x024A,0x1EFA,0x2C69,0x2C6B,  # Ŋ Ƅ Ƣ Ɋ Ỻ Ⱪ Ⱬ
     0x2132,             # Ⅎ turned F
+    0x2C6F,0x0245,      # Ɐ Ʌ turned A and V: stage 6 gives them the candidate, as turned letters (2026-11-14)
+    0x1EFB,             # ỻ: no designer anchors; the candidate centres them between the l's, as Gentium and Noto do (2026-11-14)
     0x2C64,             # Ɽ R with tail: no designer anchors; stage 6 gives them (2026-11-10)
     # Letters with a stroke, bar or middle dot, derived in stage 8 (2026-11-11); stage 6 fills
     # what stage 8 cannot (a style where the letter was redrawn)
@@ -428,6 +430,8 @@ BASE_CAP = [
     0x2C69, # K descender
     0x2C6B, # Z descender
     0x2132, # turned F
+    0x2C6F, # turned A
+    0x0245, # turned V
     # precomposed capitals that stage 9 gives an above anchor (PRECOMPOSED_ABOVE)
     0x00C7, # Latin Capital Letter C With Cedilla
     0x0104, # Latin Capital Letter A With Ogonek

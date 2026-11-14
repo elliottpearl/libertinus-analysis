@@ -14,6 +14,9 @@
 
 overrides = {
     "regular": {
+        # Ỻ: above (276, 804) sat between the stems, below (387) at the bbox centre; Gentium and Noto centre
+        # both on the whole letter's bbox, so stage 6 refills it there (2026-11-14)
+        "uni1EFA": {0: "delete"},
         "uni027A": {2: "delete"},  # turned letter: the designer's below anchor is 16-23 off the candidate (2026-11-11)
         # ⱬ: (204, -110), z's baseline anchor copied onto a descender letter; 5 below marks overlapped (2026-11-11)
         "uni2C6C": {2: "delete"},

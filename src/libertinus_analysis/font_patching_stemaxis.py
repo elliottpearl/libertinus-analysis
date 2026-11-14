@@ -61,6 +61,7 @@ CENTRAL_STEM = {
     0x0049: (0, 2),  # I
     0x0054: (0, 2),  # T
     0x026A: (0, 2),  # ɪ small capital I
+    0x2132: (0,),    # Ⅎ turned F: above, where its top is the bare stem (as Noto Serif; 2026-11-14)
 }
 # Letters whose stem is found as the one nearest the centre of the glyph, not the tallest.
 CENTRAL = (0x006D,)

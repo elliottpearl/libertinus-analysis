@@ -45,6 +45,7 @@ Behavior:
 from collections import Counter
 
 from .font_patching_anchors import load_human_anchors
+from .fontmetrics_extractor import get_glyph_bbox
 from .fontmetrics_helpers import SHIFT_K, SLOPE, get_anchor_candidate
 from .fontmetrics_loader import load_fontmetrics
 from .font_patching_inherit import (
@@ -274,6 +275,13 @@ def tail_anchor(ttfont, font_key, cp, derived_glyph, base_glyph, base_xy, cls):
     reaches = _tail_reaches(ttfont, font_key, derived_glyph, axis + dx)
     if reaches:
         cand = get_anchor_candidate(font_key, load_fontmetrics(font_key), cp, str(cls))
+        if cand is None:
+            # A glyph the original font lacks (the drafts of missing_glyphs.py):
+            # the candidate from this font's own outline, as stage 6 computes it.
+            gs = ttfont.getGlyphSet()
+            cand = get_anchor_candidate(font_key, {"codepoint": {cp: {
+                "bbox": list(get_glyph_bbox(gs, derived_glyph)), "width": ttfont["hmtx"][derived_glyph][0]}}},
+                cp, str(cls))
         y = round(cand[1])
         if not ok:
             return ((round(cand[0]), y),
@@ -443,6 +451,8 @@ def patch_derived_anchors(ttfont, font_key, lookup_index, touched=None):
             )
 
     for cp, (base_cp, by_class) in load_derived_y().items():
+        if cp not in cmap or base_cp not in cmap:
+            continue    # a letter the font lacks (ɋ outside regular)
         derived_glyph, base_glyph = cmap[cp], cmap[base_cp]
         curated = curated_classes(font_key, derived_glyph, cmap_reverse)
         base_rec, _ = get_base_record_for_glyph(sub, base_glyph)

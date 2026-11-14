@@ -117,6 +117,7 @@ derived = {
     # above in derived_y, at the ascender reference
     0x01A5: (0x0070, (2,)),    # ƥ p with hook < p
     0x02A0: (0x0071, (2,)),    # ʠ q with hook < q
+    0x024B: (0x0071, (0, 2)),  # ɋ q with hook tail < q (bottom_tail; below in derived_y; 2026-11-14)
     0x01AD: (0x0074, (2,)),    # ƭ t with hook < t (stem_axis below)
     # --- hook at the top in the mark's way ---
     0x025D: (0x025C, (2,)),    # ɝ reversed open e with hook < ɜ
@@ -178,6 +179,7 @@ bottom_tail = {
     # Group 4, 2026-11-11
     0x01AB, 0x01AE, 0x0221, 0x0234, 0x0235, 0x0236, 0x2C64, 0x2C67, 0x2C68,
     0x2C69, 0x2C6A, 0x2C6E, 0x1EFF,
+    0x024B,  # ɋ (2026-11-14)
 }
 
 # Letters matched on their stems (stem_shift) rather than their whole
@@ -233,6 +235,9 @@ derived_y = {
     0x01A5: (0x0070, {0: {"regular": 885, "italic": 890, "semibold": 885, "semibold_italic": 890}}),  # ƥ < p
     0x02A0: (0x0071, {0: {"regular": 885, "italic": 890, "semibold": 885, "semibold_italic": 890}}),  # ʠ < q
     0x01AD: (0x0074, {0: {"regular": 885, "italic": 890, "semibold": 885, "semibold_italic": 890}}),  # ƭ < t
+    # ɋ q with hook tail < q: below at the descender reference in every style (2026-11-14), though
+    # regular's designer tail ends at -188 (above q's -234), where the candidate would give -273
+    0x024B: (0x0071, {2: {"regular": -319, "italic": -319, "semibold": -319, "semibold_italic": -319}}),
     # ɼ r with long leg < r: above only; below is curated, under the stem
     0x027C: (0x0072, {0: {
         "regular": 645, "italic": 645, "semibold": 645, "semibold_italic": 645,

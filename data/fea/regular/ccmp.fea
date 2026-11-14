@@ -71,6 +71,8 @@ feature ccmp {
     # not uni0294 uni0295 uni0296 (glottal stop, pharyngeal): undecided
     # Latin capitals added 2026-11-08 (Ŋ Ƅ Ƣ Ɋ Ỻ Ⱪ Ⱬ Ⅎ, those in this font)
     Eng uni0184 uni01A2 uni024A uni1EFA uni2C69 uni2C6B uni2132
+    # Ɐ Ʌ turned A and V (2026-11-14)
+    uni2C6F uni0245
     # precomposed capitals with a cedilla, ogonek, horn or below mark, which stage 9
     # gives an above anchor (PRECOMPOSED_ABOVE in data/precomposed_letters.py; 2026-11-08):
     # ÇĄĘĢĮĶĻŅŖŞŢŲƯǪȘȚȨḀḄḆḌḎḐḒḘḚḤḨḪḬḲḴḶḺḼṂṆṈṊṚṞṢṬṮṰṲṴṶṾẈẒẔẠẸỊỌỤỰỴ

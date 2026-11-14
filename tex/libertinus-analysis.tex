@@ -125,78 +125,24 @@
 
 \subsection*{To do}
 
-Long term: add mark-to-mark positioning (stacking) for the common above-marks in all four styles: ring, dieresis, macron, acute, grave, circumflex, caron, tilde, breve.
-The designer's stacked precomposed glyphs (ḕ, ṏ, ẫ, \ldots) could supply the mark-to-mark anchors, as the precomposed capitals do for stage 4.
-
-Long term: audit the SFD sources for consistent component referencing, across the four styles, and perhaps redraw or redefine components for consistency.
+Details are in \verb|TODO.md| in the repository.
 \begin{itemize}
-	\item Copies that could be references: glyphs that copy another glyph's splines (a derived letter drawn as a copy of its base, a precomposed letter as a copy of base and mark),
-	so that a correction to the base reaches every glyph built on it, and the derived and precomposed stages need not rediscover the base in the outline.
-	\item Dots, in letters and marks.
-	The precomposed dot-below letters reference the dot above, moved below the letter (\verb|uni0307| in regular and semibold, the spacing \verb|dotaccent| in italic and semibold italic),
-	except ṃ (and regular ṇ), which reference the combining dot below \verb|dotbelowcomb|, so the dot of a precomposed letter and of a composed one differ in size:
-	regular 100 against 108, italic 98 against 110, semibold 124 against 109, semibold italic 120 against 122.
-	The shapes differ too: four-point circles in regular and semibold; in italic, \verb|uni0307| a circle but \verb|dotaccent| and \verb|dotbelowcomb| skewed ovals;
-	in semibold italic \verb|dotaccent| a four-point skewed oval and \verb|dotbelowcomb| a six-point one.
-	The dot of semibold j is 14 units left of its stem (regular $-3$), a flaw in the drawing of j; ĵ and ǰ put the accent on the stem ($+2$). Options: move the dot onto the stem, or leave it and put j's above anchor over the dot (``Recheck all curated anchors A--Z and a--z'').
-	Regular ṇ references both dots and n twice, so its two dots overlap.
-	The diaeresis below U+0324 is two \verb|dotbelowcomb| in regular and italic, but the precomposed ṳ is built from a diaeresis (\verb|uni0308| in regular, semibold and semibold italic, the spacing \verb|dieresis| in italic), with smaller dots in regular and italic.
-	\item Commas and horns, in letters and marks (2026-11-11).
-	In semibold and semibold italic the combining commas are drawn at the lighter style's weight: U+0312--U+0315 have 0.98 to 1.05 times the ink of regular's (italic's), and semibold's comma below U+0326 0.91,
-	where the designer's own semibold comma and quotes have 1.21 to 1.27.
-	The horn U+031B is regular weight in semibold (1.00).
-	The koronis U+0343 is a reference to \verb|uni0313| in regular and italic, but a reference to the horn in semibold (which had no mark anchor) and a horn-sized outline of its own in semibold italic; the patch curates both anchors (``Greek koronis U+0343'' under ``Comma-style marks'').
-	The spacing Greek and modifier signs are bolded only in part: U+02BC, U+02BB, psili U+1FBF and koronis U+1FBD about 1.11 in semibold, U+1FBF and U+1FBD 1.00 in semibold italic; reversed comma U+02BD, dasia U+1FFE and varia U+1FEF 1.00 (varia is regular's outline).
-	The precomposed Greek letters reference neither combining mark: ἀ ἐ Ἀ ῤ reference U+02BC (U+1FBD in semibold italic ἀ), and italic draws its own.
-	After a base letter HarfBuzz shapes U+0343 as U+0313, its canonical equivalent, so a koronis on a letter shows the style's comma above: its weight matters more than the koronis glyph.
-	Options: embolden the combining commas (as stage 3's \verb|embolden()| does for the marks it copies) or derive them from the style's own comma; make U+0343 the style's U+0313.
+	\item Check the curated anchors in all styles, especially A--Z and a--z.
+	\item Audit the above anchors of the vowels against their precomposed glyphs.
+	\item Revise the heuristic anchors of letters with a hook, tail or stroke so that they clear the mark zone, not the extreme point.
+	\item Write instructions for using CGJ.
+	\item Check GSUB: dot removal from i and j, and composition of base + mark sequences into precomposed letters.
 \end{itemize}
-
-Create the glyphs that are missing in the non-regular styles because the base groups now reach further than the designer's coverage
-(Ɇ Ɍ Ɏ ɏ ꝥ ꞓ Ɱ ꭒ ỿ exist only in regular, Ɉ ẜ ẝ not in every style, and Ɋ Ỻ Ⅎ before them), as stage 2 already does for a few.
-Drafts on the test sheet \verb|tex/missing_glyphs_test_sheet.pdf| (\verb|run_missing_glyphs_sheet.py|, 2026-11-13/14), all but ỿ, which moved to the next item.
-
-Add even more glyphs.
-ỿ (U+1EFF) in italic, semibold and semibold italic: its loop drawn as a broad-nib pen stroke, as Noto Serif's and Junicode's are, while respecting the counter of regular's ỿ (components, the method of the drafts, do not work for it).
-First attempts (2026-11-14, \verb|pen_stroke.py|, \verb|draft_y_pen| in \verb|missing_glyphs.py|) show that no fixed nib angle fits: Libertinus's y descender is nearly a hairline (43 in regular, against o's 34 and 88), so a fixed nib either draws a nearly monoline loop or a heavy one; the pen has to turn along the stroke (steep where it leaves the descender, at o's stress round the bottom, along the return stroke at the end).
-Open: that pen twist, and which part of regular's counter to keep (its teardrop shape, its size, or the loop's overall size).
-Also Ʉ (U+0244), which exists only in regular (outside the base groups).
-
-Revise how stage 8 moves $Y$ away from an added part (the hook, tail or stroke of a derived letter).
-Now the anchor moves by how much further the added part reaches than the base letter within 120 units of the mark's axis, and a tail at the bottom takes the candidate's $Y$, from the letter's lowest point;
-both use the extreme point, not where the marks actually come close, so most anchors get more clearance than they need and a few too little (ʛ above overlaps one mark).
-Alternatives measured on 2026-11-11 with every IPA mark: (A) the tightest mark on the derived letter gets the base letter's tightest gap, which removes over-clearance on 83 of 148 anchors but adds clearance on 43;
-(B) the same, but only toward the glyph, with a floor of about 20, so that only over-clearance and near-collisions change.
-
-Write general instructions for using CGJ U+034F to block unwanted normalization.
-A below-mark typed after a precomposed letter that already has an above-mark is reordered and recomposed by normalization: ì\,+\,tilde below becomes ḭ\,+\,grave, which brings back the dot of i,
-and Ǻ\,+\,dot below becomes Ạ\,+\,ring\,+\,acute (130 cases among the precomposed letters).
-That is a decomposition problem, to be avoided with a CGJ (or a dotless base) whether or not the font has mark-to-mark positioning;
-the sections ``Lowercase i with tilde below and grave above, in italic and semibold italic'' and following explore it, and ``Floating tones'' uses CGJ for a similar reason.
-The instructions should say when CGJ is needed, where it goes, and its cost (a precomposed glyph before CGJ has no below-anchor, so the below-mark falls back to a default position).
-
-Recheck all curated anchors A--Z and a--z in all styles (2026-11-12).
-Curated anchors were made style by style and at different times, and some disagree between styles about where an anchor belongs:
-regular p has its below anchor $(120, -319)$ under the stem, but the other styles do not.
-For each letter, compare the four styles' curated anchors (and the scripted ones they overrule) against the anchor model and the test sheets, and make them agree, or note why they differ.
-Part of it is curation that the stem-axis rule leaves to a human (``Stem-axis rule'' under ``Patch j regular, above-anchor''):
-in italic and semibold italic, the below anchors of i, ı and l and the above anchor of m, where a curl moves the optical centre off the stem (the curled foot of i ı l, right; the arches of m).
-None of the existing values (the designer's i, ı and m, the curated l) is known to be reliable.
-Semibold j: the stem-axis rule puts its above anchor on the stem, because the dot rules apply only in the italic styles, but its dot is 14 units left of the stem (``Dots, in letters and marks'');
-an above anchor of dotted j should be over the dot, as in the italic styles, unless the dot is moved. ȷ, and so ĵ and ǰ, keep the stem.
-Evidence from the precomposed glyphs, composed minus precomposed with the anchor on the stem: italic ị $-14$, ḷ $+4$ (median of the other dot-below letters $+11$); semibold italic ị $-33$, ḷ $-22$ (median $-19$, spread about $\pm 30$); italic ṁ $+7$, semibold italic $-21$.
-The ink-area centroid of the bottom zone (baseline to 100 above the stem's straight part) came within 4 units of ị and ḷ in three of four cases.
-Test sheets \verb|tex/stem_axis_test_sheet.pdf|, \verb|tex/stem_angle_test_sheet.pdf|.
-
-Audit the above anchors of the vowels against their precomposed glyphs, which are many and good evidence (survey of 2026-11-07).
-Where the patched anchor differs from the median mark centre of the precomposed glyphs by more than 15:
-italic o $+20$, O $+22$, E $-20$, Y $-17$; semibold y $-19$, Æ $-16$; semibold italic y $+29$ (regular's anchor, copied), Y $-58$, a $+18$, A $-15$, Æ $-19$.
-Regular O is within 12, but its marks land 16--19 left of the centre line of O.
-Two cautions: italic and semibold italic Y and U were just curated so that shaped marks land on their axes, and their precomposed glyphs disagree by 14--58;
-and the semibold italic precomposed glyphs run 30--40 right of the anchor model for g and E too.
-The vowel base anchors have not changed since; with the symmetric marks on their axes (2026-11-09), the median offset of composed marks from the precomposed glyphs per letter confirms the lowercase figures (italic o $+19$, semibold y $-18$, semibold italic y $+30$, a $+22$),
-and adds i: marks on ı land 12--18 right of ì í î ï in every style (regular $+16$, italic $+18$, semibold $+18$, semibold italic $+12$). The capitals were not remeasured.
-O and o lean to the left, unlike most of the other humanist letters, so their optical centre at the top may lie right of the bbox midpoint: a reason to move their above-anchors right, to weigh in the audit.
+Long term:
+\begin{itemize}
+	\item Add mark-to-mark positioning.
+	\item Audit the SFD sources for consistent component references:
+	\begin{itemize}
+		\item copies that could be references;
+		\item consistency of dots, commas and horns.
+	\end{itemize}
+	\item Add the remaining missing glyphs (ỿ, Ʉ).
+\end{itemize}
 
 
 
@@ -936,7 +882,7 @@ In the italic styles, curls change the optical centre, and the rule is adapted:
 	\item Dotless ı and ȷ: the above anchor is on the axis of the dot of i and j, so that an accent takes the dot's place.
 	Their curved entry stroke at the top left pulls the optical centre left of the stem, and the precomposed accents agree:
 	composed minus precomposed (median), on the stem's axis and on the dot's: italic ı $+20$, $+8$, ȷ $+28$, $+15$; semibold italic ı $+14$, $+1$, ȷ $+10$, $-14$.
-	\item The below anchors of i, ı and l (curled foot) and the above anchor of m (arches) are left out, to be curated (``To do'').
+	\item The below anchors of i, ı and l (curled foot) and the above anchor of m (arches) are left out, to be curated (\verb|TODO.md|, ``Check the curated anchors'').
 \end{itemize}
 In regular and semibold the rule applies to the whole group, above and below.
 The accents of the precomposed accented i are 16 to 20 units left of ı's stem there too, but the designer puts accents about 9 left of centre on lowercase letters generally, and the rule looked better on the test sheets.

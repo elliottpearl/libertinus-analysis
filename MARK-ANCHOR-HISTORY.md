@@ -136,4 +136,4 @@ These moves made the styles agree; they did not make each style's zone denser. M
 
 ## Moved out of the report's open decisions
 
-- **Semibold j (2026-11-12).** Its dot is 14 units left of its stem (regular −3), but the dot rules of the stem-axis rule apply only in the italic styles; ĵ and ǰ put the accent on the stem (+2). This is a flaw in the drawing of j and a question for the base anchors, not the mark anchors. It is now in the report's to-do list, under "Dots, in letters and marks" and "Recheck all curated anchors A–Z and a–z".
+- **Semibold j (2026-11-12).** Its dot is 14 units left of its stem (regular −3), but the dot rules of the stem-axis rule apply only in the italic styles; ĵ and ǰ put the accent on the stem (+2). This is a flaw in the drawing of j and a question for the base anchors, not the mark anchors. It is now in `TODO.md`, under "Dots, in letters and marks" and "Check the curated anchors".

@@ -2530,31 +2530,53 @@ and moves the anchor by the fitted shift.
 
 Precomposed letters inherit zealously.
 A designer anchor on a letter that can inherit is deleted in stage 1 (\verb|"delete"| in \verb|data/fontanchors_audit/overrides.py|)
-whenever it differs from the inherited anchor at all where the fit is 100\%, or by more than 10 where the fit is lower;
-curated anchors that differed were commented out the same way.
-Most were copies of a base anchor that the patch has since changed, or copies that miss how the base sits in the precomposed glyph.
+whenever it differs from the inherited anchor at all where the fit is 100\%, or by more than 10 where the fit is lower.
 Curated anchors (stage 7, \verb|data/fontanchors_human/{style}.py|) are set on precomposed letters only where inheritance fails to find a good match.
 Every letter with a fit of 100\% now has exactly the anchor it inherits (\verb|run_precomposed_existing_report.py| checks this).
 The letters that do not simply inherit:
 \begin{itemize}
-\item ģ (U+0123) is formally g with a below-mark, a cedilla (U+0327), but is drawn with a comma above. It does inherit a below-anchor from g (fit 100\% in every style), and gets no above-anchor: 30 IPA above-marks would collide with the comma.
-\item The horn letters Ơ ơ ư Ợ ợ ự (U+01A0, U+01A1, U+01B0, U+1EE2, U+1EE3, U+1EF1) get no above-anchor in any style: 1--12 IPA above-marks per style would collide with the horn.
-  Ơ ơ ư inherit a below-anchor (Ợ ợ ự have a dot below), except semibold italic ư, whose below-anchor is curated (see the last item).
-\item {\LibertinusSerifPatch\bfseries ą\cgj\char"0304\quad a\cgj\char"0304}\quad semibold ą (U+0105), above: the ogonek lowers the fit to 69\%; curated at a's anchor plus the shift of ą's upper part (+12).
-\item {\LibertinusSerifPatch\itshape Ĵ\cgj\char"0331\quad J\cgj\char"0331}\quad italic Ĵ (U+0134), below: J moved 47 left with a shallower tail ($-166$, J $-200$), fit 65\%;
-  curated at the italic-model candidate from Ĵ's own metrics, (130, $-251$).
-\item {\LibertinusSerifPatch\bfseries\itshape Ĵ\cgj\char"0331\quad J\cgj\char"0331}\quad semibold italic Ĵ, below: a flat top serif and a deeper tail ($-196$, J $-164$), fit 64\%;
-  curated at the candidate from Ĵ's own metrics, (125, $-281$).
-\item {\LibertinusSerifPatch\bfseries\itshape ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\quad u\cgj\char"0331}\quad semibold italic ư ứ ừ ử ữ (U+01B0, U+1EE9, U+1EEB, U+1EED, U+1EEF), below:
-  the stems lie on u's but the bottom of the bowl is about 15 wider on each side, fit 75\%; curated at u's anchor, (270, $-110$). The toned forms reference ư.
+\item ģ (U+0123, latin small letter g with cedilla) is formally g (U+0067) with a below mark (U+0327, combining cedilla) in the sense that its canonical decomposition is U+0123 = U+0067 + U+0327, 
+but is drawn with a comma above. 
+ģ does inherit a below-anchor from g (fit 100\% in every style), but ģ does not inherit an above-anchor from g itself (30 IPA above-marks would collide with the comma), 
+and currently no above-anchor is set for ģ. 
+[For completeness of above-anchor coverage, the above-anchor could be set above the comma, at mark-to-mark clearance.]
+\item The horn letters Ơ ơ ư Ợ ợ ự (U+01A0, U+01A1, U+01B0, U+1EE2, U+1EE3, U+1EF1) do not have an above-anchor in any style (1--12 IPA above-marks per style would collide with the horn).
+Ơ ơ ư do inherit a below-anchor, except semibold italic ư, whose below-anchor is curated (see the last item).
+Capital u-horn letters do not have this above-mark--horn collision problem: Ư can and does inherit both above and -below-anchors from U in all styles, and Ự inherits its above-anchor from U in all styles as well.
+\item ą (U+0105, latin small letter a with ogonek) semibold does not inherit an above-anchor from a in stage 9 because the fit (69\%) is bad.
+Semibold ą ({\bfseries ą}) has thicker lower bowl than semibold a ({\bfseries a}), as well a square-cut terminal, although their upper parts are similar.
+The above-anchor of semibold ą is curated at a's anchor plus the shift of ą's upper part (+12), instead of hard-coding this edge case into stage 9.
+In italic ({\itshape ą}) and semibold italic ({\\bfseries\itshape ą}), the fit with a ({\itshape a {\bfseries a}}) is better (95\% because of a square-cut terminal difference; 100\%), and the above-anchors are inherited.
+
+\verb|ą\cgj\char"0304\ a\cgj\char"0304| {\LibertinusSerifPatch\bfseries ą\cgj\char"0304\ a\cgj\char"0304}
+
+\item Ĵ (U+0134, latin capital letter j with circumflex) italic and semibold italic do not inherit a below-anchor from J because the fit is bad.
+In italic, Ĵ ({\itshape Ĵ}) has a shallower tail than J {\itshape J} (65\% fit);
+in semibold italic, Ĵ has a flat top serif and a deeper tail ({\itshape\bfseries Ĵ}), unlike J which has tilde serif top and a shallow tail ({\itshape\bfseries J}) (64\% fit). 
+[This is arguably a designer mistake and semibold italic Ĵ could be redesigned to have a shallow tail and a tilde serif top.]
+The below-anchors of italic and semibold italic Ĵ are curated at the resp. anchor model candidate from Ĵ's own metrics.
+
+\verb|Ĵ\cgj\char"0331\ J\cgj\char"0331| {\LibertinusSerifPatch\itshape Ĵ\cgj\char"0331\ J\cgj\char"0331}
+
+\verb|Ĵ\cgj\char"0331\ J\cgj\char"0331| {\LibertinusSerifPatch\bfseries\itshape Ĵ\cgj\char"0331\ J\cgj\char"0331}
+
+\item  ư ứ ừ ử ữ (U+01B0, U+1EE9, U+1EEB, U+1EED, U+1EEF) semibold italic do not have a below-anchor from u because the fit is bad (75\% fit).
+These precomposed u-horn letters have slab serifs in semibold italic, unlike u, and the bottom-bowl of u is narrower than that of the u-horn letters:
+{\itshape\bfseries u ư ứ ừ ử ữ}.
+But the stems of the precomposed u-horn letters are good match for those of u. 
+The below-anchors of these letters are curated at u's anchor, which turns out to work nicely (because of the stem matches), instead of hard-coding this edge case into stage 9.
+
+\verb|ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\ u\cgj\char"0331|
+{\LibertinusSerifPatch\bfseries\itshape ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\ u\cgj\char"0331}
+
 \end{itemize}
 
 The grids show the IPA above-marks on the precomposed letters that inherit above and the below-marks on those that inherit below, in the patched fonts only.
 For completeness they include the letters whose anchor is curated instead of inherited (ą, Ĵ, ư ứ ừ ử ữ).
 Samples and grid cells put \verb|\cgj| between the letter and the mark, so that the mark is positioned by the letter's anchor and the shaper does not decompose and recompose the letter.
-The exception is a letter and mark that compose to one of the 24 precomposed letters with both an above- and a below-mark (Ç\,+\,acute $=$ Ḉ, ạ\,+\,circumflex $=$ ậ, Ơ\,+\,dot below $=$ Ợ):
+The exception is a letter and mark that compose to one of the 24 precomposed letters with both an above- and a below-mark (e.g. Ç\,+\,acute $=$ Ḉ, ạ\,+\,circumflex $=$ ậ, Ơ\,+\,dot below $=$ Ợ):
 text gets the precomposed glyph, so the cell shows it, in \SUPPORTEDPREC{blue}, without \verb|\cgj|.
-They are Ǭ ǭ Ḉ ḉ Ḝ ḝ Ḹ ḹ Ṝ ṝ Ṩ ṩ Ậ ậ Ặ ặ Ệ ệ Ộ ộ, and, with the horn, Ợ ợ Ự ự.
+They are the precomposed glyphs Ǭ ǭ Ḉ ḉ Ḝ ḝ Ḹ ḹ Ṝ ṝ Ṩ ṩ Ậ ậ Ặ ặ Ệ ệ Ộ ộ, and, with the horn, Ợ ợ Ự ự.
 
 \input{input/precomposed_inherit_above.tex}
 

@@ -262,6 +262,20 @@ How this was checked:
 - The four agree in both semibold styles, so semibold italic's are probably semibold's slanted. This is a designer inconsistency, not provably a mistake. But nothing else in either semibold style has it, and Gentium Plus Bold's ɑ has an ordinary foot serif.
 - Fix (suggested, deferred 2026-11-14): revise the four in both semibold styles, giving them the style's own serif (the foot of semibold a or u, the head of semibold u or q). Show them on the sheet as revisions of the designer's glyphs. Then redraft ꭤ from the revised ɑ.
 
+### Capital J forms in the italics
+
+Found 2026-11-15, in the review of the report's "Precomposed characters" section: stage 9 cannot fit Ĵ to J in the italics (italic 65%, semibold italic 64%). In both italics, J (U+004A) has a tilde-like flag at the top and a short crossbar on the stem. `J.alt` has a flat top serif, and so does the J of the ligature Ĳ (U+0132, also `I_J` and `IJacute`).
+
+| | J | Ĵ | Ɉ (draft) | Ĳ |
+|---|---|---|---|---|
+| italic | flag, tail to −200 | flag, J moved 47 left, tail only to −166 | flag (J's) | flat (`J.alt`) |
+| semibold italic | flag, tail to −164 | **flat**: Ĳ's J, tail to −196, no crossbar | flag (J's) | flat |
+
+- Ɉ already follows J: the draft keeps J's flag, and the candidate made from Ĳ's J was rejected (`missing_glyphs.py`, `draft_J_bar`).
+- Fix: revise semibold italic Ĵ as J + the style's circumflex, and italic Ĵ with J's tail. Show both on the sheet as revisions of the designer's glyphs (as for ɋ Ɋ ẝ Ɉ). Then remove Ĵ from `EXCLUDED_BELOW` and its curated below anchors in `data/fontanchors_human/{italic,semibold_italic}.py`, so that it inherits from J in stage 9.
+- Leave Ĳ as it is: a ligature, with its own J.
+- Ʝ (U+A7B2, capital J with crossed-tail), not in any style yet: when drafted, give it J's flag in the italics.
+
 ### Later, beyond these blocks
 
 - Phonetic Extensions and Supplement: about 150, mostly small capitals and superscript modifier letters. Needed for Uralic and phonetic notation.

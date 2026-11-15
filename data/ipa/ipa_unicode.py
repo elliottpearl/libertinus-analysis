@@ -64,6 +64,7 @@ BASE_LATIN = [
     0x014A,0x0184,0x01A2,0x024A,0x1EFA,0x2C69,0x2C6B,  # Ŋ Ƅ Ƣ Ɋ Ỻ Ⱪ Ⱬ
     0x2132,             # Ⅎ turned F
     0x2C6F,0x0245,      # Ɐ Ʌ turned A and V: stage 6 gives them the candidate, as turned letters (2026-11-14)
+    0xAB64,0x2C7B,      # ꭤ ⱻ inverted alpha, turned small capital E: approved drafts in every style; stage 6 gives them the candidate, as turned letters (2026-11-14)
     0x1EFB,             # ỻ: no designer anchors; the candidate centres them between the l's, as Gentium and Noto do (2026-11-14)
     0x2C64,             # Ɽ R with tail: no designer anchors; stage 6 gives them (2026-11-10)
     # Letters with a stroke, bar or middle dot, derived in stage 8 (2026-11-11); stage 6 fills
@@ -76,6 +77,7 @@ BASE_LATIN = [
     0x023A,0x2C65,      # Ⱥ ⱥ
     0x023B,0x023C,0xA793,  # Ȼ ȼ ꞓ
     0x0243,0x0180,      # Ƀ ƀ
+    0x0244,             # Ʉ (2026-11-14)
     0x0246,0x0247,      # Ɇ ɇ
     0x0248,0x0249,      # Ɉ ɉ
     0x024C,0x024D,      # Ɍ ɍ
@@ -384,6 +386,7 @@ BASE_CAP = [
     0x023A, # A stroke
     0x023B, # C stroke
     0x0243, # B stroke
+    0x0244, # U bar
     0x0246, # E stroke
     0x0248, # J stroke
     0x024C, # R stroke

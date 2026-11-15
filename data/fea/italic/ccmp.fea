@@ -83,8 +83,8 @@ feature ccmp {
     uni1E5E uni1E62 uni1E6C uni1E6E uni1E70 uni1E72 uni1E74 uni1E76
     uni1E7E uni1E88 uni1E92 uni1E94 uni1EA0 uni1EB8 uni1ECA uni1ECC
     uni1EE4 uni1EF0 uni1EF4
-    # capitals the patch adds from the approved drafts (stage 2, data/draft_glyphs; 2026-11-14): Ɇ Ɉ Ɋ Ɍ Ɏ Ỻ Ⅎ Ɱ Ɐ Ʌ
-    uni0246 uni0248 uni024A uni024C uni024E uni1EFA uni2132 uni2C6E uni2C6F uni0245
+    # capitals the patch adds from the approved drafts (stage 2, data/draft_glyphs; 2026-11-14): Ɇ Ɉ Ɋ Ɍ Ɏ Ỻ Ⅎ Ɱ Ɐ Ʌ Ʉ
+    uni0246 uni0248 uni024A uni024C uni024E uni1EFA uni2132 uni2C6E uni2C6F uni0245 uni0244
   ];
 
   sub @dotted' @accents by @dotless;

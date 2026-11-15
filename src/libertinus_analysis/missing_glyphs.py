@@ -38,7 +38,7 @@ from fontTools.ttLib.removeOverlaps import removeOverlaps
 from . import glyph_construction as gc
 from . import pen_stroke
 from .config import FONTS_DIR, TEX_DIR
-from .font_patching_addmarks import embolden
+from .font_patching_addmarks import EMBOLDEN, embolden, stroke_thickness
 from .font_patching_inherit import SegmentPen, intervals
 from .fontmetrics_helpers import SLOPE
 
@@ -1271,6 +1271,7 @@ BAR_SPECS = {
     "ẝ": ([("ſ", 0)], "\u0335", ("stem", 0), ("đ", "d")),
     "ꞓ": ([("c", 85)], "\u0335", "centre", ("đ", "d")),
     "ỻ": ([("l", 10), ("l", "advance")], "\u0336", "pair", ("đ", "d")),
+    "Ʉ": ([("U", 0)], "\u0336", "pair", ("Đ", "D")),
 }
 _FITS = {}
 
@@ -2530,6 +2531,40 @@ DIAGONALS = {"ɇ", "Ø"}
 J_BAR_Y = 0.52 * 647
 J_BAR_OVERHANG = (118, 113)
 
+# ---------- phase 2 (2026-11-14) ----------
+
+def flipped(style, letter):
+    """
+    The style's letter flipped top to bottom about the middle of its height,
+    in de-slanted coordinates, so an italic keeps its slant. Gentium Plus's
+    ꭤ (inverted alpha) is its ɑ flipped (0.1% mismatch; turned: 74%).
+    """
+    b = style.path(letter).bounds
+    c, s = (b[1] + b[3]) / 2, style.slope
+    contours = _cs(style, letter, (1, 0, -2 * s, -1, 2 * s * c, 2 * c))
+    return ([gc.reverse(segs) for segs in contours], style.advance(letter),
+            f"{style.key}'s {letter} flipped top to bottom about y {c:.0f}" + (" (de-slanted)" if s else ""))
+
+
+# The semibold styles lack these spacing modifiers. The designer's own semibold
+# modifiers (˂ ˃ ˄ ˅ ˚ ˜ ˝ ` ˇ ˆ ˘ ˈ) have 1.0-1.25 times the ink of the
+# lighter style's (semibold italic's arrowheads are italic's unchanged), so
+# the lighter style's outline is pushed outward as stage 3 pushes the above
+# marks it copies (EMBOLDEN of the mean stroke thickness, about 12% thicker);
+# copied() (by the stems' difference) gives 1.7-2.9 times.
+MODIFIER_SOURCE = {"semibold": "regular", "semibold_italic": "italic"}
+MODIFIERS = "˪˫˯˰˱˲˳˴˵˶˷˸˹˺˻˼˽˾˿"
+
+
+def draft_modifier(style, styles, char):
+    src = styles[MODIFIER_SOURCE[style.key]]
+    pen = RecordingPen()
+    gc.draw(_cs(src, char), pen)
+    distance = EMBOLDEN * stroke_thickness(pen.value)
+    contours = gc._from_recording(embolden(pen.value, distance))
+    return contours, src.advance(char), f"{src.key}'s {char} pushed outward by {distance:.1f} (stage 3's rule)"
+
+
 LETTERS = [
     ("Ɇ", "reference", lambda d, S: draft_E_solidus_c(d, S)),
     ("Ɍ", "overlay", lambda d, S: draft_R_bar(d, S)),
@@ -2548,6 +2583,8 @@ LETTERS = [
     ("Ɋ", "splice", lambda d, S: draft_Q_c(d, S)),
     ("Ỻ", "reference", lambda d, S: draft_LL_c(d, S)),
     ("Ⅎ", "turn", lambda d, S: turned_c(d, "F")),
+    # Phase 2 (2026-11-14): regular's Ʉ is U + U+0336 across both stems; in BASE_LATIN since.
+    ("Ʉ", "overlay", lambda d, S: draft_bar(d, S, "Ʉ")),
 ]
 
 # Not in the base groups: the lowercase partners of Ɋ and Ỻ, and the other
@@ -2557,7 +2594,10 @@ EXTRAS = [
     ("ỻ", "part", lambda d, S: draft_ll(d, S)),
     ("Ɐ", "turn", lambda d, S: turned_c(d, "A")),
     ("Ʌ", "turn", lambda d, S: turned_c(d, "V")),
-]
+    # Phase 2 (2026-11-14): in Gentium Plus, not in Langscitinus.
+    ("ꭤ", "flip", lambda d, S: flipped(d, "ɑ")),
+    ("ⱻ", "turn", lambda d, S: turned_c(d, "e.sc")),
+] + [(c, "copy", (lambda c: lambda d, S: draft_modifier(d, S, c))(c)) for c in MODIFIERS]
 
 # The reviewer's decisions on the drafts (2026-11-13), shown on the sheet.
 # The reviewer's decisions on the drafts, shown on the sheet: (state, note).
@@ -2584,6 +2624,16 @@ DECISIONS = {
     "ỻ": ("approved", "2026-11-14 (two l's and regular's tie bar, blunt)"),
     "Ɐ": ("approved", "2026-11-14 (a turned reference)"),
     "Ʌ": ("approved", "2026-11-14 (a turned reference)"),
+    "ꭤ": ("approved", "2026-11-14 (ɑ flipped top to bottom, as Gentium Plus's)"),
+    "ⱻ": ("approved", "2026-11-14 (the small capital e.sc turned)"),
+    **{c: ("approved", "2026-11-14 (the lighter style's, emboldened as stage 3's copied marks)") for c in "˪˫˯˰˱˲˳˴˵˶˷˸"},
+    # Slanted in semibold italic because italic's are: Libertinus italic slants all its spacing
+    # modifiers (tan 11.5°). Gentium Plus italic keeps ˹ ˺ ˻ ˼ ˿ upright (and slants ˽ ˾), Noto Serif
+    # italic all of them, Junicode italic slants them.
+    **{c: ("pending", "2026-11-14 (the lighter style's, emboldened as stage 3's copied marks); semibold italic:"
+                      " slanted as italic's, which the designer slanted; upright in Gentium Plus italic (˽ ˾ slanted)"
+                      " and Noto Serif italic") for c in "˹˺˻˼˽˾˿"},
+    "Ʉ": ("approved", "2026-11-14 (U + U+0336 across both stems, placed as in regular's Ʉ)"),
 }
 SECTIONS = [
     ("approved", "Approved", "Approved on 2026-11-13 and 2026-11-14."),
@@ -2630,6 +2680,7 @@ CHECKS = [
     ("Ⅎ", lambda S: turned_c(S["regular"], "F")),
     ("Ɐ", lambda S: turned_c(S["regular"], "A")),
     ("Ʌ", lambda S: turned_c(S["regular"], "V")),
+    ("Ʉ", lambda S: draft_bar(S["regular"], S, "Ʉ")),
 ]
 CHECK_PUA = 0xF600
 
@@ -3023,7 +3074,10 @@ LABEL = {"regular": "Regular", "italic": "Italic", "semibold": "Semibold",
 CONTEXT = {
     "Ɇ": "EɆØ", "Ɍ": "RɌĐ", "Ɏ": "YɎȽ", "ɏ": "yɏđ", "Ɉ": "JɈĐ", "ẜ": "ſẜɇ", "ẝ": "ſẝđ",
     "ꝥ": "þꝥđ", "ꞓ": "cꞓđ", "Ɱ": "MⱮJ", "ꭒ": "uꭒɿ", "ỿ": "yỿ", "Ɋ": "QɊɖ", "Ỻ": "LỺI",
-    "Ⅎ": "FℲ", "ɋ": "qɋɖ", "ỻ": "lỻł", "Ɐ": "AⱯ", "Ʌ": "VɅ",
+    "Ⅎ": "FℲ", "ɋ": "qɋɖ", "ỻ": "lỻł", "Ɐ": "AⱯ", "Ʌ": "VɅ", "Ʉ": "UɄĐ", "ꭤ": "ɑꭤʁ", "ⱻ": "ɪⱻɐ",
+    "˯": "a˯˅", "˰": "a˰˄", "˱": "a˱˂", "˲": "a˲˃", "˳": "a˳˚", "˴": "a˴`", "˵": "a˵`", "˶": "a˶˝",
+    "˷": "a˷˜", "˸": "a˸:", "˿": "a˿←", "˪": "a˪ˈ", "˫": "a˫ˈ", "˹": "a˹ˈ", "˺": "a˺ˈ", "˻": "a˻ˌ",
+    "˼": "a˼ˌ", "˽": "a˽ˌ", "˾": "a˾ˌ",
 }
 
 
@@ -3042,11 +3096,12 @@ def _chars(text, target=None, draft=False):
     return "".join(out)
 
 
-def _cell(family, key, text, target, cmap, draft=False, size=30):
+def _cell(family, key, text, target, cmap, draft=False, size=None):
     shown = "".join(ch if ord(ch) in cmap else "" for ch in text)
     missing = ord(target) not in cmap
     body = _chars(shown, target, draft) + (r"\,{\normalsize\color{gray}--}" if missing else "")
-    return f"{{\\{family}{SHAPE[key]}\\fontsize{{{size}}}{{{size + 6}}}\\selectfont {body}}}"
+    sized = f"\\fontsize{{{size}}}{{{size + 6}}}\\selectfont " if size else ""   # default: the text size
+    return f"{{\\{family}{SHAPE[key]}{sized} {body}}}"
 
 
 # char, joining height, cm per unit (Ɱ larger, two to a row).
@@ -3213,13 +3268,22 @@ def write_sheet(notes, checks, status):
       r" groups; Ɐ Ʌ ỻ have been in BASE\_LATIN since 2026-11-14, for their anchors)."
       r" The letters follow by decision: approved, approved but changed since, then the general sections"
       r" (control points of the grafts, recipe checks, turned letters), and the pending and rejected"
-      r" letters last.\par\smallskip")
+      r" letters last. After ``revised:'', the designer's glyphs revised because of problems found while"
+      r" drafting: the base letter, the designer's glyph (black), and the revision (\textcolor{draft}{blue}),"
+      r" in the styles where the designer's glyph exists; the revisions are only in the draft fonts (PUA U+F630--F633),"
+      r" not in the patch.\par\smallskip")
     for key in ORDER:
         def pairs(entries):
             return r"\ ".join(
                 _chars(CONTEXT[c][0]) + _chars(c, c, status[c][key] == "draft") for c, _, _ in entries)
+        revised = [c for c in REVISIONS if REVISION_PUA[c] in lib[key]]
+        rev = ""
+        if revised:
+            rev = (f"\\par\\nopagebreak{{\\normalsize\\color{{gray}}{LABEL[key]}, revised:}}\\ " + r"\ ".join(
+                _chars(CONTEXT[c][0]) + _chars(c) + f'\\textcolor{{draft}}{{\\char"{REVISION_PUA[c]:04X}}}'
+                for c in revised))
         w(f"{{\\small {LABEL[key]}}}\\par\\nopagebreak{{\\LibDraft{SHAPE[key]}\\fontsize{{18}}{{24}}\\selectfont "
-          + pairs(LETTERS) + r"\quad " + pairs(EXTRAS) + r"}\par\smallskip")
+          + pairs(LETTERS) + r"\quad " + pairs(EXTRAS) + rev + r"}\par\smallskip")
 
     w(r"\medskip\noindent\begin{minipage}{\linewidth}")
     marks = '\\char"034F\\char"0303\\char"0330'
@@ -3227,6 +3291,8 @@ def write_sheet(notes, checks, status):
         def marked(entries, original):
             out = []
             for c, _, _ in entries:
+                if c in MODIFIERS:   # spacing modifiers take no marks
+                    continue
                 base = _chars(CONTEXT[c][0]) + marks
                 cell = _chars(c) + marks
                 if original and status[c][key] == "draft":
@@ -3275,7 +3341,7 @@ def write_sheet(notes, checks, status):
                             continue
                         body = (_chars(CONTEXT[char][0]) + f'\\textcolor{{draft}}{{\\char"{REVISION_PUA[char]:04X}}}'
                                 + _chars(CONTEXT[char][2:]))
-                        cells.append(f"{{\\LibDraft{SHAPE[k]}\\fontsize{{30}}{{36}}\\selectfont {body}}}")
+                        cells.append(f"{{\\LibDraft{SHAPE[k]} {body}}}")
                     w(f"\\parbox{{2.6cm}}{{\\footnotesize {_tex(REVISIONS[char][0])}}} & "
                       + " & ".join(cells) + r"\\")
                 for i, (vlabel, _) in enumerate(VARIANTS.get(char, [])):
@@ -3284,7 +3350,7 @@ def write_sheet(notes, checks, status):
                         if status[char][k] == "draft":
                             body = (_chars(CONTEXT[char][0]) + f'\\char"{VARIANT_PUA[char] + i:04X}'
                                     + _chars(CONTEXT[char][2:]))
-                            cells.append(f"{{\\LibDraft{SHAPE[k]}\\fontsize{{30}}{{36}}\\selectfont {body}}}")
+                            cells.append(f"{{\\LibDraft{SHAPE[k]} {body}}}")
                         else:
                             cells.append("")
                     w(f"\\parbox{{2.6cm}}{{\\footnotesize {_tex(vlabel)}}} & " + " & ".join(cells) + r"\\")

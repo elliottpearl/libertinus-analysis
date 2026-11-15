@@ -78,6 +78,7 @@ derived = {
     0x0248: (0x004A, (0, 2)),  # Ɉ J with stroke < J
     0x0249: (0x006A, (2,)),    # ɉ j with stroke < j (above: see derived_by_name)
     0x024C: (0x0052, (0, 2)),  # Ɍ R with stroke < R (regular only)
+    0x0244: (0x0055, (0, 2)),  # Ʉ U with bar < U (2026-11-14; regular only before the drafts)
     0x024D: (0x0072, (0, 2)),  # ɍ r with stroke < r
     0x024E: (0x0059, (0, 2)),  # Ɏ Y with stroke < Y (regular only)
     0x024F: (0x0079, (0, 2)),  # ɏ y with stroke < y (regular only)

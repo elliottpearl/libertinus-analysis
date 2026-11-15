@@ -141,128 +141,62 @@ Long term:
 		\item copies that could be references;
 		\item consistency of dots, commas and horns.
 	\end{itemize}
-	\item Add the remaining missing glyphs (ỿ, Ʉ).
+	\item Add missing glyphs, phase 2: coverage as broad as Langscitinus, toward Gentium Plus.
+	\item Revise the fat slab serifs of semibold and semibold italic ɑ ɒ ʊ ʠ, then redraft {\LibertinusSerifPatch ꭤ}.
+	\item Decide whether the geometric modifiers (˹ ˺ ˻ ˼ ˽ ˾ ˿, …) are upright in the italics.
 \end{itemize}
 
 
-
+\clearpage
 \subsection*{Anchor model}
 
-Libertinus has an anchor model where the base anchors are set to locations 
-where the marks would be placed relative to the base.
-See the blue dots in the left panel of Figure \ref{fig:libertinus-geometry}; 
-from top to bottom, the above-anchor is the blue dot above the base glyph, 
-the overlay-anchor is blue dot inside the base glyph outline, and 
-the below-anchor is the blue dot below the base glyph.
-The mark anchor is generally near the optical center of the mark glyph outline.
-See the red square in the middle panel of Figure \ref{fig:libertinus-geometry}; 
-the mark's below-anchor is at the optical center of the mark.
-The base and mark are combined in the right panel of Figure \ref{fig:libertinus-geometry} 
-by superimposing their below-anchors.
+Libertinus puts the clearance between base and mark in the base anchor:
+a base anchor is where the mark goes, and a mark anchor is near the centre of the mark.
+In Figure \ref{fig:libertinus-geometry} the blue dots are the base anchors (above, overlay, below),
+the red square is the mark anchor, and the right panel superimposes the two below-anchors.
+Noto does the opposite (Figure \ref{fig:noto-geometry}): its base anchors sit on the x-height and the baseline,
+its mark anchors at the origin, and the clearance is in the mark outline.
 
-Every font has five vertical reference lines (with respective $Y$ coordinate values) 
--- ascender line, capline, x-height or meanline, baseline, descender line -- 
-within which each glyph lives.
-These vertical reference lines are the gray vertical lines in 
-Figures \ref{fig:libertinus-geometry}, \ref{fig:noto-geometry},  \ref{fig:libertinus-italic-geometry} and \ref{fig:libertinus-semibolditalic-geometry}.
-Each glyph has a (tight) bounding box for real minimum and maximum $X$ and $Y$ coordinate values, as well as 
-a so-called ideal bounding box where the glyph seems to live, but accounting for overshoots of bowls and serifs.
-The entire design goal is that the top and bottom of the ideal bounding box are two vertical reference lines, 
-except for glyphs that are non-full ascenders or non-full descenders.
+\paragraph{$Y$.}
+Each glyph lives between two of five vertical reference lines (ascender, capline, x-height, baseline, descender; the gray lines in the figures).
+Its ideal bounding box is its bounding box without the overshoots of bowls and serifs.
+The clearance is the vertical distance between the ideal bounding boxes of base and mark, and it is the same for every glyph at a given reference line.
+So the above-anchor is at the top of the ideal bounding box plus the clearance, and the below-anchor at the bottom minus it:
+645 for x-height letters, 850 for capitals, 885 or 890 for ascenders, $-110$ under the baseline, $-319$ under descenders,
+in every style (see ``Vertical references, anchor $Y$ coordinates and reference, and clearance'').
 
-By clearance, I mean the (vertical) distance between a base and a mark, 
-measured between the ideal bounding boxes of the base and the mark.
-For some designed fonts, the clearance is consistent for each vertical reference line, so that all glyphs 
-that live at that reference line are separated from all marks with the same clearance; e.g. 
-dots should not dance below the baseline for different letters that sit on the baseline, 
-and acutes and graves sit at about the same height for different letters with similar top vertical reference line. 
+\paragraph{$X$.}
+In the roman styles the candidate is the midpoint of the glyph's bounding box.
+It suits mostly symmetric letters; where the optical centre differs, the anchor is curated.
 
-In roman styles of Libertinus, the clearance is encoded in the base anchor.
-The $Y$ coordinate of an above-anchor is the top of the base's ideal bounding box
-plus the clearance of the nearest vertical reference line,
-and the $Y$ coordinate of a below-anchor is the bottom of the ideal bounding box minus that clearance.
-For most glyphs that edge of the ideal bounding box is the reference line itself.
-For a non-full ascender or non-full descender it is not, but the clearance is the same;
-see the section on vertical reference lines below.
-The $X$ coordinate of the anchor is at some horizontal optical center of the base glyph, 
-but the meaning of the optical center depends on the glyph letterform, or whatever the designer thinks looks best.
-For a mostly symmetric letterform in the roman styles, a candidate for this $X$ coordinate 
-is the midpoint of the bounding box of the glyph.
-
-The anchor of a mark is at the horizontal center of the mark, if the mark is symmetric.
-An asymmetric mark, such as the acute or grave, has its anchor a few units to one side of the center of its outline.
-Vertically, the anchor of an above-mark is about 140 units above the bottom of the mark outline. 
-That is near the top of a tall mark, such as the circumflex, 
-and above the top of a short mark, such as the macron or dot.
-Because the above-anchor of a base at the x-height is 216 units above the x-height, 
-the bottom of a tall mark is about 75 units above the base, and a short mark sits a little higher.
+\paragraph{Marks.}
+A symmetric mark has its anchor on its horizontal centre; an asymmetric one, such as the acute, a few units to one side.
+An above-mark's anchor is about 140 units above the bottom of its outline,
+so a tall mark clears an x-height letter by about 75 units and a short one by a little more.
 
 \begin{figure}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
-	\input{input/libertinus-geometry.tex}
-	\caption{Libertinus n and macron with anchors.}
-	\label{fig:libertinus-geometry}
-\end{figure}
-
-Other fonts use a different geometric model for anchors. 
-In Noto, the base's below-anchor is at the baseline, the overlay-anchor is inside the glyph, 
-and the above-anchor is at the x-height. 
-See the blue dots in the left panel of Figure \ref{fig:noto-geometry}; 
-from the bottom to the top, the mark's below-anchor is the blue dot on the baseline, 
-the overlay-anchor is blue dot inside the base glyph outline, 
-and the above-anchor is the blue dot at the x-height.
-In Noto, the mark's below-anchor is at the origin $(0, 0)$, 
-and the mark glyph outline is drawn below the origin. 
-In the middle panel of Figure \ref{fig:noto-geometry}, 
-the mark's below-anchor is the red square at the origin.
-The base and mark are combined in the right panel of Figure \ref{fig:noto-geometry} 
-by superimposing their below-anchors.
-So in Noto the clearance is encoded in the mark anchor, and in Libertinus it is encoded in the base anchor.
-
-\begin{figure}[htbp]
-	\captionsetup{justification=raggedright, singlelinecheck=false}
-	\input{input/noto-geometry.tex}
-	\caption{Noto n and macron with anchors.}
-	\label{fig:noto-geometry}
+	\begin{minipage}[t]{0.48\textwidth}
+		\input{input/libertinus-geometry.tex}
+		\caption{Libertinus n and macron with anchors.}
+		\label{fig:libertinus-geometry}
+	\end{minipage}\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\input{input/noto-geometry.tex}
+		\caption{Noto n and macron with anchors.}
+		\label{fig:noto-geometry}
+	\end{minipage}
 \end{figure}
 
 \subsubsection*{Italic anchor model}
 
-In italic, the Libertinus anchor model is similar to the roman styles, but it is applied along the italic axis.
-The italic lane of a base glyph is its advance-width box, slanted by the italic angle $\theta$
-($12^\circ$).
-The midline of the italic lane is the line $X = W/2 + Y\tan\theta$, where $W$ is the advance width of the glyph.
-See the gray band and the dashed blue line in the left panel of Figure \ref{fig:libertinus-italic-geometry}.
-
-The $Y$ coordinate of an above- or below-anchor is set exactly as in the roman styles:
-the top or bottom of the glyph's ideal bounding box plus or minus the clearance of the nearest vertical reference line,
-measured vertically.
-So marks sit at the same height in roman and italic.
-The $X$ coordinate is the point of the midline at that height:
-$ax = W/2 + ay\tan\theta$ and $bx = W/2 + by\tan\theta$.
-
-The height in this formula is the height of the anchor itself,
-that is, the edge of the ideal bounding box plus or minus the clearance,
-not the height of the reference line or of the ideal bounding box.
-So the $Y$ coordinate of the anchor must be determined before the $X$ coordinate can be calculated.
-In italic, the above-anchor is at $W/2 + 137$ for a letter at the x-height ($ay = 645$), 
-at $W/2 + 181$ for a capital ($ay = 850$), and at $W/2 + 189$ for an ascender ($ay = 890$).
-The below-anchor is at $W/2 - 23$ for a letter on the baseline ($by = -110$) 
-and at $W/2 - 68$ for a descender ($by = -319$).
-An error of 10 units in the $Y$ coordinate moves the $X$ coordinate by about 2 units.
-
-The anchor of a mark lies on the mark's own slanted axis, through the center of its outline if the mark is symmetric.
-See the dashed red lines in the middle panel of Figure \ref{fig:libertinus-italic-geometry}.
-That is, the mark anchor is at $X = C + Y\tan\theta$, where $Y$ is the height of the anchor, as in the roman styles,
-and $C$ is where the axis of the mark meets the baseline:
-the horizontal center of the mark outline after the slant is removed.
-An asymmetric mark keeps the same offset from its axis as in the roman styles.
-Superimposing the anchors lays the axis of the mark on the midline of the base, as in the right panel.
-The mark is displaced from the base along the italic axis, not vertically above or below it.
-
-The midline is a geometric center, not an optical center, but it is a good candidate for the anchor $X$ coordinate
-of a mostly symmetric letterform.
-Asymmetric letterforms, and letters that overhang their advance width such as f and j, need curated anchors.
+Italic uses the same model along the italic axis ($\theta = 12^\circ$).
+A base's italic lane is its advance-width box slanted by $\theta$, with midline $X = W/2 + Y\tan\theta$ ($W$ the advance width;
+the gray band and dashed blue line in Figure \ref{fig:libertinus-italic-geometry}).
+$Y$ is as in roman, and the base anchor's $X$ is the midline at the anchor's own height.
+A mark's anchor lies on the mark's own slanted axis, $X = C + Y\tan\theta$, where $C$ is the centre of the mark with the slant removed.
+So a mark's axis lands on the base's midline: the mark is displaced along the italic axis, not straight up or down.
+Asymmetric letters, and letters that overhang their advance width such as f and j, are curated.
 
 \begin{figure}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
@@ -273,171 +207,42 @@ Asymmetric letterforms, and letters that overhang their advance width such as f 
 
 \subsubsection*{Semibold italic anchor model}
 
-Semibold italic has its own anchor model, which is not the italic anchor model, and the patch keeps it.
-The outlines are slanted (the italic angle $\theta$ is $11.5^\circ$), but the anchors are, almost all, 
-the anchors of regular, copied unchanged:
-42 of the 44 above- and below-mark anchors, and 319 of the 384 above- and below-anchors of bases,
-have exactly the coordinates of regular.
-
-So the anchors do not follow the slant.
-A slanted outline moves further right the higher it goes, but an anchor copied from regular stays where it was. 
-An above-anchor therefore sits left of where the italic anchor model would put it, 
-by roughly the amount the slant has moved the outline at that height.
-This is true of the base and of the mark alike: 
-the base's above-anchor is left of the midline of its italic lane, 
-and the mark's anchor is left of the mark's own slanted axis, by about the same amount.
-When the two anchors are superimposed, the two errors cancel, 
-and the axis of the mark lands near the midline of the base, as it would in italic.
-See Figure \ref{fig:libertinus-semibolditalic-geometry}, 
-where the filled symbols are the designer's anchors and the hollow symbols are the positions given by the italic anchor model:
-the above-anchor of n and the anchor of the macron are both far left of the hollow symbols, 
-but by nearly the same distance.
-
-Each anchor in the font has its own shift $k$: how far it lies left of the position the italic anchor model gives it.
-For a base anchor, $k = W/2 + Y\tan\theta - X$.
-For a mark anchor, $k = C + Y\tan\theta - (X - d)$, where $C$ is where the mark's axis meets the baseline
-and $d$ is the mark's offset from its axis in regular ($d = 0$ for a symmetric mark; for the acute it is $-32$).
-In Figure \ref{fig:libertinus-semibolditalic-geometry}, the above-anchor of n has $k = 170$ and the macron has $k = 141$.
-A mark lands $k_\mathrm{mark} - k_\mathrm{base}$ units right of the base's midline (left, if negative),
-so the macron lands $141 - 170 = -29$, that is, 29 units left of the midline of n.
-
-The shifts differ from anchor to anchor, because the designer copied regular's $X$ coordinates, which carry no slant.
-So an anchor's shift is about $Y\tan\theta$ at its own height, plus a small amount that depends on how the slanted outline was drawn.
-A higher anchor has a larger shift: comma above U+0313, with its anchor at $Y = 605$, has $k = 125$; hook above U+0309, at $Y = 765$, has $k = 168$.
-Only the difference between a mark's shift and a base's shift moves the mark off the midline,
-so any single value works, provided every base anchor and every mark anchor uses it.
-
-The semibold italic anchor model therefore fixes one value of $K$ for each anchor class
-and gives every anchor of that class the same shift:
-the base anchor is at $X = W/2 + Y\tan\theta - K$ and the mark anchor is at $X = C + Y\tan\theta + d - K$,
-with $\tan\theta = 0.2035$ and the same $Y$ coordinates as in the other styles.
-\begin{itemize}
-	\item Above-anchors: $K = 150$, for every above-mark and every base's above-anchor.
-	Above-anchors are high, where the slant has moved the outline far to the right, so their shift is large.
-	150 is the median shift of the designer's above-marks; most are between 132 and 168.
-	\item Below-anchors: $K = -12$, for every below-mark and every base's below-anchor.
-	Below-anchors are just under the baseline, where the slant has moved the outline a little to the left, so their shift is small and negative.
-	$-12$ is the median shift of the designer's below-marks; most are between $-23$ and $-4$.
-\end{itemize}
-The values are taken from the marks rather than the bases so that most of the designer's mark anchors already conform.
-The designer's base anchors have median shifts of 139 above and $-1$ below on lowercase Latin and IPA letters,
-and 173 above and $-5$ below on capitals.
-An anchor conforms if its own shift $k$ is close to $K$.
-The italic anchor model is the case $K = 0$.
-
-The candidates for a base are
-$ax = W/2 + ay\tan\theta - 150$ and $bx = W/2 + by\tan\theta + 12$.
-So the above-anchor is at $W/2 - 19$ for a letter at the x-height ($ay = 645$),
-at $W/2 + 23$ for a capital ($ay = 850$), and at $W/2 + 31$ for an ascender ($ay = 890$).
-The below-anchor is at $W/2 - 10$ for a letter on the baseline ($by = -110$)
-and at $W/2 - 53$ for a descender ($by = -319$).
-For semibold italic n, $W = 606$, so $ax = 284$ and $bx = 293$; 
-the font has $ax = 264$ and $bx = 265$, the values of regular n,
-and the macron lands 29 units left of the midline.
-
-The cancellation is only approximate, because the designer's anchors do not follow the slant at all, 
-whereas the model's anchors do, apart from the constant $K$.
-A mark's shift is fixed by the height of its own anchor:
-for a mark, $k = Y\tan\theta$ plus a small amount, where $Y$ is the height of the mark anchor.
-But the designer's base anchors are near $W/2 - 9$ at every height, 
-so they do not move right for a taller base, such as a capital or an ascender.
-The error of a mark on a base therefore grows with the difference in height of the two anchors, 
-by 2 units for every 10.
-The median distance of a designer's base anchor from the candidate is about 20 units for a lowercase letter 
-and 30 units for a capital.
-
-The patch does not move this style to the italic anchor model.
-It keeps the designer's anchors where they conform to the semibold italic anchor model,
-and corrects only the anchors that do not, so that they conform to it:
-a base anchor is moved to the candidate above,
-and a mark anchor is moved to $X = C + Y\tan\theta - 150$ for an above-mark or $X = C + Y\tan\theta + 12$ for a below-mark.
-An anchor set by the italic anchor model would be wrong here: 
-a base anchor without the shift would put every above-mark about 150 units too far right, 
-because the marks carry the shift.
-
-In the original font, several groups of anchors do not conform to this model. The patch corrects them:
-\begin{itemize}
-	\item The capital forms of the above-marks (\verb|grave.cap|, \ldots) lacked $K$ and landed 160 to 190 units left of the middle of a capital; they are set from the precomposed capitals, with $K$ (stage 4).
-	\item The above-anchors of a, s, h and J were set with the slant, as in italic, so that marks landed 130 to 190 units too far right; they are deleted and replaced by candidates (stages 1 and 6).
-	\item Marks whose own shift $k$ was far from $K$ (the dieresis, tilde, inverted breve, hook above, koronis, right tack below and tilde below) are on the model, by the mark-axis rule or curated anchors (``Mark anchor model'').
-	\item Many capitals and other letters whose anchors were far from the candidate now have candidates, curated or stem-axis anchors, or anchors inherited from their base letter; the transposed anchors of ʮ and ʯ are replaced by candidates.
-\end{itemize}
-Still open:
-\begin{itemize}
-	\item The bowl capitals and a few others keep the designer's above-anchor, 40 to 60 units left of the candidate: D, B, W, R, Q; A and X about 30 left, P 32 right. To be curated one by one.
-	\item Designer below-anchors far from the candidate: Æ ($+123$), q ($+115$), r ($-77$, inherited by ɍ), j ($-60$), C and D ($\pm 55$), d ($-47$), A ($-41$), t ($-40$), and Ƣ; above, ȵ ($-63$) and c ($+39$).
-	\item Letters that overhang their advance width: the above-anchor of f is still the candidate and the below-anchor of j the designer's, in both italic styles; both need checking by eye.
-	\item The Hebrew ligatures U+05F0--U+05F2 have above- and below-anchors in this lookup in semibold italic only; harmless, left as they are.
-\end{itemize}
-The base tables (``Font metrics per glyph'') show which anchors are still the designer's.
+Semibold italic ($\theta = 11.5^\circ$) has its own model, and the patch keeps it.
+The designer copied regular's anchors onto the slanted outlines, so base and mark anchors both lie left of the italic model's positions
+by about the same amount, and the two errors cancel when they meet (Figure \ref{fig:libertinus-semibolditalic-geometry}).
+The model makes the shift one constant $K$ per class:
+the base anchor is at $X = W/2 + Y\tan\theta - K$ and the mark anchor at $X = C + Y\tan\theta + d - K$,
+with $K = 150$ above and $K = -12$ below, the median shifts of the designer's marks;
+$d$ is a mark's offset from its axis in regular (0 if symmetric).
+The italic model is the case $K = 0$; applying it here would put every above-mark about 150 units too far right.
+The patch moves only the anchors that do not conform to this model.
+A few designer base anchors are still far from the candidate and are to be curated (\verb|TODO.md|).
 
 \begin{figure}[htbp]
 	\captionsetup{justification=raggedright, singlelinecheck=false}
 	\input{input/libertinus-semibolditalic-geometry.tex}
 	\caption{Libertinus semibold italic n, macron and macron below, with the designer's anchors (filled)
 	and the positions given by the italic anchor model (hollow).
-	The above-anchor of n is 170 units left of the midline ($k = 170$) and the anchor of the macron is 141 units left of its axis ($k = 141$),
-	so the macron lands 29 units left of the midline of n.
-	The model's own positions, with $K = 150$, would be 20 units right of the filled circle and 9 units left of the filled square.}
+	Both anchors are far left of the italic model, by nearly the same amount, so the macron lands near the midline of n (29 units left).}
 	\label{fig:libertinus-semibolditalic-geometry}
 \end{figure}
 
 \subsubsection*{Mark anchor model}
 
-The anchor of a mark follows the same model in every style.
-Horizontally, it lies on the mark's own axis, $X = C + Y\tan\theta - K$
-($\theta = 0$ and $K = 0$ in the roman styles, $K = 0$ in italic, $K = 150$ above and $-12$ below in semibold italic).
-An asymmetric mark, such as the grave, acute, double acute or double grave, keeps the offset from its axis that it has in regular.
-Vertically, the anchor is at a fixed distance from the mark's outline:
-the anchor of an above-mark is a certain height above the bottom of the outline,
-and the anchor of a below-mark is a certain depth below the top of the outline.
-These distances differ from mark to mark (a short mark such as the macron sits a little higher than a tall one),
-but since the base anchors have the same $Y$ coordinates in every style,
-a mark sits at the same height in every style only if its distance is the same as in regular.
+A mark anchor lies on the mark's own axis, $X = C + Y\tan\theta + d - K$, in every style
+($\theta = 0$ in roman; $K$ is 0 except in semibold italic).
+An asymmetric mark (grave, acute, double acute, double grave, hook, commas, \ldots) keeps regular's offset $d$.
+Vertically, each mark's anchor is at its own fixed distance from its outline.
+A composed mark should match the designer's precomposed glyphs, which HarfBuzz substitutes wherever they exist.
 
-Three kinds of evidence check a mark anchor: its $X$ offset from its axis, compared with regular;
-the distance between its anchor and its outline, compared with regular;
-and the designer's precomposed glyphs, which HarfBuzz substitutes wherever they exist, so that a composed mark should match them.
-The precomposed glyphs are good evidence for $Y$, since every x-height base has its above anchor at 645.
-They are weaker evidence for $X$, because they also carry the offsets of the base anchors, and they are not always consistent between styles.
-In what follows, ``lower'' and ``higher'' and ``left'' and ``right'' describe where the mark lands on a base whose anchor conforms.
-
-\paragraph{What the patch changes.}
-\begin{itemize}
-	\item Semibold's second above class \verb|top_punkt| (dot above, diaeresis, ring, hook above, the commas above, \ldots) is merged into the above class (stage 1), so its marks attach to every base with an above anchor.
-	\item The marks a style lacks are added with regular's anchors (stage 3; semibold and semibold italic).
-	\item The capital forms (\verb|grave.cap|, \verb|acute.cap|, \ldots) are set from the designer's precomposed capitals (stage 4).
-	This fixed semibold italic, whose capital forms lacked $K$, and italic, which had almost no capital-form anchors.
-	\item The mark-axis rule (stage 4): every mirror-symmetric above and below mark, and the combining Latin letters, has its anchor $X$ exactly on its own axis.
-	The axis is the centre of the mark's ink bounds with the slant removed; for the rounder combining letters it is the centre of the ink area, for combining i the stem.
-	For these marks the model decides $X$, not the precomposed glyphs. Asymmetric marks (grave, acute, double acute, double grave, hook, commas, half rings, \ldots) keep the designer's offset.
-	\item Curated anchors (stage 7), one mark at a time:
-	\begin{itemize}
-		\item Vertical moves where a composed mark sits at the same distance from the precomposed glyphs on every base: the macron and double acute in several styles, the semibold tilde.
-		\item Consistency across styles, where the precomposed glyphs disagree between styles: the dot above, dot below and diaeresis below now sit at the same place in their mark zone in every style, as do the semibold diaeresis, the semibold italic ring and the semibold breve below.
-		\item The tall below marks (tacks, half rings, plus sign, ring, up arrow) are raised so that they clear descenders, and the tacks are placed consistently.
-		\item Single fixes, mostly in semibold and semibold italic: anchors that lacked $K$, marks that sat too low or too high against the other styles, the koronis, and the semibold italic macron below.
-	\end{itemize}
-\end{itemize}
-Moving every mark anchor onto the model at once was tested and rejected: as many marks got further from the precomposed glyphs as got closer.
-
-\paragraph{Open decisions.}
-None at present.
-
-\paragraph{Decided: left as they are.}
-Where the evidence does not support a move, the designer's anchor is kept:
-the above marks on the italic lowercase letters, which land a little right of the precomposed accents mainly on letters whose precomposed accents are themselves off centre (s, w);
-the italic macron and a few semibold and semibold italic marks whose precomposed glyphs disagree or do not support a move;
-and the semibold italic tilde, which the mark-axis rule moves further from its precomposed glyphs.
-
-The detail behind all of this (figures, dates, test sheets and rejected alternatives) is in \verb|MARK-ANCHOR-HISTORY.md| in the repository.
+The evidence, figures, dates and rejected alternatives behind the anchor model are in \verb|ANCHOR-MODEL-HISTORY.md| in the repository.
 
 %Libertinus serif has few mark positioning GPOS tables.
 %Regular has two mark-to-base LookupList tables: 
 %index 7 for Hebrew and index 4 for latin and other scripts;
 %one mark-to-mark LookupList table, index 5.
 
-\newpage
+\clearpage
 \subsection*{Mark outline zones}
 
 Figures \ref{fig:mark-zones-regular}, \ref{fig:mark-zones-italic}, \ref{fig:mark-zones-semibold} and \ref{fig:mark-zones-semibold-italic}
@@ -471,6 +276,7 @@ In semibold italic the above marks lie well to the right of the blue dot, becaus
 	\end{minipage}
 \end{figure}
 
+\clearpage
 \subsection*{Font metrics per glyph}
 
 See above- and below-anchor coordinates for A--Z, a--z, and IPA letters for Libertinus serif fonts 

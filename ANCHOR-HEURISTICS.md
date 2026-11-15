@@ -2,7 +2,7 @@
 
 How Libertinus places above- and below-anchors (GPOS mark-to-base classes 0 and 2), and how to calculate a candidate anchor from font metrics alone.
 
-The source of truth is the report, `tex/libertinus-analysis.tex`: the sections "Anchor model", "Italic anchor model", "Semibold italic anchor model" and "Vertical aspects, anchor Y coordinates and reference, and clearance". This file summarizes them with the numbers needed for calculations. If the two disagree, the report is right and this file should be updated.
+This file is the working reference: every number and formula needed to compute or check an anchor. The report, `tex/libertinus-analysis.tex`, states the model only briefly ("Anchor model", "Italic anchor model", "Semibold italic anchor model", "Mark anchor model"; the Y tables are in "Vertical references, anchor Y coordinates and reference, and clearance"). The derivations, measurements, dates and rejected alternatives are in `ANCHOR-MODEL-HISTORY.md`. When the model changes, update this file and the history, and the report's brief statement if what it says is no longer true.
 
 A candidate is a geometric centre. A type designer places anchors at the optical centre, where a mark looks best; this project substitutes something it can compute. Designer anchors are inconsistent (many are copied or wrong), so compare candidates with them only in aggregate.
 
@@ -102,7 +102,7 @@ Example: semibold italic n has W = 606, giving `ax = 284` and `bx = 293`. The fo
 
 The cancellation is approximate. `k` for a mark is `Y tan θ` plus a constant, while the designer's base anchors sit near `W/2 − 9` at every height, so the error grows by 2 for every 10 units of height difference between the anchors. The median distance of a designer base anchor from the candidate is about 20 for lowercase and 30 for capitals.
 
-The italic model is the case K = 0. Using it here would put above-marks about 150 too far right. Patch only anchors that do not conform, moving them to these candidates. The report lists the known non-conforming glyphs and marks.
+The italic model is the case K = 0. Using it here would put above-marks about 150 too far right. Patch only anchors that do not conform, moving them to these candidates. The non-conforming groups the patch corrected (`.cap` marks without K; a s h J above, set with the slant; marks with unusual k; many capitals; ʮ ʯ transposed) and the ones still open (bowl capitals D B W R Q, A X P above; Æ q r j C D d A t Ƣ below; ȵ c above) are listed in `ANCHOR-MODEL-HISTORY.md`, "Semibold italic", and the open ones in `TODO.md`.
 
 ### Mark anchors
 
@@ -114,7 +114,7 @@ A mark anchor lies on the mark's own axis: `X = C + Y tan θ + d − K`.
 
 When the anchors meet, the mark's axis lies on the base's midline: an italic mark is displaced along the italic axis, not straight up or down.
 
-The patch enforces this for the X of symmetric above marks and, since 2026-11-12, symmetric below marks (K below −12 in semibold italic; not the tacks), setting a mark's shift `k = C + Y tan θ − X` to K exactly (mark-axis rule, stage 4, 2026-11-09; threshold 10 until 2026-11-12, now none). `C` is the centre of the de-slanted ink bounds (within 2.2 units of the mirror or 180°-rotation symmetry axis on every symmetric mark; kept 2026-11-12), except for the combining letters that are not boxy: the area centroid for e c h r t (U+0364 U+0368 U+036A U+036C U+036D), and for combining i (U+0365) the stem's midline at the stem's top, carried to the baseline at the slant (`AXIS_MEASURE` in `font_patching_markaxis.py`). Other mark anchors are curated one at a time against the precomposed glyphs. The history of the mark anchors is in `MARK-ANCHOR-HISTORY.md`.
+The patch enforces this for the X of symmetric above marks and, since 2026-11-12, symmetric below marks (K below −12 in semibold italic; not the tacks), setting a mark's shift `k = C + Y tan θ − X` to K exactly (mark-axis rule, stage 4, 2026-11-09; threshold 10 until 2026-11-12, now none). `C` is the centre of the de-slanted ink bounds (within 2.2 units of the mirror or 180°-rotation symmetry axis on every symmetric mark; kept 2026-11-12), except for the combining letters that are not boxy: the area centroid for e c h r t (U+0364 U+0368 U+036A U+036C U+036D), and for combining i (U+0365) the stem's midline at the stem's top, carried to the baseline at the slant (`AXIS_MEASURE` in `font_patching_markaxis.py`). Other mark anchors are curated one at a time against the precomposed glyphs. The history of the mark anchors is in `ANCHOR-MODEL-HISTORY.md`, "Mark anchors".
 
 ### Central-stem letters
 
@@ -131,7 +131,7 @@ These need curated anchors (`data/fontanchors_human/{style}.py`):
 - letters that overhang their advance width, such as f and j, in every italic style (the lane midline comes from W);
 - the above-anchor of j in every style: the hook pulls the bbox midpoint left of the stem, so X is put on the stem's axis (section 3, central-stem letters). Its Y (and i's) is the candidate's, from the dot: only marks that skip the ccmp dotless swap (U+033F) attach to i or j, so the anchor must clear the dot;
 - Æ, whose top edge lies right of the glyph's midpoint: the above-anchor belongs where Ǣ and Ǽ put their accents, the below-anchor under the common stroke;
-- in semibold italic, the non-conforming glyphs and marks listed in the report (capitals, `.cap` marks, a s h J, marks with unusual K).
+- in semibold italic, the non-conforming glyphs listed in `ANCHOR-MODEL-HISTORY.md`, "Semibold italic" (bowl capitals and others still open).
 
 ## 5. What the code implements
 

@@ -58,7 +58,7 @@ feature ccmp {
     # Ɽ R with tail (2026-11-10): it has an above anchor at the capital reference since then
     uni2C64
     # capitals with a stroke, bar or middle dot, derived in stage 8 (2026-11-11), those in this font
-    Ldot uni2C62 uni023D uni2C60 Tbar uni023E uni01E4 uni023A uni023B uni0243 uni0246 uni0248 uni024C uni024E uni2C63
+    Ldot uni2C62 uni023D uni2C60 Tbar uni023E uni01E4 uni023A uni023B uni0243 uni0244 uni0246 uni0248 uni024C uni024E uni2C63
     # capitals with a hook, tail or descender, derived in stage 8 (2026-11-11)
     uni01A4 uni01AC uni01AE uni2C67 uni2C6E
     # IPA/UPA capitals

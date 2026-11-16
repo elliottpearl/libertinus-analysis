@@ -69,7 +69,7 @@ def latex_font_style(font_key, text):
 # Unified renderer for sanity/plain classifiers
 # ----------------------------------------------------------------------
 
-def render_cell(base_cp, mark_cp, kind, flags, separator=""):
+def render_cell(base_cp, mark_cp, kind, flags, separator="", model=False):
     """
     Render a TeX cell for the sanity/plain classifiers.
 
@@ -90,6 +90,10 @@ def render_cell(base_cp, mark_cp, kind, flags, separator=""):
     separator is TeX put between base and mark, e.g. "\\cgj " to keep the
     shaper from decomposing and recomposing a precomposed base with the mark.
 
+    model marks a cell that shows a base letter's anchor as the model for
+    other letters (the donors in the derived-letter grids): an anchored cell is
+    then MODELANCH (gray) instead of SUPPORTEDANCH.
+
     This renderer chooses exactly one semantic macro per cell.
     Missing glyphs override everything. Otherwise, supported/
     unsupported and kind determine the macro.
@@ -104,6 +108,9 @@ def render_cell(base_cp, mark_cp, kind, flags, separator=""):
     # Missing glyphs override everything
     if flags.get("missing_base") or flags.get("missing_mark"):
         return _wrap("MISSINGGLYPH", raw)
+
+    if model and kind == "anchored":
+        return _wrap("MODELANCH", raw)
 
     # Semantic support
     supported = flags.get("supported", False)

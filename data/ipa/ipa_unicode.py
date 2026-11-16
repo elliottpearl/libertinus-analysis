@@ -989,11 +989,12 @@ from data import derived_letters as _derived
 # typing ɨ before an above mark; U+E27F is a PUA codepoint of the patch.
 _DERIVED_BY_NAME_CP = {"uni0268.dotless": (0x0268, 0x0069), "uni027F.desc": (0xE27F, 0x027F)}
 
-def _derived_sheet(cls, only=None):
+def _derived_sheet(cls, only=None, donors=False):
     """
     Stage 8's letters that may inherit anchor class cls (0 above, 2 below) in
     some style, each base letter followed by its derived letters: ordered by
     base letter, then by codepoint. With only, just those derived letters.
+    With donors, the set of base letters (the anchor donors) instead.
     """
     def has(classes):
         styles = classes.values() if isinstance(classes, dict) else [classes]
@@ -1012,6 +1013,8 @@ def _derived_sheet(cls, only=None):
             by_base.setdefault(base_cp, set()).add(cp)
     if only is not None:
         by_base = {b: ds & set(only) for b, ds in by_base.items() if ds & set(only)}
+    if donors:
+        return set(by_base)
     return [c for base_cp in sorted(by_base) for c in [base_cp, *sorted(by_base[base_cp])]]
 
 # The "Base and mark shaping -- Complete" grids leave out the letters whose anchors stage 8 or stage 9
@@ -1023,6 +1026,22 @@ BASE_IPA_COMPLETE = [c for c in BASE_IPA if c not in _STAGE_8_9]
 
 DERIVED_ABOVE = _derived_sheet(0)
 DERIVED_BELOW = _derived_sheet(2)
+# the base letters in those sheets: their cells use CGJ and are shown in gray, as the model
+DERIVED_ABOVE_DONORS = _derived_sheet(0, donors=True)
+DERIVED_BELOW_DONORS = _derived_sheet(2, donors=True)
+
+
+def _precomposed_sheet(cps):
+    """
+    Stage 9's letters ordered as the derived sheets: by base letter (the first
+    character of the full canonical decomposition), then by codepoint.
+    """
+    import unicodedata
+    return sorted(cps, key=lambda cp: (ord(unicodedata.normalize("NFD", chr(cp))[0]), cp))
+
+
+PRECOMPOSED_ABOVE_SHEET = _precomposed_sheet(_precomposed.PRECOMPOSED_ABOVE)
+PRECOMPOSED_BELOW_SHEET = _precomposed_sheet(_precomposed.PRECOMPOSED_BELOW)
 
 # Group 4 of 2026-11-11 (hooks, tails, curls, topbars, descenders), for its own test sheet
 # (tex/derived-group4.tex)
@@ -1089,14 +1108,14 @@ unicode_groups = {
         "label": "Precomposed bases that can inherit a below anchor",
         "items": BASE_BELOW,
     },
-    # Stage 9's lists (data/precomposed_letters.py), for the test sheets
+    # Stage 9's lists (data/precomposed_letters.py), for the test sheets, ordered by base letter
     "PRECOMPOSED_ABOVE": {
-        "label": "Precomposed letters that inherit an above anchor in stage 9",
-        "items": _precomposed.PRECOMPOSED_ABOVE,
+        "label": "Precomposed characters that inherit an above anchor in stage 9",
+        "items": PRECOMPOSED_ABOVE_SHEET,
     },
     "PRECOMPOSED_BELOW": {
-        "label": "Precomposed letters that inherit a below anchor in stage 9",
-        "items": _precomposed.PRECOMPOSED_BELOW,
+        "label": "Precomposed characters that inherit a below anchor in stage 9",
+        "items": PRECOMPOSED_BELOW_SHEET,
     },
     # Stage 8's lists (data/derived_letters.py), with their base letters, for the test sheets
     "DERIVED_ABOVE": {

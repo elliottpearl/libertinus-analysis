@@ -33,6 +33,7 @@ def print_combo_matrix(
     builder,
     outfile,
     cgj=False,
+    model_bases=(),
 ):
     # Build font contexts
     font_contexts = {
@@ -51,6 +52,7 @@ def print_combo_matrix(
         fonts={fk: FONTS[fk] for fk in chosen_fonts},
         classifier=classifier,
         cgj=cgj,
+        model_bases=model_bases,
     )
 
     cm.load_fonts()
@@ -205,13 +207,15 @@ if __name__ == "__main__":
     )
 
     # print derived-letter grids: each base letter, then its derived letters (stage 8).
-    # No CGJ: a derived letter has no decomposition, and a base letter's cell then
-    # shows what text gets (the precomposed glyph where one exists, the dotless
-    # form of i and j)
+    # A base letter's cells put CGJ between letter and mark and are gray: they show the
+    # donor anchor, the model for its derived letters, never a precomposed glyph.
+    # A derived letter's cells have no CGJ: text gets the precomposed glyph where one
+    # exists (Ø + acute = Ǿ), shown in blue, as the probable shaping of that combination
+    from data.ipa.ipa_unicode import DERIVED_ABOVE_DONORS, DERIVED_BELOW_DONORS
     classifier = classify_combo_plain
-    for group, marks, outfile in (
-        ("DERIVED_ABOVE", "MARK_ABOVE", "derived_inherit_above.tex"),
-        ("DERIVED_BELOW", "MARK_BELOW", "derived_inherit_below.tex"),
+    for group, marks, outfile, donors in (
+        ("DERIVED_ABOVE", "MARK_ABOVE", "derived_inherit_above.tex", DERIVED_ABOVE_DONORS),
+        ("DERIVED_BELOW", "MARK_BELOW", "derived_inherit_below.tex", DERIVED_BELOW_DONORS),
     ):
         print_combo_matrix(
             chosen_fonts=[fk for fk in chosen_fonts if fk.endswith("_patch")],  # what stage 8 set
@@ -220,6 +224,7 @@ if __name__ == "__main__":
             classifier=classifier,
             builder=builder,
             outfile=outfile,
+            model_bases=donors,
         )
 
     # Group 4 test sheet (tex/derived-group4.tex): original and patched fonts

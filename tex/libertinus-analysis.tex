@@ -83,6 +83,7 @@
 \definecolor{unsupportedprec}{RGB}{150,190,255}   % pale blue
 \definecolor{unsupportedfall}{RGB}{255,180,200}   % light pink
 \definecolor{missingglyph}{RGB}{200,200,200}      % light gray
+\definecolor{modelanchor}{RGB}{130,130,130}      % gray: a base letter's anchor as the model (derived-letter grids)
 
 \newcommand{\PREC}[1]{{\color{supportedprec}#1}}
 \newcommand{\SUPPORTEDANCH}[1]{{\color{supportedanchor}#1}}
@@ -92,6 +93,7 @@
 \newcommand{\UNSUPPORTEDPREC}[1]{{\color{unsupportedprec}#1}}
 \newcommand{\UNSUPPORTEDFALL}[1]{{\color{unsupportedfall}#1}}
 \newcommand{\MISSINGGLYPH}[1]{{\color{missingglyph}#1}}
+\newcommand{\MODELANCH}[1]{{\color{modelanchor}#1}}
 
 % Helper commands for pretty printing samples in regular, italic, bold, bold italic
 
@@ -2350,77 +2352,24 @@ In this case only the base glyph is shown.
 \section*{Capital alternates}
 
 A capital alternate (\verb|grave.cap|, \verb|acute.cap|, \ldots) is a form of an above-mark that sits lower over a capital, as the accents of the designer's precomposed capitals do.
-In the original fonts, \verb|ccmp| substitutes only four of them, for the grave, acute, circumflex and breve,
-although the designer also drew the caron, double acute, double grave, inverted breve, dieresis and hook above (and, in regular and semibold, the dot above).
-The patched fonts substitute twelve, after every capital listed in \verb|@capitals| of \verb|data/fea/{style}/ccmp.fea| (stage 10):
-grave, acute, circumflex, tilde, breve, dot above, dieresis, hook above, double acute, caron, double grave and inverted breve.
-Stage 3 adds the two forms that were missing: \verb|dotaccent.cap| in italic and semibold italic, the dot of the precomposed İ,
-and \verb|tildecomb.cap| in every style (2026-11-08), the tilde of the precomposed tilded capitals
-(\verb|tildecomb| itself, except in semibold italic, where the precomposed capitals use a taller tilde, that of Ã).
-The other above-marks have no capital form and attach with their own anchors.
-The ring above has none by decision: the precomposed Å sets the ring on the apex, and the combining ring keeps its clearance; nor do the vertical lines above U+030D and U+033E.
-
-In stage 4 of the patched fonts (\verb|font_patching_capmarks.py|), the mark anchor of each capital alternate is set from the designer's precomposed capitals A--Z.
-The mark's outline is found in each precomposed glyph that is a capital plus that mark, which gives how far the designer moved it there.
-The $Y$ coordinate is the capital anchor reference (850) less the median height by which the mark is raised in the precomposed glyphs.
-The $X$ coordinate of a symmetric mark is the centre of its outline on its own axis, $X = C + Y\tan\theta - K$.
-For the asymmetric grave, acute, double acute and double grave, it is the median position of the mark in the precomposed glyphs relative to the candidate above-anchor of the capital, $W/2 + 850\tan\theta - K$.
-$K$ is 150 in semibold italic and 0 elsewhere.
-The precomposed placement is reproduced exactly where a capital's above-anchor is on its candidate; where it is not, the composed mark is displaced by the same amount.
-Human-curated anchors (stage 7) overrule stage 4.
-
-The table compares each composed capital (base, capital alternate, anchors) with the designer's precomposed glyph, over the capitals that have one.
-Vertically every capital alternate matches: the median difference is 0 in every style, and no single capital differs by more than 12, except Ỏ, whose precomposed hook above is 24 units higher than the composed one in all styles but semibold italic.
-The numbers are the median horizontal distance; $n$ is the number of precomposed capitals, and $^*$ marks a curated anchor.
-\begin{center}
-\begin{tabular}{lrrrrr}
-mark & $n$ & regular & italic & semibold & semibold italic \\ \hline
-grave & 8 & 17 & $30^*$ & 4 & 10 \\
-acute & 17 & 9 & $14^*$ & 16 & 28 \\
-circumflex & 12--13 & 4 & $9^*$ & 14 & 16 \\
-tilde & 7--8 & 5 & 10 & 10 & 25 \\
-breve & 6 & 2 & $6^*$ & 10 & 10 \\
-dot above & 20 & 9 & 13 & 10 & 15 \\
-dieresis & 7 & 2 & 6 & 8 & 8 \\
-hook above & 6 & 4 & 12 & 12 & 16 \\
-double acute & 2 & 0 & $2^*$ & 18 & 6 \\
-caron & 12--15 & 7 & $6^*$ & 16 & 11 \\
-double grave & 6 & 12 & $4^*$ & 15 & 15 \\
-inverted breve & 6 & 2 & $10^*$ & 12 & 9 \\
-\end{tabular}
-\end{center}
-
-Notes by style:
+The patch changes them, and the capitals' anchors, as follows.
 \begin{itemize}
-	\item Regular. All scripted (2026-11-08). The curated grave $(-175, 723)$ was removed in favour of stage 4's $(-162, 724)$, as in semibold italic:
-	the median distance from the precomposed graves goes from 18 to 17 units, and the median offset from 18 units right to 6, since the graves vary letter by letter.
-	The other curated anchors are reproduced by the script and are commented out in \verb|fontanchors_human|.
-	\item Italic. Eight curated anchors (2026-11-07) overrule stage 4: grave $-6$ (stage 4: 17), acute $-50$ ($-37$), circumflex 15 (24), breve $-14$ ($-1$), caron $-32$ ($-29$), double acute $-109$ ($-103$), double grave $-40$ ($-34$), inverted breve $-12$ ($-2$).
-	Each is fitted so that the accent lands, as a median over the capitals, where the designer drew it in the precomposed glyphs, with the capitals' actual above-anchors (so the signed median is 0).
-	The dieresis, dot above, hook above and tilde are scripted.
-	\item Semibold. All scripted. The designer's capital above-anchors were near 805, with the capital alternates drawn to compensate; stage 5 moves the capitals to 850, the reference stage 4 computes from.
-	\item Semibold italic. All scripted (2026-11-08).
-	The acute, grave, double acute and double grave had been curated on 2026-11-06 at the mark-axis position, $X = C + Y\tan\theta + d - K$ with $d$ from regular ($-236$, $-194$, $-282$, $-214$, against stage 4's $-195$, $-168$, $-243$, $-167$).
-	Those reproduced the precomposed capitals only on the designer's capital anchors, which are left of the candidates (median $k$ 173 against $K = 150$), because the designer drew the precomposed accents on those anchors.
-	Stage 4 is preferred because the precomposed glyphs are used wherever they exist, so a composed capital without one should match them;
-	and since H I J K L N O U V Y Æ were moved on 2026-11-07, it is also closer to them.
-	The larger distances of the acute (28) and tilde (25) come from capitals whose above-anchors are off their candidates (A, B, D, Q, R, W, X; V, Y and E for the tilde), not from the mark anchors.
+\item \textbf{Substitution.} The original fonts substitute four capital alternates (grave, acute, circumflex, breve).
+The patched fonts substitute twelve, after every capital: grave, acute, circumflex, tilde, breve, dot above, dieresis, hook above, double acute, caron, double grave and inverted breve.
+The other above-marks have no capital form and attach with their own anchors; the ring above and the vertical lines above have none by decision.
+\item \textbf{New forms.} The patch adds the dot above's capital form in italic and semibold italic, and the tilde's in every style (for Guarani G̃, which has no precomposed form), taken from the designer's precomposed capitals.
+\item \textbf{Mark anchors.} Each capital alternate's anchor is set from the designer's precomposed capitals A--Z, so that a composed capital matches them:
+its height from the median height of the accent there, and its horizontal position on the mark's own axis (symmetric marks) or at the accent's median position (grave, acute, double acute, double grave).
+In italic, eight of them are curated instead.
+Composed capitals match the precomposed ones in height (median difference 0), and horizontally within a median of 2--30 units.
+\item \textbf{Capital anchors.} Every capital's above-anchor is at the capital reference, 850; the designer's semibold capitals, near 805, are moved there.
+Beyond that, a capital A--Z keeps the designer's anchor, gets the heuristic candidate where the designer's was missing or bad, the stem's axis (I, T), or a curated anchor (a few per style).
+Derived capitals (Ð, Ø, Ł, \ldots) inherit their base letter's anchors, as described in the next section, and precomposed capitals inherit theirs as described in ``Precomposed characters''.
 \end{itemize}
+The detail (method, the comparison with the precomposed capitals per mark and style, the curated anchors, and who set each A--Z anchor) is in \verb|CAPITAL-ALTERNATES.md|.
 
-Notes by mark:
-\begin{itemize}
-	\item The grave, acute and their doubles are placed by eye, letter by letter, in the precomposed glyphs,
-	so the implied $X$ varies by up to 190 units over the bases (most for the acute, because of L), and one anchor is a compromise.
-	\item Tilde. Unicode has no precomposed G̃, which Guarani writes, so G\,+\,U+0303 is composed.
-	With the combining tilde it sat 25 to 47 units higher than the tilde of the precomposed Ñ, Ã, Õ beside it; \verb|tildecomb.cap| matches their height exactly.
-	Gentium Plus does the same with its \verb|tildecomb.LP|.
-	\item Dot above. \verb|dotaccent.cap| is new in italic and semibold italic; in regular, stage 4 raises its anchor by 50 units to match the precomposed dotted capitals.
-	\item Not used as evidence, because the mark outline differs in the precomposed glyph: Ÿ and Ẅ (dieresis), Ľ (comma-style caron), Ũ in semibold italic (tilde), and Ĵ in semibold italic.
-\end{itemize}
-
-The grids show these twelve marks on every Latin and IPA capital of \verb|@capitals|: A--Z, Æ, Œ, Ð, Ø, Đ, Ħ, Ł, the IPA and African capitals,
-and the 59 precomposed capitals with a cedilla, ogonek, horn or below-mark that stage 9 gives an above-anchor (Ç Ą Ę Į Ų Ư Ḍ Ẹ Ọ \ldots; added to \verb|@capitals| 2026-11-08, so that, e.g., Lithuanian Ą́ and Yoruba Ẹ́ take the capital acute like Á and É).
-The Greek and Cyrillic capitals of \verb|@capitals| are not shown: their combinations with these marks are all precomposed.
+The grids show the twelve marks on every Latin and IPA capital that takes the capital alternates: A--Z, Æ, Œ, Ð, Ø, Đ, Ħ, Ł, the IPA and African capitals,
+and the precomposed capitals with a cedilla, ogonek, horn or below-mark (Ç Ą Ę Į Ų Ư Ḍ Ẹ Ọ \ldots; so that, e.g., Lithuanian Ą́ and Yoruba Ẹ́ take the capital acute like Á and É).
 Blue cells are precomposed glyphs, which the shaper substitutes for base\,+\,mark wherever the font has one, so they do not use the capital alternates.
 Black cells are composed: in the patched fonts, the base with the capital alternate; in the original fonts, the base with the alternate only for the grave, acute, circumflex and breve, and otherwise with the ordinary mark.
 
@@ -2430,25 +2379,18 @@ Black cells are composed: in the patched fonts, the base with the capital altern
 \section*{Derived letters}
 
 Many Latin and IPA letters are a base letter with a bar, stroke, belt, hook, tail or curl: Đ is D with a bar, Ɗ is D with a hook, ɖ is d with a tail.
-Unlike the precomposed letters of stage 9, they have no Unicode decomposition; the base letter is assigned to each one in \verb|data/derived_letters.py|.
+Unlike the precomposed characters of stage 9, they have no Unicode decomposition; the base letter is assigned to each one in \verb|data/derived_letters.py|.
 Stage 8 (\verb|src/libertinus_analysis/font_patching_derivedanchors.py|, letter lists in \verb|data/derived_letters.py|) gives each such letter its base letter's final anchor,
 moved by where the base letter sits inside it, on each side where the added part stays clear of the marks.
 The heuristic candidate of stage 6 cannot do this: a hook or bar moves the bounding box it is centred on (regular Ƒ above: candidate 183, F's anchor moved into Ƒ 276),
 and the designer often drew the derived letter in a shifted frame (regular Ɗ is D moved 80 units right).
 
-Stage 8 measures how well the derived letter matches its base letter (the share of the base's outline that fits, in percent) and where the base sits in it (a shift, and a scale), in one of four ways:
-\begin{itemize}
-\item \textbf{Fit} (most letters). On each inherited side, the base letter's ink is fitted to the derived letter's with a shift and a scale of up to 15\%, as in stage 9;
-  the anchor moves with the fit, so a letter drawn a few percent wider keeps the anchor at the same place in the shape (italic Ɖ is D drawn 4\% wider).
-  At least 80\% of the base must fit; otherwise the letter keeps its stage 6 candidate (or a curated anchor) on that side.
-\item \textbf{Stems} (\verb|stem_match|: a hook, tail or curl at the bottom, and ɗ). The fit uses only the stems above the tail, at least 70\%.
-  The below anchor goes to the descender, as the stage 6 candidate does, where the tail lies under the mark; otherwise it stays at the base letter's $Y$ (Ɲ, Ⱨ).
-\item \textbf{Stem midline} (\verb|stem_axis|: ƚ ɫ ɬ ⱡ Ɫ ɩ ɟ, and Ƭ ƭ Ƴ Ⱦ). The anchor moves by the distance between the two stems, whatever the fit,
-  for letters whose bar, belt, tilde or hook spoils the fit but not the stem.
-\item \textbf{Fixed $Y$} (\verb|derived_y|): ɓ ʝ ɠ ɼ ƥ ʠ ƭ above, ɓ ɕ below take $X$ from the base letter and a $Y$ set by hand, usually because a hook rises to the ascender (ɠ ƥ ʠ ƭ).
-\end{itemize}
-Where the added part reaches further than the base letter within 120 units of the mark's axis, $Y$ moves away by the difference (ɇ above $+31$ to $+39$, italic Ⱦ $+96$).
-A derived letter is curated (stage 7) only where stage 8 cannot inherit a good anchor: the match is too low, or the inherited anchor would be wrong; stage 8 runs after stage 7 and leaves those anchors alone. Where stage 8 cannot inherit and nothing is curated, the letter keeps stage 6's candidate.
+Stage 8 fits the base letter's ink to the derived letter's on each side it inherits, with a shift and a scale of up to 15\%, as stage 9 does for precomposed characters, and moves the anchor with the fit; at least 80\% of the base must fit.
+Letters with a hook, tail or curl at the bottom are fitted on their stems above the tail, and their below anchor goes to the descender where the tail lies under the mark.
+Letters whose bar, belt or tilde spoils the fit but not the stem (ƚ ɫ ɬ ⱡ Ɫ ɩ ɟ, Ƭ ƭ Ƴ Ⱦ) move the anchor by the distance between the two stems.
+A few letters have $Y$ set by hand, mostly where a hook rises to the ascender (ɓ ʝ ɠ ɼ ƥ ʠ ƭ above, ɓ ɕ below).
+Where the added part reaches further than the base letter near the mark's axis, $Y$ moves away by the difference (ɇ above, italic Ⱦ).
+Where the fit is too low, the letter keeps stage 6's candidate, or a curated anchor (stage 7) where the candidate is unsuitable; stage 8 never replaces a curated anchor.
 
 \begin{table}[h]
 \small
@@ -2470,26 +2412,13 @@ letters & inherit & note \\
 Not derived, although the Unicode name says so: Ƃ Ƌ (topbar), Ʋ ʋ ƒ ƺ ƾ Ƞ ɀ ȥ Ỿ ⱴ ɾ, which match their base letters 5--50\%, and Ⱬ ⱬ, whose base has no stems to match; they keep stage 6's candidate or a curated anchor.
 ƕ Ƕ take no marks in any orthography; ƕ's copied anchors are deleted and both are in \verb|BASE_NO_MARK|.
 
-Fixes made on the way (2026-11-11):
-the copied x-height or baseline anchors of italic ƌ ⱪ, semibold italic ⱪ and ⱬ (three styles) are deleted, so that stage 6 fills them;
-the curated Ƴ of regular and semibold, at Y's own $X$, was 63--78 units left of Ƴ's stem and is retired;
-semibold italic ƴ, redrawn narrower than y, is curated at $(152, 645)$;
-italic ɍ is rebuilt in stage 2 (its SFD glyph referred to IJ and two acutes as well) and now inherits r's anchors.
 Inheritance carries the base letter's anchor, right or wrong: Ƈ and Ȼ follow C's below anchor, which the designer put right of centre.
-The stem-midline check (Table~\ref{table:stem_check}) confirms that every anchor of an l-like or i-like letter lies within 5 units of its own stem, except ɮ below, under the ezh by design.
 
-In the tables, each column is a derived letter, ordered by base letter, with its base letter's codepoint below it; per style:
-the letter with circumflex and macron below, original and patched (\verb|reg|, \verb|patch|), and its base letter patched (\verb|base|);
-then for the above anchor the shift and fit used (a\textasciitilde; \verb|s| stems, \verb!|! stem midline, italics if below the threshold),
-the designer's anchor (a), the candidate (a?), the inherited anchor (a<, bold where the patched font has it) and a curated anchor (a!); the same below (b).
+The per-letter tables (designer, candidate, inherited and curated anchors in each style), the stem-midline check of the l-like and i-like letters, and the detail and history of this stage are in \verb|DERIVED-LETTERS.md|.
 
-What the tables decide, per letter and side:
-a bold a< is the anchor the patched font has, inherited in stage 8, replacing the designer's anchor and the candidate (216 anchors in regular, 186 in semibold, 167 in italic, 165 in semibold italic);
-an a! is curated because inheritance fails or would be wrong there (5 anchors in regular and semibold, 12 in each italic style, mostly tail letters whose stems do not match: italic ɖ ɭ ɽ ʐ ʑ, ʓ), and the a< beside it, if any, is not used;
-an a\textasciitilde\ in italics means the match is below the threshold (3 in regular, 11 in semibold, 23 in italic, 21 in semibold italic: italic redrawings such as ƀ ƃ ƌ ƙ ȼ, and tails such as Ⱪ ⱪ Ɽ),
-and the letter keeps what it had before stage 8, the candidate (a?) or a designer anchor (a) that stage 1 kept;
-an empty a< means the side is not inherited, because the added part is in the mark's way (ɝ ɚ above, ħ ɦ above in the italics).
-The grids put the IPA marks on each base letter followed by its derived letters, patched fonts only, without \verb|\cgj| (a cell shows the precomposed glyph in \SUPPORTEDPREC{blue} where one exists).
+The grids put the IPA marks on each base letter followed by its derived letters, ordered by base letter (A--Z, a--z, then by code point), then by code point, patched fonts only.
+A base letter's cells are in \MODELANCH{gray}, with \verb|\cgj| between letter and mark: they show the anchor that its derived letters inherit, as the model, never a precomposed glyph.
+A derived letter's cells have no \verb|\cgj|, and show the precomposed glyph in \SUPPORTEDPREC{blue} where one exists (Ø\,+\,acute $=$ Ǿ), since that is probably the shaping wanted for that combination.
 
 \subsection*{Turned letters}
 
@@ -2509,10 +2438,6 @@ The turned letters therefore get stage 6's candidate, or a curated anchor (stage
   ɻ is a derived letter of ɹ (a tail at the bottom) and inherits ɹ's above anchor in semibold and semibold italic; its above anchor is curated in regular and italic, and its below anchor follows stage 8's rule for a tail at the bottom (the candidate where the stems do not match, as in italic).
 \end{itemize}
 
-\input{input/derived_anchors.tex}
-
-\input{input/stem_check.tex}
-
 \input{input/derived_inherit_above.tex}
 
 \input{input/derived_inherit_below.tex}
@@ -2521,32 +2446,32 @@ The turned letters therefore get stage 6's candidate, or a curated anchor (stage
 \section*{Precomposed characters}
 
 Stage 9 (\verb|src/libertinus_analysis/font_patching_precomposed_anchors.py|, letter lists in \verb|data/precomposed_letters.py|)
-gives a precomposed Latin letter the above- or below-anchor of its base letter where the other side is free:
-a letter with an above-mark (é, ñ) inherits a below-anchor, and a letter with a below-mark or attached below-mark (ẹ, ç, ą) inherits an above-anchor.
+gives a precomposed Latin character, one with a canonical decomposition into a base letter and marks (é $=$ e\,+\,acute), the above- or below-anchor of its base letter where the other side is free, whether or not marks are expected there:
+a character with an above-mark (é, ñ) inherits a below-anchor, and a character with a below-mark or attached below-mark (ẹ, ç, ą) inherits an above-anchor.
 (Letters with a bar or stroke, such as Ø, Ł, Đ, have no Unicode decomposition; they inherit in stage 8, previous section.)
-The stage also tests that the base letter's form is really there, since some precomposed letters were redrawn unlike their bases:
-it fits the base's ink on the inherited side to the precomposed glyph (a shift, and a scale of up to 15\%), requires a fit of at least 80\%,
+The stage also tests that the base letter's form is really there, since some precomposed glyphs were redrawn unlike their bases:
+it fits the base glyph's ink on the inherited side to the precomposed glyph (a shift, and a scale of up to 15\%), requires a fit of at least 80\%,
 and moves the anchor by the fitted shift.
 
-Precomposed letters inherit zealously.
-A designer anchor on a letter that can inherit is deleted in stage 1 (\verb|"delete"| in \verb|data/fontanchors_audit/overrides.py|)
+Precomposed characters inherit zealously.
+A designer anchor on a character that can inherit is deleted in stage 1 (\verb|"delete"| in \verb|data/fontanchors_audit/overrides.py|)
 whenever it differs from the inherited anchor at all where the fit is 100\%, or by more than 10 where the fit is lower.
-Curated anchors (stage 7, \verb|data/fontanchors_human/{style}.py|) are set on precomposed letters only where inheritance fails to find a good match.
-Every letter with a fit of 100\% now has exactly the anchor it inherits (\verb|run_precomposed_existing_report.py| checks this).
-The letters that do not simply inherit:
+Curated anchors (stage 7, \verb|data/fontanchors_human/{style}.py|) are set on precomposed characters only where inheritance fails to find a good match.
+Every character with a fit of 100\% now has exactly the anchor it inherits (\verb|run_precomposed_existing_report.py| checks this).
+The characters that do not simply inherit:
 \begin{itemize}
 \item ģ (U+0123, latin small letter g with cedilla) is formally g (U+0067) with a below mark (U+0327, combining cedilla) in the sense that its canonical decomposition is U+0123 = U+0067 + U+0327, 
 but is drawn with a comma above. 
 ģ does inherit a below-anchor from g (fit 100\% in every style), but ģ does not inherit an above-anchor from g itself (30 IPA above-marks would collide with the comma), 
 and currently no above-anchor is set for ģ. 
 [For completeness of above-anchor coverage, the above-anchor could be set above the comma, at mark-to-mark clearance.]
-\item The horn letters Ơ ơ ư Ợ ợ ự (U+01A0, U+01A1, U+01B0, U+1EE2, U+1EE3, U+1EF1) do not have an above-anchor in any style (1--12 IPA above-marks per style would collide with the horn).
+\item The horn characters Ơ ơ ư Ợ ợ ự (U+01A0, U+01A1, U+01B0, U+1EE2, U+1EE3, U+1EF1) do not have an above-anchor in any style (1--12 IPA above-marks per style would collide with the horn).
 Ơ ơ ư do inherit a below-anchor, except semibold italic ư, whose below-anchor is curated (see the last item).
-Capital u-horn letters do not have this above-mark--horn collision problem: Ư can and does inherit both above and -below-anchors from U in all styles, and Ự inherits its above-anchor from U in all styles as well.
+The capital u-horn characters do not have this above-mark--horn collision problem: Ư can and does inherit both above and -below-anchors from U in all styles, and Ự inherits its above-anchor from U in all styles as well.
 \item ą (U+0105, latin small letter a with ogonek) semibold does not inherit an above-anchor from a in stage 9 because the fit (69\%) is bad.
 Semibold ą ({\bfseries ą}) has thicker lower bowl than semibold a ({\bfseries a}), as well a square-cut terminal, although their upper parts are similar.
 The above-anchor of semibold ą is curated at a's anchor plus the shift of ą's upper part (+12), instead of hard-coding this edge case into stage 9.
-In italic ({\itshape ą}) and semibold italic ({\\bfseries\itshape ą}), the fit with a ({\itshape a {\bfseries a}}) is better (95\% because of a square-cut terminal difference; 100\%), and the above-anchors are inherited.
+In italic ({\itshape ą}) and semibold italic ({\bfseries\itshape ą}), the fit with a ({\itshape a {\bfseries a}}) is better (95\% because of a square-cut terminal difference; 100\%), and the above-anchors are inherited.
 
 \verb|ą\cgj\char"0304\ a\cgj\char"0304| {\LibertinusSerifPatch\bfseries ą\cgj\char"0304\ a\cgj\char"0304}
 
@@ -2560,21 +2485,22 @@ The below-anchors of italic and semibold italic Ĵ are curated at the resp. anch
 \quad
 \verb|Ĵ\cgj\char"0331\ J\cgj\char"0331| {\LibertinusSerifPatch\bfseries\itshape Ĵ\cgj\char"0331\ J\cgj\char"0331}
 
-\item  ư ứ ừ ử ữ (U+01B0, U+1EE9, U+1EEB, U+1EED, U+1EEF) semibold italic do not have a below-anchor from u because the fit is bad (75\% fit).
-These precomposed u-horn letters have slab serifs in semibold italic, unlike u, and the bottom-bowl of u is narrower than that of the u-horn letters:
+\item  ư ứ ừ ử ữ (U+01B0, U+1EE9, U+1EEB, U+1EED, U+1EEF) semibold italic do not inherit  below-anchor from u because the fit is bad (75\% fit).
+These precomposed u-horn glyphs have slab serifs in semibold italic, unlike u, and the bottom-bowl of u is narrower than that of the u-horn glyphs:
 {\itshape\bfseries u ư ứ ừ ử ữ}.
-But the stems of the precomposed u-horn letters are good match for those of u. 
-The below-anchors of these letters are curated at u's anchor, which turns out to work nicely (because of the stem matches), instead of hard-coding this edge case into stage 9.
+But the stems of the u-horn glyphs are a good match for those of u.
+The below-anchors of these characters are curated at u's anchor, which turns out to work nicely (because of the stem matches), instead of hard-coding this edge case into stage 9.
 
 \verb|ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\ u\cgj\char"0331|
 {\LibertinusSerifPatch\bfseries\itshape ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\ u\cgj\char"0331}
 
 \end{itemize}
 
-The grids show the IPA above-marks on the precomposed letters that inherit above and the below-marks on those that inherit below, in the patched fonts only.
-For completeness they include the letters whose anchor is curated instead of inherited (ą, Ĵ, ư ứ ừ ử ữ).
-Samples and grid cells put \verb|\cgj| between the letter and the mark, so that the mark is positioned by the letter's anchor and the shaper does not decompose and recompose the letter.
-The exception is a letter and mark that compose to one of the 24 precomposed letters with both an above- and a below-mark (e.g. Ç\,+\,acute $=$ Ḉ, ạ\,+\,circumflex $=$ ậ, Ơ\,+\,dot below $=$ Ợ):
+The grids show the IPA above-marks on the precomposed characters that inherit above and the below-marks on those that inherit below, in the patched fonts only,
+ordered as the derived-letter grids, by base letter (A--Z, a--z, then by code point), then by code point.
+For completeness they include the characters whose anchor is curated instead of inherited (ą, Ĵ, ư ứ ừ ử ữ).
+Samples and grid cells put \verb|\cgj| between the character and the mark, so that the mark is positioned by the glyph's anchor and the shaper does not decompose and recompose the character.
+The exception is a character and mark that compose to one of the 24 precomposed characters with both an above- and a below-mark (e.g. Ç\,+\,acute $=$ Ḉ, ạ\,+\,circumflex $=$ ậ, Ơ\,+\,dot below $=$ Ợ):
 text gets the precomposed glyph, so the cell shows it, in \SUPPORTEDPREC{blue}, without \verb|\cgj|.
 They are the precomposed glyphs Ǭ ǭ Ḉ ḉ Ḝ ḝ Ḹ ḹ Ṝ ṝ Ṩ ṩ Ậ ậ Ặ ặ Ệ ệ Ộ ộ, and, with the horn, Ợ ợ Ự ự.
 

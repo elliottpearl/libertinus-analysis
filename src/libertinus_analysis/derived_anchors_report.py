@@ -258,3 +258,75 @@ def make_stem_check_table():
         size="scriptsize",
         colsep="2.5pt",
     )
+
+# ------------------------------------------------------------
+# Markdown versions (DERIVED-LETTERS.md, since 2026-11-16)
+# ------------------------------------------------------------
+
+import re
+
+STYLE_NAMES = {"regular": "Regular", "italic": "Italic", "semibold": "Semibold",
+               "semibold_italic": "Semibold italic"}
+
+def _md_cell(cell):
+    """A LaTeX cell of the tables above as Markdown: bold, italics, %."""
+    cell = cell.replace("\\%", "%")
+    cell = re.sub(r"\\textbf\{([^}]*)\}", r"**\1**", cell)
+    cell = re.sub(r"\\textit\{([^}]*)\}", r"*\1*", cell)
+    return cell.replace("|", "\\|")
+
+def _md_table(header, rows):
+    out = ["| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
+    out += ["| " + " | ".join(r) + " |" for r in rows]
+    return "\n".join(out)
+
+def make_derived_anchors_markdown():
+    """
+    The derived-letter tables as Markdown, one table per style, one row per
+    derived letter (the LaTeX tables have one column per letter). The samples
+    (letter with circumflex and macron below in each font) are left out.
+    """
+    cols, derived_by_name = _columns()
+    keys = ("a~", "a", "a?", "a<", "a!", "b~", "b", "b?", "b<", "b!")
+    out = []
+    for style_key in STYLE_KEYS:
+        block = _style_block(style_key, cols, derived_by_name)
+        by_key = {r[0]: r[1:] for r in block[1:]}
+        rows = []
+        for i, (cp, base_cp, _) in enumerate(cols):
+            rows.append([chr(cp), f"U+{cp:04X}", f"{chr(base_cp)} U+{base_cp:04X}",
+                         *(_md_cell(by_key[k][i]) for k in keys)])
+        out.append(f"### {STYLE_NAMES[style_key]}\n\n"
+                   + _md_table(["letter", "code point", "base", *keys], rows))
+    return "\n\n".join(out)
+
+def make_stem_check_markdown():
+    """The stem-midline check as Markdown: one row per letter, a and b per style."""
+    from .fontmetrics_helpers import SHIFT_K
+    header = ["letter", "code point"]
+    cols = {}
+    for style_key in STYLE_KEYS:
+        meta = FONTS[f"{style_key}_patch"]
+        font = TTFont(meta["path"])
+        cmap = font.getBestCmap()
+        anchors = _anchors(font, meta["lookup_index"])
+        slope = SLOPE[style_key]
+        for cls, p in ((0, "a"), (2, "b")):
+            header.append(f"{STYLE_LABELS[style_key]} {p}")
+            col = []
+            for item in STEM_CHECK:
+                g = cmap.get(item) if isinstance(item, int) else item
+                mid = stem_midline(font, style_key, g) if g else None
+                xy = anchors.get(g, {}).get(cls) if g else None
+                if xy is None or mid is None:
+                    col.append("")
+                    continue
+                k = SHIFT_K.get(style_key, {}).get(str(cls), 0)
+                off = round(xy[0] - xy[1] * slope + k - mid)
+                col.append(f"**{off:+d}**" if abs(off) > STEM_TOL_CHECK else f"{off:+d}")
+            cols[(style_key, cls)] = col
+    rows = []
+    for i, item in enumerate(STEM_CHECK):
+        name = (chr(item), f"U+{item:04X}") if isinstance(item, int) else ("ɨ dotless", item)
+        rows.append([*name, *(cols[k][i] for k in cols)])
+    return _md_table(header, rows)

@@ -21,7 +21,7 @@ class ComboMatrix:
         - latex_paragraph()
     """
 
-    def __init__(self, base_groups, mark_groups, fonts, classifier, cgj=False):
+    def __init__(self, base_groups, mark_groups, fonts, classifier, cgj=False, model_bases=()):
         self.base_groups = base_groups
         self.mark_groups = mark_groups
         self.fonts = fonts
@@ -38,6 +38,12 @@ class ComboMatrix:
         # single character the font has (Ç + acute = Ḉ, ạ + circumflex = ậ): text
         # gets that glyph, so the cell shows it, without CGJ, as "precomposed".
         self.cgj = cgj
+
+        # model_bases: bases whose cells show their own anchor as a model for
+        # other letters (the base letters of the derived-letter grids). Their
+        # cells always put CGJ between base and mark, so they are never the
+        # precomposed glyph, and are drawn gray when anchored.
+        self.model_bases = set(model_bases)
 
         self.font_contexts = {}
         self.grid = {}
@@ -76,6 +82,12 @@ class ComboMatrix:
                                 classIndex,
                                 fontctx,
                             )
+                            if base_cp in self.model_bases and result[0] == "precomposed":
+                                # with CGJ the shaper does not compose: the base's anchor places the mark
+                                kind = ("anchored" if classIndex is not None
+                                        and fontctx.has_anchor(base_cp, classIndex, fontctx.cmap)
+                                        else "fallback")
+                                result = (kind, *result[1:])
                             self.grid[(mark_cp, base_cp, font_key)] = result
 
         return self
@@ -97,8 +109,9 @@ class ComboMatrix:
 
             if self.classifier in (classify_combo_sanity, classify_combo_plain):
                 kind, flags, infos, positions = result
-                separator = "\\cgj " if self.cgj and kind != "precomposed" else ""
-                cell = render_cell(base_cp, mark_cp, kind, flags, separator=separator)
+                model = base_cp in self.model_bases
+                separator = "\\cgj " if (self.cgj and kind != "precomposed") or model else ""
+                cell = render_cell(base_cp, mark_cp, kind, flags, separator=separator, model=model)
 
             else:
                 raise ValueError(f"Unknown classifier: {self.classifier}")

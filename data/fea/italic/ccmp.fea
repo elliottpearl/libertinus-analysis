@@ -40,7 +40,9 @@ feature ccmp {
     # remove Acircumflex Ocircumflex because all combinations are already precomposed
     # Ccedilla: listed below with the stage 9 capitals (it rarely takes an above mark,
     # but when it does, the capital form is the right one)
-    # remove Thorn because it takes no above marks, semantically
+    # Thorn: a capital with an above anchor, so marks take their capital forms after it (2026-11-18; it was left out
+    # before because it takes no above marks, semantically)
+    Thorn
     # keep Greek capitals, even though this makes no sense in general
     # because all expected Greek capitals with marks are already precomposed
     Alpha Beta Gamma uni0394 Epsilon Zeta Eta Theta Iota 

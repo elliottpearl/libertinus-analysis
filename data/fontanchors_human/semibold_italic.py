@@ -63,6 +63,34 @@ anchors = {
                   # redrawn (Ĵ has a flat top serif, J the italic swash) and the tail is deeper (-196, J -164) (match 64%)
             2: (125, -281),
         },
+        0x0071: { # q: below at the descender, on the stem's axis (at the bottom of its straight part, carried down at the
+                  # slant, less K), as in regular and italic (2026-11-18); the designer's (348, -319) is regular's, 11 right
+            2: (337, -319),
+        },
+        0x014A: { # Ŋ: above and below on the counter's midline (de-slanted 401, y 100-450), carried to each anchor's
+                  # height at the slant, less K, at the reference Y (2026-11-18). Above was the candidate (390, 850);
+                  # below the designer's (373, -109), at the baseline in the hook
+            0: (424, 850),
+            2: (348, -319),
+        },
+        0x014B: { # ŋ: above and below on the counter's midline (de-slanted 291, y 100-300), carried to each anchor's
+                  # height at the slant, less K, at the reference Y (2026-11-18). Were (264, 645), regular's, and the
+                  # candidate (222, -301)
+            0: (272, 645),
+            2: (238, -319),
+        },
+        0x01A2: { # Ƣ gha: as in Gentium Plus and Charis SIL (2026-11-18): above at the centre of the whole
+                  # letter (the anchor-model candidate), below at the baseline, midway between the bowl's left
+                  # edge and the descending stem; no mark collides (test sheet tex/gha_anchor_test_sheet.pdf)
+            0: (464, 850),
+            2: (345, -110),
+        },
+        0x01A3: { # ƣ gha: as in Gentium Plus and Charis SIL (2026-11-18): above at the centre of the whole
+                  # letter (the anchor-model candidate), below at the baseline, midway between the bowl's left
+                  # edge and the descending stem; no mark collides (test sheet tex/gha_anchor_test_sheet.pdf)
+            0: (326, 645),
+            2: (256, -110),
+        },
         0x0186: { # Ɔ open O: above over the bowl, 24 left of the outline's axis (2026-11-08), so marks land as in
                   # regular (curated, 32 left) and semibold (designer, 39 left). The stage 6 candidate (357, 850)
                   # was 20 right of the axis (the ink sits left in its advance) and put marks visibly right.

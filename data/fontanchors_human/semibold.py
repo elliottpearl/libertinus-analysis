@@ -67,6 +67,32 @@ anchors = {
                   # the designer redrew ą, so stage 9's fit is weak (69%), but it is still an a with an ogonek
             0: (231, 645),
         },
+        0x0071: { # q: below at the descender, on the stem's axis, as in regular and italic (2026-11-18); was the candidate
+                  # (273, -319), the bbox midpoint, 117 left of the stem
+            2: (390, -319),
+        },
+        0x014A: { # Ŋ: above and below on the counter's midline (inner stem edges 221 and 511), at the reference Y
+                  # (2026-11-18); were the candidates (328, 850) and (328, -267), the bbox midpoint
+            0: (366, 850),
+            2: (366, -319),
+        },
+        0x014B: { # ŋ: above and below on the counter's midline (inner stem edges 208 and 360), at the reference Y
+                  # (2026-11-18); were the candidates (248, 645) and (248, -281)
+            0: (284, 645),
+            2: (284, -319),
+        },
+        0x01A2: { # Ƣ gha: as in Gentium Plus and Charis SIL (2026-11-18): above at the centre of the whole
+                  # letter (the anchor-model candidate), below at the baseline, midway between the bowl's left
+                  # edge and the descending stem; no mark collides (test sheet tex/gha_anchor_test_sheet.pdf)
+            0: (454, 850),
+            2: (359, -110),
+        },
+        0x01A3: { # ƣ gha: as in Gentium Plus and Charis SIL (2026-11-18): above at the centre of the whole
+                  # letter (the anchor-model candidate), below at the baseline, midway between the bowl's left
+                  # edge and the descending stem; no mark collides (test sheet tex/gha_anchor_test_sheet.pdf)
+            0: (358, 645),
+            2: (265, -110),
+        },
         0x018F: { # Schwa
             0: (331, 850), # centre of the top of the arc (was 353, bbox x mid, 22 right)
             # 2: (343,-110) # ymin  # removed 2026-11-07: within 10 of the candidate

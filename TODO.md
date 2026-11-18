@@ -15,8 +15,9 @@ Part of it is curation that the stem-axis rule leaves to a human (report, "Stem-
 Semibold j: the stem-axis rule puts its above anchor on the stem, because the dot rules apply only in the italic styles, but its dot is 14 units left of the stem (see "Dots, in letters and marks" below). An above anchor of dotted j should be over the dot, as in the italic styles, unless the dot is moved. ȷ, and so ĵ and ǰ, keep the stem.
 
 Semibold italic designer anchors still far from the candidate (moved here from the report's "Semibold italic anchor model", 2026-11-14; `ANCHOR-MODEL-HISTORY.md`, "Semibold italic"):
-- Above: the bowl capitals D, B, W, R, Q, 40 to 60 left of the candidate; A and X about 30 left, P 32 right; ȵ (−63), c (+39). Curate one by one.
-- Below: Æ (+123), q (+115), r (−77, inherited by ɍ), j (−60), C and D (±55), d (−47), A (−41), t (−40), and Ƣ.
+- Above: the bowl capitals D, B, W, 40 to 60 left of the candidate; A and X about 30 left, P 32 right; ȵ (−63), c (+39). Curate one by one. Decided on the far-anchor test sheet (2026-11-18, `tex/far_anchor_test_sheet.pdf`): R and q kept, Q and y take the candidate (Q's is O's anchor).
+- Below: Æ (+123), q (+115), j (−60), C and D (±55), d (−47), A (−41). Decided 2026-11-18: r kept, t and p take the candidate, Ƣ ƣ curated (as in all styles).
+- p and q below (decided 2026-11-18): p takes the candidate in every style; q is on the stem's axis at the descender in every style (curated). A baseline anchor beside the descender (as in Gentium Plus and Charis SIL) was rejected: the bridge, tilde and macron below overlap the descender unless the anchor is pushed to the bowl's outer edge.
 - Both italic styles: the above-anchor of f is still the candidate and the below-anchor of j the designer's; check by eye.
 
 Left over from the curated-anchor reviews of 2026-10-29 and 2026-11-07 (the rest of those reviews has been resolved in `data/fontanchors_human/`):

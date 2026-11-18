@@ -41,6 +41,8 @@ anchors = {
              # 2: (270, -110) # Y normalize  # removed 2026-10-29: designer's anchor is (270, -109)
         # },
         0x0061: { # a
+            0: (356, 645),  # 2026-11-18: where the combining marks match the precomposed letters (median over à á â ã ä å ā ă ǎ ȁ ȃ ả),
+                            # a compromise between the designer's (341, 645) and the candidate (380, 645)
             # 2: (251, -110),  # was (174, -108). x-mid of (78,175.5) to (423.5,75.5) on right edge  # removed 2026-11-07: the candidate (220) is nearer the precomposed glyphs (181)
         },
         0x0066: { # f
@@ -76,6 +78,8 @@ anchors = {
         },
         0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (615, 850) misses by 88 and 30
             0: (674, 850),
+            2: (504, -110),  # 2026-11-18: as regular's (549, -110), 78 right of the centre of the stroke shared by A and E
+                             # (de-slanted 449 at y 150); the designer's was regular's numbers copied without the slant
         },
         0x0134: { # Ĵ: below, the italic-model candidate from Ĵ's own metrics (2026-11-10): W 367, ymin -166 (d+66),
                   # by = -319 + 66 + 2 = -251, bx = W/2 + by tan θ = 130. Stage 6 skips it (decomposable) and stage 9
@@ -83,12 +87,29 @@ anchors = {
                   # and matches no other glyph, so the fit fails (65%)
             2: (130, -251),
         },
-        0x014B: { # ŋ eng: above as n's (394, 645), widened with ŋ (2026-11-07). The arch is n's, but the right leg is
-                  # 31 further right (mean, y 120-300; stem centres 126 and 370 in n, 126 and 402 in ŋ); n's anchor sits 54%
-                  # across its stems, which gives X 411. The designer's (264, 645) is regular's copy, 147 left; the
-                  # candidate (382) is pulled left by ŋ's narrower advance width. Semibold italic ŋ needs none: its arch
-                  # and legs are n's down to y 210, and its anchor is n's (264, 645).
-            0: (411, 645),
+        0x014B: { # ŋ eng: above and below on the counter's midline (de-slanted 267, y 100-300), carried to each anchor's
+                  # height at the slant, at the reference Y (2026-11-18). Above was (411, 645), n's anchor widened with
+                  # ŋ (2026-11-07); below was the candidate (177, -319), under the hook's lowest point
+            0: (404, 645),
+            2: (199, -319),
+        },
+        0x014A: { # Ŋ: above and below on the counter's midline (de-slanted 337, y 100-450), carried to each anchor's
+                  # height at the slant, at the reference Y (2026-11-18). Above was the candidate (495, 850); below the
+                  # designer's (364, -109), regular's, in the hook
+            0: (518, 850),
+            2: (270, -319),
+        },
+        0x01A2: { # Ƣ gha: as in Gentium Plus and Charis SIL (2026-11-18): above at the centre of the whole
+                  # letter (the anchor-model candidate), below at the baseline, midway between the bowl's left
+                  # edge and the descending stem; no mark collides (test sheet tex/gha_anchor_test_sheet.pdf)
+            0: (622, 850),
+            2: (351, -110),
+        },
+        0x01A3: { # ƣ gha: as in Gentium Plus and Charis SIL (2026-11-18): above at the centre of the whole
+                  # letter (the anchor-model candidate), below at the baseline, midway between the bowl's left
+                  # edge and the descending stem; no mark collides (test sheet tex/gha_anchor_test_sheet.pdf)
+            0: (482, 645),
+            2: (263, -110),
         },
         0x0153: { # œ: above over the stroke shared by o and e (2026-11-07), as the designer's œ in the other styles
                   # (regular 405 on 405, semibold 430 on 427, semibold italic 415 on 416); the designer's (480, 645) is æ's, 27 left

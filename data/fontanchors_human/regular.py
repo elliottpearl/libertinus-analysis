@@ -75,10 +75,10 @@ anchors = {
         0x006D: {  # m
             # 2: (404, -110),  # removed 2026-11-07: within 2 of the candidate
         },
-        0x0070: {  # p
-            2: (120, -319),
-        },
-        0x0071: {  # q
+        # 0x0070: {  # p
+        #     2: (120, -319),  # removed 2026-11-18: under the stem looked odd across styles; p below is the candidate in every style
+        # },
+        0x0071: {  # q: below at the descender, on the stem's axis (385.5)
             2: (386, -319),
         },
         0x0072: {  # r
@@ -110,8 +110,28 @@ anchors = {
         # 0x00F3: { # ó o acute
         #    2: (243, -110),
         # },
-        0x014B: {  # ŋ eng
-            2: (265, -319),  # descender reference; X n's below anchor (265): ŋ's legs are n's from the stem foot up, shift 0 (confirmed 2026-11-07)
+        0x014A: {  # Ŋ: above and below on the counter's midline (inner stem edges 191 and 526, y 100-450), at the
+                   # reference Y; below over the hook, which curls left under the counter (2026-11-18). Was (346, 850)
+                   # above; below the designer's (353, -109), at the baseline in the hook: dot below and macron below overlapped
+            0: (359, 850),
+            2: (359, -319),
+        },
+        0x014B: {  # ŋ eng: above and below on the counter's midline (inner stem edges 175 and 379), at the reference Y
+                   # (2026-11-18). Was (264, 645) above and (265, -319) below, n's below anchor (confirmed 2026-11-07)
+            0: (277, 645),
+            2: (277, -319),
+        },
+        0x01A2: { # Ƣ gha: as in Gentium Plus and Charis SIL (2026-11-18): above at the centre of the whole
+                  # letter (the anchor-model candidate), below at the baseline, midway between the bowl's left
+                  # edge and the descending stem; no mark collides (test sheet tex/gha_anchor_test_sheet.pdf)
+            0: (469, 850),
+            2: (381, -110),
+        },
+        0x01A3: { # ƣ gha: as in Gentium Plus and Charis SIL (2026-11-18): above at the centre of the whole
+                  # letter (the anchor-model candidate), below at the baseline, midway between the bowl's left
+                  # edge and the descending stem; no mark collides (test sheet tex/gha_anchor_test_sheet.pdf)
+            0: (372, 645),
+            2: (295, -110),
         },
         0x0153: {  # œ oe ligature
             2: (408, -110),  # center of vertical band

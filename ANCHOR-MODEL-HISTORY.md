@@ -37,8 +37,8 @@ What the patch corrected in the original font:
 
 Still open (as of 2026-11-14; also in `TODO.md`, "Check the curated anchors"):
 
-- The bowl capitals and a few others keep the designer's above-anchor, 40 to 60 left of the candidate: D, B, W, R, Q; A and X about 30 left, P 32 right. To be curated one by one (no bowl-capital rule; declined 2026-11-06).
-- Designer below-anchors far from the candidate: Æ (+123), q (+115), r (−77, inherited by ɍ), j (−60), C and D (±55), d (−47), A (−41), t (−40), and Ƣ; above, ȵ (−63) and c (+39).
+- The bowl capitals and a few others keep the designer's above-anchor, 40 to 60 left of the candidate: D, B, W; A and X about 30 left, P 32 right. To be curated one by one (no bowl-capital rule; declined 2026-11-06). On 2026-11-18 R was kept and Q given the candidate, which is O's anchor (Q's bowl is O's).
+- Designer below-anchors far from the candidate: Æ (+123), q (+115), j (−60), C and D (±55), d (−47), A (−41); above, ȵ (−63) and c (+39). On 2026-11-18 r below was kept, t and p below and y above given the candidate, and Ƣ ƣ curated in every style (far-anchor test sheet).
 - Overhanging letters: the above-anchor of f is still the candidate and the below-anchor of j the designer's, in both italic styles; to be checked by eye.
 - The Hebrew ligatures U+05F0–U+05F2 have above- and below-anchors in this lookup in semibold italic only; harmless, left as they are.
 

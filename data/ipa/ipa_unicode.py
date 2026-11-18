@@ -369,6 +369,7 @@ BASE_CAP = [
     0x0055,0x0056,0x0057,0x0058,0x0059,0x005A,
     # ligature, stroke, bar
     0x00C6, # AE
+    0x00DE, # Thorn (2026-11-18)
     0x0152, # OE
     0x00D0, # Eth
     0x00D8, # O slash

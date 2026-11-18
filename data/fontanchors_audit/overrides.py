@@ -14,6 +14,13 @@
 
 overrides = {
     "regular": {
+        "p": {2: "delete"},  # p below (179, -319): the candidate, as in the other styles (2026-11-18)
+        "uni0251": {0: "delete"},  # ɑ above (228, 645), 44 left of the candidate (2026-11-18, far-from-candidate test sheet)
+        "uni024A": {2: "delete"},  # Ɋ below (350, -113) at the baseline beside the tail; the candidate (2026-11-18, far-from-candidate test sheet)
+        "Thorn": {0: "delete"},  # Þ above (281, 850), E's copy; the candidate (2026-11-18, far-from-candidate test sheet)
+        # Ŋ below: (353, -109), at the baseline in the hook; dot below and macron below overlapped (audit "bad",
+        # inside, collision). Curated in stage 7 on the counter's midline at the descender (2026-11-18)
+        "Eng": {2: "delete"},
         # Ỻ: above (276, 804) sat between the stems, below (387) at the bbox centre; Gentium and Noto centre
         # both on the whole letter's bbox, so stage 6 refills it there (2026-11-14)
         "uni1EFA": {0: "delete"},
@@ -160,6 +167,7 @@ overrides = {
         "uni0265": {2: "delete"},  # (219, -129)
     },
     "italic": {
+        "uni028F": {2: "delete"},  # ʏ below (239, -107), regular's copy; the candidate (2026-11-18, far-from-candidate test sheet)
         "uni027A": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
         "uni0252": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
         "uni0250": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
@@ -189,7 +197,16 @@ overrides = {
         "uni02AF": {0: "delete", 2: "delete"},
         # Capitals near 805 with regular's X, without the slant; stage 5 would fix Y only, so stage 6 gives
         # the candidate (2026-11-08)
-        "Eng": {0: "delete"}, "uni0184": {0: "delete"}, "uni01A2": {0: "delete"},
+        # Ŋ below: (364, -109) and (373, -109), regular's baseline anchor in the hook; dot below and macron below
+        # overlapped. Curated in stage 7 on the counter's midline at the descender (2026-11-18)
+        "Eng": {0: "delete", 2: "delete"}, "uni0184": {0: "delete"}, "uni01A2": {0: "delete"},
+        # Regular's anchors copied without the slant, onto letters whose centre line differs (audit "bad",
+        # style-copy); stage 6 gives the candidate, unless stage 8 inherits (2026-11-18)
+        "uni0271": {0: "delete"},  # ɱ above (383, 645), 132 left of the candidate
+        "uni028B": {0: "delete"},  # ʋ above (259, 645), 123 left
+        "uni0295": {2: "delete"},  # ʕ below (230, -107), 61 right
+        "uni0199": {2: "delete"},  # ƙ below (263, -107), 47 right
+        "uni025E": {2: "delete"},  # ɞ below (256, -114), 47 right
         "uni2C69": {0: "delete"}, "uni2C6B": {0: "delete"},
         # Precomposed letters whose designer above anchor is regular's, copied without the slant;
         # stage 9 inherits the base letter's instead (2026-11-08)
@@ -262,6 +279,7 @@ overrides = {
        
     },
     "semibold": {
+        "uni029C": {2: "delete"},  # ʜ below (351, -110), 35 right of the candidate (2026-11-18, far-from-candidate test sheet)
         "uni0250": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
         # Precomposed letters with a 100% stage-9 fit whose designer anchor is off in x by 2-8; deleted so that
         # stage 9 inherits (2026-11-10, report "Precomposed characters")
@@ -294,7 +312,7 @@ overrides = {
         # ɩ: below inherited from ı (stage 8), on the stem's axis; dismiss the flag on its y (2026-11-07)
         "uni0269": {2: "keep"},
         # J: below-anchor y -319, not a full descender
-        "J": {2: "delete"},  # (109, -319)
+        "J": {0: "keep", 2: "delete"},  # (109, -319); above (203, 850 after stage 5) kept (2026-11-18, far-from-candidate test sheet)
         # ʛ: inherits from ɢ; double overline U+033F overlaps the hook, but it is rare
         "uni029B": {0: "keep"},
         # ɪ: symmetric enough for the candidate, above and below
@@ -306,9 +324,14 @@ overrides = {
         "uni0237": {0: "keep"},
     },
     "semibold_italic": {
+        # Reviewed on the 2026-11-18, far-from-candidate test sheet:
+        "Q": {0: "delete"},  # (348, 850), regular's; Q's bowl is O's (fit 100%), and the candidate (390) is O's anchor
+        "t": {2: "delete"},  # (133, -107), italic's; the candidate
+        "r": {2: "keep"},  # (135, -110), 77 left of the candidate; looks better
+        "q": {0: "keep"},  # (238, 645)
         "uni027A": {2: "delete"},  # turned letter: the designer's below anchor is regular's numbers, 12-45 off the candidate (2026-11-11)
         # ⱬ: regular's (204, -110), on a descender letter; 7 below marks overlapped (2026-11-11)
-        "uni2C6C": {2: "delete"},
+        "uni2C6C": {0: "keep", 2: "delete"},  # ⱬ above (218, 646) kept (2026-11-18, far-from-candidate test sheet)
         # ⱪ: (275, 645), regular's x-height copy on an ascender letter; 19 above marks overlapped (2026-11-11)
         "uni2C6A": {0: "delete"},
         # ƕ hwair: (299, 645) and (259, -111), h's regular anchors copied (unslanted in the italic styles);
@@ -351,7 +374,9 @@ overrides = {
         "uni02AF": {0: "delete", 2: "delete"},
         # Capitals near 805 with regular's X, without the slant; stage 5 would fix Y only, so stage 6 gives
         # the candidate (2026-11-08)
-        "Eng": {0: "delete"}, "uni0184": {0: "delete"}, "uni01A2": {0: "delete"},
+        # Ŋ below: (364, -109) and (373, -109), regular's baseline anchor in the hook; dot below and macron below
+        # overlapped. Curated in stage 7 on the counter's midline at the descender (2026-11-18)
+        "Eng": {0: "delete", 2: "delete"}, "uni0184": {0: "delete"}, "uni01A2": {0: "delete"},
         "uni2C69": {0: "delete"}, "uni2C6B": {0: "delete"},
         # Precomposed letters whose designer above anchors are regular's copies, out of step with
         # their corrected base letters; stage 9 inherits the base letter's instead (2026-11-08)
@@ -380,13 +405,13 @@ overrides = {
         # baseline vertices, 17-19 left of the middle vertex; the candidate 19-21 and 28-30 left (2026-11-07)
         "w": {2: "keep"},  # (352, -110)
         # y: the designer's below-anchor at the descender reviewed and kept (2026-11-07)
-        "y": {2: "keep"},  # (242, -319)
+        "y": {0: "delete", 2: "keep"},  # (242, -319); above (262, 645), regular's copy: the candidate (2026-11-18, far-from-candidate test sheet)
         # ɒ: above candidate approved (2026-11-07)
         "uni0252": {0: "delete"},  # (264, 645), regular's
         # v: the designer's above-anchor (regular's copy) reviewed and kept (2026-11-07)
         "v": {0: "keep"},  # (256, 645)
         # R, b: below candidates approved (2026-11-07); both designer anchors are regular's copies, 24 and 14 left
-        "R": {2: "delete"},  # (258, -110)
+        "R": {0: "keep", 2: "delete"},  # (258, -110); above (269, 850) kept (2026-11-18, far-from-candidate test sheet)
         "b": {2: "delete"},  # (234, -110)
         # i: below-anchor off the stem's axis; the candidate is on it (2026-11-07)
         "i": {2: "delete"},  # (136, -110), 14 left of its model
@@ -446,7 +471,7 @@ overrides = {
         "N": {0: "delete"},
         # p: the designer's above-anchor at the x-height is right; the candidate (257, 679) is
         # raised by the stem's serif (top 470) (2026-11-07)
-        "p": {0: "keep"},  # (271, 645)
+        "p": {0: "keep", 2: "delete"},  # (271, 645); below (179, -319): the candidate (2026-11-18, far-from-candidate test sheet)
         # Ɓ: above-anchor at y 805, the semibold capital height, not 850; candidate approved (2026-11-06)
         "uni0181": {0: "delete"},  # (327, 805)
     },

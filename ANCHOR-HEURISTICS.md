@@ -102,7 +102,7 @@ Example: semibold italic n has W = 606, giving `ax = 284` and `bx = 293`. The fo
 
 The cancellation is approximate. `k` for a mark is `Y tan θ` plus a constant, while the designer's base anchors sit near `W/2 − 9` at every height, so the error grows by 2 for every 10 units of height difference between the anchors. The median distance of a designer base anchor from the candidate is about 20 for lowercase and 30 for capitals.
 
-The italic model is the case K = 0. Using it here would put above-marks about 150 too far right. Patch only anchors that do not conform, moving them to these candidates. The non-conforming groups the patch corrected (`.cap` marks without K; a s h J above, set with the slant; marks with unusual k; many capitals; ʮ ʯ transposed) and the ones still open (bowl capitals D B W R Q, A X P above; Æ q r j C D d A t Ƣ below; ȵ c above) are listed in `ANCHOR-MODEL-HISTORY.md`, "Semibold italic", and the open ones in `TODO.md`.
+The italic model is the case K = 0. Using it here would put above-marks about 150 too far right. Patch only anchors that do not conform, moving them to these candidates. The non-conforming groups the patch corrected (`.cap` marks without K; a s h J above, set with the slant; marks with unusual k; many capitals; ʮ ʯ transposed) and the ones still open (bowl capitals D B W, A X P above; Æ q j C D d A below; ȵ c above) are listed in `ANCHOR-MODEL-HISTORY.md`, "Semibold italic", and the open ones in `TODO.md`.
 
 ### Mark anchors
 

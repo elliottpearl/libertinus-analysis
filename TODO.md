@@ -68,9 +68,17 @@ These come from the stub sections of the report ("Patch j dot removal for three 
 - Check that the dot removal for i and j is complete.
 - Where a precomposed character exists, a doublet (base + combining mark) or a triplet (base + two combining marks, in either mark order) should be turned into it by GSUB. Check that it is.
 
-## Long term: add mark-to-mark positioning
+## Heavier rings in the semibold styles (in progress, 2026-11-18)
+
+The designer's semibold rings are no heavier than the light styles' (semibold U+0325 is lighter than regular's), where other fonts' bold rings are 13–60 % heavier. Draft: every ring of semibold and semibold italic (U+030A, U+0325, U+02DA, å Å ů Ů ǻ Ǻ ḁ Ḁ ẘ ẙ, the small caps) redrawn as two Bézier ellipses with whole-number points, the designer's centre and outer size, stroke 1.15 or 1.25 × the light style's; in Å Ǻ, where the ring is merged with the apex, only the counter. `ring_drafts.py`, `run_ring_draft_sheet.py`, fonts `*-ring115.otf` / `*-ring125.otf`, sheet `tex/ring_draft_sheet.pdf` (with the control points). To decide: the weight (1.25 looks closer to the semibold dots); whether semibold italic follows italic (lighter) or semibold; whether the semibold italic drafts get points at the horizontal extrema, as the designer's do. Then make it a stage 2 redraw.
+
+## Long term: add mark-to-mark positioning (started 2026-11-18)
 
 Add stacking for the common above-marks in all four styles: ring, dieresis, macron, acute, grave, circumflex, caron, tilde, breve. The designer's stacked precomposed glyphs (ḕ, ṏ, ẫ, …) could supply the mark-to-mark anchors, as the precomposed capitals do for stage 4.
+
+The use case: a user types a letter and two above marks in a chosen order and wants them stacked as typed. Two paths: (1) HarfBuzz composes the letter and the first mark where a precomposed letter exists (a + U+0308 → ä), so the second mark attaches to a precomposed letter, by mark-to-base: it needs an above anchor at stacking height (regular ä ö ü and italic ā have one; italic and semibold ä ö ü do not, and the PDF scans found italic ö̀ and ä̀ crashing into the dots); (2) with CGJ, or a letter with no precomposed form (ŋ̈̀, ɛ̃́), the first mark stays a glyph and the second needs mark-to-mark, which the fonts barely have (regular: grave and breve as first marks; semibold italic: none). Where the whole triplet has a precomposed form (u + ̈ + ̀ → ǜ), normalization takes it and the designer's glyph decides; CGJ after the letter avoids that.
+
+Started 2026-11-18: test sheet `tex/stack_test_sheet.pdf` (`run_stack_sheet.py`, `stack_drafts.py`): the two paths in original and patched fonts and in draft fonts with two candidate stacking clearances. Open decision (clearance, per mark or not) in `ANCHOR-MODEL-HISTORY.md`, "Open decisions".
 
 ## Long term: audit the SFD sources for consistent component references
 

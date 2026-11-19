@@ -1872,6 +1872,143 @@ or a triplet of the base and the two combining marks, in either mark order,
 then the precomposed character should be be produced by the font's GSUB table.
 
 \newpage
+\section*{Beta and below marks}
+
+% one cell: beta + below mark in the patched font, in a style, then the gap (font units) between the mark's ink and beta's
+\newcommand{\Bcell}[3]{{\LibertinusSerifPatch#1\Large\char"03B2\char"#2}~{\footnotesize#3}}
+\newcommand{\Bup}{\upshape\mdseries}
+\newcommand{\Bit}{\itshape\mdseries}
+\newcommand{\Bbf}{\upshape\bfseries}
+\newcommand{\Bbi}{\itshape\bfseries}
+\newcommand{\Bhit}[1]{\textbf{#1}}   % a collision: gap of 10 or less
+\newcommand{\Brow}[7]{U+#1 & \char"25CC\char"#1 & #2 & \Bcell{\Bup}{#1}{#3} & \Bcell{\Bit}{#1}{#4} & \Bcell{\Bbf}{#1}{#5} & \Bcell{\Bbi}{#1}{#6} \\}
+% a mark set apart from its base: move right #1, raise #2, set #3 (a combining mark, shaped alone), move back
+\newcommand{\markat}[3]{\kern#1\raisebox{#2}{#3}\kern-#1}
+
+In IPA, Greek β (U+03B2) is the voiced bilabial fricative, and like any consonant letter it takes the below diacritics.
+The commonest by far is the down tack, because β̞ is the usual transcription of the bilabial approximant,
+which has no letter of its own (Spanish, Catalan, Portuguese, many Bantu languages).
+The table lists the below marks to expect on β, from common to rare,
+set in the four patched styles. Each sample is followed by the gap,
+in font units, between the mark's ink and β's ink. A gap in bold (10 or less) is a collision.
+For comparison, the narrow marks have a gap of 38--40 under o.
+
+\medskip
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{l c l l l l l}
+	& & & Regular & Italic & Semibold & Semibold italic \\ \hline
+	\multicolumn{7}{l}{\textit{Common}} \\
+	\Brow{031E}{down tack: lowered (β̞ the bilabial approximant)}{38}{36}{36}{36}{}
+	\Brow{0325}{ring below: voiceless, devoiced}{40}{41}{37}{40}{}
+	\Brow{031D}{up tack: raised (more fricative)}{40}{43}{37}{39}{}
+	\multicolumn{7}{l}{\textit{Occasional}} \\
+	\Brow{0329}{vertical line below: syllabic}{39}{42}{38}{41}{}
+	\Brow{0330}{tilde below: creaky voice}{17}{41}{\Bhit{9}}{41}{}
+	\Brow{0324}{diaeresis below: breathy voice}{\Bhit{2}}{26}{\Bhit{3}}{26}{}
+	\Brow{032C}{caron below: voiced (emphatic, or in contrast)}{28}{50}{29}{50}{}
+	\multicolumn{7}{l}{\textit{Rare}} \\
+	\Brow{031F}{plus sign below: advanced}{40}{43}{38}{40}{}
+	\Brow{0320}{minus sign below: retracted}{56}{74}{56}{76}{}
+	\Brow{031C}{left half ring below: less rounded}{40}{41}{37}{40}{}
+	\Brow{0339}{right half ring below: more rounded}{39}{43}{37}{39}{}
+	\Brow{032B}{inverted double arch below: labialized (old IPA)}{\Bhit{3}}{22}{\Bhit{3}}{22}{}
+	\Brow{032A}{bridge below: dental (loosely, labiodental)}{33}{57}{24}{47}{}
+	\Brow{032F}{inverted breve below: non-syllabic}{27}{51}{17}{46}{}
+	\Brow{0348}{double vertical line below: strong articulation (extIPA)}{39}{36}{38}{36}{}
+	\Brow{0349}{left angle below: weak articulation (extIPA)}{56}{53}{55}{54}{}
+	\Brow{034D}{left right arrow below: spread lips (extIPA)}{\Bhit{4}}{\Bhit{5}}{\Bhit{4}}{\Bhit{6}}{}
+	\Brow{034E}{upwards arrow below: whistled (extIPA)}{39}{43}{37}{39}{}
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\medskip
+Marks not expected on β: dot below, macron below, low line, cedilla and ogonek (not IPA on consonants),
+the seagull (linguolabial, written on coronal letters), and the advanced and retracted tongue root marks (vowels).
+
+\subsection*{The below anchor}
+
+The patched font curates β's below anchor at the baseline reference, $Y = -110$, and for the $X$ coordinate, 
+under the centre of the lower bowl, similarly as for o, another bowl-bottom letter tat sits on the baseline.
+Under the bowl centre, the common and occasional narrow marks have the same clearance as under o.
+
+\smallskip
+\begin{tabular}{l r r r r}
+	& Regular & Italic & Semibold & Semibold italic \\ \hline
+	Below anchor & $(305, -110)$ & $(290, -110)$ & $(338, -110)$ & $(356, -110)$ \\
+\end{tabular}
+
+\smallskip
+The designer's anchor, $(275, -114)$, copied from regular to italic and semibold italic, 
+was at the baseline too, but under the bbox midpoint, which is about 30 units nearer the stem.
+
+\subsection*{When to expect collisions}
+
+A mark centred under the bowl reaches the stem when its ink extends further left of the anchor than the bowl's centre is right of the stem
+(150--155 units in the roman styles, 165--175 in the italic ones, whose stem slants left as it descends).
+So narrow marks (the tacks, ring, vertical lines, plus and minus, the extIPA angle and arrow) are always clear,
+and wide marks are not:
+\begin{itemize}
+	\item \textbf{Collide in the roman styles:} diaeresis below (breathy β̤), inverted double arch below, and in semibold the tilde below.
+	\item \textbf{Collide in every style:} the left right arrow below (extIPA spread lips), the widest of the list.
+	\item \textbf{Tight but clear (gap 17--29):} tilde below in regular, caron, bridge and inverted breve below in the roman styles,
+	diaeresis below and inverted double arch below in the italic styles.
+\end{itemize}
+The italic styles fare better because the italic stem slants away to the left below the baseline.
+Moving the anchor further right would clear the wide marks, but it would put the common marks off centre; and lowering it does not help
+until the mark is below the stem (80--145 units lower). Where a wide mark matters, adjust it by hand, as below.
+
+\subsection*{Adjusting a mark by hand with \texttt{\textbackslash kern} and \texttt{\textbackslash raisebox}}
+
+Use this macro, with \verb|\kern| and \verb|\raisebox|,
+to change the anchored shaping by TeX and HarfBuzz without actually touching the GPOS table in the font.
+\begin{verbatim}
+\newcommand{\markat}[3]{\kern#1\raisebox{#2}{#3}\kern-#1}
+\end{verbatim}
+For example,
+\begin{verbatim}
+\char"03B2\markat{x}{y}{\char"0324}
+\end{verbatim}
+sets β (U+03B2) and diaeresis below (U+0324), with the effect changing the anchored position:
+more positive $x$ moves the mark to the right, and and positive $y$ moves the mark up. 
+But note that $x = y = 0$ is not the anchored position; 
+the $x$ and $y$ values must also take into account the anchors of β and of the mark, 
+so each mark and style has its own starting values.
+The suggested values below are for the patched fonts (1\,em = 1000 font units).
+Each moves the mark right of its anchored position (the Move column), just far enough for a gap of at least 30.
+
+\medskip
+\newcommand{\Bmk}[3]{\texttt{\textbackslash markat\{#1\}\{#2\}\{\textbackslash char\string"#3\}}}
+\newcommand{\Bfix}[8]{{\LibertinusSerifPatch#1\Large\char"03B2\char"#2\quad\char"03B2\markat{#5}{#6}{\char"#2}} & #7 & \Bmk{#3}{#4}{#2} & \Bmk{#5}{#6}{#2} & #8 \\}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{l l l l l l}
+	& Anchored, adjusted & Gap & Anchored (starting values) & Adjusted & Move \\ \hline
+	Regular
+	& \Bfix{\Bup}{0324}{0.005em}{0.016em}{0.035em}{0.016em}{2 $\to$ 32}{30 right}
+	& \Bfix{\Bup}{0330}{-0.007em}{-0.040em}{0.008em}{-0.040em}{17 $\to$ 32}{15 right}
+	& \Bfix{\Bup}{032B}{0.040em}{-0.002em}{0.075em}{-0.002em}{3 $\to$ 34}{35 right}
+	& \Bfix{\Bup}{034D}{0.016em}{0em}{0.081em}{0em}{4 $\to$ 33}{65 right}
+	Italic
+	& \Bfix{\Bit}{0324}{0.051em}{-0.024em}{0.056em}{-0.024em}{26 $\to$ 30}{5 right}
+	& \Bfix{\Bit}{032B}{0.091em}{-0.002em}{0.101em}{-0.002em}{22 $\to$ 31}{10 right}
+	& \Bfix{\Bit}{034D}{0.069em}{0em}{0.109em}{0em}{5 $\to$ 33}{40 right}
+	Semibold
+	& \Bfix{\Bbf}{0324}{0.014em}{-0.024em}{0.044em}{-0.024em}{3 $\to$ 31}{30 right}
+	& \Bfix{\Bbf}{0330}{-0.012em}{-0.040em}{0.013em}{-0.040em}{9 $\to$ 34}{25 right}
+	& \Bfix{\Bbf}{032B}{0.048em}{-0.002em}{0.083em}{-0.002em}{3 $\to$ 34}{35 right}
+	& \Bfix{\Bbf}{034D}{0.024em}{0em}{0.089em}{0em}{4 $\to$ 33}{65 right}
+	Semibold italic
+	& \Bfix{\Bbi}{0324}{0.024em}{-0.028em}{0.029em}{-0.028em}{26 $\to$ 31}{5 right}
+	& \Bfix{\Bbi}{032B}{0.063em}{-0.002em}{0.073em}{-0.002em}{22 $\to$ 31}{10 right}
+	& \Bfix{\Bbi}{034D}{0.041em}{0em}{0.081em}{0em}{6 $\to$ 33}{40 right}
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\medskip
+To lower a mark instead, make $dy$ more negative: for example, regular breathy β with the diaeresis 30 units lower is
+\verb|\markat{0.005em}{-0.014em}{\char"0324}|: {\LibertinusSerifPatch\Large\char"03B2\markat{0.005em}{-0.014em}{\char"0324}}
+(gap 4: it still touches the stem, since a vertical move clears it only once the mark is below the stem).
+
+\newpage
 \section*{Marks}
 
 Here is a catalog of combining marks in Unicode, grouped by the seven GPOS anchor class indices in Libertinus (0--6).

@@ -3,6 +3,11 @@
 anchors = {
 
     "bases": {
+        0x03B2: { # β: below at the baseline reference under the lower bowl's centre (ink x range, y 0-120, right of the stem), not the
+                  # candidate's descender (-319) under the bbox midpoint: β̞ β̥ are the common combos, and narrow marks clear the stem
+                  # here with o's clearance; diaeresis below still meets the stem in the roman styles (report, "Beta and below marks"; 2026-11-19)
+            2: (338, -110),
+        },
         # Dotted i letters: above as i (2026-11-08); marks that keep the dot (all marks on į ị, U+033F on ɨ) crowded it
         0x0268: { # ɨ
             0: (156, 837), # was (152, 818)

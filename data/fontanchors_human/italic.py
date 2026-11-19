@@ -3,6 +3,11 @@
 
 anchors = {
     "bases": {
+        0x03B2: { # β: below at the baseline reference under the lower bowl's centre (ink x range, y 0-120, right of the stem), not the
+                  # candidate's descender (-319) under the bbox midpoint: β̞ β̥ are the common combos, and narrow marks clear the stem
+                  # here with o's clearance; diaeresis below still meets the stem in the roman styles (report, "Beta and below marks"; 2026-11-19)
+            2: (290, -110),
+        },
         0x0044: { # D: above (2026-11-07). The designer's (396, 850) is 70-80 left of the marks of Ď (467) and Ḋ (478)
                   # at y 850; the candidate (514, 850) rejected, 40 right of them. The upper-ink centroid (y > 330) is 490,
                   # and regular's designer D sits 22 left of its centroid, giving 468. X: mean of Ď, Ḋ, 468.

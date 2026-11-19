@@ -115,7 +115,7 @@ overrides = {
         # Ɣ: y 805, 45 below the capital reference
         "uni0194": {0: "delete"},  # (331, 805)
         # β: below-anchor y -114, inside the descender (ymin -238)
-        "beta": {2: "delete"},  # (275, -114)
+        "beta": {2: "delete"},  # (275, -114); replaced by a curated anchor at the bowl centre (2026-11-19)
         # J: below-anchor y -319 is the full-descender reference, but J is not a
         # full descender (ymin about -182)
         "J": {2: "delete"},  # (109, -319)
@@ -245,7 +245,7 @@ overrides = {
         # Ɣ: regular's anchor, y 805, not slanted
         "uni0194": {0: "delete"},  # (331, 805)
         # β: regular's anchor, y -114, inside the descender (ymin -235), not slanted
-        "beta": {2: "delete"},  # (275, -114)
+        "beta": {2: "delete"},  # (275, -114); replaced by a curated anchor at the bowl centre (2026-11-19)
         # J: below-anchor y -319, not a full descender
         "J": {2: "delete"},  # (109, -319)
         # þ: regular's anchor, at the x-height reference, not slanted
@@ -445,7 +445,7 @@ overrides = {
         # Ɣ: regular's anchor, y 805, not slanted
         "uni0194": {0: "delete"},  # (331, 805)
         # β: regular's anchor, y -114, inside the descender (ymin -233)
-        "beta": {2: "delete"},  # (275, -114)
+        "beta": {2: "delete"},  # (275, -114); replaced by a curated anchor at the bowl centre (2026-11-19)
         # þ: regular's anchor, at the x-height reference
         "thorn": {0: "delete"},  # (278, 646)
         # ʛ: inherits from ɢ; double overline U+033F overlaps the hook, but it is rare

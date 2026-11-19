@@ -142,7 +142,7 @@
 "atilde": {"0": "designer", "2": "precomposed"},
 "b": {"0": "heuristic", "2": "heuristic", "3": "designer", "6": "designer"},
 "b.sc": {"0": "designer", "2": "designer", "4": "designer", "5": "designer"},
-"beta": {"0": "heuristic", "2": "heuristic"},
+"beta": {"0": "heuristic", "2": "curated"},
 "c": {"0": "designer", "2": "designer", "4": "designer", "5": "designer", "6": "designer"},
 "cacute": {"2": "precomposed"},
 "ccaron": {"0": "designer", "2": "designer", "4": "designer", "5": "designer"},

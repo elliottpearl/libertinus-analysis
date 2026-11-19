@@ -18,6 +18,11 @@ TODO: delete any human anchor for AE, Ezh and any letter whose only expected com
 anchors = {
 
     "bases": {
+        0x03B2: { # β: below at the baseline reference under the lower bowl's centre (ink x range, y 0-120, right of the stem), not the
+                  # candidate's descender (-319) under the bbox midpoint: β̞ β̥ are the common combos, and narrow marks clear the stem
+                  # here with o's clearance; diaeresis below still meets the stem in the roman styles (report, "Beta and below marks"; 2026-11-19)
+            2: (305, -110),
+        },
         # Dotted i letters: above as i (2026-11-08); marks that keep the dot (all marks on į ị, U+033F on ɨ) crowded it
         0x012F: { # į
             0: (142, 834), # was (132, 825)

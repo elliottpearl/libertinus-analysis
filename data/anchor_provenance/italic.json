@@ -139,7 +139,7 @@
 "aringacute": {"2": "precomposed"},
 "atilde": {"0": "designer", "2": "precomposed"},
 "b": {"0": "heuristic", "2": "normalized"},
-"beta": {"0": "heuristic", "2": "heuristic"},
+"beta": {"0": "heuristic", "2": "curated"},
 "c": {"0": "designer", "2": "normalized", "4": "designer", "5": "designer"},
 "cacute": {"2": "precomposed"},
 "ccaron": {"2": "precomposed"},

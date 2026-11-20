@@ -99,6 +99,11 @@ anchors = {
             0: (125, 645), # x-height aspect; x = W/2
             2: (125, -110),
         },
+        0x00E4: { # ä: above centred on the dots (ink x 83-346, centre 214.5), so a symmetric mark stacks over them; the designer's
+                  # (255, 834) is the X copied from o and u (also on à á è é ë ì ò ù ý ÿ), 40 right of the dots. Y kept: the
+                  # stacking height is an open decision (ANCHOR-MODEL-HISTORY.md, "Stacked above marks"; 2026-11-19)
+            0: (215, 834),
+        },
         0x00C6: { # Æ: above between the macron of Ǣ and the acute of Ǽ, which the designer's (480, 850) misses by 81 and 68
             0: (555, 850),
         },

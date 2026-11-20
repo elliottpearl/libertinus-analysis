@@ -77,5 +77,10 @@ PDF_NOTES = {
              [("as printed", chars("J\u00e4\u0300gerey", I)),
               ("regular ä̀", chars("\u00e4\u0300", R))]),
         ],
+        "checked": (
+            r"p.~231, Table~7, \emph{Sȯu̇th}: italic S and th, with ȯ (precomposed U+022F) and u + U+0307 in "
+            r"upright semibold (Buchanan's digraph diacritics, set bold on purpose). In the PDF the two dots "
+            r"are level: the PDF's dot on u is 31 units above where 7.051 puts it (see above), and the patch "
+            r"raises it 37, so the patched font also sets them level. Not a problem in the PDF."),
     },
 }

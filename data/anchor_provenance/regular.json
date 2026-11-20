@@ -133,7 +133,7 @@
 "aacute": {"0": "designer", "2": "precomposed"},
 "abreve": {"2": "precomposed"},
 "acircumflex": {"0": "designer", "2": "precomposed"},
-"adieresis": {"0": "designer", "2": "precomposed"},
+"adieresis": {"0": "curated", "2": "precomposed"},
 "ae": {"0": "designer", "2": "normalized", "4": "designer"},
 "ae.sc": {"0": "designer"},
 "aeacute": {"2": "precomposed"},

@@ -38,6 +38,7 @@ combo & page & \normalsize original & \normalsize patched & \normalsize overlay 
 as printed & {\Orig{\itshape\mdseries\char"004A\char"00E4\char"0300\char"0067\char"0065\char"0072\char"0065\char"0079}} & {\Patch{\itshape\mdseries\char"004A\char"00E4\char"0300\char"0067\char"0065\char"0072\char"0065\char"0079}} & \rlap{\color{patchred}{\Patch{\itshape\mdseries\char"004A\char"00E4\char"0300\char"0067\char"0065\char"0072\char"0065\char"0079}}}{\Orig{\itshape\mdseries\char"004A\char"00E4\char"0300\char"0067\char"0065\char"0072\char"0065\char"0079}} \\
 regular ä̀ & {\Orig{\upshape\mdseries\char"00E4\char"0300}} & {\Patch{\upshape\mdseries\char"00E4\char"0300}} & \rlap{\color{patchred}{\Patch{\upshape\mdseries\char"00E4\char"0300}}}{\Orig{\upshape\mdseries\char"00E4\char"0300}} \\
 \end{tabular}\par\medskip
+\subsection*{Checked in context: not font problems}p.~231, Table~7, \emph{Sȯu̇th}: italic S and th, with ȯ (precomposed U+022F) and u + U+0307 in upright semibold (Buchanan's digraph diacritics, set bold on purpose). In the PDF the two dots are level: the PDF's dot on u is 31 units above where 7.051 puts it (see above), and the patch raises it 37, so the patched font also sets them level. Not a problem in the PDF.\par\medskip
 \section*{Other combos (moved under 10 units, not set)}\small
 Regular {\Orig\upshape\mdseries\char"00E4\char"0300} p.~263 (1×).
 \end{document}

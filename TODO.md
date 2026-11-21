@@ -17,7 +17,7 @@ Semibold j: the stem-axis rule puts its above anchor on the stem, because the do
 Semibold italic designer anchors still far from the candidate (moved here from the report's "Semibold italic anchor model", 2026-11-14; `ANCHOR-MODEL-HISTORY.md`, "Semibold italic"):
 - Above: the bowl capitals D, B, W, 40 to 60 left of the candidate; A and X about 30 left, P 32 right; ȵ (−63), c (+39). Curate one by one. Decided on the far-anchor test sheet (2026-11-18, `tex/far_anchor_test_sheet.pdf`): R and q kept, Q and y take the candidate (Q's is O's anchor).
 - Below: Æ (+123), q (+115), j (−60), C and D (±55), d (−47), A (−41). Decided 2026-11-18: r kept, t and p take the candidate, Ƣ ƣ curated (as in all styles).
-- p and q below (decided 2026-11-18): p takes the candidate in every style; q is on the stem's axis at the descender in every style (curated). A baseline anchor beside the descender (as in Gentium Plus and Charis SIL) was rejected: the bridge, tilde and macron below overlap the descender unless the anchor is pushed to the bowl's outer edge.
+- p and q below (decided 2026-11-18; on 2026-11-20 the dot below of p and q moved to the dot lookup, at the baseline, see "The dot lookup"): p takes the candidate in every style; q is on the stem's axis at the descender in every style (curated). A baseline anchor beside the descender (as in Gentium Plus and Charis SIL) was rejected: the bridge, tilde and macron below overlap the descender unless the anchor is pushed to the bowl's outer edge.
 - Both italic styles: the above-anchor of f is still the candidate and the below-anchor of j the designer's; check by eye.
 
 Left over from the curated-anchor reviews of 2026-10-29 and 2026-11-07 (the rest of those reviews has been resolved in `data/fontanchors_human/`):
@@ -25,6 +25,13 @@ Left over from the curated-anchor reviews of 2026-10-29 and 2026-11-07 (the rest
 - Semibold italic below anchors without K below (−12): Y (277, −110) against the designer's 295, and others about 12 off. Invisible in practice, but adding 12 would make them consistent.
 - Regular small X adjustments of 4–10 units on designer anchors (f below 136, r below 140, superscripts ʳ ʷ ʸ ᵐ ᵖ above): deliberate, or only rounding?
 - Regular d below (235, −110), against the designer's 221; œ below (408, −110), against the candidate's 388; semibold e above (249, 645), against the candidate's 232.
+
+## The dot lookup (stage 9b, started 2026-11-20)
+
+`data/dot_letters.py` lists the letters whose dot above / below is placed at the x-height / baseline reference (`ANCHOR-HEURISTICS.md` §3, "Dots"). To decide on `tex/dot_lookup_test_sheet.pdf` (`run_dot_lookup_sheet.py`):
+- The candidates left out of the first list: ɖ ȡ above (gap under MIN_GAP in semibold), ƥ ʠ below (same), and the letters with no clear position.
+- Italic f below: the dot lookup could restore the designer's baseline position beside the stem for the dot only (italic f's original anchor was (222, −110), as in Gentium Plus and Junicode), keeping the other marks under the curl (curated (30, −319), as in Charis SIL and Noto Serif). At 222 the dot is 10 from the stem; it clears MIN_GAP at 278 (semibold italic 290).
+- U+0329 in the dot lookup (`LINE_BELOW`): free except the italic y family and semibold p q þ ƴ ꝥ; a separate class for the line, without those letters, would allow it.
 
 ## Audit the above anchors of the vowels against their precomposed glyphs
 

@@ -2,12 +2,24 @@
 Test sheet of the base + combining mark combos found in a PDF set in the
 original Libertinus Serif, original vs patched fonts.
 
-    .venv/bin/python run_pdf_combo_sheet.py [PDF ...]   (default: data/legacy-fontdata/614.pdf)
+    .venv/bin/python run_pdf_combo_sheet.py [PDF[+PDF...] ...]
+        (default: data/legacy-fontdata/proofreading-614-1.pdf+proofreading-614-2.pdf)
     cd tex && xelatex pdf_combos_{stem}.tex && xelatex pdf_combos_{stem}.tex   (twice: longtable widths)
 
-One report per PDF, tex/pdf_combos_{stem}.tex. Notes from reading a PDF in
-context (typos, reproductions of what the patch does not cover) are in
-data/pdf_combo_notes.py, keyed by the PDF's file stem.
+One report per argument, tex/pdf_combos_{stem}.tex. PDFs joined by "+" are the
+parts of one book and make one report; its stem is their common prefix
+(proofreading-614-1 + proofreading-614-2 -> proofreading-614). Notes from
+reading a PDF in context (typos, reproductions of what the patch does not
+cover) are in data/pdf_combo_notes.py, keyed by the report's stem.
+
+Pages are cited by the book's pagination, read from the printed folios (a
+number or roman numeral alone on a line in the top or bottom 12% of the
+page). A page without a folio takes its number from its neighbours (see
+page_labels); a page outside the book's pagination (covers, a part's
+placeholder titles of the other part, an index page printed without a folio)
+is cited by its physical page, as "PDF 3". In a book of several parts, a page is
+"part:page" (1:93), since the parts' paginations overlap (part 1's back
+matter has the numbers of part 2's first chapters).
 
 Method: `mutool draw -F stext` dumps every glyph of the PDF with its font,
 Unicode (ToUnicode) and origin (about a second for 366 pages). Each base +
@@ -21,8 +33,9 @@ the original font has no anchor for it (the mark is not attached and sits
 where its outline is drawn, after the base's advance) or if the patch moves
 a mark by at least MIN_MOVE units. One word per combo (the first in the PDF)
 is set in the sheet, each character in the font the PDF used for it, with
-the PDF page (1-based physical page, not the book's pagination).
+its page.
 """
+import os
 import re
 import subprocess
 import sys
@@ -40,7 +53,7 @@ sys.path.insert(0, ".")
 from libertinus_analysis.font_context import FONTS  # noqa: E402
 from data.pdf_combo_notes import PDF_NOTES  # noqa: E402
 
-PDFS = [Path(a) for a in sys.argv[1:]] or [Path("data/legacy-fontdata/614.pdf")]
+REPORTS = sys.argv[1:] or ["data/legacy-fontdata/proofreading-614-1.pdf+proofreading-614-2.pdf"]
 MIN_MOVE = 10          # font units; smaller moves are listed, not set
 STYLE = {"LibertinusSerif-Regular": "regular", "LibertinusSerif-Italic": "italic",
          "LibertinusSerif-Semibold": "semibold", "LibertinusSerif-SemiboldItalic": "semibold_italic"}
@@ -64,19 +77,66 @@ def font_name(name):
     return re.sub(r"-Identity-[HV]$", "", name.split("+")[-1])
 
 
+ROMAN = re.compile(r"^[ivxlc]+$")
+FOLIO_MARGIN = 0.12    # a folio is in the top or bottom 12% of the page
+MAX_BACKFILL = 3       # unnumbered pages before a new run of folios that take its numbers
+
+
+def roman_value(r):
+    v = {"i": 1, "v": 5, "x": 10, "l": 50, "c": 100}
+    return sum(-v[a] if v[a] < v[b] else v[a] for a, b in zip(r, r[1:] + "i"))
+
+
+def roman(n):
+    out = ""
+    for v, r in ((100, "c"), (90, "xc"), (50, "l"), (40, "xl"), (10, "x"), (9, "ix"), (5, "v"), (4, "iv"), (1, "i")):
+        while n >= v:
+            out, n = out + r, n - v
+    return out
+
+
+def page_labels(folios):
+    """Book page per physical page (index 0 = page 1) from the printed folios (None where absent).
+
+    A page without a folio between two pages of the same run (same numbering, same
+    offset) takes that run's number. Where the run changes, the up to MAX_BACKFILL
+    pages before the next run take its numbers if they are at least 1 (a part title,
+    its blank verso, the unnumbered first page of a chapter); the rest of the gap
+    (e.g. placeholder part titles of another part), and pages before the first folio
+    or after the last, get None.
+    """
+    seq = []  # (kind, physical index - value) per page with a folio
+    for i, f in enumerate(folios):
+        seq.append(None if f is None else ("r", roman_value(f) - i) if ROMAN.match(f) else ("d", int(f) - i))
+    known = [i for i, k in enumerate(seq) if k]
+    labels = [None] * len(folios)
+    for i in range(len(folios)):
+        prev = max((j for j in known if j <= i), default=None)
+        nxt = min((j for j in known if j >= i), default=None)
+        if prev is None or nxt is None:
+            continue
+        kind, off = seq[nxt]
+        if seq[prev] != seq[nxt] and (nxt - i > MAX_BACKFILL or off + i < 1):
+            continue
+        labels[i] = str(off + i) if kind == "d" else roman(off + i)
+    return labels
+
+
 def read_pdf(pdf):
-    """Yield (page, [(char, font, x, y, size), ...]) per text line, and set PAGES."""
-    global PAGES
+    """Yield (page, [(char, font, x, y, size), ...]) per text line; return the book page labels."""
+    folios = []
     with tempfile.TemporaryDirectory() as tmp:
         xml = Path(tmp) / "p.xml"
         subprocess.run(["mutool", "draw", "-q", "-F", "stext", "-o", str(xml), str(pdf)],
                        check=True, stderr=subprocess.DEVNULL)
         xml.write_bytes(BAD_REF.sub(b"\xef\xbf\xbd", xml.read_bytes()))
-        page, font, size, line = 0, None, None, []
+        page, font, size, line, height = 0, None, None, [], 0
         for ev, el in ET.iterparse(xml, events=("start", "end")):
             if ev == "start":
                 if el.tag == "page":
                     page += 1
+                    height = float(el.get("height"))
+                    folios.append(None)
                 elif el.tag == "font":
                     font, size = font_name(el.get("name")), float(el.get("size"))
             elif el.tag == "char":
@@ -84,20 +144,46 @@ def read_pdf(pdf):
                     line.append((ch, font, float(el.get("x")), float(el.get("y")), size))
                 el.clear()
             elif el.tag == "line":
+                y0, y1 = (float(v) for v in el.get("bbox").split()[1::2])
+                text = "".join(t[0] for t in line).strip()
+                if (y1 < FOLIO_MARGIN * height or y0 > (1 - FOLIO_MARGIN) * height) and \
+                        (text.isdigit() or ROMAN.match(text)):
+                    folios[-1] = text
                 yield page, line
                 line = []
             elif el.tag == "page":
                 el.clear()
-        PAGES = page
+    return page_labels(folios)
 
 
-PAGES = 0
+LABELS = {}   # part (1-based) -> [book page label or None per physical page]
+MULTI = False  # the report has several parts: cite part:page
 
 
-def collect(pdf):
-    """combos[(font, base, marks, markfonts)] = {n, pages, pdf_dx, pdf_dy, word, page}."""
+def cite(where):
+    """Book page of (part, physical page): 93, xii, 1:93, or PDF 3 / 1:PDF 3 outside the pagination."""
+    part, page = where
+    lab = LABELS[part][page - 1] or f"PDF {page}"
+    return f"{part}:{lab}" if MULTI else lab
+
+
+def lines(pdfs):
+    """Yield ((part, page), line) over the parts in order, and fill LABELS."""
+    for part, pdf in enumerate(pdfs, 1):
+        it = read_pdf(pdf)
+        while True:
+            try:
+                page, line = next(it)
+            except StopIteration as stop:
+                LABELS[part] = stop.value
+                break
+            yield (part, page), line
+
+
+def collect(pdfs):
+    """combos[(font, base, marks, markfonts)] = {n, pages, pdf_dx, pdf_dy, word, page}; pages are (part, page)."""
     combos = defaultdict(lambda: {"n": 0, "pages": [], "pdf": set(), "word": None, "page": None})
-    for page, line in read_pdf(pdf):
+    for page, line in lines(pdfs):
         words, cur = [], []
         for t in line:
             if t[0].isspace():
@@ -240,17 +326,36 @@ def row(r, notes):
     if (r["style"], r["base"] + r["marks"]) in notes:
         note += r"; \textbf{note:} " + notes[(r["style"], r["base"] + r["marks"])]
     mv = "; ".join(f"({dx:+d},\\,{dy:+d})" for dx, dy in r["moves"])
-    pages = ", ".join(map(str, r["pages"][:6])) + (", …" if len(r["pages"]) > 6 else "")
+    pages = ", ".join(map(cite, r["pages"][:6])) + (", …" if len(r["pages"]) > 6 else "")
     pdf = "" if r["pdf_ok"] else r" \textsuperscript{†}"
     return (f"{{\\Orig{SHAPE[r['style']]}{combo}}} {{\\tiny {cps(r['base'] + r['marks'])}}} & "
-            f"{r['page']}{pdf} & {cell_pair(r['word'])} & "
+            f"{cite(r['page'])}{pdf} & {cell_pair(r['word'])} & "
             f"{{\\footnotesize {mv}}} & {{\\footnotesize {r['n']}× (pp.~{pages}); {note}}} \\\\")
 
 
-def report(pdf):
-    cfg = PDF_NOTES.get(pdf.stem, {})
-    out = Path(f"tex/pdf_combos_{pdf.stem}.tex")
-    combos = collect(pdf)
+def parts(arg):
+    """The PDFs of one report ("a.pdf+b.pdf": b.pdf in a.pdf's directory) and the report's stem."""
+    first, *rest = arg.split("+")
+    pdfs = [Path(first)] + [Path(first).parent / r for r in rest]
+    stem = pdfs[0].stem
+    if rest:
+        stem = os.path.commonprefix([q.stem for q in pdfs]).rstrip("-_ ")
+    return pdfs, stem
+
+
+def title(stem):
+    m = re.fullmatch(r"proofreading-(\d+)", stem)
+    return f"volume {m.group(1)}" if m else stem.replace("_", r"\_") + ".pdf"
+
+
+def report(arg):
+    global MULTI
+    pdfs, stem = parts(arg)
+    MULTI = len(pdfs) > 1
+    LABELS.clear()
+    cfg = PDF_NOTES.get(stem, {})
+    out = Path(f"tex/pdf_combos_{stem}.tex")
+    combos = collect(pdfs)
     rows = analyse(combos)
     suspect = [r for r in rows if (r["miss_o"] and not r["miss_p"]) or r["size"] >= MIN_MOVE]
     rest = [r for r in rows if r not in suspect and not (r["miss_o"] and r["miss_p"])]
@@ -268,6 +373,16 @@ def report(pdf):
                      f"marked †, all in {bad_styles}: the PDF was set with another release of that font, so its "
                      f"``original'' column is 7.051, not what the book printed. " + cfg.get("mismatch", ""))
     absent = [LABEL[s].lower() for s in order if s not in styles]
+    npages = [len(LABELS[k]) for k in sorted(LABELS)]
+    if MULTI:
+        src = (f"The book is in {len(pdfs)} PDFs (" + ", ".join(
+            f"part~{k}: {q.name.replace('_', chr(92) + '_')}, {n} pages" for k, (q, n) in enumerate(zip(pdfs, npages), 1))
+            + "). Together they have")
+        pagenote = ("Page = the book's printed page number, as part:page (1:93), since the parts' paginations overlap "
+                    "(the back matter of part~1 has the numbers of the first chapters of part~2).")
+    else:
+        src = "The PDF has"
+        pagenote = "Page = the book's printed page number (not the PDF's physical page)."
 
     L = [r"""% Generated by run_pdf_combo_sheet.py; do not edit.
 \documentclass[10pt]{article}
@@ -284,11 +399,11 @@ def report(pdf):
 \newfontfamily\Patch[Path = ../fonts/, UprightFont = LibertinusSerif-Regular-patch.otf, ItalicFont = LibertinusSerif-Italic-patch.otf, BoldFont = LibertinusSerif-Semibold-patch.otf, BoldItalicFont = LibertinusSerif-SemiboldItalic-patch.otf]{Libertinus Serif Patch}
 \newcommand\sheetbig{\fontsize{17}{22}\selectfont\rule[-10pt]{0pt}{33pt}}
 \begin{document}
-\section*{Test sheet: combining-mark combos in """ + pdf.name.replace("_", r"\_") + r""", original vs patched}
-""" + f"""The PDF has {total} base\\,+\\,mark sequences in Libertinus Serif ({len(rows)} distinct{'; none in ' + ' or '.join(absent) if absent else ''}).
+\section*{Test sheet: combining-mark combos in """ + title(stem) + r""", original vs.\ patched}
+""" + f"""{src} {total} base\\,+\\,mark sequences in Libertinus Serif ({len(rows)} distinct{'; none in ' + ' or '.join(absent) if absent else ''}).
 Every one was shaped with HarfBuzz in the original and the patched font of its style. {pdf_match}
 A combo is listed if the original font has no anchor for it (the mark is not anchored and is drawn after the base's advance) or the patch moves a mark by at least {MIN_MOVE} units.
-Each is shown in the first word of the PDF that has it, every character in the style the PDF set it in. Page = physical page of the PDF (1--{PAGES}), not the book's pagination.
+Each is shown in the first word of the PDF that has it, every character in the style the PDF set it in. {pagenote}
 Columns: original, patched, and the two overlaid (patched in \\textcolor{{patchred}}{{red}} over the original in black; only marks that move show red). Move = patched minus original mark position, (x, y) in font units, per mark.
 """ + r"""
 \renewcommand\arraystretch{1}
@@ -305,7 +420,7 @@ combo & page & \normalsize original & \normalsize patched & \normalsize overlay 
     if cfg.get("special"):
         L.append(r"\section*{Not covered by the patch: reproductions}")
     for caption, page, items in cfg.get("special", []):
-        L.append(rf"\subsection*{{p.~{page}}}{caption}\par\smallskip")
+        L.append(rf"\subsection*{{p.~{page}}}{caption}\par\smallskip")  # page: as the notes cite it
         L.append(r"\begin{tabular}{l >{\sheetbig}l >{\sheetbig}l >{\sheetbig}l}variant & \normalsize original & \normalsize patched & \normalsize overlay \\ \hline")
         for label, word in items:
             L.append(rf"{label} & {cell_pair(word)} \\")
@@ -315,13 +430,13 @@ combo & page & \normalsize original & \normalsize patched & \normalsize overlay 
         L.append(r"\subsection*{Checked in context: not font problems}" + cfg["checked"] + r"\par\medskip")
     L.append(rf"\section*{{Other combos (moved under {MIN_MOVE} units, not set)}}\small")
     L.append(", ".join(rf"{LABEL[r['style']]} {{\Orig{SHAPE[r['style']]}{tex_chars(r['base'] + r['marks'])}}} "
-                       rf"p.~{r['page']} ({r['n']}×)" for r in sorted(rest, key=lambda r: -r["n"])) + ".")
+                       rf"p.~{cite(r['page'])} ({r['n']}×)" for r in sorted(rest, key=lambda r: -r["n"])) + ".")
     L.append(r"\end{document}")
     out.write_text("\n".join(L) + "\n", encoding="utf-8")
-    print(f"{pdf.name}: {PAGES} pages, {total} sequences, {len(suspect)} suspect combos of {len(rows)}; wrote {out}")
+    print(f"{stem}: {'+'.join(map(str, npages))} pages, {total} sequences, {len(suspect)} suspect combos of {len(rows)}; wrote {out}")
     return suspect, rest, [r for r in rows if r["miss_o"] and r["miss_p"]]
 
 
 if __name__ == "__main__":
-    for pdf in PDFS:
-        report(pdf)
+    for arg in REPORTS:
+        report(arg)

@@ -53,6 +53,7 @@ from .font_patching_capmarks import patch_cap_mark_anchors
 from .font_patching_markaxis import patch_mark_axis
 from .font_patching_deleteanchors import delete_bad_anchors
 from .font_patching_derivedanchors import patch_derived_anchors
+from .font_patching_dotanchors import patch_dot_lookup
 from .font_patching_gsub import patch_gsub_ccmp
 from .font_patching_heuristicanchors import patch_anchors_heuristic
 from .font_patching_stemaxis import patch_stem_axis
@@ -271,6 +272,20 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     owners = _owners(snapshots, {"curated": _curated_bases(font_key, cmap), "derived": derived_set})
     lines = [f"{json.dumps(glyph)}: {json.dumps(classes)}" for glyph, classes in owners.items()]
     (PROVENANCE_DIR / f"{font_key}.json").write_text(
+        "{\n" + ",\n".join(lines) + "\n}\n", encoding="utf-8")
+
+    # ------------------------------------------------------------
+    # 9b. Dot lookup: a second mark-to-base lookup, after the main one,
+    #     that puts the dot above / below of the letters in
+    #     data/dot_letters.py (and their derived and precomposed letters)
+    #     at the x-height / baseline reference, as the designer's ḃ ḋ ḣ ỵ.
+    #     Its owners go to data/anchor_provenance/{style}_dot.json.
+    # ------------------------------------------------------------
+    dot_report, dot_owners = patch_dot_lookup(ttfont, font_key, lookup_index)
+    for line in dot_report:
+        print(f"[{font_key}] {line}")
+    lines = [f"{json.dumps(glyph)}: {json.dumps(classes)}" for glyph, classes in dot_owners.items()]
+    (PROVENANCE_DIR / f"{font_key}_dot.json").write_text(
         "{\n" + ",\n".join(lines) + "\n}\n", encoding="utf-8")
 
     # ------------------------------------------------------------

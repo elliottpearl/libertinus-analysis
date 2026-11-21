@@ -124,6 +124,17 @@ The anchor is carried at the declared θ, not at the stem's own angle (lowercase
 
 In italic and semibold italic, curls move the optical centre, and the rule adapts: dotted i and j put the above anchor over the centre of the dot (11–13 left of the stem's axis); dotless ı and ȷ put it on the axis of that dot, so that an accent takes the dot's place (their curved entry stroke pulls the centre left, and the precomposed ì í î … ĵ ǰ agree); the below anchors of i, ı, l (curled foot) and the above anchor of m (arches) are left out, to be curated. See the report and `tex/stem_axis_test_sheet.pdf`, `tex/stem_angle_test_sheet.pdf`.
 
+### Dots: the dot lookup
+
+The dot above (U+0307), the vertical line above (U+030D) and the dot below (U+0323) on the letters of `data/dot_letters.py` are placed by a second mark-to-base lookup (stage 9b, `font_patching_dotanchors.py`), added to `mark` after the main one; for a base it lists, its anchor replaces the main lookup's (HarfBuzz applies lookups in order, and a later attachment replaces an earlier one), and a base it does not list, or lists without an anchor of that class, keeps the main lookup's. Its mark anchors are copies of the main lookup's. This restores the designer's dot convention: in every style the dot of ḃ ḋ ḣ is at the height of ȧ ṅ and the dot of ỵ at the height of ạ ṇ (ḟ ẛ ṫ are the exceptions, with the dot above the top).
+
+- **Y:** the x-height reference above (645), the baseline reference below (−110), as on an x-height letter.
+- **X, in order:** (1) the designer's precomposed letter, where it has the dot at the x-height-letter height (ḃ ḋ ḣ ỵ), so that composed matches precomposed: X = centre of its dot − the base's shift inside it (`fit_base`) − the dot mark's centre + its anchor X; (2) a derived letter of `data/derived_letters.py` whose base is listed inherits the base's dot anchor, moved by `fit_base` (at least `MIN_FIT`); (3) otherwise the model's X for the x-height body (the ink between the baseline and the x-height): roman, its ink midpoint; italic, `W/2 + Y tan θ − K`; then pushed sideways in steps of 4, up to 200, to the nearest X where the dot keeps `MIN_GAP` from the letter and its centre stays within the body's extent across the slant. A letter with no such X gets no dot anchor.
+- **Which letters:** a letter is listed only if its dot is clear in all four styles (gap at least MIN_GAP − 6, or the designer's precomposed position) and sits over the letter's body; the judgement calls among the clear ones are `EXCLUDED_ABOVE` / `EXCLUDED_BELOW` with a reason. The sheet's "Open" group is what remains undecided.
+- **MIN_GAP** is the designer's closest dot among ḃ ḋ ḣ in the style: 61 regular, 63 italic, 31 semibold, 40 semibold italic. A vertical line is judged by its own gap on o (38–40 below, 52–67 above), since it is taller than a dot.
+- **Precomposed letters** of `data/precomposed_letters.py` (those without a mark on that side) whose base letter is listed inherit its dot anchor by `fit_base` (ḅ ḍ ḥ ķ above, ý ÿ ṕ … below).
+- The precomposed dots imply a Y 10–32 off the reference (regular above 659, below −128; the curated mark-zone moves of 2026-11-12, `ANCHOR-MODEL-HISTORY.md`), so a composed ḃ matches a composed ȧ in height, not the precomposed ḃ.
+
 ## 4. Where candidates fail
 
 These need curated anchors (`data/fontanchors_human/{style}.py`):
@@ -139,6 +150,7 @@ These need curated anchors (`data/fontanchors_human/{style}.py`):
 - **Mark anchors:** `font_patching_capmarks.py` and `font_patching_addmarks.py` implement `C + Y tan θ − K` with K = 150 in semibold italic.
 - **Audit X:** `anchor_audit.py` compares X in sheared coordinates against the centre of the sheared outline, not `W/2`, with K added back in semibold italic.
 - **Patch, stage 5:** `font_patching_normalizeanchors.py` moves semibold's capitals to the capital reference, snaps designer anchors within 5 of a Y reference to it, and reports the rest without moving them.
+- **Patch, stage 9b:** `font_patching_dotanchors.py` builds the dot lookup (section 3, "Dots"); `run_dot_lookup_sheet.py` tests every candidate.
 - **Patch, stage 6:** `font_patching_heuristicanchors.py` writes `get_anchor_candidate` (rounded) into the patched font for each Latin/IPA base that lacks an above- or below-anchor. Curated anchors overrule it; existing anchors are not moved. - **Patch, stage 7b:** after the curated anchors, `font_patching_stemaxis.py` moves the X of the central-stem letters onto the stem's axis (section 3), over designer and curated anchors alike.
 - **Fontmetrics tables:** `get_anchor_candidate` in `fontmetrics_helpers.py` gives the candidate (X, Y) for the a? and b? rows: Y from `get_aya` / `get_bya`, X from section 3 at that Y (bbox midpoint in roman, `W/2 + Y tan θ − K` in italic styles). The marks tables use `get_mark_anchor_candidate`: Y is the outline bottom plus (above) or top minus (below) the style's median mark-anchor offset (`MARK_ANCHOR_OFFSET_OPT`), X is `axis_x + Y tan θ − K`, with `axis_x` the de-slanted outline centre stored by the extractor.
 

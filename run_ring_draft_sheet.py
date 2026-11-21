@@ -8,7 +8,8 @@ import sys
 
 sys.path.insert(0, "src")
 sys.path.insert(0, ".")
-from libertinus_analysis.ring_drafts import FACTORS, draft_rings, light_stroke  # noqa: E402
+from libertinus_analysis.font_patching_rings import RING_FACTOR  # noqa: E402
+from libertinus_analysis.ring_drafts import FACTORS, designer_rings_font, draft_rings, light_stroke  # noqa: E402
 
 FILE = {"semibold": "Semibold", "semibold_italic": "SemiboldItalic"}
 LIGHT_FILE = {"semibold": "Regular", "semibold_italic": "Italic"}
@@ -107,6 +108,7 @@ def point_table(rec):
 def main():
     rows = {}
     for style in FILE:
+        designer_rings_font(style, f"fonts/LibertinusSerif-{FILE[style]}-ringdesigner.otf")
         rows[style] = {"light": light_stroke(style)}
         for f in FACTORS:
             path = f"fonts/LibertinusSerif-{FILE[style]}-ring{round(f * 100)}.otf"
@@ -129,7 +131,7 @@ def main():
     fam = {}
     for style in FILE:
         fam[(style, "light")] = f"LibertinusSerif-{LIGHT_FILE[style]}-patch.otf"
-        fam[(style, "designer")] = f"LibertinusSerif-{FILE[style]}-patch.otf"
+        fam[(style, "designer")] = f"LibertinusSerif-{FILE[style]}-ringdesigner.otf"
         for f in FACTORS:
             fam[(style, f)] = f"LibertinusSerif-{FILE[style]}-ring{round(f * 100)}.otf"
     macro = {}
@@ -138,40 +140,45 @@ def main():
         macro[key] = name
         L.append(rf"\newfontfamily{name}[Path = ../fonts/]{{{file}}}")
     L.append(r"""\begin{document}
-\section*{Test sheet: heavier rings in the semibold styles (draft)}
+\section*{Test sheet: heavier rings in the semibold styles}
 The designer's semibold rings are no heavier than the light styles' (U+0325 is lighter), where other fonts' bold rings are 13--60\,\% heavier than their regular
 (stroke at the sides / at the top, regular → bold: Noto Serif 54/49 → 61/55, Pagella ring above 38/36 → 50/50, Junicode 47/33 → 67/40, Gentium Plus 90/76 → 135/121 in 2048 units),
 and the designer's own semibold dot above is 24\,\% and diaeresis 15\,\% heavier than regular's.
 The drafts redraw every ring of the semibold styles (U+030A, U+0325, U+02DA, å Å ů Ů ǻ Ǻ ḁ Ḁ ẘ ẙ and the small caps) rather than scaling the designer's:
 two Bézier ellipses (four on-curve points at the extremes, handles 0.5523 × the radius), the outer at the designer's centre and outer size,
 the inner inset by the target stroke, sheared at 11.5° about the centre in semibold italic, every point a whole unit.
-Target stroke = 1.15 or 1.25 × the light style's ring stroke (regular's 40/32 for semibold, italic's 37/27 for semibold italic), never lighter than the designer's.
+Target stroke = 1.15, 1.20 or 1.25 × the light style's ring stroke (regular's 40/32 for semibold, italic's 37/27 for semibold italic), never lighter than the designer's.
 The small caps aring.sc and uring.sc are redrawn too, but cannot be shown: the patched fonts' GSUB has only ccmp (no smcp). In Å and Ǻ the ring is merged with the apex (and Ǻ's acute), so only the counter is redrawn, inset by what the stroke gains.
-Rows: the light style (patched), the designer's semibold (patched), and the two drafts in \textcolor{draft}{blue}. Composed combos use CGJ where a precomposed glyph exists.
+Rows: the light style (patched), the designer's semibold (the patched font with the designer's rings put back), and the three drafts in \textcolor{draft}{blue}.
+\textbf{Decided 2026-11-21:} semibold × 1.25, semibold italic × 1.20, in the patch since then (stage 2, \verb|font_patching_rings.py|; the patched fonts are the drafts at these factors).
+The designer's own above marks with a stroke (grave, acute, circumflex, tilde, macron, breve, double acute, caron) have a median of about 1.19 times the light style's ink in semibold and 1.14 in semibold italic; the rings at these factors have 1.16 and 1.15. Composed combos use CGJ where a precomposed glyph exists.
 
 \medskip
-\begin{tabular}{l l l l l}
-style & light style's ring & designer's (U+030A; U+0325) & draft × 1.15 & draft × 1.25 \\ \hline""")
+""")
+    L.append(r"\begin{tabular}{l l l" + " l" * len(FACTORS) + "}")
+    L.append(r"style & light style's ring & designer's (U+030A; U+0325) & "
+             + " & ".join(f"draft × {f:.2f}" for f in FACTORS) + r" \\ \hline")
     for style in FILE:
         lsx, lsy = rows[style]["light"]
         des = {n: old for n, old, _ in rows[style][FACTORS[0]] if old not in (None, "counter")}
         new = [{n: v for n, o, v in rows[style][f] if o not in (None, "counter")}["uni030A"] for f in FACTORS]
+        cells = [(r"\textbf{" if f == RING_FACTOR[style] else "{") + f"{n[0]}/{n[1]}}}" for f, n in zip(FACTORS, new)]
         L.append(f"{LABEL[style]} & {lsx:.0f}/{lsy:.0f} & {des['uni030A'][0]}/{des['uni030A'][1]}; "
-                 f"{des['uni0325'][0]}/{des['uni0325'][1]} & {new[0][0]}/{new[0][1]} & {new[1][0]}/{new[1][1]} \\\\")
+                 f"{des['uni0325'][0]}/{des['uni0325'][1]} & " + " & ".join(cells) + " \\\\")
     L.append(r"\end{tabular}")
 
     for style in FILE:
         L.append(rf"\section*{{{LABEL[style]}}}")
         for size, text, big in ((26, None, False), (60, None, True)):
             L.append(rf"\begin{{tabular}}{{>{{\small}}l l}}")
-            for key, lab in (("light", "light style"), ("designer", "designer"), *((f, f"draft × {f}") for f in FACTORS)):
+            for key, lab in (("light", "light style"), ("designer", "designer"), *((f, f"draft × {f:.2f}") for f in FACTORS)):
                 samples = SAMPLES[:2] + ["å", "ů", "ḁ", "Å", "n̥"] if big else SAMPLES
                 body = r"\ ".join(tex(s) for s in samples)
                 colour = r"\color{draft}" if isinstance(key, float) else ""
                 L.append(rf"{lab} & {{{macro[(style, key)]}{colour}\fontsize{{{size}}}{{{size * 1.3:.0f}}}\selectfont {body}}} \\")
             L.append(r"\end{tabular}\par\medskip")
         L.append(r"\begin{tabular}{>{\small}l l}")
-        for key, lab in (("light", "light style"), ("designer", "designer"), *((f, f"draft × {f}") for f in FACTORS)):
+        for key, lab in (("light", "light style"), ("designer", "designer"), *((f, f"draft × {f:.2f}") for f in FACTORS)):
             colour = r"\color{draft}" if isinstance(key, float) else ""
             L.append(rf"{lab} & {{{macro[(style, key)]}{colour}\fontsize{{14}}{{18}}\selectfont {tex(CONTEXT)}}} \\")
         L.append(r"\end{tabular}\par")
@@ -183,8 +190,8 @@ style & light style's ring & designer's (U+030A; U+0325) & draft × 1.15 & draft
              r"Outer contours run counter-clockwise from the left extreme, inner ones clockwise from the top, as the designer's. "
              r"Å: the glyph clipped to its ring, where only the counter is redrawn.\par\medskip")
     for style in FILE:
-        designer = f"fonts/LibertinusSerif-{FILE[style]}-patch.otf"
-        versions = [("designer", designer)] + [(f"draft × {f}", f"fonts/LibertinusSerif-{FILE[style]}-ring{round(f * 100)}.otf") for f in FACTORS]
+        designer = f"fonts/LibertinusSerif-{FILE[style]}-ringdesigner.otf"
+        versions = [("designer", designer)] + [(f"draft × {f:.2f}", f"fonts/LibertinusSerif-{FILE[style]}-ring{round(f * 100)}.otf") for f in FACTORS]
         for glyph, label in (("uni030A", "U+030A ring above"), ("uni0325", "U+0325 ring below"), ("Aring", "Å (ring merged with the apex)")):
             L.append(rf"\subsection*{{{LABEL[style]}: {label}}}")
             L.append(r"\begin{tabular}{" + "p{8.4cm}" * len(versions) + "}")

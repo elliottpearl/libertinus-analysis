@@ -185,6 +185,24 @@ The designer's single dot is one outline per style in every precomposed letter, 
 
 The dot of ỵ: the SFDs place it as a reference shifted right from ạ's by about the same amount in every style (+151 regular and semibold, identical; +161 italic; +147 semibold italic), the roman offset carried into the italics, where the tail slants back toward it. Gaps to the letter, ỵ against the other precomposed dots below (min / median / max): regular 95 (96 / 103 / 139), italic 14 (45 / 58 / 95), semibold 58 (41 / 51 / 84), semibold italic 43 (48 / 51 / 96). Stage 2 moves it right in italic +52 (gap 57) and semibold italic +12 (gap 53); the dot lookup takes y's X from ỵ, so composed y, ɏ, ƴ, ỿ follow (draft sheet `tex/ydot_redesign_sheet.pdf`, scratch fonts).
 
+### Heavier rings in the semibold styles (2026-11-21)
+
+The designer's semibold rings are no heavier than the light styles' (stroke at the sides / top and bottom, de-slanted: regular 40/32, semibold 36/32 and U+0325 32/27; italic 37/27, semibold italic 36/31 and U+0325 36/31; ink of U+030A 0.95 × regular's in semibold, 1.04 × italic's in semibold italic, U+0325 0.85 and 1.04). Other fonts' bold rings are 13–60 % heavier than their regular (Noto Serif, Pagella, Junicode, Gentium Plus). The degree sign ° is the same case (1.05–1.06), so it is no evidence for light rings.
+
+The weight was chosen against the designer's own above marks with a stroke, by ink area heavy over light style (the length barely changes, so the ratio stands for the stroke; the dots and diaeresis are left out, since a dot's area grows in both directions):
+
+| mark | semibold / regular | semibold italic / italic |
+|---|---|---|
+| grave, acute | 1.22, 1.30 | 1.09, 1.20 |
+| circumflex, caron | 1.10, 1.16 | 1.15, 1.16 |
+| tilde, macron, breve | 1.20, 1.21, 1.18 | 1.14, 1.18, 1.10 |
+| double acute | 1.13 | 1.13 |
+| median | about 1.19 | about 1.14 |
+
+Drafts at 1.15, 1.20 and 1.25 × the light style's stroke (`ring_drafts.py`, `tex/ring_draft_sheet.pdf`) give the rings 1.10, 1.13, 1.16 × regular's ink in semibold and 1.13, 1.15, 1.19 × italic's in semibold italic (the ink rises less than the stroke because the designer's semibold rings are about 3 % smaller outside). Thin strokes of the letters agree with the upper end: o's are 1.20 × in both semibold styles, ᵒ and º about 1.20 × in semibold.
+
+Decided: semibold 1.25 (stroke 50/40, ink 1.16–1.17), semibold italic 1.20 (stroke 44/32, ink 1.14–1.15), each near its style's median. Stage 2 (`font_patching_rings.py`) redraws every ring of the two styles (U+030A, U+0325, U+02DA, å Å ů Ů ǻ Ǻ ḁ Ḁ ẘ ẙ, `aring.sc`, `uring.sc`) as two Bézier ellipses at the designer's centre and outer size, so the mark anchors are unchanged; in Å Ǻ, where the ring is merged with the apex, only the counter is redrawn. Not redrawn: the degree sign ° and the ring operator ∘ (U+2218), which are not marks.
+
 ### Open decisions
 
 The report no longer lists open decisions or what the patch changes; they are kept here.

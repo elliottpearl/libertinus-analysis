@@ -26,10 +26,12 @@ Left over from the curated-anchor reviews of 2026-10-29 and 2026-11-07 (the rest
 - Regular small X adjustments of 4–10 units on designer anchors (f below 136, r below 140, superscripts ʳ ʷ ʸ ᵐ ᵖ above): deliberate, or only rounding?
 - Regular d below (235, −110), against the designer's 221; œ below (408, −110), against the candidate's 388; semibold e above (249, 645), against the candidate's 232.
 
-## The dot lookup (stage 9b, started 2026-11-20)
+## Decide the remaining letters of the dot lookup (stage 9b, started 2026-11-20)
 
-`data/dot_letters.py` lists the letters whose dot above / below is placed at the x-height / baseline reference (`ANCHOR-HEURISTICS.md` §3, "Dots"). To decide on `tex/dot_lookup_test_sheet.pdf` (`run_dot_lookup_sheet.py`):
-- The candidates left out of the first list: ɖ ȡ above (gap under MIN_GAP in semibold), ƥ ʠ below (same), and the letters with no clear position.
+`data/dot_letters.py` lists the letters whose dot above / below is placed at the x-height / baseline reference (`ANCHOR-HEURISTICS.md` §3, "Dots"). Decided 2026-11-21 (`ANCHOR-MODEL-HISTORY.md`, "The dot lookup"): ȡ ɖ above and ʠ ƥ ỿ below added, a derived letter's inherited dot under MIN_GAP now pushed sideways like a model dot; excluded f ð ʄ ẜ ƀ ƙ ɓ ƥ ɮ above and ɉ ẜ ẝ below. To decide on `tex/dot_lookup_test_sheet.pdf` (`run_dot_lookup_sheet.py`):
+- The open group, clear in all four styles but undecided: đ ħ ꝥ above.
+- Left out by the sheet's rule, to confirm or exclude with a reason: ɦ above (clear in some styles only), ɸ below (no clear position in any style).
+- ỿ in the other styles: it inherits from y once drafted (see "ỿ (U+1EFF) and Ỿ" under the missing glyphs).
 - Italic f below: the dot lookup could restore the designer's baseline position beside the stem for the dot only (italic f's original anchor was (222, −110), as in Gentium Plus and Junicode), keeping the other marks under the curl (curated (30, −319), as in Charis SIL and Noto Serif). At 222 the dot is 10 from the stem; it clears MIN_GAP at 278 (semibold italic 290).
 - U+0329 in the dot lookup (`LINE_BELOW`): free except the italic y family and semibold p q þ ƴ ꝥ; a separate class for the line, without those letters, would allow it.
 
@@ -75,10 +77,6 @@ These come from the stub sections of the report ("Patch j dot removal for three 
 - Check that the dot removal for i and j is complete.
 - Where a precomposed character exists, a doublet (base + combining mark) or a triplet (base + two combining marks, in either mark order) should be turned into it by GSUB. Check that it is.
 
-## Heavier rings in the semibold styles (in progress, 2026-11-18)
-
-The designer's semibold rings are no heavier than the light styles' (semibold U+0325 is lighter than regular's), where other fonts' bold rings are 13–60 % heavier. Draft: every ring of semibold and semibold italic (U+030A, U+0325, U+02DA, å Å ů Ů ǻ Ǻ ḁ Ḁ ẘ ẙ, the small caps) redrawn as two Bézier ellipses with whole-number points, the designer's centre and outer size, stroke 1.15 or 1.25 × the light style's; in Å Ǻ, where the ring is merged with the apex, only the counter. `ring_drafts.py`, `run_ring_draft_sheet.py`, fonts `*-ring115.otf` / `*-ring125.otf`, sheet `tex/ring_draft_sheet.pdf` (with the control points). To decide: the weight (1.25 looks closer to the semibold dots); whether semibold italic follows italic (lighter) or semibold; whether the semibold italic drafts get points at the horizontal extrema, as the designer's do. Then make it a stage 2 redraw.
-
 ## Long term: add mark-to-mark positioning (started 2026-11-18)
 
 Add stacking for the common above-marks in all four styles: ring, dieresis, macron, acute, grave, circumflex, caron, tilde, breve. The designer's stacked precomposed glyphs (ḕ, ṏ, ẫ, …) could supply the mark-to-mark anchors, as the precomposed capitals do for stage 4.
@@ -97,14 +95,21 @@ These are glyphs that copy another glyph's splines: a derived letter drawn as a 
 
 ### Dots, in letters and marks
 
-- The precomposed dot-below letters reference the dot above, moved below the letter (`uni0307` in regular and semibold, the spacing `dotaccent` in italic and semibold italic). The exceptions are ṃ (and regular ṇ), which reference the combining dot below `dotbelowcomb`. So the dot of a precomposed letter and the dot of a composed one differ in size: regular 100 against 108, italic 98 against 110, semibold 124 against 109, semibold italic 120 against 122.
-- The shapes differ too:
-  - regular and semibold: four-point circles;
-  - italic: `uni0307` is a circle, but `dotaccent` and `dotbelowcomb` are skewed ovals;
-  - semibold italic: `dotaccent` is a four-point skewed oval and `dotbelowcomb` a six-point one.
+Fixed in the patch, not in the SFDs (stage 2, `font_patching_dotoutlines.py`, 2026-11-21; `ANCHOR-MODEL-HISTORY.md`, "Dot outlines"):
+- The precomposed dot-below letters reference the dot above, moved below the letter (`uni0307` in regular and semibold, the spacing `dotaccent` in italic and semibold italic). The exceptions are ṃ (and regular ṇ), which reference the combining dot below `dotbelowcomb`, of another size: regular 100 against 108, italic 98 against 110, semibold 124 against 109, semibold italic 120 against 122. The patch gives U+0323 and ṃ's dot the outline of U+02D9, so composed and precomposed dots below now match in size and shape.
+- The diaeresis below U+0324 is two `dotbelowcomb` 198 apart in every style, but the precomposed ṳ is built from a diaeresis (`uni0308`, or the spacing `dieresis` in italic), with smaller dots. The patch gives U+0324 the outline of U+0308.
+- The dot of ỵ in the italics kept the roman offset from ạ's dot, leaving a gap of 14 to the italic tail. The patch moves it right (italic +52, semibold italic +12).
+
+Still open:
+- The shapes of the dots above differ within a style: in italic `uni0307` is a circle, but `dotaccent` is a skewed oval; in semibold italic `dotaccent` is a four-point skewed oval (regular and semibold: four-point circles throughout).
 - The dot of semibold j is 14 units left of its stem (regular −3), a flaw in the drawing of j; ĵ and ǰ put the accent on the stem (+2). Options: move the dot onto the stem, or leave it and put j's above anchor over the dot (see "Check the curated anchors" above).
 - Regular ṇ references both dots and n twice, so its two dots overlap.
-- The diaeresis below U+0324 is two `dotbelowcomb` in regular and italic, but the precomposed ṳ is built from a diaeresis (`uni0308` in regular, semibold and semibold italic, the spacing `dieresis` in italic), with smaller dots in regular and italic.
+
+### Rings (heavier semibold rings in the patch, 2026-11-21)
+
+Every ring of semibold and semibold italic is redrawn in stage 2 (`font_patching_rings.py`) at 1.25 and 1.20 × the light style's stroke (`ANCHOR-MODEL-HISTORY.md`, "Heavier rings in the semibold styles"; sheet `tex/ring_draft_sheet.pdf`). Left:
+- The redrawn semibold italic rings have their on-curve points at the de-slanted extremes (sheared); the designer's have them at the horizontal extrema. Decide whether to add points there.
+- The degree sign ° (U+00B0) and the ring operator ∘ (U+2218) are as light as the old rings in both semibold styles (ink 1.05–1.06 × the light style's). They are not marks, but they sit beside the redrawn rings: redraw them at the same factors, or leave them.
 
 ### Commas and horns, in letters and marks (2026-11-11)
 

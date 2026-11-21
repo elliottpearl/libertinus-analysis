@@ -12,6 +12,8 @@ Stages, in order (each is its own module):
         merge semibold top_punkt      font_patching_mergeclasses
         delete bad anchors            font_patching_deleteanchors
      2. add glyphs (CGJ)              font_patching_addglyphs
+        fix outlines                  font_patching_redraw, _drafts,
+                                      _dotoutlines, _rings
      3. add missing marks             font_patching_addmarks
      4. capital-mark anchors          font_patching_capmarks
         mark-axis rule                font_patching_markaxis
@@ -49,6 +51,7 @@ from .font_patching_drafts import add_draft_glyphs
 from .font_patching_dotoutlines import patch_dot_outlines
 from .font_patching_addmarks import add_cap_dot, add_cap_tilde, add_missing_marks
 from .font_patching_redraw import redraw_glyphs
+from .font_patching_rings import patch_rings
 from .font_patching_anchors import load_human_anchors, patch_anchors_human
 from .font_patching_capmarks import patch_cap_mark_anchors
 from .font_patching_markaxis import patch_mark_axis
@@ -176,7 +179,7 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
 
     # ------------------------------------------------------------
     # 2. Add glyphs (spacing base glyph, combining grapheme joiner);
-    #    outline fixes (semibold ɭ)
+    #    outline fixes (semibold ɭ, ʅ, italic ɍ, dots, semibold rings)
     # ------------------------------------------------------------
     add_custom_glyphs(ttfont, font_key)
     for line in redraw_glyphs(ttfont, font_key):
@@ -188,6 +191,9 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # Dot outlines: U+0323 and the dot of ṃ take the precomposed letters' dot
     # (U+02D9), U+0324 the diaeresis of U+0308 / ṳ; italic ỵ's dot moves right.
     for line in patch_dot_outlines(ttfont, font_key):
+        print(f"[{font_key}] {line}")
+    # Heavier rings in the semibold styles (1.25 / 1.20 x the light style's stroke).
+    for line in patch_rings(ttfont, font_key):
         print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------

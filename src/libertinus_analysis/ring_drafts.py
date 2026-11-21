@@ -1,5 +1,6 @@
 """
-Draft: heavier rings in the semibold styles (2026-11-18).
+Heavier rings in the semibold styles (drafted 2026-11-18, in the patch since
+2026-11-21 as stage 2, font_patching_rings.py, at RING_FACTOR there).
 
 The designer's semibold rings are no heavier than the light styles' (stroke at
 the sides / at the top and bottom, de-slanted: regular 40/32, semibold 36/32
@@ -15,9 +16,10 @@ declared slant in semibold italic, every point rounded to a whole unit. Target
 stroke = FACTOR x the light style's ring stroke (regular for semibold, italic
 for semibold italic), never lighter than the designer's.
 
-Writes fonts/LibertinusSerif-{Semibold,SemiboldItalic}-ring{NNN}.otf (the
-patched font with the rings redrawn) for each factor; run_ring_draft_sheet.py
-sets the test sheet. Not part of the patch.
+redraw_rings is the redraw itself (used by the patch). For the test sheet,
+run_ring_draft_sheet.py writes fonts/LibertinusSerif-{Semibold,SemiboldItalic}-
+ringdesigner.otf (the patched font with the designer's rings put back) and
+-ring{NNN}.otf (that font with the rings redrawn) for each of FACTORS.
 """
 import math
 
@@ -30,7 +32,7 @@ from .font_context import FONTS
 from .font_patching_redraw import _replace_outline
 
 KAPPA = 0.5523                      # Bezier circle: handle = KAPPA x radius
-FACTORS = (1.15, 1.25)
+FACTORS = (1.15, 1.20, 1.25)    # the draft sheet's; the patch's are RING_FACTOR in font_patching_rings.py
 SLANT = {"semibold": 0.0, "semibold_italic": math.tan(math.radians(11.5))}
 LIGHT = {"semibold": "regular", "semibold_italic": "italic"}
 RING_MARK = 0x030A
@@ -133,9 +135,9 @@ def ring(cx, cy, rx, ry, sx, sy, t):
 
 
 def light_stroke(style):
-    """(sides, top/bottom) of the light style's U+030A, de-slanted at its own slant."""
-    key = LIGHT[style]
-    tt = TTFont(str(FONTS[key + "_patch"]["path"]))
+    """(sides, top/bottom) of the light style's U+030A, de-slanted at its own slant.
+    Read from the original light font (the patch does not change its rings)."""
+    tt = TTFont(str(FONTS[LIGHT[style]]["path"]))
     gs = tt.getGlyphSet()
     t = SLANT[style]
     cs, rings = find_rings(gs, tt.getBestCmap()[RING_MARK], (176, 170), t)
@@ -143,21 +145,27 @@ def light_stroke(style):
     return ring_metrics(cs[i][0], cs[j][0], t)[4:]
 
 
-def draft_rings(style, factor, out_path=None):
-    """Patched font of `style` with every ring redrawn at `factor` x the light style's stroke.
-    Returns (font, report) with report = [(glyph, old (sx, sy), new (sx, sy))]."""
+def ring_glyphs(tt):
+    """Names of the glyphs with a ring in a font."""
+    cmap = tt.getBestCmap()
+    gs = tt.getGlyphSet()
+    return [cmap[c] for c in RING_CODEPOINTS if c in cmap] + [n for n in RING_NAMES if n in gs]
+
+
+def redraw_rings(tt, style, factor):
+    """Redraw every ring of `tt` (a font of `style`) in place at `factor` x the light
+    style's stroke, never lighter than the ring it replaces.
+    Returns [(glyph, old (sx, sy) or "counter" or None, new (sx, sy) or None)];
+    None, None: no ring found in the glyph (left as it is)."""
     t = SLANT[style]
     lsx, lsy = light_stroke(style)
-    tt = TTFont(str(FONTS[style + "_patch"]["path"]))
     gs = tt.getGlyphSet()
-    cmap = tt.getBestCmap()
-    mark = cmap[RING_MARK]
+    mark = tt.getBestCmap()[RING_MARK]
     cs, ((i, j),) = find_rings(gs, mark, (176, 170), t)
     _, _, mrx, mry, msx, msy = ring_metrics(cs[i][0], cs[j][0], t)
     tsx, tsy = max(msx, factor * lsx), max(msy, factor * lsy)
-    names = [cmap[c] for c in RING_CODEPOINTS if c in cmap] + [n for n in RING_NAMES if n in gs]
     report, new = [], {}
-    for name in names:
+    for name in ring_glyphs(tt):
         contours, rings = find_rings(gs, name, (2 * mrx, 2 * mry), t)
         if not rings:
             # Å Ǻ: the ring is merged with the apex (and Ǻ's acute), so only its counter is
@@ -187,6 +195,29 @@ def draft_rings(style, factor, out_path=None):
         new[name] = rec
     for name, rec in new.items():
         _replace_outline(tt, name, rec, tt["hmtx"][name][0])
+    return report
+
+
+def designer_rings_font(style, out_path=None):
+    """The patched font of `style` with the designer's rings put back (the original
+    font's outlines of every ring glyph), for the draft sheet's comparisons."""
+    tt = TTFont(str(FONTS[style + "_patch"]["path"]))
+    orig = TTFont(str(FONTS[style]["path"]))
+    ogs = orig.getGlyphSet()
+    for name in ring_glyphs(tt):
+        pen = DecomposingRecordingPen(ogs)
+        ogs[name].draw(pen)
+        _replace_outline(tt, name, pen.value, orig["hmtx"][name][0])
+    if out_path:
+        tt.save(out_path)
+    return tt
+
+
+def draft_rings(style, factor, out_path=None):
+    """Patched font of `style` with every ring redrawn at `factor` x the light style's
+    stroke, starting from the designer's rings. Returns (font, report) (see redraw_rings)."""
+    tt = designer_rings_font(style)
+    report = redraw_rings(tt, style, factor)
     if out_path:
         tt.save(out_path)
     return tt, report

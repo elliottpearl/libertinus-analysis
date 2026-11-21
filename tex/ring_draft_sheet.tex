@@ -10,76 +10,87 @@
 \definecolor{draft}{RGB}{20,70,190}
 \setmainfont{Libertinus Serif}[Path = ../fonts/, UprightFont = LibertinusSerif-Regular.otf, ItalicFont = LibertinusSerif-Italic.otf, BoldFont = LibertinusSerif-Semibold.otf, BoldItalicFont = LibertinusSerif-SemiboldItalic.otf]
 \newfontfamily\Fa[Path = ../fonts/]{LibertinusSerif-Regular-patch.otf}
-\newfontfamily\Fb[Path = ../fonts/]{LibertinusSerif-Semibold-patch.otf}
+\newfontfamily\Fb[Path = ../fonts/]{LibertinusSerif-Semibold-ringdesigner.otf}
 \newfontfamily\Fc[Path = ../fonts/]{LibertinusSerif-Semibold-ring115.otf}
-\newfontfamily\Fd[Path = ../fonts/]{LibertinusSerif-Semibold-ring125.otf}
-\newfontfamily\Fe[Path = ../fonts/]{LibertinusSerif-Italic-patch.otf}
-\newfontfamily\Ff[Path = ../fonts/]{LibertinusSerif-SemiboldItalic-patch.otf}
-\newfontfamily\Fg[Path = ../fonts/]{LibertinusSerif-SemiboldItalic-ring115.otf}
-\newfontfamily\Fh[Path = ../fonts/]{LibertinusSerif-SemiboldItalic-ring125.otf}
+\newfontfamily\Fd[Path = ../fonts/]{LibertinusSerif-Semibold-ring120.otf}
+\newfontfamily\Fe[Path = ../fonts/]{LibertinusSerif-Semibold-ring125.otf}
+\newfontfamily\Ff[Path = ../fonts/]{LibertinusSerif-Italic-patch.otf}
+\newfontfamily\Fg[Path = ../fonts/]{LibertinusSerif-SemiboldItalic-ringdesigner.otf}
+\newfontfamily\Fh[Path = ../fonts/]{LibertinusSerif-SemiboldItalic-ring115.otf}
+\newfontfamily\Fi[Path = ../fonts/]{LibertinusSerif-SemiboldItalic-ring120.otf}
+\newfontfamily\Fj[Path = ../fonts/]{LibertinusSerif-SemiboldItalic-ring125.otf}
 \begin{document}
-\section*{Test sheet: heavier rings in the semibold styles (draft)}
+\section*{Test sheet: heavier rings in the semibold styles}
 The designer's semibold rings are no heavier than the light styles' (U+0325 is lighter), where other fonts' bold rings are 13--60\,\% heavier than their regular
 (stroke at the sides / at the top, regular → bold: Noto Serif 54/49 → 61/55, Pagella ring above 38/36 → 50/50, Junicode 47/33 → 67/40, Gentium Plus 90/76 → 135/121 in 2048 units),
 and the designer's own semibold dot above is 24\,\% and diaeresis 15\,\% heavier than regular's.
 The drafts redraw every ring of the semibold styles (U+030A, U+0325, U+02DA, å Å ů Ů ǻ Ǻ ḁ Ḁ ẘ ẙ and the small caps) rather than scaling the designer's:
 two Bézier ellipses (four on-curve points at the extremes, handles 0.5523 × the radius), the outer at the designer's centre and outer size,
 the inner inset by the target stroke, sheared at 11.5° about the centre in semibold italic, every point a whole unit.
-Target stroke = 1.15 or 1.25 × the light style's ring stroke (regular's 40/32 for semibold, italic's 37/27 for semibold italic), never lighter than the designer's.
+Target stroke = 1.15, 1.20 or 1.25 × the light style's ring stroke (regular's 40/32 for semibold, italic's 37/27 for semibold italic), never lighter than the designer's.
 The small caps aring.sc and uring.sc are redrawn too, but cannot be shown: the patched fonts' GSUB has only ccmp (no smcp). In Å and Ǻ the ring is merged with the apex (and Ǻ's acute), so only the counter is redrawn, inset by what the stroke gains.
-Rows: the light style (patched), the designer's semibold (patched), and the two drafts in \textcolor{draft}{blue}. Composed combos use CGJ where a precomposed glyph exists.
+Rows: the light style (patched), the designer's semibold (the patched font with the designer's rings put back), and the three drafts in \textcolor{draft}{blue}.
+\textbf{Decided 2026-11-21:} semibold × 1.25, semibold italic × 1.20, in the patch since then (stage 2, \verb|font_patching_rings.py|; the patched fonts are the drafts at these factors).
+The designer's own above marks with a stroke (grave, acute, circumflex, tilde, macron, breve, double acute, caron) have a median of about 1.19 times the light style's ink in semibold and 1.14 in semibold italic; the rings at these factors have 1.16 and 1.15. Composed combos use CGJ where a precomposed glyph exists.
 
 \medskip
-\begin{tabular}{l l l l l}
-style & light style's ring & designer's (U+030A; U+0325) & draft × 1.15 & draft × 1.25 \\ \hline
-Semibold & 40/32 & 36/32; 32/27 & 46/37 & 50/40 \\
-Semibold italic & 37/27 & 36/32; 36/31 & 43/32 & 46/34 \\
+
+\begin{tabular}{l l l l l l}
+style & light style's ring & designer's (U+030A; U+0325) & draft × 1.15 & draft × 1.20 & draft × 1.25 \\ \hline
+Semibold & 40/32 & 36/32; 32/27 & {46/37} & {48/38} & \textbf{50/40} \\
+Semibold italic & 37/27 & 36/32; 36/31 & {43/32} & \textbf{44/32} & {46/34} \\
 \end{tabular}
 \section*{Semibold}
 \begin{tabular}{>{\small}l l}
 light style & {\Fa\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
 designer & {\Fb\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
 draft × 1.15 & {\Fc\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
-draft × 1.25 & {\Fd\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
+draft × 1.20 & {\Fd\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
+draft × 1.25 & {\Fe\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
 \end{tabular}\par\medskip
 \begin{tabular}{>{\small}l l}
 light style & {\Fa\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
 designer & {\Fb\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
 draft × 1.15 & {\Fc\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
-draft × 1.25 & {\Fd\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
+draft × 1.20 & {\Fd\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
+draft × 1.25 & {\Fe\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
 \end{tabular}\par\medskip
 \begin{tabular}{>{\small}l l}
 light style & {\Fa\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
 designer & {\Fb\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
 draft × 1.15 & {\Fc\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
-draft × 1.25 & {\Fd\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
+draft × 1.20 & {\Fd\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
+draft × 1.25 & {\Fe\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
 \end{tabular}\par
 \clearpage
 \section*{Semibold italic}
 \begin{tabular}{>{\small}l l}
-light style & {\Fe\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
-designer & {\Ff\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
-draft × 1.15 & {\Fg\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
-draft × 1.25 & {\Fh\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
+light style & {\Ff\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
+designer & {\Fg\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
+draft × 1.15 & {\Fh\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
+draft × 1.20 & {\Fi\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
+draft × 1.25 & {\Fj\color{draft}\fontsize{26}{34}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"02DA\ \char"00E5\ \char"00C5\ \char"016F\ \char"016E\ \char"01FB\ \char"01FA\ \char"1E01\ \char"1E00\ \char"1E98\ \char"1E99\ \char"0061\char"034F\char"030A\ \char"0075\char"034F\char"030A\ \char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0256\char"0325\ \char"0061\char"034F\char"0325} \\
 \end{tabular}\par\medskip
 \begin{tabular}{>{\small}l l}
-light style & {\Fe\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
-designer & {\Ff\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
-draft × 1.15 & {\Fg\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
-draft × 1.25 & {\Fh\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
+light style & {\Ff\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
+designer & {\Fg\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
+draft × 1.15 & {\Fh\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
+draft × 1.20 & {\Fi\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
+draft × 1.25 & {\Fj\color{draft}\fontsize{60}{78}\selectfont \char"25CC\char"030A\ \char"25CC\char"0325\ \char"00E5\ \char"016F\ \char"1E01\ \char"00C5\ \char"006E\char"0325} \\
 \end{tabular}\par\medskip
 \begin{tabular}{>{\small}l l}
-light style & {\Fe\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
-designer & {\Ff\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
-draft × 1.15 & {\Fg\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
-draft × 1.25 & {\Fh\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
+light style & {\Ff\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
+designer & {\Fg\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
+draft × 1.15 & {\Fh\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
+draft × 1.20 & {\Fi\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
+draft × 1.25 & {\Fj\color{draft}\fontsize{14}{18}\selectfont \char"00C5\char"006E\char"0067\char"0073\char"0074\char"0072\char"00F6\char"006D\ \char"00E5\char"006B\char"0065\char"0072\ \char"0074\char"0069\char"006C\char"006C\ \char"0042\char"0072\char"006E\char"006F\char"002C\ \char"0052\char"016F\char"017E\char"0065\char"006E\char"0061\char"003B\ \char"005B\char"006E\char"0325\ \char"006D\char"0325\ \char"014B\char"030A\ \char"006C\char"0325\ \char"0279\char"0325\ \char"0064\char"0325\ \char"0256\char"0325\ \char"1E01\ \char"1E98\char"005D} \\
 \end{tabular}\par
 \clearpage
 \section*{Control points}
 Each ring as FontForge's outline view shows it: on-curve points as black squares, off-curve points as \textcolor{draft}{blue circles} on their handles, every point labelled with its coordinates; the contours are also listed below each figure (on-curve bold, each followed by the off-curve points of the curve that leaves it, start point first). Outer contours run counter-clockwise from the left extreme, inner ones clockwise from the top, as the designer's. Å: the glyph clipped to its ring, where only the counter is redrawn.\par\medskip
 \subsection*{Semibold: U+030A ring above}
-\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}}
-designer & draft × 1.15 & draft × 1.25 \\
+\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}p{8.4cm}}
+designer & draft × 1.15 & draft × 1.20 & draft × 1.25 \\
 \begin{tikzpicture}
 \fill[black!12, even odd rule] (-8.670,22.202) .. controls (-8.670,20.638) and (-7.344,19.380) .. (-5.780,19.380) .. controls (-4.182,19.380) and (-2.856,20.672) .. (-2.856,22.202) .. controls (-2.856,23.800) and (-4.250,25.024) .. (-5.780,25.024) .. controls (-7.378,25.024) and (-8.670,23.766) .. (-8.670,22.202) -- cycle (-5.780,23.970) .. controls (-4.862,23.970) and (-4.114,23.188) .. (-4.114,22.202) .. controls (-4.114,21.318) and (-4.794,20.468) .. (-5.780,20.468) .. controls (-6.766,20.468) and (-7.446,21.318) .. (-7.446,22.202) .. controls (-7.446,23.154) and (-6.732,23.970) .. (-5.780,23.970) -- cycle;
 \draw[black!70, line width=0.4pt] (-8.670,22.202) .. controls (-8.670,20.638) and (-7.344,19.380) .. (-5.780,19.380) .. controls (-4.182,19.380) and (-2.856,20.672) .. (-2.856,22.202) .. controls (-2.856,23.800) and (-4.250,25.024) .. (-5.780,25.024) .. controls (-7.378,25.024) and (-8.670,23.766) .. (-8.670,22.202) -- cycle (-5.780,23.970) .. controls (-4.862,23.970) and (-4.114,23.188) .. (-4.114,22.202) .. controls (-4.114,21.318) and (-4.794,20.468) .. (-5.780,20.468) .. controls (-6.766,20.468) and (-7.446,21.318) .. (-7.446,22.202) .. controls (-7.446,23.154) and (-6.732,23.970) .. (-5.780,23.970) -- cycle;
@@ -215,6 +226,73 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (-6.528,23.766) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.528,23.766) {-192,699};
 \end{tikzpicture} & \begin{tikzpicture}
+\fill[black!12, even odd rule] (-8.704,22.202) .. controls (-8.704,20.638) and (-7.378,19.380) .. (-5.780,19.380) .. controls (-4.182,19.380) and (-2.856,20.638) .. (-2.856,22.202) .. controls (-2.856,23.766) and (-4.182,25.024) .. (-5.780,25.024) .. controls (-7.378,25.024) and (-8.704,23.766) .. (-8.704,22.202) -- cycle (-5.780,23.732) .. controls (-5.066,23.732) and (-4.488,23.052) .. (-4.488,22.202) .. controls (-4.488,21.352) and (-5.066,20.672) .. (-5.780,20.672) .. controls (-6.494,20.672) and (-7.072,21.352) .. (-7.072,22.202) .. controls (-7.072,23.052) and (-6.494,23.732) .. (-5.780,23.732) -- cycle;
+\draw[black!70, line width=0.4pt] (-8.704,22.202) .. controls (-8.704,20.638) and (-7.378,19.380) .. (-5.780,19.380) .. controls (-4.182,19.380) and (-2.856,20.638) .. (-2.856,22.202) .. controls (-2.856,23.766) and (-4.182,25.024) .. (-5.780,25.024) .. controls (-7.378,25.024) and (-8.704,23.766) .. (-8.704,22.202) -- cycle (-5.780,23.732) .. controls (-5.066,23.732) and (-4.488,23.052) .. (-4.488,22.202) .. controls (-4.488,21.352) and (-5.066,20.672) .. (-5.780,20.672) .. controls (-6.494,20.672) and (-7.072,21.352) .. (-7.072,22.202) .. controls (-7.072,23.052) and (-6.494,23.732) .. (-5.780,23.732) -- cycle;
+\draw[draft!70, line width=0.3pt] (-8.704,22.202) -- (-8.704,20.638);
+\draw[draft!70, line width=0.3pt] (-5.780,19.380) -- (-7.378,19.380);
+\draw[draft!70, line width=0.3pt] (-5.780,19.380) -- (-4.182,19.380);
+\draw[draft!70, line width=0.3pt] (-2.856,22.202) -- (-2.856,20.638);
+\draw[draft!70, line width=0.3pt] (-2.856,22.202) -- (-2.856,23.766);
+\draw[draft!70, line width=0.3pt] (-5.780,25.024) -- (-4.182,25.024);
+\draw[draft!70, line width=0.3pt] (-5.780,25.024) -- (-7.378,25.024);
+\draw[draft!70, line width=0.3pt] (-8.704,22.202) -- (-8.704,23.766);
+\draw[draft!70, line width=0.3pt] (-5.780,23.732) -- (-5.066,23.732);
+\draw[draft!70, line width=0.3pt] (-4.488,22.202) -- (-4.488,23.052);
+\draw[draft!70, line width=0.3pt] (-4.488,22.202) -- (-4.488,21.352);
+\draw[draft!70, line width=0.3pt] (-5.780,20.672) -- (-5.066,20.672);
+\draw[draft!70, line width=0.3pt] (-5.780,20.672) -- (-6.494,20.672);
+\draw[draft!70, line width=0.3pt] (-7.072,22.202) -- (-7.072,21.352);
+\draw[draft!70, line width=0.3pt] (-7.072,22.202) -- (-7.072,23.052);
+\draw[draft!70, line width=0.3pt] (-5.780,23.732) -- (-6.494,23.732);
+\fill[black] (-8.766,22.140) rectangle (-8.642,22.264);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-8.704,22.202) {-256,653};
+\draw[draft, fill=white, line width=0.3pt] (-8.704,20.638) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.704,20.638) {-256,607};
+\draw[draft, fill=white, line width=0.3pt] (-7.378,19.380) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-7.378,19.380) {-217,570};
+\fill[black] (-5.842,19.318) rectangle (-5.718,19.442);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-5.780,19.380) {-170,570};
+\draw[draft, fill=white, line width=0.3pt] (-4.182,19.380) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-4.182,19.380) {-123,570};
+\draw[draft, fill=white, line width=0.3pt] (-2.856,20.638) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-2.856,20.638) {-84,607};
+\fill[black] (-2.918,22.140) rectangle (-2.794,22.264);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-2.856,22.202) {-84,653};
+\draw[draft, fill=white, line width=0.3pt] (-2.856,23.766) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-2.856,23.766) {-84,699};
+\draw[draft, fill=white, line width=0.3pt] (-4.182,25.024) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-4.182,25.024) {-123,736};
+\fill[black] (-5.842,24.962) rectangle (-5.718,25.086);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-5.780,25.024) {-170,736};
+\draw[draft, fill=white, line width=0.3pt] (-7.378,25.024) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-7.378,25.024) {-217,736};
+\draw[draft, fill=white, line width=0.3pt] (-8.704,23.766) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.704,23.766) {-256,699};
+\fill[black] (-5.842,23.670) rectangle (-5.718,23.794);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-5.780,23.732) {-170,698};
+\draw[draft, fill=white, line width=0.3pt] (-5.066,23.732) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-5.066,23.732) {-149,698};
+\draw[draft, fill=white, line width=0.3pt] (-4.488,23.052) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-4.488,23.052) {-132,678};
+\fill[black] (-4.550,22.140) rectangle (-4.426,22.264);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-4.488,22.202) {-132,653};
+\draw[draft, fill=white, line width=0.3pt] (-4.488,21.352) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-4.488,21.352) {-132,628};
+\draw[draft, fill=white, line width=0.3pt] (-5.066,20.672) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-5.066,20.672) {-149,608};
+\fill[black] (-5.842,20.610) rectangle (-5.718,20.734);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-5.780,20.672) {-170,608};
+\draw[draft, fill=white, line width=0.3pt] (-6.494,20.672) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.494,20.672) {-191,608};
+\draw[draft, fill=white, line width=0.3pt] (-7.072,21.352) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-7.072,21.352) {-208,628};
+\fill[black] (-7.134,22.140) rectangle (-7.010,22.264);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-7.072,22.202) {-208,653};
+\draw[draft, fill=white, line width=0.3pt] (-7.072,23.052) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-7.072,23.052) {-208,678};
+\draw[draft, fill=white, line width=0.3pt] (-6.494,23.732) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.494,23.732) {-191,698};
+\end{tikzpicture} & \begin{tikzpicture}
 \fill[black!12, even odd rule] (-8.704,22.202) .. controls (-8.704,20.638) and (-7.378,19.380) .. (-5.780,19.380) .. controls (-4.182,19.380) and (-2.856,20.638) .. (-2.856,22.202) .. controls (-2.856,23.766) and (-4.182,25.024) .. (-5.780,25.024) .. controls (-7.378,25.024) and (-8.704,23.766) .. (-8.704,22.202) -- cycle (-5.780,23.664) .. controls (-5.100,23.664) and (-4.556,23.018) .. (-4.556,22.202) .. controls (-4.556,21.386) and (-5.100,20.740) .. (-5.780,20.740) .. controls (-6.460,20.740) and (-7.004,21.386) .. (-7.004,22.202) .. controls (-7.004,23.018) and (-6.460,23.664) .. (-5.780,23.664) -- cycle;
 \draw[black!70, line width=0.4pt] (-8.704,22.202) .. controls (-8.704,20.638) and (-7.378,19.380) .. (-5.780,19.380) .. controls (-4.182,19.380) and (-2.856,20.638) .. (-2.856,22.202) .. controls (-2.856,23.766) and (-4.182,25.024) .. (-5.780,25.024) .. controls (-7.378,25.024) and (-8.704,23.766) .. (-8.704,22.202) -- cycle (-5.780,23.664) .. controls (-5.100,23.664) and (-4.556,23.018) .. (-4.556,22.202) .. controls (-4.556,21.386) and (-5.100,20.740) .. (-5.780,20.740) .. controls (-6.460,20.740) and (-7.004,21.386) .. (-7.004,22.202) .. controls (-7.004,23.018) and (-6.460,23.664) .. (-5.780,23.664) -- cycle;
 \draw[draft!70, line width=0.3pt] (-8.704,22.202) -- (-8.704,20.638);
@@ -282,12 +360,12 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (-6.460,23.664) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.460,23.664) {-190,696};
 \end{tikzpicture} \\
-{\fontsize{6}{7.5}\selectfont \textbf{-255,653}\ -255,607\ -216,570\ \textbf{-170,570}\ -123,570\ -84,608\ \textbf{-84,653}\ -84,700\ -125,736\ \textbf{-170,736}\ -217,736\ -255,699\ \textbf{-255,653}\par \textbf{-170,705}\ -143,705\ -121,682\ \textbf{-121,653}\ -121,627\ -141,602\ \textbf{-170,602}\ -199,602\ -219,627\ \textbf{-219,653}\ -219,681\ -198,705\ \textbf{-170,705}} & {\fontsize{6}{7.5}\selectfont \textbf{-256,653}\ -256,607\ -217,570\ \textbf{-170,570}\ -123,570\ -84,607\ \textbf{-84,653}\ -84,699\ -123,736\ \textbf{-170,736}\ -217,736\ -256,699\ \textbf{-256,653}\par \textbf{-170,699}\ -148,699\ -130,678\ \textbf{-130,653}\ -130,628\ -148,607\ \textbf{-170,607}\ -192,607\ -210,628\ \textbf{-210,653}\ -210,678\ -192,699\ \textbf{-170,699}} & {\fontsize{6}{7.5}\selectfont \textbf{-256,653}\ -256,607\ -217,570\ \textbf{-170,570}\ -123,570\ -84,607\ \textbf{-84,653}\ -84,699\ -123,736\ \textbf{-170,736}\ -217,736\ -256,699\ \textbf{-256,653}\par \textbf{-170,696}\ -150,696\ -134,677\ \textbf{-134,653}\ -134,629\ -150,610\ \textbf{-170,610}\ -190,610\ -206,629\ \textbf{-206,653}\ -206,677\ -190,696\ \textbf{-170,696}} \\
+{\fontsize{6}{7.5}\selectfont \textbf{-255,653}\ -255,607\ -216,570\ \textbf{-170,570}\ -123,570\ -84,608\ \textbf{-84,653}\ -84,700\ -125,736\ \textbf{-170,736}\ -217,736\ -255,699\ \textbf{-255,653}\par \textbf{-170,705}\ -143,705\ -121,682\ \textbf{-121,653}\ -121,627\ -141,602\ \textbf{-170,602}\ -199,602\ -219,627\ \textbf{-219,653}\ -219,681\ -198,705\ \textbf{-170,705}} & {\fontsize{6}{7.5}\selectfont \textbf{-256,653}\ -256,607\ -217,570\ \textbf{-170,570}\ -123,570\ -84,607\ \textbf{-84,653}\ -84,699\ -123,736\ \textbf{-170,736}\ -217,736\ -256,699\ \textbf{-256,653}\par \textbf{-170,699}\ -148,699\ -130,678\ \textbf{-130,653}\ -130,628\ -148,607\ \textbf{-170,607}\ -192,607\ -210,628\ \textbf{-210,653}\ -210,678\ -192,699\ \textbf{-170,699}} & {\fontsize{6}{7.5}\selectfont \textbf{-256,653}\ -256,607\ -217,570\ \textbf{-170,570}\ -123,570\ -84,607\ \textbf{-84,653}\ -84,699\ -123,736\ \textbf{-170,736}\ -217,736\ -256,699\ \textbf{-256,653}\par \textbf{-170,698}\ -149,698\ -132,678\ \textbf{-132,653}\ -132,628\ -149,608\ \textbf{-170,608}\ -191,608\ -208,628\ \textbf{-208,653}\ -208,678\ -191,698\ \textbf{-170,698}} & {\fontsize{6}{7.5}\selectfont \textbf{-256,653}\ -256,607\ -217,570\ \textbf{-170,570}\ -123,570\ -84,607\ \textbf{-84,653}\ -84,699\ -123,736\ \textbf{-170,736}\ -217,736\ -256,699\ \textbf{-256,653}\par \textbf{-170,696}\ -150,696\ -134,677\ \textbf{-134,653}\ -134,629\ -150,610\ \textbf{-170,610}\ -190,610\ -206,629\ \textbf{-206,653}\ -206,677\ -190,696\ \textbf{-170,696}} \\
 \end{tabular}
 \clearpage
 \subsection*{Semibold: U+0325 ring below}
-\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}}
-designer & draft × 1.15 & draft × 1.25 \\
+\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}p{8.4cm}}
+designer & draft × 1.15 & draft × 1.20 & draft × 1.25 \\
 \begin{tikzpicture}
 \fill[black!12, even odd rule] (-10.268,-3.978) .. controls (-10.268,-5.576) and (-8.942,-6.834) .. (-7.378,-6.834) .. controls (-5.746,-6.834) and (-4.454,-5.508) .. (-4.454,-3.978) .. controls (-4.454,-2.414) and (-5.814,-1.156) .. (-7.378,-1.156) .. controls (-8.976,-1.156) and (-10.268,-2.448) .. (-10.268,-3.978) -- cycle (-5.542,-3.978) .. controls (-5.542,-4.964) and (-6.324,-5.916) .. (-7.378,-5.916) .. controls (-8.432,-5.916) and (-9.214,-4.964) .. (-9.214,-3.978) .. controls (-9.214,-2.992) and (-8.432,-2.074) .. (-7.378,-2.074) .. controls (-6.392,-2.074) and (-5.542,-2.924) .. (-5.542,-3.978) -- cycle;
 \draw[black!70, line width=0.4pt] (-10.268,-3.978) .. controls (-10.268,-5.576) and (-8.942,-6.834) .. (-7.378,-6.834) .. controls (-5.746,-6.834) and (-4.454,-5.508) .. (-4.454,-3.978) .. controls (-4.454,-2.414) and (-5.814,-1.156) .. (-7.378,-1.156) .. controls (-8.976,-1.156) and (-10.268,-2.448) .. (-10.268,-3.978) -- cycle (-5.542,-3.978) .. controls (-5.542,-4.964) and (-6.324,-5.916) .. (-7.378,-5.916) .. controls (-8.432,-5.916) and (-9.214,-4.964) .. (-9.214,-3.978) .. controls (-9.214,-2.992) and (-8.432,-2.074) .. (-7.378,-2.074) .. controls (-6.392,-2.074) and (-5.542,-2.924) .. (-5.542,-3.978) -- cycle;
@@ -423,6 +501,73 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (-8.092,-2.414) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.092,-2.414) {-238,-71};
 \end{tikzpicture} & \begin{tikzpicture}
+\fill[black!12, even odd rule] (-10.268,-4.012) .. controls (-10.268,-5.576) and (-8.942,-6.868) .. (-7.344,-6.868) .. controls (-5.746,-6.868) and (-4.420,-5.576) .. (-4.420,-4.012) .. controls (-4.420,-2.448) and (-5.746,-1.156) .. (-7.344,-1.156) .. controls (-8.942,-1.156) and (-10.268,-2.448) .. (-10.268,-4.012) -- cycle (-7.344,-2.448) .. controls (-6.630,-2.448) and (-6.052,-3.162) .. (-6.052,-4.012) .. controls (-6.052,-4.862) and (-6.630,-5.576) .. (-7.344,-5.576) .. controls (-8.058,-5.576) and (-8.636,-4.862) .. (-8.636,-4.012) .. controls (-8.636,-3.162) and (-8.058,-2.448) .. (-7.344,-2.448) -- cycle;
+\draw[black!70, line width=0.4pt] (-10.268,-4.012) .. controls (-10.268,-5.576) and (-8.942,-6.868) .. (-7.344,-6.868) .. controls (-5.746,-6.868) and (-4.420,-5.576) .. (-4.420,-4.012) .. controls (-4.420,-2.448) and (-5.746,-1.156) .. (-7.344,-1.156) .. controls (-8.942,-1.156) and (-10.268,-2.448) .. (-10.268,-4.012) -- cycle (-7.344,-2.448) .. controls (-6.630,-2.448) and (-6.052,-3.162) .. (-6.052,-4.012) .. controls (-6.052,-4.862) and (-6.630,-5.576) .. (-7.344,-5.576) .. controls (-8.058,-5.576) and (-8.636,-4.862) .. (-8.636,-4.012) .. controls (-8.636,-3.162) and (-8.058,-2.448) .. (-7.344,-2.448) -- cycle;
+\draw[draft!70, line width=0.3pt] (-10.268,-4.012) -- (-10.268,-5.576);
+\draw[draft!70, line width=0.3pt] (-7.344,-6.868) -- (-8.942,-6.868);
+\draw[draft!70, line width=0.3pt] (-7.344,-6.868) -- (-5.746,-6.868);
+\draw[draft!70, line width=0.3pt] (-4.420,-4.012) -- (-4.420,-5.576);
+\draw[draft!70, line width=0.3pt] (-4.420,-4.012) -- (-4.420,-2.448);
+\draw[draft!70, line width=0.3pt] (-7.344,-1.156) -- (-5.746,-1.156);
+\draw[draft!70, line width=0.3pt] (-7.344,-1.156) -- (-8.942,-1.156);
+\draw[draft!70, line width=0.3pt] (-10.268,-4.012) -- (-10.268,-2.448);
+\draw[draft!70, line width=0.3pt] (-7.344,-2.448) -- (-6.630,-2.448);
+\draw[draft!70, line width=0.3pt] (-6.052,-4.012) -- (-6.052,-3.162);
+\draw[draft!70, line width=0.3pt] (-6.052,-4.012) -- (-6.052,-4.862);
+\draw[draft!70, line width=0.3pt] (-7.344,-5.576) -- (-6.630,-5.576);
+\draw[draft!70, line width=0.3pt] (-7.344,-5.576) -- (-8.058,-5.576);
+\draw[draft!70, line width=0.3pt] (-8.636,-4.012) -- (-8.636,-4.862);
+\draw[draft!70, line width=0.3pt] (-8.636,-4.012) -- (-8.636,-3.162);
+\draw[draft!70, line width=0.3pt] (-7.344,-2.448) -- (-8.058,-2.448);
+\fill[black] (-10.330,-4.074) rectangle (-10.206,-3.950);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-10.268,-4.012) {-302,-118};
+\draw[draft, fill=white, line width=0.3pt] (-10.268,-5.576) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-10.268,-5.576) {-302,-164};
+\draw[draft, fill=white, line width=0.3pt] (-8.942,-6.868) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.942,-6.868) {-263,-202};
+\fill[black] (-7.406,-6.930) rectangle (-7.282,-6.806);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-7.344,-6.868) {-216,-202};
+\draw[draft, fill=white, line width=0.3pt] (-5.746,-6.868) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-5.746,-6.868) {-169,-202};
+\draw[draft, fill=white, line width=0.3pt] (-4.420,-5.576) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-4.420,-5.576) {-130,-164};
+\fill[black] (-4.482,-4.074) rectangle (-4.358,-3.950);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-4.420,-4.012) {-130,-118};
+\draw[draft, fill=white, line width=0.3pt] (-4.420,-2.448) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-4.420,-2.448) {-130,-72};
+\draw[draft, fill=white, line width=0.3pt] (-5.746,-1.156) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-5.746,-1.156) {-169,-34};
+\fill[black] (-7.406,-1.218) rectangle (-7.282,-1.094);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-7.344,-1.156) {-216,-34};
+\draw[draft, fill=white, line width=0.3pt] (-8.942,-1.156) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.942,-1.156) {-263,-34};
+\draw[draft, fill=white, line width=0.3pt] (-10.268,-2.448) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-10.268,-2.448) {-302,-72};
+\fill[black] (-7.406,-2.510) rectangle (-7.282,-2.386);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-7.344,-2.448) {-216,-72};
+\draw[draft, fill=white, line width=0.3pt] (-6.630,-2.448) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.630,-2.448) {-195,-72};
+\draw[draft, fill=white, line width=0.3pt] (-6.052,-3.162) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.052,-3.162) {-178,-93};
+\fill[black] (-6.114,-4.074) rectangle (-5.990,-3.950);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-6.052,-4.012) {-178,-118};
+\draw[draft, fill=white, line width=0.3pt] (-6.052,-4.862) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.052,-4.862) {-178,-143};
+\draw[draft, fill=white, line width=0.3pt] (-6.630,-5.576) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.630,-5.576) {-195,-164};
+\fill[black] (-7.406,-5.638) rectangle (-7.282,-5.514);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-7.344,-5.576) {-216,-164};
+\draw[draft, fill=white, line width=0.3pt] (-8.058,-5.576) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.058,-5.576) {-237,-164};
+\draw[draft, fill=white, line width=0.3pt] (-8.636,-4.862) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.636,-4.862) {-254,-143};
+\fill[black] (-8.698,-4.074) rectangle (-8.574,-3.950);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-8.636,-4.012) {-254,-118};
+\draw[draft, fill=white, line width=0.3pt] (-8.636,-3.162) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.636,-3.162) {-254,-93};
+\draw[draft, fill=white, line width=0.3pt] (-8.058,-2.448) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.058,-2.448) {-237,-72};
+\end{tikzpicture} & \begin{tikzpicture}
 \fill[black!12, even odd rule] (-10.268,-4.012) .. controls (-10.268,-5.576) and (-8.942,-6.868) .. (-7.344,-6.868) .. controls (-5.746,-6.868) and (-4.420,-5.576) .. (-4.420,-4.012) .. controls (-4.420,-2.448) and (-5.746,-1.156) .. (-7.344,-1.156) .. controls (-8.942,-1.156) and (-10.268,-2.448) .. (-10.268,-4.012) -- cycle (-7.344,-2.516) .. controls (-6.664,-2.516) and (-6.120,-3.196) .. (-6.120,-4.012) .. controls (-6.120,-4.828) and (-6.664,-5.508) .. (-7.344,-5.508) .. controls (-8.024,-5.508) and (-8.568,-4.828) .. (-8.568,-4.012) .. controls (-8.568,-3.196) and (-8.024,-2.516) .. (-7.344,-2.516) -- cycle;
 \draw[black!70, line width=0.4pt] (-10.268,-4.012) .. controls (-10.268,-5.576) and (-8.942,-6.868) .. (-7.344,-6.868) .. controls (-5.746,-6.868) and (-4.420,-5.576) .. (-4.420,-4.012) .. controls (-4.420,-2.448) and (-5.746,-1.156) .. (-7.344,-1.156) .. controls (-8.942,-1.156) and (-10.268,-2.448) .. (-10.268,-4.012) -- cycle (-7.344,-2.516) .. controls (-6.664,-2.516) and (-6.120,-3.196) .. (-6.120,-4.012) .. controls (-6.120,-4.828) and (-6.664,-5.508) .. (-7.344,-5.508) .. controls (-8.024,-5.508) and (-8.568,-4.828) .. (-8.568,-4.012) .. controls (-8.568,-3.196) and (-8.024,-2.516) .. (-7.344,-2.516) -- cycle;
 \draw[draft!70, line width=0.3pt] (-10.268,-4.012) -- (-10.268,-5.576);
@@ -490,12 +635,12 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (-8.024,-2.516) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.024,-2.516) {-236,-74};
 \end{tikzpicture} \\
-{\fontsize{6}{7.5}\selectfont \textbf{-302,-117}\ -302,-164\ -263,-201\ \textbf{-217,-201}\ -169,-201\ -131,-162\ \textbf{-131,-117}\ -131,-71\ -171,-34\ \textbf{-217,-34}\ -264,-34\ -302,-72\ \textbf{-302,-117}\par \textbf{-163,-117}\ -163,-146\ -186,-174\ \textbf{-217,-174}\ -248,-174\ -271,-146\ \textbf{-271,-117}\ -271,-88\ -248,-61\ \textbf{-217,-61}\ -188,-61\ -163,-86\ \textbf{-163,-117}} & {\fontsize{6}{7.5}\selectfont \textbf{-302,-118}\ -302,-164\ -263,-202\ \textbf{-216,-202}\ -169,-202\ -130,-164\ \textbf{-130,-118}\ -130,-72\ -169,-34\ \textbf{-216,-34}\ -263,-34\ -302,-72\ \textbf{-302,-118}\par \textbf{-216,-71}\ -194,-71\ -176,-92\ \textbf{-176,-118}\ -176,-144\ -194,-165\ \textbf{-216,-165}\ -238,-165\ -256,-144\ \textbf{-256,-118}\ -256,-92\ -238,-71\ \textbf{-216,-71}} & {\fontsize{6}{7.5}\selectfont \textbf{-302,-118}\ -302,-164\ -263,-202\ \textbf{-216,-202}\ -169,-202\ -130,-164\ \textbf{-130,-118}\ -130,-72\ -169,-34\ \textbf{-216,-34}\ -263,-34\ -302,-72\ \textbf{-302,-118}\par \textbf{-216,-74}\ -196,-74\ -180,-94\ \textbf{-180,-118}\ -180,-142\ -196,-162\ \textbf{-216,-162}\ -236,-162\ -252,-142\ \textbf{-252,-118}\ -252,-94\ -236,-74\ \textbf{-216,-74}} \\
+{\fontsize{6}{7.5}\selectfont \textbf{-302,-117}\ -302,-164\ -263,-201\ \textbf{-217,-201}\ -169,-201\ -131,-162\ \textbf{-131,-117}\ -131,-71\ -171,-34\ \textbf{-217,-34}\ -264,-34\ -302,-72\ \textbf{-302,-117}\par \textbf{-163,-117}\ -163,-146\ -186,-174\ \textbf{-217,-174}\ -248,-174\ -271,-146\ \textbf{-271,-117}\ -271,-88\ -248,-61\ \textbf{-217,-61}\ -188,-61\ -163,-86\ \textbf{-163,-117}} & {\fontsize{6}{7.5}\selectfont \textbf{-302,-118}\ -302,-164\ -263,-202\ \textbf{-216,-202}\ -169,-202\ -130,-164\ \textbf{-130,-118}\ -130,-72\ -169,-34\ \textbf{-216,-34}\ -263,-34\ -302,-72\ \textbf{-302,-118}\par \textbf{-216,-71}\ -194,-71\ -176,-92\ \textbf{-176,-118}\ -176,-144\ -194,-165\ \textbf{-216,-165}\ -238,-165\ -256,-144\ \textbf{-256,-118}\ -256,-92\ -238,-71\ \textbf{-216,-71}} & {\fontsize{6}{7.5}\selectfont \textbf{-302,-118}\ -302,-164\ -263,-202\ \textbf{-216,-202}\ -169,-202\ -130,-164\ \textbf{-130,-118}\ -130,-72\ -169,-34\ \textbf{-216,-34}\ -263,-34\ -302,-72\ \textbf{-302,-118}\par \textbf{-216,-72}\ -195,-72\ -178,-93\ \textbf{-178,-118}\ -178,-143\ -195,-164\ \textbf{-216,-164}\ -237,-164\ -254,-143\ \textbf{-254,-118}\ -254,-93\ -237,-72\ \textbf{-216,-72}} & {\fontsize{6}{7.5}\selectfont \textbf{-302,-118}\ -302,-164\ -263,-202\ \textbf{-216,-202}\ -169,-202\ -130,-164\ \textbf{-130,-118}\ -130,-72\ -169,-34\ \textbf{-216,-34}\ -263,-34\ -302,-72\ \textbf{-302,-118}\par \textbf{-216,-74}\ -196,-74\ -180,-94\ \textbf{-180,-118}\ -180,-142\ -196,-162\ \textbf{-216,-162}\ -236,-162\ -252,-142\ \textbf{-252,-118}\ -252,-94\ -236,-74\ \textbf{-216,-74}} \\
 \end{tabular}
 \clearpage
 \subsection*{Semibold: Å (ring merged with the apex)}
-\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}}
-designer & draft × 1.15 & draft × 1.25 \\
+\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}p{8.4cm}}
+designer & draft × 1.15 & draft × 1.20 & draft × 1.25 \\
 \begin{tikzpicture}
 \clip (6.766,19.992) rectangle (17.578,27.744);
 \fill[black!12, even odd rule] (5.032,2.686) -- (6.970,7.718) .. controls (7.174,8.160) and (7.344,8.194) .. (8.024,8.194) -- (14.280,8.194) -- (16.388,2.482) .. controls (16.456,2.380) and (16.456,2.176) .. (16.456,2.006) .. controls (16.456,1.496) and (16.184,1.122) .. (15.606,1.122) -- (14.688,1.122) .. controls (14.076,1.122) and (13.804,1.054) .. (13.804,0.782) -- (13.804,0.136) -- (14.076,-0.034) .. controls (14.076,-0.034) and (17.748,0.034) .. (18.972,0.034) .. controls (20.264,0.034) and (23.528,-0.034) .. (23.528,-0.034) -- (23.698,0.102) -- (23.698,0.782) .. controls (23.698,1.054) and (23.698,1.122) .. (23.188,1.122) -- (22.236,1.122) .. controls (21.386,1.122) and (20.910,1.836) .. (20.434,3.094) -- (13.566,21.318) .. controls (13.498,21.454) and (13.430,21.590) .. (13.362,21.692) .. controls (14.382,22.168) and (15.096,23.154) .. (15.096,24.276) .. controls (15.096,25.874) and (13.702,27.098) .. (12.172,27.098) .. controls (10.574,27.098) and (9.282,25.840) .. (9.282,24.276) .. controls (9.282,23.188) and (9.928,22.236) .. (10.880,21.760) .. controls (10.778,21.624) and (10.676,21.488) .. (10.608,21.318) -- (3.026,3.094) .. controls (2.448,1.700) and (1.428,1.122) .. (0.748,1.122) .. controls (0.340,1.122) and (0.068,1.122) .. (0.068,0.782) -- (0.068,0.068) -- (0.340,-0.034) .. controls (0.340,-0.034) and (2.380,0.034) .. (3.230,0.034) .. controls (4.046,0.034) and (7.174,-0.034) .. (7.174,-0.034) -- (7.344,0.102) -- (7.344,0.782) .. controls (7.344,1.054) and (7.174,1.122) .. (6.630,1.122) .. controls (4.624,1.122) and (4.658,1.700) .. (5.032,2.686) -- cycle (8.602,9.792) .. controls (7.990,9.792) and (7.956,9.894) .. (7.956,10.200) -- (10.880,17.476) -- (13.702,9.792) -- cycle (12.172,26.044) .. controls (13.090,26.044) and (13.838,25.262) .. (13.838,24.276) .. controls (13.838,23.392) and (13.158,22.542) .. (12.172,22.542) .. controls (11.186,22.542) and (10.506,23.392) .. (10.506,24.276) .. controls (10.506,25.228) and (11.220,26.044) .. (12.172,26.044) -- cycle;
@@ -669,6 +814,92 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (11.424,25.840) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (11.424,25.840) {336,760};
 \end{tikzpicture} & \begin{tikzpicture}
+\clip (7.140,20.196) rectangle (17.204,27.506);
+\fill[black!12, even odd rule] (5.032,2.686) -- (6.970,7.718) .. controls (7.174,8.160) and (7.344,8.194) .. (8.024,8.194) -- (14.280,8.194) -- (16.388,2.482) .. controls (16.456,2.380) and (16.456,2.176) .. (16.456,2.006) .. controls (16.456,1.496) and (16.184,1.122) .. (15.606,1.122) -- (14.688,1.122) .. controls (14.076,1.122) and (13.804,1.054) .. (13.804,0.782) -- (13.804,0.136) -- (14.076,-0.034) .. controls (14.076,-0.034) and (17.748,0.034) .. (18.972,0.034) .. controls (20.264,0.034) and (23.528,-0.034) .. (23.528,-0.034) -- (23.698,0.102) -- (23.698,0.782) .. controls (23.698,1.054) and (23.698,1.122) .. (23.188,1.122) -- (22.236,1.122) .. controls (21.386,1.122) and (20.910,1.836) .. (20.434,3.094) -- (13.566,21.318) .. controls (13.498,21.454) and (13.430,21.590) .. (13.362,21.692) .. controls (14.382,22.168) and (15.096,23.154) .. (15.096,24.276) .. controls (15.096,25.874) and (13.702,27.098) .. (12.172,27.098) .. controls (10.574,27.098) and (9.282,25.840) .. (9.282,24.276) .. controls (9.282,23.188) and (9.928,22.236) .. (10.880,21.760) .. controls (10.778,21.624) and (10.676,21.488) .. (10.608,21.318) -- (3.026,3.094) .. controls (2.448,1.700) and (1.428,1.122) .. (0.748,1.122) .. controls (0.340,1.122) and (0.068,1.122) .. (0.068,0.782) -- (0.068,0.068) -- (0.340,-0.034) .. controls (0.340,-0.034) and (2.380,0.034) .. (3.230,0.034) .. controls (4.046,0.034) and (7.174,-0.034) .. (7.174,-0.034) -- (7.344,0.102) -- (7.344,0.782) .. controls (7.344,1.054) and (7.174,1.122) .. (6.630,1.122) .. controls (4.624,1.122) and (4.658,1.700) .. (5.032,2.686) -- cycle (8.602,9.792) .. controls (7.990,9.792) and (7.956,9.894) .. (7.956,10.200) -- (10.880,17.476) -- (13.702,9.792) -- cycle (12.172,25.806) .. controls (12.886,25.806) and (13.464,25.126) .. (13.464,24.276) .. controls (13.464,23.426) and (12.886,22.746) .. (12.172,22.746) .. controls (11.458,22.746) and (10.880,23.426) .. (10.880,24.276) .. controls (10.880,25.126) and (11.458,25.806) .. (12.172,25.806) -- cycle;
+\draw[black!70, line width=0.4pt] (5.032,2.686) -- (6.970,7.718) .. controls (7.174,8.160) and (7.344,8.194) .. (8.024,8.194) -- (14.280,8.194) -- (16.388,2.482) .. controls (16.456,2.380) and (16.456,2.176) .. (16.456,2.006) .. controls (16.456,1.496) and (16.184,1.122) .. (15.606,1.122) -- (14.688,1.122) .. controls (14.076,1.122) and (13.804,1.054) .. (13.804,0.782) -- (13.804,0.136) -- (14.076,-0.034) .. controls (14.076,-0.034) and (17.748,0.034) .. (18.972,0.034) .. controls (20.264,0.034) and (23.528,-0.034) .. (23.528,-0.034) -- (23.698,0.102) -- (23.698,0.782) .. controls (23.698,1.054) and (23.698,1.122) .. (23.188,1.122) -- (22.236,1.122) .. controls (21.386,1.122) and (20.910,1.836) .. (20.434,3.094) -- (13.566,21.318) .. controls (13.498,21.454) and (13.430,21.590) .. (13.362,21.692) .. controls (14.382,22.168) and (15.096,23.154) .. (15.096,24.276) .. controls (15.096,25.874) and (13.702,27.098) .. (12.172,27.098) .. controls (10.574,27.098) and (9.282,25.840) .. (9.282,24.276) .. controls (9.282,23.188) and (9.928,22.236) .. (10.880,21.760) .. controls (10.778,21.624) and (10.676,21.488) .. (10.608,21.318) -- (3.026,3.094) .. controls (2.448,1.700) and (1.428,1.122) .. (0.748,1.122) .. controls (0.340,1.122) and (0.068,1.122) .. (0.068,0.782) -- (0.068,0.068) -- (0.340,-0.034) .. controls (0.340,-0.034) and (2.380,0.034) .. (3.230,0.034) .. controls (4.046,0.034) and (7.174,-0.034) .. (7.174,-0.034) -- (7.344,0.102) -- (7.344,0.782) .. controls (7.344,1.054) and (7.174,1.122) .. (6.630,1.122) .. controls (4.624,1.122) and (4.658,1.700) .. (5.032,2.686) -- cycle (8.602,9.792) .. controls (7.990,9.792) and (7.956,9.894) .. (7.956,10.200) -- (10.880,17.476) -- (13.702,9.792) -- cycle (12.172,25.806) .. controls (12.886,25.806) and (13.464,25.126) .. (13.464,24.276) .. controls (13.464,23.426) and (12.886,22.746) .. (12.172,22.746) .. controls (11.458,22.746) and (10.880,23.426) .. (10.880,24.276) .. controls (10.880,25.126) and (11.458,25.806) .. (12.172,25.806) -- cycle;
+\draw[draft!70, line width=0.3pt] (13.566,21.318) -- (13.498,21.454);
+\draw[draft!70, line width=0.3pt] (13.362,21.692) -- (13.430,21.590);
+\draw[draft!70, line width=0.3pt] (13.362,21.692) -- (14.382,22.168);
+\draw[draft!70, line width=0.3pt] (15.096,24.276) -- (15.096,23.154);
+\draw[draft!70, line width=0.3pt] (15.096,24.276) -- (15.096,25.874);
+\draw[draft!70, line width=0.3pt] (12.172,27.098) -- (13.702,27.098);
+\draw[draft!70, line width=0.3pt] (12.172,27.098) -- (10.574,27.098);
+\draw[draft!70, line width=0.3pt] (9.282,24.276) -- (9.282,25.840);
+\draw[draft!70, line width=0.3pt] (9.282,24.276) -- (9.282,23.188);
+\draw[draft!70, line width=0.3pt] (10.880,21.760) -- (9.928,22.236);
+\draw[draft!70, line width=0.3pt] (10.880,21.760) -- (10.778,21.624);
+\draw[draft!70, line width=0.3pt] (10.608,21.318) -- (10.676,21.488);
+\draw[draft!70, line width=0.3pt] (12.172,25.806) -- (12.886,25.806);
+\draw[draft!70, line width=0.3pt] (13.464,24.276) -- (13.464,25.126);
+\draw[draft!70, line width=0.3pt] (13.464,24.276) -- (13.464,23.426);
+\draw[draft!70, line width=0.3pt] (12.172,22.746) -- (12.886,22.746);
+\draw[draft!70, line width=0.3pt] (12.172,22.746) -- (11.458,22.746);
+\draw[draft!70, line width=0.3pt] (10.880,24.276) -- (10.880,23.426);
+\draw[draft!70, line width=0.3pt] (10.880,24.276) -- (10.880,25.126);
+\draw[draft!70, line width=0.3pt] (12.172,25.806) -- (11.458,25.806);
+\fill[black] (13.504,21.256) rectangle (13.628,21.380);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (13.566,21.318) {399,627};
+\draw[draft, fill=white, line width=0.3pt] (13.498,21.454) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (13.498,21.454) {397,631};
+\draw[draft, fill=white, line width=0.3pt] (13.430,21.590) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (13.430,21.590) {395,635};
+\fill[black] (13.300,21.630) rectangle (13.424,21.754);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (13.362,21.692) {393,638};
+\draw[draft, fill=white, line width=0.3pt] (14.382,22.168) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (14.382,22.168) {423,652};
+\draw[draft, fill=white, line width=0.3pt] (15.096,23.154) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (15.096,23.154) {444,681};
+\fill[black] (15.034,24.214) rectangle (15.158,24.338);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (15.096,24.276) {444,714};
+\draw[draft, fill=white, line width=0.3pt] (15.096,25.874) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (15.096,25.874) {444,761};
+\draw[draft, fill=white, line width=0.3pt] (13.702,27.098) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (13.702,27.098) {403,797};
+\fill[black] (12.110,27.036) rectangle (12.234,27.160);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (12.172,27.098) {358,797};
+\draw[draft, fill=white, line width=0.3pt] (10.574,27.098) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (10.574,27.098) {311,797};
+\draw[draft, fill=white, line width=0.3pt] (9.282,25.840) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (9.282,25.840) {273,760};
+\fill[black] (9.220,24.214) rectangle (9.344,24.338);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (9.282,24.276) {273,714};
+\draw[draft, fill=white, line width=0.3pt] (9.282,23.188) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (9.282,23.188) {273,682};
+\draw[draft, fill=white, line width=0.3pt] (9.928,22.236) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (9.928,22.236) {292,654};
+\fill[black] (10.818,21.698) rectangle (10.942,21.822);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (10.880,21.760) {320,640};
+\draw[draft, fill=white, line width=0.3pt] (10.778,21.624) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (10.778,21.624) {317,636};
+\draw[draft, fill=white, line width=0.3pt] (10.676,21.488) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (10.676,21.488) {314,632};
+\fill[black] (10.546,21.256) rectangle (10.670,21.380);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (10.608,21.318) {312,627};
+\fill[black] (12.110,25.744) rectangle (12.234,25.868);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (12.172,25.806) {358,759};
+\draw[draft, fill=white, line width=0.3pt] (12.886,25.806) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (12.886,25.806) {379,759};
+\draw[draft, fill=white, line width=0.3pt] (13.464,25.126) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (13.464,25.126) {396,739};
+\fill[black] (13.402,24.214) rectangle (13.526,24.338);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (13.464,24.276) {396,714};
+\draw[draft, fill=white, line width=0.3pt] (13.464,23.426) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (13.464,23.426) {396,689};
+\draw[draft, fill=white, line width=0.3pt] (12.886,22.746) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (12.886,22.746) {379,669};
+\fill[black] (12.110,22.684) rectangle (12.234,22.808);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (12.172,22.746) {358,669};
+\draw[draft, fill=white, line width=0.3pt] (11.458,22.746) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (11.458,22.746) {337,669};
+\draw[draft, fill=white, line width=0.3pt] (10.880,23.426) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (10.880,23.426) {320,689};
+\fill[black] (10.818,24.214) rectangle (10.942,24.338);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (10.880,24.276) {320,714};
+\draw[draft, fill=white, line width=0.3pt] (10.880,25.126) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (10.880,25.126) {320,739};
+\draw[draft, fill=white, line width=0.3pt] (11.458,25.806) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (11.458,25.806) {337,759};
+\end{tikzpicture} & \begin{tikzpicture}
 \clip (7.208,20.264) rectangle (17.136,27.438);
 \fill[black!12, even odd rule] (5.032,2.686) -- (6.970,7.718) .. controls (7.174,8.160) and (7.344,8.194) .. (8.024,8.194) -- (14.280,8.194) -- (16.388,2.482) .. controls (16.456,2.380) and (16.456,2.176) .. (16.456,2.006) .. controls (16.456,1.496) and (16.184,1.122) .. (15.606,1.122) -- (14.688,1.122) .. controls (14.076,1.122) and (13.804,1.054) .. (13.804,0.782) -- (13.804,0.136) -- (14.076,-0.034) .. controls (14.076,-0.034) and (17.748,0.034) .. (18.972,0.034) .. controls (20.264,0.034) and (23.528,-0.034) .. (23.528,-0.034) -- (23.698,0.102) -- (23.698,0.782) .. controls (23.698,1.054) and (23.698,1.122) .. (23.188,1.122) -- (22.236,1.122) .. controls (21.386,1.122) and (20.910,1.836) .. (20.434,3.094) -- (13.566,21.318) .. controls (13.498,21.454) and (13.430,21.590) .. (13.362,21.692) .. controls (14.382,22.168) and (15.096,23.154) .. (15.096,24.276) .. controls (15.096,25.874) and (13.702,27.098) .. (12.172,27.098) .. controls (10.574,27.098) and (9.282,25.840) .. (9.282,24.276) .. controls (9.282,23.188) and (9.928,22.236) .. (10.880,21.760) .. controls (10.778,21.624) and (10.676,21.488) .. (10.608,21.318) -- (3.026,3.094) .. controls (2.448,1.700) and (1.428,1.122) .. (0.748,1.122) .. controls (0.340,1.122) and (0.068,1.122) .. (0.068,0.782) -- (0.068,0.068) -- (0.340,-0.034) .. controls (0.340,-0.034) and (2.380,0.034) .. (3.230,0.034) .. controls (4.046,0.034) and (7.174,-0.034) .. (7.174,-0.034) -- (7.344,0.102) -- (7.344,0.782) .. controls (7.344,1.054) and (7.174,1.122) .. (6.630,1.122) .. controls (4.624,1.122) and (4.658,1.700) .. (5.032,2.686) -- cycle (8.602,9.792) .. controls (7.990,9.792) and (7.956,9.894) .. (7.956,10.200) -- (10.880,17.476) -- (13.702,9.792) -- cycle (12.172,25.738) .. controls (12.852,25.738) and (13.396,25.092) .. (13.396,24.276) .. controls (13.396,23.460) and (12.852,22.814) .. (12.172,22.814) .. controls (11.492,22.814) and (10.948,23.460) .. (10.948,24.276) .. controls (10.948,25.092) and (11.492,25.738) .. (12.172,25.738) -- cycle;
 \draw[black!70, line width=0.4pt] (5.032,2.686) -- (6.970,7.718) .. controls (7.174,8.160) and (7.344,8.194) .. (8.024,8.194) -- (14.280,8.194) -- (16.388,2.482) .. controls (16.456,2.380) and (16.456,2.176) .. (16.456,2.006) .. controls (16.456,1.496) and (16.184,1.122) .. (15.606,1.122) -- (14.688,1.122) .. controls (14.076,1.122) and (13.804,1.054) .. (13.804,0.782) -- (13.804,0.136) -- (14.076,-0.034) .. controls (14.076,-0.034) and (17.748,0.034) .. (18.972,0.034) .. controls (20.264,0.034) and (23.528,-0.034) .. (23.528,-0.034) -- (23.698,0.102) -- (23.698,0.782) .. controls (23.698,1.054) and (23.698,1.122) .. (23.188,1.122) -- (22.236,1.122) .. controls (21.386,1.122) and (20.910,1.836) .. (20.434,3.094) -- (13.566,21.318) .. controls (13.498,21.454) and (13.430,21.590) .. (13.362,21.692) .. controls (14.382,22.168) and (15.096,23.154) .. (15.096,24.276) .. controls (15.096,25.874) and (13.702,27.098) .. (12.172,27.098) .. controls (10.574,27.098) and (9.282,25.840) .. (9.282,24.276) .. controls (9.282,23.188) and (9.928,22.236) .. (10.880,21.760) .. controls (10.778,21.624) and (10.676,21.488) .. (10.608,21.318) -- (3.026,3.094) .. controls (2.448,1.700) and (1.428,1.122) .. (0.748,1.122) .. controls (0.340,1.122) and (0.068,1.122) .. (0.068,0.782) -- (0.068,0.068) -- (0.340,-0.034) .. controls (0.340,-0.034) and (2.380,0.034) .. (3.230,0.034) .. controls (4.046,0.034) and (7.174,-0.034) .. (7.174,-0.034) -- (7.344,0.102) -- (7.344,0.782) .. controls (7.344,1.054) and (7.174,1.122) .. (6.630,1.122) .. controls (4.624,1.122) and (4.658,1.700) .. (5.032,2.686) -- cycle (8.602,9.792) .. controls (7.990,9.792) and (7.956,9.894) .. (7.956,10.200) -- (10.880,17.476) -- (13.702,9.792) -- cycle (12.172,25.738) .. controls (12.852,25.738) and (13.396,25.092) .. (13.396,24.276) .. controls (13.396,23.460) and (12.852,22.814) .. (12.172,22.814) .. controls (11.492,22.814) and (10.948,23.460) .. (10.948,24.276) .. controls (10.948,25.092) and (11.492,25.738) .. (12.172,25.738) -- cycle;
@@ -755,12 +986,12 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (11.492,25.738) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (11.492,25.738) {338,757};
 \end{tikzpicture} \\
-{\fontsize{6}{7.5}\selectfont \textbf{358,766}\ 385,766\ 407,743\ \textbf{407,714}\ 407,688\ 387,663\ \textbf{358,663}\ 329,663\ 309,688\ \textbf{309,714}\ 309,742\ 330,766\ \textbf{358,766}} & {\fontsize{6}{7.5}\selectfont \textbf{358,760}\ 380,760\ 398,739\ \textbf{398,714}\ 398,689\ 380,668\ \textbf{358,668}\ 336,668\ 318,689\ \textbf{318,714}\ 318,739\ 336,760\ \textbf{358,760}} & {\fontsize{6}{7.5}\selectfont \textbf{358,757}\ 378,757\ 394,738\ \textbf{394,714}\ 394,690\ 378,671\ \textbf{358,671}\ 338,671\ 322,690\ \textbf{322,714}\ 322,738\ 338,757\ \textbf{358,757}} \\
+{\fontsize{6}{7.5}\selectfont \textbf{358,766}\ 385,766\ 407,743\ \textbf{407,714}\ 407,688\ 387,663\ \textbf{358,663}\ 329,663\ 309,688\ \textbf{309,714}\ 309,742\ 330,766\ \textbf{358,766}} & {\fontsize{6}{7.5}\selectfont \textbf{358,760}\ 380,760\ 398,739\ \textbf{398,714}\ 398,689\ 380,668\ \textbf{358,668}\ 336,668\ 318,689\ \textbf{318,714}\ 318,739\ 336,760\ \textbf{358,760}} & {\fontsize{6}{7.5}\selectfont \textbf{358,759}\ 379,759\ 396,739\ \textbf{396,714}\ 396,689\ 379,669\ \textbf{358,669}\ 337,669\ 320,689\ \textbf{320,714}\ 320,739\ 337,759\ \textbf{358,759}} & {\fontsize{6}{7.5}\selectfont \textbf{358,757}\ 378,757\ 394,738\ \textbf{394,714}\ 394,690\ 378,671\ \textbf{358,671}\ 338,671\ 322,690\ \textbf{322,714}\ 322,738\ 338,757\ \textbf{358,757}} \\
 \end{tabular}
 \clearpage
 \subsection*{Semibold italic: U+030A ring above}
-\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}}
-designer & draft × 1.15 & draft × 1.25 \\
+\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}p{8.4cm}}
+designer & draft × 1.15 & draft × 1.20 & draft × 1.25 \\
 \begin{tikzpicture}
 \fill[black!12, even odd rule] (-4.182,22.202) .. controls (-4.216,22.032) and (-4.216,21.862) .. (-4.216,21.658) .. controls (-4.216,20.366) and (-3.230,19.380) .. (-1.836,19.380) .. controls (-0.204,19.380) and (1.360,20.672) .. (1.632,22.202) .. controls (1.666,22.406) and (1.700,22.576) .. (1.700,22.746) .. controls (1.700,24.072) and (0.680,25.024) .. (-0.714,25.024) .. controls (-2.278,25.024) and (-3.842,23.766) .. (-4.182,22.202) -- cycle (-0.884,23.970) .. controls (-0.102,23.970) and (0.442,23.392) .. (0.442,22.576) .. controls (0.442,22.474) and (0.442,22.338) .. (0.408,22.202) .. controls (0.238,21.318) and (-0.646,20.468) .. (-1.598,20.468) .. controls (-2.482,20.468) and (-2.958,21.114) .. (-2.958,21.862) .. controls (-2.958,21.964) and (-2.958,22.100) .. (-2.924,22.202) .. controls (-2.754,23.154) and (-1.870,23.970) .. (-0.884,23.970) -- cycle;
 \draw[black!70, line width=0.4pt] (-4.182,22.202) .. controls (-4.216,22.032) and (-4.216,21.862) .. (-4.216,21.658) .. controls (-4.216,20.366) and (-3.230,19.380) .. (-1.836,19.380) .. controls (-0.204,19.380) and (1.360,20.672) .. (1.632,22.202) .. controls (1.666,22.406) and (1.700,22.576) .. (1.700,22.746) .. controls (1.700,24.072) and (0.680,25.024) .. (-0.714,25.024) .. controls (-2.278,25.024) and (-3.842,23.766) .. (-4.182,22.202) -- cycle (-0.884,23.970) .. controls (-0.102,23.970) and (0.442,23.392) .. (0.442,22.576) .. controls (0.442,22.474) and (0.442,22.338) .. (0.408,22.202) .. controls (0.238,21.318) and (-0.646,20.468) .. (-1.598,20.468) .. controls (-2.482,20.468) and (-2.958,21.114) .. (-2.958,21.862) .. controls (-2.958,21.964) and (-2.958,22.100) .. (-2.924,22.202) .. controls (-2.754,23.154) and (-1.870,23.970) .. (-0.884,23.970) -- cycle;
@@ -928,6 +1159,73 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (-1.734,23.936) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-1.734,23.936) {-51,704};
 \end{tikzpicture} & \begin{tikzpicture}
+\fill[black!12, even odd rule] (-4.182,22.202) .. controls (-4.488,20.638) and (-3.468,19.380) .. (-1.836,19.380) .. controls (-0.238,19.380) and (1.360,20.638) .. (1.666,22.202) .. controls (1.972,23.766) and (0.918,25.024) .. (-0.680,25.024) .. controls (-2.312,25.024) and (-3.876,23.766) .. (-4.182,22.202) -- cycle (-0.918,23.936) .. controls (-0.136,23.936) and (0.374,23.154) .. (0.170,22.202) .. controls (-0.034,21.250) and (-0.816,20.468) .. (-1.632,20.468) .. controls (-2.414,20.468) and (-2.890,21.250) .. (-2.686,22.202) .. controls (-2.482,23.154) and (-1.700,23.936) .. (-0.918,23.936) -- cycle;
+\draw[black!70, line width=0.4pt] (-4.182,22.202) .. controls (-4.488,20.638) and (-3.468,19.380) .. (-1.836,19.380) .. controls (-0.238,19.380) and (1.360,20.638) .. (1.666,22.202) .. controls (1.972,23.766) and (0.918,25.024) .. (-0.680,25.024) .. controls (-2.312,25.024) and (-3.876,23.766) .. (-4.182,22.202) -- cycle (-0.918,23.936) .. controls (-0.136,23.936) and (0.374,23.154) .. (0.170,22.202) .. controls (-0.034,21.250) and (-0.816,20.468) .. (-1.632,20.468) .. controls (-2.414,20.468) and (-2.890,21.250) .. (-2.686,22.202) .. controls (-2.482,23.154) and (-1.700,23.936) .. (-0.918,23.936) -- cycle;
+\draw[draft!70, line width=0.3pt] (-4.182,22.202) -- (-4.488,20.638);
+\draw[draft!70, line width=0.3pt] (-1.836,19.380) -- (-3.468,19.380);
+\draw[draft!70, line width=0.3pt] (-1.836,19.380) -- (-0.238,19.380);
+\draw[draft!70, line width=0.3pt] (1.666,22.202) -- (1.360,20.638);
+\draw[draft!70, line width=0.3pt] (1.666,22.202) -- (1.972,23.766);
+\draw[draft!70, line width=0.3pt] (-0.680,25.024) -- (0.918,25.024);
+\draw[draft!70, line width=0.3pt] (-0.680,25.024) -- (-2.312,25.024);
+\draw[draft!70, line width=0.3pt] (-4.182,22.202) -- (-3.876,23.766);
+\draw[draft!70, line width=0.3pt] (-0.918,23.936) -- (-0.136,23.936);
+\draw[draft!70, line width=0.3pt] (0.170,22.202) -- (0.374,23.154);
+\draw[draft!70, line width=0.3pt] (0.170,22.202) -- (-0.034,21.250);
+\draw[draft!70, line width=0.3pt] (-1.632,20.468) -- (-0.816,20.468);
+\draw[draft!70, line width=0.3pt] (-1.632,20.468) -- (-2.414,20.468);
+\draw[draft!70, line width=0.3pt] (-2.686,22.202) -- (-2.890,21.250);
+\draw[draft!70, line width=0.3pt] (-2.686,22.202) -- (-2.482,23.154);
+\draw[draft!70, line width=0.3pt] (-0.918,23.936) -- (-1.700,23.936);
+\fill[black] (-4.244,22.140) rectangle (-4.120,22.264);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-4.182,22.202) {-123,653};
+\draw[draft, fill=white, line width=0.3pt] (-4.488,20.638) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-4.488,20.638) {-132,607};
+\draw[draft, fill=white, line width=0.3pt] (-3.468,19.380) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-3.468,19.380) {-102,570};
+\fill[black] (-1.898,19.318) rectangle (-1.774,19.442);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-1.836,19.380) {-54,570};
+\draw[draft, fill=white, line width=0.3pt] (-0.238,19.380) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-0.238,19.380) {-7,570};
+\draw[draft, fill=white, line width=0.3pt] (1.360,20.638) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (1.360,20.638) {40,607};
+\fill[black] (1.604,22.140) rectangle (1.728,22.264);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (1.666,22.202) {49,653};
+\draw[draft, fill=white, line width=0.3pt] (1.972,23.766) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (1.972,23.766) {58,699};
+\draw[draft, fill=white, line width=0.3pt] (0.918,25.024) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (0.918,25.024) {27,736};
+\fill[black] (-0.742,24.962) rectangle (-0.618,25.086);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-0.680,25.024) {-20,736};
+\draw[draft, fill=white, line width=0.3pt] (-2.312,25.024) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-2.312,25.024) {-68,736};
+\draw[draft, fill=white, line width=0.3pt] (-3.876,23.766) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-3.876,23.766) {-114,699};
+\fill[black] (-0.980,23.874) rectangle (-0.856,23.998);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-0.918,23.936) {-27,704};
+\draw[draft, fill=white, line width=0.3pt] (-0.136,23.936) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-0.136,23.936) {-4,704};
+\draw[draft, fill=white, line width=0.3pt] (0.374,23.154) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (0.374,23.154) {11,681};
+\fill[black] (0.108,22.140) rectangle (0.232,22.264);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (0.170,22.202) {5,653};
+\draw[draft, fill=white, line width=0.3pt] (-0.034,21.250) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-0.034,21.250) {-1,625};
+\draw[draft, fill=white, line width=0.3pt] (-0.816,20.468) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-0.816,20.468) {-24,602};
+\fill[black] (-1.694,20.406) rectangle (-1.570,20.530);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-1.632,20.468) {-48,602};
+\draw[draft, fill=white, line width=0.3pt] (-2.414,20.468) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-2.414,20.468) {-71,602};
+\draw[draft, fill=white, line width=0.3pt] (-2.890,21.250) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-2.890,21.250) {-85,625};
+\fill[black] (-2.748,22.140) rectangle (-2.624,22.264);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-2.686,22.202) {-79,653};
+\draw[draft, fill=white, line width=0.3pt] (-2.482,23.154) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-2.482,23.154) {-73,681};
+\draw[draft, fill=white, line width=0.3pt] (-1.700,23.936) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-1.700,23.936) {-50,704};
+\end{tikzpicture} & \begin{tikzpicture}
 \fill[black!12, even odd rule] (-4.182,22.202) .. controls (-4.488,20.638) and (-3.468,19.380) .. (-1.836,19.380) .. controls (-0.238,19.380) and (1.360,20.638) .. (1.666,22.202) .. controls (1.972,23.766) and (0.918,25.024) .. (-0.680,25.024) .. controls (-2.312,25.024) and (-3.876,23.766) .. (-4.182,22.202) -- cycle (-0.918,23.868) .. controls (-0.170,23.868) and (0.272,23.120) .. (0.102,22.202) .. controls (-0.102,21.284) and (-0.850,20.536) .. (-1.598,20.536) .. controls (-2.346,20.536) and (-2.822,21.284) .. (-2.618,22.202) .. controls (-2.448,23.120) and (-1.666,23.868) .. (-0.918,23.868) -- cycle;
 \draw[black!70, line width=0.4pt] (-4.182,22.202) .. controls (-4.488,20.638) and (-3.468,19.380) .. (-1.836,19.380) .. controls (-0.238,19.380) and (1.360,20.638) .. (1.666,22.202) .. controls (1.972,23.766) and (0.918,25.024) .. (-0.680,25.024) .. controls (-2.312,25.024) and (-3.876,23.766) .. (-4.182,22.202) -- cycle (-0.918,23.868) .. controls (-0.170,23.868) and (0.272,23.120) .. (0.102,22.202) .. controls (-0.102,21.284) and (-0.850,20.536) .. (-1.598,20.536) .. controls (-2.346,20.536) and (-2.822,21.284) .. (-2.618,22.202) .. controls (-2.448,23.120) and (-1.666,23.868) .. (-0.918,23.868) -- cycle;
 \draw[draft!70, line width=0.3pt] (-4.182,22.202) -- (-4.488,20.638);
@@ -995,12 +1293,12 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (-1.666,23.868) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-1.666,23.868) {-49,702};
 \end{tikzpicture} \\
-{\fontsize{6}{7.5}\selectfont \textbf{-123,653}\ -124,648\ -124,643\ \textbf{-124,637}\ -124,599\ -95,570\ \textbf{-54,570}\ -6,570\ 40,608\ \textbf{48,653}\ 49,659\ 50,664\ \textbf{50,669}\ 50,708\ 20,736\ \textbf{-21,736}\ -67,736\ -113,699\ \textbf{-123,653}\par \textbf{-26,705}\ -3,705\ 13,688\ \textbf{13,664}\ 13,661\ 13,657\ \textbf{12,653}\ 7,627\ -19,602\ \textbf{-47,602}\ -73,602\ -87,621\ \textbf{-87,643}\ -87,646\ -87,650\ \textbf{-86,653}\ -81,681\ -55,705\ \textbf{-26,705}} & {\fontsize{6}{7.5}\selectfont \textbf{-123,653}\ -132,607\ -102,570\ \textbf{-54,570}\ -7,570\ 40,607\ \textbf{49,653}\ 58,699\ 27,736\ \textbf{-20,736}\ -68,736\ -114,699\ \textbf{-123,653}\par \textbf{-27,704}\ -3,704\ 12,681\ \textbf{6,653}\ 0,625\ -24,602\ \textbf{-48,602}\ -71,602\ -86,625\ \textbf{-80,653}\ -74,681\ -51,704\ \textbf{-27,704}} & {\fontsize{6}{7.5}\selectfont \textbf{-123,653}\ -132,607\ -102,570\ \textbf{-54,570}\ -7,570\ 40,607\ \textbf{49,653}\ 58,699\ 27,736\ \textbf{-20,736}\ -68,736\ -114,699\ \textbf{-123,653}\par \textbf{-27,702}\ -5,702\ 8,680\ \textbf{3,653}\ -3,626\ -25,604\ \textbf{-47,604}\ -69,604\ -83,626\ \textbf{-77,653}\ -72,680\ -49,702\ \textbf{-27,702}} \\
+{\fontsize{6}{7.5}\selectfont \textbf{-123,653}\ -124,648\ -124,643\ \textbf{-124,637}\ -124,599\ -95,570\ \textbf{-54,570}\ -6,570\ 40,608\ \textbf{48,653}\ 49,659\ 50,664\ \textbf{50,669}\ 50,708\ 20,736\ \textbf{-21,736}\ -67,736\ -113,699\ \textbf{-123,653}\par \textbf{-26,705}\ -3,705\ 13,688\ \textbf{13,664}\ 13,661\ 13,657\ \textbf{12,653}\ 7,627\ -19,602\ \textbf{-47,602}\ -73,602\ -87,621\ \textbf{-87,643}\ -87,646\ -87,650\ \textbf{-86,653}\ -81,681\ -55,705\ \textbf{-26,705}} & {\fontsize{6}{7.5}\selectfont \textbf{-123,653}\ -132,607\ -102,570\ \textbf{-54,570}\ -7,570\ 40,607\ \textbf{49,653}\ 58,699\ 27,736\ \textbf{-20,736}\ -68,736\ -114,699\ \textbf{-123,653}\par \textbf{-27,704}\ -3,704\ 12,681\ \textbf{6,653}\ 0,625\ -24,602\ \textbf{-48,602}\ -71,602\ -86,625\ \textbf{-80,653}\ -74,681\ -51,704\ \textbf{-27,704}} & {\fontsize{6}{7.5}\selectfont \textbf{-123,653}\ -132,607\ -102,570\ \textbf{-54,570}\ -7,570\ 40,607\ \textbf{49,653}\ 58,699\ 27,736\ \textbf{-20,736}\ -68,736\ -114,699\ \textbf{-123,653}\par \textbf{-27,704}\ -4,704\ 11,681\ \textbf{5,653}\ -1,625\ -24,602\ \textbf{-48,602}\ -71,602\ -85,625\ \textbf{-79,653}\ -73,681\ -50,704\ \textbf{-27,704}} & {\fontsize{6}{7.5}\selectfont \textbf{-123,653}\ -132,607\ -102,570\ \textbf{-54,570}\ -7,570\ 40,607\ \textbf{49,653}\ 58,699\ 27,736\ \textbf{-20,736}\ -68,736\ -114,699\ \textbf{-123,653}\par \textbf{-27,702}\ -5,702\ 8,680\ \textbf{3,653}\ -3,626\ -25,604\ \textbf{-47,604}\ -69,604\ -83,626\ \textbf{-77,653}\ -72,680\ -49,702\ \textbf{-27,702}} \\
 \end{tabular}
 \clearpage
 \subsection*{Semibold italic: U+0325 ring below}
-\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}}
-designer & draft × 1.15 & draft × 1.25 \\
+\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}p{8.4cm}}
+designer & draft × 1.15 & draft × 1.20 & draft × 1.25 \\
 \begin{tikzpicture}
 \fill[black!12, even odd rule] (-10.676,-3.978) .. controls (-10.710,-4.182) and (-10.710,-4.352) .. (-10.710,-4.522) .. controls (-10.710,-5.848) and (-9.724,-6.800) .. (-8.364,-6.800) .. controls (-6.732,-6.800) and (-5.168,-5.508) .. (-4.862,-3.978) .. controls (-4.828,-3.808) and (-4.794,-3.604) .. (-4.794,-3.468) .. controls (-4.794,-2.108) and (-5.814,-1.156) .. (-7.208,-1.156) .. controls (-8.806,-1.156) and (-10.370,-2.448) .. (-10.676,-3.978) -- cycle (-7.412,-2.210) .. controls (-6.596,-2.210) and (-6.052,-2.822) .. (-6.052,-3.604) .. controls (-6.052,-3.740) and (-6.052,-3.842) .. (-6.086,-3.978) .. controls (-6.290,-4.862) and (-7.140,-5.746) .. (-8.126,-5.746) .. controls (-8.976,-5.746) and (-9.486,-5.066) .. (-9.486,-4.318) .. controls (-9.486,-4.216) and (-9.452,-4.114) .. (-9.452,-3.978) .. controls (-9.248,-3.060) and (-8.364,-2.210) .. (-7.412,-2.210) -- cycle;
 \draw[black!70, line width=0.4pt] (-10.676,-3.978) .. controls (-10.710,-4.182) and (-10.710,-4.352) .. (-10.710,-4.522) .. controls (-10.710,-5.848) and (-9.724,-6.800) .. (-8.364,-6.800) .. controls (-6.732,-6.800) and (-5.168,-5.508) .. (-4.862,-3.978) .. controls (-4.828,-3.808) and (-4.794,-3.604) .. (-4.794,-3.468) .. controls (-4.794,-2.108) and (-5.814,-1.156) .. (-7.208,-1.156) .. controls (-8.806,-1.156) and (-10.370,-2.448) .. (-10.676,-3.978) -- cycle (-7.412,-2.210) .. controls (-6.596,-2.210) and (-6.052,-2.822) .. (-6.052,-3.604) .. controls (-6.052,-3.740) and (-6.052,-3.842) .. (-6.086,-3.978) .. controls (-6.290,-4.862) and (-7.140,-5.746) .. (-8.126,-5.746) .. controls (-8.976,-5.746) and (-9.486,-5.066) .. (-9.486,-4.318) .. controls (-9.486,-4.216) and (-9.452,-4.114) .. (-9.452,-3.978) .. controls (-9.248,-3.060) and (-8.364,-2.210) .. (-7.412,-2.210) -- cycle;
@@ -1168,6 +1466,73 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (-8.228,-2.210) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.228,-2.210) {-242,-65};
 \end{tikzpicture} & \begin{tikzpicture}
+\fill[black!12, even odd rule] (-10.710,-3.978) .. controls (-11.016,-5.542) and (-9.962,-6.800) .. (-8.364,-6.800) .. controls (-6.732,-6.800) and (-5.168,-5.542) .. (-4.862,-3.978) .. controls (-4.522,-2.414) and (-5.576,-1.156) .. (-7.208,-1.156) .. controls (-8.806,-1.156) and (-10.370,-2.414) .. (-10.710,-3.978) -- cycle (-7.412,-2.244) .. controls (-6.630,-2.244) and (-6.154,-3.026) .. (-6.358,-3.978) .. controls (-6.562,-4.930) and (-7.344,-5.712) .. (-8.126,-5.712) .. controls (-8.908,-5.712) and (-9.418,-4.930) .. (-9.214,-3.978) .. controls (-9.010,-3.026) and (-8.228,-2.244) .. (-7.412,-2.244) -- cycle;
+\draw[black!70, line width=0.4pt] (-10.710,-3.978) .. controls (-11.016,-5.542) and (-9.962,-6.800) .. (-8.364,-6.800) .. controls (-6.732,-6.800) and (-5.168,-5.542) .. (-4.862,-3.978) .. controls (-4.522,-2.414) and (-5.576,-1.156) .. (-7.208,-1.156) .. controls (-8.806,-1.156) and (-10.370,-2.414) .. (-10.710,-3.978) -- cycle (-7.412,-2.244) .. controls (-6.630,-2.244) and (-6.154,-3.026) .. (-6.358,-3.978) .. controls (-6.562,-4.930) and (-7.344,-5.712) .. (-8.126,-5.712) .. controls (-8.908,-5.712) and (-9.418,-4.930) .. (-9.214,-3.978) .. controls (-9.010,-3.026) and (-8.228,-2.244) .. (-7.412,-2.244) -- cycle;
+\draw[draft!70, line width=0.3pt] (-10.710,-3.978) -- (-11.016,-5.542);
+\draw[draft!70, line width=0.3pt] (-8.364,-6.800) -- (-9.962,-6.800);
+\draw[draft!70, line width=0.3pt] (-8.364,-6.800) -- (-6.732,-6.800);
+\draw[draft!70, line width=0.3pt] (-4.862,-3.978) -- (-5.168,-5.542);
+\draw[draft!70, line width=0.3pt] (-4.862,-3.978) -- (-4.522,-2.414);
+\draw[draft!70, line width=0.3pt] (-7.208,-1.156) -- (-5.576,-1.156);
+\draw[draft!70, line width=0.3pt] (-7.208,-1.156) -- (-8.806,-1.156);
+\draw[draft!70, line width=0.3pt] (-10.710,-3.978) -- (-10.370,-2.414);
+\draw[draft!70, line width=0.3pt] (-7.412,-2.244) -- (-6.630,-2.244);
+\draw[draft!70, line width=0.3pt] (-6.358,-3.978) -- (-6.154,-3.026);
+\draw[draft!70, line width=0.3pt] (-6.358,-3.978) -- (-6.562,-4.930);
+\draw[draft!70, line width=0.3pt] (-8.126,-5.712) -- (-7.344,-5.712);
+\draw[draft!70, line width=0.3pt] (-8.126,-5.712) -- (-8.908,-5.712);
+\draw[draft!70, line width=0.3pt] (-9.214,-3.978) -- (-9.418,-4.930);
+\draw[draft!70, line width=0.3pt] (-9.214,-3.978) -- (-9.010,-3.026);
+\draw[draft!70, line width=0.3pt] (-7.412,-2.244) -- (-8.228,-2.244);
+\fill[black] (-10.772,-4.040) rectangle (-10.648,-3.916);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-10.710,-3.978) {-315,-117};
+\draw[draft, fill=white, line width=0.3pt] (-11.016,-5.542) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-11.016,-5.542) {-324,-163};
+\draw[draft, fill=white, line width=0.3pt] (-9.962,-6.800) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-9.962,-6.800) {-293,-200};
+\fill[black] (-8.426,-6.862) rectangle (-8.302,-6.738);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-8.364,-6.800) {-246,-200};
+\draw[draft, fill=white, line width=0.3pt] (-6.732,-6.800) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.732,-6.800) {-198,-200};
+\draw[draft, fill=white, line width=0.3pt] (-5.168,-5.542) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-5.168,-5.542) {-152,-163};
+\fill[black] (-4.924,-4.040) rectangle (-4.800,-3.916);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-4.862,-3.978) {-143,-117};
+\draw[draft, fill=white, line width=0.3pt] (-4.522,-2.414) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-4.522,-2.414) {-133,-71};
+\draw[draft, fill=white, line width=0.3pt] (-5.576,-1.156) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-5.576,-1.156) {-164,-34};
+\fill[black] (-7.270,-1.218) rectangle (-7.146,-1.094);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-7.208,-1.156) {-212,-34};
+\draw[draft, fill=white, line width=0.3pt] (-8.806,-1.156) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.806,-1.156) {-259,-34};
+\draw[draft, fill=white, line width=0.3pt] (-10.370,-2.414) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-10.370,-2.414) {-305,-71};
+\fill[black] (-7.474,-2.306) rectangle (-7.350,-2.182);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-7.412,-2.244) {-218,-66};
+\draw[draft, fill=white, line width=0.3pt] (-6.630,-2.244) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.630,-2.244) {-195,-66};
+\draw[draft, fill=white, line width=0.3pt] (-6.154,-3.026) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.154,-3.026) {-181,-89};
+\fill[black] (-6.420,-4.040) rectangle (-6.296,-3.916);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-6.358,-3.978) {-187,-117};
+\draw[draft, fill=white, line width=0.3pt] (-6.562,-4.930) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-6.562,-4.930) {-193,-145};
+\draw[draft, fill=white, line width=0.3pt] (-7.344,-5.712) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-7.344,-5.712) {-216,-168};
+\fill[black] (-8.188,-5.774) rectangle (-8.064,-5.650);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-8.126,-5.712) {-239,-168};
+\draw[draft, fill=white, line width=0.3pt] (-8.908,-5.712) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.908,-5.712) {-262,-168};
+\draw[draft, fill=white, line width=0.3pt] (-9.418,-4.930) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-9.418,-4.930) {-277,-145};
+\fill[black] (-9.276,-4.040) rectangle (-9.152,-3.916);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (-9.214,-3.978) {-271,-117};
+\draw[draft, fill=white, line width=0.3pt] (-9.010,-3.026) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-9.010,-3.026) {-265,-89};
+\draw[draft, fill=white, line width=0.3pt] (-8.228,-2.244) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.228,-2.244) {-242,-66};
+\end{tikzpicture} & \begin{tikzpicture}
 \fill[black!12, even odd rule] (-10.710,-3.978) .. controls (-11.016,-5.542) and (-9.962,-6.800) .. (-8.364,-6.800) .. controls (-6.732,-6.800) and (-5.168,-5.542) .. (-4.862,-3.978) .. controls (-4.522,-2.414) and (-5.576,-1.156) .. (-7.208,-1.156) .. controls (-8.806,-1.156) and (-10.370,-2.414) .. (-10.710,-3.978) -- cycle (-7.446,-2.312) .. controls (-6.698,-2.312) and (-6.222,-3.060) .. (-6.426,-3.978) .. controls (-6.596,-4.896) and (-7.378,-5.644) .. (-8.126,-5.644) .. controls (-8.874,-5.644) and (-9.316,-4.896) .. (-9.146,-3.978) .. controls (-8.942,-3.060) and (-8.194,-2.312) .. (-7.446,-2.312) -- cycle;
 \draw[black!70, line width=0.4pt] (-10.710,-3.978) .. controls (-11.016,-5.542) and (-9.962,-6.800) .. (-8.364,-6.800) .. controls (-6.732,-6.800) and (-5.168,-5.542) .. (-4.862,-3.978) .. controls (-4.522,-2.414) and (-5.576,-1.156) .. (-7.208,-1.156) .. controls (-8.806,-1.156) and (-10.370,-2.414) .. (-10.710,-3.978) -- cycle (-7.446,-2.312) .. controls (-6.698,-2.312) and (-6.222,-3.060) .. (-6.426,-3.978) .. controls (-6.596,-4.896) and (-7.378,-5.644) .. (-8.126,-5.644) .. controls (-8.874,-5.644) and (-9.316,-4.896) .. (-9.146,-3.978) .. controls (-8.942,-3.060) and (-8.194,-2.312) .. (-7.446,-2.312) -- cycle;
 \draw[draft!70, line width=0.3pt] (-10.710,-3.978) -- (-11.016,-5.542);
@@ -1235,12 +1600,12 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (-8.194,-2.312) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (-8.194,-2.312) {-241,-68};
 \end{tikzpicture} \\
-{\fontsize{6}{7.5}\selectfont \textbf{-314,-117}\ -315,-123\ -315,-128\ \textbf{-315,-133}\ -315,-172\ -286,-200\ \textbf{-246,-200}\ -198,-200\ -152,-162\ \textbf{-143,-117}\ -142,-112\ -141,-106\ \textbf{-141,-102}\ -141,-62\ -171,-34\ \textbf{-212,-34}\ -259,-34\ -305,-72\ \textbf{-314,-117}\par \textbf{-218,-65}\ -194,-65\ -178,-83\ \textbf{-178,-106}\ -178,-110\ -178,-113\ \textbf{-179,-117}\ -185,-143\ -210,-169\ \textbf{-239,-169}\ -264,-169\ -279,-149\ \textbf{-279,-127}\ -279,-124\ -278,-121\ \textbf{-278,-117}\ -272,-90\ -246,-65\ \textbf{-218,-65}} & {\fontsize{6}{7.5}\selectfont \textbf{-315,-117}\ -324,-163\ -293,-200\ \textbf{-246,-200}\ -198,-200\ -152,-163\ \textbf{-143,-117}\ -133,-71\ -164,-34\ \textbf{-212,-34}\ -259,-34\ -305,-71\ \textbf{-315,-117}\par \textbf{-218,-65}\ -194,-65\ -180,-88\ \textbf{-186,-117}\ -192,-146\ -216,-169\ \textbf{-239,-169}\ -263,-169\ -278,-146\ \textbf{-272,-117}\ -266,-88\ -242,-65\ \textbf{-218,-65}} & {\fontsize{6}{7.5}\selectfont \textbf{-315,-117}\ -324,-163\ -293,-200\ \textbf{-246,-200}\ -198,-200\ -152,-163\ \textbf{-143,-117}\ -133,-71\ -164,-34\ \textbf{-212,-34}\ -259,-34\ -305,-71\ \textbf{-315,-117}\par \textbf{-219,-68}\ -197,-68\ -183,-90\ \textbf{-189,-117}\ -194,-144\ -217,-166\ \textbf{-239,-166}\ -261,-166\ -274,-144\ \textbf{-269,-117}\ -263,-90\ -241,-68\ \textbf{-219,-68}} \\
+{\fontsize{6}{7.5}\selectfont \textbf{-314,-117}\ -315,-123\ -315,-128\ \textbf{-315,-133}\ -315,-172\ -286,-200\ \textbf{-246,-200}\ -198,-200\ -152,-162\ \textbf{-143,-117}\ -142,-112\ -141,-106\ \textbf{-141,-102}\ -141,-62\ -171,-34\ \textbf{-212,-34}\ -259,-34\ -305,-72\ \textbf{-314,-117}\par \textbf{-218,-65}\ -194,-65\ -178,-83\ \textbf{-178,-106}\ -178,-110\ -178,-113\ \textbf{-179,-117}\ -185,-143\ -210,-169\ \textbf{-239,-169}\ -264,-169\ -279,-149\ \textbf{-279,-127}\ -279,-124\ -278,-121\ \textbf{-278,-117}\ -272,-90\ -246,-65\ \textbf{-218,-65}} & {\fontsize{6}{7.5}\selectfont \textbf{-315,-117}\ -324,-163\ -293,-200\ \textbf{-246,-200}\ -198,-200\ -152,-163\ \textbf{-143,-117}\ -133,-71\ -164,-34\ \textbf{-212,-34}\ -259,-34\ -305,-71\ \textbf{-315,-117}\par \textbf{-218,-65}\ -194,-65\ -180,-88\ \textbf{-186,-117}\ -192,-146\ -216,-169\ \textbf{-239,-169}\ -263,-169\ -278,-146\ \textbf{-272,-117}\ -266,-88\ -242,-65\ \textbf{-218,-65}} & {\fontsize{6}{7.5}\selectfont \textbf{-315,-117}\ -324,-163\ -293,-200\ \textbf{-246,-200}\ -198,-200\ -152,-163\ \textbf{-143,-117}\ -133,-71\ -164,-34\ \textbf{-212,-34}\ -259,-34\ -305,-71\ \textbf{-315,-117}\par \textbf{-218,-66}\ -195,-66\ -181,-89\ \textbf{-187,-117}\ -193,-145\ -216,-168\ \textbf{-239,-168}\ -262,-168\ -277,-145\ \textbf{-271,-117}\ -265,-89\ -242,-66\ \textbf{-218,-66}} & {\fontsize{6}{7.5}\selectfont \textbf{-315,-117}\ -324,-163\ -293,-200\ \textbf{-246,-200}\ -198,-200\ -152,-163\ \textbf{-143,-117}\ -133,-71\ -164,-34\ \textbf{-212,-34}\ -259,-34\ -305,-71\ \textbf{-315,-117}\par \textbf{-219,-68}\ -197,-68\ -183,-90\ \textbf{-189,-117}\ -194,-144\ -217,-166\ \textbf{-239,-166}\ -261,-166\ -274,-144\ \textbf{-269,-117}\ -263,-90\ -241,-68\ \textbf{-219,-68}} \\
 \end{tabular}
 \clearpage
 \subsection*{Semibold italic: Å (ring merged with the apex)}
-\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}}
-designer & draft × 1.15 & draft × 1.25 \\
+\begin{tabular}{p{8.4cm}p{8.4cm}p{8.4cm}p{8.4cm}}
+designer & draft × 1.15 & draft × 1.20 & draft × 1.25 \\
 \begin{tikzpicture}
 \clip (11.662,20.026) rectangle (22.576,27.812);
 \fill[black!12, even odd rule] (21.522,3.094) -- (17.850,21.318) .. controls (17.816,21.488) and (17.782,21.624) .. (17.714,21.760) .. controls (18.870,22.202) and (19.788,23.188) .. (20.026,24.344) .. controls (20.060,24.514) and (20.094,24.718) .. (20.094,24.888) .. controls (20.094,26.214) and (19.040,27.166) .. (17.680,27.166) .. controls (16.082,27.166) and (14.518,25.874) .. (14.212,24.344) .. controls (14.178,24.174) and (14.144,23.970) .. (14.144,23.800) .. controls (14.144,22.882) and (14.654,22.100) .. (15.436,21.760) .. controls (15.300,21.624) and (15.198,21.488) .. (15.096,21.318) -- (4.216,3.230) .. controls (3.706,2.380) and (2.958,1.394) .. (1.326,1.156) -- (0.850,1.088) .. controls (0.714,1.054) and (0.544,0.986) .. (0.510,0.782) -- (0.442,0.000) -- (0.510,-0.068) .. controls (0.510,-0.068) and (2.108,0.000) .. (3.434,0.000) .. controls (4.658,0.000) and (7.650,-0.068) .. (7.650,-0.068) -- (7.718,0.000) -- (7.820,0.782) .. controls (7.820,0.986) and (7.752,1.054) .. (7.582,1.088) -- (7.208,1.156) .. controls (6.392,1.292) and (5.610,1.734) .. (6.052,2.482) -- (9.214,7.718) .. controls (9.418,8.058) and (9.588,8.194) .. (9.860,8.194) -- (16.286,8.194) -- (17.374,2.482) .. controls (17.544,1.632) and (16.762,1.292) .. (15.946,1.156) -- (15.572,1.088) .. controls (15.402,1.054) and (15.368,1.020) .. (15.334,0.782) -- (15.232,0.000) -- (15.300,-0.068) .. controls (15.300,-0.068) and (20.332,0.000) .. (21.556,0.000) .. controls (22.882,0.000) and (24.140,-0.068) .. (24.140,-0.068) -- (24.208,0.000) -- (24.344,0.782) .. controls (24.344,0.986) and (24.140,1.054) .. (24.004,1.088) -- (23.528,1.156) .. controls (21.930,1.394) and (21.726,2.142) .. (21.522,3.094) -- cycle (10.744,9.792) .. controls (10.540,9.792) and (10.540,9.962) .. (10.676,10.200) .. controls (10.676,10.200) and (13.294,14.586) .. (14.586,16.796) .. controls (15.164,13.906) and (15.436,12.614) .. (15.980,9.792) -- cycle (17.476,26.112) .. controls (18.292,26.112) and (18.836,25.500) .. (18.836,24.718) .. controls (18.836,24.582) and (18.836,24.480) .. (18.802,24.344) .. controls (18.632,23.460) and (17.748,22.576) .. (16.762,22.576) .. controls (15.912,22.576) and (15.402,23.256) .. (15.402,24.004) .. controls (15.402,24.106) and (15.436,24.208) .. (15.436,24.344) .. controls (15.640,25.262) and (16.524,26.112) .. (17.476,26.112) -- cycle;
@@ -1462,6 +1827,108 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (16.694,26.112) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (16.694,26.112) {491,768};
 \end{tikzpicture} & \begin{tikzpicture}
+\clip (11.764,20.060) rectangle (22.474,27.778);
+\fill[black!12, even odd rule] (21.522,3.094) -- (17.850,21.318) .. controls (17.816,21.488) and (17.782,21.624) .. (17.714,21.760) .. controls (18.870,22.202) and (19.788,23.188) .. (20.026,24.344) .. controls (20.060,24.514) and (20.094,24.718) .. (20.094,24.888) .. controls (20.094,26.214) and (19.040,27.166) .. (17.680,27.166) .. controls (16.082,27.166) and (14.518,25.874) .. (14.212,24.344) .. controls (14.178,24.174) and (14.144,23.970) .. (14.144,23.800) .. controls (14.144,22.882) and (14.654,22.100) .. (15.436,21.760) .. controls (15.300,21.624) and (15.198,21.488) .. (15.096,21.318) -- (4.216,3.230) .. controls (3.706,2.380) and (2.958,1.394) .. (1.326,1.156) -- (0.850,1.088) .. controls (0.714,1.054) and (0.544,0.986) .. (0.510,0.782) -- (0.442,0.000) -- (0.510,-0.068) .. controls (0.510,-0.068) and (2.108,0.000) .. (3.434,0.000) .. controls (4.658,0.000) and (7.650,-0.068) .. (7.650,-0.068) -- (7.718,0.000) -- (7.820,0.782) .. controls (7.820,0.986) and (7.752,1.054) .. (7.582,1.088) -- (7.208,1.156) .. controls (6.392,1.292) and (5.610,1.734) .. (6.052,2.482) -- (9.214,7.718) .. controls (9.418,8.058) and (9.588,8.194) .. (9.860,8.194) -- (16.286,8.194) -- (17.374,2.482) .. controls (17.544,1.632) and (16.762,1.292) .. (15.946,1.156) -- (15.572,1.088) .. controls (15.402,1.054) and (15.368,1.020) .. (15.334,0.782) -- (15.232,0.000) -- (15.300,-0.068) .. controls (15.300,-0.068) and (20.332,0.000) .. (21.556,0.000) .. controls (22.882,0.000) and (24.140,-0.068) .. (24.140,-0.068) -- (24.208,0.000) -- (24.344,0.782) .. controls (24.344,0.986) and (24.140,1.054) .. (24.004,1.088) -- (23.528,1.156) .. controls (21.930,1.394) and (21.726,2.142) .. (21.522,3.094) -- cycle (10.744,9.792) .. controls (10.540,9.792) and (10.540,9.962) .. (10.676,10.200) .. controls (10.676,10.200) and (13.294,14.586) .. (14.586,16.796) .. controls (15.164,13.906) and (15.436,12.614) .. (15.980,9.792) -- cycle (17.476,26.078) .. controls (18.258,26.078) and (18.734,25.296) .. (18.564,24.344) .. controls (18.360,23.392) and (17.544,22.610) .. (16.762,22.610) .. controls (15.980,22.610) and (15.504,23.392) .. (15.708,24.344) .. controls (15.878,25.296) and (16.694,26.078) .. (17.476,26.078) -- cycle;
+\draw[black!70, line width=0.4pt] (21.522,3.094) -- (17.850,21.318) .. controls (17.816,21.488) and (17.782,21.624) .. (17.714,21.760) .. controls (18.870,22.202) and (19.788,23.188) .. (20.026,24.344) .. controls (20.060,24.514) and (20.094,24.718) .. (20.094,24.888) .. controls (20.094,26.214) and (19.040,27.166) .. (17.680,27.166) .. controls (16.082,27.166) and (14.518,25.874) .. (14.212,24.344) .. controls (14.178,24.174) and (14.144,23.970) .. (14.144,23.800) .. controls (14.144,22.882) and (14.654,22.100) .. (15.436,21.760) .. controls (15.300,21.624) and (15.198,21.488) .. (15.096,21.318) -- (4.216,3.230) .. controls (3.706,2.380) and (2.958,1.394) .. (1.326,1.156) -- (0.850,1.088) .. controls (0.714,1.054) and (0.544,0.986) .. (0.510,0.782) -- (0.442,0.000) -- (0.510,-0.068) .. controls (0.510,-0.068) and (2.108,0.000) .. (3.434,0.000) .. controls (4.658,0.000) and (7.650,-0.068) .. (7.650,-0.068) -- (7.718,0.000) -- (7.820,0.782) .. controls (7.820,0.986) and (7.752,1.054) .. (7.582,1.088) -- (7.208,1.156) .. controls (6.392,1.292) and (5.610,1.734) .. (6.052,2.482) -- (9.214,7.718) .. controls (9.418,8.058) and (9.588,8.194) .. (9.860,8.194) -- (16.286,8.194) -- (17.374,2.482) .. controls (17.544,1.632) and (16.762,1.292) .. (15.946,1.156) -- (15.572,1.088) .. controls (15.402,1.054) and (15.368,1.020) .. (15.334,0.782) -- (15.232,0.000) -- (15.300,-0.068) .. controls (15.300,-0.068) and (20.332,0.000) .. (21.556,0.000) .. controls (22.882,0.000) and (24.140,-0.068) .. (24.140,-0.068) -- (24.208,0.000) -- (24.344,0.782) .. controls (24.344,0.986) and (24.140,1.054) .. (24.004,1.088) -- (23.528,1.156) .. controls (21.930,1.394) and (21.726,2.142) .. (21.522,3.094) -- cycle (10.744,9.792) .. controls (10.540,9.792) and (10.540,9.962) .. (10.676,10.200) .. controls (10.676,10.200) and (13.294,14.586) .. (14.586,16.796) .. controls (15.164,13.906) and (15.436,12.614) .. (15.980,9.792) -- cycle (17.476,26.078) .. controls (18.258,26.078) and (18.734,25.296) .. (18.564,24.344) .. controls (18.360,23.392) and (17.544,22.610) .. (16.762,22.610) .. controls (15.980,22.610) and (15.504,23.392) .. (15.708,24.344) .. controls (15.878,25.296) and (16.694,26.078) .. (17.476,26.078) -- cycle;
+\draw[draft!70, line width=0.3pt] (17.850,21.318) -- (17.816,21.488);
+\draw[draft!70, line width=0.3pt] (17.714,21.760) -- (17.782,21.624);
+\draw[draft!70, line width=0.3pt] (17.714,21.760) -- (18.870,22.202);
+\draw[draft!70, line width=0.3pt] (20.026,24.344) -- (19.788,23.188);
+\draw[draft!70, line width=0.3pt] (20.026,24.344) -- (20.060,24.514);
+\draw[draft!70, line width=0.3pt] (20.094,24.888) -- (20.094,24.718);
+\draw[draft!70, line width=0.3pt] (20.094,24.888) -- (20.094,26.214);
+\draw[draft!70, line width=0.3pt] (17.680,27.166) -- (19.040,27.166);
+\draw[draft!70, line width=0.3pt] (17.680,27.166) -- (16.082,27.166);
+\draw[draft!70, line width=0.3pt] (14.212,24.344) -- (14.518,25.874);
+\draw[draft!70, line width=0.3pt] (14.212,24.344) -- (14.178,24.174);
+\draw[draft!70, line width=0.3pt] (14.144,23.800) -- (14.144,23.970);
+\draw[draft!70, line width=0.3pt] (14.144,23.800) -- (14.144,22.882);
+\draw[draft!70, line width=0.3pt] (15.436,21.760) -- (14.654,22.100);
+\draw[draft!70, line width=0.3pt] (15.436,21.760) -- (15.300,21.624);
+\draw[draft!70, line width=0.3pt] (15.096,21.318) -- (15.198,21.488);
+\draw[draft!70, line width=0.3pt] (17.476,26.078) -- (18.258,26.078);
+\draw[draft!70, line width=0.3pt] (18.564,24.344) -- (18.734,25.296);
+\draw[draft!70, line width=0.3pt] (18.564,24.344) -- (18.360,23.392);
+\draw[draft!70, line width=0.3pt] (16.762,22.610) -- (17.544,22.610);
+\draw[draft!70, line width=0.3pt] (16.762,22.610) -- (15.980,22.610);
+\draw[draft!70, line width=0.3pt] (15.708,24.344) -- (15.504,23.392);
+\draw[draft!70, line width=0.3pt] (15.708,24.344) -- (15.878,25.296);
+\draw[draft!70, line width=0.3pt] (17.476,26.078) -- (16.694,26.078);
+\fill[black] (17.788,21.256) rectangle (17.912,21.380);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (17.850,21.318) {525,627};
+\draw[draft, fill=white, line width=0.3pt] (17.816,21.488) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (17.816,21.488) {524,632};
+\draw[draft, fill=white, line width=0.3pt] (17.782,21.624) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (17.782,21.624) {523,636};
+\fill[black] (17.652,21.698) rectangle (17.776,21.822);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (17.714,21.760) {521,640};
+\draw[draft, fill=white, line width=0.3pt] (18.870,22.202) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (18.870,22.202) {555,653};
+\draw[draft, fill=white, line width=0.3pt] (19.788,23.188) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (19.788,23.188) {582,682};
+\fill[black] (19.964,24.282) rectangle (20.088,24.406);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (20.026,24.344) {589,716};
+\draw[draft, fill=white, line width=0.3pt] (20.060,24.514) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (20.060,24.514) {590,721};
+\draw[draft, fill=white, line width=0.3pt] (20.094,24.718) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (20.094,24.718) {591,727};
+\fill[black] (20.032,24.826) rectangle (20.156,24.950);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (20.094,24.888) {591,732};
+\draw[draft, fill=white, line width=0.3pt] (20.094,26.214) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (20.094,26.214) {591,771};
+\draw[draft, fill=white, line width=0.3pt] (19.040,27.166) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (19.040,27.166) {560,799};
+\fill[black] (17.618,27.104) rectangle (17.742,27.228);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (17.680,27.166) {520,799};
+\draw[draft, fill=white, line width=0.3pt] (16.082,27.166) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (16.082,27.166) {473,799};
+\draw[draft, fill=white, line width=0.3pt] (14.518,25.874) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (14.518,25.874) {427,761};
+\fill[black] (14.150,24.282) rectangle (14.274,24.406);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (14.212,24.344) {418,716};
+\draw[draft, fill=white, line width=0.3pt] (14.178,24.174) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (14.178,24.174) {417,711};
+\draw[draft, fill=white, line width=0.3pt] (14.144,23.970) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (14.144,23.970) {416,705};
+\fill[black] (14.082,23.738) rectangle (14.206,23.862);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (14.144,23.800) {416,700};
+\draw[draft, fill=white, line width=0.3pt] (14.144,22.882) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (14.144,22.882) {416,673};
+\draw[draft, fill=white, line width=0.3pt] (14.654,22.100) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (14.654,22.100) {431,650};
+\fill[black] (15.374,21.698) rectangle (15.498,21.822);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (15.436,21.760) {454,640};
+\draw[draft, fill=white, line width=0.3pt] (15.300,21.624) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (15.300,21.624) {450,636};
+\draw[draft, fill=white, line width=0.3pt] (15.198,21.488) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (15.198,21.488) {447,632};
+\fill[black] (15.034,21.256) rectangle (15.158,21.380);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (15.096,21.318) {444,627};
+\fill[black] (17.414,26.016) rectangle (17.538,26.140);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (17.476,26.078) {514,767};
+\draw[draft, fill=white, line width=0.3pt] (18.258,26.078) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (18.258,26.078) {537,767};
+\draw[draft, fill=white, line width=0.3pt] (18.734,25.296) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (18.734,25.296) {551,744};
+\fill[black] (18.502,24.282) rectangle (18.626,24.406);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (18.564,24.344) {546,716};
+\draw[draft, fill=white, line width=0.3pt] (18.360,23.392) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (18.360,23.392) {540,688};
+\draw[draft, fill=white, line width=0.3pt] (17.544,22.610) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (17.544,22.610) {516,665};
+\fill[black] (16.700,22.548) rectangle (16.824,22.672);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (16.762,22.610) {493,665};
+\draw[draft, fill=white, line width=0.3pt] (15.980,22.610) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (15.980,22.610) {470,665};
+\draw[draft, fill=white, line width=0.3pt] (15.504,23.392) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (15.504,23.392) {456,688};
+\fill[black] (15.646,24.282) rectangle (15.770,24.406);
+\node[font=\fontsize{4.5}{5}\selectfont, anchor=south west, inner sep=0.6pt] at (15.708,24.344) {462,716};
+\draw[draft, fill=white, line width=0.3pt] (15.878,25.296) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (15.878,25.296) {467,744};
+\draw[draft, fill=white, line width=0.3pt] (16.694,26.078) circle (0.55pt);
+\node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (16.694,26.078) {491,767};
+\end{tikzpicture} & \begin{tikzpicture}
 \clip (11.832,20.094) rectangle (22.406,27.744);
 \fill[black!12, even odd rule] (21.522,3.094) -- (17.850,21.318) .. controls (17.816,21.488) and (17.782,21.624) .. (17.714,21.760) .. controls (18.870,22.202) and (19.788,23.188) .. (20.026,24.344) .. controls (20.060,24.514) and (20.094,24.718) .. (20.094,24.888) .. controls (20.094,26.214) and (19.040,27.166) .. (17.680,27.166) .. controls (16.082,27.166) and (14.518,25.874) .. (14.212,24.344) .. controls (14.178,24.174) and (14.144,23.970) .. (14.144,23.800) .. controls (14.144,22.882) and (14.654,22.100) .. (15.436,21.760) .. controls (15.300,21.624) and (15.198,21.488) .. (15.096,21.318) -- (4.216,3.230) .. controls (3.706,2.380) and (2.958,1.394) .. (1.326,1.156) -- (0.850,1.088) .. controls (0.714,1.054) and (0.544,0.986) .. (0.510,0.782) -- (0.442,0.000) -- (0.510,-0.068) .. controls (0.510,-0.068) and (2.108,0.000) .. (3.434,0.000) .. controls (4.658,0.000) and (7.650,-0.068) .. (7.650,-0.068) -- (7.718,0.000) -- (7.820,0.782) .. controls (7.820,0.986) and (7.752,1.054) .. (7.582,1.088) -- (7.208,1.156) .. controls (6.392,1.292) and (5.610,1.734) .. (6.052,2.482) -- (9.214,7.718) .. controls (9.418,8.058) and (9.588,8.194) .. (9.860,8.194) -- (16.286,8.194) -- (17.374,2.482) .. controls (17.544,1.632) and (16.762,1.292) .. (15.946,1.156) -- (15.572,1.088) .. controls (15.402,1.054) and (15.368,1.020) .. (15.334,0.782) -- (15.232,0.000) -- (15.300,-0.068) .. controls (15.300,-0.068) and (20.332,0.000) .. (21.556,0.000) .. controls (22.882,0.000) and (24.140,-0.068) .. (24.140,-0.068) -- (24.208,0.000) -- (24.344,0.782) .. controls (24.344,0.986) and (24.140,1.054) .. (24.004,1.088) -- (23.528,1.156) .. controls (21.930,1.394) and (21.726,2.142) .. (21.522,3.094) -- cycle (10.744,9.792) .. controls (10.540,9.792) and (10.540,9.962) .. (10.676,10.200) .. controls (10.676,10.200) and (13.294,14.586) .. (14.586,16.796) .. controls (15.164,13.906) and (15.436,12.614) .. (15.980,9.792) -- cycle (17.476,26.044) .. controls (18.224,26.044) and (18.666,25.296) .. (18.496,24.344) .. controls (18.292,23.392) and (17.544,22.644) .. (16.762,22.644) .. controls (16.014,22.644) and (15.572,23.392) .. (15.776,24.344) .. controls (15.946,25.296) and (16.728,26.044) .. (17.476,26.044) -- cycle;
 \draw[black!70, line width=0.4pt] (21.522,3.094) -- (17.850,21.318) .. controls (17.816,21.488) and (17.782,21.624) .. (17.714,21.760) .. controls (18.870,22.202) and (19.788,23.188) .. (20.026,24.344) .. controls (20.060,24.514) and (20.094,24.718) .. (20.094,24.888) .. controls (20.094,26.214) and (19.040,27.166) .. (17.680,27.166) .. controls (16.082,27.166) and (14.518,25.874) .. (14.212,24.344) .. controls (14.178,24.174) and (14.144,23.970) .. (14.144,23.800) .. controls (14.144,22.882) and (14.654,22.100) .. (15.436,21.760) .. controls (15.300,21.624) and (15.198,21.488) .. (15.096,21.318) -- (4.216,3.230) .. controls (3.706,2.380) and (2.958,1.394) .. (1.326,1.156) -- (0.850,1.088) .. controls (0.714,1.054) and (0.544,0.986) .. (0.510,0.782) -- (0.442,0.000) -- (0.510,-0.068) .. controls (0.510,-0.068) and (2.108,0.000) .. (3.434,0.000) .. controls (4.658,0.000) and (7.650,-0.068) .. (7.650,-0.068) -- (7.718,0.000) -- (7.820,0.782) .. controls (7.820,0.986) and (7.752,1.054) .. (7.582,1.088) -- (7.208,1.156) .. controls (6.392,1.292) and (5.610,1.734) .. (6.052,2.482) -- (9.214,7.718) .. controls (9.418,8.058) and (9.588,8.194) .. (9.860,8.194) -- (16.286,8.194) -- (17.374,2.482) .. controls (17.544,1.632) and (16.762,1.292) .. (15.946,1.156) -- (15.572,1.088) .. controls (15.402,1.054) and (15.368,1.020) .. (15.334,0.782) -- (15.232,0.000) -- (15.300,-0.068) .. controls (15.300,-0.068) and (20.332,0.000) .. (21.556,0.000) .. controls (22.882,0.000) and (24.140,-0.068) .. (24.140,-0.068) -- (24.208,0.000) -- (24.344,0.782) .. controls (24.344,0.986) and (24.140,1.054) .. (24.004,1.088) -- (23.528,1.156) .. controls (21.930,1.394) and (21.726,2.142) .. (21.522,3.094) -- cycle (10.744,9.792) .. controls (10.540,9.792) and (10.540,9.962) .. (10.676,10.200) .. controls (10.676,10.200) and (13.294,14.586) .. (14.586,16.796) .. controls (15.164,13.906) and (15.436,12.614) .. (15.980,9.792) -- cycle (17.476,26.044) .. controls (18.224,26.044) and (18.666,25.296) .. (18.496,24.344) .. controls (18.292,23.392) and (17.544,22.644) .. (16.762,22.644) .. controls (16.014,22.644) and (15.572,23.392) .. (15.776,24.344) .. controls (15.946,25.296) and (16.728,26.044) .. (17.476,26.044) -- cycle;
@@ -1564,7 +2031,7 @@ designer & draft × 1.15 & draft × 1.25 \\
 \draw[draft, fill=white, line width=0.3pt] (16.728,26.044) circle (0.55pt);
 \node[font=\fontsize{4.5}{5}\selectfont, text=draft, anchor=north east, inner sep=0.6pt] at (16.728,26.044) {492,766};
 \end{tikzpicture} \\
-{\fontsize{6}{7.5}\selectfont \textbf{514,768}\ 538,768\ 554,750\ \textbf{554,727}\ 554,723\ 554,720\ \textbf{553,716}\ 548,690\ 522,664\ \textbf{493,664}\ 468,664\ 453,684\ \textbf{453,706}\ 453,709\ 454,712\ \textbf{454,716}\ 460,743\ 486,768\ \textbf{514,768}} & {\fontsize{6}{7.5}\selectfont \textbf{514,768}\ 538,768\ 553,745\ \textbf{547,716}\ 541,687\ 517,664\ \textbf{493,664}\ 469,664\ 455,687\ \textbf{461,716}\ 467,745\ 491,768\ \textbf{514,768}} & {\fontsize{6}{7.5}\selectfont \textbf{514,766}\ 536,766\ 549,744\ \textbf{544,716}\ 538,688\ 516,666\ \textbf{493,666}\ 471,666\ 458,688\ \textbf{464,716}\ 469,744\ 492,766\ \textbf{514,766}} \\
+{\fontsize{6}{7.5}\selectfont \textbf{514,768}\ 538,768\ 554,750\ \textbf{554,727}\ 554,723\ 554,720\ \textbf{553,716}\ 548,690\ 522,664\ \textbf{493,664}\ 468,664\ 453,684\ \textbf{453,706}\ 453,709\ 454,712\ \textbf{454,716}\ 460,743\ 486,768\ \textbf{514,768}} & {\fontsize{6}{7.5}\selectfont \textbf{514,768}\ 538,768\ 553,745\ \textbf{547,716}\ 541,687\ 517,664\ \textbf{493,664}\ 469,664\ 455,687\ \textbf{461,716}\ 467,745\ 491,768\ \textbf{514,768}} & {\fontsize{6}{7.5}\selectfont \textbf{514,767}\ 537,767\ 551,744\ \textbf{546,716}\ 540,688\ 516,665\ \textbf{493,665}\ 470,665\ 456,688\ \textbf{462,716}\ 467,744\ 491,767\ \textbf{514,767}} & {\fontsize{6}{7.5}\selectfont \textbf{514,766}\ 536,766\ 549,744\ \textbf{544,716}\ 538,688\ 516,666\ \textbf{493,666}\ 471,666\ 458,688\ \textbf{464,716}\ 469,744\ 492,766\ \textbf{514,766}} \\
 \end{tabular}
 \clearpage
 \end{document}

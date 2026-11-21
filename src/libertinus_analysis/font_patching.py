@@ -46,6 +46,7 @@ from pathlib import Path
 from .font_context import FontContext, FONTS
 from .font_patching_addglyphs import add_custom_glyphs
 from .font_patching_drafts import add_draft_glyphs
+from .font_patching_dotoutlines import patch_dot_outlines
 from .font_patching_addmarks import add_cap_dot, add_cap_tilde, add_missing_marks
 from .font_patching_redraw import redraw_glyphs
 from .font_patching_anchors import load_human_anchors, patch_anchors_human
@@ -183,6 +184,10 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # The approved drafts of the letters the style lacks (data/draft_glyphs,
     # written by run_missing_glyphs_sheet.py), before the anchor stages.
     for line in add_draft_glyphs(ttfont, font_key):
+        print(f"[{font_key}] {line}")
+    # Dot outlines: U+0323 and the dot of ṃ take the precomposed letters' dot
+    # (U+02D9), U+0324 the diaeresis of U+0308 / ṳ; italic ỵ's dot moves right.
+    for line in patch_dot_outlines(ttfont, font_key):
         print(f"[{font_key}] {line}")
 
     # ------------------------------------------------------------

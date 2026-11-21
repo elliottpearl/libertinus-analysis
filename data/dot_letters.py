@@ -15,7 +15,8 @@
 #     - from the designer's precomposed letter, where one has the dot there
 #       (ḃ ḋ ḣ ỵ), so that the composed letter matches it;
 #     - a derived letter (data/derived_letters.py) whose base letter is listed
-#       inherits the base's dot anchor, moved by the fit of the base (fit_base);
+#       inherits the base's dot anchor, moved by the fit of the base (fit_base),
+#       and pushed sideways like a model dot if that leaves it under MIN_GAP;
 #     - else the model's X for the x-height body (roman: midpoint of the ink
 #       between the baseline and the x-height; italic: midline of the advance
 #       lane at the anchor's height, minus K), pushed sideways only as far as
@@ -39,9 +40,10 @@ DOT_ABOVE = [
     0x0257,  # ɗ  d with hook (derived from d)
     0x0260,  # ɠ  g with hook
     0x02A0,  # ʠ  q with hook
-    0x026E,  # ɮ  lezh, over the ezh
     0x2C68,  # ⱨ  h with descender (derived from h)
     0x2C6A,  # ⱪ  k with descender
+    0x0221,  # ȡ  d with curl (derived from d; pushed clear in semibold, 2026-11-21)
+    0x0256,  # ɖ  d with tail (derived from d; pushed clear in semibold, 2026-11-21)
 ]
 
 DOT_BELOW = [
@@ -58,6 +60,9 @@ DOT_BELOW = [
     0x024F,  # ɏ  y with stroke (derived from y)
     0x01B4,  # ƴ  y with hook
     0xA765,  # ꝥ  thorn with stroke (derived from þ)
+    0x02A0,  # ʠ  q with hook (derived from q; pushed clear in semibold, 2026-11-21)
+    0x01A5,  # ƥ  p with hook (derived from p; pushed clear in semibold, 2026-11-21)
+    0x1EFF,  # ỿ  y with loop (derived from y); regular only until the other styles are drafted, then it inherits there too
 ]
 # A letter belongs in a list only if its dot is clear in all four styles
 # (gap at least MIN_GAP - 6, or the designer's own precomposed position) and
@@ -74,6 +79,15 @@ EXCLUDED_ABOVE = {
     0x0278: (None, "ɸ: the dot lands beside the stem, over the bowl's side"),
     0x0192: (None, "ƒ: the dot lands beside the stem"),
     0x027A: (None, "ɺ: the dot lands beside the stem, over the arm"),
+    0x0066: (None, "f: base not suitable for the x-height position (2026-11-21)"),
+    0x00F0: (None, "ð: base not suitable for the x-height position (2026-11-21)"),
+    0x0284: (None, "ʄ: base not suitable for the x-height position (2026-11-21)"),
+    0x1E9C: (None, "ẜ: base not suitable for the x-height position (2026-11-21)"),
+    0x0180: (None, "ƀ: the bar collides with the dot in too many styles, though b takes the x-height position (2026-11-21)"),
+    0x0199: (None, "ƙ: the hook collides with the dot in too many styles, though k takes the x-height position (2026-11-21)"),
+    0x0253: (None, "ɓ: the hook collides with the dot in too many styles, though b takes the x-height position (2026-11-21)"),
+    0x01A5: (None, "ƥ: the hook arches over the body, and the dot clears it only pushed onto its far side (+160-190), as ɓ ƙ; hooks that curl away from the body (ɗ ɠ ʠ) are in (2026-11-21)"),
+    0x026E: (None, "ɮ: other above marks sit over the l at the ascender; the l is not suitable for the x-height position, so the dot follows them (2026-11-21)"),
 }
 
 EXCLUDED_BELOW = {
@@ -87,6 +101,9 @@ EXCLUDED_BELOW = {
     0x0284: (None, "ʄ: the dot lands beside the stem"),
     0x027C: (None, "ɼ: the dot lands beside the long leg"),
     0x0267: (None, "ɧ: the dot lands beside the hook"),
+    0x0249: (None, "ɉ: base not suitable for the baseline position (2026-11-21)"),
+    0x1E9C: (None, "ẜ: base not suitable for the baseline position (2026-11-21)"),
+    0x1E9D: (None, "ẝ: base not suitable for the baseline position (2026-11-21)"),
 }
 
 # The vertical line above (U+030D) and below (U+0329) go into the dot lookup

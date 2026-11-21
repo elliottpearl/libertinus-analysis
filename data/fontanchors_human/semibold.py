@@ -189,8 +189,9 @@ anchors = {
         0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
             # 2: (366, -110),  # removed 2026-11-07: within 10 of the candidate
         },
-        0x028E: { # ʎ: above over the apex of the turned V, at the ascender reference, as regular (2026-11-07)
-            0: (230, 885),
+        0x028E: { # ʎ turned y: X at the centre of the turned V: midpoint of the feet's outer edges at the baseline (across the slant), carried at the slant to the anchor's height (2026-11-21; above was 230, below the candidate 243)
+            0: (243, 885),  # ascender reference
+            2: (243, -110),
         },
         0x0293: { # ʓ: above as ʒ's above anchor, at ʒ's Y; the tops match within a few units, regular's method (2026-11-07)
             0: (231, 645),

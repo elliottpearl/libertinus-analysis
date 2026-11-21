@@ -221,8 +221,9 @@ anchors = {
         0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
             2: (369, -110),
         },
-        0x028E: { # ʎ: above over the apex of the turned V, at the ascender reference, less K = 150, as regular (2026-11-07)
-            0: (286, 890),
+        0x028E: { # ʎ turned y: X at the centre of the turned V: midpoint of the feet's outer edges at the baseline (across the slant), carried at the slant to the anchor's height, less K (150 above, -12 below) (2026-11-21; above was 286, below the candidate 256, pulled right by the advance lane)
+            0: (283, 890),  # ascender reference
+            2: (242, -110),
         },
         0x0292: { # ʒ: above, the candidate's X (211; the designer's 218 was regular's) at the x-height reference, as ʒ in
                   # the other styles: the candidate's Y (667) is raised by the top's 14-unit overshoot (2026-11-07)

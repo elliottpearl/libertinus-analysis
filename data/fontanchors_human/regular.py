@@ -309,8 +309,9 @@ anchors = {
         0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
             2: (378, -110),
         },
-        0x028E: {  # ʎ turned-y
-            0: (242, 885),  # ascender aspect; X over the apex of the turned V, mirroring y's below anchor (242) (2026-11-07; was a's 209)
+        0x028E: {  # ʎ turned y: X at the centre of the turned V: midpoint of the feet's outer edges at the baseline (across the slant), carried at the slant to the anchor's height (2026-11-21; above was 242, mirrored from y's below anchor, 2026-11-07; the designer's was a's 209)
+            0: (248, 885),  # ascender reference
+            2: (248, -110),
         },
         0x0293: { # ʓ: above as ʒ's (218, 645) plus the outline shift (+4); not inherited, the stem match finds no stems in an ezh (38%) (2026-11-07; the designer's was a's (209, 645))
             0: (222, 645),
@@ -476,7 +477,7 @@ anchors = {
 
     "marks": {
         0x0324: { # diaeresis below
-            2: (-217, -126), # 2026-11-12: mark-zone consistency across styles: diaeresis below at +28, as the dot below (ṳ, its only precomposed letter, is unusually tight)
+            2: (-218, -126), # X -217 -> -218 on 2026-11-21, to stay on the axis of the new outline (U+0308's, stage 2); 2026-11-12: mark-zone consistency across styles: diaeresis below at +28, as the dot below (ṳ, its only precomposed letter, is unusually tight)
         },
         0x0323: { # dot below
             2: (-216, -126), # 2026-11-12: mark-zone consistency across styles: dot below at +28 relative to the style's below marks, as the diaeresis below (the precomposed dots below are loose in regular, tight in the other styles)

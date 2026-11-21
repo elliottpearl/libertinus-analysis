@@ -146,81 +146,6 @@ def _gap(g, need):
     return f"\\textcolor{{under}}{{{g}}}" if g < need else str(g)
 
 
-def _tight_section():
-    """
-    Section 1 of the sheet: every dot (and vertical line, where it is in the
-    dot lookup) of the patched font closer to its letter than the designer's
-    closest dot, set large beside that designer letter.
-    """
-    data = D.load_dot_letters()
-    lines_on = {0: data.LINE_ABOVE, 2: data.LINE_BELOW}
-    L = [r"\section*{1. The tight cases in the patched font}",
-         r"Every dot of the patched font's dot lookup (listed letters, their derived letters, and the precomposed letters that inherit) "
-         r"whose gap to the letter is under MIN\_GAP, the gap of the designer's closest dot above among ḃ ḋ ḣ; and every vertical line in the dot lookup "
-         r"whose gap is under its own gap on o. Each is set large beside the designer's letters for comparison: "
-         r"the closest of ḃ ḋ ḣ, and ỵ (below). Gaps in font units (at 10\,pt, 10 units are 0.1\,pt); "
-         r"under each large sample, the same at 11\,pt in a short word. "
-         r"Within about 5 of MIN\_GAP is noise; under about 20 the dot can read as part of the letter.\par\medskip"]
-    for st in STYLES:
-        meta = FONTS[st + "_patch"]
-        f = TTFont(str(meta["path"]))
-        main = meta["lookup_index"]
-        cmap = f.getBestCmap()
-        need = D.min_gap(f)
-        anchors, info, _ = D.dot_anchors(f, st + "_patch", main)
-        sub = D.find_mark_to_base_subtables(f, main)[0]
-        rec = sub.BaseArray.BaseRecord[sub.BaseCoverage.glyphs.index("o")].BaseAnchor
-        o = D._Base(f, "o")
-        refs = {0: min(D.GAP_LETTERS, key=lambda cp: D.designer_gap(f, cmap[cp], 0)), 2: 0x1EF5}
-        ref_gap = {side: D.designer_gap(f, cmap[refs[side]], side) for side in (0, 2)}
-        cases = {}   # (cp, side, mark) -> [gap, limit, source, [inheriting letters]]
-        found = []
-        for (g, side), (x, y) in anchors.items():
-            d = info[(g, side)]
-            if d["gap"] < need:
-                found.append((d["cp"], side, D.DOT_MARK[side], d["gap"], need, d))
-            if lines_on[side]:
-                lm = D.LINE_MARK[side]
-                lxy = D.main_mark_anchor(f, main, cmap[lm])
-                lref = D.mark_gap(f, o, cmap[lm], lxy, (rec[side].XCoordinate, rec[side].YCoordinate))
-                lg = D.mark_gap(f, D._Base(f, g), cmap[lm], lxy, (x, y))
-                if lg < lref:
-                    found.append((d["cp"], side, lm, lg, lref, d))
-        # a precomposed letter that inherits the same gap as its base letter goes into the base's cell
-        for cp, side, mark, gap, lim, d in sorted(found, key=lambda c: c[5]["source"] == "inherited"):
-            if d["source"] == "inherited":
-                base_cp = ord(d["note"].split("from ")[1][0])
-                key = (base_cp, side, mark)
-                if key in cases and abs(cases[key][0] - gap) <= 1:
-                    cases[key][3].append(chr(cp))
-                    continue
-            cases[(cp, side, mark)] = [gap, lim, d["source"], []]
-        cases = sorted(((k, v) for k, v in cases.items()), key=lambda kv: kv[1][0])
-        big = rf"\FPatch{SHAPE[st]}\fontsize{{56}}{{64}}\selectfont "
-        small = rf"\FPatch{SHAPE[st]}\fontsize{{11}}{{13}}\selectfont "
-
-        def cell(text, ctx, label):
-            return (rf"\begin{{tabular}}[b]{{@{{}}c@{{}}}}{{{big}{text}}}\\{{{small}{ctx}}}\\"
-                    rf"{{\footnotesize\begin{{tabular}}{{@{{}}c@{{}}}}{label}\end{{tabular}}}}\end{{tabular}}\hspace{{1.2em}}")
-
-        L.append(rf"\subsection*{{{LABEL[st]} (MIN\_GAP {need})}}")
-        row = [cell(_tex_char(refs[0]), "a" + _tex_char(refs[0]) + "a", rf"designer {chr(refs[0])}: dot {ref_gap[0]}"),
-               cell(_tex_char(refs[2]), "a" + _tex_char(refs[2]) + "a", rf"designer {chr(refs[2])}: dot {ref_gap[2]}")]
-        for (cp, side, mark), (gap, lim, src, also) in cases:
-            t = f"{_tex_char(cp)}\\cgj{_tex_char(mark)}"
-            what = "dot" if mark in D.DOT_MARK.values() else "line"
-            limit = f"MIN\\_GAP {lim}" if what == "dot" else f"{lim} on o"
-            label = rf"{what} \textcolor{{under}}{{{gap}}} ({limit}); {src}"
-            if also:
-                label += r"\\ also " + " ".join(also)
-            row.append(cell(t, "a" + t + "a", label))
-        if not cases:
-            row.append(r"{\footnotesize none}")
-        L.append(r"{\raggedright\noindent" + "".join(row) + r"\par}\medskip")
-    L.append(r"\clearpage")
-    return L
-
-
 def write_dot_lookup_sheet():
     data = D.load_dot_letters()
     cands = _candidates()
@@ -237,6 +162,7 @@ def write_dot_lookup_sheet():
 \definecolor{dim}{RGB}{110,110,110}\definecolor{under}{RGB}{225,0,0}
 \newfontfamily\FMain[Path=../fonts/, UprightFont=LibertinusSerif-Regular-patch-nodot.otf, BoldFont=LibertinusSerif-Semibold-patch-nodot.otf, ItalicFont=LibertinusSerif-Italic-patch-nodot.otf, BoldItalicFont=LibertinusSerif-SemiboldItalic-patch-nodot.otf]{Libertinus Main}
 \newfontfamily\FDot[Path=../fonts/, UprightFont=LibertinusSerif-Regular-patch-dotcand.otf, BoldFont=LibertinusSerif-Semibold-patch-dotcand.otf, ItalicFont=LibertinusSerif-Italic-patch-dotcand.otf, BoldItalicFont=LibertinusSerif-SemiboldItalic-patch-dotcand.otf]{Libertinus Dot}
+\newfontfamily\FOrig[Path=../fonts/, UprightFont=LibertinusSerif-Regular.otf, BoldFont=LibertinusSerif-Semibold.otf, ItalicFont=LibertinusSerif-Italic.otf, BoldItalicFont=LibertinusSerif-SemiboldItalic.otf]{Libertinus Orig}
 \newfontfamily\FPatch[Path=../fonts/, UprightFont=LibertinusSerif-Regular-patch.otf, BoldFont=LibertinusSerif-Semibold-patch.otf, ItalicFont=LibertinusSerif-Italic-patch.otf, BoldItalicFont=LibertinusSerif-SemiboldItalic-patch.otf]{Libertinus Patch}
 \begin{document}
 \section*{Test sheet: the dot lookup (stage 9b)}
@@ -244,11 +170,10 @@ For the letters in data/dot\_letters.py the dot lookup puts the dot above (U+030
 $X$ is the designer's, from the precomposed letter (\emph{precomposed}); the base letter's, for a derived letter (\emph{derived}); or the centre of the letter's x-height body, pushed sideways until the dot is at least MIN\_GAP from the letter (\emph{model}), MIN\_GAP being the gap of the designer's closest dot in ḃ ḋ ḣ.
 A letter is added only if its dot is clear in all four styles (gap at least MIN\_GAP$-$6, or the designer's own position) and sits over the letter's body.
 
-\emph{What to look at.} Section 1: the dots of the patched font that are closer to their letter than MIN\_GAP, beside the designer's letters. Section 2: every candidate (a lowercase Latin or IPA letter whose main anchor is at the ascender or descender reference in some style), in groups; only the group \emph{Open} needs a decision. All samples use CGJ, so that no precomposed letter replaces them.
+\emph{What to look at.} Section 1: every candidate (a lowercase Latin or IPA letter whose main anchor is at the ascender or descender reference in some style), in groups; only the group \emph{Open} needs a decision, and red gaps are the tight cases. Section 2: the letters with a hook, above and below, for decisions consistent across them. Section 3: what the patched font does. All samples use CGJ, so that no precomposed letter replaces them.
 """]
 
-    L.extend(_tight_section())
-    L.append(r"\clearpage\section*{2. The candidates, by group}")
+    L.append(r"\section*{1. The candidates, by group}")
     L.append(r"Each row is one letter in the four styles. In each cell: the dot as the main lookup places it, an arrow, "
              r"then the dot and the vertical line as the dot lookup places them; under it, the dot's gap and the line's gap "
              r"(\textcolor{under}{red}: dot under MIN\_GAP, line under its gap on o) and where X comes from. "
@@ -293,8 +218,35 @@ A letter is added only if its dot is clear in all four styles (gap at least MIN\
         L.append(r"\subsection*{No clear position over the body in any style}")
         L.append(r"{\FPatch\fontsize{14}{16}\selectfont " + r"\ \ ".join(_tex_char(c) for c in groups["none"]) + r"}\par")
 
+    # a family view: every candidate whose name says it has a hook, both sides, with its status
+    hooked = sorted({c for side in (0, 2) for c in cands[side] if "HOOK" in ud.name(chr(c), "")})
+    L.append(r"\clearpage\section*{2. Letters with a hook, above and below}")
+    L.append(r"Every candidate whose Unicode name has HOOK, so that the decisions on them can be made together. "
+             r"Each letter has two rows, above and below, with its status on that side: "
+             r"\emph{in} (in the dot lookup), \emph{excluded}, \emph{some} (clear in some styles only), \emph{open}, \emph{none} (no clear position), "
+             r"or \emph{--} (not a candidate on that side: its main anchor is not at the ascender or descender reference).\par")
+    L.append(r"\begin{longtable}{@{}>{\raggedright\arraybackslash}p{2.4cm} p{6cm} p{6cm} p{6cm} p{6cm}@{}}")
+    L.append(r"letter & Regular & Italic & Semibold & Semibold italic \\ \hline \endhead")
+    for cp in hooked:
+        for side, marks in ((0, (0x0307, 0x030D)), (2, (0x0323, 0x0329))):
+            excl = data.EXCLUDED_ABOVE if side == 0 else data.EXCLUDED_BELOW
+            if cp not in cands[side]:
+                status = "--"
+            elif cp in listed[side]:
+                status = "in"
+            elif cp in excl:
+                status = "excluded"
+            else:
+                ok = [_passes(per_style[st], cp, side) for st in STYLES]
+                status = "open" if all(ok) else "some" if any(ok) else "none"
+            label = (rf"{{\FPatch\fontsize{{14}}{{16}}\selectfont {_tex_char(cp)}}} {{\scriptsize\color{{dim}}U+{cp:04X}}}"
+                     rf"\newline{{\scriptsize {'above' if side == 0 else 'below'}: \textbf{{{status}}}}}")
+            cells = ([_cell(per_style[st], st, cp, side, marks) for st in STYLES] if status != "--" else [""] * 4)
+            L.append(label + " & " + " & ".join(cells) + (r" \\[8pt]" if side == 0 else r" \\[14pt] \hline"))
+    L.append(r"\end{longtable}")
+
     # what the patched font itself does: listed letters and their precomposed letters
-    L.append(r"\section*{The patched font: listed letters and the precomposed letters that inherit}")
+    L.append(r"\clearpage\section*{3. The patched font: listed letters and the precomposed letters that inherit}")
     L.append(r"Each letter with the dot (CGJ), in the patched font, all four styles.\par\medskip")
     for st in STYLES:
         meta = FONTS[st + "_patch"]
@@ -308,6 +260,24 @@ A letter is added only if its dot is clear in all four styles (gap at least MIN\
             s = r"\,\,".join(f"{_tex_char(c)}\\cgj{_tex_char(mark)}" for c in cps)
             L.append(rf"{{\footnotesize {LABEL[st]}, {'above' if side == 0 else 'below'}:}} "
                      rf"{{\FPatch{SHAPE[st]}\fontsize{{20}}{{26}}\selectfont {s}}}\par")
+    # the dot outlines of stage 2 (font_patching_dotoutlines.py)
+    L.append(r"\clearpage\section*{4. The dot outlines (stage 2)}")
+    L.append(r"U+0323 and the dot of ṃ take the precomposed letters' dot (U+02D9's); U+0324 takes the diaeresis of U+0308 and ṳ; "
+             r"in the italic styles the dot of ỵ moves right (italic +52, semibold italic +12), and composed y, ɏ, ƴ follow it. "
+             r"Each new outline keeps the old one's top edge and axis. "
+             r"\emph{Overlay}: the original in \textcolor{under}{red} under the patched font in black. Composed samples with CGJ; "
+             r"the precomposed ạ ṳ ỵ beside them for comparison.\par\medskip")
+    seq = [(0x1EA1, None), (0x61, 0x323), (0x1E43, None), (0x70, 0x323), (0x71, 0x323),
+           (0x1E73, None), (0x75, 0x324), (0x61, 0x324), (0x1EF5, None), (0x79, 0x323), (0x24F, 0x323), (0x1B4, 0x323)]
+    text = r"\,\,".join(_tex_char(b) + (r"\cgj" + _tex_char(m) if m else "") for b, m in seq)
+    L.append(r"\begin{tabular}{@{}l l@{}}")
+    for st in STYLES:
+        sz = r"\fontsize{26}{34}\selectfont "
+        L.append(rf"\multicolumn{{2}}{{@{{}}l}}{{\textbf{{{LABEL[st]}}}}} \\")
+        L.append(rf"original & {{\FOrig{SHAPE[st]}{sz}{text}}} \\")
+        L.append(rf"patched & {{\FPatch{SHAPE[st]}{sz}{text}}} \\")
+        L.append(rf"overlay & {{{sz}\makebox[0pt][l]{{\color{{under}}\FOrig{SHAPE[st]} {text}}}\FPatch{SHAPE[st]} {text}}} \\[6pt]")
+    L.append(r"\end{tabular}")
     L.append(r"\end{document}")
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
     print(f"wrote {OUT}")

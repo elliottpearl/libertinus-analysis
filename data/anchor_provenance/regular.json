@@ -497,7 +497,7 @@
 "uni028B": {"0": "designer", "2": "normalized", "4": "designer", "5": "designer"},
 "uni028C": {"0": "heuristic", "2": "curated", "4": "designer", "5": "designer"},
 "uni028D": {"0": "heuristic", "2": "curated", "4": "designer", "5": "designer"},
-"uni028E": {"0": "curated", "2": "heuristic", "4": "designer", "5": "designer"},
+"uni028E": {"0": "curated", "2": "curated", "4": "designer", "5": "designer"},
 "uni028F": {"0": "heuristic", "2": "normalized", "4": "designer", "5": "designer"},
 "uni0290": {"0": "derived", "2": "derived", "4": "designer", "5": "designer"},
 "uni0291": {"0": "derived", "2": "derived", "4": "designer", "5": "designer"},

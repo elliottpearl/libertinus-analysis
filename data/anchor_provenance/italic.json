@@ -469,7 +469,7 @@
 "uni028B": {"0": "heuristic", "2": "normalized", "5": "designer"},
 "uni028C": {"0": "heuristic", "2": "curated"},
 "uni028D": {"0": "heuristic", "2": "curated"},
-"uni028E": {"0": "curated", "2": "heuristic"},
+"uni028E": {"0": "curated", "2": "curated"},
 "uni028F": {"0": "heuristic", "2": "heuristic", "5": "designer"},
 "uni0290": {"0": "curated", "2": "derived"},
 "uni0291": {"0": "curated", "2": "derived"},

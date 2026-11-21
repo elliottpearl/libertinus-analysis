@@ -380,6 +380,16 @@ def dot_anchors(ttfont, font_key, lookup_index, letters=None):
                 if match >= MIN_FIT:
                     x, source = bxy[0] + dx, "derived"
                     note = f"from {chr(derived[cp][0])}, shift {dx:+d} (fit {match:.0%})"
+                    # a copied dot closer than MIN_GAP is pushed sideways, as a model dot is (2026-11-21):
+                    # the derived letter is drawn a little differently where the dot lands
+                    if mark_gap(ttfont, base, mark_glyph, mark_xy, (x, y)) < need:
+                        extent = body_extent(ttfont, glyph, style)
+                        offset = dot_centre_offset(ttfont, mark_glyph, mark_xy)
+                        inside = lambda xx: over_body(xx, y, offset, extent, SLOPE[style])
+                        px, _ = push_clear(ttfont, base, mark_glyph, mark_xy, x, y, need, inside)
+                        if px is not None and px != x:
+                            note += f", pushed {px - x:+d} to MIN_GAP"
+                            x = px
                 else:
                     note = f"{chr(derived[cp][0])} fits {match:.0%}; model instead"
             # 3. the model, pushed clear

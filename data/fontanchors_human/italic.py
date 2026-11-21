@@ -241,8 +241,9 @@ anchors = {
         0x028D: { # ʍ turned w: below centred on the middle foot, not the bbox midpoint
             2: (361, -110),
         },
-        0x028E: { # ʎ: above over the apex of the turned V, at the ascender reference, as regular (2026-11-07)
-            0: (442, 890),
+        0x028E: { # ʎ turned y: X at the centre of the turned V: midpoint of the feet's outer edges at the baseline (across the slant), carried at the slant to the anchor's height (2026-11-21; above unchanged, below was the candidate 231)
+            0: (442, 890),  # ascender reference
+            2: (229, -110),
         },
         0x0293: { # ʓ ezh with curl
             2: (133, -399),  # below: ymin -312 minus the descender clearance (87), no overshoot correction (the curl is sharp); X the candidate's (ʒ matches 26-35%) (2026-11-07)
@@ -265,7 +266,7 @@ anchors = {
             2: (-233, -86), # 2026-11-12: mark-zone consistency across styles: diaeresis below at +28, as the dot below (ṳ, its only precomposed letter, is unusually tight)
         },
         0x0323: { # dot below
-            2: (-232, -86), # 2026-11-12: mark-zone consistency across styles: dot below at +28 relative to the style's below marks, as the diaeresis below (the precomposed dots below are loose in regular, tight in the other styles)
+            2: (-233, -86), # X -232 -> -233 on 2026-11-21, to stay on the axis of the new outline (U+02D9's dot, stage 2); 2026-11-12: mark-zone consistency across styles: dot below at +28 relative to the style's below marks, as the diaeresis below (the precomposed dots below are loose in regular, tight in the other styles)
         },
         # Above marks moved vertically by Delta y (2026-11-09): the median offset, composed (base + CGJ + mark)
         # minus the designer's precomposed glyphs, on x-height bases, where it is the same (within a few units)

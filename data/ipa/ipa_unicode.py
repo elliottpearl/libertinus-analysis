@@ -299,7 +299,7 @@ base_small_capital_glyph = [
     "agrave.sc","aacute.sc","acircumflex.sc","atilde.sc","adieresis.sc","aring.sc",
     "abreve.sc","aogonek.sc",
     "ccedilla.sc","cacute.sc","ccaron.sc",
-    "dcaron.sc",
+    "dcaron.sc","dcroat.sc",
     "egrave.sc","eacute.sc","ecircumflex.sc","edieresis.sc","eogonek.sc","ecaron.sc",
     "gbreve.sc",
     "igrave.sc","iacute.sc","icircumflex.sc","idieresis.sc","idotaccent.sc",
@@ -307,10 +307,10 @@ base_small_capital_glyph = [
     "ntilde.sc","nacute.sc","ncaron.sc",
     "ograve.sc","oacute.sc","ocircumflex.sc","odieresis.sc","ohungarumlaut.sc",
     "otilde.sc","oslash.sc",
-    "racute.sc","racaron.sc", 
-    "sacute.sc","scedilla.sc","scaron.sc","uni0219.sc"
-    "uni0163.sc","tbar.sc","tcaron.sc","uni021b.sc",
-    "ugrave.sc","uacute.sc","ucircumflex.sc","udieresis.sc","uhungarumlaut.sc",
+    "racute.sc","rcaron.sc",
+    "sacute.sc","scedilla.sc","scaron.sc","uni0219.sc",
+    "uni0163.sc","tbar.sc","tcaron.sc","uni021B.sc",
+    "ugrave.sc","uacute.sc","ucircumflex.sc","udieresis.sc","uhungarumlaut.sc","uring.sc",
     "yacute.sc","ydieresis.sc",
     "zacute.sc","zdotaccent.sc","zcaron.sc",
 

@@ -24,14 +24,16 @@ To-do item: ``Create the glyphs that are missing in the non-regular styles becau
 \item[reference] Ɇ: E and the long solidus U+0338 (redrawn in semibold and semibold italic, where it was the short one), crossing half E's height 23 left of E's de-slanted centre. Ⅎ Ɐ Ʌ: turned references.
 \item[part] ẜ ꝥ: the base and the stroke of regular's glyph as one contour (ẜ's a rectangle, ꝥ's with its swelling ends), slanted and thickened to the style.
 \item[splice] Ɱ (M and J's hook), ꭒ (u and ɿ's fishhook), ỿ (y and regular's ỿ loop), ɋ (q's own descender and ʈ's hook, regular ɽ's, at the descender), Ɉ (italic J, its own crossbar spliced out, + U+0336), Ỻ (I and L cut where their serifs overlap and joined, as regular's: one outline and the counter between the stems), Ɋ (regular's Ɋ, its bowl spliced from the style's O, its tail lengthened by splicing it with itself moved down): the outlines are cut where they cross a line and joined there; points left on a straight edge are dropped.
+\item[reduced] ᵝ ᵞ ᵟ: the style's own β γ δ, de-slanted, scaled to the box of regular's modifier at its height and side bearings, and pushed outward or inward to the weight of regular's modifier times the style's ᵛ over regular's ᵛ (the designer's own superscript weights: italic 0.89, semibold 1.13, semibold italic 1.12). Regular's are drawn apart from β γ δ, not reduced (the recipe check below). Second row: regular's modifier, slanted (as the designer's italic ᵛ is regular's) and in the semibold styles pushed outward by stage 3's rule.
+\item[copy] ᵜ (a superscript U+1D25 ain, which no style has): regular's, as the second row of ᵝ ᵞ ᵟ; the spacing modifiers ˪ ˫ ˯--˿: the lighter style's, pushed outward.
 \end{description}
 Each cell shows the base letter, the letter, and a letter of the same style with the analogous part. Comparison rows: Gentium Plus, Noto Serif and Junicode (the medievalist font, for ẜ ẝ ꝥ ỿ Ỻ ỻ Ⅎ); Langscitinus is left out because it has exactly Libertinus's gaps. A dash: the font lacks the letter.
 \subsection*{All drafts in context}
 Each letter after its base letter; the last four are not in the to-do item (ɋ is outside the base groups; Ɐ Ʌ ỻ have been in BASE\_LATIN since 2026-11-14, for their anchors). The letters follow by decision: approved, approved but changed since, then the general sections (control points of the grafts, recipe checks, turned letters), and the pending and rejected letters last. After ``revised:'', the designer's glyphs revised because of problems found while drafting: the base letter, the designer's glyph (black), and the revision (\textcolor{draft}{blue}), in the styles where the designer's glyph exists; the revisions are only in the draft fonts (PUA U+F630--F633), not in the patch.\par\smallskip
-{\small Regular}\par\nopagebreak{\LibDraft\upshape\mdseries\fontsize{18}{24}\selectfont \char"0045\char"0246\ \char"0052\char"024C\ \char"0059\char"024E\ \char"0079\char"024F\ \char"004A\char"0248\ \char"017F\char"1E9C\ \char"017F\char"1E9D\ \char"00FE\char"A765\ \char"0063\char"A793\ \char"004D\char"2C6E\ \char"0075\char"AB52\ \char"0051\char"024A\ \char"004C\char"1EFA\ \char"0046\char"2132\ \char"0055\char"0244\quad \char"0071\char"024B\ \char"006C\char"1EFB\ \char"0041\char"2C6F\ \char"0056\char"0245\ \char"0251\textcolor{draft}{\char"AB64}\ \char"026A\textcolor{draft}{\char"2C7B}\ \char"0061\char"02EA\ \char"0061\char"02EB\ \char"0061\char"02EF\ \char"0061\char"02F0\ \char"0061\char"02F1\ \char"0061\char"02F2\ \char"0061\char"02F3\ \char"0061\char"02F4\ \char"0061\char"02F5\ \char"0061\char"02F6\ \char"0061\char"02F7\ \char"0061\char"02F8\ \char"0061\char"02F9\ \char"0061\char"02FA\ \char"0061\char"02FB\ \char"0061\char"02FC\ \char"0061\char"02FD\ \char"0061\char"02FE\ \char"0061\char"02FF\par\nopagebreak{\normalsize\color{gray}Regular, revised:}\ \char"0071\char"024B\textcolor{draft}{\char"F630}\ \char"0051\char"024A\textcolor{draft}{\char"F631}}\par\smallskip
-{\small Italic}\par\nopagebreak{\LibDraft\itshape\mdseries\fontsize{18}{24}\selectfont \char"0045\textcolor{draft}{\char"0246}\ \char"0052\textcolor{draft}{\char"024C}\ \char"0059\textcolor{draft}{\char"024E}\ \char"0079\textcolor{draft}{\char"024F}\ \char"004A\textcolor{draft}{\char"0248}\ \char"017F\char"1E9C\ \char"017F\char"1E9D\ \char"00FE\textcolor{draft}{\char"A765}\ \char"0063\textcolor{draft}{\char"A793}\ \char"004D\textcolor{draft}{\char"2C6E}\ \char"0075\textcolor{draft}{\char"AB52}\ \char"0051\textcolor{draft}{\char"024A}\ \char"004C\textcolor{draft}{\char"1EFA}\ \char"0046\textcolor{draft}{\char"2132}\ \char"0055\textcolor{draft}{\char"0244}\quad \char"0071\textcolor{draft}{\char"024B}\ \char"006C\textcolor{draft}{\char"1EFB}\ \char"0041\textcolor{draft}{\char"2C6F}\ \char"0056\textcolor{draft}{\char"0245}\ \char"0251\textcolor{draft}{\char"AB64}\ \char"026A\textcolor{draft}{\char"2C7B}\ \char"0061\char"02EA\ \char"0061\char"02EB\ \char"0061\char"02EF\ \char"0061\char"02F0\ \char"0061\char"02F1\ \char"0061\char"02F2\ \char"0061\char"02F3\ \char"0061\char"02F4\ \char"0061\char"02F5\ \char"0061\char"02F6\ \char"0061\char"02F7\ \char"0061\char"02F8\ \char"0061\char"02F9\ \char"0061\char"02FA\ \char"0061\char"02FB\ \char"0061\char"02FC\ \char"0061\char"02FD\ \char"0061\char"02FE\ \char"0061\char"02FF\par\nopagebreak{\normalsize\color{gray}Italic, revised:}\ \char"017F\char"1E9D\textcolor{draft}{\char"F633}}\par\smallskip
-{\small Semibold}\par\nopagebreak{\LibDraft\upshape\bfseries\fontsize{18}{24}\selectfont \char"0045\textcolor{draft}{\char"0246}\ \char"0052\textcolor{draft}{\char"024C}\ \char"0059\textcolor{draft}{\char"024E}\ \char"0079\textcolor{draft}{\char"024F}\ \char"004A\char"0248\ \char"017F\textcolor{draft}{\char"1E9C}\ \char"017F\textcolor{draft}{\char"1E9D}\ \char"00FE\textcolor{draft}{\char"A765}\ \char"0063\textcolor{draft}{\char"A793}\ \char"004D\textcolor{draft}{\char"2C6E}\ \char"0075\textcolor{draft}{\char"AB52}\ \char"0051\textcolor{draft}{\char"024A}\ \char"004C\textcolor{draft}{\char"1EFA}\ \char"0046\textcolor{draft}{\char"2132}\ \char"0055\textcolor{draft}{\char"0244}\quad \char"0071\textcolor{draft}{\char"024B}\ \char"006C\textcolor{draft}{\char"1EFB}\ \char"0041\textcolor{draft}{\char"2C6F}\ \char"0056\textcolor{draft}{\char"0245}\ \char"0251\textcolor{draft}{\char"AB64}\ \char"026A\textcolor{draft}{\char"2C7B}\ \char"0061\textcolor{draft}{\char"02EA}\ \char"0061\textcolor{draft}{\char"02EB}\ \char"0061\textcolor{draft}{\char"02EF}\ \char"0061\textcolor{draft}{\char"02F0}\ \char"0061\textcolor{draft}{\char"02F1}\ \char"0061\textcolor{draft}{\char"02F2}\ \char"0061\textcolor{draft}{\char"02F3}\ \char"0061\textcolor{draft}{\char"02F4}\ \char"0061\textcolor{draft}{\char"02F5}\ \char"0061\textcolor{draft}{\char"02F6}\ \char"0061\textcolor{draft}{\char"02F7}\ \char"0061\textcolor{draft}{\char"02F8}\ \char"0061\textcolor{draft}{\char"02F9}\ \char"0061\textcolor{draft}{\char"02FA}\ \char"0061\textcolor{draft}{\char"02FB}\ \char"0061\textcolor{draft}{\char"02FC}\ \char"0061\textcolor{draft}{\char"02FD}\ \char"0061\textcolor{draft}{\char"02FE}\ \char"0061\textcolor{draft}{\char"02FF}\par\nopagebreak{\normalsize\color{gray}Semibold, revised:}\ \char"004A\char"0248\textcolor{draft}{\char"F632}}\par\smallskip
-{\small Semibold italic}\par\nopagebreak{\LibDraft\itshape\bfseries\fontsize{18}{24}\selectfont \char"0045\textcolor{draft}{\char"0246}\ \char"0052\textcolor{draft}{\char"024C}\ \char"0059\textcolor{draft}{\char"024E}\ \char"0079\textcolor{draft}{\char"024F}\ \char"004A\textcolor{draft}{\char"0248}\ \char"017F\textcolor{draft}{\char"1E9C}\ \char"017F\textcolor{draft}{\char"1E9D}\ \char"00FE\textcolor{draft}{\char"A765}\ \char"0063\textcolor{draft}{\char"A793}\ \char"004D\textcolor{draft}{\char"2C6E}\ \char"0075\textcolor{draft}{\char"AB52}\ \char"0051\textcolor{draft}{\char"024A}\ \char"004C\textcolor{draft}{\char"1EFA}\ \char"0046\textcolor{draft}{\char"2132}\ \char"0055\textcolor{draft}{\char"0244}\quad \char"0071\textcolor{draft}{\char"024B}\ \char"006C\textcolor{draft}{\char"1EFB}\ \char"0041\textcolor{draft}{\char"2C6F}\ \char"0056\textcolor{draft}{\char"0245}\ \char"0251\textcolor{draft}{\char"AB64}\ \char"026A\textcolor{draft}{\char"2C7B}\ \char"0061\textcolor{draft}{\char"02EA}\ \char"0061\textcolor{draft}{\char"02EB}\ \char"0061\textcolor{draft}{\char"02EF}\ \char"0061\textcolor{draft}{\char"02F0}\ \char"0061\textcolor{draft}{\char"02F1}\ \char"0061\textcolor{draft}{\char"02F2}\ \char"0061\textcolor{draft}{\char"02F3}\ \char"0061\textcolor{draft}{\char"02F4}\ \char"0061\textcolor{draft}{\char"02F5}\ \char"0061\textcolor{draft}{\char"02F6}\ \char"0061\textcolor{draft}{\char"02F7}\ \char"0061\textcolor{draft}{\char"02F8}\ \char"0061\textcolor{draft}{\char"02F9}\ \char"0061\textcolor{draft}{\char"02FA}\ \char"0061\textcolor{draft}{\char"02FB}\ \char"0061\textcolor{draft}{\char"02FC}\ \char"0061\textcolor{draft}{\char"02FD}\ \char"0061\textcolor{draft}{\char"02FE}\ \char"0061\textcolor{draft}{\char"02FF}}\par\smallskip
+{\small Regular}\par\nopagebreak{\LibDraft\upshape\mdseries\fontsize{18}{24}\selectfont \char"0045\char"0246\ \char"0052\char"024C\ \char"0059\char"024E\ \char"0079\char"024F\ \char"004A\char"0248\ \char"017F\char"1E9C\ \char"017F\char"1E9D\ \char"00FE\char"A765\ \char"0063\char"A793\ \char"004D\char"2C6E\ \char"0075\char"AB52\ \char"0051\char"024A\ \char"004C\char"1EFA\ \char"0046\char"2132\ \char"0055\char"0244\quad \char"0071\char"024B\ \char"006C\char"1EFB\ \char"0041\char"2C6F\ \char"0056\char"0245\ \char"0251\textcolor{draft}{\char"AB64}\ \char"026A\textcolor{draft}{\char"2C7B}\ \char"0061\char"02EA\ \char"0061\char"02EB\ \char"0061\char"02EF\ \char"0061\char"02F0\ \char"0061\char"02F1\ \char"0061\char"02F2\ \char"0061\char"02F3\ \char"0061\char"02F4\ \char"0061\char"02F5\ \char"0061\char"02F6\ \char"0061\char"02F7\ \char"0061\char"02F8\ \char"0061\char"02F9\ \char"0061\char"02FA\ \char"0061\char"02FB\ \char"0061\char"02FC\ \char"0061\char"02FD\ \char"0061\char"02FE\ \char"0061\char"02FF\ \char"0295\char"1D5C\ \char"03B2\char"1D5D\ \char"03B3\char"1D5E\ \char"03B4\char"1D5F\par\nopagebreak{\normalsize\color{gray}Regular, revised:}\ \char"0071\char"024B\textcolor{draft}{\char"F630}\ \char"0051\char"024A\textcolor{draft}{\char"F631}}\par\smallskip
+{\small Italic}\par\nopagebreak{\LibDraft\itshape\mdseries\fontsize{18}{24}\selectfont \char"0045\textcolor{draft}{\char"0246}\ \char"0052\textcolor{draft}{\char"024C}\ \char"0059\textcolor{draft}{\char"024E}\ \char"0079\textcolor{draft}{\char"024F}\ \char"004A\textcolor{draft}{\char"0248}\ \char"017F\char"1E9C\ \char"017F\char"1E9D\ \char"00FE\textcolor{draft}{\char"A765}\ \char"0063\textcolor{draft}{\char"A793}\ \char"004D\textcolor{draft}{\char"2C6E}\ \char"0075\textcolor{draft}{\char"AB52}\ \char"0051\textcolor{draft}{\char"024A}\ \char"004C\textcolor{draft}{\char"1EFA}\ \char"0046\textcolor{draft}{\char"2132}\ \char"0055\textcolor{draft}{\char"0244}\quad \char"0071\textcolor{draft}{\char"024B}\ \char"006C\textcolor{draft}{\char"1EFB}\ \char"0041\textcolor{draft}{\char"2C6F}\ \char"0056\textcolor{draft}{\char"0245}\ \char"0251\textcolor{draft}{\char"AB64}\ \char"026A\textcolor{draft}{\char"2C7B}\ \char"0061\char"02EA\ \char"0061\char"02EB\ \char"0061\char"02EF\ \char"0061\char"02F0\ \char"0061\char"02F1\ \char"0061\char"02F2\ \char"0061\char"02F3\ \char"0061\char"02F4\ \char"0061\char"02F5\ \char"0061\char"02F6\ \char"0061\char"02F7\ \char"0061\char"02F8\ \char"0061\char"02F9\ \char"0061\char"02FA\ \char"0061\char"02FB\ \char"0061\char"02FC\ \char"0061\char"02FD\ \char"0061\char"02FE\ \char"0061\char"02FF\ \char"0295\textcolor{draft}{\char"1D5C}\ \char"03B2\textcolor{draft}{\char"1D5D}\ \char"03B3\textcolor{draft}{\char"1D5E}\ \char"03B4\textcolor{draft}{\char"1D5F}\par\nopagebreak{\normalsize\color{gray}Italic, revised:}\ \char"017F\char"1E9D\textcolor{draft}{\char"F633}}\par\smallskip
+{\small Semibold}\par\nopagebreak{\LibDraft\upshape\bfseries\fontsize{18}{24}\selectfont \char"0045\textcolor{draft}{\char"0246}\ \char"0052\textcolor{draft}{\char"024C}\ \char"0059\textcolor{draft}{\char"024E}\ \char"0079\textcolor{draft}{\char"024F}\ \char"004A\char"0248\ \char"017F\textcolor{draft}{\char"1E9C}\ \char"017F\textcolor{draft}{\char"1E9D}\ \char"00FE\textcolor{draft}{\char"A765}\ \char"0063\textcolor{draft}{\char"A793}\ \char"004D\textcolor{draft}{\char"2C6E}\ \char"0075\textcolor{draft}{\char"AB52}\ \char"0051\textcolor{draft}{\char"024A}\ \char"004C\textcolor{draft}{\char"1EFA}\ \char"0046\textcolor{draft}{\char"2132}\ \char"0055\textcolor{draft}{\char"0244}\quad \char"0071\textcolor{draft}{\char"024B}\ \char"006C\textcolor{draft}{\char"1EFB}\ \char"0041\textcolor{draft}{\char"2C6F}\ \char"0056\textcolor{draft}{\char"0245}\ \char"0251\textcolor{draft}{\char"AB64}\ \char"026A\textcolor{draft}{\char"2C7B}\ \char"0061\textcolor{draft}{\char"02EA}\ \char"0061\textcolor{draft}{\char"02EB}\ \char"0061\textcolor{draft}{\char"02EF}\ \char"0061\textcolor{draft}{\char"02F0}\ \char"0061\textcolor{draft}{\char"02F1}\ \char"0061\textcolor{draft}{\char"02F2}\ \char"0061\textcolor{draft}{\char"02F3}\ \char"0061\textcolor{draft}{\char"02F4}\ \char"0061\textcolor{draft}{\char"02F5}\ \char"0061\textcolor{draft}{\char"02F6}\ \char"0061\textcolor{draft}{\char"02F7}\ \char"0061\textcolor{draft}{\char"02F8}\ \char"0061\textcolor{draft}{\char"02F9}\ \char"0061\textcolor{draft}{\char"02FA}\ \char"0061\textcolor{draft}{\char"02FB}\ \char"0061\textcolor{draft}{\char"02FC}\ \char"0061\textcolor{draft}{\char"02FD}\ \char"0061\textcolor{draft}{\char"02FE}\ \char"0061\textcolor{draft}{\char"02FF}\ \char"0295\textcolor{draft}{\char"1D5C}\ \char"03B2\textcolor{draft}{\char"1D5D}\ \char"03B3\textcolor{draft}{\char"1D5E}\ \char"03B4\textcolor{draft}{\char"1D5F}\par\nopagebreak{\normalsize\color{gray}Semibold, revised:}\ \char"004A\char"0248\textcolor{draft}{\char"F632}}\par\smallskip
+{\small Semibold italic}\par\nopagebreak{\LibDraft\itshape\bfseries\fontsize{18}{24}\selectfont \char"0045\textcolor{draft}{\char"0246}\ \char"0052\textcolor{draft}{\char"024C}\ \char"0059\textcolor{draft}{\char"024E}\ \char"0079\textcolor{draft}{\char"024F}\ \char"004A\textcolor{draft}{\char"0248}\ \char"017F\textcolor{draft}{\char"1E9C}\ \char"017F\textcolor{draft}{\char"1E9D}\ \char"00FE\textcolor{draft}{\char"A765}\ \char"0063\textcolor{draft}{\char"A793}\ \char"004D\textcolor{draft}{\char"2C6E}\ \char"0075\textcolor{draft}{\char"AB52}\ \char"0051\textcolor{draft}{\char"024A}\ \char"004C\textcolor{draft}{\char"1EFA}\ \char"0046\textcolor{draft}{\char"2132}\ \char"0055\textcolor{draft}{\char"0244}\quad \char"0071\textcolor{draft}{\char"024B}\ \char"006C\textcolor{draft}{\char"1EFB}\ \char"0041\textcolor{draft}{\char"2C6F}\ \char"0056\textcolor{draft}{\char"0245}\ \char"0251\textcolor{draft}{\char"AB64}\ \char"026A\textcolor{draft}{\char"2C7B}\ \char"0061\textcolor{draft}{\char"02EA}\ \char"0061\textcolor{draft}{\char"02EB}\ \char"0061\textcolor{draft}{\char"02EF}\ \char"0061\textcolor{draft}{\char"02F0}\ \char"0061\textcolor{draft}{\char"02F1}\ \char"0061\textcolor{draft}{\char"02F2}\ \char"0061\textcolor{draft}{\char"02F3}\ \char"0061\textcolor{draft}{\char"02F4}\ \char"0061\textcolor{draft}{\char"02F5}\ \char"0061\textcolor{draft}{\char"02F6}\ \char"0061\textcolor{draft}{\char"02F7}\ \char"0061\textcolor{draft}{\char"02F8}\ \char"0061\textcolor{draft}{\char"02F9}\ \char"0061\textcolor{draft}{\char"02FA}\ \char"0061\textcolor{draft}{\char"02FB}\ \char"0061\textcolor{draft}{\char"02FC}\ \char"0061\textcolor{draft}{\char"02FD}\ \char"0061\textcolor{draft}{\char"02FE}\ \char"0061\textcolor{draft}{\char"02FF}\ \char"0295\textcolor{draft}{\char"1D5C}\ \char"03B2\textcolor{draft}{\char"1D5D}\ \char"03B3\textcolor{draft}{\char"1D5E}\ \char"03B4\textcolor{draft}{\char"1D5F}}\par\smallskip
 \medskip\noindent\begin{minipage}{\linewidth}
 {\small Regular, original}\par\nopagebreak{\rmfamily\upshape\mdseries\fontsize{19}{30}\selectfont \char"0045\char"034F\char"0303\char"0330\char"0246\char"034F\char"0303\char"0330\ \char"0052\char"034F\char"0303\char"0330\char"024C\char"034F\char"0303\char"0330\ \char"0059\char"034F\char"0303\char"0330\char"024E\char"034F\char"0303\char"0330\ \char"0079\char"034F\char"0303\char"0330\char"024F\char"034F\char"0303\char"0330\ \char"004A\char"034F\char"0303\char"0330\char"0248\char"034F\char"0303\char"0330\ \char"017F\char"034F\char"0303\char"0330\char"1E9C\char"034F\char"0303\char"0330\ \char"017F\char"034F\char"0303\char"0330\char"1E9D\char"034F\char"0303\char"0330\ \char"00FE\char"034F\char"0303\char"0330\char"A765\char"034F\char"0303\char"0330\ \char"0063\char"034F\char"0303\char"0330\char"A793\char"034F\char"0303\char"0330\ \char"004D\char"034F\char"0303\char"0330\char"2C6E\char"034F\char"0303\char"0330\ \char"0075\char"034F\char"0303\char"0330\char"AB52\char"034F\char"0303\char"0330\ \char"0051\char"034F\char"0303\char"0330\char"024A\char"034F\char"0303\char"0330\ \char"004C\char"034F\char"0303\char"0330\char"1EFA\char"034F\char"0303\char"0330\ \char"0046\char"034F\char"0303\char"0330\char"2132\char"034F\char"0303\char"0330\ \char"0055\char"034F\char"0303\char"0330\char"0244\char"034F\char"0303\char"0330\quad \char"0071\char"034F\char"0303\char"0330\char"024B\char"034F\char"0303\char"0330\ \char"006C\char"034F\char"0303\char"0330\char"1EFB\char"034F\char"0303\char"0330\ \char"0041\char"034F\char"0303\char"0330\char"2C6F\char"034F\char"0303\char"0330\ \char"0056\char"034F\char"0303\char"0330\char"0245\char"034F\char"0303\char"0330\ \char"0251\char"034F\char"0303\char"0330\hphantom{\LibDraft\upshape\mdseries\char"AB64\char"034F\char"0303\char"0330}\ \char"026A\char"034F\char"0303\char"0330\hphantom{\LibDraft\upshape\mdseries\char"2C7B\char"034F\char"0303\char"0330}}\par\smallskip
 {\small Regular, patched}\par\nopagebreak{\LibDraft\upshape\mdseries\fontsize{19}{30}\selectfont \char"0045\char"034F\char"0303\char"0330\char"0246\char"034F\char"0303\char"0330\ \char"0052\char"034F\char"0303\char"0330\char"024C\char"034F\char"0303\char"0330\ \char"0059\char"034F\char"0303\char"0330\char"024E\char"034F\char"0303\char"0330\ \char"0079\char"034F\char"0303\char"0330\char"024F\char"034F\char"0303\char"0330\ \char"004A\char"034F\char"0303\char"0330\char"0248\char"034F\char"0303\char"0330\ \char"017F\char"034F\char"0303\char"0330\char"1E9C\char"034F\char"0303\char"0330\ \char"017F\char"034F\char"0303\char"0330\char"1E9D\char"034F\char"0303\char"0330\ \char"00FE\char"034F\char"0303\char"0330\char"A765\char"034F\char"0303\char"0330\ \char"0063\char"034F\char"0303\char"0330\char"A793\char"034F\char"0303\char"0330\ \char"004D\char"034F\char"0303\char"0330\char"2C6E\char"034F\char"0303\char"0330\ \char"0075\char"034F\char"0303\char"0330\char"AB52\char"034F\char"0303\char"0330\ \char"0051\char"034F\char"0303\char"0330\char"024A\char"034F\char"0303\char"0330\ \char"004C\char"034F\char"0303\char"0330\char"1EFA\char"034F\char"0303\char"0330\ \char"0046\char"034F\char"0303\char"0330\char"2132\char"034F\char"0303\char"0330\ \char"0055\char"034F\char"0303\char"0330\char"0244\char"034F\char"0303\char"0330\quad \char"0071\char"034F\char"0303\char"0330\char"024B\char"034F\char"0303\char"0330\ \char"006C\char"034F\char"0303\char"0330\char"1EFB\char"034F\char"0303\char"0330\ \char"0041\char"034F\char"0303\char"0330\char"2C6F\char"034F\char"0303\char"0330\ \char"0056\char"034F\char"0303\char"0330\char"0245\char"034F\char"0303\char"0330\ \char"0251\char"034F\char"0303\char"0330\textcolor{draft}{\char"AB64\char"034F\char"0303\char"0330}\ \char"026A\char"034F\char"0303\char"0330\textcolor{draft}{\char"2C7B\char"034F\char"0303\char"0330}}\par\medskip
@@ -101,7 +103,7 @@ Approved on 2026-11-13 and 2026-11-14.\par\medskip
 {\footnotesize
 \textit{Italic}: [overlay] y + U+0336 (the style's own), placed as in regular's ɏ (fit 0.3\%): centre at y 250, -1 across from the outer edges, 454 long, 38 thick (own đ); advance 503; anchors: above (367, 645) candidate, below (240, -319) candidate.\par
 \textit{Semibold}: [overlay] y + U+0336 (the style's own), placed as in regular's ɏ (fit 0.3\%): centre at y 250, -1 across from the outer edges, 454 long, 38 thick (own đ); advance 533; anchors: above (264, 645) candidate, below (264, -319) candidate.\par
-\textit{Semibold italic}: [overlay] y + U+0336 (the style's own), placed as in regular's ɏ (fit 0.3\%): centre at y 250, -1 across from the outer edges, 454 long, 43 thick (own đ); advance 510; anchors: above (262, 645) candidate, below (242, -319) candidate.\par
+\textit{Semibold italic}: [overlay] y + U+0336 (the style's own), placed as in regular's ɏ (fit 0.3\%): centre at y 250, -1 across from the outer edges, 454 long, 43 thick (own đ); advance 510; anchors: above (236, 645) candidate, below (242, -319) candidate.\par
 }
 \end{minipage}\par\bigskip
 \begin{minipage}{\linewidth}
@@ -284,8 +286,8 @@ Approved on 2026-11-13 and 2026-11-14.\par\medskip
 \end{tabular}}\par\smallskip
 {\footnotesize
 \textit{Italic}: [splice] italic's q spliced at y -18 (its own straight descender) with ʈ's hook moved down 12 to g's depth (-238), stem × 0.97; advance 499; anchors: above (369, 645) candidate, below (300, -319) candidate.\par
-\textit{Semibold}: [splice] semibold's q spliced at y -17 (its own straight descender) with ʈ's hook moved down 15 to g's depth (-238), stem × 0.94; advance 526; anchors: above (273, 645) candidate, below (273, -319) candidate.\par
-\textit{Semibold italic}: [splice] semibold\_italic's q spliced at y -17 (its own straight descender) with ʈ's hook moved down 15 to g's depth (-238), stem × 1.00; advance 580; anchors: above (238, 645) candidate, below (348, -319) candidate.\par
+\textit{Semibold}: [splice] semibold's q spliced at y -17 (its own straight descender) with ʈ's hook moved down 15 to g's depth (-238), stem × 0.94; advance 526; anchors: above (273, 645) candidate, below (390, -319) candidate.\par
+\textit{Semibold italic}: [splice] semibold\_italic's q spliced at y -17 (its own straight descender) with ʈ's hook moved down 15 to g's depth (-238), stem × 1.00; advance 580; anchors: above (238, 645) candidate, below (337, -319) candidate.\par
 \textit{Regular, revision}: [revision] regular's q spliced at y -2 (its own straight descender) with ɽ's hook moved down 6 to g's depth (-238), stem × 1.06; advance 511.\par
 }
 \end{minipage}\par\bigskip
@@ -10287,6 +10289,1176 @@ Every draft as compiled into \verb|fonts/*-draft.otf| (what FontForge shows on o
 \node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold italic (draft): 11 on-curve points};
 \end{tikzpicture}\hfill
 \par\bigskip\end{minipage}\par
+\par\begin{minipage}{\linewidth}
+{\LibDraft \char"1D5C}\ U+1D5C\par\nopagebreak
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.116,2.502) .. controls (1.188,2.464) and (1.210,2.420) .. (1.188,2.370) .. controls (1.160,2.310) and (1.116,2.255) .. (1.050,2.216) .. controls (0.979,2.167) and (0.902,2.139) .. (0.814,2.139) .. controls (0.699,2.139) and (0.616,2.161) .. (0.561,2.211) .. controls (0.522,2.244) and (0.473,2.321) .. (0.407,2.436) -- (0.324,2.431) -- (0.253,2.167) -- (0.264,2.151) .. controls (0.407,2.024) and (0.588,1.963) .. (0.808,1.963) .. controls (1.034,1.963) and (1.221,2.013) .. (1.369,2.107) .. controls (1.380,2.112) and (1.391,2.117) .. (1.397,2.123) .. controls (1.402,2.117) and (1.413,2.112) .. (1.424,2.107) .. controls (1.573,2.013) and (1.760,1.963) .. (1.985,1.963) .. controls (2.205,1.963) and (2.387,2.024) .. (2.530,2.151) -- (2.541,2.167) -- (2.470,2.431) -- (2.387,2.436) .. controls (2.321,2.321) and (2.272,2.244) .. (2.238,2.211) .. controls (2.178,2.161) and (2.095,2.139) .. (1.980,2.139) .. controls (1.892,2.139) and (1.815,2.167) .. (1.743,2.216) .. controls (1.677,2.255) and (1.628,2.310) .. (1.595,2.370) .. controls (1.567,2.420) and (1.589,2.464) .. (1.661,2.502) .. controls (1.716,2.524) and (1.782,2.546) .. (1.853,2.574) .. controls (2.057,2.662) and (2.156,2.788) .. (2.156,2.954) .. controls (2.156,3.113) and (2.057,3.239) .. (1.853,3.333) .. controls (1.677,3.410) and (1.523,3.448) .. (1.391,3.454) .. controls (1.259,3.448) and (1.105,3.410) .. (0.929,3.333) .. controls (0.726,3.239) and (0.627,3.113) .. (0.627,2.954) .. controls (0.627,2.788) and (0.726,2.662) .. (0.929,2.574) .. controls (1.034,2.535) and (1.034,2.535) .. (1.116,2.502) -- cycle;
+\draw[black!70, line width=0.25pt] (1.116,2.502) .. controls (1.188,2.464) and (1.210,2.420) .. (1.188,2.370) .. controls (1.160,2.310) and (1.116,2.255) .. (1.050,2.216) .. controls (0.979,2.167) and (0.902,2.139) .. (0.814,2.139) .. controls (0.699,2.139) and (0.616,2.161) .. (0.561,2.211) .. controls (0.522,2.244) and (0.473,2.321) .. (0.407,2.436) -- (0.324,2.431) -- (0.253,2.167) -- (0.264,2.151) .. controls (0.407,2.024) and (0.588,1.963) .. (0.808,1.963) .. controls (1.034,1.963) and (1.221,2.013) .. (1.369,2.107) .. controls (1.380,2.112) and (1.391,2.117) .. (1.397,2.123) .. controls (1.402,2.117) and (1.413,2.112) .. (1.424,2.107) .. controls (1.573,2.013) and (1.760,1.963) .. (1.985,1.963) .. controls (2.205,1.963) and (2.387,2.024) .. (2.530,2.151) -- (2.541,2.167) -- (2.470,2.431) -- (2.387,2.436) .. controls (2.321,2.321) and (2.272,2.244) .. (2.238,2.211) .. controls (2.178,2.161) and (2.095,2.139) .. (1.980,2.139) .. controls (1.892,2.139) and (1.815,2.167) .. (1.743,2.216) .. controls (1.677,2.255) and (1.628,2.310) .. (1.595,2.370) .. controls (1.567,2.420) and (1.589,2.464) .. (1.661,2.502) .. controls (1.716,2.524) and (1.782,2.546) .. (1.853,2.574) .. controls (2.057,2.662) and (2.156,2.788) .. (2.156,2.954) .. controls (2.156,3.113) and (2.057,3.239) .. (1.853,3.333) .. controls (1.677,3.410) and (1.523,3.448) .. (1.391,3.454) .. controls (1.259,3.448) and (1.105,3.410) .. (0.929,3.333) .. controls (0.726,3.239) and (0.627,3.113) .. (0.627,2.954) .. controls (0.627,2.788) and (0.726,2.662) .. (0.929,2.574) .. controls (1.034,2.535) and (1.034,2.535) .. (1.116,2.502) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.959,0);
+\draw[draft!60, line width=0.2pt] (1.116,2.502) -- (1.188,2.464);\draw[draft, line width=0.2pt, fill=white] (1.188,2.464) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.188,2.370) -- (1.210,2.420);\draw[draft, line width=0.2pt, fill=white] (1.210,2.420) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.188,2.370) -- (1.160,2.310);\draw[draft, line width=0.2pt, fill=white] (1.160,2.310) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.050,2.216) -- (1.116,2.255);\draw[draft, line width=0.2pt, fill=white] (1.116,2.255) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.050,2.216) -- (0.979,2.167);\draw[draft, line width=0.2pt, fill=white] (0.979,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.814,2.139) -- (0.902,2.139);\draw[draft, line width=0.2pt, fill=white] (0.902,2.139) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.814,2.139) -- (0.699,2.139);\draw[draft, line width=0.2pt, fill=white] (0.699,2.139) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.561,2.211) -- (0.616,2.161);\draw[draft, line width=0.2pt, fill=white] (0.616,2.161) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.561,2.211) -- (0.522,2.244);\draw[draft, line width=0.2pt, fill=white] (0.522,2.244) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.407,2.436) -- (0.473,2.321);\draw[draft, line width=0.2pt, fill=white] (0.473,2.321) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.264,2.151) -- (0.407,2.024);\draw[draft, line width=0.2pt, fill=white] (0.407,2.024) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.808,1.963) -- (0.588,1.963);\draw[draft, line width=0.2pt, fill=white] (0.588,1.963) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.808,1.963) -- (1.034,1.963);\draw[draft, line width=0.2pt, fill=white] (1.034,1.963) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.369,2.107) -- (1.221,2.013);\draw[draft, line width=0.2pt, fill=white] (1.221,2.013) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.369,2.107) -- (1.380,2.112);\draw[draft, line width=0.2pt, fill=white] (1.380,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.397,2.123) -- (1.391,2.117);\draw[draft, line width=0.2pt, fill=white] (1.391,2.117) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.397,2.123) -- (1.402,2.117);\draw[draft, line width=0.2pt, fill=white] (1.402,2.117) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.424,2.107) -- (1.413,2.112);\draw[draft, line width=0.2pt, fill=white] (1.413,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.424,2.107) -- (1.573,2.013);\draw[draft, line width=0.2pt, fill=white] (1.573,2.013) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.985,1.963) -- (1.760,1.963);\draw[draft, line width=0.2pt, fill=white] (1.760,1.963) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.985,1.963) -- (2.205,1.963);\draw[draft, line width=0.2pt, fill=white] (2.205,1.963) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.530,2.151) -- (2.387,2.024);\draw[draft, line width=0.2pt, fill=white] (2.387,2.024) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.387,2.436) -- (2.321,2.321);\draw[draft, line width=0.2pt, fill=white] (2.321,2.321) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.238,2.211) -- (2.272,2.244);\draw[draft, line width=0.2pt, fill=white] (2.272,2.244) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.238,2.211) -- (2.178,2.161);\draw[draft, line width=0.2pt, fill=white] (2.178,2.161) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.980,2.139) -- (2.095,2.139);\draw[draft, line width=0.2pt, fill=white] (2.095,2.139) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.980,2.139) -- (1.892,2.139);\draw[draft, line width=0.2pt, fill=white] (1.892,2.139) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.743,2.216) -- (1.815,2.167);\draw[draft, line width=0.2pt, fill=white] (1.815,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.743,2.216) -- (1.677,2.255);\draw[draft, line width=0.2pt, fill=white] (1.677,2.255) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.595,2.370) -- (1.628,2.310);\draw[draft, line width=0.2pt, fill=white] (1.628,2.310) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.595,2.370) -- (1.567,2.420);\draw[draft, line width=0.2pt, fill=white] (1.567,2.420) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.661,2.502) -- (1.589,2.464);\draw[draft, line width=0.2pt, fill=white] (1.589,2.464) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.661,2.502) -- (1.716,2.524);\draw[draft, line width=0.2pt, fill=white] (1.716,2.524) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.853,2.574) -- (1.782,2.546);\draw[draft, line width=0.2pt, fill=white] (1.782,2.546) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.853,2.574) -- (2.057,2.662);\draw[draft, line width=0.2pt, fill=white] (2.057,2.662) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.156,2.954) -- (2.156,2.788);\draw[draft, line width=0.2pt, fill=white] (2.156,2.788) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.156,2.954) -- (2.156,3.113);\draw[draft, line width=0.2pt, fill=white] (2.156,3.113) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.853,3.333) -- (2.057,3.239);\draw[draft, line width=0.2pt, fill=white] (2.057,3.239) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.853,3.333) -- (1.677,3.410);\draw[draft, line width=0.2pt, fill=white] (1.677,3.410) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.391,3.454) -- (1.523,3.448);\draw[draft, line width=0.2pt, fill=white] (1.523,3.448) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.391,3.454) -- (1.259,3.448);\draw[draft, line width=0.2pt, fill=white] (1.259,3.448) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.929,3.333) -- (1.105,3.410);\draw[draft, line width=0.2pt, fill=white] (1.105,3.410) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.929,3.333) -- (0.726,3.239);\draw[draft, line width=0.2pt, fill=white] (0.726,3.239) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.627,2.954) -- (0.627,3.113);\draw[draft, line width=0.2pt, fill=white] (0.627,3.113) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.627,2.954) -- (0.627,2.788);\draw[draft, line width=0.2pt, fill=white] (0.627,2.788) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.929,2.574) -- (0.726,2.662);\draw[draft, line width=0.2pt, fill=white] (0.726,2.662) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.929,2.574) -- (1.034,2.535);\draw[draft, line width=0.2pt, fill=white] (1.034,2.535) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.116,2.502) -- (1.034,2.535);\draw[draft, line width=0.2pt, fill=white] (1.034,2.535) circle (0.35pt);
+\fill (1.116,2.502) circle (0.45pt);
+\fill (1.188,2.370) circle (0.45pt);
+\fill (1.050,2.216) circle (0.45pt);
+\fill (0.814,2.139) circle (0.45pt);
+\fill (0.561,2.211) circle (0.45pt);
+\fill (0.407,2.436) circle (0.45pt);
+\fill (0.324,2.431) circle (0.45pt);
+\fill (0.253,2.167) circle (0.45pt);
+\fill (0.264,2.151) circle (0.45pt);
+\fill (0.808,1.963) circle (0.45pt);
+\fill (1.369,2.107) circle (0.45pt);
+\fill (1.397,2.123) circle (0.45pt);
+\fill (1.424,2.107) circle (0.45pt);
+\fill (1.985,1.963) circle (0.45pt);
+\fill (2.530,2.151) circle (0.45pt);
+\fill (2.541,2.167) circle (0.45pt);
+\fill (2.470,2.431) circle (0.45pt);
+\fill (2.387,2.436) circle (0.45pt);
+\fill (2.238,2.211) circle (0.45pt);
+\fill (1.980,2.139) circle (0.45pt);
+\fill (1.743,2.216) circle (0.45pt);
+\fill (1.595,2.370) circle (0.45pt);
+\fill (1.661,2.502) circle (0.45pt);
+\fill (1.853,2.574) circle (0.45pt);
+\fill (2.156,2.954) circle (0.45pt);
+\fill (1.853,3.333) circle (0.45pt);
+\fill (1.391,3.454) circle (0.45pt);
+\fill (0.929,3.333) circle (0.45pt);
+\fill (0.627,2.954) circle (0.45pt);
+\fill (0.929,2.574) circle (0.45pt);
+\fill (1.116,2.502) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Regular (designer): 31 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.650,2.502) .. controls (1.710,2.464) and (1.727,2.420) .. (1.694,2.370) .. controls (1.650,2.310) and (1.595,2.255) .. (1.523,2.216) .. controls (1.441,2.167) and (1.358,2.139) .. (1.270,2.139) .. controls (1.155,2.139) and (1.078,2.161) .. (1.028,2.211) .. controls (1.001,2.244) and (0.968,2.321) .. (0.924,2.436) -- (0.841,2.431) -- (0.715,2.167) -- (0.720,2.151) .. controls (0.836,2.024) and (1.006,1.963) .. (1.226,1.963) .. controls (1.452,1.963) and (1.650,2.013) .. (1.815,2.107) .. controls (1.831,2.112) and (1.842,2.117) .. (1.848,2.123) .. controls (1.853,2.117) and (1.864,2.112) .. (1.870,2.107) .. controls (2.002,2.013) and (2.178,1.963) .. (2.403,1.963) .. controls (2.623,1.963) and (2.816,2.024) .. (2.986,2.151) -- (3.003,2.167) -- (2.986,2.431) -- (2.904,2.436) .. controls (2.816,2.321) and (2.750,2.244) .. (2.706,2.211) .. controls (2.640,2.161) and (2.552,2.139) .. (2.436,2.139) .. controls (2.349,2.139) and (2.277,2.167) .. (2.216,2.216) .. controls (2.156,2.255) and (2.117,2.310) .. (2.101,2.370) .. controls (2.084,2.420) and (2.112,2.464) .. (2.194,2.502) .. controls (2.255,2.524) and (2.321,2.546) .. (2.398,2.574) .. controls (2.623,2.662) and (2.750,2.788) .. (2.783,2.954) .. controls (2.816,3.113) and (2.744,3.239) .. (2.563,3.333) .. controls (2.403,3.410) and (2.255,3.448) .. (2.123,3.454) .. controls (1.991,3.448) and (1.831,3.410) .. (1.639,3.333) .. controls (1.413,3.239) and (1.287,3.113) .. (1.254,2.954) .. controls (1.221,2.788) and (1.292,2.662) .. (1.474,2.574) .. controls (1.573,2.535) and (1.573,2.535) .. (1.650,2.502) -- cycle;
+\draw[black!70, line width=0.25pt] (1.650,2.502) .. controls (1.710,2.464) and (1.727,2.420) .. (1.694,2.370) .. controls (1.650,2.310) and (1.595,2.255) .. (1.523,2.216) .. controls (1.441,2.167) and (1.358,2.139) .. (1.270,2.139) .. controls (1.155,2.139) and (1.078,2.161) .. (1.028,2.211) .. controls (1.001,2.244) and (0.968,2.321) .. (0.924,2.436) -- (0.841,2.431) -- (0.715,2.167) -- (0.720,2.151) .. controls (0.836,2.024) and (1.006,1.963) .. (1.226,1.963) .. controls (1.452,1.963) and (1.650,2.013) .. (1.815,2.107) .. controls (1.831,2.112) and (1.842,2.117) .. (1.848,2.123) .. controls (1.853,2.117) and (1.864,2.112) .. (1.870,2.107) .. controls (2.002,2.013) and (2.178,1.963) .. (2.403,1.963) .. controls (2.623,1.963) and (2.816,2.024) .. (2.986,2.151) -- (3.003,2.167) -- (2.986,2.431) -- (2.904,2.436) .. controls (2.816,2.321) and (2.750,2.244) .. (2.706,2.211) .. controls (2.640,2.161) and (2.552,2.139) .. (2.436,2.139) .. controls (2.349,2.139) and (2.277,2.167) .. (2.216,2.216) .. controls (2.156,2.255) and (2.117,2.310) .. (2.101,2.370) .. controls (2.084,2.420) and (2.112,2.464) .. (2.194,2.502) .. controls (2.255,2.524) and (2.321,2.546) .. (2.398,2.574) .. controls (2.623,2.662) and (2.750,2.788) .. (2.783,2.954) .. controls (2.816,3.113) and (2.744,3.239) .. (2.563,3.333) .. controls (2.403,3.410) and (2.255,3.448) .. (2.123,3.454) .. controls (1.991,3.448) and (1.831,3.410) .. (1.639,3.333) .. controls (1.413,3.239) and (1.287,3.113) .. (1.254,2.954) .. controls (1.221,2.788) and (1.292,2.662) .. (1.474,2.574) .. controls (1.573,2.535) and (1.573,2.535) .. (1.650,2.502) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.959,0);
+\draw[draft!60, line width=0.2pt] (1.650,2.502) -- (1.710,2.464);\draw[draft, line width=0.2pt, fill=white] (1.710,2.464) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.694,2.370) -- (1.727,2.420);\draw[draft, line width=0.2pt, fill=white] (1.727,2.420) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.694,2.370) -- (1.650,2.310);\draw[draft, line width=0.2pt, fill=white] (1.650,2.310) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.523,2.216) -- (1.595,2.255);\draw[draft, line width=0.2pt, fill=white] (1.595,2.255) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.523,2.216) -- (1.441,2.167);\draw[draft, line width=0.2pt, fill=white] (1.441,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.270,2.139) -- (1.358,2.139);\draw[draft, line width=0.2pt, fill=white] (1.358,2.139) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.270,2.139) -- (1.155,2.139);\draw[draft, line width=0.2pt, fill=white] (1.155,2.139) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.028,2.211) -- (1.078,2.161);\draw[draft, line width=0.2pt, fill=white] (1.078,2.161) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.028,2.211) -- (1.001,2.244);\draw[draft, line width=0.2pt, fill=white] (1.001,2.244) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.924,2.436) -- (0.968,2.321);\draw[draft, line width=0.2pt, fill=white] (0.968,2.321) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.720,2.151) -- (0.836,2.024);\draw[draft, line width=0.2pt, fill=white] (0.836,2.024) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.226,1.963) -- (1.006,1.963);\draw[draft, line width=0.2pt, fill=white] (1.006,1.963) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.226,1.963) -- (1.452,1.963);\draw[draft, line width=0.2pt, fill=white] (1.452,1.963) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.815,2.107) -- (1.650,2.013);\draw[draft, line width=0.2pt, fill=white] (1.650,2.013) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.815,2.107) -- (1.831,2.112);\draw[draft, line width=0.2pt, fill=white] (1.831,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.848,2.123) -- (1.842,2.117);\draw[draft, line width=0.2pt, fill=white] (1.842,2.117) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.848,2.123) -- (1.853,2.117);\draw[draft, line width=0.2pt, fill=white] (1.853,2.117) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.870,2.107) -- (1.864,2.112);\draw[draft, line width=0.2pt, fill=white] (1.864,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.870,2.107) -- (2.002,2.013);\draw[draft, line width=0.2pt, fill=white] (2.002,2.013) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.403,1.963) -- (2.178,1.963);\draw[draft, line width=0.2pt, fill=white] (2.178,1.963) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.403,1.963) -- (2.623,1.963);\draw[draft, line width=0.2pt, fill=white] (2.623,1.963) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.986,2.151) -- (2.816,2.024);\draw[draft, line width=0.2pt, fill=white] (2.816,2.024) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.904,2.436) -- (2.816,2.321);\draw[draft, line width=0.2pt, fill=white] (2.816,2.321) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.706,2.211) -- (2.750,2.244);\draw[draft, line width=0.2pt, fill=white] (2.750,2.244) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.706,2.211) -- (2.640,2.161);\draw[draft, line width=0.2pt, fill=white] (2.640,2.161) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.436,2.139) -- (2.552,2.139);\draw[draft, line width=0.2pt, fill=white] (2.552,2.139) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.436,2.139) -- (2.349,2.139);\draw[draft, line width=0.2pt, fill=white] (2.349,2.139) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.216,2.216) -- (2.277,2.167);\draw[draft, line width=0.2pt, fill=white] (2.277,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.216,2.216) -- (2.156,2.255);\draw[draft, line width=0.2pt, fill=white] (2.156,2.255) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.101,2.370) -- (2.117,2.310);\draw[draft, line width=0.2pt, fill=white] (2.117,2.310) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.101,2.370) -- (2.084,2.420);\draw[draft, line width=0.2pt, fill=white] (2.084,2.420) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.194,2.502) -- (2.112,2.464);\draw[draft, line width=0.2pt, fill=white] (2.112,2.464) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.194,2.502) -- (2.255,2.524);\draw[draft, line width=0.2pt, fill=white] (2.255,2.524) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.398,2.574) -- (2.321,2.546);\draw[draft, line width=0.2pt, fill=white] (2.321,2.546) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.398,2.574) -- (2.623,2.662);\draw[draft, line width=0.2pt, fill=white] (2.623,2.662) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.783,2.954) -- (2.750,2.788);\draw[draft, line width=0.2pt, fill=white] (2.750,2.788) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.783,2.954) -- (2.816,3.113);\draw[draft, line width=0.2pt, fill=white] (2.816,3.113) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.563,3.333) -- (2.744,3.239);\draw[draft, line width=0.2pt, fill=white] (2.744,3.239) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.563,3.333) -- (2.403,3.410);\draw[draft, line width=0.2pt, fill=white] (2.403,3.410) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.123,3.454) -- (2.255,3.448);\draw[draft, line width=0.2pt, fill=white] (2.255,3.448) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.123,3.454) -- (1.991,3.448);\draw[draft, line width=0.2pt, fill=white] (1.991,3.448) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.639,3.333) -- (1.831,3.410);\draw[draft, line width=0.2pt, fill=white] (1.831,3.410) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.639,3.333) -- (1.413,3.239);\draw[draft, line width=0.2pt, fill=white] (1.413,3.239) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.254,2.954) -- (1.287,3.113);\draw[draft, line width=0.2pt, fill=white] (1.287,3.113) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.254,2.954) -- (1.221,2.788);\draw[draft, line width=0.2pt, fill=white] (1.221,2.788) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.474,2.574) -- (1.292,2.662);\draw[draft, line width=0.2pt, fill=white] (1.292,2.662) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.474,2.574) -- (1.573,2.535);\draw[draft, line width=0.2pt, fill=white] (1.573,2.535) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.650,2.502) -- (1.573,2.535);\draw[draft, line width=0.2pt, fill=white] (1.573,2.535) circle (0.35pt);
+\fill (1.650,2.502) circle (0.45pt);
+\fill (1.694,2.370) circle (0.45pt);
+\fill (1.523,2.216) circle (0.45pt);
+\fill (1.270,2.139) circle (0.45pt);
+\fill (1.028,2.211) circle (0.45pt);
+\fill (0.924,2.436) circle (0.45pt);
+\fill (0.841,2.431) circle (0.45pt);
+\fill (0.715,2.167) circle (0.45pt);
+\fill (0.720,2.151) circle (0.45pt);
+\fill (1.226,1.963) circle (0.45pt);
+\fill (1.815,2.107) circle (0.45pt);
+\fill (1.848,2.123) circle (0.45pt);
+\fill (1.870,2.107) circle (0.45pt);
+\fill (2.403,1.963) circle (0.45pt);
+\fill (2.986,2.151) circle (0.45pt);
+\fill (3.003,2.167) circle (0.45pt);
+\fill (2.986,2.431) circle (0.45pt);
+\fill (2.904,2.436) circle (0.45pt);
+\fill (2.706,2.211) circle (0.45pt);
+\fill (2.436,2.139) circle (0.45pt);
+\fill (2.216,2.216) circle (0.45pt);
+\fill (2.101,2.370) circle (0.45pt);
+\fill (2.194,2.502) circle (0.45pt);
+\fill (2.398,2.574) circle (0.45pt);
+\fill (2.783,2.954) circle (0.45pt);
+\fill (2.563,3.333) circle (0.45pt);
+\fill (2.123,3.454) circle (0.45pt);
+\fill (1.639,3.333) circle (0.45pt);
+\fill (1.254,2.954) circle (0.45pt);
+\fill (1.474,2.574) circle (0.45pt);
+\fill (1.650,2.502) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Italic (draft): 31 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.105,2.475) .. controls (1.177,2.436) and (1.182,2.431) .. (1.160,2.381) .. controls (1.133,2.321) and (1.100,2.282) .. (1.034,2.244) .. controls (0.962,2.194) and (0.902,2.167) .. (0.814,2.167) .. controls (0.699,2.167) and (0.638,2.183) .. (0.583,2.233) .. controls (0.544,2.266) and (0.489,2.354) .. (0.423,2.470) -- (0.302,2.458) -- (0.220,2.161) -- (0.242,2.128) .. controls (0.385,2.002) and (0.588,1.936) .. (0.808,1.936) .. controls (1.034,1.936) and (1.237,1.985) .. (1.386,2.079) .. controls (1.397,2.084) and (1.391,2.073) .. (1.397,2.079) .. controls (1.402,2.073) and (1.397,2.084) .. (1.408,2.079) .. controls (1.556,1.985) and (1.760,1.936) .. (1.985,1.936) .. controls (2.205,1.936) and (2.409,2.002) .. (2.552,2.128) -- (2.574,2.161) -- (2.491,2.458) -- (2.370,2.470) .. controls (2.304,2.354) and (2.249,2.266) .. (2.216,2.233) .. controls (2.156,2.183) and (2.095,2.167) .. (1.980,2.167) .. controls (1.892,2.167) and (1.831,2.194) .. (1.760,2.244) .. controls (1.694,2.282) and (1.655,2.326) .. (1.622,2.387) .. controls (1.595,2.436) and (1.600,2.436) .. (1.672,2.475) .. controls (1.727,2.497) and (1.793,2.519) .. (1.864,2.546) .. controls (2.068,2.635) and (2.183,2.788) .. (2.183,2.954) .. controls (2.183,3.113) and (2.068,3.267) .. (1.864,3.360) .. controls (1.688,3.438) and (1.523,3.476) .. (1.391,3.481) .. controls (1.259,3.476) and (1.095,3.438) .. (0.918,3.360) .. controls (0.715,3.267) and (0.599,3.113) .. (0.599,2.954) .. controls (0.599,2.788) and (0.715,2.635) .. (0.918,2.546) .. controls (1.023,2.508) and (1.023,2.508) .. (1.105,2.475) -- cycle;
+\draw[black!70, line width=0.25pt] (1.105,2.475) .. controls (1.177,2.436) and (1.182,2.431) .. (1.160,2.381) .. controls (1.133,2.321) and (1.100,2.282) .. (1.034,2.244) .. controls (0.962,2.194) and (0.902,2.167) .. (0.814,2.167) .. controls (0.699,2.167) and (0.638,2.183) .. (0.583,2.233) .. controls (0.544,2.266) and (0.489,2.354) .. (0.423,2.470) -- (0.302,2.458) -- (0.220,2.161) -- (0.242,2.128) .. controls (0.385,2.002) and (0.588,1.936) .. (0.808,1.936) .. controls (1.034,1.936) and (1.237,1.985) .. (1.386,2.079) .. controls (1.397,2.084) and (1.391,2.073) .. (1.397,2.079) .. controls (1.402,2.073) and (1.397,2.084) .. (1.408,2.079) .. controls (1.556,1.985) and (1.760,1.936) .. (1.985,1.936) .. controls (2.205,1.936) and (2.409,2.002) .. (2.552,2.128) -- (2.574,2.161) -- (2.491,2.458) -- (2.370,2.470) .. controls (2.304,2.354) and (2.249,2.266) .. (2.216,2.233) .. controls (2.156,2.183) and (2.095,2.167) .. (1.980,2.167) .. controls (1.892,2.167) and (1.831,2.194) .. (1.760,2.244) .. controls (1.694,2.282) and (1.655,2.326) .. (1.622,2.387) .. controls (1.595,2.436) and (1.600,2.436) .. (1.672,2.475) .. controls (1.727,2.497) and (1.793,2.519) .. (1.864,2.546) .. controls (2.068,2.635) and (2.183,2.788) .. (2.183,2.954) .. controls (2.183,3.113) and (2.068,3.267) .. (1.864,3.360) .. controls (1.688,3.438) and (1.523,3.476) .. (1.391,3.481) .. controls (1.259,3.476) and (1.095,3.438) .. (0.918,3.360) .. controls (0.715,3.267) and (0.599,3.113) .. (0.599,2.954) .. controls (0.599,2.788) and (0.715,2.635) .. (0.918,2.546) .. controls (1.023,2.508) and (1.023,2.508) .. (1.105,2.475) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.959,0);
+\draw[draft!60, line width=0.2pt] (1.105,2.475) -- (1.177,2.436);\draw[draft, line width=0.2pt, fill=white] (1.177,2.436) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.160,2.381) -- (1.182,2.431);\draw[draft, line width=0.2pt, fill=white] (1.182,2.431) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.160,2.381) -- (1.133,2.321);\draw[draft, line width=0.2pt, fill=white] (1.133,2.321) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,2.244) -- (1.100,2.282);\draw[draft, line width=0.2pt, fill=white] (1.100,2.282) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,2.244) -- (0.962,2.194);\draw[draft, line width=0.2pt, fill=white] (0.962,2.194) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.814,2.167) -- (0.902,2.167);\draw[draft, line width=0.2pt, fill=white] (0.902,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.814,2.167) -- (0.699,2.167);\draw[draft, line width=0.2pt, fill=white] (0.699,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.583,2.233) -- (0.638,2.183);\draw[draft, line width=0.2pt, fill=white] (0.638,2.183) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.583,2.233) -- (0.544,2.266);\draw[draft, line width=0.2pt, fill=white] (0.544,2.266) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.423,2.470) -- (0.489,2.354);\draw[draft, line width=0.2pt, fill=white] (0.489,2.354) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.242,2.128) -- (0.385,2.002);\draw[draft, line width=0.2pt, fill=white] (0.385,2.002) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.808,1.936) -- (0.588,1.936);\draw[draft, line width=0.2pt, fill=white] (0.588,1.936) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.808,1.936) -- (1.034,1.936);\draw[draft, line width=0.2pt, fill=white] (1.034,1.936) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.386,2.079) -- (1.237,1.985);\draw[draft, line width=0.2pt, fill=white] (1.237,1.985) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.386,2.079) -- (1.397,2.084);\draw[draft, line width=0.2pt, fill=white] (1.397,2.084) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.397,2.079) -- (1.391,2.073);\draw[draft, line width=0.2pt, fill=white] (1.391,2.073) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.397,2.079) -- (1.402,2.073);\draw[draft, line width=0.2pt, fill=white] (1.402,2.073) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.408,2.079) -- (1.397,2.084);\draw[draft, line width=0.2pt, fill=white] (1.397,2.084) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.408,2.079) -- (1.556,1.985);\draw[draft, line width=0.2pt, fill=white] (1.556,1.985) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.985,1.936) -- (1.760,1.936);\draw[draft, line width=0.2pt, fill=white] (1.760,1.936) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.985,1.936) -- (2.205,1.936);\draw[draft, line width=0.2pt, fill=white] (2.205,1.936) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.552,2.128) -- (2.409,2.002);\draw[draft, line width=0.2pt, fill=white] (2.409,2.002) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.370,2.470) -- (2.304,2.354);\draw[draft, line width=0.2pt, fill=white] (2.304,2.354) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.216,2.233) -- (2.249,2.266);\draw[draft, line width=0.2pt, fill=white] (2.249,2.266) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.216,2.233) -- (2.156,2.183);\draw[draft, line width=0.2pt, fill=white] (2.156,2.183) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.980,2.167) -- (2.095,2.167);\draw[draft, line width=0.2pt, fill=white] (2.095,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.980,2.167) -- (1.892,2.167);\draw[draft, line width=0.2pt, fill=white] (1.892,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.760,2.244) -- (1.831,2.194);\draw[draft, line width=0.2pt, fill=white] (1.831,2.194) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.760,2.244) -- (1.694,2.282);\draw[draft, line width=0.2pt, fill=white] (1.694,2.282) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.622,2.387) -- (1.655,2.326);\draw[draft, line width=0.2pt, fill=white] (1.655,2.326) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.622,2.387) -- (1.595,2.436);\draw[draft, line width=0.2pt, fill=white] (1.595,2.436) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.672,2.475) -- (1.600,2.436);\draw[draft, line width=0.2pt, fill=white] (1.600,2.436) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.672,2.475) -- (1.727,2.497);\draw[draft, line width=0.2pt, fill=white] (1.727,2.497) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.864,2.546) -- (1.793,2.519);\draw[draft, line width=0.2pt, fill=white] (1.793,2.519) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.864,2.546) -- (2.068,2.635);\draw[draft, line width=0.2pt, fill=white] (2.068,2.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.183,2.954) -- (2.183,2.788);\draw[draft, line width=0.2pt, fill=white] (2.183,2.788) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.183,2.954) -- (2.183,3.113);\draw[draft, line width=0.2pt, fill=white] (2.183,3.113) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.864,3.360) -- (2.068,3.267);\draw[draft, line width=0.2pt, fill=white] (2.068,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.864,3.360) -- (1.688,3.438);\draw[draft, line width=0.2pt, fill=white] (1.688,3.438) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.391,3.481) -- (1.523,3.476);\draw[draft, line width=0.2pt, fill=white] (1.523,3.476) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.391,3.481) -- (1.259,3.476);\draw[draft, line width=0.2pt, fill=white] (1.259,3.476) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.918,3.360) -- (1.095,3.438);\draw[draft, line width=0.2pt, fill=white] (1.095,3.438) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.918,3.360) -- (0.715,3.267);\draw[draft, line width=0.2pt, fill=white] (0.715,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.599,2.954) -- (0.599,3.113);\draw[draft, line width=0.2pt, fill=white] (0.599,3.113) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.599,2.954) -- (0.599,2.788);\draw[draft, line width=0.2pt, fill=white] (0.599,2.788) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.918,2.546) -- (0.715,2.635);\draw[draft, line width=0.2pt, fill=white] (0.715,2.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.918,2.546) -- (1.023,2.508);\draw[draft, line width=0.2pt, fill=white] (1.023,2.508) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.105,2.475) -- (1.023,2.508);\draw[draft, line width=0.2pt, fill=white] (1.023,2.508) circle (0.35pt);
+\fill (1.105,2.475) circle (0.45pt);
+\fill (1.160,2.381) circle (0.45pt);
+\fill (1.034,2.244) circle (0.45pt);
+\fill (0.814,2.167) circle (0.45pt);
+\fill (0.583,2.233) circle (0.45pt);
+\fill (0.423,2.470) circle (0.45pt);
+\fill (0.302,2.458) circle (0.45pt);
+\fill (0.220,2.161) circle (0.45pt);
+\fill (0.242,2.128) circle (0.45pt);
+\fill (0.808,1.936) circle (0.45pt);
+\fill (1.386,2.079) circle (0.45pt);
+\fill (1.397,2.079) circle (0.45pt);
+\fill (1.408,2.079) circle (0.45pt);
+\fill (1.985,1.936) circle (0.45pt);
+\fill (2.552,2.128) circle (0.45pt);
+\fill (2.574,2.161) circle (0.45pt);
+\fill (2.491,2.458) circle (0.45pt);
+\fill (2.370,2.470) circle (0.45pt);
+\fill (2.216,2.233) circle (0.45pt);
+\fill (1.980,2.167) circle (0.45pt);
+\fill (1.760,2.244) circle (0.45pt);
+\fill (1.622,2.387) circle (0.45pt);
+\fill (1.672,2.475) circle (0.45pt);
+\fill (1.864,2.546) circle (0.45pt);
+\fill (2.183,2.954) circle (0.45pt);
+\fill (1.864,3.360) circle (0.45pt);
+\fill (1.391,3.481) circle (0.45pt);
+\fill (0.918,3.360) circle (0.45pt);
+\fill (0.599,2.954) circle (0.45pt);
+\fill (0.918,2.546) circle (0.45pt);
+\fill (1.105,2.475) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold (draft): 31 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.611,2.475) .. controls (1.677,2.436) and (1.677,2.436) .. (1.644,2.387) .. controls (1.606,2.326) and (1.562,2.282) .. (1.485,2.244) .. controls (1.408,2.194) and (1.337,2.167) .. (1.248,2.167) .. controls (1.133,2.167) and (1.078,2.183) .. (1.034,2.233) .. controls (1.001,2.266) and (0.968,2.354) .. (0.924,2.470) -- (0.797,2.458) -- (0.660,2.167) -- (0.676,2.134) .. controls (0.792,2.007) and (0.990,1.936) .. (1.210,1.936) .. controls (1.435,1.936) and (1.644,1.985) .. (1.809,2.079) .. controls (1.826,2.084) and (1.820,2.073) .. (1.826,2.079) .. controls (1.831,2.073) and (1.826,2.084) .. (1.837,2.079) .. controls (1.969,1.985) and (2.161,1.936) .. (2.387,1.936) .. controls (2.607,1.936) and (2.821,2.002) .. (2.986,2.128) -- (3.014,2.156) -- (2.992,2.458) -- (2.871,2.470) .. controls (2.777,2.354) and (2.712,2.266) .. (2.673,2.233) .. controls (2.601,2.183) and (2.530,2.167) .. (2.414,2.167) .. controls (2.326,2.167) and (2.272,2.189) .. (2.211,2.238) .. controls (2.156,2.277) and (2.128,2.321) .. (2.107,2.381) .. controls (2.090,2.431) and (2.101,2.436) .. (2.183,2.475) .. controls (2.238,2.497) and (2.310,2.519) .. (2.387,2.546) .. controls (2.607,2.635) and (2.750,2.783) .. (2.788,2.948) .. controls (2.816,3.107) and (2.728,3.267) .. (2.546,3.360) .. controls (2.387,3.438) and (2.228,3.476) .. (2.095,3.481) .. controls (1.963,3.476) and (1.787,3.438) .. (1.595,3.360) .. controls (1.375,3.267) and (1.232,3.118) .. (1.199,2.959) .. controls (1.166,2.794) and (1.254,2.635) .. (1.441,2.546) .. controls (1.540,2.508) and (1.534,2.508) .. (1.611,2.475) -- cycle;
+\draw[black!70, line width=0.25pt] (1.611,2.475) .. controls (1.677,2.436) and (1.677,2.436) .. (1.644,2.387) .. controls (1.606,2.326) and (1.562,2.282) .. (1.485,2.244) .. controls (1.408,2.194) and (1.337,2.167) .. (1.248,2.167) .. controls (1.133,2.167) and (1.078,2.183) .. (1.034,2.233) .. controls (1.001,2.266) and (0.968,2.354) .. (0.924,2.470) -- (0.797,2.458) -- (0.660,2.167) -- (0.676,2.134) .. controls (0.792,2.007) and (0.990,1.936) .. (1.210,1.936) .. controls (1.435,1.936) and (1.644,1.985) .. (1.809,2.079) .. controls (1.826,2.084) and (1.820,2.073) .. (1.826,2.079) .. controls (1.831,2.073) and (1.826,2.084) .. (1.837,2.079) .. controls (1.969,1.985) and (2.161,1.936) .. (2.387,1.936) .. controls (2.607,1.936) and (2.821,2.002) .. (2.986,2.128) -- (3.014,2.156) -- (2.992,2.458) -- (2.871,2.470) .. controls (2.777,2.354) and (2.712,2.266) .. (2.673,2.233) .. controls (2.601,2.183) and (2.530,2.167) .. (2.414,2.167) .. controls (2.326,2.167) and (2.272,2.189) .. (2.211,2.238) .. controls (2.156,2.277) and (2.128,2.321) .. (2.107,2.381) .. controls (2.090,2.431) and (2.101,2.436) .. (2.183,2.475) .. controls (2.238,2.497) and (2.310,2.519) .. (2.387,2.546) .. controls (2.607,2.635) and (2.750,2.783) .. (2.788,2.948) .. controls (2.816,3.107) and (2.728,3.267) .. (2.546,3.360) .. controls (2.387,3.438) and (2.228,3.476) .. (2.095,3.481) .. controls (1.963,3.476) and (1.787,3.438) .. (1.595,3.360) .. controls (1.375,3.267) and (1.232,3.118) .. (1.199,2.959) .. controls (1.166,2.794) and (1.254,2.635) .. (1.441,2.546) .. controls (1.540,2.508) and (1.534,2.508) .. (1.611,2.475) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.959,0);
+\draw[draft!60, line width=0.2pt] (1.611,2.475) -- (1.677,2.436);\draw[draft, line width=0.2pt, fill=white] (1.677,2.436) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.644,2.387) -- (1.677,2.436);\draw[draft, line width=0.2pt, fill=white] (1.677,2.436) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.644,2.387) -- (1.606,2.326);\draw[draft, line width=0.2pt, fill=white] (1.606,2.326) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.485,2.244) -- (1.562,2.282);\draw[draft, line width=0.2pt, fill=white] (1.562,2.282) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.485,2.244) -- (1.408,2.194);\draw[draft, line width=0.2pt, fill=white] (1.408,2.194) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.248,2.167) -- (1.337,2.167);\draw[draft, line width=0.2pt, fill=white] (1.337,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.248,2.167) -- (1.133,2.167);\draw[draft, line width=0.2pt, fill=white] (1.133,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,2.233) -- (1.078,2.183);\draw[draft, line width=0.2pt, fill=white] (1.078,2.183) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,2.233) -- (1.001,2.266);\draw[draft, line width=0.2pt, fill=white] (1.001,2.266) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.924,2.470) -- (0.968,2.354);\draw[draft, line width=0.2pt, fill=white] (0.968,2.354) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.676,2.134) -- (0.792,2.007);\draw[draft, line width=0.2pt, fill=white] (0.792,2.007) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.210,1.936) -- (0.990,1.936);\draw[draft, line width=0.2pt, fill=white] (0.990,1.936) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.210,1.936) -- (1.435,1.936);\draw[draft, line width=0.2pt, fill=white] (1.435,1.936) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.809,2.079) -- (1.644,1.985);\draw[draft, line width=0.2pt, fill=white] (1.644,1.985) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.809,2.079) -- (1.826,2.084);\draw[draft, line width=0.2pt, fill=white] (1.826,2.084) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.826,2.079) -- (1.820,2.073);\draw[draft, line width=0.2pt, fill=white] (1.820,2.073) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.826,2.079) -- (1.831,2.073);\draw[draft, line width=0.2pt, fill=white] (1.831,2.073) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.837,2.079) -- (1.826,2.084);\draw[draft, line width=0.2pt, fill=white] (1.826,2.084) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.837,2.079) -- (1.969,1.985);\draw[draft, line width=0.2pt, fill=white] (1.969,1.985) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.387,1.936) -- (2.161,1.936);\draw[draft, line width=0.2pt, fill=white] (2.161,1.936) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.387,1.936) -- (2.607,1.936);\draw[draft, line width=0.2pt, fill=white] (2.607,1.936) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.986,2.128) -- (2.821,2.002);\draw[draft, line width=0.2pt, fill=white] (2.821,2.002) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.871,2.470) -- (2.777,2.354);\draw[draft, line width=0.2pt, fill=white] (2.777,2.354) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.673,2.233) -- (2.712,2.266);\draw[draft, line width=0.2pt, fill=white] (2.712,2.266) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.673,2.233) -- (2.601,2.183);\draw[draft, line width=0.2pt, fill=white] (2.601,2.183) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.414,2.167) -- (2.530,2.167);\draw[draft, line width=0.2pt, fill=white] (2.530,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.414,2.167) -- (2.326,2.167);\draw[draft, line width=0.2pt, fill=white] (2.326,2.167) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.211,2.238) -- (2.272,2.189);\draw[draft, line width=0.2pt, fill=white] (2.272,2.189) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.211,2.238) -- (2.156,2.277);\draw[draft, line width=0.2pt, fill=white] (2.156,2.277) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.107,2.381) -- (2.128,2.321);\draw[draft, line width=0.2pt, fill=white] (2.128,2.321) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.107,2.381) -- (2.090,2.431);\draw[draft, line width=0.2pt, fill=white] (2.090,2.431) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.183,2.475) -- (2.101,2.436);\draw[draft, line width=0.2pt, fill=white] (2.101,2.436) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.183,2.475) -- (2.238,2.497);\draw[draft, line width=0.2pt, fill=white] (2.238,2.497) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.387,2.546) -- (2.310,2.519);\draw[draft, line width=0.2pt, fill=white] (2.310,2.519) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.387,2.546) -- (2.607,2.635);\draw[draft, line width=0.2pt, fill=white] (2.607,2.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.788,2.948) -- (2.750,2.783);\draw[draft, line width=0.2pt, fill=white] (2.750,2.783) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.788,2.948) -- (2.816,3.107);\draw[draft, line width=0.2pt, fill=white] (2.816,3.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.546,3.360) -- (2.728,3.267);\draw[draft, line width=0.2pt, fill=white] (2.728,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.546,3.360) -- (2.387,3.438);\draw[draft, line width=0.2pt, fill=white] (2.387,3.438) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.095,3.481) -- (2.228,3.476);\draw[draft, line width=0.2pt, fill=white] (2.228,3.476) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.095,3.481) -- (1.963,3.476);\draw[draft, line width=0.2pt, fill=white] (1.963,3.476) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.595,3.360) -- (1.787,3.438);\draw[draft, line width=0.2pt, fill=white] (1.787,3.438) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.595,3.360) -- (1.375,3.267);\draw[draft, line width=0.2pt, fill=white] (1.375,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.199,2.959) -- (1.232,3.118);\draw[draft, line width=0.2pt, fill=white] (1.232,3.118) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.199,2.959) -- (1.166,2.794);\draw[draft, line width=0.2pt, fill=white] (1.166,2.794) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.441,2.546) -- (1.254,2.635);\draw[draft, line width=0.2pt, fill=white] (1.254,2.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.441,2.546) -- (1.540,2.508);\draw[draft, line width=0.2pt, fill=white] (1.540,2.508) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.611,2.475) -- (1.534,2.508);\draw[draft, line width=0.2pt, fill=white] (1.534,2.508) circle (0.35pt);
+\fill (1.611,2.475) circle (0.45pt);
+\fill (1.644,2.387) circle (0.45pt);
+\fill (1.485,2.244) circle (0.45pt);
+\fill (1.248,2.167) circle (0.45pt);
+\fill (1.034,2.233) circle (0.45pt);
+\fill (0.924,2.470) circle (0.45pt);
+\fill (0.797,2.458) circle (0.45pt);
+\fill (0.660,2.167) circle (0.45pt);
+\fill (0.676,2.134) circle (0.45pt);
+\fill (1.210,1.936) circle (0.45pt);
+\fill (1.809,2.079) circle (0.45pt);
+\fill (1.826,2.079) circle (0.45pt);
+\fill (1.837,2.079) circle (0.45pt);
+\fill (2.387,1.936) circle (0.45pt);
+\fill (2.986,2.128) circle (0.45pt);
+\fill (3.014,2.156) circle (0.45pt);
+\fill (2.992,2.458) circle (0.45pt);
+\fill (2.871,2.470) circle (0.45pt);
+\fill (2.673,2.233) circle (0.45pt);
+\fill (2.414,2.167) circle (0.45pt);
+\fill (2.211,2.238) circle (0.45pt);
+\fill (2.107,2.381) circle (0.45pt);
+\fill (2.183,2.475) circle (0.45pt);
+\fill (2.387,2.546) circle (0.45pt);
+\fill (2.788,2.948) circle (0.45pt);
+\fill (2.546,3.360) circle (0.45pt);
+\fill (2.095,3.481) circle (0.45pt);
+\fill (1.595,3.360) circle (0.45pt);
+\fill (1.199,2.959) circle (0.45pt);
+\fill (1.441,2.546) circle (0.45pt);
+\fill (1.611,2.475) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold italic (draft): 31 on-curve points};
+\end{tikzpicture}\hfill
+\par\bigskip\end{minipage}\par
+\par\begin{minipage}{\linewidth}
+{\LibDraft \char"1D5D}\ U+1D5D\par\nopagebreak
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (0.528,3.443) .. controls (0.528,3.784) and (0.682,3.921) .. (0.880,3.921) .. controls (1.050,3.921) and (1.155,3.811) .. (1.155,3.608) .. controls (1.155,3.498) and (1.105,3.300) .. (0.929,3.261) -- (0.797,3.261) .. controls (0.704,3.261) and (0.660,3.250) .. (0.660,3.190) .. controls (0.660,3.129) and (0.704,3.113) .. (0.797,3.113) -- (0.973,3.113) .. controls (1.166,3.085) and (1.270,2.854) .. (1.270,2.596) .. controls (1.270,2.277) and (1.194,2.107) .. (0.995,2.107) .. controls (0.896,2.107) and (0.803,2.123) .. (0.715,2.238) -- (0.588,2.178) -- (0.588,2.156) .. controls (0.660,2.024) and (0.820,1.969) .. (0.968,1.969) .. controls (1.369,1.969) and (1.589,2.244) .. (1.589,2.607) .. controls (1.589,2.926) and (1.479,3.124) .. (1.100,3.196) .. controls (1.386,3.300) and (1.452,3.448) .. (1.452,3.635) .. controls (1.452,3.905) and (1.237,4.064) .. (0.913,4.064) .. controls (0.671,4.064) and (0.517,3.976) .. (0.396,3.795) .. controls (0.291,3.646) and (0.264,3.503) .. (0.264,3.278) -- (0.264,1.419) -- (0.302,1.342) -- (0.528,1.452) -- cycle;
+\draw[black!70, line width=0.25pt] (0.528,3.443) .. controls (0.528,3.784) and (0.682,3.921) .. (0.880,3.921) .. controls (1.050,3.921) and (1.155,3.811) .. (1.155,3.608) .. controls (1.155,3.498) and (1.105,3.300) .. (0.929,3.261) -- (0.797,3.261) .. controls (0.704,3.261) and (0.660,3.250) .. (0.660,3.190) .. controls (0.660,3.129) and (0.704,3.113) .. (0.797,3.113) -- (0.973,3.113) .. controls (1.166,3.085) and (1.270,2.854) .. (1.270,2.596) .. controls (1.270,2.277) and (1.194,2.107) .. (0.995,2.107) .. controls (0.896,2.107) and (0.803,2.123) .. (0.715,2.238) -- (0.588,2.178) -- (0.588,2.156) .. controls (0.660,2.024) and (0.820,1.969) .. (0.968,1.969) .. controls (1.369,1.969) and (1.589,2.244) .. (1.589,2.607) .. controls (1.589,2.926) and (1.479,3.124) .. (1.100,3.196) .. controls (1.386,3.300) and (1.452,3.448) .. (1.452,3.635) .. controls (1.452,3.905) and (1.237,4.064) .. (0.913,4.064) .. controls (0.671,4.064) and (0.517,3.976) .. (0.396,3.795) .. controls (0.291,3.646) and (0.264,3.503) .. (0.264,3.278) -- (0.264,1.419) -- (0.302,1.342) -- (0.528,1.452) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (1.881,0);
+\draw[draft!60, line width=0.2pt] (0.528,3.443) -- (0.528,3.784);\draw[draft, line width=0.2pt, fill=white] (0.528,3.784) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.880,3.921) -- (0.682,3.921);\draw[draft, line width=0.2pt, fill=white] (0.682,3.921) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.880,3.921) -- (1.050,3.921);\draw[draft, line width=0.2pt, fill=white] (1.050,3.921) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.155,3.608) -- (1.155,3.811);\draw[draft, line width=0.2pt, fill=white] (1.155,3.811) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.155,3.608) -- (1.155,3.498);\draw[draft, line width=0.2pt, fill=white] (1.155,3.498) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.929,3.261) -- (1.105,3.300);\draw[draft, line width=0.2pt, fill=white] (1.105,3.300) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.797,3.261) -- (0.704,3.261);\draw[draft, line width=0.2pt, fill=white] (0.704,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.660,3.190) -- (0.660,3.250);\draw[draft, line width=0.2pt, fill=white] (0.660,3.250) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.660,3.190) -- (0.660,3.129);\draw[draft, line width=0.2pt, fill=white] (0.660,3.129) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.797,3.113) -- (0.704,3.113);\draw[draft, line width=0.2pt, fill=white] (0.704,3.113) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.973,3.113) -- (1.166,3.085);\draw[draft, line width=0.2pt, fill=white] (1.166,3.085) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.270,2.596) -- (1.270,2.854);\draw[draft, line width=0.2pt, fill=white] (1.270,2.854) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.270,2.596) -- (1.270,2.277);\draw[draft, line width=0.2pt, fill=white] (1.270,2.277) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.995,2.107) -- (1.194,2.107);\draw[draft, line width=0.2pt, fill=white] (1.194,2.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.995,2.107) -- (0.896,2.107);\draw[draft, line width=0.2pt, fill=white] (0.896,2.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.715,2.238) -- (0.803,2.123);\draw[draft, line width=0.2pt, fill=white] (0.803,2.123) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.588,2.156) -- (0.660,2.024);\draw[draft, line width=0.2pt, fill=white] (0.660,2.024) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.968,1.969) -- (0.820,1.969);\draw[draft, line width=0.2pt, fill=white] (0.820,1.969) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.968,1.969) -- (1.369,1.969);\draw[draft, line width=0.2pt, fill=white] (1.369,1.969) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.589,2.607) -- (1.589,2.244);\draw[draft, line width=0.2pt, fill=white] (1.589,2.244) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.589,2.607) -- (1.589,2.926);\draw[draft, line width=0.2pt, fill=white] (1.589,2.926) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.100,3.196) -- (1.479,3.124);\draw[draft, line width=0.2pt, fill=white] (1.479,3.124) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.100,3.196) -- (1.386,3.300);\draw[draft, line width=0.2pt, fill=white] (1.386,3.300) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.452,3.635) -- (1.452,3.448);\draw[draft, line width=0.2pt, fill=white] (1.452,3.448) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.452,3.635) -- (1.452,3.905);\draw[draft, line width=0.2pt, fill=white] (1.452,3.905) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.913,4.064) -- (1.237,4.064);\draw[draft, line width=0.2pt, fill=white] (1.237,4.064) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.913,4.064) -- (0.671,4.064);\draw[draft, line width=0.2pt, fill=white] (0.671,4.064) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.396,3.795) -- (0.517,3.976);\draw[draft, line width=0.2pt, fill=white] (0.517,3.976) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.396,3.795) -- (0.291,3.646);\draw[draft, line width=0.2pt, fill=white] (0.291,3.646) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.264,3.278) -- (0.264,3.503);\draw[draft, line width=0.2pt, fill=white] (0.264,3.503) circle (0.35pt);
+\fill (0.528,3.443) circle (0.45pt);
+\fill (0.880,3.921) circle (0.45pt);
+\fill (1.155,3.608) circle (0.45pt);
+\fill (0.929,3.261) circle (0.45pt);
+\fill (0.797,3.261) circle (0.45pt);
+\fill (0.660,3.190) circle (0.45pt);
+\fill (0.797,3.113) circle (0.45pt);
+\fill (0.973,3.113) circle (0.45pt);
+\fill (1.270,2.596) circle (0.45pt);
+\fill (0.995,2.107) circle (0.45pt);
+\fill (0.715,2.238) circle (0.45pt);
+\fill (0.588,2.178) circle (0.45pt);
+\fill (0.588,2.156) circle (0.45pt);
+\fill (0.968,1.969) circle (0.45pt);
+\fill (1.589,2.607) circle (0.45pt);
+\fill (1.100,3.196) circle (0.45pt);
+\fill (1.452,3.635) circle (0.45pt);
+\fill (0.913,4.064) circle (0.45pt);
+\fill (0.396,3.795) circle (0.45pt);
+\fill (0.264,3.278) circle (0.45pt);
+\fill (0.264,1.419) circle (0.45pt);
+\fill (0.302,1.342) circle (0.45pt);
+\fill (0.528,1.452) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Regular (designer): 23 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.001,2.079) .. controls (1.073,2.013) and (1.171,1.991) .. (1.325,1.991) .. controls (1.705,1.991) and (2.057,2.420) .. (2.051,2.799) .. controls (2.046,3.080) and (1.837,3.162) .. (1.738,3.201) .. controls (2.013,3.333) and (2.161,3.525) .. (2.161,3.745) .. controls (2.156,3.943) and (1.969,4.064) .. (1.771,4.064) .. controls (1.369,4.064) and (1.160,3.762) .. (1.039,3.278) -- (0.753,2.024) .. controls (0.671,1.666) and (0.599,1.518) .. (0.544,1.419) -- (0.567,1.347) -- (0.830,1.441) .. controls (0.885,1.556) and (0.918,1.700) .. (0.957,1.870) -- (1.001,2.079) -- cycle (1.639,3.256) .. controls (1.573,3.283) and (1.523,3.289) .. (1.479,3.289) .. controls (1.424,3.289) and (1.364,3.234) .. (1.364,3.173) .. controls (1.364,3.129) and (1.424,3.091) .. (1.468,3.091) .. controls (1.512,3.091) and (1.551,3.102) .. (1.617,3.135) .. controls (1.754,3.102) and (1.787,2.981) .. (1.793,2.821) .. controls (1.798,2.447) and (1.540,2.107) .. (1.325,2.107) .. controls (1.155,2.107) and (1.083,2.172) .. (1.045,2.255) -- (1.320,3.448) .. controls (1.430,3.894) and (1.606,3.949) .. (1.727,3.949) .. controls (1.859,3.949) and (1.914,3.855) .. (1.919,3.718) .. controls (1.919,3.509) and (1.754,3.278) .. (1.639,3.256) -- cycle;
+\draw[black!70, line width=0.25pt] (1.001,2.079) .. controls (1.073,2.013) and (1.171,1.991) .. (1.325,1.991) .. controls (1.705,1.991) and (2.057,2.420) .. (2.051,2.799) .. controls (2.046,3.080) and (1.837,3.162) .. (1.738,3.201) .. controls (2.013,3.333) and (2.161,3.525) .. (2.161,3.745) .. controls (2.156,3.943) and (1.969,4.064) .. (1.771,4.064) .. controls (1.369,4.064) and (1.160,3.762) .. (1.039,3.278) -- (0.753,2.024) .. controls (0.671,1.666) and (0.599,1.518) .. (0.544,1.419) -- (0.567,1.347) -- (0.830,1.441) .. controls (0.885,1.556) and (0.918,1.700) .. (0.957,1.870) -- (1.001,2.079) -- cycle (1.639,3.256) .. controls (1.573,3.283) and (1.523,3.289) .. (1.479,3.289) .. controls (1.424,3.289) and (1.364,3.234) .. (1.364,3.173) .. controls (1.364,3.129) and (1.424,3.091) .. (1.468,3.091) .. controls (1.512,3.091) and (1.551,3.102) .. (1.617,3.135) .. controls (1.754,3.102) and (1.787,2.981) .. (1.793,2.821) .. controls (1.798,2.447) and (1.540,2.107) .. (1.325,2.107) .. controls (1.155,2.107) and (1.083,2.172) .. (1.045,2.255) -- (1.320,3.448) .. controls (1.430,3.894) and (1.606,3.949) .. (1.727,3.949) .. controls (1.859,3.949) and (1.914,3.855) .. (1.919,3.718) .. controls (1.919,3.509) and (1.754,3.278) .. (1.639,3.256) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (1.743,0);
+\draw[draft!60, line width=0.2pt] (1.001,2.079) -- (1.073,2.013);\draw[draft, line width=0.2pt, fill=white] (1.073,2.013) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.325,1.991) -- (1.171,1.991);\draw[draft, line width=0.2pt, fill=white] (1.171,1.991) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.325,1.991) -- (1.705,1.991);\draw[draft, line width=0.2pt, fill=white] (1.705,1.991) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.051,2.799) -- (2.057,2.420);\draw[draft, line width=0.2pt, fill=white] (2.057,2.420) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.051,2.799) -- (2.046,3.080);\draw[draft, line width=0.2pt, fill=white] (2.046,3.080) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.738,3.201) -- (1.837,3.162);\draw[draft, line width=0.2pt, fill=white] (1.837,3.162) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.738,3.201) -- (2.013,3.333);\draw[draft, line width=0.2pt, fill=white] (2.013,3.333) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.161,3.745) -- (2.161,3.525);\draw[draft, line width=0.2pt, fill=white] (2.161,3.525) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.161,3.745) -- (2.156,3.943);\draw[draft, line width=0.2pt, fill=white] (2.156,3.943) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.771,4.064) -- (1.969,4.064);\draw[draft, line width=0.2pt, fill=white] (1.969,4.064) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.771,4.064) -- (1.369,4.064);\draw[draft, line width=0.2pt, fill=white] (1.369,4.064) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.039,3.278) -- (1.160,3.762);\draw[draft, line width=0.2pt, fill=white] (1.160,3.762) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.753,2.024) -- (0.671,1.666);\draw[draft, line width=0.2pt, fill=white] (0.671,1.666) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.544,1.419) -- (0.599,1.518);\draw[draft, line width=0.2pt, fill=white] (0.599,1.518) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.830,1.441) -- (0.885,1.556);\draw[draft, line width=0.2pt, fill=white] (0.885,1.556) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.957,1.870) -- (0.918,1.700);\draw[draft, line width=0.2pt, fill=white] (0.918,1.700) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.639,3.256) -- (1.573,3.283);\draw[draft, line width=0.2pt, fill=white] (1.573,3.283) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.479,3.289) -- (1.523,3.289);\draw[draft, line width=0.2pt, fill=white] (1.523,3.289) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.479,3.289) -- (1.424,3.289);\draw[draft, line width=0.2pt, fill=white] (1.424,3.289) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.364,3.173) -- (1.364,3.234);\draw[draft, line width=0.2pt, fill=white] (1.364,3.234) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.364,3.173) -- (1.364,3.129);\draw[draft, line width=0.2pt, fill=white] (1.364,3.129) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.468,3.091) -- (1.424,3.091);\draw[draft, line width=0.2pt, fill=white] (1.424,3.091) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.468,3.091) -- (1.512,3.091);\draw[draft, line width=0.2pt, fill=white] (1.512,3.091) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.617,3.135) -- (1.551,3.102);\draw[draft, line width=0.2pt, fill=white] (1.551,3.102) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.617,3.135) -- (1.754,3.102);\draw[draft, line width=0.2pt, fill=white] (1.754,3.102) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.793,2.821) -- (1.787,2.981);\draw[draft, line width=0.2pt, fill=white] (1.787,2.981) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.793,2.821) -- (1.798,2.447);\draw[draft, line width=0.2pt, fill=white] (1.798,2.447) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.325,2.107) -- (1.540,2.107);\draw[draft, line width=0.2pt, fill=white] (1.540,2.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.325,2.107) -- (1.155,2.107);\draw[draft, line width=0.2pt, fill=white] (1.155,2.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.045,2.255) -- (1.083,2.172);\draw[draft, line width=0.2pt, fill=white] (1.083,2.172) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.320,3.448) -- (1.430,3.894);\draw[draft, line width=0.2pt, fill=white] (1.430,3.894) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.727,3.949) -- (1.606,3.949);\draw[draft, line width=0.2pt, fill=white] (1.606,3.949) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.727,3.949) -- (1.859,3.949);\draw[draft, line width=0.2pt, fill=white] (1.859,3.949) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.919,3.718) -- (1.914,3.855);\draw[draft, line width=0.2pt, fill=white] (1.914,3.855) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.919,3.718) -- (1.919,3.509);\draw[draft, line width=0.2pt, fill=white] (1.919,3.509) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.639,3.256) -- (1.754,3.278);\draw[draft, line width=0.2pt, fill=white] (1.754,3.278) circle (0.35pt);
+\fill (1.001,2.079) circle (0.45pt);
+\fill (1.325,1.991) circle (0.45pt);
+\fill (2.051,2.799) circle (0.45pt);
+\fill (1.738,3.201) circle (0.45pt);
+\fill (2.161,3.745) circle (0.45pt);
+\fill (1.771,4.064) circle (0.45pt);
+\fill (1.039,3.278) circle (0.45pt);
+\fill (0.753,2.024) circle (0.45pt);
+\fill (0.544,1.419) circle (0.45pt);
+\fill (0.567,1.347) circle (0.45pt);
+\fill (0.830,1.441) circle (0.45pt);
+\fill (0.957,1.870) circle (0.45pt);
+\fill (1.001,2.079) circle (0.45pt);
+\fill (1.639,3.256) circle (0.45pt);
+\fill (1.479,3.289) circle (0.45pt);
+\fill (1.364,3.173) circle (0.45pt);
+\fill (1.468,3.091) circle (0.45pt);
+\fill (1.617,3.135) circle (0.45pt);
+\fill (1.793,2.821) circle (0.45pt);
+\fill (1.325,2.107) circle (0.45pt);
+\fill (1.045,2.255) circle (0.45pt);
+\fill (1.320,3.448) circle (0.45pt);
+\fill (1.727,3.949) circle (0.45pt);
+\fill (1.919,3.718) circle (0.45pt);
+\fill (1.639,3.256) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Italic (draft): 25 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (0.352,1.468) -- (0.418,1.369) -- (0.693,1.501) -- (0.693,2.194) .. controls (0.748,2.084) and (0.902,2.007) .. (1.078,2.007) .. controls (1.468,2.007) and (1.672,2.304) .. (1.672,2.629) .. controls (1.672,3.047) and (1.337,3.168) .. (1.160,3.206) .. controls (1.364,3.289) and (1.551,3.415) .. (1.551,3.635) .. controls (1.551,3.910) and (1.270,4.053) .. (0.990,4.053) .. controls (0.511,4.053) and (0.352,3.624) .. (0.352,3.239) -- (0.352,1.468) -- cycle (0.693,3.448) .. controls (0.693,3.877) and (0.863,3.943) .. (0.962,3.943) .. controls (1.100,3.943) and (1.210,3.778) .. (1.210,3.608) .. controls (1.210,3.487) and (1.155,3.250) .. (1.056,3.250) .. controls (1.012,3.250) and (0.957,3.294) .. (0.885,3.294) .. controls (0.820,3.294) and (0.759,3.261) .. (0.759,3.206) .. controls (0.759,3.146) and (0.803,3.107) .. (0.885,3.107) .. controls (0.973,3.107) and (1.017,3.140) .. (1.045,3.140) .. controls (1.237,3.140) and (1.315,2.777) .. (1.315,2.618) .. controls (1.315,2.436) and (1.248,2.101) .. (1.067,2.101) .. controls (1.012,2.101) and (0.891,2.172) .. (0.830,2.288) -- (0.693,2.222) -- (0.693,3.448) -- cycle;
+\draw[black!70, line width=0.25pt] (0.352,1.468) -- (0.418,1.369) -- (0.693,1.501) -- (0.693,2.194) .. controls (0.748,2.084) and (0.902,2.007) .. (1.078,2.007) .. controls (1.468,2.007) and (1.672,2.304) .. (1.672,2.629) .. controls (1.672,3.047) and (1.337,3.168) .. (1.160,3.206) .. controls (1.364,3.289) and (1.551,3.415) .. (1.551,3.635) .. controls (1.551,3.910) and (1.270,4.053) .. (0.990,4.053) .. controls (0.511,4.053) and (0.352,3.624) .. (0.352,3.239) -- (0.352,1.468) -- cycle (0.693,3.448) .. controls (0.693,3.877) and (0.863,3.943) .. (0.962,3.943) .. controls (1.100,3.943) and (1.210,3.778) .. (1.210,3.608) .. controls (1.210,3.487) and (1.155,3.250) .. (1.056,3.250) .. controls (1.012,3.250) and (0.957,3.294) .. (0.885,3.294) .. controls (0.820,3.294) and (0.759,3.261) .. (0.759,3.206) .. controls (0.759,3.146) and (0.803,3.107) .. (0.885,3.107) .. controls (0.973,3.107) and (1.017,3.140) .. (1.045,3.140) .. controls (1.237,3.140) and (1.315,2.777) .. (1.315,2.618) .. controls (1.315,2.436) and (1.248,2.101) .. (1.067,2.101) .. controls (1.012,2.101) and (0.891,2.172) .. (0.830,2.288) -- (0.693,2.222) -- (0.693,3.448) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (1.958,0);
+\draw[draft!60, line width=0.2pt] (0.693,2.194) -- (0.748,2.084);\draw[draft, line width=0.2pt, fill=white] (0.748,2.084) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.078,2.007) -- (0.902,2.007);\draw[draft, line width=0.2pt, fill=white] (0.902,2.007) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.078,2.007) -- (1.468,2.007);\draw[draft, line width=0.2pt, fill=white] (1.468,2.007) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.672,2.629) -- (1.672,2.304);\draw[draft, line width=0.2pt, fill=white] (1.672,2.304) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.672,2.629) -- (1.672,3.047);\draw[draft, line width=0.2pt, fill=white] (1.672,3.047) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.160,3.206) -- (1.337,3.168);\draw[draft, line width=0.2pt, fill=white] (1.337,3.168) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.160,3.206) -- (1.364,3.289);\draw[draft, line width=0.2pt, fill=white] (1.364,3.289) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.551,3.635) -- (1.551,3.415);\draw[draft, line width=0.2pt, fill=white] (1.551,3.415) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.551,3.635) -- (1.551,3.910);\draw[draft, line width=0.2pt, fill=white] (1.551,3.910) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.990,4.053) -- (1.270,4.053);\draw[draft, line width=0.2pt, fill=white] (1.270,4.053) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.990,4.053) -- (0.511,4.053);\draw[draft, line width=0.2pt, fill=white] (0.511,4.053) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.352,3.239) -- (0.352,3.624);\draw[draft, line width=0.2pt, fill=white] (0.352,3.624) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.693,3.448) -- (0.693,3.877);\draw[draft, line width=0.2pt, fill=white] (0.693,3.877) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.962,3.943) -- (0.863,3.943);\draw[draft, line width=0.2pt, fill=white] (0.863,3.943) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.962,3.943) -- (1.100,3.943);\draw[draft, line width=0.2pt, fill=white] (1.100,3.943) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.210,3.608) -- (1.210,3.778);\draw[draft, line width=0.2pt, fill=white] (1.210,3.778) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.210,3.608) -- (1.210,3.487);\draw[draft, line width=0.2pt, fill=white] (1.210,3.487) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.056,3.250) -- (1.155,3.250);\draw[draft, line width=0.2pt, fill=white] (1.155,3.250) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.056,3.250) -- (1.012,3.250);\draw[draft, line width=0.2pt, fill=white] (1.012,3.250) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.885,3.294) -- (0.957,3.294);\draw[draft, line width=0.2pt, fill=white] (0.957,3.294) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.885,3.294) -- (0.820,3.294);\draw[draft, line width=0.2pt, fill=white] (0.820,3.294) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.759,3.206) -- (0.759,3.261);\draw[draft, line width=0.2pt, fill=white] (0.759,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.759,3.206) -- (0.759,3.146);\draw[draft, line width=0.2pt, fill=white] (0.759,3.146) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.885,3.107) -- (0.803,3.107);\draw[draft, line width=0.2pt, fill=white] (0.803,3.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.885,3.107) -- (0.973,3.107);\draw[draft, line width=0.2pt, fill=white] (0.973,3.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.045,3.140) -- (1.017,3.140);\draw[draft, line width=0.2pt, fill=white] (1.017,3.140) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.045,3.140) -- (1.237,3.140);\draw[draft, line width=0.2pt, fill=white] (1.237,3.140) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.315,2.618) -- (1.315,2.777);\draw[draft, line width=0.2pt, fill=white] (1.315,2.777) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.315,2.618) -- (1.315,2.436);\draw[draft, line width=0.2pt, fill=white] (1.315,2.436) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.067,2.101) -- (1.248,2.101);\draw[draft, line width=0.2pt, fill=white] (1.248,2.101) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.067,2.101) -- (1.012,2.101);\draw[draft, line width=0.2pt, fill=white] (1.012,2.101) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.830,2.288) -- (0.891,2.172);\draw[draft, line width=0.2pt, fill=white] (0.891,2.172) circle (0.35pt);
+\fill (0.352,1.468) circle (0.45pt);
+\fill (0.418,1.369) circle (0.45pt);
+\fill (0.693,1.501) circle (0.45pt);
+\fill (0.693,2.194) circle (0.45pt);
+\fill (1.078,2.007) circle (0.45pt);
+\fill (1.672,2.629) circle (0.45pt);
+\fill (1.160,3.206) circle (0.45pt);
+\fill (1.551,3.635) circle (0.45pt);
+\fill (0.990,4.053) circle (0.45pt);
+\fill (0.352,3.239) circle (0.45pt);
+\fill (0.352,1.468) circle (0.45pt);
+\fill (0.693,3.448) circle (0.45pt);
+\fill (0.962,3.943) circle (0.45pt);
+\fill (1.210,3.608) circle (0.45pt);
+\fill (1.056,3.250) circle (0.45pt);
+\fill (0.885,3.294) circle (0.45pt);
+\fill (0.759,3.206) circle (0.45pt);
+\fill (0.885,3.107) circle (0.45pt);
+\fill (1.045,3.140) circle (0.45pt);
+\fill (1.315,2.618) circle (0.45pt);
+\fill (1.067,2.101) circle (0.45pt);
+\fill (0.830,2.288) circle (0.45pt);
+\fill (0.693,2.222) circle (0.45pt);
+\fill (0.693,3.448) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold (draft): 24 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (0.638,1.468) -- (0.682,1.375) -- (1.001,1.507) -- (1.166,2.216) .. controls (1.199,2.107) and (1.309,2.007) .. (1.490,2.007) .. controls (1.881,2.007) and (2.145,2.304) .. (2.222,2.635) .. controls (2.233,2.689) and (2.238,2.739) .. (2.238,2.783) .. controls (2.238,3.075) and (1.991,3.173) .. (1.848,3.206) .. controls (2.062,3.289) and (2.277,3.415) .. (2.332,3.635) .. controls (2.337,3.663) and (2.337,3.696) .. (2.337,3.723) .. controls (2.337,3.938) and (2.117,4.048) .. (1.875,4.048) .. controls (1.397,4.048) and (1.138,3.624) .. (1.050,3.239) -- (0.638,1.468) -- cycle (1.452,3.448) .. controls (1.551,3.883) and (1.721,3.943) .. (1.820,3.943) .. controls (1.925,3.943) and (1.985,3.844) .. (1.985,3.723) .. controls (1.985,3.685) and (1.980,3.646) .. (1.974,3.608) .. controls (1.947,3.487) and (1.853,3.245) .. (1.749,3.245) .. controls (1.749,3.245) and (1.732,3.261) .. (1.710,3.272) .. controls (1.683,3.283) and (1.655,3.300) .. (1.595,3.300) .. controls (1.512,3.300) and (1.441,3.261) .. (1.424,3.206) .. controls (1.424,3.196) and (1.419,3.184) .. (1.419,3.179) .. controls (1.419,3.124) and (1.458,3.102) .. (1.545,3.102) .. controls (1.595,3.102) and (1.622,3.113) .. (1.650,3.124) .. controls (1.677,3.135) and (1.710,3.146) .. (1.721,3.146) .. controls (1.831,3.146) and (1.870,3.008) .. (1.875,2.871) .. controls (1.875,2.783) and (1.864,2.684) .. (1.848,2.618) .. controls (1.804,2.436) and (1.677,2.095) .. (1.490,2.095) .. controls (1.435,2.095) and (1.380,2.200) .. (1.347,2.315) -- (1.171,2.216) -- (1.452,3.448) -- cycle (1.628,3.201) .. controls (1.622,3.196) and (1.617,3.196) .. (1.611,3.190) .. controls (1.617,3.196) and (1.611,3.201) .. (1.611,3.201) .. controls (1.617,3.201) and (1.622,3.201) .. (1.628,3.201) -- cycle;
+\draw[black!70, line width=0.25pt] (0.638,1.468) -- (0.682,1.375) -- (1.001,1.507) -- (1.166,2.216) .. controls (1.199,2.107) and (1.309,2.007) .. (1.490,2.007) .. controls (1.881,2.007) and (2.145,2.304) .. (2.222,2.635) .. controls (2.233,2.689) and (2.238,2.739) .. (2.238,2.783) .. controls (2.238,3.075) and (1.991,3.173) .. (1.848,3.206) .. controls (2.062,3.289) and (2.277,3.415) .. (2.332,3.635) .. controls (2.337,3.663) and (2.337,3.696) .. (2.337,3.723) .. controls (2.337,3.938) and (2.117,4.048) .. (1.875,4.048) .. controls (1.397,4.048) and (1.138,3.624) .. (1.050,3.239) -- (0.638,1.468) -- cycle (1.452,3.448) .. controls (1.551,3.883) and (1.721,3.943) .. (1.820,3.943) .. controls (1.925,3.943) and (1.985,3.844) .. (1.985,3.723) .. controls (1.985,3.685) and (1.980,3.646) .. (1.974,3.608) .. controls (1.947,3.487) and (1.853,3.245) .. (1.749,3.245) .. controls (1.749,3.245) and (1.732,3.261) .. (1.710,3.272) .. controls (1.683,3.283) and (1.655,3.300) .. (1.595,3.300) .. controls (1.512,3.300) and (1.441,3.261) .. (1.424,3.206) .. controls (1.424,3.196) and (1.419,3.184) .. (1.419,3.179) .. controls (1.419,3.124) and (1.458,3.102) .. (1.545,3.102) .. controls (1.595,3.102) and (1.622,3.113) .. (1.650,3.124) .. controls (1.677,3.135) and (1.710,3.146) .. (1.721,3.146) .. controls (1.831,3.146) and (1.870,3.008) .. (1.875,2.871) .. controls (1.875,2.783) and (1.864,2.684) .. (1.848,2.618) .. controls (1.804,2.436) and (1.677,2.095) .. (1.490,2.095) .. controls (1.435,2.095) and (1.380,2.200) .. (1.347,2.315) -- (1.171,2.216) -- (1.452,3.448) -- cycle (1.628,3.201) .. controls (1.622,3.196) and (1.617,3.196) .. (1.611,3.190) .. controls (1.617,3.196) and (1.611,3.201) .. (1.611,3.201) .. controls (1.617,3.201) and (1.622,3.201) .. (1.628,3.201) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (1.958,0);
+\draw[draft!60, line width=0.2pt] (1.166,2.216) -- (1.199,2.107);\draw[draft, line width=0.2pt, fill=white] (1.199,2.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.490,2.007) -- (1.309,2.007);\draw[draft, line width=0.2pt, fill=white] (1.309,2.007) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.490,2.007) -- (1.881,2.007);\draw[draft, line width=0.2pt, fill=white] (1.881,2.007) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.222,2.635) -- (2.145,2.304);\draw[draft, line width=0.2pt, fill=white] (2.145,2.304) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.222,2.635) -- (2.233,2.689);\draw[draft, line width=0.2pt, fill=white] (2.233,2.689) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.238,2.783) -- (2.238,2.739);\draw[draft, line width=0.2pt, fill=white] (2.238,2.739) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.238,2.783) -- (2.238,3.075);\draw[draft, line width=0.2pt, fill=white] (2.238,3.075) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.848,3.206) -- (1.991,3.173);\draw[draft, line width=0.2pt, fill=white] (1.991,3.173) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.848,3.206) -- (2.062,3.289);\draw[draft, line width=0.2pt, fill=white] (2.062,3.289) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.332,3.635) -- (2.277,3.415);\draw[draft, line width=0.2pt, fill=white] (2.277,3.415) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.332,3.635) -- (2.337,3.663);\draw[draft, line width=0.2pt, fill=white] (2.337,3.663) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.337,3.723) -- (2.337,3.696);\draw[draft, line width=0.2pt, fill=white] (2.337,3.696) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.337,3.723) -- (2.337,3.938);\draw[draft, line width=0.2pt, fill=white] (2.337,3.938) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.875,4.048) -- (2.117,4.048);\draw[draft, line width=0.2pt, fill=white] (2.117,4.048) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.875,4.048) -- (1.397,4.048);\draw[draft, line width=0.2pt, fill=white] (1.397,4.048) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.050,3.239) -- (1.138,3.624);\draw[draft, line width=0.2pt, fill=white] (1.138,3.624) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.452,3.448) -- (1.551,3.883);\draw[draft, line width=0.2pt, fill=white] (1.551,3.883) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.820,3.943) -- (1.721,3.943);\draw[draft, line width=0.2pt, fill=white] (1.721,3.943) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.820,3.943) -- (1.925,3.943);\draw[draft, line width=0.2pt, fill=white] (1.925,3.943) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.985,3.723) -- (1.985,3.844);\draw[draft, line width=0.2pt, fill=white] (1.985,3.844) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.985,3.723) -- (1.985,3.685);\draw[draft, line width=0.2pt, fill=white] (1.985,3.685) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.974,3.608) -- (1.980,3.646);\draw[draft, line width=0.2pt, fill=white] (1.980,3.646) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.974,3.608) -- (1.947,3.487);\draw[draft, line width=0.2pt, fill=white] (1.947,3.487) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.749,3.245) -- (1.853,3.245);\draw[draft, line width=0.2pt, fill=white] (1.853,3.245) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.749,3.245) -- (1.749,3.245);\draw[draft, line width=0.2pt, fill=white] (1.749,3.245) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.710,3.272) -- (1.732,3.261);\draw[draft, line width=0.2pt, fill=white] (1.732,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.710,3.272) -- (1.683,3.283);\draw[draft, line width=0.2pt, fill=white] (1.683,3.283) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.595,3.300) -- (1.655,3.300);\draw[draft, line width=0.2pt, fill=white] (1.655,3.300) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.595,3.300) -- (1.512,3.300);\draw[draft, line width=0.2pt, fill=white] (1.512,3.300) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.424,3.206) -- (1.441,3.261);\draw[draft, line width=0.2pt, fill=white] (1.441,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.424,3.206) -- (1.424,3.196);\draw[draft, line width=0.2pt, fill=white] (1.424,3.196) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.419,3.179) -- (1.419,3.184);\draw[draft, line width=0.2pt, fill=white] (1.419,3.184) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.419,3.179) -- (1.419,3.124);\draw[draft, line width=0.2pt, fill=white] (1.419,3.124) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.545,3.102) -- (1.458,3.102);\draw[draft, line width=0.2pt, fill=white] (1.458,3.102) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.545,3.102) -- (1.595,3.102);\draw[draft, line width=0.2pt, fill=white] (1.595,3.102) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.650,3.124) -- (1.622,3.113);\draw[draft, line width=0.2pt, fill=white] (1.622,3.113) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.650,3.124) -- (1.677,3.135);\draw[draft, line width=0.2pt, fill=white] (1.677,3.135) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.721,3.146) -- (1.710,3.146);\draw[draft, line width=0.2pt, fill=white] (1.710,3.146) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.721,3.146) -- (1.831,3.146);\draw[draft, line width=0.2pt, fill=white] (1.831,3.146) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.875,2.871) -- (1.870,3.008);\draw[draft, line width=0.2pt, fill=white] (1.870,3.008) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.875,2.871) -- (1.875,2.783);\draw[draft, line width=0.2pt, fill=white] (1.875,2.783) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.848,2.618) -- (1.864,2.684);\draw[draft, line width=0.2pt, fill=white] (1.864,2.684) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.848,2.618) -- (1.804,2.436);\draw[draft, line width=0.2pt, fill=white] (1.804,2.436) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.490,2.095) -- (1.677,2.095);\draw[draft, line width=0.2pt, fill=white] (1.677,2.095) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.490,2.095) -- (1.435,2.095);\draw[draft, line width=0.2pt, fill=white] (1.435,2.095) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.347,2.315) -- (1.380,2.200);\draw[draft, line width=0.2pt, fill=white] (1.380,2.200) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.628,3.201) -- (1.622,3.196);\draw[draft, line width=0.2pt, fill=white] (1.622,3.196) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.611,3.190) -- (1.617,3.196);\draw[draft, line width=0.2pt, fill=white] (1.617,3.196) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.611,3.190) -- (1.617,3.196);\draw[draft, line width=0.2pt, fill=white] (1.617,3.196) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.611,3.201) -- (1.611,3.201);\draw[draft, line width=0.2pt, fill=white] (1.611,3.201) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.611,3.201) -- (1.617,3.201);\draw[draft, line width=0.2pt, fill=white] (1.617,3.201) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.628,3.201) -- (1.622,3.201);\draw[draft, line width=0.2pt, fill=white] (1.622,3.201) circle (0.35pt);
+\fill (0.638,1.468) circle (0.45pt);
+\fill (0.682,1.375) circle (0.45pt);
+\fill (1.001,1.507) circle (0.45pt);
+\fill (1.166,2.216) circle (0.45pt);
+\fill (1.490,2.007) circle (0.45pt);
+\fill (2.222,2.635) circle (0.45pt);
+\fill (2.238,2.783) circle (0.45pt);
+\fill (1.848,3.206) circle (0.45pt);
+\fill (2.332,3.635) circle (0.45pt);
+\fill (2.337,3.723) circle (0.45pt);
+\fill (1.875,4.048) circle (0.45pt);
+\fill (1.050,3.239) circle (0.45pt);
+\fill (0.638,1.468) circle (0.45pt);
+\fill (1.452,3.448) circle (0.45pt);
+\fill (1.820,3.943) circle (0.45pt);
+\fill (1.985,3.723) circle (0.45pt);
+\fill (1.974,3.608) circle (0.45pt);
+\fill (1.749,3.245) circle (0.45pt);
+\fill (1.710,3.272) circle (0.45pt);
+\fill (1.595,3.300) circle (0.45pt);
+\fill (1.424,3.206) circle (0.45pt);
+\fill (1.419,3.179) circle (0.45pt);
+\fill (1.545,3.102) circle (0.45pt);
+\fill (1.650,3.124) circle (0.45pt);
+\fill (1.721,3.146) circle (0.45pt);
+\fill (1.875,2.871) circle (0.45pt);
+\fill (1.848,2.618) circle (0.45pt);
+\fill (1.490,2.095) circle (0.45pt);
+\fill (1.347,2.315) circle (0.45pt);
+\fill (1.171,2.216) circle (0.45pt);
+\fill (1.452,3.448) circle (0.45pt);
+\fill (1.628,3.201) circle (0.45pt);
+\fill (1.611,3.190) circle (0.45pt);
+\fill (1.611,3.201) circle (0.45pt);
+\fill (1.628,3.201) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold italic (draft): 35 on-curve points};
+\end{tikzpicture}\hfill
+\par\bigskip\end{minipage}\par
+\par\begin{minipage}{\linewidth}
+{\LibDraft \char"1D5E}\ U+1D5E\par\nopagebreak
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.793,3.305) .. controls (1.793,3.438) and (1.666,3.503) .. (1.534,3.503) .. controls (1.402,3.503) and (1.331,3.448) .. (1.331,3.349) .. controls (1.331,3.261) and (1.386,3.223) .. (1.468,3.184) .. controls (1.490,3.173) and (1.512,3.129) .. (1.512,3.069) .. controls (1.512,2.920) and (1.364,2.491) .. (1.149,2.123) .. controls (1.100,2.431) and (0.990,3.014) .. (0.830,3.333) .. controls (0.770,3.448) and (0.704,3.503) .. (0.594,3.503) .. controls (0.440,3.503) and (0.253,3.410) .. (0.132,3.162) .. controls (0.165,3.124) and (0.198,3.107) .. (0.253,3.096) .. controls (0.297,3.179) and (0.363,3.267) .. (0.451,3.267) .. controls (0.489,3.267) and (0.533,3.234) .. (0.567,3.184) .. controls (0.748,2.871) and (0.858,2.480) .. (0.962,2.002) -- (0.973,1.958) .. controls (0.803,1.727) and (0.748,1.600) .. (0.748,1.463) .. controls (0.748,1.281) and (0.803,1.210) .. (0.940,1.210) .. controls (1.095,1.210) and (1.221,1.419) .. (1.221,1.562) .. controls (1.221,1.666) and (1.216,1.897) .. (1.188,1.980) .. controls (1.298,2.112) and (1.419,2.282) .. (1.507,2.442) .. controls (1.705,2.805) and (1.793,3.091) .. (1.793,3.305) -- cycle;
+\draw[black!70, line width=0.25pt] (1.793,3.305) .. controls (1.793,3.438) and (1.666,3.503) .. (1.534,3.503) .. controls (1.402,3.503) and (1.331,3.448) .. (1.331,3.349) .. controls (1.331,3.261) and (1.386,3.223) .. (1.468,3.184) .. controls (1.490,3.173) and (1.512,3.129) .. (1.512,3.069) .. controls (1.512,2.920) and (1.364,2.491) .. (1.149,2.123) .. controls (1.100,2.431) and (0.990,3.014) .. (0.830,3.333) .. controls (0.770,3.448) and (0.704,3.503) .. (0.594,3.503) .. controls (0.440,3.503) and (0.253,3.410) .. (0.132,3.162) .. controls (0.165,3.124) and (0.198,3.107) .. (0.253,3.096) .. controls (0.297,3.179) and (0.363,3.267) .. (0.451,3.267) .. controls (0.489,3.267) and (0.533,3.234) .. (0.567,3.184) .. controls (0.748,2.871) and (0.858,2.480) .. (0.962,2.002) -- (0.973,1.958) .. controls (0.803,1.727) and (0.748,1.600) .. (0.748,1.463) .. controls (0.748,1.281) and (0.803,1.210) .. (0.940,1.210) .. controls (1.095,1.210) and (1.221,1.419) .. (1.221,1.562) .. controls (1.221,1.666) and (1.216,1.897) .. (1.188,1.980) .. controls (1.298,2.112) and (1.419,2.282) .. (1.507,2.442) .. controls (1.705,2.805) and (1.793,3.091) .. (1.793,3.305) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.167,0);
+\draw[draft!60, line width=0.2pt] (1.793,3.305) -- (1.793,3.438);\draw[draft, line width=0.2pt, fill=white] (1.793,3.438) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.534,3.503) -- (1.666,3.503);\draw[draft, line width=0.2pt, fill=white] (1.666,3.503) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.534,3.503) -- (1.402,3.503);\draw[draft, line width=0.2pt, fill=white] (1.402,3.503) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.331,3.349) -- (1.331,3.448);\draw[draft, line width=0.2pt, fill=white] (1.331,3.448) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.331,3.349) -- (1.331,3.261);\draw[draft, line width=0.2pt, fill=white] (1.331,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.468,3.184) -- (1.386,3.223);\draw[draft, line width=0.2pt, fill=white] (1.386,3.223) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.468,3.184) -- (1.490,3.173);\draw[draft, line width=0.2pt, fill=white] (1.490,3.173) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.512,3.069) -- (1.512,3.129);\draw[draft, line width=0.2pt, fill=white] (1.512,3.129) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.512,3.069) -- (1.512,2.920);\draw[draft, line width=0.2pt, fill=white] (1.512,2.920) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.149,2.123) -- (1.364,2.491);\draw[draft, line width=0.2pt, fill=white] (1.364,2.491) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.149,2.123) -- (1.100,2.431);\draw[draft, line width=0.2pt, fill=white] (1.100,2.431) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.830,3.333) -- (0.990,3.014);\draw[draft, line width=0.2pt, fill=white] (0.990,3.014) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.830,3.333) -- (0.770,3.448);\draw[draft, line width=0.2pt, fill=white] (0.770,3.448) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.594,3.503) -- (0.704,3.503);\draw[draft, line width=0.2pt, fill=white] (0.704,3.503) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.594,3.503) -- (0.440,3.503);\draw[draft, line width=0.2pt, fill=white] (0.440,3.503) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.132,3.162) -- (0.253,3.410);\draw[draft, line width=0.2pt, fill=white] (0.253,3.410) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.132,3.162) -- (0.165,3.124);\draw[draft, line width=0.2pt, fill=white] (0.165,3.124) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.253,3.096) -- (0.198,3.107);\draw[draft, line width=0.2pt, fill=white] (0.198,3.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.253,3.096) -- (0.297,3.179);\draw[draft, line width=0.2pt, fill=white] (0.297,3.179) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.451,3.267) -- (0.363,3.267);\draw[draft, line width=0.2pt, fill=white] (0.363,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.451,3.267) -- (0.489,3.267);\draw[draft, line width=0.2pt, fill=white] (0.489,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.567,3.184) -- (0.533,3.234);\draw[draft, line width=0.2pt, fill=white] (0.533,3.234) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.567,3.184) -- (0.748,2.871);\draw[draft, line width=0.2pt, fill=white] (0.748,2.871) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.962,2.002) -- (0.858,2.480);\draw[draft, line width=0.2pt, fill=white] (0.858,2.480) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.973,1.958) -- (0.803,1.727);\draw[draft, line width=0.2pt, fill=white] (0.803,1.727) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.748,1.463) -- (0.748,1.600);\draw[draft, line width=0.2pt, fill=white] (0.748,1.600) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.748,1.463) -- (0.748,1.281);\draw[draft, line width=0.2pt, fill=white] (0.748,1.281) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.940,1.210) -- (0.803,1.210);\draw[draft, line width=0.2pt, fill=white] (0.803,1.210) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.940,1.210) -- (1.095,1.210);\draw[draft, line width=0.2pt, fill=white] (1.095,1.210) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.221,1.562) -- (1.221,1.419);\draw[draft, line width=0.2pt, fill=white] (1.221,1.419) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.221,1.562) -- (1.221,1.666);\draw[draft, line width=0.2pt, fill=white] (1.221,1.666) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.188,1.980) -- (1.216,1.897);\draw[draft, line width=0.2pt, fill=white] (1.216,1.897) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.188,1.980) -- (1.298,2.112);\draw[draft, line width=0.2pt, fill=white] (1.298,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.507,2.442) -- (1.419,2.282);\draw[draft, line width=0.2pt, fill=white] (1.419,2.282) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.507,2.442) -- (1.705,2.805);\draw[draft, line width=0.2pt, fill=white] (1.705,2.805) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.793,3.305) -- (1.793,3.091);\draw[draft, line width=0.2pt, fill=white] (1.793,3.091) circle (0.35pt);
+\fill (1.793,3.305) circle (0.45pt);
+\fill (1.534,3.503) circle (0.45pt);
+\fill (1.331,3.349) circle (0.45pt);
+\fill (1.468,3.184) circle (0.45pt);
+\fill (1.512,3.069) circle (0.45pt);
+\fill (1.149,2.123) circle (0.45pt);
+\fill (0.830,3.333) circle (0.45pt);
+\fill (0.594,3.503) circle (0.45pt);
+\fill (0.132,3.162) circle (0.45pt);
+\fill (0.253,3.096) circle (0.45pt);
+\fill (0.451,3.267) circle (0.45pt);
+\fill (0.567,3.184) circle (0.45pt);
+\fill (0.962,2.002) circle (0.45pt);
+\fill (0.973,1.958) circle (0.45pt);
+\fill (0.748,1.463) circle (0.45pt);
+\fill (0.940,1.210) circle (0.45pt);
+\fill (1.221,1.562) circle (0.45pt);
+\fill (1.188,1.980) circle (0.45pt);
+\fill (1.507,2.442) circle (0.45pt);
+\fill (1.793,3.305) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Regular (designer): 20 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.496,2.134) -- (1.496,2.228) -- (2.117,3.102) .. controls (2.211,3.239) and (2.315,3.355) .. (2.425,3.465) -- (2.370,3.487) .. controls (2.293,3.465) and (2.255,3.459) .. (2.211,3.459) .. controls (2.183,3.459) and (2.084,3.476) .. (2.051,3.487) .. controls (2.024,3.399) and (1.941,3.245) .. (1.881,3.129) -- (1.479,2.425) .. controls (1.458,2.772) and (1.413,3.102) .. (1.358,3.438) .. controls (1.353,3.465) and (1.320,3.503) .. (1.287,3.503) .. controls (1.188,3.503) and (1.127,3.426) .. (0.874,3.377) -- (0.869,3.228) .. controls (0.924,3.239) and (0.979,3.250) .. (1.012,3.250) .. controls (1.061,3.250) and (1.089,3.256) .. (1.111,3.151) .. controls (1.171,2.849) and (1.237,2.458) .. (1.254,2.107) -- (1.127,1.908) .. controls (1.083,1.837) and (0.968,1.622) .. (0.968,1.441) .. controls (0.968,1.337) and (1.028,1.210) .. (1.127,1.210) .. controls (1.463,1.210) and (1.496,1.804) .. (1.496,2.134) -- cycle (1.155,1.386) .. controls (1.127,1.386) and (1.138,1.391) .. (1.138,1.446) .. controls (1.138,1.595) and (1.182,1.727) .. (1.276,1.903) -- (1.259,1.886) .. controls (1.259,1.683) and (1.259,1.386) .. (1.155,1.386) -- cycle;
+\draw[black!70, line width=0.25pt] (1.496,2.134) -- (1.496,2.228) -- (2.117,3.102) .. controls (2.211,3.239) and (2.315,3.355) .. (2.425,3.465) -- (2.370,3.487) .. controls (2.293,3.465) and (2.255,3.459) .. (2.211,3.459) .. controls (2.183,3.459) and (2.084,3.476) .. (2.051,3.487) .. controls (2.024,3.399) and (1.941,3.245) .. (1.881,3.129) -- (1.479,2.425) .. controls (1.458,2.772) and (1.413,3.102) .. (1.358,3.438) .. controls (1.353,3.465) and (1.320,3.503) .. (1.287,3.503) .. controls (1.188,3.503) and (1.127,3.426) .. (0.874,3.377) -- (0.869,3.228) .. controls (0.924,3.239) and (0.979,3.250) .. (1.012,3.250) .. controls (1.061,3.250) and (1.089,3.256) .. (1.111,3.151) .. controls (1.171,2.849) and (1.237,2.458) .. (1.254,2.107) -- (1.127,1.908) .. controls (1.083,1.837) and (0.968,1.622) .. (0.968,1.441) .. controls (0.968,1.337) and (1.028,1.210) .. (1.127,1.210) .. controls (1.463,1.210) and (1.496,1.804) .. (1.496,2.134) -- cycle (1.155,1.386) .. controls (1.127,1.386) and (1.138,1.391) .. (1.138,1.446) .. controls (1.138,1.595) and (1.182,1.727) .. (1.276,1.903) -- (1.259,1.886) .. controls (1.259,1.683) and (1.259,1.386) .. (1.155,1.386) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.007,0);
+\draw[draft!60, line width=0.2pt] (2.117,3.102) -- (2.211,3.239);\draw[draft, line width=0.2pt, fill=white] (2.211,3.239) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.425,3.465) -- (2.315,3.355);\draw[draft, line width=0.2pt, fill=white] (2.315,3.355) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.370,3.487) -- (2.293,3.465);\draw[draft, line width=0.2pt, fill=white] (2.293,3.465) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.211,3.459) -- (2.255,3.459);\draw[draft, line width=0.2pt, fill=white] (2.255,3.459) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.211,3.459) -- (2.183,3.459);\draw[draft, line width=0.2pt, fill=white] (2.183,3.459) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.051,3.487) -- (2.084,3.476);\draw[draft, line width=0.2pt, fill=white] (2.084,3.476) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.051,3.487) -- (2.024,3.399);\draw[draft, line width=0.2pt, fill=white] (2.024,3.399) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.881,3.129) -- (1.941,3.245);\draw[draft, line width=0.2pt, fill=white] (1.941,3.245) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.479,2.425) -- (1.458,2.772);\draw[draft, line width=0.2pt, fill=white] (1.458,2.772) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.358,3.438) -- (1.413,3.102);\draw[draft, line width=0.2pt, fill=white] (1.413,3.102) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.358,3.438) -- (1.353,3.465);\draw[draft, line width=0.2pt, fill=white] (1.353,3.465) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.287,3.503) -- (1.320,3.503);\draw[draft, line width=0.2pt, fill=white] (1.320,3.503) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.287,3.503) -- (1.188,3.503);\draw[draft, line width=0.2pt, fill=white] (1.188,3.503) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.874,3.377) -- (1.127,3.426);\draw[draft, line width=0.2pt, fill=white] (1.127,3.426) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.869,3.228) -- (0.924,3.239);\draw[draft, line width=0.2pt, fill=white] (0.924,3.239) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.012,3.250) -- (0.979,3.250);\draw[draft, line width=0.2pt, fill=white] (0.979,3.250) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.012,3.250) -- (1.061,3.250);\draw[draft, line width=0.2pt, fill=white] (1.061,3.250) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.111,3.151) -- (1.089,3.256);\draw[draft, line width=0.2pt, fill=white] (1.089,3.256) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.111,3.151) -- (1.171,2.849);\draw[draft, line width=0.2pt, fill=white] (1.171,2.849) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.254,2.107) -- (1.237,2.458);\draw[draft, line width=0.2pt, fill=white] (1.237,2.458) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.127,1.908) -- (1.083,1.837);\draw[draft, line width=0.2pt, fill=white] (1.083,1.837) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.968,1.441) -- (0.968,1.622);\draw[draft, line width=0.2pt, fill=white] (0.968,1.622) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.968,1.441) -- (0.968,1.337);\draw[draft, line width=0.2pt, fill=white] (0.968,1.337) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.127,1.210) -- (1.028,1.210);\draw[draft, line width=0.2pt, fill=white] (1.028,1.210) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.127,1.210) -- (1.463,1.210);\draw[draft, line width=0.2pt, fill=white] (1.463,1.210) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.496,2.134) -- (1.496,1.804);\draw[draft, line width=0.2pt, fill=white] (1.496,1.804) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.155,1.386) -- (1.127,1.386);\draw[draft, line width=0.2pt, fill=white] (1.127,1.386) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.138,1.446) -- (1.138,1.391);\draw[draft, line width=0.2pt, fill=white] (1.138,1.391) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.138,1.446) -- (1.138,1.595);\draw[draft, line width=0.2pt, fill=white] (1.138,1.595) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.276,1.903) -- (1.182,1.727);\draw[draft, line width=0.2pt, fill=white] (1.182,1.727) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.259,1.886) -- (1.259,1.683);\draw[draft, line width=0.2pt, fill=white] (1.259,1.683) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.155,1.386) -- (1.259,1.386);\draw[draft, line width=0.2pt, fill=white] (1.259,1.386) circle (0.35pt);
+\fill (1.496,2.134) circle (0.45pt);
+\fill (1.496,2.228) circle (0.45pt);
+\fill (2.117,3.102) circle (0.45pt);
+\fill (2.425,3.465) circle (0.45pt);
+\fill (2.370,3.487) circle (0.45pt);
+\fill (2.211,3.459) circle (0.45pt);
+\fill (2.051,3.487) circle (0.45pt);
+\fill (1.881,3.129) circle (0.45pt);
+\fill (1.479,2.425) circle (0.45pt);
+\fill (1.358,3.438) circle (0.45pt);
+\fill (1.287,3.503) circle (0.45pt);
+\fill (0.874,3.377) circle (0.45pt);
+\fill (0.869,3.228) circle (0.45pt);
+\fill (1.012,3.250) circle (0.45pt);
+\fill (1.111,3.151) circle (0.45pt);
+\fill (1.254,2.107) circle (0.45pt);
+\fill (1.127,1.908) circle (0.45pt);
+\fill (0.968,1.441) circle (0.45pt);
+\fill (1.127,1.210) circle (0.45pt);
+\fill (1.496,2.134) circle (0.45pt);
+\fill (1.155,1.386) circle (0.45pt);
+\fill (1.138,1.446) circle (0.45pt);
+\fill (1.276,1.903) circle (0.45pt);
+\fill (1.259,1.886) circle (0.45pt);
+\fill (1.155,1.386) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Italic (draft): 25 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.848,3.294) .. controls (1.848,3.404) and (1.732,3.481) .. (1.584,3.481) .. controls (1.468,3.481) and (1.369,3.443) .. (1.369,3.338) .. controls (1.369,3.261) and (1.463,3.196) .. (1.518,3.173) .. controls (1.540,3.162) and (1.556,3.129) .. (1.556,3.063) .. controls (1.556,2.893) and (1.408,2.591) .. (1.226,2.282) .. controls (1.166,2.629) and (1.073,2.931) .. (0.968,3.212) .. controls (0.918,3.371) and (0.852,3.481) .. (0.588,3.481) .. controls (0.324,3.481) and (0.203,3.267) .. (0.148,3.096) -- (0.346,3.030) .. controls (0.401,3.162) and (0.467,3.267) .. (0.500,3.267) .. controls (0.517,3.267) and (0.555,3.234) .. (0.583,3.184) .. controls (0.759,2.893) and (0.913,2.486) .. (1.017,2.007) -- (1.017,1.980) .. controls (0.841,1.738) and (0.764,1.584) .. (0.764,1.435) .. controls (0.764,1.337) and (0.803,1.149) .. (0.995,1.149) .. controls (1.254,1.149) and (1.287,1.579) .. (1.287,1.694) .. controls (1.287,1.787) and (1.281,1.881) .. (1.248,1.974) .. controls (1.661,2.541) and (1.848,3.041) .. (1.848,3.294) -- cycle;
+\draw[black!70, line width=0.25pt] (1.848,3.294) .. controls (1.848,3.404) and (1.732,3.481) .. (1.584,3.481) .. controls (1.468,3.481) and (1.369,3.443) .. (1.369,3.338) .. controls (1.369,3.261) and (1.463,3.196) .. (1.518,3.173) .. controls (1.540,3.162) and (1.556,3.129) .. (1.556,3.063) .. controls (1.556,2.893) and (1.408,2.591) .. (1.226,2.282) .. controls (1.166,2.629) and (1.073,2.931) .. (0.968,3.212) .. controls (0.918,3.371) and (0.852,3.481) .. (0.588,3.481) .. controls (0.324,3.481) and (0.203,3.267) .. (0.148,3.096) -- (0.346,3.030) .. controls (0.401,3.162) and (0.467,3.267) .. (0.500,3.267) .. controls (0.517,3.267) and (0.555,3.234) .. (0.583,3.184) .. controls (0.759,2.893) and (0.913,2.486) .. (1.017,2.007) -- (1.017,1.980) .. controls (0.841,1.738) and (0.764,1.584) .. (0.764,1.435) .. controls (0.764,1.337) and (0.803,1.149) .. (0.995,1.149) .. controls (1.254,1.149) and (1.287,1.579) .. (1.287,1.694) .. controls (1.287,1.787) and (1.281,1.881) .. (1.248,1.974) .. controls (1.661,2.541) and (1.848,3.041) .. (1.848,3.294) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.315,0);
+\draw[draft!60, line width=0.2pt] (1.848,3.294) -- (1.848,3.404);\draw[draft, line width=0.2pt, fill=white] (1.848,3.404) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.584,3.481) -- (1.732,3.481);\draw[draft, line width=0.2pt, fill=white] (1.732,3.481) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.584,3.481) -- (1.468,3.481);\draw[draft, line width=0.2pt, fill=white] (1.468,3.481) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.369,3.338) -- (1.369,3.443);\draw[draft, line width=0.2pt, fill=white] (1.369,3.443) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.369,3.338) -- (1.369,3.261);\draw[draft, line width=0.2pt, fill=white] (1.369,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.518,3.173) -- (1.463,3.196);\draw[draft, line width=0.2pt, fill=white] (1.463,3.196) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.518,3.173) -- (1.540,3.162);\draw[draft, line width=0.2pt, fill=white] (1.540,3.162) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.556,3.063) -- (1.556,3.129);\draw[draft, line width=0.2pt, fill=white] (1.556,3.129) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.556,3.063) -- (1.556,2.893);\draw[draft, line width=0.2pt, fill=white] (1.556,2.893) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.226,2.282) -- (1.408,2.591);\draw[draft, line width=0.2pt, fill=white] (1.408,2.591) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.226,2.282) -- (1.166,2.629);\draw[draft, line width=0.2pt, fill=white] (1.166,2.629) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.968,3.212) -- (1.073,2.931);\draw[draft, line width=0.2pt, fill=white] (1.073,2.931) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.968,3.212) -- (0.918,3.371);\draw[draft, line width=0.2pt, fill=white] (0.918,3.371) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.588,3.481) -- (0.852,3.481);\draw[draft, line width=0.2pt, fill=white] (0.852,3.481) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.588,3.481) -- (0.324,3.481);\draw[draft, line width=0.2pt, fill=white] (0.324,3.481) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.148,3.096) -- (0.203,3.267);\draw[draft, line width=0.2pt, fill=white] (0.203,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.346,3.030) -- (0.401,3.162);\draw[draft, line width=0.2pt, fill=white] (0.401,3.162) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.500,3.267) -- (0.467,3.267);\draw[draft, line width=0.2pt, fill=white] (0.467,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.500,3.267) -- (0.517,3.267);\draw[draft, line width=0.2pt, fill=white] (0.517,3.267) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.583,3.184) -- (0.555,3.234);\draw[draft, line width=0.2pt, fill=white] (0.555,3.234) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.583,3.184) -- (0.759,2.893);\draw[draft, line width=0.2pt, fill=white] (0.759,2.893) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.017,2.007) -- (0.913,2.486);\draw[draft, line width=0.2pt, fill=white] (0.913,2.486) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.017,1.980) -- (0.841,1.738);\draw[draft, line width=0.2pt, fill=white] (0.841,1.738) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.764,1.435) -- (0.764,1.584);\draw[draft, line width=0.2pt, fill=white] (0.764,1.584) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.764,1.435) -- (0.764,1.337);\draw[draft, line width=0.2pt, fill=white] (0.764,1.337) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.995,1.149) -- (0.803,1.149);\draw[draft, line width=0.2pt, fill=white] (0.803,1.149) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.995,1.149) -- (1.254,1.149);\draw[draft, line width=0.2pt, fill=white] (1.254,1.149) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.287,1.694) -- (1.287,1.579);\draw[draft, line width=0.2pt, fill=white] (1.287,1.579) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.287,1.694) -- (1.287,1.787);\draw[draft, line width=0.2pt, fill=white] (1.287,1.787) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.248,1.974) -- (1.281,1.881);\draw[draft, line width=0.2pt, fill=white] (1.281,1.881) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.248,1.974) -- (1.661,2.541);\draw[draft, line width=0.2pt, fill=white] (1.661,2.541) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.848,3.294) -- (1.848,3.041);\draw[draft, line width=0.2pt, fill=white] (1.848,3.041) circle (0.35pt);
+\fill (1.848,3.294) circle (0.45pt);
+\fill (1.584,3.481) circle (0.45pt);
+\fill (1.369,3.338) circle (0.45pt);
+\fill (1.518,3.173) circle (0.45pt);
+\fill (1.556,3.063) circle (0.45pt);
+\fill (1.226,2.282) circle (0.45pt);
+\fill (0.968,3.212) circle (0.45pt);
+\fill (0.588,3.481) circle (0.45pt);
+\fill (0.148,3.096) circle (0.45pt);
+\fill (0.346,3.030) circle (0.45pt);
+\fill (0.500,3.267) circle (0.45pt);
+\fill (0.583,3.184) circle (0.45pt);
+\fill (1.017,2.007) circle (0.45pt);
+\fill (1.017,1.980) circle (0.45pt);
+\fill (0.764,1.435) circle (0.45pt);
+\fill (0.995,1.149) circle (0.45pt);
+\fill (1.287,1.694) circle (0.45pt);
+\fill (1.248,1.974) circle (0.45pt);
+\fill (1.848,3.294) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold (draft): 19 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (2.557,3.294) .. controls (2.557,3.305) and (2.563,3.317) .. (2.563,3.327) .. controls (2.563,3.421) and (2.470,3.481) .. (2.337,3.481) .. controls (2.216,3.481) and (2.112,3.443) .. (2.084,3.333) .. controls (2.084,3.327) and (2.079,3.322) .. (2.079,3.317) .. controls (2.079,3.250) and (2.151,3.190) .. (2.194,3.168) .. controls (2.205,3.162) and (2.216,3.146) .. (2.216,3.118) .. controls (2.216,3.107) and (2.216,3.085) .. (2.211,3.058) .. controls (2.167,2.893) and (1.952,2.596) .. (1.694,2.282) .. controls (1.705,2.387) and (1.700,2.497) .. (1.700,2.596) .. controls (1.700,2.816) and (1.683,3.019) .. (1.661,3.217) .. controls (1.639,3.371) and (1.606,3.481) .. (1.342,3.481) .. controls (1.078,3.481) and (0.902,3.261) .. (0.803,3.096) -- (0.990,3.030) .. controls (1.078,3.157) and (1.166,3.261) .. (1.199,3.261) .. controls (1.216,3.261) and (1.237,3.234) .. (1.259,3.184) .. controls (1.364,2.898) and (1.424,2.519) .. (1.424,2.062) -- (1.424,2.013) -- (1.435,2.018) .. controls (1.204,1.776) and (1.073,1.584) .. (1.034,1.435) .. controls (1.028,1.408) and (1.028,1.380) .. (1.028,1.347) .. controls (1.028,1.254) and (1.056,1.149) .. (1.204,1.149) .. controls (1.463,1.149) and (1.600,1.579) .. (1.628,1.700) .. controls (1.644,1.787) and (1.666,1.870) .. (1.672,1.974) -- (1.655,1.974) .. controls (2.200,2.541) and (2.497,3.041) .. (2.557,3.294) -- cycle;
+\draw[black!70, line width=0.25pt] (2.557,3.294) .. controls (2.557,3.305) and (2.563,3.317) .. (2.563,3.327) .. controls (2.563,3.421) and (2.470,3.481) .. (2.337,3.481) .. controls (2.216,3.481) and (2.112,3.443) .. (2.084,3.333) .. controls (2.084,3.327) and (2.079,3.322) .. (2.079,3.317) .. controls (2.079,3.250) and (2.151,3.190) .. (2.194,3.168) .. controls (2.205,3.162) and (2.216,3.146) .. (2.216,3.118) .. controls (2.216,3.107) and (2.216,3.085) .. (2.211,3.058) .. controls (2.167,2.893) and (1.952,2.596) .. (1.694,2.282) .. controls (1.705,2.387) and (1.700,2.497) .. (1.700,2.596) .. controls (1.700,2.816) and (1.683,3.019) .. (1.661,3.217) .. controls (1.639,3.371) and (1.606,3.481) .. (1.342,3.481) .. controls (1.078,3.481) and (0.902,3.261) .. (0.803,3.096) -- (0.990,3.030) .. controls (1.078,3.157) and (1.166,3.261) .. (1.199,3.261) .. controls (1.216,3.261) and (1.237,3.234) .. (1.259,3.184) .. controls (1.364,2.898) and (1.424,2.519) .. (1.424,2.062) -- (1.424,2.013) -- (1.435,2.018) .. controls (1.204,1.776) and (1.073,1.584) .. (1.034,1.435) .. controls (1.028,1.408) and (1.028,1.380) .. (1.028,1.347) .. controls (1.028,1.254) and (1.056,1.149) .. (1.204,1.149) .. controls (1.463,1.149) and (1.600,1.579) .. (1.628,1.700) .. controls (1.644,1.787) and (1.666,1.870) .. (1.672,1.974) -- (1.655,1.974) .. controls (2.200,2.541) and (2.497,3.041) .. (2.557,3.294) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.315,0);
+\draw[draft!60, line width=0.2pt] (2.557,3.294) -- (2.557,3.305);\draw[draft, line width=0.2pt, fill=white] (2.557,3.305) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.563,3.327) -- (2.563,3.317);\draw[draft, line width=0.2pt, fill=white] (2.563,3.317) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.563,3.327) -- (2.563,3.421);\draw[draft, line width=0.2pt, fill=white] (2.563,3.421) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.337,3.481) -- (2.470,3.481);\draw[draft, line width=0.2pt, fill=white] (2.470,3.481) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.337,3.481) -- (2.216,3.481);\draw[draft, line width=0.2pt, fill=white] (2.216,3.481) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.084,3.333) -- (2.112,3.443);\draw[draft, line width=0.2pt, fill=white] (2.112,3.443) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.084,3.333) -- (2.084,3.327);\draw[draft, line width=0.2pt, fill=white] (2.084,3.327) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.079,3.317) -- (2.079,3.322);\draw[draft, line width=0.2pt, fill=white] (2.079,3.322) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.079,3.317) -- (2.079,3.250);\draw[draft, line width=0.2pt, fill=white] (2.079,3.250) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.194,3.168) -- (2.151,3.190);\draw[draft, line width=0.2pt, fill=white] (2.151,3.190) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.194,3.168) -- (2.205,3.162);\draw[draft, line width=0.2pt, fill=white] (2.205,3.162) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.216,3.118) -- (2.216,3.146);\draw[draft, line width=0.2pt, fill=white] (2.216,3.146) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.216,3.118) -- (2.216,3.107);\draw[draft, line width=0.2pt, fill=white] (2.216,3.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.211,3.058) -- (2.216,3.085);\draw[draft, line width=0.2pt, fill=white] (2.216,3.085) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.211,3.058) -- (2.167,2.893);\draw[draft, line width=0.2pt, fill=white] (2.167,2.893) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.694,2.282) -- (1.952,2.596);\draw[draft, line width=0.2pt, fill=white] (1.952,2.596) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.694,2.282) -- (1.705,2.387);\draw[draft, line width=0.2pt, fill=white] (1.705,2.387) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.700,2.596) -- (1.700,2.497);\draw[draft, line width=0.2pt, fill=white] (1.700,2.497) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.700,2.596) -- (1.700,2.816);\draw[draft, line width=0.2pt, fill=white] (1.700,2.816) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.661,3.217) -- (1.683,3.019);\draw[draft, line width=0.2pt, fill=white] (1.683,3.019) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.661,3.217) -- (1.639,3.371);\draw[draft, line width=0.2pt, fill=white] (1.639,3.371) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.342,3.481) -- (1.606,3.481);\draw[draft, line width=0.2pt, fill=white] (1.606,3.481) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.342,3.481) -- (1.078,3.481);\draw[draft, line width=0.2pt, fill=white] (1.078,3.481) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.803,3.096) -- (0.902,3.261);\draw[draft, line width=0.2pt, fill=white] (0.902,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.990,3.030) -- (1.078,3.157);\draw[draft, line width=0.2pt, fill=white] (1.078,3.157) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.199,3.261) -- (1.166,3.261);\draw[draft, line width=0.2pt, fill=white] (1.166,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.199,3.261) -- (1.216,3.261);\draw[draft, line width=0.2pt, fill=white] (1.216,3.261) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.259,3.184) -- (1.237,3.234);\draw[draft, line width=0.2pt, fill=white] (1.237,3.234) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.259,3.184) -- (1.364,2.898);\draw[draft, line width=0.2pt, fill=white] (1.364,2.898) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.424,2.062) -- (1.424,2.519);\draw[draft, line width=0.2pt, fill=white] (1.424,2.519) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.435,2.018) -- (1.204,1.776);\draw[draft, line width=0.2pt, fill=white] (1.204,1.776) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,1.435) -- (1.073,1.584);\draw[draft, line width=0.2pt, fill=white] (1.073,1.584) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,1.435) -- (1.028,1.408);\draw[draft, line width=0.2pt, fill=white] (1.028,1.408) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.028,1.347) -- (1.028,1.380);\draw[draft, line width=0.2pt, fill=white] (1.028,1.380) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.028,1.347) -- (1.028,1.254);\draw[draft, line width=0.2pt, fill=white] (1.028,1.254) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.204,1.149) -- (1.056,1.149);\draw[draft, line width=0.2pt, fill=white] (1.056,1.149) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.204,1.149) -- (1.463,1.149);\draw[draft, line width=0.2pt, fill=white] (1.463,1.149) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.628,1.700) -- (1.600,1.579);\draw[draft, line width=0.2pt, fill=white] (1.600,1.579) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.628,1.700) -- (1.644,1.787);\draw[draft, line width=0.2pt, fill=white] (1.644,1.787) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.672,1.974) -- (1.666,1.870);\draw[draft, line width=0.2pt, fill=white] (1.666,1.870) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.655,1.974) -- (2.200,2.541);\draw[draft, line width=0.2pt, fill=white] (2.200,2.541) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.557,3.294) -- (2.497,3.041);\draw[draft, line width=0.2pt, fill=white] (2.497,3.041) circle (0.35pt);
+\fill (2.557,3.294) circle (0.45pt);
+\fill (2.563,3.327) circle (0.45pt);
+\fill (2.337,3.481) circle (0.45pt);
+\fill (2.084,3.333) circle (0.45pt);
+\fill (2.079,3.317) circle (0.45pt);
+\fill (2.194,3.168) circle (0.45pt);
+\fill (2.216,3.118) circle (0.45pt);
+\fill (2.211,3.058) circle (0.45pt);
+\fill (1.694,2.282) circle (0.45pt);
+\fill (1.700,2.596) circle (0.45pt);
+\fill (1.661,3.217) circle (0.45pt);
+\fill (1.342,3.481) circle (0.45pt);
+\fill (0.803,3.096) circle (0.45pt);
+\fill (0.990,3.030) circle (0.45pt);
+\fill (1.199,3.261) circle (0.45pt);
+\fill (1.259,3.184) circle (0.45pt);
+\fill (1.424,2.062) circle (0.45pt);
+\fill (1.424,2.013) circle (0.45pt);
+\fill (1.435,2.018) circle (0.45pt);
+\fill (1.034,1.435) circle (0.45pt);
+\fill (1.028,1.347) circle (0.45pt);
+\fill (1.204,1.149) circle (0.45pt);
+\fill (1.628,1.700) circle (0.45pt);
+\fill (1.672,1.974) circle (0.45pt);
+\fill (1.655,1.974) circle (0.45pt);
+\fill (2.557,3.294) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold italic (draft): 26 on-curve points};
+\end{tikzpicture}\hfill
+\par\bigskip\end{minipage}\par
+\par\begin{minipage}{\linewidth}
+{\LibDraft \char"1D5F}\ U+1D5F\par\nopagebreak
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (0.863,3.261) .. controls (0.445,3.124) and (0.247,2.904) .. (0.247,2.596) .. controls (0.247,2.453) and (0.286,2.315) .. (0.374,2.205) .. controls (0.500,2.040) and (0.676,1.969) .. (0.940,1.969) .. controls (1.111,1.969) and (1.216,1.996) .. (1.353,2.068) .. controls (1.589,2.194) and (1.688,2.376) .. (1.688,2.645) .. controls (1.688,2.756) and (1.650,2.920) .. (1.567,3.025) .. controls (1.474,3.151) and (1.292,3.278) .. (1.001,3.465) .. controls (0.847,3.569) and (0.748,3.701) .. (0.748,3.767) .. controls (0.748,3.866) and (0.825,3.899) .. (0.946,3.899) .. controls (1.023,3.899) and (1.095,3.861) .. (1.133,3.800) .. controls (1.194,3.718) and (1.292,3.668) .. (1.369,3.668) .. controls (1.458,3.668) and (1.529,3.712) .. (1.551,3.784) .. controls (1.545,3.822) and (1.534,3.866) .. (1.474,3.910) .. controls (1.347,4.015) and (1.171,4.064) .. (0.951,4.064) .. controls (0.671,4.064) and (0.456,3.954) .. (0.456,3.734) .. controls (0.456,3.586) and (0.632,3.404) .. (0.863,3.261) -- cycle (0.990,3.168) .. controls (1.177,3.036) and (1.369,2.876) .. (1.369,2.640) .. controls (1.369,2.502) and (1.358,2.359) .. (1.303,2.282) .. controls (1.216,2.156) and (1.073,2.128) .. (0.979,2.128) .. controls (0.704,2.128) and (0.567,2.370) .. (0.567,2.640) .. controls (0.567,2.887) and (0.731,3.063) .. (0.990,3.168) -- cycle;
+\draw[black!70, line width=0.25pt] (0.863,3.261) .. controls (0.445,3.124) and (0.247,2.904) .. (0.247,2.596) .. controls (0.247,2.453) and (0.286,2.315) .. (0.374,2.205) .. controls (0.500,2.040) and (0.676,1.969) .. (0.940,1.969) .. controls (1.111,1.969) and (1.216,1.996) .. (1.353,2.068) .. controls (1.589,2.194) and (1.688,2.376) .. (1.688,2.645) .. controls (1.688,2.756) and (1.650,2.920) .. (1.567,3.025) .. controls (1.474,3.151) and (1.292,3.278) .. (1.001,3.465) .. controls (0.847,3.569) and (0.748,3.701) .. (0.748,3.767) .. controls (0.748,3.866) and (0.825,3.899) .. (0.946,3.899) .. controls (1.023,3.899) and (1.095,3.861) .. (1.133,3.800) .. controls (1.194,3.718) and (1.292,3.668) .. (1.369,3.668) .. controls (1.458,3.668) and (1.529,3.712) .. (1.551,3.784) .. controls (1.545,3.822) and (1.534,3.866) .. (1.474,3.910) .. controls (1.347,4.015) and (1.171,4.064) .. (0.951,4.064) .. controls (0.671,4.064) and (0.456,3.954) .. (0.456,3.734) .. controls (0.456,3.586) and (0.632,3.404) .. (0.863,3.261) -- cycle (0.990,3.168) .. controls (1.177,3.036) and (1.369,2.876) .. (1.369,2.640) .. controls (1.369,2.502) and (1.358,2.359) .. (1.303,2.282) .. controls (1.216,2.156) and (1.073,2.128) .. (0.979,2.128) .. controls (0.704,2.128) and (0.567,2.370) .. (0.567,2.640) .. controls (0.567,2.887) and (0.731,3.063) .. (0.990,3.168) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.107,0);
+\draw[draft!60, line width=0.2pt] (0.863,3.261) -- (0.445,3.124);\draw[draft, line width=0.2pt, fill=white] (0.445,3.124) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.247,2.596) -- (0.247,2.904);\draw[draft, line width=0.2pt, fill=white] (0.247,2.904) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.247,2.596) -- (0.247,2.453);\draw[draft, line width=0.2pt, fill=white] (0.247,2.453) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.374,2.205) -- (0.286,2.315);\draw[draft, line width=0.2pt, fill=white] (0.286,2.315) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.374,2.205) -- (0.500,2.040);\draw[draft, line width=0.2pt, fill=white] (0.500,2.040) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.940,1.969) -- (0.676,1.969);\draw[draft, line width=0.2pt, fill=white] (0.676,1.969) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.940,1.969) -- (1.111,1.969);\draw[draft, line width=0.2pt, fill=white] (1.111,1.969) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.353,2.068) -- (1.216,1.996);\draw[draft, line width=0.2pt, fill=white] (1.216,1.996) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.353,2.068) -- (1.589,2.194);\draw[draft, line width=0.2pt, fill=white] (1.589,2.194) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.688,2.645) -- (1.688,2.376);\draw[draft, line width=0.2pt, fill=white] (1.688,2.376) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.688,2.645) -- (1.688,2.756);\draw[draft, line width=0.2pt, fill=white] (1.688,2.756) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.567,3.025) -- (1.650,2.920);\draw[draft, line width=0.2pt, fill=white] (1.650,2.920) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.567,3.025) -- (1.474,3.151);\draw[draft, line width=0.2pt, fill=white] (1.474,3.151) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.001,3.465) -- (1.292,3.278);\draw[draft, line width=0.2pt, fill=white] (1.292,3.278) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.001,3.465) -- (0.847,3.569);\draw[draft, line width=0.2pt, fill=white] (0.847,3.569) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.748,3.767) -- (0.748,3.701);\draw[draft, line width=0.2pt, fill=white] (0.748,3.701) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.748,3.767) -- (0.748,3.866);\draw[draft, line width=0.2pt, fill=white] (0.748,3.866) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.946,3.899) -- (0.825,3.899);\draw[draft, line width=0.2pt, fill=white] (0.825,3.899) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.946,3.899) -- (1.023,3.899);\draw[draft, line width=0.2pt, fill=white] (1.023,3.899) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.133,3.800) -- (1.095,3.861);\draw[draft, line width=0.2pt, fill=white] (1.095,3.861) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.133,3.800) -- (1.194,3.718);\draw[draft, line width=0.2pt, fill=white] (1.194,3.718) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.369,3.668) -- (1.292,3.668);\draw[draft, line width=0.2pt, fill=white] (1.292,3.668) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.369,3.668) -- (1.458,3.668);\draw[draft, line width=0.2pt, fill=white] (1.458,3.668) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.551,3.784) -- (1.529,3.712);\draw[draft, line width=0.2pt, fill=white] (1.529,3.712) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.551,3.784) -- (1.545,3.822);\draw[draft, line width=0.2pt, fill=white] (1.545,3.822) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.474,3.910) -- (1.534,3.866);\draw[draft, line width=0.2pt, fill=white] (1.534,3.866) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.474,3.910) -- (1.347,4.015);\draw[draft, line width=0.2pt, fill=white] (1.347,4.015) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.951,4.064) -- (1.171,4.064);\draw[draft, line width=0.2pt, fill=white] (1.171,4.064) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.951,4.064) -- (0.671,4.064);\draw[draft, line width=0.2pt, fill=white] (0.671,4.064) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.456,3.734) -- (0.456,3.954);\draw[draft, line width=0.2pt, fill=white] (0.456,3.954) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.456,3.734) -- (0.456,3.586);\draw[draft, line width=0.2pt, fill=white] (0.456,3.586) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.863,3.261) -- (0.632,3.404);\draw[draft, line width=0.2pt, fill=white] (0.632,3.404) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.990,3.168) -- (1.177,3.036);\draw[draft, line width=0.2pt, fill=white] (1.177,3.036) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.369,2.640) -- (1.369,2.876);\draw[draft, line width=0.2pt, fill=white] (1.369,2.876) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.369,2.640) -- (1.369,2.502);\draw[draft, line width=0.2pt, fill=white] (1.369,2.502) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.303,2.282) -- (1.358,2.359);\draw[draft, line width=0.2pt, fill=white] (1.358,2.359) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.303,2.282) -- (1.216,2.156);\draw[draft, line width=0.2pt, fill=white] (1.216,2.156) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.979,2.128) -- (1.073,2.128);\draw[draft, line width=0.2pt, fill=white] (1.073,2.128) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.979,2.128) -- (0.704,2.128);\draw[draft, line width=0.2pt, fill=white] (0.704,2.128) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.567,2.640) -- (0.567,2.370);\draw[draft, line width=0.2pt, fill=white] (0.567,2.370) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.567,2.640) -- (0.567,2.887);\draw[draft, line width=0.2pt, fill=white] (0.567,2.887) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.990,3.168) -- (0.731,3.063);\draw[draft, line width=0.2pt, fill=white] (0.731,3.063) circle (0.35pt);
+\fill (0.863,3.261) circle (0.45pt);
+\fill (0.247,2.596) circle (0.45pt);
+\fill (0.374,2.205) circle (0.45pt);
+\fill (0.940,1.969) circle (0.45pt);
+\fill (1.353,2.068) circle (0.45pt);
+\fill (1.688,2.645) circle (0.45pt);
+\fill (1.567,3.025) circle (0.45pt);
+\fill (1.001,3.465) circle (0.45pt);
+\fill (0.748,3.767) circle (0.45pt);
+\fill (0.946,3.899) circle (0.45pt);
+\fill (1.133,3.800) circle (0.45pt);
+\fill (1.369,3.668) circle (0.45pt);
+\fill (1.551,3.784) circle (0.45pt);
+\fill (1.474,3.910) circle (0.45pt);
+\fill (0.951,4.064) circle (0.45pt);
+\fill (0.456,3.734) circle (0.45pt);
+\fill (0.863,3.261) circle (0.45pt);
+\fill (0.990,3.168) circle (0.45pt);
+\fill (1.369,2.640) circle (0.45pt);
+\fill (1.303,2.282) circle (0.45pt);
+\fill (0.979,2.128) circle (0.45pt);
+\fill (0.567,2.640) circle (0.45pt);
+\fill (0.990,3.168) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Regular (designer): 23 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (0.792,2.420) .. controls (0.797,2.178) and (0.990,1.969) .. (1.298,1.969) .. controls (1.820,1.969) and (2.161,2.480) .. (2.151,2.821) .. controls (2.145,3.008) and (2.040,3.190) .. (1.897,3.311) -- (1.716,3.465) .. controls (1.545,3.613) and (1.474,3.679) .. (1.474,3.762) .. controls (1.474,3.795) and (1.468,3.910) .. (1.683,3.910) .. controls (1.908,3.910) and (1.864,3.635) .. (2.079,3.635) .. controls (2.183,3.635) and (2.260,3.734) .. (2.260,3.773) .. controls (2.255,3.828) and (2.128,3.905) .. (2.046,3.949) .. controls (1.958,3.993) and (1.815,4.053) .. (1.677,4.053) .. controls (1.424,4.053) and (1.248,3.844) .. (1.254,3.674) .. controls (1.259,3.558) and (1.347,3.438) .. (1.518,3.278) -- (1.534,3.267) .. controls (1.364,3.206) and (0.775,2.926) .. (0.792,2.420) -- cycle (1.353,2.107) .. controls (1.138,2.107) and (1.083,2.260) .. (1.078,2.442) .. controls (1.067,2.893) and (1.402,3.069) .. (1.639,3.168) -- (1.705,3.107) .. controls (1.804,3.014) and (1.848,2.882) .. (1.853,2.756) .. controls (1.859,2.568) and (1.727,2.107) .. (1.353,2.107) -- cycle;
+\draw[black!70, line width=0.25pt] (0.792,2.420) .. controls (0.797,2.178) and (0.990,1.969) .. (1.298,1.969) .. controls (1.820,1.969) and (2.161,2.480) .. (2.151,2.821) .. controls (2.145,3.008) and (2.040,3.190) .. (1.897,3.311) -- (1.716,3.465) .. controls (1.545,3.613) and (1.474,3.679) .. (1.474,3.762) .. controls (1.474,3.795) and (1.468,3.910) .. (1.683,3.910) .. controls (1.908,3.910) and (1.864,3.635) .. (2.079,3.635) .. controls (2.183,3.635) and (2.260,3.734) .. (2.260,3.773) .. controls (2.255,3.828) and (2.128,3.905) .. (2.046,3.949) .. controls (1.958,3.993) and (1.815,4.053) .. (1.677,4.053) .. controls (1.424,4.053) and (1.248,3.844) .. (1.254,3.674) .. controls (1.259,3.558) and (1.347,3.438) .. (1.518,3.278) -- (1.534,3.267) .. controls (1.364,3.206) and (0.775,2.926) .. (0.792,2.420) -- cycle (1.353,2.107) .. controls (1.138,2.107) and (1.083,2.260) .. (1.078,2.442) .. controls (1.067,2.893) and (1.402,3.069) .. (1.639,3.168) -- (1.705,3.107) .. controls (1.804,3.014) and (1.848,2.882) .. (1.853,2.756) .. controls (1.859,2.568) and (1.727,2.107) .. (1.353,2.107) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (1.974,0);
+\draw[draft!60, line width=0.2pt] (0.792,2.420) -- (0.797,2.178);\draw[draft, line width=0.2pt, fill=white] (0.797,2.178) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.298,1.969) -- (0.990,1.969);\draw[draft, line width=0.2pt, fill=white] (0.990,1.969) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.298,1.969) -- (1.820,1.969);\draw[draft, line width=0.2pt, fill=white] (1.820,1.969) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.151,2.821) -- (2.161,2.480);\draw[draft, line width=0.2pt, fill=white] (2.161,2.480) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.151,2.821) -- (2.145,3.008);\draw[draft, line width=0.2pt, fill=white] (2.145,3.008) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.897,3.311) -- (2.040,3.190);\draw[draft, line width=0.2pt, fill=white] (2.040,3.190) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.716,3.465) -- (1.545,3.613);\draw[draft, line width=0.2pt, fill=white] (1.545,3.613) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.474,3.762) -- (1.474,3.679);\draw[draft, line width=0.2pt, fill=white] (1.474,3.679) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.474,3.762) -- (1.474,3.795);\draw[draft, line width=0.2pt, fill=white] (1.474,3.795) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.683,3.910) -- (1.468,3.910);\draw[draft, line width=0.2pt, fill=white] (1.468,3.910) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.683,3.910) -- (1.908,3.910);\draw[draft, line width=0.2pt, fill=white] (1.908,3.910) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.079,3.635) -- (1.864,3.635);\draw[draft, line width=0.2pt, fill=white] (1.864,3.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.079,3.635) -- (2.183,3.635);\draw[draft, line width=0.2pt, fill=white] (2.183,3.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.260,3.773) -- (2.260,3.734);\draw[draft, line width=0.2pt, fill=white] (2.260,3.734) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.260,3.773) -- (2.255,3.828);\draw[draft, line width=0.2pt, fill=white] (2.255,3.828) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.046,3.949) -- (2.128,3.905);\draw[draft, line width=0.2pt, fill=white] (2.128,3.905) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.046,3.949) -- (1.958,3.993);\draw[draft, line width=0.2pt, fill=white] (1.958,3.993) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.677,4.053) -- (1.815,4.053);\draw[draft, line width=0.2pt, fill=white] (1.815,4.053) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.677,4.053) -- (1.424,4.053);\draw[draft, line width=0.2pt, fill=white] (1.424,4.053) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.254,3.674) -- (1.248,3.844);\draw[draft, line width=0.2pt, fill=white] (1.248,3.844) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.254,3.674) -- (1.259,3.558);\draw[draft, line width=0.2pt, fill=white] (1.259,3.558) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.518,3.278) -- (1.347,3.438);\draw[draft, line width=0.2pt, fill=white] (1.347,3.438) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.534,3.267) -- (1.364,3.206);\draw[draft, line width=0.2pt, fill=white] (1.364,3.206) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.792,2.420) -- (0.775,2.926);\draw[draft, line width=0.2pt, fill=white] (0.775,2.926) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.353,2.107) -- (1.138,2.107);\draw[draft, line width=0.2pt, fill=white] (1.138,2.107) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.078,2.442) -- (1.083,2.260);\draw[draft, line width=0.2pt, fill=white] (1.083,2.260) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.078,2.442) -- (1.067,2.893);\draw[draft, line width=0.2pt, fill=white] (1.067,2.893) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.639,3.168) -- (1.402,3.069);\draw[draft, line width=0.2pt, fill=white] (1.402,3.069) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.705,3.107) -- (1.804,3.014);\draw[draft, line width=0.2pt, fill=white] (1.804,3.014) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.853,2.756) -- (1.848,2.882);\draw[draft, line width=0.2pt, fill=white] (1.848,2.882) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.853,2.756) -- (1.859,2.568);\draw[draft, line width=0.2pt, fill=white] (1.859,2.568) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.353,2.107) -- (1.727,2.107);\draw[draft, line width=0.2pt, fill=white] (1.727,2.107) circle (0.35pt);
+\fill (0.792,2.420) circle (0.45pt);
+\fill (1.298,1.969) circle (0.45pt);
+\fill (2.151,2.821) circle (0.45pt);
+\fill (1.897,3.311) circle (0.45pt);
+\fill (1.716,3.465) circle (0.45pt);
+\fill (1.474,3.762) circle (0.45pt);
+\fill (1.683,3.910) circle (0.45pt);
+\fill (2.079,3.635) circle (0.45pt);
+\fill (2.260,3.773) circle (0.45pt);
+\fill (2.046,3.949) circle (0.45pt);
+\fill (1.677,4.053) circle (0.45pt);
+\fill (1.254,3.674) circle (0.45pt);
+\fill (1.518,3.278) circle (0.45pt);
+\fill (1.534,3.267) circle (0.45pt);
+\fill (0.792,2.420) circle (0.45pt);
+\fill (1.353,2.107) circle (0.45pt);
+\fill (1.078,2.442) circle (0.45pt);
+\fill (1.639,3.168) circle (0.45pt);
+\fill (1.705,3.107) circle (0.45pt);
+\fill (1.853,2.756) circle (0.45pt);
+\fill (1.353,2.107) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Italic (draft): 21 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (0.946,3.256) .. controls (0.643,3.162) and (0.291,2.970) .. (0.291,2.601) .. controls (0.291,2.266) and (0.578,1.985) .. (1.023,1.985) .. controls (1.408,1.985) and (1.826,2.211) .. (1.826,2.678) .. controls (1.826,2.975) and (1.529,3.212) .. (1.144,3.465) .. controls (0.990,3.569) and (0.847,3.663) .. (0.847,3.740) .. controls (0.847,3.855) and (0.913,3.905) .. (1.034,3.905) .. controls (1.083,3.905) and (1.144,3.872) .. (1.204,3.767) .. controls (1.270,3.663) and (1.391,3.635) .. (1.441,3.635) .. controls (1.518,3.635) and (1.644,3.668) .. (1.644,3.762) .. controls (1.644,3.855) and (1.397,4.042) .. (1.034,4.042) .. controls (0.775,4.042) and (0.511,3.938) .. (0.511,3.712) .. controls (0.511,3.580) and (0.643,3.465) .. (0.902,3.278) -- (0.946,3.256) -- cycle (1.149,3.102) .. controls (1.309,2.992) and (1.408,2.794) .. (1.408,2.645) .. controls (1.408,2.189) and (1.199,2.112) .. (1.061,2.112) .. controls (0.808,2.112) and (0.704,2.431) .. (0.704,2.651) .. controls (0.704,2.954) and (0.885,3.080) .. (1.078,3.157) -- (1.149,3.102) -- cycle;
+\draw[black!70, line width=0.25pt] (0.946,3.256) .. controls (0.643,3.162) and (0.291,2.970) .. (0.291,2.601) .. controls (0.291,2.266) and (0.578,1.985) .. (1.023,1.985) .. controls (1.408,1.985) and (1.826,2.211) .. (1.826,2.678) .. controls (1.826,2.975) and (1.529,3.212) .. (1.144,3.465) .. controls (0.990,3.569) and (0.847,3.663) .. (0.847,3.740) .. controls (0.847,3.855) and (0.913,3.905) .. (1.034,3.905) .. controls (1.083,3.905) and (1.144,3.872) .. (1.204,3.767) .. controls (1.270,3.663) and (1.391,3.635) .. (1.441,3.635) .. controls (1.518,3.635) and (1.644,3.668) .. (1.644,3.762) .. controls (1.644,3.855) and (1.397,4.042) .. (1.034,4.042) .. controls (0.775,4.042) and (0.511,3.938) .. (0.511,3.712) .. controls (0.511,3.580) and (0.643,3.465) .. (0.902,3.278) -- (0.946,3.256) -- cycle (1.149,3.102) .. controls (1.309,2.992) and (1.408,2.794) .. (1.408,2.645) .. controls (1.408,2.189) and (1.199,2.112) .. (1.061,2.112) .. controls (0.808,2.112) and (0.704,2.431) .. (0.704,2.651) .. controls (0.704,2.954) and (0.885,3.080) .. (1.078,3.157) -- (1.149,3.102) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.266,0);
+\draw[draft!60, line width=0.2pt] (0.946,3.256) -- (0.643,3.162);\draw[draft, line width=0.2pt, fill=white] (0.643,3.162) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.291,2.601) -- (0.291,2.970);\draw[draft, line width=0.2pt, fill=white] (0.291,2.970) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.291,2.601) -- (0.291,2.266);\draw[draft, line width=0.2pt, fill=white] (0.291,2.266) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.023,1.985) -- (0.578,1.985);\draw[draft, line width=0.2pt, fill=white] (0.578,1.985) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.023,1.985) -- (1.408,1.985);\draw[draft, line width=0.2pt, fill=white] (1.408,1.985) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.826,2.678) -- (1.826,2.211);\draw[draft, line width=0.2pt, fill=white] (1.826,2.211) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.826,2.678) -- (1.826,2.975);\draw[draft, line width=0.2pt, fill=white] (1.826,2.975) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.144,3.465) -- (1.529,3.212);\draw[draft, line width=0.2pt, fill=white] (1.529,3.212) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.144,3.465) -- (0.990,3.569);\draw[draft, line width=0.2pt, fill=white] (0.990,3.569) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.847,3.740) -- (0.847,3.663);\draw[draft, line width=0.2pt, fill=white] (0.847,3.663) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.847,3.740) -- (0.847,3.855);\draw[draft, line width=0.2pt, fill=white] (0.847,3.855) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,3.905) -- (0.913,3.905);\draw[draft, line width=0.2pt, fill=white] (0.913,3.905) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,3.905) -- (1.083,3.905);\draw[draft, line width=0.2pt, fill=white] (1.083,3.905) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.204,3.767) -- (1.144,3.872);\draw[draft, line width=0.2pt, fill=white] (1.144,3.872) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.204,3.767) -- (1.270,3.663);\draw[draft, line width=0.2pt, fill=white] (1.270,3.663) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.441,3.635) -- (1.391,3.635);\draw[draft, line width=0.2pt, fill=white] (1.391,3.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.441,3.635) -- (1.518,3.635);\draw[draft, line width=0.2pt, fill=white] (1.518,3.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.644,3.762) -- (1.644,3.668);\draw[draft, line width=0.2pt, fill=white] (1.644,3.668) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.644,3.762) -- (1.644,3.855);\draw[draft, line width=0.2pt, fill=white] (1.644,3.855) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,4.042) -- (1.397,4.042);\draw[draft, line width=0.2pt, fill=white] (1.397,4.042) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.034,4.042) -- (0.775,4.042);\draw[draft, line width=0.2pt, fill=white] (0.775,4.042) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.511,3.712) -- (0.511,3.938);\draw[draft, line width=0.2pt, fill=white] (0.511,3.938) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.511,3.712) -- (0.511,3.580);\draw[draft, line width=0.2pt, fill=white] (0.511,3.580) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.902,3.278) -- (0.643,3.465);\draw[draft, line width=0.2pt, fill=white] (0.643,3.465) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.149,3.102) -- (1.309,2.992);\draw[draft, line width=0.2pt, fill=white] (1.309,2.992) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.408,2.645) -- (1.408,2.794);\draw[draft, line width=0.2pt, fill=white] (1.408,2.794) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.408,2.645) -- (1.408,2.189);\draw[draft, line width=0.2pt, fill=white] (1.408,2.189) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.061,2.112) -- (1.199,2.112);\draw[draft, line width=0.2pt, fill=white] (1.199,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.061,2.112) -- (0.808,2.112);\draw[draft, line width=0.2pt, fill=white] (0.808,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.704,2.651) -- (0.704,2.431);\draw[draft, line width=0.2pt, fill=white] (0.704,2.431) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.704,2.651) -- (0.704,2.954);\draw[draft, line width=0.2pt, fill=white] (0.704,2.954) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.078,3.157) -- (0.885,3.080);\draw[draft, line width=0.2pt, fill=white] (0.885,3.080) circle (0.35pt);
+\fill (0.946,3.256) circle (0.45pt);
+\fill (0.291,2.601) circle (0.45pt);
+\fill (1.023,1.985) circle (0.45pt);
+\fill (1.826,2.678) circle (0.45pt);
+\fill (1.144,3.465) circle (0.45pt);
+\fill (0.847,3.740) circle (0.45pt);
+\fill (1.034,3.905) circle (0.45pt);
+\fill (1.204,3.767) circle (0.45pt);
+\fill (1.441,3.635) circle (0.45pt);
+\fill (1.644,3.762) circle (0.45pt);
+\fill (1.034,4.042) circle (0.45pt);
+\fill (0.511,3.712) circle (0.45pt);
+\fill (0.902,3.278) circle (0.45pt);
+\fill (0.946,3.256) circle (0.45pt);
+\fill (1.149,3.102) circle (0.45pt);
+\fill (1.408,2.645) circle (0.45pt);
+\fill (1.061,2.112) circle (0.45pt);
+\fill (0.704,2.651) circle (0.45pt);
+\fill (1.078,3.157) circle (0.45pt);
+\fill (1.149,3.102) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold (draft): 20 on-curve points};
+\end{tikzpicture}\hfill
+\begin{tikzpicture}[baseline=0pt]
+\fill[gray!18, nonzero rule, fill opacity=0.75] (1.650,3.256) .. controls (1.320,3.162) and (0.929,2.970) .. (0.841,2.607) .. controls (0.830,2.552) and (0.825,2.502) .. (0.825,2.453) .. controls (0.836,2.189) and (1.050,1.985) .. (1.430,1.985) .. controls (1.809,1.985) and (2.282,2.205) .. (2.393,2.678) .. controls (2.403,2.712) and (2.403,2.756) .. (2.403,2.794) .. controls (2.393,3.036) and (2.178,3.239) .. (1.892,3.465) .. controls (1.771,3.558) and (1.655,3.646) .. (1.655,3.723) -- (1.655,3.740) .. controls (1.683,3.855) and (1.765,3.910) .. (1.886,3.910) .. controls (1.941,3.910) and (1.996,3.877) .. (2.030,3.773) .. controls (2.068,3.663) and (2.178,3.635) .. (2.233,3.635) .. controls (2.304,3.635) and (2.442,3.663) .. (2.464,3.756) .. controls (2.464,3.762) and (2.464,3.773) .. (2.464,3.778) .. controls (2.464,3.877) and (2.260,4.037) .. (1.919,4.037) .. controls (1.661,4.037) and (1.380,3.943) .. (1.325,3.718) .. controls (1.320,3.696) and (1.315,3.679) .. (1.315,3.657) .. controls (1.320,3.547) and (1.424,3.443) .. (1.611,3.278) -- (1.650,3.256) -- cycle (1.815,3.107) .. controls (1.919,3.019) and (1.974,2.882) .. (1.980,2.756) .. controls (1.980,2.717) and (1.974,2.678) .. (1.969,2.645) .. controls (1.864,2.194) and (1.628,2.112) .. (1.490,2.112) .. controls (1.309,2.112) and (1.243,2.272) .. (1.243,2.453) .. controls (1.237,2.519) and (1.248,2.591) .. (1.259,2.651) .. controls (1.331,2.948) and (1.545,3.080) .. (1.760,3.157) -- (1.815,3.107) -- cycle;
+\draw[black!70, line width=0.25pt] (1.650,3.256) .. controls (1.320,3.162) and (0.929,2.970) .. (0.841,2.607) .. controls (0.830,2.552) and (0.825,2.502) .. (0.825,2.453) .. controls (0.836,2.189) and (1.050,1.985) .. (1.430,1.985) .. controls (1.809,1.985) and (2.282,2.205) .. (2.393,2.678) .. controls (2.403,2.712) and (2.403,2.756) .. (2.403,2.794) .. controls (2.393,3.036) and (2.178,3.239) .. (1.892,3.465) .. controls (1.771,3.558) and (1.655,3.646) .. (1.655,3.723) -- (1.655,3.740) .. controls (1.683,3.855) and (1.765,3.910) .. (1.886,3.910) .. controls (1.941,3.910) and (1.996,3.877) .. (2.030,3.773) .. controls (2.068,3.663) and (2.178,3.635) .. (2.233,3.635) .. controls (2.304,3.635) and (2.442,3.663) .. (2.464,3.756) .. controls (2.464,3.762) and (2.464,3.773) .. (2.464,3.778) .. controls (2.464,3.877) and (2.260,4.037) .. (1.919,4.037) .. controls (1.661,4.037) and (1.380,3.943) .. (1.325,3.718) .. controls (1.320,3.696) and (1.315,3.679) .. (1.315,3.657) .. controls (1.320,3.547) and (1.424,3.443) .. (1.611,3.278) -- (1.650,3.256) -- cycle (1.815,3.107) .. controls (1.919,3.019) and (1.974,2.882) .. (1.980,2.756) .. controls (1.980,2.717) and (1.974,2.678) .. (1.969,2.645) .. controls (1.864,2.194) and (1.628,2.112) .. (1.490,2.112) .. controls (1.309,2.112) and (1.243,2.272) .. (1.243,2.453) .. controls (1.237,2.519) and (1.248,2.591) .. (1.259,2.651) .. controls (1.331,2.948) and (1.545,3.080) .. (1.760,3.157) -- (1.815,3.107) -- cycle;
+
+\draw[gray!50, line width=0.2pt] (-0.2,0) -- (2.266,0);
+\draw[draft!60, line width=0.2pt] (1.650,3.256) -- (1.320,3.162);\draw[draft, line width=0.2pt, fill=white] (1.320,3.162) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.841,2.607) -- (0.929,2.970);\draw[draft, line width=0.2pt, fill=white] (0.929,2.970) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.841,2.607) -- (0.830,2.552);\draw[draft, line width=0.2pt, fill=white] (0.830,2.552) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.825,2.453) -- (0.825,2.502);\draw[draft, line width=0.2pt, fill=white] (0.825,2.502) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (0.825,2.453) -- (0.836,2.189);\draw[draft, line width=0.2pt, fill=white] (0.836,2.189) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.430,1.985) -- (1.050,1.985);\draw[draft, line width=0.2pt, fill=white] (1.050,1.985) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.430,1.985) -- (1.809,1.985);\draw[draft, line width=0.2pt, fill=white] (1.809,1.985) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.393,2.678) -- (2.282,2.205);\draw[draft, line width=0.2pt, fill=white] (2.282,2.205) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.393,2.678) -- (2.403,2.712);\draw[draft, line width=0.2pt, fill=white] (2.403,2.712) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.403,2.794) -- (2.403,2.756);\draw[draft, line width=0.2pt, fill=white] (2.403,2.756) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.403,2.794) -- (2.393,3.036);\draw[draft, line width=0.2pt, fill=white] (2.393,3.036) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.892,3.465) -- (2.178,3.239);\draw[draft, line width=0.2pt, fill=white] (2.178,3.239) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.892,3.465) -- (1.771,3.558);\draw[draft, line width=0.2pt, fill=white] (1.771,3.558) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.655,3.723) -- (1.655,3.646);\draw[draft, line width=0.2pt, fill=white] (1.655,3.646) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.655,3.740) -- (1.683,3.855);\draw[draft, line width=0.2pt, fill=white] (1.683,3.855) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.886,3.910) -- (1.765,3.910);\draw[draft, line width=0.2pt, fill=white] (1.765,3.910) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.886,3.910) -- (1.941,3.910);\draw[draft, line width=0.2pt, fill=white] (1.941,3.910) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.030,3.773) -- (1.996,3.877);\draw[draft, line width=0.2pt, fill=white] (1.996,3.877) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.030,3.773) -- (2.068,3.663);\draw[draft, line width=0.2pt, fill=white] (2.068,3.663) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.233,3.635) -- (2.178,3.635);\draw[draft, line width=0.2pt, fill=white] (2.178,3.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.233,3.635) -- (2.304,3.635);\draw[draft, line width=0.2pt, fill=white] (2.304,3.635) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.464,3.756) -- (2.442,3.663);\draw[draft, line width=0.2pt, fill=white] (2.442,3.663) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.464,3.756) -- (2.464,3.762);\draw[draft, line width=0.2pt, fill=white] (2.464,3.762) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.464,3.778) -- (2.464,3.773);\draw[draft, line width=0.2pt, fill=white] (2.464,3.773) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (2.464,3.778) -- (2.464,3.877);\draw[draft, line width=0.2pt, fill=white] (2.464,3.877) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.919,4.037) -- (2.260,4.037);\draw[draft, line width=0.2pt, fill=white] (2.260,4.037) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.919,4.037) -- (1.661,4.037);\draw[draft, line width=0.2pt, fill=white] (1.661,4.037) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.325,3.718) -- (1.380,3.943);\draw[draft, line width=0.2pt, fill=white] (1.380,3.943) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.325,3.718) -- (1.320,3.696);\draw[draft, line width=0.2pt, fill=white] (1.320,3.696) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.315,3.657) -- (1.315,3.679);\draw[draft, line width=0.2pt, fill=white] (1.315,3.679) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.315,3.657) -- (1.320,3.547);\draw[draft, line width=0.2pt, fill=white] (1.320,3.547) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.611,3.278) -- (1.424,3.443);\draw[draft, line width=0.2pt, fill=white] (1.424,3.443) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.815,3.107) -- (1.919,3.019);\draw[draft, line width=0.2pt, fill=white] (1.919,3.019) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.980,2.756) -- (1.974,2.882);\draw[draft, line width=0.2pt, fill=white] (1.974,2.882) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.980,2.756) -- (1.980,2.717);\draw[draft, line width=0.2pt, fill=white] (1.980,2.717) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.969,2.645) -- (1.974,2.678);\draw[draft, line width=0.2pt, fill=white] (1.974,2.678) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.969,2.645) -- (1.864,2.194);\draw[draft, line width=0.2pt, fill=white] (1.864,2.194) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.490,2.112) -- (1.628,2.112);\draw[draft, line width=0.2pt, fill=white] (1.628,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.490,2.112) -- (1.309,2.112);\draw[draft, line width=0.2pt, fill=white] (1.309,2.112) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.243,2.453) -- (1.243,2.272);\draw[draft, line width=0.2pt, fill=white] (1.243,2.272) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.243,2.453) -- (1.237,2.519);\draw[draft, line width=0.2pt, fill=white] (1.237,2.519) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.259,2.651) -- (1.248,2.591);\draw[draft, line width=0.2pt, fill=white] (1.248,2.591) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.259,2.651) -- (1.331,2.948);\draw[draft, line width=0.2pt, fill=white] (1.331,2.948) circle (0.35pt);
+\draw[draft!60, line width=0.2pt] (1.760,3.157) -- (1.545,3.080);\draw[draft, line width=0.2pt, fill=white] (1.545,3.080) circle (0.35pt);
+\fill (1.650,3.256) circle (0.45pt);
+\fill (0.841,2.607) circle (0.45pt);
+\fill (0.825,2.453) circle (0.45pt);
+\fill (1.430,1.985) circle (0.45pt);
+\fill (2.393,2.678) circle (0.45pt);
+\fill (2.403,2.794) circle (0.45pt);
+\fill (1.892,3.465) circle (0.45pt);
+\fill (1.655,3.723) circle (0.45pt);
+\fill (1.655,3.740) circle (0.45pt);
+\fill (1.886,3.910) circle (0.45pt);
+\fill (2.030,3.773) circle (0.45pt);
+\fill (2.233,3.635) circle (0.45pt);
+\fill (2.464,3.756) circle (0.45pt);
+\fill (2.464,3.778) circle (0.45pt);
+\fill (1.919,4.037) circle (0.45pt);
+\fill (1.325,3.718) circle (0.45pt);
+\fill (1.315,3.657) circle (0.45pt);
+\fill (1.611,3.278) circle (0.45pt);
+\fill (1.650,3.256) circle (0.45pt);
+\fill (1.815,3.107) circle (0.45pt);
+\fill (1.980,2.756) circle (0.45pt);
+\fill (1.969,2.645) circle (0.45pt);
+\fill (1.490,2.112) circle (0.45pt);
+\fill (1.243,2.453) circle (0.45pt);
+\fill (1.259,2.651) circle (0.45pt);
+\fill (1.760,3.157) circle (0.45pt);
+\fill (1.815,3.107) circle (0.45pt);
+\node[anchor=north west, font=\scriptsize, inner sep=0pt] at (0,-1.485) {Semibold italic (draft): 27 on-curve points};
+\end{tikzpicture}\hfill
+\par\bigskip\end{minipage}\par
 \section*{Recipe checks in regular}
 The recipes that take a part from another letter, run in regular and compared with the designer's glyph (in the regular draft font at U+F600 and up). Mismatch: the ink of designer XOR recipe, at the same origin, over the designer's ink; a shift of the whole letter counts double on a thin letter (once where ink is missing, once where it is extra), so the mismatch after the best horizontal shift is given too.\par
 \medskip{\renewcommand{\arraystretch}{1.6}\begin{tabular}{@{}lccrrrl@{}}
@@ -10308,6 +11480,9 @@ The recipes that take a part from another letter, run in regular and compared wi
 \char"2C6F & {\LibDraft\fontsize{34}{40}\selectfont \char"2C6F} & {\LibDraft\fontsize{34}{40}\selectfont\color{draft}\char"F60E} & 6.7\,\% & 0.0\,\% at -3 & 695 / 695 & \parbox{5.4cm}{\footnotesize regular's A turned about (348, 328.0)}\\
 \char"0245 & {\LibDraft\fontsize{34}{40}\selectfont \char"0245} & {\LibDraft\fontsize{34}{40}\selectfont\color{draft}\char"F60F} & 3.0\,\% & 0.5\,\% at +1 & 658 / 652 & \parbox{5.4cm}{\footnotesize regular's V turned about (326, 322.5)}\\
 \char"0244 & {\LibDraft\fontsize{34}{40}\selectfont \char"0244} & {\LibDraft\fontsize{34}{40}\selectfont\color{draft}\char"F610} & 0.2\,\% & 0.2\,\% at +0 & 661 / 661 & \parbox{5.4cm}{\footnotesize U + U+0336 (the style's own), placed as in regular's Ʉ (fit 0.2\%): centre at y 344, -9 across from the stems, 639 long, 44 thick (own Đ)}\\
+\char"1D5D & {\LibDraft\fontsize{34}{40}\selectfont \char"1D5D} & {\LibDraft\fontsize{34}{40}\selectfont\color{draft}\char"F611} & 33.9\,\% & 24.8\,\% at -9 & 312 / 312 & \parbox{5.4cm}{\footnotesize regular's β scaled 0.554 x 0.523 and placed as regular's ᵝ, pushed outward by 2.7 to 1.00 times regular's ᵝ's weight (39.8; the style's ᵛ over regular's)}\\
+\char"1D5E & {\LibDraft\fontsize{34}{40}\selectfont \char"1D5E} & {\LibDraft\fontsize{34}{40}\selectfont\color{draft}\char"F612} & 74.1\,\% & 57.3\,\% at +20 & 364 / 364 & \parbox{5.4cm}{\footnotesize regular's γ scaled 0.609 x 0.603 and placed as regular's ᵞ, pushed outward by 4.5 to 1.00 times regular's ᵞ's weight (43.3; the style's ᵛ over regular's)}\\
+\char"1D5F & {\LibDraft\fontsize{34}{40}\selectfont \char"1D5F} & {\LibDraft\fontsize{34}{40}\selectfont\color{draft}\char"F613} & 11.9\,\% & 11.9\,\% at +0 & 353 / 353 & \parbox{5.4cm}{\footnotesize regular's δ scaled 0.597 x 0.521 and placed as regular's ᵟ, pushed outward by 6.0 to 1.00 times regular's ᵟ's weight (44.6; the style's ᵛ over regular's)}\\
 \end{tabular}}
 \section*{Pending}
 Tentative, or redrafted after a comment.\par\medskip
@@ -10407,6 +11582,69 @@ Tentative, or redrafted after a comment.\par\medskip
 {\footnotesize
 \textit{Semibold}: [copy] regular's ˿ pushed outward by 2.3 (stage 3's rule); advance 426; anchors: none.\par
 \textit{Semibold italic}: [copy] italic's ˿ pushed outward by 2.3 (stage 3's rule); advance 426; anchors: none.\par
+}
+\end{minipage}\par\bigskip
+\begin{minipage}{\linewidth}
+\subsection*{{\LibDraft \char"1D5C}\ U+1D5C Modifier Letter Small Ain (copy) (outside the base groups){\normalfont\small\quad 2026-11-22 (regular's, slanted as italic ᵛ is regular's; pushed outward in the semibold styles)}}
+{\renewcommand{\arraystretch}{1.5}\begin{tabular}{@{}lcccc@{}}
+ & \small Regular & \small Italic & \small Semibold & \small Semibold italic\\\hline
+\small Libertinus & {\LibDraft\upshape\mdseries \char"0295\char"1D5C\char"02E4} & {\LibDraft\itshape\mdseries \char"0295\textcolor{draft}{\char"1D5C}\char"02E4} & {\LibDraft\upshape\bfseries \char"0295\textcolor{draft}{\char"1D5C}\char"02E4} & {\LibDraft\itshape\bfseries \char"0295\textcolor{draft}{\char"1D5C}\char"02E4}\\
+\small Gentium Plus & {\Gentium\upshape\mdseries \char"0295\char"1D5C\char"02E4} & {\Gentium\itshape\mdseries \char"0295\char"1D5C\char"02E4} & {\Gentium\upshape\bfseries \char"0295\char"1D5C\char"02E4} & {\Gentium\itshape\bfseries \char"0295\char"1D5C\char"02E4}\\
+\small Noto Serif & {\Noto\upshape\mdseries \char"0295\char"1D5C\char"02E4} & {\Noto\itshape\mdseries \char"0295\char"1D5C\char"02E4} & {\Noto\upshape\bfseries \char"0295\char"1D5C\char"02E4} & {\Noto\itshape\bfseries \char"0295\char"1D5C\char"02E4}\\
+\small Junicode Two Beta & {\Junicode\upshape\mdseries \char"0295\char"1D5C\char"02E4} & {\Junicode\itshape\mdseries \char"0295\char"1D5C} & {\Junicode\upshape\bfseries \char"0295\char"1D5C\char"02E4} & {\Junicode\itshape\bfseries \char"0295\char"1D5C}\\
+\end{tabular}}\par\smallskip
+{\footnotesize
+\textit{Italic}: [copy] regular's ᵜ slanted (tan 0.213); advance 508; anchors: none.\par
+\textit{Semibold}: [copy] regular's ᵜ, pushed outward by 5.4 (stage 3's rule); advance 508; anchors: none.\par
+\textit{Semibold italic}: [copy] regular's ᵜ slanted (tan 0.203), pushed outward by 5.4 (stage 3's rule); advance 508; anchors: none.\par
+}
+\end{minipage}\par\bigskip
+\begin{minipage}{\linewidth}
+\subsection*{{\LibDraft \char"1D5D}\ U+1D5D Modifier Letter Small Beta (reduced) (outside the base groups){\normalfont\small\quad 2026-11-22 (the style's own letter reduced as regular's; second row: regular's modifier slanted or pushed outward, as for ᵜ)}}
+{\renewcommand{\arraystretch}{1.5}\begin{tabular}{@{}lcccc@{}}
+ & \small Regular & \small Italic & \small Semibold & \small Semibold italic\\\hline
+\small Libertinus & {\LibDraft\upshape\mdseries \char"03B2\char"1D5D\char"1D5B} & {\LibDraft\itshape\mdseries \char"03B2\textcolor{draft}{\char"1D5D}\char"1D5B} & {\LibDraft\upshape\bfseries \char"03B2\textcolor{draft}{\char"1D5D}\char"1D5B} & {\LibDraft\itshape\bfseries \char"03B2\textcolor{draft}{\char"1D5D}\char"1D5B}\\
+\small Gentium Plus & {\Gentium\upshape\mdseries \char"03B2\char"1D5D\char"1D5B} & {\Gentium\itshape\mdseries \char"03B2\char"1D5D\char"1D5B} & {\Gentium\upshape\bfseries \char"03B2\char"1D5D\char"1D5B} & {\Gentium\itshape\bfseries \char"03B2\char"1D5D\char"1D5B}\\
+\small Noto Serif & {\Noto\upshape\mdseries \char"03B2\char"1D5D\char"1D5B} & {\Noto\itshape\mdseries \char"03B2\char"1D5D\char"1D5B} & {\Noto\upshape\bfseries \char"03B2\char"1D5D\char"1D5B} & {\Noto\itshape\bfseries \char"03B2\char"1D5D\char"1D5B}\\
+\small Junicode Two Beta & {\Junicode\upshape\mdseries \char"03B2\char"1D5D\char"1D5B} & {\Junicode\itshape\mdseries \char"03B2\char"1D5D\char"1D5B} & {\Junicode\upshape\bfseries \char"03B2\char"1D5D\char"1D5B} & {\Junicode\itshape\bfseries \char"03B2\char"1D5D\char"1D5B}\\
+\parbox{2.6cm}{\footnotesize regular's, slanted or pushed outward} &  & {\LibDraft\itshape\mdseries \char"03B2\char"F640\char"1D5B} & {\LibDraft\upshape\bfseries \char"03B2\char"F640\char"1D5B} & {\LibDraft\itshape\bfseries \char"03B2\char"F640\char"1D5B}\\
+\end{tabular}}\par\smallskip
+{\footnotesize
+\textit{Italic}: [reduced] italic's β de-slanted, scaled 0.554 x 0.523 and placed as regular's ᵝ, slanted back, pushed outward by 2.8 to 0.89 times regular's ᵝ's weight (35.6; the style's ᵛ over regular's); advance 287; anchors: none.\par
+\textit{Semibold}: [reduced] semibold's β scaled 0.554 x 0.523 and placed as regular's ᵝ, pushed outward by 0.4 to 1.13 times regular's ᵝ's weight (45.0; the style's ᵛ over regular's); advance 326; anchors: none.\par
+\textit{Semibold italic}: [reduced] semibold\_italic's β de-slanted, scaled 0.554 x 0.523 and placed as regular's ᵝ, slanted back, pushed inward by 0.5 to 1.12 times regular's ᵝ's weight (44.4; the style's ᵛ over regular's); advance 326; anchors: none.\par
+}
+\end{minipage}\par\bigskip
+\begin{minipage}{\linewidth}
+\subsection*{{\LibDraft \char"1D5E}\ U+1D5E Modifier Letter Small Greek Gamma (reduced) (outside the base groups){\normalfont\small\quad 2026-11-22 (the style's own letter reduced as regular's; second row: regular's modifier slanted or pushed outward, as for ᵜ)}}
+{\renewcommand{\arraystretch}{1.5}\begin{tabular}{@{}lcccc@{}}
+ & \small Regular & \small Italic & \small Semibold & \small Semibold italic\\\hline
+\small Libertinus & {\LibDraft\upshape\mdseries \char"03B3\char"1D5E\char"1D5B} & {\LibDraft\itshape\mdseries \char"03B3\textcolor{draft}{\char"1D5E}\char"1D5B} & {\LibDraft\upshape\bfseries \char"03B3\textcolor{draft}{\char"1D5E}\char"1D5B} & {\LibDraft\itshape\bfseries \char"03B3\textcolor{draft}{\char"1D5E}\char"1D5B}\\
+\small Gentium Plus & {\Gentium\upshape\mdseries \char"03B3\char"1D5E\char"1D5B} & {\Gentium\itshape\mdseries \char"03B3\char"1D5E\char"1D5B} & {\Gentium\upshape\bfseries \char"03B3\char"1D5E\char"1D5B} & {\Gentium\itshape\bfseries \char"03B3\char"1D5E\char"1D5B}\\
+\small Noto Serif & {\Noto\upshape\mdseries \char"03B3\char"1D5E\char"1D5B} & {\Noto\itshape\mdseries \char"03B3\char"1D5E\char"1D5B} & {\Noto\upshape\bfseries \char"03B3\char"1D5E\char"1D5B} & {\Noto\itshape\bfseries \char"03B3\char"1D5E\char"1D5B}\\
+\small Junicode Two Beta & {\Junicode\upshape\mdseries \char"03B3\char"1D5E\char"1D5B} & {\Junicode\itshape\mdseries \char"03B3\char"1D5E\char"1D5B} & {\Junicode\upshape\bfseries \char"03B3\char"1D5E\char"1D5B} & {\Junicode\itshape\bfseries \char"03B3\char"1D5E\char"1D5B}\\
+\parbox{2.6cm}{\footnotesize regular's, slanted or pushed outward} &  & {\LibDraft\itshape\mdseries \char"03B3\char"F641\char"1D5B} & {\LibDraft\upshape\bfseries \char"03B3\char"F641\char"1D5B} & {\LibDraft\itshape\bfseries \char"03B3\char"F641\char"1D5B}\\
+\end{tabular}}\par\smallskip
+{\footnotesize
+\textit{Italic}: [reduced] italic's γ de-slanted, scaled 0.609 x 0.603 and placed as regular's ᵞ, slanted back, pushed outward by 4.1 to 0.89 times regular's ᵞ's weight (38.7; the style's ᵛ over regular's); advance 335; anchors: none.\par
+\textit{Semibold}: [reduced] semibold's γ scaled 0.609 x 0.603 and placed as regular's ᵞ, pushed inward by 1.5 to 1.13 times regular's ᵞ's weight (48.9; the style's ᵛ over regular's); advance 391; anchors: none.\par
+\textit{Semibold italic}: [reduced] semibold\_italic's γ de-slanted, scaled 0.609 x 0.603 and placed as regular's ᵞ, slanted back, pushed inward by 1.1 to 1.12 times regular's ᵞ's weight (48.3; the style's ᵛ over regular's); advance 391; anchors: none.\par
+}
+\end{minipage}\par\bigskip
+\begin{minipage}{\linewidth}
+\subsection*{{\LibDraft \char"1D5F}\ U+1D5F Modifier Letter Small Delta (reduced) (outside the base groups){\normalfont\small\quad 2026-11-22 (the style's own letter reduced as regular's; second row: regular's modifier slanted or pushed outward, as for ᵜ)}}
+{\renewcommand{\arraystretch}{1.5}\begin{tabular}{@{}lcccc@{}}
+ & \small Regular & \small Italic & \small Semibold & \small Semibold italic\\\hline
+\small Libertinus & {\LibDraft\upshape\mdseries \char"03B4\char"1D5F\char"1D5B} & {\LibDraft\itshape\mdseries \char"03B4\textcolor{draft}{\char"1D5F}\char"1D5B} & {\LibDraft\upshape\bfseries \char"03B4\textcolor{draft}{\char"1D5F}\char"1D5B} & {\LibDraft\itshape\bfseries \char"03B4\textcolor{draft}{\char"1D5F}\char"1D5B}\\
+\small Gentium Plus & {\Gentium\upshape\mdseries \char"03B4\char"1D5F\char"1D5B} & {\Gentium\itshape\mdseries \char"03B4\char"1D5F\char"1D5B} & {\Gentium\upshape\bfseries \char"03B4\char"1D5F\char"1D5B} & {\Gentium\itshape\bfseries \char"03B4\char"1D5F\char"1D5B}\\
+\small Noto Serif & {\Noto\upshape\mdseries \char"03B4\char"1D5F\char"1D5B} & {\Noto\itshape\mdseries \char"03B4\char"1D5F\char"1D5B} & {\Noto\upshape\bfseries \char"03B4\char"1D5F\char"1D5B} & {\Noto\itshape\bfseries \char"03B4\char"1D5F\char"1D5B}\\
+\small Junicode Two Beta & {\Junicode\upshape\mdseries \char"03B4\char"1D5F\char"1D5B} & {\Junicode\itshape\mdseries \char"03B4\char"1D5F\char"1D5B} & {\Junicode\upshape\bfseries \char"03B4\char"1D5F\char"1D5B} & {\Junicode\itshape\bfseries \char"03B4\char"1D5F\char"1D5B}\\
+\parbox{2.6cm}{\footnotesize regular's, slanted or pushed outward} &  & {\LibDraft\itshape\mdseries \char"03B4\char"F642\char"1D5B} & {\LibDraft\upshape\bfseries \char"03B4\char"F642\char"1D5B} & {\LibDraft\itshape\bfseries \char"03B4\char"F642\char"1D5B}\\
+\end{tabular}}\par\smallskip
+{\footnotesize
+\textit{Italic}: [reduced] italic's δ de-slanted, scaled 0.597 x 0.521 and placed as regular's ᵟ, slanted back, pushed outward by 4.4 to 0.89 times regular's ᵟ's weight (39.9; the style's ᵛ over regular's); advance 329; anchors: none.\par
+\textit{Semibold}: [reduced] semibold's δ scaled 0.597 x 0.521 and placed as regular's ᵟ, pushed outward by 1.9 to 1.13 times regular's ᵟ's weight (50.4; the style's ᵛ over regular's); advance 382; anchors: none.\par
+\textit{Semibold italic}: [reduced] semibold\_italic's δ de-slanted, scaled 0.597 x 0.521 and placed as regular's ᵟ, slanted back, pushed outward by 1.4 to 1.12 times regular's ᵟ's weight (49.8; the style's ᵛ over regular's); advance 382; anchors: none.\par
 }
 \end{minipage}\par\bigskip
 \end{document}

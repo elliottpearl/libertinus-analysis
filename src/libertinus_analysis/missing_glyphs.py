@@ -2565,6 +2565,95 @@ def draft_modifier(style, styles, char):
     return contours, src.advance(char), f"{src.key}'s {char} pushed outward by {distance:.1f} (stage 3's rule)"
 
 
+# Modifier letters ᵜ ᵝ ᵞ ᵟ (U+1D5C-1D5F), only in regular (2026-11-22).
+# Regular's ᵝ ᵞ ᵟ are drawn apart from β γ δ, not reduced from them (best
+# scaled fits 25%, 69%, 22% ink mismatch; ᵞ's tail is a closed teardrop, not
+# γ's loop), and ᵜ is a superscript ᴥ (U+1D25), which no style has. The
+# designer's own superscripts in the other styles: italic ᵛ is regular's ᵛ
+# slanted (16% mismatch); semibold ᵛ is semibold's own v reduced (17%;
+# regular's ᵛ pushed outward by the stems' difference: 64%); semibold ˤ is
+# regular's unchanged. So ᵝ ᵞ ᵟ are the style's own β γ δ (italic's are another
+# design than regular's), reduced as regular's: de-slanted, scaled to the box
+# of regular's modifier, at its height and side bearings, and pushed outward
+# (or inward) to the weight of regular's modifier times the style's ᵛ over
+# regular's ᵛ (italic 0.89, semibold 1.13, semibold italic 1.12: the designer's
+# own superscript weights; regular's ratio to the letter, ᵝ/β 0.63, ᵞ/γ 0.77,
+# ᵟ/δ 0.76, made semibold ᵞ 1.5 times regular's). ᵜ is regular's, slanted (as italic
+# ᵛ) and, in the semibold styles, pushed outward by stage 3's rule (EMBOLDEN;
+# semibold ᵛ and semibold italic ᵛ are 1.13 and 1.12 times regular's weight).
+REDUCED_FROM = {"ᵝ": "β", "ᵞ": "γ", "ᵟ": "δ"}
+SUPERSCRIPTS = "ᵜᵝᵞᵟ"
+_REDUCTIONS = {}
+
+
+def _slanted(path, slope):
+    """Shear by slope about the baseline (negative: de-slant)."""
+    return _moved(path, (1, 0, slope, 1, 0, 0)) if slope else path
+
+
+def _thickness(path):
+    return stroke_thickness(_recording(path))
+
+
+def _reduction(regular, char):
+    """
+    Regular's reduction of REDUCED_FROM[char] to the designer's char: scales
+    sx, sy and offsets tx, ty (x' = sx x + tx, y' = sy y + ty, before pushing
+    outward by d), the weight ratio (char over letter) and the extra advance.
+    The scale is fitted to the box of regular's char once pushed outward to
+    its weight (the ratio only serves that fit).
+    """
+    if char in _REDUCTIONS:
+        return _REDUCTIONS[char]
+    letter = REDUCED_FROM[char]
+    lb, mb = regular.path(letter).bounds, regular.path(char).bounds
+    ratio = _thickness(regular.path(char)) / _thickness(regular.path(letter))
+    d = 0.0
+    for _ in range(4):
+        sx = (mb[2] - mb[0] - 2 * d) / (lb[2] - lb[0])
+        sy = (mb[3] - mb[1] - 2 * d) / (lb[3] - lb[1])
+        scaled = _moved(regular.path(letter), (sx, 0, 0, sy, 0, 0))
+        d = (ratio * _thickness(regular.path(letter)) - _thickness(scaled)) / 2
+    tx = mb[0] + d - sx * lb[0]
+    ty = mb[1] + d - sy * lb[1]
+    extra = regular.advance(char) - sx * regular.advance(letter)
+    _REDUCTIONS[char] = (sx, sy, tx, ty, ratio, extra)
+    return _REDUCTIONS[char]
+
+
+def draft_reduced(style, styles, char):
+    """The style's own β, γ or δ reduced as regular's to ᵝ, ᵞ or ᵟ (see REDUCED_FROM)."""
+    letter = REDUCED_FROM[char]
+    sx, sy, tx, ty, ratio, extra = _reduction(styles["regular"], char)
+    upright = _slanted(style.path(letter), -style.slope)
+    path = _slanted(_moved(upright, (sx, 0, 0, sy, tx, ty)), style.slope)
+    regular = styles["regular"]
+    factor = _thickness(style.path("ᵛ")) / _thickness(regular.path("ᵛ"))
+    target = factor * _thickness(regular.path(char))
+    d = (target - _thickness(path)) / 2
+    contours = gc._from_recording(embolden(_recording(path), d))
+    advance = sx * style.advance(letter) + extra
+    return contours, advance, (
+        f"{style.key}'s {letter}" + (" de-slanted," if style.slope else "")
+        + f" scaled {sx:.3f} x {sy:.3f} and placed as regular's {char},"
+        + (" slanted back," if style.slope else "")
+        + f" pushed {'outward' if d >= 0 else 'inward'} by {abs(d):.1f} to {factor:.2f} times"
+        + f" regular's {char}'s weight ({target:.1f}; the style's ᵛ over regular's)")
+
+
+def draft_from_regular(style, styles, char):
+    """Regular's char, slanted to the style and, in the semibold styles, pushed outward by stage 3's rule."""
+    regular = styles["regular"]
+    path = _slanted(regular.path(char), style.slope)
+    rec = _recording(path)
+    distance = EMBOLDEN * stroke_thickness(rec) if style.key.startswith("semibold") else 0.0
+    if distance:
+        rec = embolden(rec, distance)
+    return gc._from_recording(rec), regular.advance(char), (
+        f"regular's {char}" + (f" slanted (tan {style.slope:.3f})" if style.slope else "")
+        + (f", pushed outward by {distance:.1f} (stage 3's rule)" if distance else ""))
+
+
 LETTERS = [
     ("Ɇ", "reference", lambda d, S: draft_E_solidus_c(d, S)),
     ("Ɍ", "overlay", lambda d, S: draft_R_bar(d, S)),
@@ -2597,7 +2686,10 @@ EXTRAS = [
     # Phase 2 (2026-11-14): in Gentium Plus, not in Langscitinus.
     ("ꭤ", "flip", lambda d, S: flipped(d, "ɑ")),
     ("ⱻ", "turn", lambda d, S: turned_c(d, "e.sc")),
-] + [(c, "copy", (lambda c: lambda d, S: draft_modifier(d, S, c))(c)) for c in MODIFIERS]
+] + [(c, "copy", (lambda c: lambda d, S: draft_modifier(d, S, c))(c)) for c in MODIFIERS] + [
+    # Modifier letters (2026-11-22): in BASE_SUPERSCRIPT_CONSONANT, only in regular.
+    ("ᵜ", "copy", lambda d, S: draft_from_regular(d, S, "ᵜ")),
+] + [(c, "reduced", (lambda c: lambda d, S: draft_reduced(d, S, c))(c)) for c in "ᵝᵞᵟ"]
 
 # The reviewer's decisions on the drafts (2026-11-13), shown on the sheet.
 # The reviewer's decisions on the drafts, shown on the sheet: (state, note).
@@ -2634,6 +2726,9 @@ DECISIONS = {
                       " slanted as italic's, which the designer slanted; upright in Gentium Plus italic (˽ ˾ slanted)"
                       " and Noto Serif italic") for c in "˹˺˻˼˽˾˿"},
     "Ʉ": ("approved", "2026-11-14 (U + U+0336 across both stems, placed as in regular's Ʉ)"),
+    "ᵜ": ("pending", "2026-11-22 (regular's, slanted as italic ᵛ is regular's; pushed outward in the semibold styles)"),
+    **{c: ("pending", "2026-11-22 (the style's own letter reduced as regular's; second row: regular's modifier"
+                      " slanted or pushed outward, as for ᵜ)") for c in "ᵝᵞᵟ"},
 }
 SECTIONS = [
     ("approved", "Approved", "Approved on 2026-11-13 and 2026-11-14."),
@@ -2646,8 +2741,11 @@ SECTIONS = [
 # fonts at VARIANT_PUA[char] + i.
 # Ɇ's rectangle and parallelogram candidates (draft_E_rectangle) were
 # removed from the sheet on 2026-11-14, once E + U+0338 was approved.
-VARIANTS = {}
-VARIANT_PUA = {}
+VARIANTS = {
+    c: [("regular's, slanted or pushed outward", (lambda c: lambda d, S: draft_from_regular(d, S, c))(c))]
+    for c in "ᵝᵞᵟ"
+}
+VARIANT_PUA = {"ᵝ": 0xF640, "ᵞ": 0xF641, "ᵟ": 0xF642}
 
 # Revisions of the designer's own regular glyph: char -> (label, recipe), in
 # the regular draft font at REVISION_PUA[char].
@@ -2681,6 +2779,9 @@ CHECKS = [
     ("Ɐ", lambda S: turned_c(S["regular"], "A")),
     ("Ʌ", lambda S: turned_c(S["regular"], "V")),
     ("Ʉ", lambda S: draft_bar(S["regular"], S, "Ʉ")),
+    ("ᵝ", lambda S: draft_reduced(S["regular"], S, "ᵝ")),
+    ("ᵞ", lambda S: draft_reduced(S["regular"], S, "ᵞ")),
+    ("ᵟ", lambda S: draft_reduced(S["regular"], S, "ᵟ")),
 ]
 CHECK_PUA = 0xF600
 
@@ -3078,6 +3179,7 @@ CONTEXT = {
     "˯": "a˯˅", "˰": "a˰˄", "˱": "a˱˂", "˲": "a˲˃", "˳": "a˳˚", "˴": "a˴`", "˵": "a˵`", "˶": "a˶˝",
     "˷": "a˷˜", "˸": "a˸:", "˿": "a˿←", "˪": "a˪ˈ", "˫": "a˫ˈ", "˹": "a˹ˈ", "˺": "a˺ˈ", "˻": "a˻ˌ",
     "˼": "a˼ˌ", "˽": "a˽ˌ", "˾": "a˾ˌ",
+    "ᵜ": "ʕᵜˤ", "ᵝ": "βᵝᵛ", "ᵞ": "γᵞᵛ", "ᵟ": "δᵟᵛ",
 }
 
 
@@ -3257,6 +3359,15 @@ def write_sheet(notes, checks, status):
       r" outline and the counter between the stems), Ɋ (regular's Ɋ, its bowl spliced from the style's O, its tail lengthened"
       r" by splicing it with itself moved down): the outlines are cut where they cross a line and joined"
       r" there; points left on a straight edge are dropped.")
+    w(r"\item[reduced] ᵝ ᵞ ᵟ: the style's own β γ δ, de-slanted, scaled to the box of regular's modifier"
+      r" at its height and side bearings, and pushed outward or inward to the weight of regular's modifier"
+      r" times the style's ᵛ over regular's ᵛ (the designer's own superscript weights: italic 0.89,"
+      r" semibold 1.13, semibold italic 1.12). Regular's are drawn apart from β γ δ, not reduced"
+      r" (the recipe check below)."
+      r" Second row: regular's modifier, slanted (as the designer's italic ᵛ is regular's) and in the"
+      r" semibold styles pushed outward by stage 3's rule.")
+    w(r"\item[copy] ᵜ (a superscript U+1D25 ain, which no style has): regular's, as the second row of ᵝ ᵞ ᵟ;"
+      r" the spacing modifiers ˪ ˫ ˯--˿: the lighter style's, pushed outward.")
     w(r"\end{description}")
     w(r"Each cell shows the base letter, the letter, and a letter of the same style with the analogous part."
       r" Comparison rows: Gentium Plus, Noto Serif and Junicode (the medievalist font, for ẜ ẝ ꝥ ỿ Ỻ ỻ Ⅎ);"
@@ -3291,7 +3402,7 @@ def write_sheet(notes, checks, status):
         def marked(entries, original):
             out = []
             for c, _, _ in entries:
-                if c in MODIFIERS:   # spacing modifiers take no marks
+                if c in MODIFIERS or c in SUPERSCRIPTS:   # modifiers: no anchors, no marks
                     continue
                 base = _chars(CONTEXT[c][0]) + marks
                 cell = _chars(c) + marks

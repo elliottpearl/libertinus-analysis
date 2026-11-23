@@ -147,6 +147,7 @@ Long term:
 	\item Add missing glyphs, phase 2: coverage as broad as Langscitinus, toward Gentium Plus.
 	\item Revise the fat slab serifs of semibold and semibold italic ɑ ɒ ʊ ʠ, then redraft {\LibertinusSerifPatch ꭤ}.
 	\item Decide whether the geometric modifiers (˹ ˺ ˻ ˼ ˽ ˾ ˿, …) are upright in the italics.
+	\item Decide the drafts of the modifier letters ᵜ ᵝ ᵞ ᵟ in italic, semibold and semibold italic: the style's own β γ δ reduced, or regular's modifiers slanted or emboldened.
 \end{itemize}
 
 
@@ -2346,104 +2347,107 @@ These anchor coordinate values were optimized for U+0315 but they work fine for 
 \newpage
 \section*{Bases}
 
-Here are some subgroups of bases.
+This section is a catalog of the base characters that the analysis and the patch consider,
+in groups, each character shown alone, without marks, in the four styles.
+The groups are the base groups of \texttt{data/ipa/ipa\_unicode.py},
+and the lists are generated from them by \texttt{run\_print\_base\_catalog.py},
+so they are the same lists that set up the grids and test sheets with marks
+and that choose which letters the patch stages give anchors.
+Latin and IPA are the core: they are the letters whose above and below anchors the anchor model
+and the patch are about.
+The precomposed letters are those that inherit an anchor from their base letter in stage 9.
+The other groups take marks less often or not at all,
+and are here for completeness: superscript consonants, small capitals,
+letters that never take marks, and Greek and Cyrillic, whose combinations with marks are mostly precomposed.
+The lists are set in the patched fonts, which have the drafted letters of stage 2,
+except the small capitals (the patched fonts have no \texttt{smcp}).
+A letter missing from a style is left out of that line.
 
 \subsection*{Latin}
 
-\ribbi{
-	\char"0041\gs \char"0042\gs \char"0043\gs \char"0044\gs \char"0045\gs \char"0046\gs \char"0047\gs \char"0048\gs \char"0049\gs \char"004A\gs \char"004B\gs \char"004C\gs \char"004D\gs \char"004E\gs \char"004F\gs \char"0050\gs \char"0051\gs \char"0052\gs \char"0053\gs \char"0054\gs \char"0055\gs \char"0056\gs \char"0057\gs \char"0058\gs \char"0059\gs \char"005A\gs \char"0061\gs \char"0062\gs \char"0063\gs \char"0064\gs \char"0065\gs \char"0066\gs \char"0067\gs \char"0068\gs \char"0069\gs \char"006A\gs \char"006B\gs \char"006C\gs \char"006D\gs \char"006E\gs \char"006F\gs \char"0070\gs \char"0071\gs \char"0072\gs \char"0073\gs \char"0074\gs \char"0075\gs \char"0076\gs \char"0077\gs \char"0078\gs \char"0079\gs \char"007A\gs \char"00C6\gs \char"00E6\gs \char"0152\gs \char"0153\gs \char"00D8\gs \char"00F8\gs \char"00D0\gs \char"00F0\gs \char"00DE\gs \char"00FE\gs \char"00DF\gs \char"017F\gs \char"0110\gs \char"0111\gs \char"0126\gs \char"0127\gs \char"0131\gs \char"0237\gs  \char"0141\gs \char"0142\gs \char"0181\gs \char"0182\gs
-}
+\texttt{BASE\_LATIN}: A--Z and a--z; ligatures and other letters without marks (Æ Œ Ø Ð Þ ß ŋ ſ ı ȷ, and the like);
+capitals whose designer anchors were wrong and were given candidates;
+turned letters;
+and the letters with a stroke, bar, hook, tail or descender that stage 8 derives from a base letter.
+With IPA, it is the scope of stage 6's candidates, of the base tables, and of the complete grids
+(which leave out the letters of stages 8 and 9).
+
+\input{input/bases_latin.tex}
 
 \subsection*{IPA}
 
-\ribbi{
-	\char"0184\gs \char"0186\gs \char"0187\gs \char"0189\gs \char"018A\gs \char"018B\gs \char"018D\gs \char"018E\gs \char"018F\gs \char"0190\gs \char"0191\gs \char"0192\gs \char"0193\gs \char"0194\gs \char"0195\gs \char"0196\gs \char"0197\gs \char"0198\gs \char"019C\gs \char"019D\gs \char"019F\gs \char"01AA\gs \char"01B7\gs \char"01BB\gs \char"01C0\gs \char"01C1\gs \char"01C2\gs \char"01C3\gs \char"0250\gs \char"0251\gs \char"0252\gs \char"0253\gs \char"0254\gs \char"0255\gs \char"0256\gs \char"0257\gs \char"0258\gs \char"0259\gs \char"025A\gs \char"025B\gs \char"025C\gs \char"025D\gs \char"025E\gs \char"025F\gs \char"0260\gs \char"0261\gs \char"0262\gs \char"0263\gs \char"0264\gs \char"0265\gs \char"0266\gs \char"0267\gs \char"0268\gs \char"0269\gs \char"026A\gs \char"026B\gs \char"026C\gs \char"026D\gs \char"026E\gs \char"026F\gs \char"0270\gs \char"0271\gs \char"0272\gs \char"0273\gs \char"0274\gs \char"0275\gs \char"0276\gs \char"0277\gs \char"0278\gs \char"0279\gs \char"027A\gs \char"027B\gs \char"027C\gs \char"027D\gs \char"027E\gs \char"027F\gs \char"0280\gs \char"0281\gs \char"0282\gs \char"0283\gs \char"0284\gs \char"0285\gs \char"0286\gs \char"0287\gs \char"0288\gs \char"0289\gs \char"028A\gs \char"028B\gs \char"028C\gs \char"028D\gs \char"028E\gs \char"028F\gs \char"0290\gs \char"0291\gs \char"0292\gs \char"0293\gs \char"0294\gs \char"0295\gs \char"0296\gs \char"0297\gs \char"0298\gs \char"0299\gs \char"029A\gs \char"029B\gs \char"029C\gs \char"029D\gs \char"029E\gs \char"029F\gs \char"1D15\gs
-}
+\texttt{BASE\_IPA}: the IPA letters of the Latin Extended and IPA Extensions blocks,
+obsolete and Sinological letters derived in stage 8,
+and the Greek letters used in IPA (β θ χ).
+The clicks (ǀ ǁ ǂ ǃ ʘ) and the IPA ligatures are not in the group.
+
+\input{input/bases_ipa.tex}
 
 \subsection*{Superscript consonants}
-\ribbi{
-	\char"02B0\gs \char"02B1\gs \char"02B2\gs \char"02B3\gs \char"02B4\gs \char"02B5\gs \char"02B6\gs \char"02B7\gs \char"02B8\gs \char"02E0\gs \char"02E1\gs \char"02E2\gs \char"02E3\gs \char"02E4\gs 
-	\char"1D47\gs \char"1D4F\gs \char"1D50\gs \char"1D56\gs \char"1D57\gs \char"1D5A\gs \char"1D5B\gs \char"1D5C\gs \char"1D5D\gs \char"1D5E\gs \char"1D5F\gs
-}
 
-\subsection*{Greek}
-\ribbi{
-	\char"0391\gs \char"0392\gs \char"0393\gs \char"0394\gs \char"0395\gs \char"0396\gs \char"0397\gs \char"0398\gs \char"0399\gs \char"039A\gs \char"039B\gs \char"039C\gs \char"039D\gs \char"039E\gs \char"039F\gs \char"03A0\gs \char"03A1\gs \char"03A3\gs \char"03A4\gs \char"03A5\gs \char"03A6\gs \char"03A7\gs \char"03A8\gs \char"03A9\gs \char"03B1\gs \char"03B2\gs \char"03B3\gs \char"03B4\gs \char"03B5\gs \char"03B6\gs \char"03B7\gs \char"03B8\gs \char"03B9\gs \char"03BA\gs \char"03BB\gs \char"03BC\gs \char"03BD\gs \char"03BE\gs \char"03BF\gs \char"03C0\gs \char"03C1\gs \char"03C3\gs \char"03C4\gs \char"03C5\gs \char"03C6\gs \char"03C7\gs \char"03C8\gs \char"03C9\gs
-}
+\texttt{BASE\_SUPERSCRIPT\_CONSONANT}: the modifier letters that take the above-right marks U+0315 and U+0358
+(see ``Above-right marks -- GPOS anchor 1'' above).
+Only regular has ᵜ ᵝ ᵞ ᵟ.
 
-\subsection*{Cyrillic}
-\ribbi{
-	\char"0410\gs \char"0411\gs \char"0412\gs \char"0413\gs \char"0414\gs \char"0415\gs \char"0416\gs \char"0417\gs \char"0418\gs \char"0419\gs \char"041A\gs \char"041B\gs \char"041C\gs \char"041D\gs \char"041E\gs \char"041F\gs \char"0420\gs \char"0421\gs \char"0422\gs \char"0423\gs \char"0424\gs \char"0425\gs \char"0426\gs \char"0427\gs \char"0428\gs \char"0429\gs \char"042A\gs \char"042B\gs \char"042C\gs \char"042D\gs \char"042E\gs \char"042F\gs \char"0430\gs \char"0431\gs \char"0432\gs \char"0433\gs \char"0434\gs \char"0435\gs \char"0436\gs \char"0437\gs \char"0438\gs \char"0439\gs \char"043A\gs \char"043B\gs \char"043C\gs \char"043D\gs \char"043E\gs \char"043F\gs \char"0440\gs \char"0441\gs \char"0442\gs \char"0443\gs \char"0444\gs \char"0445\gs \char"0446\gs \char"0447\gs \char"0448\gs \char"0449\gs \char"044A\gs \char"044B\gs \char"044C\gs \char"044D\gs \char"044E\gs \char"044F\gs \char"0401\gs \char"0451\gs \char"0404\gs \char"0454\gs \char"0407\gs \char"0457\gs \char"040E\gs \char"045E\gs \char"04D8\gs \char"04D9\gs \char"04E8\gs \char"04E9\gs \char"04BA\gs \char"04BB\gs \char"04C0\gs
-}
-
-\subsection*{Precomposed capital vowels}
-
-\ribbi{
-	\char"00C0\gs \char"00C1\gs \char"00C2\gs \char"00C3\gs \char"00C4\gs \char"00C5\gs \char"0100\gs \char"0102\gs \char"0104\gs \char"01CD\gs \char"01DE\gs \char"01E0\gs \char"01FA\gs \char"0200\gs \char"0202\gs \char"0226\gs \char"1E00\gs \char"1EA0\gs \char"1EA2\gs \char"1EA4\gs \char"1EA6\gs \char"1EA8\gs \char"1EAA\gs \char"1EAC\gs \char"1EAE\gs \char"1EB0\gs \char"1EB2\gs \char"1EB4\gs \char"1EB6\gs \char"00C8\gs \char"00C9\gs \char"00CA\gs \char"00CB\gs \char"0112\gs \char"0114\gs \char"0116\gs \char"0118\gs \char"011A\gs \char"0204\gs \char"0206\gs \char"0228\gs \char"1E14\gs \char"1E16\gs \char"1E18\gs \char"1E1A\gs \char"1EB8\gs \char"1EBA\gs \char"1EBC\gs \char"1EBE\gs \char"1EC0\gs \char"1EC2\gs \char"1EC4\gs \char"1EC6\gs \char"00CC\gs \char"00CD\gs \char"00CE\gs \char"00CF\gs \char"0128\gs \char"012A\gs \char"012C\gs \char"012E\gs \char"0130\gs \char"01CF\gs \char"0208\gs \char"020A\gs \char"1E2C\gs \char"1E2E\gs \char"1EC8\gs \char"1ECA\gs \char"00D2\gs \char"00D3\gs \char"00D4\gs \char"00D5\gs \char"00D6\gs \char"014C\gs \char"014E\gs \char"0150\gs \char"01D1\gs \char"01EA\gs \char"01EC\gs \char"020C\gs \char"020E\gs \char"022A\gs \char"022C\gs \char"022E\gs \char"1E4C\gs \char"1E4E\gs \char"1ECC\gs \char"1ECE\gs \char"1ED0\gs \char"1ED2\gs \char"1ED4\gs \char"1ED6\gs \char"1ED8\gs \char"1EDA\gs \char"1EDC\gs \char"1EDE\gs \char"1EE0\gs \char"1EE2\gs \char"00D9\gs \char"00DA\gs \char"00DB\gs \char"00DC\gs \char"0168\gs \char"016A\gs \char"016C\gs \char"016E\gs \char"0170\gs \char"01D3\gs \char"01D5\gs \char"01D7\gs \char"01D9\gs \char"01DB\gs \char"0214\gs \char"0216\gs \char"1E72\gs \char"1E74\gs \char"1E76\gs \char"1E78\gs \char"1E7A\gs \char"1EE4\gs \char"1EE6\gs \char"1EE8\gs \char"1EEA\gs \char"1EEC\gs \char"1EEE\gs \char"1EF0\gs
-}
-
-\subsection*{Precomposed small vowels}
-
-\ribbi{
-	\char"00E0\gs \char"00E1\gs \char"00E2\gs \char"00E3\gs \char"00E4\gs \char"00E5\gs \char"0101\gs \char"0103\gs \char"0105\gs \char"01CE\gs \char"01DF\gs \char"01E1\gs \char"01FB\gs \char"0201\gs \char"0203\gs \char"0227\gs \char"1E01\gs \char"1EA1\gs \char"1EA3\gs \char"1EA5\gs \char"1EA7\gs \char"1EA9\gs \char"1EAB\gs \char"1EAD\gs \char"1EAF\gs \char"1EB1\gs \char"1EB3\gs \char"1EB5\gs \char"1EB7\gs \char"00E8\gs \char"00E9\gs \char"00EA\gs \char"00EB\gs \char"0113\gs \char"0115\gs \char"0117\gs \char"0119\gs \char"011B\gs \char"0205\gs \char"0207\gs \char"0229\gs \char"1E15\gs \char"1E17\gs \char"1E19\gs \char"1E1B\gs \char"1EB9\gs \char"1EBB\gs \char"1EBD\gs \char"1EBF\gs \char"1EC1\gs \char"1EC3\gs \char"1EC5\gs \char"1EC7\gs \char"00EC\gs \char"00ED\gs \char"00EE\gs \char"00EF\gs \char"0129\gs \char"012B\gs \char"012D\gs \char"012F\gs \char"01D0\gs \char"0209\gs \char"020B\gs \char"1E2D\gs \char"1E2F\gs \char"1EC9\gs \char"1ECB\gs \char"00F2\gs \char"00F3\gs \char"00F4\gs \char"00F5\gs \char"00F6\gs \char"014D\gs \char"014F\gs \char"0151\gs \char"01D2\gs \char"01EB\gs \char"01ED\gs \char"020D\gs \char"020F\gs \char"022B\gs \char"022D\gs \char"022F\gs \char"1E4D\gs \char"1E4F\gs \char"1ECD\gs \char"1ECF\gs \char"1ED1\gs \char"1ED3\gs \char"1ED5\gs \char"1ED7\gs \char"1ED9\gs \char"1EDB\gs \char"1EDD\gs \char"1EDF\gs \char"1EE1\gs \char"1EE3\gs \char"00F9\gs \char"00FA\gs \char"00FB\gs \char"00FC\gs \char"0169\gs \char"016B\gs \char"016D\gs \char"016F\gs \char"0171\gs \char"01D4\gs \char"01D6\gs \char"01D8\gs \char"01DA\gs \char"01DC\gs \char"0215\gs \char"0217\gs \char"1E73\gs \char"1E75\gs \char"1E77\gs \char"1E79\gs \char"1E7B\gs \char"1EE5\gs \char"1EE7\gs \char"1EE9\gs \char"1EEB\gs \char"1EED\gs \char"1EEF\gs \char"1EF1\gs
-}
-
-\subsection*{Precomposed capital consonants}
-
-\ribbi{
-	\char"1E02\gs \char"1E04\gs \char"00C7\gs \char"0106\gs \char"0108\gs \char"010A\gs \char"010C\gs \char"1E08\gs \char"010E\gs \char"0110\gs \char"1E0A\gs \char"1E0C\gs \char"1E0E\gs \char"1E10\gs \char"1E12\gs \char"1E1E\gs \char"011C\gs \char"011E\gs \char"0120\gs \char"0122\gs \char"1E20\gs \char"01E4\gs \char"01E6\gs \char"0124\gs \char"1E22\gs \char"1E24\gs \char"1E26\gs \char"1E28\gs \char"1E2A\gs \char"0134\gs \char"0136\gs \char"1E30\gs \char"1E32\gs \char"1E34\gs \char"01E8\gs \char"0139\gs \char"013B\gs \char"013D\gs \char"013F\gs \char"0141\gs \char"1E36\gs \char"1E38\gs \char"1E3A\gs \char"1E3C\gs \char"1E3E\gs \char"1E40\gs \char"1E42\gs \char"0143\gs \char"0145\gs \char"0147\gs \char"1E44\gs \char"1E46\gs \char"1E48\gs \char"1E4A\gs \char"01A0\gs \char"1E54\gs \char"1E56\gs \char"01A4\gs \char"0154\gs \char"0156\gs \char"0158\gs \char"1E58\gs \char"1E5A\gs \char"1E5C\gs \char"1E5E\gs \char"015A\gs \char"015C\gs \char"015E\gs \char"0160\gs \char"1E60\gs \char"1E62\gs \char"1E64\gs \char"1E66\gs \char"1E68\gs \char"01A7\gs \char"0162\gs \char"0164\gs \char"1E6A\gs \char"1E6C\gs \char"1E6E\gs \char"01AC\gs \char"01AE\gs \char"01AF\gs \char"1E7C\gs \char"1E7E\gs \char"01B2\gs \char"0174\gs \char"1E80\gs \char"1E82\gs \char"1E84\gs \char"1E8A\gs \char"1E8C\gs \char"00DD\gs \char"0176\gs \char"0178\gs \char"1E8E\gs \char"1EF2\gs \char"1EF4\gs \char"1EF6\gs \char"1EF8\gs \char"01B3\gs \char"0179\gs \char"017B\gs \char"017D\gs \char"1E90\gs \char"1E92\gs \char"1E94\gs \char"01B5\gs
-}
-
-\subsection*{Precomposed small consonants}
-
-\ribbi{
-	\char"1E03\gs \char"1E05\gs \char"0180\gs \char"0183\gs \char"0185\gs \char"00E7\gs \char"0107\gs \char"0109\gs \char"010B\gs \char"010D\gs \char"1E09\gs \char"0188\gs \char"010F\gs \char"0111\gs \char"1E0B\gs \char"1E0D\gs \char"1E0F\gs \char"1E11\gs \char"1E13\gs \char"018C\gs \char"1E1F\gs \char"011D\gs \char"011F\gs \char"0121\gs \char"0123\gs \char"1E21\gs \char"01E5\gs \char"01E7\gs \char"01E9\gs \char"0125\gs \char"1E23\gs \char"1E25\gs \char"1E27\gs \char"1E29\gs \char"1E2B\gs \char"0135\gs \char"0137\gs \char"1E31\gs \char"1E33\gs \char"1E35\gs \char"0199\gs \char"013A\gs \char"013C\gs \char"013E\gs \char"0140\gs \char"0142\gs \char"1E37\gs \char"1E39\gs \char"1E3B\gs \char"1E3D\gs \char"019A\gs \char"1E3F\gs \char"1E41\gs \char"1E43\gs \char"0144\gs \char"0146\gs \char"0148\gs \char"0149\gs \char"1E45\gs \char"1E47\gs \char"1E49\gs \char"1E4B\gs \char"019E\gs \char"01A1\gs \char"01A3\gs \char"1E55\gs \char"1E57\gs \char"01A5\gs \char"0155\gs \char"0157\gs \char"0159\gs \char"1E59\gs \char"1E5B\gs \char"1E5D\gs \char"1E5F\gs \char"015B\gs \char"015D\gs \char"015F\gs \char"0161\gs \char"1E61\gs \char"1E63\gs \char"1E65\gs \char"1E67\gs \char"1E69\gs \char"01A8\gs \char"0163\gs \char"0165\gs \char"1E6B\gs \char"1E6D\gs \char"1E6F\gs \char"01AB\gs \char"01AD\gs \char"01B0\gs \char"1E7D\gs \char"1E7F\gs \char"0175\gs \char"1E81\gs \char"1E83\gs \char"1E85\gs \char"1E8B\gs \char"1E8D\gs \char"00FD\gs \char"00FF\gs \char"0177\gs \char"1E8F\gs \char"1EF3\gs \char"1EF5\gs \char"1EF7\gs \char"1EF9\gs \char"01B4\gs \char"017A\gs \char"017C\gs \char"017E\gs \char"1E91\gs \char"1E93\gs \char"1E95\gs \char"01B6\gs \char"01BA\gs \char"01BD\gs \char"01BE\gs \char"01BF\gs \char"01EF\gs
-}
-
-\subsection*{No marks: rare, digraph etc.}
-
-\ribbi{
-	\char"01B8\gs \char"01B9\gs \char"01F1\gs \char"01F2\gs \char"01F3\gs \char"01C4\gs \char"01C5\gs \char"01C6\gs \char"01C7\gs \char"01C8\gs \char"01C9\gs \char"01CA\gs \char"01CB\gs \char"01CC\gs
-}
-
+\input{input/bases_superscript.tex}
 
 \subsection*{Small capitals}
 
-\ribbi{\textsc{
-	\char"0061\gs \char"0062\gs \char"0063\gs \char"0064\gs \char"0065\gs \char"0066\gs \char"0067\gs \char"0068\gs \char"0069\gs \char"006A\gs \char"006B\gs \char"006C\gs \char"006D\gs \char"006E\gs \char"006F\gs \char"0070\gs \char"0071\gs \char"0072\gs \char"0073\gs \char"0074\gs \char"0075\gs \char"0076\gs \char"0077\gs \char"0078\gs \char"0079\gs \char"007A\gs	\char"00E6\gs \char"00F0\gs \char"0153\gs \char"00FE\gs \char"0133\gs \char"00DF\gs \char"014B\gs 
-}}
+\texttt{BASE\_SMALL\_CAPITAL}: the letters with a small capital in Libertinus,
+then the precomposed letters with a small capital of their own (from \texttt{base\_small\_capital\_glyph}).
 
-\ribbi{\textsc{
-    a\char"00E0 \char"00E1 \char"00E2 \char"00E3 \char"00E4 \char"00E5 \char"0103 \char"0105\gs
-    c\char"00E7 \char"0107 \char"010D\gs
-    d\char"010F\gs
-    e\char"00E8 \char"00E9 \char"00EA \char"00EB \char"0119 \char"011B\gs
-    g\char"011F\gs
-    i\char"00EC \char"00ED \char"00EE \char"00EF \char"0131\gs
-    l\char"013A \char"0142 \char"013E\gs
-    n\char"00F1 \char"0144 \char"0148\gs
-    o\char"00F2 \char"00F3 \char"00F4 \char"00F6 \char"0151 \char"00F5 \char"00F8\gs
-    r\char"0155 \char"0159\gs
-    s\char"015B \char"015F \char"0161 \char"0219\gs
-    t\char"0163 \char"0167 \char"0165 \char"021B\gs
-    u\char"00F9 \char"00FA \char"00FB \char"00FC \char"0171\gs
-    y\char"00FD \char"00FF\gs
-    z\char"017A \char"017C \char"017E\gs
-    \char"00E6 \char"01FD \char"01E3\gs    
-}}
+\input{input/bases_small_capital.tex}
 
-\subsection*{Precomposed characters of anchor-relevant bases and marks}
-\ribbi{
-	\char"00E0\gs \char"00E1\gs \char"00E2\gs \char"00E3\gs \char"0101\gs \char"00E5\gs \char"1EA1\gs \char"1EB7\gs \char"1EA7\gs \char"1EAF\gs \char"1EB1\gs \char"1EB5\gs \char"1EA5\gs \char"1EA7\gs \char"1EAB\gs \char"00E8\gs \char"00E9\gs \char"00EA\gs     \char"1EBD\gs \char"0113\gs \char"1EB9\gs \char"1EC7\gs \char"1EBF\gs \char"1EC1\gs \char"1EC5\gs \char"00EC\gs \char"00ED\gs     \char"00EE\gs \char"0129\gs \char"012B\gs \char"1ECB\gs \char"00F2\gs \char"00F3\gs \char"00F4\gs \char"00F5\gs \char"014D\gs    \char"1ECD\gs \char"1ED9\gs \char"1ED1\gs \char"1ED3\gs \char"1ED7\gs \char"00F9\gs \char"00FA\gs \char"00FB\gs \char"0169\gs     \char"016B\gs \char"1EE5\gs \char"1EF3\gs \char"00FD\gs \char"0177\gs \char"1EF9\gs \char"0233\gs \char"1EF5\gs \char"1E0D\gs \char"1E37\gs \char"1E47\gs \char"1E5B\gs \char"1E63\gs \char"1E6D\gs \char"1E93\gs
-}
+\subsection*{Precomposed letters: above}
+
+\texttt{PRECOMPOSED\_ABOVE}: the precomposed Latin letters that inherit an above anchor from their base letter in stage 9:
+those with a mark below or attached below and none above, ordered by base letter.
+
+\input{input/bases_precomposed_above.tex}
+
+\subsection*{Precomposed letters: below}
+
+\texttt{PRECOMPOSED\_BELOW}: the precomposed Latin letters that inherit a below anchor in stage 9:
+those with a mark above and none below, ordered by base letter.
+
+\input{input/bases_precomposed_below.tex}
+
+\subsection*{Precomposed letters that take a second mark}
+
+\texttt{BASE\_PRECOMPOSED\_ANCHOR\_RELEVANT}: precomposed letters that linguistic notation often combines with another mark,
+such as a tone mark on a long vowel (ā + acute) or on a vowel with a dot below (ạ + acute),
+so that they need an anchor besides the one their own mark occupies.
+Most are in the two stage 9 lists above; an above mark over the letter's own above mark (ā + acute)
+uses the designer's stacked anchor.
+
+\input{input/bases_precomposed_stacked.tex}
+
+\subsection*{No marks}
+
+\texttt{BASE\_NO\_MARK}: digraphs and other letters that take no marks in any orthography or notation.
+They are left out of the fontmetrics and the anchor stages.
+
+\input{input/bases_no_mark.tex}
+
+\subsection*{Greek}
+
+\texttt{BASE\_GREEK}: the Greek letters without tonos or diacritics.
+
+\input{input/bases_greek.tex}
+
+\subsection*{Cyrillic}
+
+\texttt{BASE\_CYRILLIC}: the Russian alphabet and some letters of other Cyrillic alphabets.
+
+\input{input/bases_cyrillic.tex}
 
 \newpage
 \section*{Base and mark shaping -- Linguistics notation}
 
 These grids display base and mark rendering in XeLaTeX documents in 
-Libertinus serif regular, italic, semibold and semibold italic.
+Libertinus serif styles (regular, italic, semibold and semibold italic), original and patched.
 
-The grids use Latin in IPA bases and combining marks that are used in linguistics notation.
+The grids use Latin and IPA bases and combining marks that are used in linguistics notation.
 
 A \SUPPORTEDANCH{black} color means GPOS anchor positioning.
 
@@ -2455,15 +2459,20 @@ A \SUPPORTEDFALL{red} color means HarfBuzz fallback shaping
 A faded color -- gray, light blue, or pink -- means that the 
 base and mark combination is not reasonably expected in notation in linguistics.
 
-A gray color can also mean that mark glyph is missing in the font.
-In this case, just the gray base is printed.
-This only happens in Libertinus Serif Semibold and Semibold Italic for 
+A gray color can also mean that the mark glyph is missing in the font.
+In this case, just the gray base is printed,
+instead of missing glyph tofu that would ruin the column alignment.
+This only happens in the original semibold and semibold italic for
 three below marks:
 o\char"0333\gs\ (U+0333 double macron below),
 o\char"033A\gs\ (U+033A inverted bridge below), and
 o\char"033B\gs\ (U+033B square below).
-Otherwise, all considered base and mark combinations can be drawn in 
-XeLaTeX documents in Libertinus without tofu for missing glyphs.
+The patch adds these three marks to both styles
+(see ``Adding missing marks''),
+so in the patched fonts every considered base and mark combination
+can be drawn in XeLaTeX documents without tofu for missing glyphs,
+as in the original regular and italic.
+
 
 \input{input/mark_base_common.tex}
 
@@ -2473,7 +2482,7 @@ XeLaTeX documents in Libertinus without tofu for missing glyphs.
 \section*{Base and mark shaping  -- Complete}
 
 These grids display base and mark rendering in XeLaTeX documents in 
-Libertinus serif regular, italic, semibold and semibold italic.
+Libertinus serif styles (regular, italic, semibold and semibold italic), original and patched.
 The grids use more complete sets of Latin and IPA bases and above and below marks.
 They leave out the letters whose anchors stage 8 or stage 9 sets, the derived and precomposed letters, which have their own grids after their base letters
 (sections ``Derived letters'' and ``Precomposed characters'').
@@ -2496,27 +2505,34 @@ In this case only the base glyph is shown.
 \newpage
 \section*{Capital alternates}
 
-A capital alternate (\verb|grave.cap|, \verb|acute.cap|, \ldots) is a form of an above-mark that sits lower over a capital, as the accents of the designer's precomposed capitals do.
+A capital alternate (\verb|grave.cap|, \verb|acute.cap|, \ldots) is a form of an above-mark that sits lower over a capital, 
+as the accents of the designer's precomposed capitals do.
 The patch changes them, and the capitals' anchors, as follows.
 \begin{itemize}
 \item \textbf{Substitution.} The original fonts substitute four capital alternates (grave, acute, circumflex, breve).
-The patched fonts substitute twelve, after every capital: grave, acute, circumflex, tilde, breve, dot above, dieresis, hook above, double acute, caron, double grave and inverted breve.
+The patched fonts substitute twelve, after every capital: grave, acute, circumflex, tilde, breve, dot above, dieresis, 
+hook above, double acute, caron, double grave and inverted breve.
 The other above-marks have no capital form and attach with their own anchors; the ring above and the vertical lines above have none by decision.
-\item \textbf{New forms.} The patch adds the dot above's capital form in italic and semibold italic, and the tilde's in every style (for Guarani G̃, which has no precomposed form), taken from the designer's precomposed capitals.
+\item \textbf{New forms.} The patch adds the dot above's capital form in italic and semibold italic, and the tilde's in every style 
+(for Guarani G̃, which has no precomposed form), taken from the designer's precomposed capitals.
 \item \textbf{Mark anchors.} Each capital alternate's anchor is set from the designer's precomposed capitals A--Z, so that a composed capital matches them:
-its height from the median height of the accent there, and its horizontal position on the mark's own axis (symmetric marks) or at the accent's median position (grave, acute, double acute, double grave).
+its height from the median height of the accent there, and its horizontal position on the mark's own axis (symmetric marks) or at the accent's median position 
+(grave, acute, double acute, double grave).
 In italic, eight of them are curated instead.
 Composed capitals match the precomposed ones in height (median difference 0), and horizontally within a median of 2--30 units.
 \item \textbf{Capital anchors.} Every capital's above-anchor is at the capital reference, 850; the designer's semibold capitals, near 805, are moved there.
-Beyond that, a capital A--Z keeps the designer's anchor, gets the heuristic candidate where the designer's was missing or bad, the stem's axis (I, T), or a curated anchor (a few per style).
-Derived capitals (Ð, Ø, Ł, \ldots) inherit their base letter's anchors, as described in the next section, and precomposed capitals inherit theirs as described in ``Precomposed characters''.
+Beyond that, a capital A--Z keeps the designer's anchor, gets the heuristic candidate where the designer's was missing or bad, the stem's axis (I, T), 
+or a curated anchor (a few per style).
+Derived capitals (Ð, Ø, Ł, \ldots) inherit their base letter's anchors, as described in the next section, 
+and precomposed capitals inherit theirs as described in ``Precomposed characters''.
 \end{itemize}
 The detail (method, the comparison with the precomposed capitals per mark and style, the curated anchors, and who set each A--Z anchor) is in \verb|CAPITAL-ALTERNATES.md|.
 
 The grids show the twelve marks on every Latin and IPA capital that takes the capital alternates: A--Z, Æ, Œ, Ð, Ø, Đ, Ħ, Ł, the IPA and African capitals,
 and the precomposed capitals with a cedilla, ogonek, horn or below-mark (Ç Ą Ę Į Ų Ư Ḍ Ẹ Ọ \ldots; so that, e.g., Lithuanian Ą́ and Yoruba Ẹ́ take the capital acute like Á and É).
 Blue cells are precomposed glyphs, which the shaper substitutes for base\,+\,mark wherever the font has one, so they do not use the capital alternates.
-Black cells are composed: in the patched fonts, the base with the capital alternate; in the original fonts, the base with the alternate only for the grave, acute, circumflex and breve, and otherwise with the ordinary mark.
+Black cells are composed: in the patched fonts, the base with the capital alternate; in the original fonts, 
+the base with the alternate only for the grave, acute, circumflex and breve, and otherwise with the ordinary mark.
 
 \input{input/cap_alt.tex}
 
@@ -2524,15 +2540,18 @@ Black cells are composed: in the patched fonts, the base with the capital altern
 \section*{Derived letters}
 
 Many Latin and IPA letters are a base letter with a bar, stroke, belt, hook, tail or curl: Đ is D with a bar, Ɗ is D with a hook, ɖ is d with a tail.
-Unlike the precomposed characters of stage 9, they have no Unicode decomposition; the base letter is assigned to each one in \verb|data/derived_letters.py|.
-Stage 8 (\verb|src/libertinus_analysis/font_patching_derivedanchors.py|, letter lists in \verb|data/derived_letters.py|) gives each such letter its base letter's final anchor,
-moved by where the base letter sits inside it, on each side where the added part stays clear of the marks.
-The heuristic candidate of stage 6 cannot do this: a hook or bar moves the bounding box it is centred on (regular Ƒ above: candidate 183, F's anchor moved into Ƒ 276),
-and the designer often drew the derived letter in a shifted frame (regular Ɗ is D moved 80 units right).
+Unlike the precomposed characters of stage 9, they have no Unicode decomposition; the base letter is assigned to each derived letter in \verb|data/derived_letters.py|.
+Stage 8 (\verb|src/libertinus_analysis/font_patching_derivedanchors.py|, letter lists in \verb|data/derived_letters.py|) 
+gives each such letter its base letter's final anchor, moved by where the base letter sits inside it, on each side where the added part stays clear of the marks.
+The heuristic candidate of stage 6 cannot do this: a hook or bar moves the bounding box it is centred on. 
+For example, Ƒ has a wider bounding box than F to accommodate the hook, 
+and thus the geometric midpoint of Ƒ's bounding box is bad candidate for the anchor of the F-shape of Ƒ.
+The designer often drew the derived letter in a shifted frame (regular Ɗ is D moved 80 units right).
 
-Stage 8 fits the base letter's ink to the derived letter's on each side it inherits, with a shift and a scale of up to 15\%, as stage 9 does for precomposed characters, and moves the anchor with the fit; at least 80\% of the base must fit.
+Stage 8 fits the base letter's ink to the derived letter's on each side it inherits, with a shift and a scale of up to 15\%, as stage 9 does for precomposed characters, 
+and moves the anchor with the fit; at least 80\% of the base must fit.
 Letters with a hook, tail or curl at the bottom are fitted on their stems above the tail, and their below anchor goes to the descender where the tail lies under the mark.
-Letters whose bar, belt or tilde spoils the fit but not the stem (ƚ ɫ ɬ ⱡ Ɫ ɩ ɟ, Ƭ ƭ Ƴ Ⱦ) move the anchor by the distance between the two stems.
+Letters whose bar, belt or tilde spoils the fit but not the stem (ƚ ɫ ɬ ⱡ Ɫ ɩ ɟ Ƭ ƭ Ƴ Ⱦ) move the anchor by the distance between the two stems.
 A few letters have $Y$ set by hand, mostly where a hook rises to the ascender (ɓ ʝ ɠ ɼ ƥ ʠ ƭ above, ɓ ɕ below).
 Where the added part reaches further than the base letter near the mark's axis, $Y$ moves away by the difference (ɇ above, italic Ⱦ).
 Where the fit is too low, the letter keeps stage 6's candidate, or a curated anchor (stage 7) where the candidate is unsuitable; stage 8 never replaces a curated anchor.
@@ -2548,39 +2567,53 @@ letters & inherit & note \\
 ɝ ɚ ƥ ʠ ƭ & below & the hook rises into the above mark (ƥ ʠ ƭ above: fixed $Y$) \\
 Ƒ Ɲ ɕ ɖ ɭ ɱ ɲ ɳ ɻ ɽ ʂ ʆ ʈ ʐ ʑ ʓ ƫ Ʈ ȡ ȴ ȵ ȶ Ɽ Ⱨ ⱨ Ⱪ ⱪ Ɱ ỿ & both & tail at the bottom (stems) \\
 ɨ ɉ & below & above: their dotless forms, from ı ȷ \\
-ɮ ʅ U+E27F & above & below curated (ɮ) or the candidate \\
+ɮ {\LibertinusSerifPatch\char"E27F} (U+E27F) & above & below curated \\
+ʅ & above & below the candidate (redrawn in stage 2) \\
 ɩ ɟ ʄ & both & from ı, ȷ, and ʃ (Libertinus draws ʄ as ʃ with a bar) \\
 ɓ ʝ ɠ ɼ & ɓ both, the others above & fixed $Y$, $X$ from b, j, script ɡ, r \\
 \end{tabular}
 \end{table}
 
-Not derived, although the Unicode name says so: Ƃ Ƌ (topbar), Ʋ ʋ ƒ ƺ ƾ Ƞ ɀ ȥ Ỿ ⱴ ɾ, which match their base letters 5--50\%, and Ⱬ ⱬ, whose base has no stems to match; they keep stage 6's candidate or a curated anchor.
+Not derived, although the Unicode name says so: Ƃ Ƌ (topbar), Ʋ ʋ ƒ ƺ ƾ Ƞ ɀ ȥ Ỿ ⱴ ɾ, which match their base letters 5--50\%, and Ⱬ ⱬ, whose base has no stems to match; 
+they keep stage 6's candidate or a curated anchor.
 ƕ Ƕ take no marks in any orthography; ƕ's copied anchors are deleted and both are in \verb|BASE_NO_MARK|.
 
 Inheritance carries the base letter's anchor, right or wrong: Ƈ and Ȼ follow C's below anchor, which the designer put right of centre.
 
-The per-letter tables (designer, candidate, inherited and curated anchors in each style), the stem-midline check of the l-like and i-like letters, and the detail and history of this stage are in \verb|DERIVED-LETTERS.md|.
+The per-letter tables (designer, candidate, inherited and curated anchors in each style), the stem-midline check of the l-like and i-like letters, 
+and the detail and history of this stage are in \verb|DERIVED-LETTERS.md|.
 
 The grids put the IPA marks on each base letter followed by its derived letters, ordered by base letter (A--Z, a--z, then by code point), then by code point, patched fonts only.
-A base letter's cells are in \MODELANCH{gray}, with \verb|\cgj| between letter and mark: they show the anchor that its derived letters inherit, as the model, never a precomposed glyph.
-A derived letter's cells have no \verb|\cgj|, and show the precomposed glyph in \SUPPORTEDPREC{blue} where one exists (Ø\,+\,acute $=$ Ǿ), since that is probably the shaping wanted for that combination.
+A base letter's cells are in \MODELANCH{gray}, with \verb|\cgj| between letter and mark: they show the anchor that its derived letters inherit, 
+as the model, never a precomposed glyph.
+A derived letter's cells have no \verb|\cgj|, and show the precomposed glyph in \SUPPORTEDPREC{blue} where one exists (Ø\,+\,acute $=$ Ǿ), 
+since that is probably the shaping wanted for that combination.
 
 \subsection*{Turned letters}
 
 Turned letters are drawn from upright letters too, rotated by 180°: Ɯ ɐ ɒ ɥ ɯ ɰ ɹ ɺ ɻ ʁ ʇ ʌ ʍ ʎ ʖ ʮ ʯ Ⅎ in the base groups.
-Stage 8 does not derive their anchors: not even swapping the upright letter's above and below anchors makes sense,
-since the turned letter has its own reference lines (h's ascender is ɥ's descender), and the anchor's $Y$ and clearance come from those, not from the upright letter's.
-The designer's anchors on turned letters are bad: copied carelessly from other glyphs (a's (209, 645) and (196, $-110$) on ɰ ɹ ɺ ʁ ʇ ʌ ʍ ʎ ʖ in regular, and regular's numbers unslanted in the italics),
+Stage 8 does not derive their anchors: not even swapping the rightside-up letter's above and below anchors makes sense,
+since the turned letter has its own reference lines (h's ascender is ɥ's descender), 
+and the anchor's $Y$ and clearance come from those, not from the non-turned letter's.
+The designer's anchors on turned letters are bad: copied carelessly from other glyphs (a's (209, 645) and (196, $-110$) on ɰ ɹ ɺ ʁ ʇ ʌ ʍ ʎ ʖ in regular, 
+and regular's numbers unslanted in the italics),
 or rotated along with the outline (ʮ ʯ Ⅎ, whose above anchor sat under the letter).
-So all of them are deleted in stage 1, except the few that happen to match the candidate within 4 units (regular and semibold italic ɥ above, semibold italic ɐ ɒ below), which stage 5 snaps to the reference line.
+So all of them are deleted in stage 1, except the few that happen to match the candidate within 4 units (regular and semibold italic ɥ above, 
+semibold italic ɐ ɒ below), which stage 5 snaps to the reference line.
 The turned letters therefore get stage 6's candidate, or a curated anchor (stage 7) where the candidate is unsuitable.
 \begin{itemize}
-\item Where the letter is symmetric about its axis, both anchors are the candidate in every style: Ɯ ɐ ɒ ɥ ɯ ʁ ʇ ʖ ʮ ʯ Ⅎ. ɯ's candidate lies on the central stem, within 2 to 7 units.
-\item Where a stem or a gap must be the centre and an arm pulls the candidate aside, the anchor is curated, in effect the upright letter's opposite anchor turned over:
-  above, ɹ ɺ ɻ over the stem top, as r's below anchor sits on r's stem, and ʎ over the apex of the turned V, as y's below anchor;
-  below, ʌ between the feet, ʍ under the middle foot (the candidate in semibold), and ɰ under the middle stem, at ɯ's candidate $Y$. Their other anchor is the candidate.
+\item Where the letter is symmetric about its axis, both anchors are the candidate in every style: Ɯ ɐ ɒ ɥ ɯ ʁ ʇ ʖ ʮ ʯ Ⅎ. 
+ɯ's candidate lies on the central stem, within 2 to 7 units.
+\item Where a stem or a gap must be the centre and an arm pulls the candidate aside, 
+the anchor is curated, in effect the upright letter's opposite anchor turned over:
+  above, ɹ ɺ ɻ over the stem top, as r's below anchor sits on r's stem, 
+  and ʎ over the apex of the turned V, as y's below anchor;
+  below, ʌ between the feet, ʍ under the middle foot (the candidate in semibold), 
+  and ɰ under the middle stem, at ɯ's candidate $Y$. Their other anchor is the candidate.
 \item ɰ is not derived from ɯ: it is narrower and its stems are spaced differently (outline match 21\% in regular).
-  ɻ is a derived letter of ɹ (a tail at the bottom) and inherits ɹ's above anchor in semibold and semibold italic; its above anchor is curated in regular and italic, and its below anchor follows stage 8's rule for a tail at the bottom (the candidate where the stems do not match, as in italic).
+  ɻ is a derived letter of ɹ (a tail at the bottom) and inherits ɹ's above anchor in semibold and semibold italic; 
+  its above anchor is curated in regular and italic, and its below anchor follows stage 8's rule for a tail at the bottom 
+  (the candidate where the stems do not match, as in italic).
 \end{itemize}
 
 \input{input/derived_inherit_above.tex}
@@ -2591,60 +2624,69 @@ The turned letters therefore get stage 6's candidate, or a curated anchor (stage
 \section*{Precomposed characters}
 
 Stage 9 (\verb|src/libertinus_analysis/font_patching_precomposed_anchors.py|, letter lists in \verb|data/precomposed_letters.py|)
-gives a precomposed Latin character, one with a canonical decomposition into a base letter and marks (é $=$ e\,+\,acute), the above- or below-anchor of its base letter where the other side is free, whether or not marks are expected there:
+gives a precomposed Latin character --- a letter with a canonical decomposition into a base letter and marks (é $=$ e\,+\,acute) --- 
+the above- or below-anchor of its base letter where the other side is free, whether or not marks are expected there:
 a character with an above-mark (é, ñ) inherits a below-anchor, and a character with a below-mark or attached below-mark (ẹ, ç, ą) inherits an above-anchor.
 (Letters with a bar or stroke, such as Ø, Ł, Đ, have no Unicode decomposition; they inherit in stage 8, previous section.)
-The stage also tests that the base letter's form is really there, since some precomposed glyphs were redrawn unlike their bases:
+Stage 9 also tests that the base letter's form is really there, since some precomposed glyphs were redrawn differently from their bases:
 it fits the base glyph's ink on the inherited side to the precomposed glyph (a shift, and a scale of up to 15\%), requires a fit of at least 80\%,
 and moves the anchor by the fitted shift.
 
 Precomposed characters inherit zealously.
-A designer anchor on a character that can inherit is deleted in stage 1 (\verb|"delete"| in \verb|data/fontanchors_audit/overrides.py|)
-whenever it differs from the inherited anchor at all where the fit is 100\%, or by more than 10 where the fit is lower.
+A designer anchor on a character that can inherit the anchor deleted in stage 1 (\verb|"delete"| in \verb|data/fontanchors_audit/overrides.py|)
+whenever the designer anchor differs from the inherited anchor at all where the fit is 100\%, or by more than 10 units where the fit is lower.
 Curated anchors (stage 7, \verb|data/fontanchors_human/{style}.py|) are set on precomposed characters only where inheritance fails to find a good match.
 Every character with a fit of 100\% now has exactly the anchor it inherits (\verb|run_precomposed_existing_report.py| checks this).
 The characters that do not simply inherit:
 \begin{itemize}
-\item ģ (U+0123, latin small letter g with cedilla) is formally g (U+0067) with a below mark (U+0327, combining cedilla) in the sense that its canonical decomposition is U+0123 = U+0067 + U+0327, 
-but is drawn with a comma above. 
-ģ does inherit a below-anchor from g (fit 100\% in every style), but ģ does not inherit an above-anchor from g itself (30 IPA above-marks would collide with the comma), 
+\item ģ (U+0123, latin small letter g with cedilla) is formally g (U+0067) with a below mark (U+0327, combining cedilla) 
+in the sense that its canonical decomposition is U+0123 = U+0067 + U+0327, 
+but ģ is drawn with a comma above. 
+ģ does inherit a below-anchor from g (fit 100\% in every style), but ģ does not inherit an above-anchor from g itself 
+(30 IPA above-marks would collide with the comma), 
 and currently no above-anchor is set for ģ. 
 [For completeness of above-anchor coverage, the above-anchor could be set above the comma, at mark-to-mark clearance.]
-\item The horn characters Ơ ơ ư Ợ ợ ự (U+01A0, U+01A1, U+01B0, U+1EE2, U+1EE3, U+1EF1) do not have an above-anchor in any style (1--12 IPA above-marks per style would collide with the horn).
+\item The horn characters Ơ ơ ư Ợ ợ ự (U+01A0, U+01A1, U+01B0, U+1EE2, U+1EE3, U+1EF1) do not have an above-anchor in any style 
+(1--12 IPA above-marks per style would collide with the horn).
 Ơ ơ ư do inherit a below-anchor, except semibold italic ư, whose below-anchor is curated (see the last item).
-The capital u-horn characters do not have this above-mark--horn collision problem: Ư can and does inherit both above and -below-anchors from U in all styles, and Ự inherits its above-anchor from U in all styles as well.
+The capital u-horn characters do not have this above-mark--horn collision problem: Ư can and does inherit both 
+above and -below-anchors from U in all styles, and Ự inherits its above-anchor from U in all styles as well.
 \item ą (U+0105, latin small letter a with ogonek) semibold does not inherit an above-anchor from a in stage 9 because the fit (69\%) is bad.
 Semibold ą ({\bfseries ą}) has thicker lower bowl than semibold a ({\bfseries a}), as well a square-cut terminal, although their upper parts are similar.
 The above-anchor of semibold ą is curated at a's anchor plus the shift of ą's upper part (+12), instead of hard-coding this edge case into stage 9.
-In italic ({\itshape ą}) and semibold italic ({\bfseries\itshape ą}), the fit with a ({\itshape a {\bfseries a}}) is better (95\% because of a square-cut terminal difference; 100\%), and the above-anchors are inherited.
+In italic ({\itshape ą}) and semibold italic ({\bfseries\itshape ą}), the fit with a ({\itshape a {\bfseries a}}) is better 
+(95\% because of a square-cut terminal difference; 100\%), and the above-anchors are inherited. The curated anchor of semibold ą, 
+as well as te anchor of semibold a, with macron above:
 
 \verb|ą\cgj\char"0304\ a\cgj\char"0304| {\LibertinusSerifPatch\bfseries ą\cgj\char"0304\ a\cgj\char"0304}
-
 \item Ĵ (U+0134, latin capital letter j with circumflex) italic and semibold italic do not inherit a below-anchor from J because the fit is bad.
 In italic, Ĵ ({\itshape Ĵ}) has a shallower tail than J {\itshape J} (65\% fit);
-in semibold italic, Ĵ has a flat top serif and a deeper tail ({\itshape\bfseries Ĵ}), unlike J which has tilde serif top and a shallow tail ({\itshape\bfseries J}) (64\% fit). 
+in semibold italic, Ĵ ({\itshape\bfseries Ĵ}) has a flat top serif and a deeper tail, unlike J ({\itshape\bfseries J})
+which has tilde serif top and a shallow tail  (64\% fit). 
 [This is arguably a designer mistake and semibold italic Ĵ could be redesigned to have a shallow tail and a tilde serif top.]
 The below-anchors of italic and semibold italic Ĵ are curated at the resp. anchor model candidate from Ĵ's own metrics.
 
 \verb|Ĵ\cgj\char"0331\ J\cgj\char"0331| {\LibertinusSerifPatch\itshape Ĵ\cgj\char"0331\ J\cgj\char"0331}
 \quad
 \verb|Ĵ\cgj\char"0331\ J\cgj\char"0331| {\LibertinusSerifPatch\bfseries\itshape Ĵ\cgj\char"0331\ J\cgj\char"0331}
-
-\item  ư ứ ừ ử ữ (U+01B0, U+1EE9, U+1EEB, U+1EED, U+1EEF) semibold italic do not inherit  below-anchor from u because the fit is bad (75\% fit).
-These precomposed u-horn glyphs have slab serifs in semibold italic, unlike u, and the bottom-bowl of u is narrower than that of the u-horn glyphs:
+\item  ư ứ ừ ử ữ (U+01B0, U+1EE9, U+1EEB, U+1EED, U+1EEF) semibold italic do not inherit the below-anchor from u 
+because the fit is bad (75\% fit).
+These precomposed u-horn glyphs have slab serifs in semibold italic, unlike u, and the bottom-bowl of u is narrower than 
+that of the u-horn glyphs:
 {\itshape\bfseries u ư ứ ừ ử ữ}.
 But the stems of the u-horn glyphs are a good match for those of u.
-The below-anchors of these characters are curated at u's anchor, which turns out to work nicely (because of the stem matches), instead of hard-coding this edge case into stage 9.
+The below-anchors of these characters are curated at u's anchor, which turns out to work nicely (because of the stem matches), 
+instead of hard-coding this edge case into stage 9.
 
 \verb|ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\ u\cgj\char"0331|
 {\LibertinusSerifPatch\bfseries\itshape ư\cgj\char"0331\ ứ\cgj\char"0331\ ừ\cgj\char"0331\ ử\cgj\char"0331\ ữ\cgj\char"0331\ u\cgj\char"0331}
-
 \end{itemize}
 
-The grids show the IPA above-marks on the precomposed characters that inherit above and the below-marks on those that inherit below, in the patched fonts only,
-ordered as the derived-letter grids, by base letter (A--Z, a--z, then by code point), then by code point.
-For completeness they include the characters whose anchor is curated instead of inherited (ą, Ĵ, ư ứ ừ ử ữ).
-Samples and grid cells put \verb|\cgj| between the character and the mark, so that the mark is positioned by the glyph's anchor and the shaper does not decompose and recompose the character.
+The grids show the IPA above-marks on the precomposed characters that inherit above and the below-marks on those that inherit below, 
+in the patched fonts only, ordered as the derived-letter grids, by base letter (A--Z, a--z, then by code point), then by code point.
+For completeness they include the characters whose anchor is curated instead of inherited (ą Ĵ ư ứ ừ ử ữ).
+Samples and grid cells put the combining grapheme joiner (\verb|\cgj|) between the character and the mark, 
+so that the mark is positioned by the glyph's anchor and the shaper does not decompose and recompose the character.
 The exception is a character and mark that compose to one of the 24 precomposed characters with both an above- and a below-mark (e.g. Ç\,+\,acute $=$ Ḉ, ạ\,+\,circumflex $=$ ậ, Ơ\,+\,dot below $=$ Ợ):
 text gets the precomposed glyph, so the cell shows it, in \SUPPORTEDPREC{blue}, without \verb|\cgj|.
 They are the precomposed glyphs Ǭ ǭ Ḉ ḉ Ḝ ḝ Ḹ ḹ Ṝ ṝ Ṩ ṩ Ậ ậ Ặ ặ Ệ ệ Ộ ộ, and, with the horn, Ợ ợ Ự ự.

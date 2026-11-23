@@ -263,6 +263,18 @@ Should the geometric spacing modifiers be upright in the italic styles?
 - Gentium Plus italic keeps ˹ ˺ ˻ ˼ ˿ upright and slants ˽ ˾ (and ˥ ˪). Noto Serif italic keeps all upright. Junicode italic slants them.
 - Upright in semibold italic would also mean revising italic's own: designer glyphs revised on the sheet, as ɋ Ɋ ẝ Ɉ are.
 
+### Decision: the modifier letters ᵜ ᵝ ᵞ ᵟ (drafted 2026-11-22, pending)
+
+ᵜ ᵝ ᵞ ᵟ (U+1D5C–1D5F, in `BASE_SUPERSCRIPT_CONSONANT`) exist only in regular. They are drafted in italic, semibold and semibold italic on `tex/missing_glyphs_test_sheet.pdf` (`missing_glyphs.py`, `draft_reduced` and `draft_from_regular`), pending.
+- Regular's ᵝ ᵞ ᵟ are drawn apart from β γ δ, not reduced from them: the best scaled fits miss by 25%, 69% and 22% of the ink, and ᵞ's tail is a closed teardrop, not γ's loop. ᵜ is a superscript ᴥ (U+1D25), which no style has.
+- The designer's own superscripts in the other styles: italic ᵛ is regular's ᵛ slanted; semibold ᵛ is semibold's own v reduced; semibold ˤ is regular's unchanged.
+- Decide for ᵝ ᵞ ᵟ between:
+  - **reduced** (the main row): the style's own β γ δ, de-slanted, scaled to the box of regular's modifier at its height and side bearings, and pushed outward or inward to regular's modifier weight times the style's ᵛ over regular's ᵛ (italic 0.89, semibold 1.13, semibold italic 1.12). The italics get their own β γ δ designs (italic γ's loop).
+  - **regular's** (the second row, PUA U+F640–F642 in the draft fonts): regular's modifier slanted, and pushed outward in the semibold styles by stage 3's rule. The italics then have a slanted roman design (ᵞ's teardrop).
+- ᵜ has only the second recipe (regular's, slanted, pushed outward in the semibold styles): accept or redraw.
+- Neither recipe gives anchors: the letters are outside `BASE_LATIN` / `BASE_IPA`, so stage 6 does not see them.
+- To approve: set their entries in `DECISIONS` to `"approved"` (and, if regular's is chosen for ᵝ ᵞ ᵟ, make `draft_from_regular` their recipe), then run `run_missing_glyphs_sheet.py` and `run_patch_font.py`.
+
 ### Fat serifs in semibold ɑ ɒ ʊ ʠ
 
 Found 2026-11-14, because ꭤ (ɑ flipped) looked wrong in the semibold styles. In both semibold styles these four IPA letters have flat slab serifs about 100 units thick. The style's Latin letters and the same letters in the lighter styles have serifs of 32–54.

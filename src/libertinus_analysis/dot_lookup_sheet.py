@@ -28,6 +28,7 @@ from fontTools.ttLib import TTFont
 from .font_context import FONTS
 from .fontmetrics_helpers import ANCHOR_Y_REF_OPT
 from . import font_patching_dotanchors as D
+from .font_naming import save_renamed
 
 STYLES = ["regular", "italic", "semibold", "semibold_italic"]
 LABEL = {"regular": "Regular", "italic": "Italic", "semibold": "Semibold", "semibold_italic": "Semibold italic"}
@@ -76,12 +77,12 @@ def _variant_fonts(style, letters):
         if fr.FeatureTag == "mark" and idx in fr.Feature.LookupListIndex:
             fr.Feature.LookupListIndex.remove(idx)
             fr.Feature.LookupCount = len(fr.Feature.LookupListIndex)
-    f.save(str(path.with_name(path.stem + "-nodot.otf")))
+    save_renamed(f, path.with_name(path.stem + "-nodot.otf"))
 
     f = TTFont(str(path))
     anchors, info, _ = D.dot_anchors(f, style + "_patch", main, letters=letters)
     D.build_dot_lookup(f, main, anchors, lines=(True, True))
-    f.save(str(path.with_name(path.stem + "-dotcand.otf")))
+    save_renamed(f, path.with_name(path.stem + "-dotcand.otf"))
 
     cmap = f.getBestCmap()
     marks = {cp: D.main_mark_anchor(f, main, cmap[cp]) for cp in (0x0307, 0x030D, 0x0323, 0x0329)}

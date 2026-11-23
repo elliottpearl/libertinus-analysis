@@ -33,6 +33,7 @@ from .font_patching_anchors import load_human_anchors
 from .fontmetrics_extractor import get_axis_x
 from .fontmetrics_helpers import SHIFT_K, SLOPE
 from .tex_helpers import latex_font_style
+from .font_naming import save_renamed
 
 SNAP_TOLERANCE = 5
 STYLES = ["italic", "semibold", "semibold_italic"]
@@ -136,7 +137,7 @@ def build_snap_font(style_key, font, candidates):
         if glyph in targets:
             for anchor in anchors:
                 anchor.XCoordinate = targets[glyph]
-    font.save(FONTS[f"{style_key}_marksnap"]["path"])
+    save_renamed(font, FONTS[f"{style_key}_marksnap"]["path"])
 
 # ----------------------------------------------------------------------
 # LaTeX

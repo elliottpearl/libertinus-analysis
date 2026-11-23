@@ -18,3 +18,15 @@ __pycache__/
 
 # pip cruft
 *.egg-info/
+# Brill fonts: Brill EULA forbids redistribution (non-commercial use only).
+# Keep the fonts, and anything built from them (patches, drafts, ttx dumps), out of git.
+fonts/Brill*
+**/Brill*.otf
+**/Brill*.ttf
+**/Brill*.woff
+**/Brill*.woff2
+**/Brill*.ttx
+
+# Windows download markers and downloaded archives
+*:Zone.Identifier
+fonts/*.zip

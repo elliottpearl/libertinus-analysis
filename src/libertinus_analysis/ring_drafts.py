@@ -30,6 +30,7 @@ from fontTools.ttLib import TTFont
 
 from .font_context import FONTS
 from .font_patching_redraw import _replace_outline
+from .font_naming import save_renamed
 
 KAPPA = 0.5523                      # Bezier circle: handle = KAPPA x radius
 FACTORS = (1.15, 1.20, 1.25)    # the draft sheet's; the patch's are RING_FACTOR in font_patching_rings.py
@@ -209,7 +210,7 @@ def designer_rings_font(style, out_path=None):
         ogs[name].draw(pen)
         _replace_outline(tt, name, pen.value, orig["hmtx"][name][0])
     if out_path:
-        tt.save(out_path)
+        save_renamed(tt, out_path)
     return tt
 
 
@@ -219,5 +220,5 @@ def draft_rings(style, factor, out_path=None):
     tt = designer_rings_font(style)
     report = redraw_rings(tt, style, factor)
     if out_path:
-        tt.save(out_path)
+        save_renamed(tt, out_path)
     return tt, report

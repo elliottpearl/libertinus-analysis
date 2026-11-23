@@ -39,6 +39,7 @@ from fontTools.ttLib import TTFont
 from fontTools.ttLib.tables import otTables as ot
 
 from .font_context import FONTS
+from .font_naming import save_renamed
 
 MARKS = (0x0300, 0x0301, 0x0302, 0x0303, 0x0304, 0x0306, 0x0307, 0x0308, 0x030A, 0x030C)
 UNIFORM_K = 0.5
@@ -267,5 +268,5 @@ def draft_stacks(style, variant, out_path=None):
                 if ls is not None:
                     ls.FeatureIndex = sorted(remap[k] for k in ls.FeatureIndex)
     if out_path:
-        tt.save(out_path)
+        save_renamed(tt, out_path)
     return tt, {"targets": target, "bases": sorted(bases), "gaps": gaps(tt, key)}

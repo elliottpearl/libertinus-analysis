@@ -18,4 +18,4 @@ Edit and execute the relevant wrapper script `run_*`
 
 ## License
 
-MIT License. See `LICENSE.md`.
+MIT License for the code, data and documentation; the fonts in `fonts/` keep their own licenses (the patched Libertinus fonts are OFL 1.1). See `LICENSE` and `fonts/LICENSES.md`.

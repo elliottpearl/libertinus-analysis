@@ -65,6 +65,7 @@ from .font_patching_mergeclasses import merge_anchor_classes
 from .font_patching_normalizeanchors import normalize_anchor_y
 from .font_patching_precomposed_anchors import patch_precomposed_anchors
 from .font_patching_sortcoverage import sort_mark_to_base_coverage
+from .font_naming import save_renamed
 
 # --- Future modules (commented out) ---
 
@@ -315,5 +316,5 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # ------------------------------------------------------------
     # 12. Save patched font
     # ------------------------------------------------------------
-    ttfont.save(output_path)
+    save_renamed(ttfont, output_path)
     print(f"Patched font saved to {output_path}")

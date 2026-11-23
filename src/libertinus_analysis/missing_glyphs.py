@@ -41,6 +41,7 @@ from .config import FONTS_DIR, TEX_DIR
 from .font_patching_addmarks import EMBOLDEN, embolden, stroke_thickness
 from .font_patching_inherit import SegmentPen, intervals
 from .fontmetrics_helpers import SLOPE
+from .font_naming import save_renamed
 
 STYLES = {
     "regular": "LibertinusSerif-Regular",
@@ -2941,7 +2942,7 @@ def build_drafts():
     for key in ORDER:
         drafted = {f"uni{ord(c):04X}" for c in status if status[c][key] == "draft"}
         anchors[key] = _draft_anchors(out[key], key, drafted)
-        out[key].save(FONTS_DIR / f"{STYLES[key]}-draft.otf")
+        save_renamed(out[key], FONTS_DIR / f"{STYLES[key]}-draft.otf")
         _save_merged(key)
         _write_approved(key, status)
     for char in status:
@@ -3110,7 +3111,7 @@ def _save_merged(key):
         return pen.value
     removeOverlaps(font, [n for n in font.getGlyphOrder()
                           if n not in patched or outline(patched, n) != outline(drafts, n)])
-    font.save(FONTS_DIR / f"{STYLES[key]}-draft-merged.otf")
+    save_renamed(font, FONTS_DIR / f"{STYLES[key]}-draft-merged.otf")
 
 
 # ------------------------------------------------------------

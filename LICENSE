@@ -19,3 +19,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+-------------------------------------------------------------------------------
+
+Scope
+
+The MIT License above covers this repository's own code, data and
+documentation. It does not cover fonts:
+
+- Font files in fonts/ that are built from Libertinus Serif (the patched,
+  draft and test fonts, e.g. LibertinusSerif-*-patch.otf) and the copied
+  LibertinusSerif-*.sfd sources are Modified Versions of Libertinus Serif and
+  are licensed under the SIL Open Font License, Version 1.1; see
+  fonts/LibertinusSerif-OFL.txt.
+- The unmodified third-party fonts in fonts/ remain under their own licenses;
+  see fonts/LICENSES.md.
+- Brill fonts are not distributed with this repository (Brill Fonts EULA).
+
+Documents (such as PDFs) created using the fonts are not subject to the font
+licenses; see the OFL, condition 5, and fonts/LICENSES.md for Brill.

@@ -24,7 +24,7 @@ anchors = {
             0: (161, 850),
         },
         0x004F: { # O
-            0 : (363, 850), # normalize ay
+            # 0 : (363, 850), # normalize ay  # removed 2026-11-24: the designer's anchor, moved to 850 by stage 5
         },
         0x0053: { # S
             # 0: (252, 850),  # S, normalize 850  # removed 2026-11-07: the candidate (238) is nearer the precomposed glyphs (233)
@@ -33,7 +33,7 @@ anchors = {
             # 2: (316, -110) # Z normalize by  # removed 2026-10-29: designer's anchor is (316, -109)
         # },
         0x005A: { # Z
-            0: (321, 850), # normalize ay
+            # 0: (321, 850), # normalize ay  # removed 2026-11-24: the designer's anchor, moved to 850 by stage 5
             # 2: (308, -110) # normalize by  # removed 2026-11-07: within 1 of the candidate
         },
         0x0061: {  # a
@@ -45,16 +45,16 @@ anchors = {
         },
         0x0069: { # i: above on the stem's axis. Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (156, 837),
+            # 0: (156, 837),  # removed 2026-11-24: the candidate (stem X by stage 7b, dot-top Y) with the designer's deleted (overrides.py)
         },
         0x006A: { # j: above on the stem's axis (the candidate's X is pulled left by the hook). Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (162, 837),
+            # 0: (162, 837),  # removed 2026-11-24: reproduced exactly by the designer's anchor after stage 7b
         },
         0x006C: { # l: above and below on the stem's midline, as regular (2026-11-07); the designer's (142, 885) was 8 left; (135, -110) was regular's.
                   # ɫ ɬ ɭ ɮ inherit from it
-            0: (150, 885),
-            2: (150, -110),
+            # 0: (150, 885),  # removed 2026-11-24: reproduced exactly by the stem-axis rule (7b)
+            # 2: (150, -110),  # removed 2026-11-24: reproduced exactly by the stem-axis rule (7b)
         },
         0x0072: { # r: below under the stem, as r in the other styles; the designer's (212, -110) was 60 right of it (2026-11-07)
             2: (152, -110),

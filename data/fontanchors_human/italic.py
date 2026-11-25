@@ -28,7 +28,7 @@ anchors = {
         0x04F: { # O
             0: (493, 850), # above: median accent centre of the precomposed Ò Ó Ô Õ Ö Ō Ŏ … (479-502); the designer's 515 was 22 right,
                            # exposed by the top of the bowl; Ø inherits it (2026-11-07)
-            2: (310, -110) # normalize by
+            # 2: (310, -110) # normalize by  # removed 2026-11-24: the designer's (310, -109), snapped by stage 5
         },
         0x0055: { # U: above at the median accent centre of the precomposed Ù Ú Û Ü Ũ Ū Ŭ … (497-511), like O (2026-11-07);
                   # on its stems' midline it was 494
@@ -55,15 +55,15 @@ anchors = {
         },
         0x0069: { # i: above on the stem's axis. Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (300, 810),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 312
+            # 0: (300, 810),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 312  # removed 2026-11-24: reproduced exactly by the designer's anchor after stage 7b
         },
         0x006A: { # j: above on the stem's axis (the candidate's X is pulled left by the hook). Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (305, 810),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 318
+            # 0: (305, 810),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 318  # removed 2026-11-24: reproduced exactly by the designer's anchor after stage 7b
         },
         0x006C: { # l: above and below on the stem's midline, as regular (2026-11-07); the designer's (292, 890) was 20 left, (115, -110) 16 right.
                   # ɫ ɬ ɭ ɮ inherit from it
-            0: (313, 890),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 312
+            # 0: (313, 890),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 312  # removed 2026-11-24: reproduced exactly by the stem-axis rule (7b)
             2: (99, -110),  # NOT RELIABLE, to curate (2026-11-12): the curl foot pulls the optical centre right of the stem's axis; stage 7b leaves this anchor out of the rule. Pre-2026-11-12 value
         },
         0x0071: { # q: below at the descender reference, under the stem (2026-11-07), as regular's curated q (386, -319).

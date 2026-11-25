@@ -64,11 +64,11 @@ anchors = {
         },
         0x0069: { # i: above on the stem's axis. Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (142, 834),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 142
+            # 0: (142, 834),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 142  # removed 2026-11-24: the candidate (stem X by stage 7b, dot-top Y) with the designer's (142, 795) deleted (overrides.py)
         },
         0x006A: { # j: above on the stem's axis (the candidate's X is pulled left by the hook). Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (152, 834),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 152
+            # 0: (152, 834),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 152  # removed 2026-11-24: reproduced exactly by the designer's anchor after stage 7b
         },
         # 0x006A: {  # j
             # 0: (126, 795),  # shifted by 11 from i  # removed 2026-11-07: 26 left of the stem; U+033F 16 above the dot

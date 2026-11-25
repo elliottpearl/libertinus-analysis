@@ -101,7 +101,8 @@ overrides = {
         # ı: above-anchor (132, 645) 10 left of the stem's axis, below (139, -110) 2 left; the candidates are on it (2026-11-07)
         "dotlessi": {0: "delete", 2: "delete"},
         # i: below-anchor off the stem's axis; the candidate is on it (2026-11-07)
-        "i": {2: "delete"},  # (136, -110), 6 left
+        # i above: the designer's Y (795) is below the dot's clearance; the candidate (dot top + clearance, X by stage 7b) replaces the curated anchor (2026-11-24)
+        "i": {0: "delete", 2: "delete"},  # below (136, -110), 6 left
         # ɹ: the designer's below-anchor (190, -110), copied into every style, is r's under-the-stem
         # anchor carried over by the turn; the candidate is approved in every style (2026-11-07)
         "uni0279": {2: "delete"},  # (190, -110)
@@ -299,7 +300,8 @@ overrides = {
         # R: the designer's below-anchor reviewed and kept, 28 left of the candidate; Ṛ's dot is between (2026-11-07)
         "R": {2: "keep"},  # (292, -110)
         # i: below-anchor off the stem's axis; the candidate is on it (2026-11-07)
-        "i": {2: "delete"},  # (136, -110), 20 left
+        # i above: the designer's Y (795) is below the dot's clearance; the candidate (dot top + clearance, X by stage 7b) replaces the curated anchor (2026-11-24)
+        "i": {0: "delete", 2: "delete"},  # below (136, -110), 20 left
         # g: the designer's below-anchor at the descender is right, as in every style (5-15 right of
         # the lower loop's centre); the candidate is rejected (2026-11-07)
         "g": {2: "keep"},
@@ -414,7 +416,8 @@ overrides = {
         "R": {0: "keep", 2: "delete"},  # (258, -110); above (269, 850) kept (2026-11-18, far-from-candidate test sheet)
         "b": {2: "delete"},  # (234, -110)
         # i: below-anchor off the stem's axis; the candidate is on it (2026-11-07)
-        "i": {2: "delete"},  # (136, -110), 14 left of its model
+        # i above: the designer's Y is below the dot's clearance; the candidate (dot top + clearance, X by stage 7b) replaces the curated anchor (2026-11-24)
+        "i": {0: "delete", 2: "delete"},  # below (136, -110), 14 left of its model
         # g: the designer's below-anchor at the descender is right, as in every style (5-15 right of
         # the lower loop's centre); the candidate is rejected (2026-11-07)
         "g": {0: "delete", 2: "keep"},  # above (291, 645): 99 right of the upper bowl's centre (italic's designer: 12);

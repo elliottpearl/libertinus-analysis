@@ -20,7 +20,7 @@ anchors = {
         },
         0x0049: { # I: below on the stem's axis (179 at y 0), plus 12 (K below) (2026-11-07). The designer's (147, -110),
                   # regular's copy, is 22 left of it; the candidate (161, -110) 8 left
-            2: (174, -110),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 169
+            # 2: (174, -110),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 169  # removed 2026-11-24: reproduced exactly by the stem-axis rule (7b)
         },
         0x004C: { # L: above on the stem's axis, less K = 150 (2026-11-07), where the designer centred the acute of Ĺ (8 left)
             0: (209, 850),
@@ -45,15 +45,15 @@ anchors = {
         },
         0x0069: { # i: above on the stem's axis less K = 150. Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (169, 823),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 180
+            # 0: (169, 823),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 180  # removed 2026-11-24: the candidate (stem X by stage 7b, dot-top Y) with the designer's deleted (overrides.py)
         },
         0x006A: { # j: above on the stem's axis less K = 150 (the candidate's X is pulled left by the hook). Only marks that skip the ccmp dotless swap use it (U+033F), so it clears the dot: Y is the candidate's
                   # (dot top + clearance; U+033F then sits 55-60 above the dot, 69-74 above o). (2026-11-07)
-            0: (186, 823),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 197
+            # 0: (186, 823),  # 2026-11-12: X over the centre of the dot (stem-axis rule, stage 7b, which sets it over this value), was 197  # removed 2026-11-24: reproduced exactly by the designer's anchor after stage 7b
         },
         0x006C: { # l: above and below on the stem's midline (less K = 150 above, plus 12 below), as regular (2026-11-07); the designer's (174, 890) was 6 left; (135, -110) was regular's.
                   # ɫ ɬ ɭ ɮ inherit from it
-            0: (184, 890),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 180
+            # 0: (184, 890),  # 2026-11-12: X on the stem's axis (stem-axis rule, stage 7b, which sets it over this value), was 180  # removed 2026-11-24: reproduced exactly by the stem-axis rule (7b)
             2: (138, -110),  # NOT RELIABLE, to curate (2026-11-12): the curl foot pulls the optical centre right of the stem's axis; stage 7b leaves this anchor out of the rule. Pre-2026-11-12 value
         },
         0x00A0: { # no-break space, base for a floating mark, width = 274

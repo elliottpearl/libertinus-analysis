@@ -217,8 +217,10 @@ derived_y = {
     # the whole-outline match is 42-90% because of the hook, but the counters of b and ɓ agree within 6 in every style
     0x0253: (0x0062, {0: {"regular": 885, "italic": 890, "semibold": 885, "semibold_italic": 890},
                       2: {"regular": -110, "italic": -110, "semibold": -121, "semibold_italic": -110}}),
-    # ʝ j with crossed tail < j: above, X as j (on the stem), Y j's own (dot top + clearance): ʝ has no dotless
-    # form, so every above mark clears its dot, as the few that skip j's dotless swap (2026-11-07); outline match 52-64%
+    # ʝ j with crossed tail < j: above, X as j (on the stem), Y j's own (dot top + clearance), as on j: for the above
+    # marks that ccmp's dot removal leaves out (not in @accents), which clear the dot (2026-11-07); outline match 52-64%.
+    # ʝ is Soft_Dotted, so since 2026-11-27 the marks in @accents take its dotless form uni029D.dotless (derived_by_name
+    # below, above < ȷ); the note here before said ʝ has no dotless form, so every above mark cleared its dot
     0x029D: (0x006A, {0: {
         "regular": 834, "italic": 810, "semibold": 837, "semibold_italic": 823,
     }}),
@@ -259,6 +261,14 @@ derived_by_name = {
     "uni0268.dotless": ("dotlessi", (0, 2)),  # ɨ before an above mark < ı; below too, for a below mark
                                                # after the above mark (the designer's was 22 left of the stem)
     "uni0249.dotless": ("uni0237", (0, 2)),   # ɉ before an above mark < ȷ (2026-11-11)
+    # The dotless forms of ị ḭ į ʝ і ј, added in stage 2 (font_patching_dotless.py, 2026-11-27): above < ı / ȷ;
+    # their other classes are the dotted glyph's, copied after stage 9
+    "uni1ECB.dotless": ("dotlessi", (0,)),   # ị
+    "uni1E2D.dotless": ("dotlessi", (0,)),   # ḭ
+    "iogonek.dotless": ("dotlessi", (0,)),   # į
+    "uni029D.dotless": ("uni0237", (0,)),    # ʝ
+    "uni0456.dotless": ("dotlessi", (0,)),   # Cyrillic і
+    "uni0458.dotless": ("uni0237", (0,)),    # Cyrillic ј
     # ɿ with descender, U+E27F (PUA), added in stage 2 as ɿ's top and q's descender serif (2026-11-09).
     # Above as ɿ; below is curated, under the stem at the descender reference
     "uni027F.desc": ("uni027F", (0,)),

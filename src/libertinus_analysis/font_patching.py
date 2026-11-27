@@ -49,6 +49,7 @@ from .font_context import FontContext, FONTS
 from .font_patching_addglyphs import add_custom_glyphs
 from .font_patching_drafts import add_draft_glyphs
 from .font_patching_dotoutlines import patch_dot_outlines
+from .font_patching_dotless import add_dotless_glyphs, copy_dotless_anchors
 from .font_patching_addmarks import add_cap_dot, add_cap_tilde, add_missing_marks
 from .font_patching_redraw import redraw_glyphs
 from .font_patching_rings import patch_rings
@@ -193,6 +194,10 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
     # (U+02D9), U+0324 the diaeresis of U+0308 / ṳ; italic ỵ's dot moves right.
     for line in patch_dot_outlines(ttfont, font_key):
         print(f"[{font_key}] {line}")
+    # Dotless forms of the precomposed soft-dotted letters ị ḭ į ʝ, for ccmp's
+    # dot removal before an above mark (the dotted glyph without its dot).
+    for line in add_dotless_glyphs(ttfont, font_key):
+        print(f"[{font_key}] {line}")
     # Heavier rings in the semibold styles (1.25 / 1.20 x the light style's stroke).
     for line in patch_rings(ttfont, font_key):
         print(f"[{font_key}] {line}")
@@ -279,6 +284,11 @@ def patch_font(font_key: str, output_path=None, extra_deletions=frozenset()) -> 
         print(f"[{font_key}] {line}")
 
     snapshots.append(("precomposed", _base_anchors(ttfont, lookup_index)))
+
+    # The dotless forms of stage 2 take the dotted glyph's anchors of every
+    # class but above (stage 8 gave them their above anchor, from ı / ȷ).
+    for line in copy_dotless_anchors(ttfont, lookup_index):
+        print(f"[{font_key}] {line}")
 
     PROVENANCE_DIR.mkdir(exist_ok=True)
     owners = _owners(snapshots, {"curated": _curated_bases(font_key, cmap), "derived": derived_set})

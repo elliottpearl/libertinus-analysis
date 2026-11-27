@@ -384,7 +384,8 @@ def analyse(combos):
         miss_o = unanchored(style, o, marks)
         miss_p = unanchored(style + "_patch", p, marks)
         pdf_ok = any(abs(dx - o[1][1]) <= 2 and abs(dy - o[1][2]) <= 2 for dx, dy in e["pdf"])
-        rows.append(dict(style=style, base=base, marks=marks, n=e["n"], pages=e["pages"],
+        swap = (o[0][0], p[0][0]) if o[0][0] != p[0][0] else None   # e.g. ccmp's dot removal: i -> dotlessi
+        rows.append(dict(style=style, base=base, marks=marks, n=e["n"], pages=e["pages"], swap=swap,
                          word=e["word"], page=e["page"], line=e["line"], moves=moves, orig=(o[1][1], o[1][2]),
                          miss_o=miss_o, miss_p=miss_p, pdf_ok=pdf_ok,
                          size=max(abs(a) + abs(b) for a, b in moves)))
@@ -439,6 +440,8 @@ def row(r, notes):
         note = r"anchored in the original; \textbf{not anchored in the patch:} " + r["miss_p"]
     else:
         note = "anchored"
+    if r["swap"]:
+        note += "; the patch sets the base as " + r["swap"][1].replace("_", r"\_") + " (the original: " + r["swap"][0].replace("_", r"\_") + ")"
     if (r["style"], r["base"] + r["marks"]) in notes:
         note += r"; \textbf{note:} " + notes[(r["style"], r["base"] + r["marks"])]
     mv = "; ".join(f"({dx:+d},\\,{dy:+d})" for dx, dy in r["moves"])

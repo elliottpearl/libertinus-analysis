@@ -66,6 +66,8 @@ These are general instructions for using CGJ U+034F to block unwanted normalizat
 - ì + tilde below becomes ḭ + grave, which brings back the dot of i;
 - Ǻ + dot below becomes Ạ + ring + acute.
 
+(The ì case no longer brings back the dot: since 2026-11-27, ccmp's dot removal also covers ḭ, ị, į, which take their dotless forms before an above mark.)
+
 There are 130 such cases among the precomposed letters. It is a decomposition problem, to be avoided with a CGJ (or a dotless base) whether or not the font has mark-to-mark positioning. The report's sections "Lowercase i with tilde below and grave above, in italic and semibold italic" and following explore it, and "Floating tones" uses CGJ for a similar reason.
 
 The instructions should say when CGJ is needed, where it goes, and its cost: a precomposed glyph before CGJ has no below-anchor, so the below-mark falls back to a default position.
@@ -73,8 +75,11 @@ The instructions should say when CGJ is needed, where it goes, and its cost: a p
 ## Check GSUB: dot removal and composition into precomposed letters
 
 These come from the stub sections of the report ("Patch j dot removal for three above-marks", "Dot removal", "Precomposed characters"):
-- The dot of i and j should be removed before any above-mark, but it is not removed for three: x above, turned tilde, double macron. Patch `ccmp` so that the dotless substitution fires in this context too.
-- Check that the dot removal for i and j is complete.
+- ~~The dot of i and j should be removed before any above-mark, but it is not removed for three: x above, turned tilde, double macron.~~ Checked 2026-11-27: x above (U+033D) and turned tilde (U+034B) remove it. The double macron U+035E keeps it, deliberately: it is a double mark (class 234) spanning two letters, and Unicode's Soft_Dotted rule covers class 230 only (so do the other double marks U+035C–0362).
+- ~~Check that the dot removal for i and j is complete.~~ Done 2026-11-27 (`ccmp_dotless`, `font_patching_dotless.py`): it skips marks below (mark-filtering set), covers the precomposed ị ḭ į, ʝ and Cyrillic і ј (dotless forms added in stage 2), and the combining Latin letters U+0363–036F. Deliberately left with the dot:
+  - overline U+0305 and double overline U+033F: they span the whole letter and are set above the dot, not in its place;
+  - U+0342 (Greek perispomeni) and U+0483 (Cyrillic titlo): not used on Latin i;
+  - the Soft_Dotted modifier letters ʲ ⁱ ᵢ: a combining accent on them hardly occurs, and each would need a dotless glyph and anchors.
 - Where a precomposed character exists, a doublet (base + combining mark) or a triplet (base + two combining marks, in either mark order) should be turned into it by GSUB. Check that it is.
 
 ## Long term: add mark-to-mark positioning (started 2026-11-18)
@@ -184,6 +189,7 @@ Langscitinus is built on Libertinus 6.11; these fonts are 7.051. Before importin
   - Regular and italic look sound (zero advance, above the x-height): import.
   - Semibold and semibold italic are broken (advances 397 and 366; semibold ᷇ at y 623–801): own recipe instead, from the style's macron and acute or grave.
   - Add ᷈ ᷉ (U+1DC8–1DC9, in Gentium) by the same recipe.
+  - Add all of them to `@accents` in the four `ccmp.fea` files, so that they remove the dot of i (Soft_Dotted; `i + U+1DC4` is now `.notdef`).
 - **Regular only:** ᴺ ᴿ ᶑ ᶣ ᶮ ᶾ ꝺ ꭖ ꭗ ⅄ (and ᶣ ꝺ in italic too).
   - Import into regular (and italic).
   - Use own recipes in the other styles: superscripts by the existing superscript recipe, ᶑ = ɗ + ɖ's tail, ⅄ = Y turned; ꝺ (insular d) and ꭖ ꭗ are medium.

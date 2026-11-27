@@ -16,8 +16,11 @@ lookup ccmp_cap_accents {
 
 feature ccmp {
 
-  @dotted   = [i j uni0249 uni0268];
-  @dotless  = [dotlessi uni0237 uni0249.dotless uni0268.dotless];
+  # i j ɉ ɨ, and the precomposed soft-dotted letters ị ḭ į, ʝ and Cyrillic і ј (2026-11-27): HarfBuzz
+  # composes i + U+0323 / U+0330 / U+0328 into ị ḭ į before GSUB, so an above mark after them meets those glyphs
+  @dotted   = [i j uni0249 uni0268 uni1ECB uni1E2D iogonek uni029D uni0456 uni0458];
+  @dotless  = [dotlessi uni0237 uni0249.dotless uni0268.dotless uni1ECB.dotless uni1E2D.dotless iogonek.dotless uni029D.dotless
+               uni0456.dotless uni0458.dotless];
 
   @accents  = [
     gravecomb acutecomb uni0302 tildecomb uni0304 uni0306 uni0307 
@@ -27,7 +30,9 @@ feature ccmp {
     # add for more dot removal
     uni033D uni033E uni0346 uni034A uni034B uni034C uni0350 uni0352 
     uni035B
-
+    # the combining Latin letters U+0363-036F, above marks of class 230 (2026-11-27)
+    uni0363 uni0364 uni0365 uni0366 uni0367 uni0368 uni0369 uni036A
+    uni036B uni036C uni036D uni036E uni036F
   ];
 
   # update Latin + IPA capitals
@@ -89,7 +94,12 @@ feature ccmp {
     uni0246 uni0248 uni024A uni024C uni024E uni1EFA uni2132 uni2C6E uni2C6F uni0245 uni0244
   ];
 
-  sub @dotted' @accents by @dotless;
+  # Dot removal skips every mark not in @accents (2026-11-27), so a mark below between the
+  # letter and the above mark does not block it: i + U+0325 + U+030B (ni̥̋, volume 634) -> ı̥̋
+  lookup ccmp_dotless {
+    lookupflag UseMarkFilteringSet @accents;
+    sub @dotted' @accents by @dotless;
+  } ccmp_dotless;
   sub @capitals @accents' lookup ccmp_cap_accents;
 
 } ccmp;

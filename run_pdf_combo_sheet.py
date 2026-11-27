@@ -33,7 +33,15 @@ the original font has no anchor for it (the mark is not attached and sits
 where its outline is drawn, after the base's advance) or if the patch moves
 a mark by at least MIN_MOVE units. One word per combo (the first in the PDF)
 is set in the sheet, each character in the font the PDF used for it, with
-its page.
+its page and line. The word is cut at punctuation before and after the combo
+("(Tȁkı̋." -> "Tȁkı̋") and at brackets, slashes and
+quotes inside it ("ɔ̏‶/‶/∅/w(ȍ" -> "ɔ̏"), and a character smaller than the line's text and off its
+baseline is set as a superscript or subscript, as printed (tɕiɛ̃²¹³⁻²¹). The line
+is the rank of the text line's baseline among the page's distinct baselines,
+counted from the top (the baseline of its largest text, so a line of superscripted
+tone numbers is not counted apart), leaving out the running header (bottom edge in the top
+LINE_TOP of the page) and the folio: every text line counts, including table
+rows, interlinear gloss lines and footnotes.
 """
 import os
 import re
@@ -79,6 +87,10 @@ def font_name(name):
 
 ROMAN = re.compile(r"^[ivxlc]+$")
 FOLIO_MARGIN = 0.12    # a folio is in the top or bottom 12% of the page
+LINE_TOP = 0.09        # lines ending in the top 9% (running header, proofreading stamp) are not counted
+BASELINE_MERGE = 3.0   # pt; text lines on baselines this close are one line
+SCRIPT_SIZE = 0.9      # a character under this fraction of the line's size ...
+SCRIPT_SHIFT = 0.12    # ... and at least this fraction of it off the baseline is a super/subscript
 MAX_BACKFILL = 3       # unnumbered pages before a new run of folios that take its numbers
 
 
@@ -122,21 +134,49 @@ def page_labels(folios):
     return labels
 
 
+def mode(values):
+    return max(set(values), key=values.count) if values else None
+
+
+def baseline(line):
+    """Baseline of the line's largest text (not of its super/subscripts); None for an empty line."""
+    ref = max((round(t[4], 1) for t in line if not t[0].isspace()), default=None)
+    return None if ref is None else mode([round(t[3], 1) for t in line if round(t[4], 1) == ref])
+
+
+def number_lines(page_lines, height):
+    """[(line number or None, line)] for one page: rank of the line's baseline from the top."""
+    out, bases = [], []
+    for y0, y1, line in page_lines:
+        base = baseline(line)
+        body = base is not None and y1 >= LINE_TOP * height
+        out.append((base if body else None, line))
+        if body:
+            bases.append(base)
+    ranks, last, n = {}, None, 0
+    for b in sorted(set(bases)):
+        if last is None or b - last > BASELINE_MERGE:
+            n += 1
+        ranks[b], last = n, b
+    return [(ranks.get(b), line) for b, line in out]
+
+
 def read_pdf(pdf):
-    """Yield (page, [(char, font, x, y, size), ...]) per text line; return the book page labels."""
+    """Yield (page, line no., [(char, font, x, y, size), ...]) per text line; return the book page labels."""
     folios = []
     with tempfile.TemporaryDirectory() as tmp:
         xml = Path(tmp) / "p.xml"
         subprocess.run(["mutool", "draw", "-q", "-F", "stext", "-o", str(xml), str(pdf)],
                        check=True, stderr=subprocess.DEVNULL)
         xml.write_bytes(BAD_REF.sub(b"\xef\xbf\xbd", xml.read_bytes()))
-        page, font, size, line, height = 0, None, None, [], 0
+        page, font, size, line, height, page_lines = 0, None, None, [], 0, []
         for ev, el in ET.iterparse(xml, events=("start", "end")):
             if ev == "start":
                 if el.tag == "page":
                     page += 1
                     height = float(el.get("height"))
                     folios.append(None)
+                    page_lines = []
                 elif el.tag == "font":
                     font, size = font_name(el.get("name")), float(el.get("size"))
             elif el.tag == "char":
@@ -149,9 +189,12 @@ def read_pdf(pdf):
                 if (y1 < FOLIO_MARGIN * height or y0 > (1 - FOLIO_MARGIN) * height) and \
                         (text.isdigit() or ROMAN.match(text)):
                     folios[-1] = text
-                yield page, line
+                else:
+                    page_lines.append((y0, y1, line))
                 line = []
             elif el.tag == "page":
+                for n, ln in number_lines(page_lines, height):
+                    yield page, n, ln
                 el.clear()
     return page_labels(folios)
 
@@ -160,11 +203,12 @@ LABELS = {}   # part (1-based) -> [book page label or None per physical page]
 MULTI = False  # the report has several parts: cite part:page
 
 
-def cite(where):
-    """Book page of (part, physical page): 93, xii, 1:93, or PDF 3 / 1:PDF 3 outside the pagination."""
+def cite(where, line=None):
+    """Book page of (part, physical page): 93, xii, 1:93, or PDF 3 / 1:PDF 3 outside the pagination; with ", l. 12"."""
     part, page = where
     lab = LABELS[part][page - 1] or f"PDF {page}"
-    return f"{part}:{lab}" if MULTI else lab
+    lab = f"{part}:{lab}" if MULTI else lab
+    return f"{lab}, l.~{line}" if line else lab
 
 
 def lines(pdfs):
@@ -173,17 +217,18 @@ def lines(pdfs):
         it = read_pdf(pdf)
         while True:
             try:
-                page, line = next(it)
+                page, n, line = next(it)
             except StopIteration as stop:
                 LABELS[part] = stop.value
                 break
-            yield (part, page), line
+            yield (part, page), n, line
 
 
 def collect(pdfs):
     """combos[(font, base, marks, markfonts)] = {n, pages, pdf_dx, pdf_dy, word, page}; pages are (part, page)."""
-    combos = defaultdict(lambda: {"n": 0, "pages": [], "pdf": set(), "word": None, "page": None})
-    for page, line in lines(pdfs):
+    combos = defaultdict(lambda: {"n": 0, "pages": [], "pdf": set(), "word": None, "page": None, "line": None})
+    for page, lineno, line in lines(pdfs):
+        script = scripts(line)
         words, cur = [], []
         for t in line:
             if t[0].isspace():
@@ -213,13 +258,61 @@ def collect(pdfs):
                     m = w[i]
                     e["pdf"].add((round((m[2] - base[2]) * 1000 / m[4]), round((base[3] - m[3]) * 1000 / m[4])))
                 if e["word"] is None:
-                    word = [(c, f) for c, f, *_ in w]
-                    while len(word) > j and word[-1][0] in ",.":
-                        word.pop()
-                    e["word"] = word
+                    word = [(t[0], t[1], script[id(t)]) for t in w]
+                    a, b = 0, len(word)
+                    for k in range(i - 1):
+                        if is_split(word[k][0]):
+                            a = k + 1
+                    for k in range(len(word) - 1, j - 1, -1):
+                        if is_split(word[k][0]):
+                            b = k
+                    while a < i - 1 and is_punct(word[a][0]):
+                        a += 1
+                    while b > j and is_punct(word[b - 1][0]):
+                        b -= 1
+                    e["word"] = word[a:b]
                     e["page"] = page
+                    e["line"] = lineno
                 i = j
     return combos
+
+
+def is_punct(c):
+    return ud.category(c)[0] == "P"
+
+
+APOSTROPHES = "'\u2019\u02BC"
+
+
+def is_split(c):
+    """Punctuation that ends the sample word even inside a run without spaces: ɔ̏‶/‶/∅/w(ȍ -> ɔ̏.
+    Hyphens, periods, = and apostrophes are morpheme or syllable boundaries in glosses and stay."""
+    return (ud.category(c) in ("Ps", "Pe", "Pi", "Pf") and c not in APOSTROPHES) or c in "/|\"\u2033\u2036,;:!?"
+
+
+def scripts(line):
+    """{id(char tuple): "" | "sup" | "sub"}: smaller than the line's largest text and off its baseline."""
+    # the largest size, not the most common: in a table cell like tɕiɛ̃²¹³⁻²¹ the scripts outnumber the text
+    ref = max((round(t[4], 1) for t in line if not t[0].isspace()), default=None)
+    if ref is None:
+        return {}
+    base = baseline(line)
+    out = {}
+    for t in line:
+        pos = ""
+        if t[4] < SCRIPT_SIZE * ref and not is_mark(t[0]):
+            if t[3] < base - SCRIPT_SHIFT * ref:
+                pos = "sup"
+            elif t[3] > base + SCRIPT_SHIFT * ref:
+                pos = "sub"
+        out[id(t)] = pos
+    # a mark is set with its base
+    prev = ""
+    for t in line:
+        if is_mark(t[0]):
+            out[id(t)] = prev
+        prev = out[id(t)]
+    return out
 
 
 # --- 2. shape --------------------------------------------------------------
@@ -264,6 +357,20 @@ def missing_anchor(key, base, mark):
     return None
 
 
+def unanchored(key, shaped, marks):
+    """Why each mark of a shaped combo is not anchored ("U+0301: base has no above anchor; ..."), or None.
+
+    Every mark is checked against the base: HarfBuzz attaches a mark to the base by mark-to-base
+    (or to the previous mark by mark-to-mark, which needs the first mark anchored to the base)."""
+    out = []
+    for k, (g, *_) in enumerate(shaped[1:]):
+        why = missing_anchor(key, shaped[0][0], g)
+        if why:
+            cp = f"U+{ord(marks[k]):04X}: " if len(shaped) > 2 and k < len(marks) else ""
+            out.append(cp + why)
+    return "; ".join(out) or None
+
+
 def analyse(combos):
     rows = []
     for (bfont, base, marks, mfonts), e in combos.items():
@@ -274,11 +381,11 @@ def analyse(combos):
         if len(o) != len(p) or len(o) < 2:
             continue
         moves = [(p[k][1] - o[k][1], p[k][2] - o[k][2]) for k in range(1, len(o))]
-        miss_o = missing_anchor(style, o[0][0], o[1][0])
-        miss_p = missing_anchor(style + "_patch", p[0][0], p[1][0])
+        miss_o = unanchored(style, o, marks)
+        miss_p = unanchored(style + "_patch", p, marks)
         pdf_ok = any(abs(dx - o[1][1]) <= 2 and abs(dy - o[1][2]) <= 2 for dx, dy in e["pdf"])
         rows.append(dict(style=style, base=base, marks=marks, n=e["n"], pages=e["pages"],
-                         word=e["word"], page=e["page"], moves=moves, orig=(o[1][1], o[1][2]),
+                         word=e["word"], page=e["page"], line=e["line"], moves=moves, orig=(o[1][1], o[1][2]),
                          miss_o=miss_o, miss_p=miss_p, pdf_ok=pdf_ok,
                          size=max(abs(a) + abs(b) for a, b in moves)))
     return rows
@@ -290,18 +397,23 @@ def tex_chars(s):
     return "".join(r"\ " if c == " " else f'\\char"{ord(c):04X}' for c in s)
 
 
+SCRIPT_TEX = {"": "{}", "sup": r"\textsuperscript{{{}}}", "sub": r"\textsubscript{{{}}}"}
+
+
 def tex_word(word, fam):
-    """Word as runs of characters, each run in the shape of the PDF font."""
+    """Word as runs of characters, each run in the shape of the PDF font, super/subscripts as printed.
+
+    word: [(char, PDF font) or (char, PDF font, "" | "sup" | "sub")]."""
     out, run, cur = [], "", None
-    for c, f in word:
-        st = STYLE.get(f, "regular")
-        if st != cur and run:
-            out.append(f"{{{SHAPE[cur]}{tex_chars(run)}}}")
+    for c, f, *pos in word:
+        key = (STYLE.get(f, "regular"), pos[0] if pos else "")
+        if key != cur and run:
+            out.append(SCRIPT_TEX[cur[1]].format(f"{{{SHAPE[cur[0]]}{tex_chars(run)}}}"))
             run = ""
-        cur = st
+        cur = key
         run += c
     if run:
-        out.append(f"{{{SHAPE[cur]}{tex_chars(run)}}}")
+        out.append(SCRIPT_TEX[cur[1]].format(f"{{{SHAPE[cur[0]]}{tex_chars(run)}}}"))
     return f"{{{fam}{''.join(out)}}}"
 
 
@@ -317,19 +429,23 @@ def cell_pair(word):
 
 def row(r, notes):
     combo = tex_chars(r["base"] + r["marks"])
-    if r["miss_o"]:
-        note = "not anchored: " + r["miss_o"]
+    if r["miss_o"] and r["miss_p"]:
+        note = r"\textbf{not anchored in either font:} " + r["miss_o"]
+        if r["miss_p"] != r["miss_o"]:
+            note += "; patch: " + r["miss_p"]
+    elif r["miss_o"]:
+        note = "not anchored in the original (" + r["miss_o"] + "); anchored in the patch"
+    elif r["miss_p"]:
+        note = r"anchored in the original; \textbf{not anchored in the patch:} " + r["miss_p"]
     else:
         note = "anchored"
-    if r["miss_p"]:
-        note += "; patch: " + r["miss_p"]
     if (r["style"], r["base"] + r["marks"]) in notes:
         note += r"; \textbf{note:} " + notes[(r["style"], r["base"] + r["marks"])]
     mv = "; ".join(f"({dx:+d},\\,{dy:+d})" for dx, dy in r["moves"])
     pages = ", ".join(map(cite, r["pages"][:6])) + (", …" if len(r["pages"]) > 6 else "")
     pdf = "" if r["pdf_ok"] else r" \textsuperscript{†}"
     return (f"{{\\Orig{SHAPE[r['style']]}{combo}}} {{\\tiny {cps(r['base'] + r['marks'])}}} & "
-            f"{cite(r['page'])}{pdf} & {cell_pair(r['word'])} & "
+            f"{cite(r['page'], r['line'])}{pdf} & {cell_pair(r['word'])} & "
             f"{{\\footnotesize {mv}}} & {{\\footnotesize {r['n']}× (pp.~{pages}); {note}}} \\\\")
 
 
@@ -357,10 +473,11 @@ def report(arg):
     out = Path(f"tex/pdf_combos_{stem}.tex")
     combos = collect(pdfs)
     rows = analyse(combos)
-    suspect = [r for r in rows if (r["miss_o"] and not r["miss_p"]) or r["size"] >= MIN_MOVE]
-    rest = [r for r in rows if r not in suspect and not (r["miss_o"] and r["miss_p"])]
+    suspect = [r for r in rows if r["miss_o"] or r["miss_p"] or r["size"] >= MIN_MOVE]
+    rest = [r for r in rows if r not in suspect]   # anchored in both fonts, moved under MIN_MOVE
     order = ["regular", "italic", "semibold", "semibold_italic"]
-    suspect.sort(key=lambda r: (order.index(r["style"]), -r["size"]))
+    # per style: not anchored in either font first (what the patch leaves to fix), then by the size of the move
+    suspect.sort(key=lambda r: (order.index(r["style"]), not (r["miss_o"] and r["miss_p"]), -r["size"]))
     total = sum(e["n"] for k, e in combos.items() if k[0] in STYLE)
     styles = sorted({r["style"] for r in rows}, key=order.index)
     bad = [r for r in rows if not r["pdf_ok"]]
@@ -402,13 +519,14 @@ def report(arg):
 \section*{Test sheet: combining-mark combos in """ + title(stem) + r""", original vs.\ patched}
 """ + f"""{src} {total} base\\,+\\,mark sequences in Libertinus Serif ({len(rows)} distinct{'; none in ' + ' or '.join(absent) if absent else ''}).
 Every one was shaped with HarfBuzz in the original and the patched font of its style. {pdf_match}
-A combo is listed if the original font has no anchor for it (the mark is not anchored and is drawn after the base's advance) or the patch moves a mark by at least {MIN_MOVE} units.
-Each is shown in the first word of the PDF that has it, every character in the style the PDF set it in. {pagenote}
+A combo is listed if a mark is not anchored in the original or the patched font (it is then drawn where its outline lies, after the base's advance) or the patch moves a mark by at least {MIN_MOVE} units. In each style, combos anchored in neither font come first: those the patch does not fix.
+Each is shown in the first word of the PDF that has it, without the punctuation around it, every character in the style the PDF set it in, super- and subscripts as printed. {pagenote}
+Line = the text line on that page, counted from the top without the running header; every text line counts, including table rows, gloss lines and footnotes.
 Columns: original, patched, and the two overlaid (patched in \\textcolor{{patchred}}{{red}} over the original in black; only marks that move show red). Move = patched minus original mark position, (x, y) in font units, per mark.
 """ + r"""
 \renewcommand\arraystretch{1}
 \begin{longtable}{l r >{\sheetbig}l >{\sheetbig}l >{\sheetbig}l l >{\raggedright\arraybackslash}p{6.3cm}}
-combo & page & \normalsize original & \normalsize patched & \normalsize overlay & move & occurrences \\ \hline \endhead"""]
+combo & page, line & \normalsize original & \normalsize patched & \normalsize overlay & move & occurrences \\ \hline \endhead"""]
     cur = None
     for r in suspect:
         if r["style"] != cur:
@@ -428,9 +546,12 @@ combo & page & \normalsize original & \normalsize patched & \normalsize overlay 
 
     if cfg.get("checked"):
         L.append(r"\subsection*{Checked in context: not font problems}" + cfg["checked"] + r"\par\medskip")
-    L.append(rf"\section*{{Other combos (moved under {MIN_MOVE} units, not set)}}\small")
+    L.append(rf"\section*{{Other combos: anchored in both fonts, moved under {MIN_MOVE} units}}")
+    L.append(r"No sample words for these; move = patched minus original position of each mark.\par\smallskip\small")
     L.append(", ".join(rf"{LABEL[r['style']]} {{\Orig{SHAPE[r['style']]}{tex_chars(r['base'] + r['marks'])}}} "
-                       rf"p.~{cite(r['page'])} ({r['n']}×)" for r in sorted(rest, key=lambda r: -r["n"])) + ".")
+                       rf"p.~{cite(r['page'], r['line'])} ({r['n']}×; "
+                       + "; ".join(f"{dx:+d},\\,{dy:+d}" for dx, dy in r["moves"]) + ")"
+                       for r in sorted(rest, key=lambda r: -r["n"])) + ("." if rest else "None."))
     L.append(r"\end{document}")
     out.write_text("\n".join(L) + "\n", encoding="utf-8")
     print(f"{stem}: {'+'.join(map(str, npages))} pages, {total} sequences, {len(suspect)} suspect combos of {len(rows)}; wrote {out}")

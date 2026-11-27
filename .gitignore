@@ -30,3 +30,6 @@ fonts/Brill*
 # Windows download markers and downloaded archives
 *:Zone.Identifier
 fonts/*.zip
+
+# LangSci proofreading 
+data/legacy-fontdata/proofreading-*.pdf
